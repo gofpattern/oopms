@@ -1,0 +1,64 @@
+FE04BAWERTH
+
+oracle system account:
+	admin	
+	admin
+sys
+admin
+
+fmsuser
+fmsuser
+
+fms: sysadmin, sysadmin
+
+8-5
+Fsoft Insight
+2 Lab : C:\Users\DuyNgo\Desktop\Capstone\OpenDVD\Hands-on labs\Portlet
+Requirements
+(Stop Oracle, Jboss service while not in use)
+Schedule - ? mpp
+Doc:	Creator - Reviewer
+
+	lnthach@yahoo.com
+	0908-550-642
+	thachln@gmail.com
+	thachln
+
+duynd.vn@gmail.com
+	0909-97-1710
+	ndduy1710
+	duynd.vn
+truongmh60003@gmail.com
+	0932-024-022
+	web_messengers
+	k0ala-
+giang.phamnguyen@gmail.com
+	0904-944-227
+	knightdiesoflove
+	scopistar
+tocongthanhhai@gmail.com
+	0122-942-0887
+	tocongthanhhai
+	tocongthanhhai	
+
+10-5?
+expected:
+-two portlet
+-deploy uportal
+-requirements
+-Schedule
+
+
+glassfish:
+4848
+9090 (http)
+admin
+admin
+
+Question:
+meeting minutes?
+Workflow?
+refine WBS.
+Clarify requirement
+
+
