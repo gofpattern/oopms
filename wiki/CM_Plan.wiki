@@ -11,6 +11,7 @@ CM Plan sample will be applied for the project
 Refer https://open-ones.googlecode.com/svn/trunk/OOG-Handbook/Template/Template_CM_Plan_SVN.ott
 
 Tools:
+
 + Database Server: Oracle Express 10g
 
 + Database Client tool: Squirrel-3.3.0 (http://squirrel-sql.sourceforge.net)
