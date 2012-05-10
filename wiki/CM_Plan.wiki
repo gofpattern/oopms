@@ -1,0 +1,10 @@
+#summary Configuration Management Plan
+
+= Introduction =
+
+CM Plan sample will be applied for the project
+
+
+= Details =
+
+Refer https://open-ones.googlecode.com/svn/trunk/OOG-Handbook/Template/Template_CM_Plan_SVN.ott
