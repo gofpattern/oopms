@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+
+<title>menuProject.jsp</title>
+<script language="javascript" src="resource_files/javaFns.js"></script>
+<script language="javascript">
+
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+</head>
+
+<body style="margin: 0px;" bgcolor="#C3D4E4">
+<script type="text/javascript">
+//function Go(){return}
+</script>
+
+<script type="text/javascript" src="menuBlank_data/menuParams.js"></script>
+<script language="JavaScript">
+//after updateing the WO>metrics, the left menu is refreshed, we must keep the selection
+	selectedSub=null;
+	selectedMain='Home';
+	var NoOffFirstLineMenus=15;	// Number of first level items
+// Menu tree
+//	MenuX=new Array(Text to show, Link, background image (optional), number of sub elements, height, width);
+//	For rollover images set "Text to show" to:  "rollover:Image1.jpg:Image2.jpg"
+//The labels of menu are used in the loadMenu functions of the jsp, change them carefully
+Menu1=new Array("Home",URL+"1210&workUnitID=8181","",0,20,mnuWdth);
+Menu2=new Array("Work order","","",7);
+	Menu2_1=new Array("Information",URL+"350","",0,20,mnuWdth);	
+	Menu2_2=new Array("Stage & Deliv.",URL+"230","",0);
+	Menu2_3=new Array("Metrics",URL+"330","",0);
+	Menu2_4=new Array("Organization",URL+"370","",0);
+	Menu2_5=new Array("Changes",URL+"430&change_source_page=0","",0);
+	Menu2_6=new Array("Acceptance",URL+"620","",0);
+	Menu2_7=new Array("Signatures",URL+"490","",0);
+Menu3=new Array("Project plan","","",15);
+	Menu3_1=new Array("Information",URL+"690","",0,20,mnuWdth);
+	Menu3_2=new Array("Deliv. & Depend.",URL+"810","",0);
+	Menu3_3=new Array("Pro. Dev. Approach",URL+"860","",0);
+	Menu3_4=new Array("Quality Mngt",URL+"1930","",0);
+	Menu3_5=new Array("Estimate Size",URL+"1500","",0);
+	Menu3_6=new Array("Estimate Effort",URL+"8003","",0);
+	Menu3_7=new Array("Project Schedule",URL+"1119","",0);
+	Menu3_8=new Array("Infrastructure",URL+"1790","",0);
+	Menu3_9=new Array("Training",URL+"1750","",0);
+	Menu3_10=new Array("Finance",URL+"8008","",0);
+	Menu3_11=new Array("Human Resource",URL+"8013","",0);	
+	Menu3_12=new Array("Organization",URL+"940","",0);
+	Menu3_13=new Array("Com. & Reporting",URL+"8030","",0);
+	Menu3_14=new Array("Changes",URL+"430&change_source_page=1","",0);
+	Menu3_15=new Array("Signatures",URL+"1090","",0);
+
+Menu4=new Array("Requirements",URL+"1580","",3);
+	Menu4_1=new Array("Information",URL+"1581","",0,20,mnuWdth+30);
+	Menu4_2=new Array("Stage & process RCR",URL+"1591","",0);
+	Menu4_3=new Array("Status & traceability",URL+"1580","",0);
+Menu5=new Array("Schedule","","",8);
+
+	Menu5_1=new Array("Information",URL+"2560","",0,20,mnuWdth);
+	Menu5_2=new Array("Stage & Iteration",URL+"2580","",0);
+	Menu5_3=new Array("Review & Test",URL+"2590","",0);
+	Menu5_4=new Array("Other quality",URL+"2630","",0);
+	Menu5_5=new Array("Training",URL+"2640","",0);
+	Menu5_6=new Array("Dependencies",URL+"2650","",0);
+	Menu5_7=new Array("Subcontracts",URL+"2570","",0);
+	Menu5_8=new Array("Finance",URL+"2660","",0);
+Menu6=new Array("Effort","","",5);
+
+	Menu6_1=new Array("Information",URL+"2680","",0,20,mnuWdth);
+	Menu6_2=new Array("Stage&process",URL+"2690","",0);
+	Menu6_3=new Array("Review",URL+"2710","",0);
+	Menu6_4=new Array("Other quality activ.",URL+"2720","",0);
+	Menu6_5=new Array("Weekly",URL+"2730","",0);
+
+Menu7=new Array("Products",URL+"1500","",2);
+    Menu7_1=new Array("Products & size",URL+"1500","",0,20,mnuWdth);
+    Menu7_2=new Array("Product size (LOC)",URL+"5120","",0);
+Menu8=new Array("Defects",URL+"1670","",6);
+	Menu8_1=new Array("Information",URL+"1670","",0,20,mnuWdth);
+	Menu8_2=new Array("Prod. defect plan",URL+"2750","",0);
+	Menu8_3=new Array("Stage defect plan",URL+"4200","",0);
+	Menu8_4=new Array("Progress",URL+"3120","",0);
+	Menu8_5=new Array("DPLog",URL+"3870","",0);
+	Menu8_6=new Array("Common defects",URL+"3920","",0);
+
+Menu9=new Array("Risks",URL+"1310","",0);
+Menu10=new Array("Issues",URL+"0","",0);
+Menu11=new Array("Lessons",URL+"1700","",0);
+Menu12=new Array("Tailorings",URL+"130","",0);
+Menu13=new Array("Parameters","","",3);
+	Menu13_1=new Array("Dist. rates",URL+"1560","",0,20,mnuWdth);
+	Menu13_2=new Array("Estim. methods",URL+"1410","",0);
+	Menu13_3=new Array("Conversion rates",URL+"1430","",0);
+
+Menu14=new Array("Summary metrics",URL+"1180","",0);
+Menu15=new Array("Reports","","",3);
+
+	Menu15_1=new Array("Weekly",URL+"1690","",0,20,mnuWdth);
+	Menu15_2=new Array("Milestone",URL+"1190","",0);
+	Menu15_3=new Array("Post mortem",URL+"2210","",0);
+
+</script>
+<script type="text/javascript" src="menuBlank_data/menu_com.js"></script>
+<noscript> Your browser does not support script </noscript>
+<script type="text/javascript">Go();</script><div style="position: absolute; visibility: visible; background-color: rgb(145, 151, 145); width: 140px; height: 316px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 101; top: 0px; left: -2px;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(150, 180, 207); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Home</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Work order<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Project plan<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Requirements<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Schedule<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Effort<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Products<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 148px;">Defects<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 169px;">Risks</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 190px;">Issues</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 211px;">Lessons</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 232px;">Tailorings</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 253px;">Parameters<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 274px;">Summary metrics</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 295px;">Reports<img src="menuBlank_data/tri.gif" style="position: absolute; width: 5px; height: 10px; top: 5px; left: 131px;"></div></div>
+<form name="frm" method="post">
+
+</form>
+
+<script language="JavaScript">
+function mnuDisabled(){
+	alert("In order to use this feature, please input in Work order metrics :\n- plan and actual start date of the project\n- plan end date of the project");
+}
+</script>
+
+</body></html>

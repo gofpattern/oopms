@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>FSOFT Insight</title>
+<script language="javascript" src="resource_files/javaFns.js"></script>
+<script language="javascript">
+
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+</head>
+
+ 
+<frameset rows="92,*" frameborder="NO" border="0">
+    <frame src="resource_files/Fms1Servlet.html" name="header" noresize="noresize" scrolling="no">
+    <frameset cols="138,*" border="0" frameborder="NO">
+        <frame src="resource_files/menuBlank.html" name="menu" noresize="noresize" scrolling="no">
+        
+        <frame name="main" src="resource_files/Fms1Servlet_002.html" noresize="noresize" scrolling="yes">
+        
+        
+    </frameset>
+
+</frameset>
+
+</html>
