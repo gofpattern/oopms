@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<link href="Fms1Servlet_data/fms.css" rel="stylesheet" type="text/css">
+	
+	<script language="javascript" src="Fms1Servlet_data_002/popcalendar.js"></script></head><body class="BD" onload="loadPrjMenu()"><div onclick="bShow=true" id="calendar" style="z-index:+999;position:absolute;visibility:hidden;"><table class="pcalTbl" width="200"><tbody><tr bgcolor="#000066"><td><table width="208"><tbody><tr><td class="pcalCaption"><font color="#ffffff"><b><span id="caption"><span id="spanLeft" class="pcalSelBtn" onmouseover="swapImage('changeLeft','pcalleft2.gif');this.style.borderColor='#8af';window.status='Click to scroll to previous month. Hold mouse button to scroll automatically.'" onclick="decMonth()" onmouseout="clearInterval(intervalID1);swapImage('changeLeft','pcalleft1.gif');this.style.borderColor='#36f';window.status=''" onmousedown="clearTimeout(timeoutID1);timeoutID1=setTimeout('StartDecMonth()',500)" onmouseup="clearTimeout(timeoutID1);clearInterval(intervalID1)">&nbsp;<img id="changeLeft" src="Fms1Servlet_data_002/pcalleft1.gif" border="0" height="11" width="10"></span>&nbsp;<span id="spanRight" class="pcalSelBtn" onmouseover="swapImage('changeRight','pcalright2.gif');this.style.borderColor='#8af';window.status='Click to scroll to next month. Hold mouse button to scroll automatically.'" onmouseout="clearInterval(intervalID1);swapImage('changeRight','pcalright1.gif');this.style.borderColor='#36f';window.status=''" onclick="incMonth()" onmousedown="clearTimeout(timeoutID1);timeoutID1=setTimeout('StartIncMonth()',500)" onmouseup="clearTimeout(timeoutID1);clearInterval(intervalID1)">&nbsp;<img id="changeRight" src="Fms1Servlet_data_002/pcalright1.gif" border="0" height="11" width="10"></span>&nbsp;<span id="spanMonth" class="pcalSelBtn" onmouseover="swapImage('changeMonth','pcaldrop2.gif');this.style.borderColor='#8af';window.status='Click to select a month.'" onmouseout="swapImage('changeMonth','pcaldrop1.gif');this.style.borderColor='#36f';window.status=''" onclick="popUpMonth()"></span>&nbsp;<span id="spanYear" class="pcalSelBtn" onmouseover="swapImage('changeYear','pcaldrop2.gif');this.style.borderColor='#8af';window.status='Click to select a year.'" onmouseout="swapImage('changeYear','pcaldrop1.gif');this.style.borderColor='#36f';window.status=''" onclick="popUpYear()"></span>&nbsp;</span></b></font></td><td align="right"><a href="javascript:hideCalendar()"><img src="Fms1Servlet_data_002/pcalclose.gif" border="0" height="13" width="10"></a></td></tr></tbody></table></td></tr><tr><td style="padding: 3px;" bgcolor="#ffffff"><span id="content"></span></td></tr><tr bgcolor="#f0f0f0"><td style="padding: 5px;" align="center"><span id="lblToday"><font color="#000066">Today is <a onmousemove="window.status='Go To Current Month'" onmouseout="window.status=''" title="Go To Current Month" style="text-decoration: none; color: black;" href="javascript:monthSelected=monthNow;yearSelected=yearNow;constructCalendar();">Tue, 15 May 2012</a></font></span></td></tr></tbody></table></div><div id="selectMonth" style="z-index:+999;position:absolute;visibility:hidden;"></div><div id="selectYear" style="z-index:+999;position:absolute;visibility:hidden;"></div>
+	<link rel="stylesheet" type="text/css" href="Fms1Servlet_data_002/pcal.css">
+	<script language="javascript" src="resource_files/javaFns.js"></script>
+	<script language="javascript">
+	
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+	</script>
+	<title>woPerformance.jsp</title>
+
+
+
+
+<p class="TITLE">Work Order: Metrics</p> 
+<p></p>
+<form name="frm_woPUpdate" action="Fms1Servlet" method="post">
+<input name="reqType" value="340" type="hidden">
+<input name="source" value="" type="hidden"> 
+<br>
+<table class="Table" cellspacing="1" width="95%">
+    <tbody>
+        <tr class="ColumnLabel">
+            <td>Metric</td>
+            <td>Unit</td>
+            <td>Committed</td>
+            <td>Re-committed</td>
+            <td>Actual</td>
+            <td>Deviation (%)</td>           
+        </tr>
+
+ 	
+ 		<tr class="CellBGRnews">
+			<td>Start date*</td>
+			<td>DD-MMM-YY</td>
+			<td><input name="planStartDate" value="07-May-12" maxlength="9" size="9" type="text">
+			<img src="Fms1Servlet_data_002/cal.gif" onmouseover="this.style.color = '#FF9C01';this.style.cursor= 'pointer';" onclick="showPlanStartDate()">
+			</td>
+			<td></td>
+			<td><input name="actualStartDate" value="07-May-12" maxlength="9" size="9" type="text">
+			<img src="Fms1Servlet_data_002/cal.gif" onmouseover="this.style.color = '#FF9C01';this.style.cursor= 'pointer';" onclick="showActualStartDate()">
+			</td>
+			<td>N/A</td>
+		</tr>
+	
+ 		<tr class="CellBGR3">
+			<td>End date*</td>
+			<td>DD-MMM-YY</td>
+			<td><input name="planEndDate" value="25-Aug-12" maxlength="9" size="9" type="text">
+			<img src="Fms1Servlet_data_002/cal.gif" onmouseover="this.style.color = '#FF9C01';this.style.cursor= 'pointer';" onclick="showPlanEndDate()">
+			</td>
+			<td><input name="rePlanEndDate" maxlength="9" size="9" type="text">
+			<img src="Fms1Servlet_data_002/cal.gif" onmouseover="this.style.color = '#FF9C01';this.style.cursor= 'pointer';" onclick="showRePlanEndDate()">
+			</td>
+			<td><input name="actualEndDate" maxlength="9" size="9" type="text">
+			<img src="Fms1Servlet_data_002/cal.gif" onmouseover="this.style.color = '#FF9C01';this.style.cursor= 'pointer';" onclick="showActualEndDate()">
+			</td>
+			<td>N/A</td>
+		</tr>
+	
+ 		<tr class="CellBGRnews">
+			<td>Duration</td>
+			<td>Days</td>
+			<td>110</td>
+			<td>N/A</td>
+			<td>8</td>
+			<td>-92.73</td>
+		</tr>
+	 
+ 		<tr class="CellBGR3">
+			<td>Maximum team size</td>
+			<td>Persons</td>
+			<td><input name="planTeamSize" maxlength="4" size="9" type="text"></td>
+			<td></td>
+			<td>2</td>
+			<td>N/A</td>
+		</tr>
+	
+	
+ 		<tr class="CellBGRnews">
+			<td>Billable effort*</td>
+			<td>Person.day</td>
+			<td><input name="planBillableEffort" value="160" maxlength="9" size="9" type="text"></td>
+			<td><input name="rePlanBillableEffort" maxlength="9" size="9" type="text"></td>
+			<td><input name="billableActual" maxlength="9" size="9" type="text"><a href="#" onclick="copyActualUsageToBillableActual();return false;"><b>Update</b></a></td>
+			<td>N/A</td>
+		</tr>		
+	
+ 		<tr class="CellBGR3">
+			<td>Calendar effort*</td>
+			<td>Person.day</td>
+			<td><input name="planCalendarEffort" value="160" maxlength="9" size="9" type="text"></td>
+			<td><input name="rePlanCalendarEffort" maxlength="9" size="9" type="text"></td>
+			<td>8.25</td>
+			<td>-94.84</td>
+		</tr>
+	
+ 		<tr class="CellBGR3">
+			<td>Effort usage*</td>
+			<td>Person.day</td>
+			<td><input name="planEffort" value="160" maxlength="9" size="9" type="text"></td>
+			<td><input name="rePlanEffort" maxlength="9" size="9" type="text"></td>
+			<td>0<input name="hiddenEffortUsageActual" value="0" type="hidden"></td>
+			<td>-100</td>
+		</tr>
+<!-- HaiMM comment to remove Development, Management, Quality (WO Change Request)
+	
+ 		<TR class="CellBGRnews">
+			<TD>&nbsp&nbsp&nbsp Development</TD>
+			<TD>%</TD>
+			<TD><INPUT type="text" name="devEffort" value="" maxlength = "5" onchange="effort();"size=9 ></TD>
+			<TD></TD>
+			<TD>0</TD>
+			<TD>N/A</TD>
+		</TR>
+	
+ 		<TR class="CellBGR3">
+			<TD>&nbsp&nbsp&nbsp Management</TD>
+			<TD>%</TD>
+			<TD><INPUT type="text" name="manEffort" value="" maxlength = "5" onchange="effort();"size=9></TD>
+			<TD></TD>
+			<TD>0</TD>
+			<TD>N/A</TD>
+		</TR>
+	
+ 		<TR class="CellBGRnews">
+			<TD>&nbsp&nbsp&nbsp Quality</TD>
+			<TD>%</TD>
+			<TD><A NAME="qualityEffort">N/A</TD>
+			<TD></TD>
+			<TD>0</TD>
+			<TD>N/A</TD>
+		</TR>
+-->
+		 </tbody>
+</table>
+
+</form>
+<br>
+<input name="Update" value=" OK " class="BUTTON" onclick="on_Submit();" type="button">
+<input name="Cancel" value=" Cancel " class="BUTTON" onclick="doCancel();" type="button">
+
+
+<script language="javascript">
+
+	function showPlanStartDate(){
+		if(frm_woPUpdate.planStartDate.value == null || frm_woPUpdate.planStartDate.value ==""){
+			frm_woPUpdate.planStartDate.value = "01-01-08";
+		}
+		showCalendar(frm_woPUpdate.planStartDate, frm_woPUpdate.planStartDate, "dd-mmm-yy",null,1,-1,-1,true);
+	}
+	function showActualStartDate(){
+		if(frm_woPUpdate.actualStartDate.value == null || frm_woPUpdate.actualStartDate.value ==""){
+			frm_woPUpdate.actualStartDate.value = "01-01-08";
+		}
+		showCalendar(frm_woPUpdate.actualStartDate, frm_woPUpdate.actualStartDate, "dd-mmm-yy",null,1,-1,-1,true);
+	}
+	function showPlanEndDate(){
+		if(frm_woPUpdate.planEndDate.value == null || frm_woPUpdate.planEndDate.value ==""){
+			frm_woPUpdate.planEndDate.value = "01-01-08";
+		}
+		showCalendar(frm_woPUpdate.planEndDate, frm_woPUpdate.planEndDate, "dd-mmm-yy",null,1,-1,-1,true);
+	}
+	function showRePlanEndDate(){
+		if(frm_woPUpdate.rePlanEndDate.value == null || frm_woPUpdate.rePlanEndDate.value ==""){
+			frm_woPUpdate.rePlanEndDate.value = "01-01-08";
+		}
+		showCalendar(frm_woPUpdate.rePlanEndDate, frm_woPUpdate.rePlanEndDate, "dd-mmm-yy",null,1,-1,-1,true);
+	}
+	function showActualEndDate(){
+		if(frm_woPUpdate.actualEndDate.value == null || frm_woPUpdate.actualEndDate.value ==""){
+			frm_woPUpdate.actualEndDate.value = "01-01-08";
+		}
+		showCalendar(frm_woPUpdate.actualEndDate, frm_woPUpdate.actualEndDate, "dd-mmm-yy",null,1,-1,-1,true);
+	}
+	
+
+	var isBillableActualMandatory = false;	
+
+
+	var sourcePage = null;
+
+	function doCancel() {
+		if (sourcePage == 1) {
+			jumpURL('qualityObjective.jsp');
+		}
+		else {
+			jumpURL('woPerformanceView.jsp');
+		}
+	}
+
+	function copyActualUsageToBillableActual(){
+		isBillableActualMandatory = true;
+		document.frm_woPUpdate.billableActual.value=document.frm_woPUpdate.hiddenEffortUsageActual.value;
+	}
+	
+	
+	function on_Submit()
+	{	
+		if (mandatoryDateFld(frm_woPUpdate.planStartDate,"Planned start date"))
+		if (beforeTodayFld(frm_woPUpdate.actualStartDate,"Actual start date"))
+		if (mandatoryDateFld(frm_woPUpdate.planEndDate,"Planned end date"))
+		if (dateFld(frm_woPUpdate.rePlanEndDate,"Re-planned end date"))
+		if (beforeTodayFld(frm_woPUpdate.actualEndDate,"Actual end date"))
+		if (integerFld(frm_woPUpdate.planTeamSize,"Planned team size"))
+		if (positiveFld(frm_woPUpdate.planTeamSize,"Planned team size"))
+		if (mandatoryFld(frm_woPUpdate.planBillableEffort,"Billable effort"))
+		if (mandatoryFld(frm_woPUpdate.planEffort,"Effort usage"))
+		if (mandatoryFld(frm_woPUpdate.planCalendarEffort,"Calendar effort"))
+		if (positiveFld(frm_woPUpdate.planBillableEffort,"Billable effort"))
+		if (positiveFld(frm_woPUpdate.rePlanBillableEffort,"Billable effort"))
+		if (positiveFld(frm_woPUpdate.planEffort,"Effort usage"))
+		if (positiveFld(frm_woPUpdate.rePlanEffort,"Effort usage"))
+		if (positiveFld(frm_woPUpdate.planCalendarEffort,"Calendar effort"))
+		if (positiveFld(frm_woPUpdate.rePlanCalendarEffort,"Calendar effort"))
+//		if (percentageFld(frm_woPUpdate.devEffort,"Development effort"))
+//		if (percentageFld(frm_woPUpdate.manEffort,"Management effort"))
+		if (allOrNot()){
+			if(isBillableActualMandatory){
+				if(!mandatoryFld(frm_woPUpdate.billableActual,"Billable effort"))
+					return;
+				if(!positiveFld(frm_woPUpdate.billableActual,"Billable effort"))
+					return;
+
+			}
+			if (compareDate( frm_woPUpdate.planStartDate.value, frm_woPUpdate.planEndDate.value)<=0){
+				alert("Plan start date must be before plan end date");				  		
+				frm_woPUpdate.planStartDate.focus();
+				return;
+			}
+			if (trim(frm_woPUpdate.rePlanEndDate.value).length>0 && compareDate( frm_woPUpdate.planStartDate.value, frm_woPUpdate.rePlanEndDate.value)<=0){
+				alert("Plan start date must be before re-plan end date");				  		
+				frm_woPUpdate.rePlanEndDate.focus();
+				return;
+			}
+			if (trim(frm_woPUpdate.actualEndDate.value).length>0 && compareDate( frm_woPUpdate.actualStartDate.value, frm_woPUpdate.actualEndDate.value)<=0){
+				alert("Actual start date must be before actual end date");				  		
+				frm_woPUpdate.actualStartDate.focus();
+				return;
+			}
+//			if (parseFloat(frm_woPUpdate.manEffort.value)+parseFloat(frm_woPUpdate.devEffort.value)>100){
+//				alert("The sum of management and development effort can't be above 100 %");				  		
+//				frm_woPUpdate.manEffort.focus();
+//				return;
+//			}
+
+			if (sourcePage == 1) {
+				frm_woPUpdate.source.value = "1";
+			}
+			
+			frm_woPUpdate.submit();
+		}
+
+	}
+
+//	function effort(){
+//		if (
+//		(trim(frm_woPUpdate.devEffort.value)!="")
+//		&& (trim(frm_woPUpdate.manEffort.value)!="") 
+//		&& (percentageFld(frm_woPUpdate.devEffort,"Development effort"))	
+//		&& (percentageFld(frm_woPUpdate.manEffort,"Management effort"))
+//		) 
+//			document.all["qualityEffort"].innerText = 100.0 - parseFloat(frm_woPUpdate.manEffort.value)-parseFloat(frm_woPUpdate.devEffort.value);
+//		return;
+//	}
+	function allOrNot(){
+//		if (
+//		(trim(frm_woPUpdate.devEffort.value)!="") !=
+//		(trim(frm_woPUpdate.manEffort.value)!="") ) {
+//			window.alert("Development and management effort must be both defined or both blank.");				  		
+//			frm_woPUpdate.devEffort.focus();
+//			return false;
+//		}
+		return true;
+	}
+</script>
+<div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 64px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Weekly</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Milestone</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Post mortem</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 64px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Dist. rates</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Estim. methods</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Conversion rates</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 127px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Prod. defect plan</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Stage defect plan</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Progress</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">DPLog</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Common defects</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 43px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Products &amp; size</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Product size (LOC)</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 106px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage&amp;process</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Review</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Other quality activ.</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Weekly</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 169px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage &amp; Iteration</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Review &amp; Test</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Other quality</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Training</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Dependencies</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Subcontracts</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 148px;">Finance</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 170px; height: 64px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 158px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 158px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage &amp; process RCR</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 158px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Status &amp; traceability</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 316px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Deliv. &amp; Depend.</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Pro. Dev. Approach</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Quality Mngt</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Estimate Size</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Estimate Effort</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Project Schedule</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 148px;">Infrastructure</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 169px;">Training</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 190px;">Finance</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 211px;">Human Resource</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 232px;">Organization</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 253px;">Com. &amp; Reporting</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 274px;">Changes</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 295px;">Signatures</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 148px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage &amp; Deliv.</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(150, 180, 207); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Metrics</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Organization</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Changes</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Acceptance</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Signatures</div></div></body></html>
