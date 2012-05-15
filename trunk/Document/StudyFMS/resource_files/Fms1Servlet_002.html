@@ -1,0 +1,930 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<script language="JavaScript" src="resource_files/javaFns.js"></script>
+<script language="javascript" src="Fms1Servlet_data_002/ScrollableTable.js"></script>
+<script language="javascript">
+
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+<link href="Fms1Servlet_data/fms.css" rel="stylesheet" type="text/css">
+<title>woDeliverable.jsp</title>
+</head>
+
+
+
+
+
+<body onload="loadPrjMenu();javascript:Import();" class="BD">
+<p class="TITLE"> Work order : Stages &amp; Deliverables </p>
+
+<!-- landd move stage from project plan/life cycle to workorder/deliverable start -->
+<br>
+<form method="post" name="frm"></form>
+<table class="Table" cellspacing="1" width="95%">
+    <caption class="TableCaption">Stages</caption>
+    <tbody>
+        <tr class="ColumnLabel">
+            <td align="center" width="24">#</td>
+            <td>Stage</td>
+            <td>Number of iterations</td>
+            <td>Planned end date</td>
+            <td>Re-planned end date</td>
+            <td>Description</td>
+            <td>Milestone</td>
+        </tr>
+        
+        <tr class="CellBGR3">
+            <td align="center">1</td>
+            <td><a href="http://localhost:8080/FsoftInsight/stageDetails.jsp?vtID=0&amp;source=1">Initiation</a></td>
+            <td align="center">0</td>
+            <td>24-May-12</td>
+            <td>N/A</td>
+            <td>Make plan</td>
+            <td>Finish Report No1, Report No2</td>
+        </tr>
+        
+        <tr class="CellBGRnews">
+            <td align="center">2</td>
+            <td><a href="http://localhost:8080/FsoftInsight/stageDetails.jsp?vtID=1&amp;source=1">Definition</a></td>
+            <td align="center">0</td>
+            <td>03-Jun-12</td>
+            <td>N/A</td>
+            <td>Software Requirement Specification</td>
+            <td>Finished SRS, Quality Report, Updated Plan</td>
+        </tr>
+        
+        <tr class="CellBGR3">
+            <td align="center">3</td>
+            <td><a href="http://localhost:8080/FsoftInsight/stageDetails.jsp?vtID=2&amp;source=1">Solution</a></td>
+            <td align="center">0</td>
+            <td>14-Jun-12</td>
+            <td>N/A</td>
+            <td>Architecture Design, Detailed Design (Screen Design, Business Design, Database Design)</td>
+            <td>Finished Software Design Description</td>
+        </tr>
+        
+        <tr class="CellBGRnews">
+            <td align="center">4</td>
+            <td><a href="http://localhost:8080/FsoftInsight/stageDetails.jsp?vtID=3&amp;source=1">Construction</a></td>
+            <td align="center">0</td>
+            <td>19-Jul-12</td>
+            <td>N/A</td>
+            <td>Code, Test Case, Test Report Buglist</td>
+            <td>Finished packages</td>
+        </tr>
+        
+        <tr class="CellBGR3">
+            <td align="center">5</td>
+            <td><a href="http://localhost:8080/FsoftInsight/stageDetails.jsp?vtID=4&amp;source=1">Transition &amp; Termination</a></td>
+            <td align="center">0</td>
+            <td>25-Aug-12</td>
+            <td>N/A</td>
+            <td>Deploy, Fixbugs, Quality Improvement</td>
+            <td>Presentation</td>
+        </tr>
+        
+    </tbody>
+</table>
+<p><input class="BUTTON" name="btnAdd" value="Add new" onclick="addStage();" type="button"></p>
+
+
+<!-- landd move stage from project plan/life cycle to workorder/deliverable end -->
+
+<br>
+<!--
+<TABLE cellspacing="1" class="HDR" width="95%">
+	<TBODY>
+		<TR>
+			<TD width="10%"></TD>
+			<TD></TD>
+			<TD align="right"><P align=right><a href="javascript:Import();">Import Deliverable</a></p></TD>
+		</TR>
+	</TBODY>
+</TABLE>
+-->
+<form name="frm_Import" action="Fms1Servlet?reqType=281" enctype="MULTIPART/FORM-DATA" method="POST">
+<table style="display: none;" class="HDR" id="ImportTable" cellspacing="1" width="95%">
+	<tbody>
+		<tr>
+			<td align="right"><strong>File Name&nbsp;*</strong></td>
+	        <td align="left">
+	        	<input name="importFile" type="file">
+	       		<input name="Import" onclick="checkName()" value=" Import " class="Button" type="button">
+            	<input name="filename" type="hidden">
+	        </td>
+	        </tr>
+	        <tr>
+	        	<td></td>
+	        	<td align="center"><a href="http://localhost:8080/FsoftInsight/Template_Import_WORKORDER.xls"><font class="label1" color="blue">Download Template File</font></a></td>
+	        </tr>
+	</tbody>
+</table>
+</form>
+
+
+
+
+<br>
+<p>Note: Deliverables are a special kind of products. 
+<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=1500">
+	Please create the products first.
+</a>
+</p><p>
+<table class="Table" id="tableDeliverable" cellspacing="1" width="95%">
+<caption class="TableCaption">Deliverables</caption>
+<thead>
+	<tr class="ColumnLabel">
+		<td align="center" width="3%"><input id="selectAll" name="selectAll" onclick="selectAll()" type="checkbox"></td>
+		<td align="center" width="3%">#</td>
+		<td width="27%"> Stage</td>
+		<td width="9%"> First committed </td>
+		<td width="9%"> Last committed </td>
+		<td width="9%"> Actual </td>
+		<td align="center" width="9%"> Status </td>
+		<td width="15%"> Deviation </td>
+		<td width="20%"> Note </td>
+	</tr>
+</thead>
+<tbody>
+
+ <tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Initiation</td>
+ 	<td>
+    24-May-12
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">1<input name="vtModuleID" value="0" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=0">
+	 Report 1
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 17-May-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Introduction
+ </td>
+</tr>
+
+<tr class="CellBGRnews">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">2<input name="vtModuleID" value="1" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=1">
+	 Software Project Management Plan
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 24-May-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Software Project Management Plan
+ </td>
+</tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">3<input name="vtModuleID" value="2" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=2">
+	 HTML Prototype
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 24-May-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Static HTML Page
+ </td>
+</tr>
+
+<tr class="CellBGRnews">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">4<input name="vtModuleID" value="3" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=3">
+	 Report 2
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 24-May-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Quality Report of Software Project Management Plan
+ </td>
+</tr>
+
+ <tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Definition</td>
+ 	<td>
+    03-Jun-12
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">5<input name="vtModuleID" value="4" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=4">
+	 Software Requirement Specification
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 03-Jun-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Functional Requirement, Non-functional requirement
+ </td>
+</tr>
+
+<tr class="CellBGRnews">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">6<input name="vtModuleID" value="5" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=5">
+	 Report 3
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 03-Jun-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Quality Report of Software Requirement Specification
+ </td>
+</tr>
+
+ <tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Solution</td>
+ 	<td>
+    14-Jun-12
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">7<input name="vtModuleID" value="6" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=6">
+	 Software Design Description
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 14-Jun-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Architecture Design, Class Diagram, Sequence Diagram, Screen Specification, Database layout
+ </td>
+</tr>
+
+<tr class="CellBGRnews">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">8<input name="vtModuleID" value="7" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=7">
+	 Report 4
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 14-Jun-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Quality report of Software Design Description
+ </td>
+</tr>
+
+ <tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Construction</td>
+ 	<td>
+    19-Jul-12
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">9<input name="vtModuleID" value="8" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=8">
+	 Software Test Documentation
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 19-Jul-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Test Case, Test Data, Test Report, Buglist
+ </td>
+</tr>
+
+<tr class="CellBGRnews">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">10<input name="vtModuleID" value="9" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=9">
+	 Report 5
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 19-Jul-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Quality report of Software Test Documentation
+ </td>
+</tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">11<input name="vtModuleID" value="10" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=10">
+	 Software package
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 19-Jul-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Source Code has been performed Unit Test, Integration Test
+ </td>
+</tr>
+
+ <tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Transition &amp; Termination</td>
+ 	<td>
+    25-Aug-12
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+
+<tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">12<input name="vtModuleID" value="11" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=11">
+	 Software User's Manual
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 18-Aug-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Guideline
+ </td>
+</tr>
+
+<tr class="CellBGRnews">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">13<input name="vtModuleID" value="12" type="hidden"></td>
+ <td>
+	 
+	 	<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=280&amp;vtid=12">
+	 Report 6
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 18-Aug-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Quality of Software User`s Manual
+ </td>
+</tr>
+
+</tbody>
+</table>
+</p><p>
+
+</p><form name="frm_deliverable" method="post">
+	<input name="listUpdate" type="hidden">
+	<input name="woDeliAdd" value=" Add new " class="BUTTON" onclick="javascript:addClick();" type="button">
+	
+	<input name="woDeliUpdate" value=" Update " class="BUTTON" onclick="javascript:updateClick();" type="button">
+	<input name="woDeliDelete" value=" Delete " class="BUTTON" onclick="javascript:deleteClick();" type="button">
+	
+</form>
+<p>&nbsp;</p>
+
+
+<script language="javascript">
+var isImportHide = true;
+	function Import(){
+		isImportHide = !isImportHide;
+	 	var ImportTable = document.getElementById("ImportTable");
+  		if (isImportHide) {
+    		ImportTable.style.display="";
+   		}else{
+    		ImportTable.style.display="none";
+		}
+    }
+</script>
+
+<script language="javascript">
+
+	function selectAll(){
+		var uCheck = document.getElementsByName("checkForUpdate");
+
+		for (i = 0; i < uCheck.length; i++) {
+			uCheck[i].checked = document.getElementById("selectAll").checked;
+		}
+	}
+
+	function doImport(ext) {
+	    if (ext != '') {
+	        document.frm_Import.submit();
+	    }
+	}
+
+	function checkName() {
+	    var name = document.frm_Import.importFile.value;
+
+	    if (name == "" || name == null) {
+	        alert("Select MS Excel file!");
+	        document.frm_Import.importFile.focus();
+	        return;
+	    }
+	    else {
+	        var ext = name.substring(name.lastIndexOf(".") + 1, name.length);
+	        ext = ext.toLowerCase();
+	        if (ext != "xls") {
+	            alert("Select MS Excel file!");
+	            document.frm_Import.importFile.focus();
+	            return;
+	        }
+	        else {
+	            doImport(ext);
+	        }
+	    }
+	}
+
+	function addStage(){
+		frm.action="stageAdd.jsp?source=1";
+		frm.submit();
+	}
+
+
+	function addClick(){
+		
+			alert("There is no more deliverable to add");
+			return false;
+		
+		frm_deliverable.action = "Fms1Servlet?reqType=231";
+		// WO_DELIVERABLE_BATCH_PRE_ADD
+		// WO_DELIVERABLE_ADD_PREP
+		frm_deliverable.submit();
+	}
+
+	function updateClick(){
+		checkBatchUpdate();
+	}
+
+	function deleteClick(){
+		checkBatchDelete();
+	}
+
+	function checkBatchUpdate() {
+		var uCheck = document.getElementsByName("checkForUpdate");
+		var idList = document.getElementsByName("vtModuleID");
+
+		var uList = "";
+
+		var uLength = uCheck.length;
+		var nChecked = 0;
+
+		for (i = 0; i < uLength; i++) {
+			if (uCheck[i].checked) {
+				uList = uList + idList[i].value + ",";
+				nChecked = 1;
+			}
+		}
+
+		if (nChecked == 0) {
+			alert("Please choose data to update");
+			return false;
+		} else {
+			uList = uList.substring(0,uList.length-1);
+			frm_deliverable.listUpdate.value = uList;
+			frm_deliverable.action = "Fms1Servlet?reqType=232";
+			frm_deliverable.submit();
+		}
+	}
+
+	function checkBatchDelete() {
+		var uCheck = document.getElementsByName("checkForUpdate");
+		var idList = document.getElementsByName("vtModuleID");
+
+		var uList = "";
+		var uLength = uCheck.length;
+		var nChecked = 0;
+
+		for (i = 0; i < uLength; i++) {
+			if (uCheck[i].checked) {
+				uList = uList + idList[i].value + ",";
+				nChecked = 1;
+			}
+		}
+
+		if (nChecked == 0) {
+			alert("Please choose data to delete");
+			return false;
+		} else {
+			if (confirm("Do you really want to delete ?")) {
+				uList = uList.substring(0,uList.length-1);
+				frm_deliverable.listUpdate.value = uList;
+				frm_deliverable.action = "Fms1Servlet?reqType=235";
+				frm_deliverable.submit();
+			} else return false;
+		}
+	}
+</script>
+
+
+
+<div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 64px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Weekly</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Milestone</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Post mortem</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 64px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Dist. rates</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Estim. methods</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Conversion rates</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 127px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Prod. defect plan</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Stage defect plan</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Progress</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">DPLog</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Common defects</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 43px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Products &amp; size</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Product size (LOC)</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 106px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage&amp;process</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Review</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Other quality activ.</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Weekly</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 169px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage &amp; Iteration</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Review &amp; Test</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Other quality</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Training</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Dependencies</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Subcontracts</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 148px;">Finance</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 170px; height: 64px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 158px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 158px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage &amp; process RCR</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 158px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Status &amp; traceability</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 316px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Deliv. &amp; Depend.</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Pro. Dev. Approach</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Quality Mngt</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Estimate Size</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Estimate Effort</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Project Schedule</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 148px;">Infrastructure</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 169px;">Training</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 190px;">Finance</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 211px;">Human Resource</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 232px;">Organization</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 253px;">Com. &amp; Reporting</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 274px;">Changes</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 295px;">Signatures</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(145, 151, 145); width: 140px; height: 148px; font-family: verdana,geneva,arial,helvetica,sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; top: 0pt; left: 0pt;"><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px;">Information</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(150, 180, 207); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px;">Stage &amp; Deliv.</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px;">Metrics</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px;">Organization</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px;">Changes</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px;">Acceptance</div><div style="position: absolute; visibility: inherit; overflow: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px;">Signatures</div></div></body></html>

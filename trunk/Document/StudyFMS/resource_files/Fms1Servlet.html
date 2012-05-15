@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>header</title>
+<link rel="stylesheet" href="Fms1Servlet_data/fms.css" type="text/css">
+<script language="javascript" src="resource_files/javaFns.js"></script>
+<script language="javascript">
+
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+</head>
+
+<body style="margin: 0px;" onload="mycursor()" bgcolor="#ffffff">
+
+<form method="post" name="frm" target="menu">
+<table background="Fms1Servlet_data/bgr1.gif" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="100%">
+	<tbody>
+		<tr class="WelcomeName">
+			<td height="47" width="259"><img src="Fms1Servlet_data/Header1.gif" border="0" height="47" width="259"></td>
+			<td style="text-align: left;" width="229"><a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=2351" target="_blank">
+			thachln<br>OOPMS</a></td>
+			<td style="text-align: right; vertical-align: top;" width="150"> version  2.4.1</td>
+			<td style="text-align: right;" width="141"><a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=2290" target="_top"><img src="Fms1Servlet_data/logout.gif" style="vertical-align: top;" border="0"></a><a href="http://localhost:8080/FsoftInsight/help/index.htm" target="help">&nbsp;&nbsp;<img src="Fms1Servlet_data/help.gif" style="vertical-align: top;" border="0"></a></td>
+			<td width="21"></td>
+		</tr>
+	</tbody>
+</table>
+<table background="Fms1Servlet_data/bgr1.gif" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="100%">
+	<tbody> 
+		<tr>
+			<td valign="top"><img src="Fms1Servlet_data/Header2.gif" border="0" height="45" width="143"></td>
+			<td valign="top" width="77">
+				
+					<img src="Fms1Servlet_data/Organization1disab.gif" name="imgOrg" onclick="notAllowed()" border="0" height="45" width="77">
+				
+			</td>
+			<td valign="top" width="77">
+				
+					<img src="Fms1Servlet_data/Group1disab.gif" name="imgGroup" onclick="notAllowed()" border="0" height="45" width="77">
+				
+			</td>
+
+			<td valign="top" width="77">
+				<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=50" target="main">
+				<img src="Fms1Servlet_data/Project.gif" name="imgProject" onclick="doAction('menuProject.jsp');" border="0" height="45" width="77">
+				</a>
+			</td>
+			<td valign="top" width="77">
+				<a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=60" target="main">
+				<img src="Fms1Servlet_data/Default1.gif" name="imgDefault" onclick="doAction('menuDefault.jsp');" border="0" height="45" width="77">
+				</a>
+			</td> 
+			<!-- bo di RMS
+			<TD width="65" valign="top">
+				<IMG src="image/RMS.gif" width="65" height="45" border="0" name="imgRMS" onclick="doAction('RMS2');">
+			</TD>
+			-->
+			<td valign="top" width="65">
+				<img src="Fms1Servlet_data/DMS1.gif" name="imgDMS" onclick="doAction('DMS');" border="0" height="45" width="65">
+			</td>
+			<td valign="top" width="65">
+				<img src="Fms1Servlet_data/Timesheet1.gif" name="imgTimesheet" onclick="doAction('timesheet');" border="0" height="45" width="65">
+			</td>
+			<td valign="top" width="65">
+				<img src="Fms1Servlet_data/Dashboard1.gif" name="imgDashboard" onclick="doAction('dashboard');" border="0" width="65">
+			</td>
+			<td valign="top" width="65">
+				<img src="Fms1Servlet_data/NCMS1.gif" name="imgNCMS" onclick="doAction('NCMS');" border="0" height="45" width="65">
+			</td>
+
+			<td width="99%"></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<script language="JavaScript">
+function doAction(strHref)
+{
+    /*if (strHref=='RMS2'){
+		window.open('/rms2');
+    }*/
+	if (strHref=='DMS'){
+		window.open('/dms');
+	}
+    if (strHref=='timesheet'){
+       	frm.action = "Fms1Servlet?reqType="+3630;
+        frm.target="timesheet";
+        frm.submit();
+        return;
+    }
+    if (strHref=='dashboard'){
+    	frm.action = "Fms1Servlet?reqType="+3610;
+        frm.target="dashboard";
+        frm.submit();
+        return;
+    }
+    if (strHref=='NCMS'){
+    	frm.action = "Fms1Servlet?reqType="+3620;
+    	frm.target="NCMS";
+        frm.submit();
+        return;
+    }
+
+	if (strHref=='menuDefault.jsp'){
+        document.images("imgDefault").src	= "image/Default.gif";
+    }
+    else{
+    	document.images("imgDefault").src	= "image/Default1.gif";
+    }
+    
+    if (strHref=='menuProject.jsp'){
+        document.images("imgProject").src	= "image/Project.gif";
+    }
+    else{
+    	document.images("imgProject").src	= "image/Project1.gif";
+    }
+	
+}
+function mycursor()
+{
+	//document.images('imgRMS').style.cursor="hand";
+	document.images('imgDMS').style.cursor="hand";
+	document.images('imgTimesheet').style.cursor="hand";
+	document.images('imgNCMS').style.cursor="hand";
+	document.images('imgDashboard').style.cursor="hand";
+}
+function notAllowed(){
+alert('Sorry! You are not allowed to access this section');
+}
+</script>
+
+
+</body></html>
