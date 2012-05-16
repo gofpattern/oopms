@@ -1,0 +1,65 @@
+1. Review task da assign, da hoan thanh dc bao nhieu, con lai bao nhieu, co van de j ko
+
+2. Review Report_01
+	- (dua ra bug du kien)=>thong ke bug hien tai 
+	- (dua ra so trang du kien)=>thong ke so trang hien tai
+
+3. Thao luan Overview pages
+	cac chuc nang cu the trog OOPMS
+
+4. Thao luan cac viec lien quan den SRS:
+	- Functional Requirement
+	- Uses case model
+	- Non-Functional
+	- Supporting infor
+
+5. Cac chuc nang:
+
+Admin:
+	cho phep admin tao project va add user
+	
+
+	Truong hop nguoi tao project la dev va muon moi nguoi khac lam PM
+
+   ===>	nguoi tao project se mac dinh la PM => co quyen add them PM 
+
+
+	Role of Admin: Create project
+
+
+Config module (Hien thi nhug module nao, ko hien nhug module nao)
+
+Dashboard
+           chi hien thi nhug project lien quan den user do
+	     co link to detail project
+
+Report: link to others report
+
+requirement info se bao gom (status cua requirement)
+-------------------------------------------------------------
+
+Tao file report chat luong cho group ( bao gom luong bug,comment,...)kem theo moi report cua project
+
+---------------------------------------------------------------------------------------------------
+
+chuc nag state va product=> danh cho PM
+
+deliverable => san pham se ban giao from list of defined product auto put into stages based on time
+
+Work oder => Stages and deliv.
+
+---------------------------------------------------
+
+Chuan bi HTLM layout cho buoi tiep theo
+Thiet ke screen bag HTML, de khung tho, khog can mau
+
+-------------------------------------------------------
+
+su dung google group thay vi mail http://groups.google.com/group/oopms?hl=en
+
+
+
+
+
+
+
