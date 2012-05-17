@@ -7,3 +7,5 @@ Giang:
 
 --> Bugs: 10/15
 --> Pages: 4/5
+
+After Merging: 5 ? Hai verify?
