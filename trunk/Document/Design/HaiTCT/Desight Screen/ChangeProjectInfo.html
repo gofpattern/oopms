@@ -99,7 +99,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 
 <div class="container">
   <div class="header">
-  <table width="960">
+   <table width="960">
   	<tr>
     	<td width="697" height="92">&nbsp;</td>
         <td width="251" valign="top">
@@ -112,79 +112,52 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   <div class="content">
     <div id="tabs28">
       
-   <ul>
+  <ul>
   <h5>
 <li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
-<li><a><span>Time Sheet</span></a></li>
-<li><a><span>Project Planner</span></a></li>
-<li><a><span>DMS</span></a></li>
-<li><a><span>Report</span></a></li>
-<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
-<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
-<li><a href="Cost.html"><span>Cost</span></a></li>
-<li><a><span>Requiment</span></a></li>
-   </h5>
+</h5>
 </ul>
 </div>
     <p><table width="95%" cellspacing="1">
     <tbody>
       <tr>
         <td>Project Manager</td>
-        <td>David</td>
+        <td>Manager<br /></td>
       </tr>
       <tr>
-        <td>Project Code</td>
-        <td>PA</td>
+        <td>Project Code* </td>
+        <td><input name="txtProjectCode" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
       <tr>
-        <td>Project Name</td>
-        <td>Project A</td>
+        <td>Project Name* </td>
+        <td><input name="txtProjectName" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
       <tr>
         <td>Customer</td>
-        <td>Samatha</td>
+        <td><input name="txtCustomer" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
       <tr>
         <td>2nd Customer</td>
-        <td>&nbsp;</td>
+        <td><input name="txt2NDCustomer" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
       <tr>
-        <td>Planned Start Date</td>
-        <td>5/23/2012          (mm-dd-yyyy)</td>
+        <td>Planned Start Date* </td>
+        <td><input maxlength="9" name="txtPlanStartDate" size="9" value="" type="text" />
+          (mm-dd-yyyy)</td>
       </tr>
       <tr>
         <td>Planned End Date* </td>
-        <td>12/23/2012          (mm-dd-yyyy)</td>
+        <td><input maxlength="9" name="txtPlanEndDate" size="9" value="" type="text" />
+          (mm-dd-yyyy)</td>
       </tr>
       <tr>
         <td>Scope and Objective</td>
-        <td>sadadasdasdasdsasdsadsadsadas</td>
-      </tr>
-      <tr>
-        <td>Progress</td>
-        <td>15%</td>
-      </tr>
-      <tr>
-        <td>Time Spent</td>
-        <td>22%</td>
-      </tr>
-      <tr>
-        <td>Cost Expense/Budget</td>
-        <td><a href="Cost.html">200.000/1.000.000$</a></td>
-      </tr>
-      <tr>
-        <td>Risk,Issue</td>
-        <td><a href="RiskIssue.html">5</a></td>
+        <td><textarea rows="10" cols="70" name="txtScopeObjective"></textarea></td>
       </tr>
     </tbody>
-  </table></p>
-  <p>
-  		<a href="ChangeProjectInfo.html">Change Project Info</a><br/>
-    	<a href="ProjectModuleControlPage.html">Config Modules</a><br/>
-        <a href="ProjectUserManagementPage.html">Team management</a>   
-    </p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+  </table>
+  <input type="button" value="Save Change" name="submit" onclick="location.href='ProjectInfo.html'" >
+  <input type="button" value="Cancel" name="submit2" onclick="location.href='ProjectInfo.html'" /></p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
