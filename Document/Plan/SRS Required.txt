@@ -1,0 +1,39 @@
+Functional Requirement
+	Dashboard
+		List project’s status
+		Progress 
+		Time
+		Efficiency
+		Issue Status (high level)
+		Cost
+
+	Planner
+		Planner: create, edit, and remove, assign
+			Microsoft project (import, edit, save, export)
+			Task status: updated by member (assignee)
+
+	Reporting
+		1 Project Status Report: (basic infor + PM’ notes)
+	•	Report always based on stats?
+		4 number: total, current done, intended this week, done this week
+
+	Manage Team
+	Risks, Issues, Changes
+	Expense Tracking
+
+	Time Tracking - Truong
+	Admin - Truong
+		Add user
+		User register new PM.
+			
+		Super user.
+		Invite user.
+
+	Project View - Truong
+
+	DMS
+	Requirement
+	
+Use Case Model
+Non-Func
+Supporting Infor
