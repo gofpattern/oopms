@@ -1,3 +1,4 @@
+Report1:
 Duy: 
 	2 page
 	16 bugs
@@ -9,3 +10,5 @@ Giang:
 --> Pages: 4/5
 
 After Merging: 5 ? Hai verify?
+
+Report 2:
