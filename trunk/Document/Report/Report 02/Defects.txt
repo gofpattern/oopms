@@ -3,10 +3,15 @@ Duy:
 
 Giang: 12 bugs
 
+All review: 42
 
+--> Bugs: 0/60
+--> Pages: 10/11
 
---> Bugs: 0/50
---> Pages: 11/11
+Final: 54 bugs
 
+File mpp:
+
+Final: 7 bugs
 
 
