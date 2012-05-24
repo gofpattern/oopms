@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #42413C;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #6E6C64;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+
+/* ~~ this fixed width container surrounds the other divs ~~ */
+.container {
+	width: 960px;
+	background: #FFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+
+/* ~~ the header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo ~~ */
+.header {
+	background: #ADB96E;
+}
+
+/* ~~ This is the layout information. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the div. The elements within this div have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
+
+*/
+
+.content {
+
+	padding: 10px 0;
+}
+
+/* ~~ The footer ~~ */
+.footer {
+	padding: 10px 0;
+	background: #CCC49F;
+}
+
+/* ~~ miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the #footer is removed or taken out of the #container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+-->
+</style>
+<style type="text/css"> 
+#tabs28 {   float:left;   width:100%;   background:#EFF4FA;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:10px 10px 0 50px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="header">
+  <table width="960">
+  	<tr>
+    	<td width="697" height="92">&nbsp;</td>
+        <td width="251" valign="top">
+        	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
+        </p>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
+    </tr>
+  </table>
+  </div>
+  <div class="content">
+    <div id="tabs28">
+      
+   <ul>
+  <h5>
+<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
+<li><a><span>Time Sheet</span></a></li>
+<li><a><span>Project Planner</span></a></li>
+<li><a><span>DMS</span></a></li>
+<li><a><span>Report</span></a></li>
+<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
+<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
+<li><a href="Cost.html"><span>Cost</span></a></li>
+<li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+   </h5>
+</ul>
+</div>
+    <p> 
+    <h1>Products Detail</h1>
+    <table border="1" width="900">
+    	<tr>
+        	<th>Work product*</th>
+            <td width="665"><span class="CellBGR3">
+              <select class="COMBO" name="category" onchange="onWPChange(0)">
+                <option selected="selected" value="N/A"></option>
+                <option value="10">Acceptance note</option>
+                <option value="5">Architectural design</option>
+                <option value="46">Audit program</option>
+                <option value="45">Audit record</option>
+                <option value="36">Audit report</option>
+                <option value="78">Baseline Audit</option>
+                <option value="27">Baseline report</option>
+                <option value="30">CM Plan</option>
+                <option value="31">Change request</option>
+                <option value="43">Coding convention</option>
+                <option value="32">Configuration Status Report</option>
+                <option value="11">Contract</option>
+                <option value="33">Customer Satisfaction Survey</option>
+                <option value="79">DAR Report</option>
+                <option value="80">DP Plan</option>
+                <option value="58">DP report</option>
+                <option value="62">Database</option>
+                <option value="63">Deployment package</option>
+                <option value="42">Design prototype</option>
+                <option value="8">Detailed design</option>
+                <option value="81">Final inspection</option>
+                <option value="59">Handover note</option>
+                <option value="47">IP</option>
+                <option value="48">IP database</option>
+                <option value="29">Installation manual</option>
+                <option value="69">Integration test case</option>
+                <option value="6">Integration test plan</option>
+                <option value="13">Integration test report</option>
+                <option value="22">Meeting minutes</option>
+                <option value="20">Others</option>
+                <option value="39">PCB</option>
+                <option value="37">PQA report</option>
+                <option value="49">Pilot plan</option>
+                <option value="50">Pilot record</option>
+                <option value="51">Pilot report</option>
+                <option value="52">Plan</option>
+                <option value="40">Process assets</option>
+                <option value="41">Process database</option>
+                <option value="53">Program</option>
+                <option value="28">Project assets</option>
+                <option value="24">Project database</option>
+                <option value="4">Project plan</option>
+                <option value="23">Project record</option>
+                <option value="12">Project report</option>
+                <option value="25">Proposal</option>
+                <option value="82">Prototype</option>
+                <option value="83">QA report</option>
+                <option value="84">QA review record</option>
+                <option value="17">QDS</option>
+                <option value="66">Quality control report</option>
+                <option value="67">Quality gate record</option>
+                <option value="54">Record</option>
+                <option value="14">Release note</option>
+                <option value="55">Report</option>
+                <option value="21">Requirement prototype</option>
+                <option value="35">Resource and environment</option>
+                <option value="77">Review TestCase</option>
+                <option value="26">Review record</option>
+                <option value="38">SQA report</option>
+                <option value="3">SRS</option>
+                <option value="60">Service Level Agreement</option>
+                <option value="44">Software module</option>
+                <option value="9">Software package</option>
+                <option value="34">Support Diary</option>
+                <option value="16">System description</option>
+                <option value="7">System test case</option>
+                <option value="76">System test plan</option>
+                <option value="74">System test report</option>
+                <option value="71">Test data</option>
+                <option value="85">Test plan</option>
+                <option value="72">Test script</option>
+                <option value="61">Traceability matrix</option>
+                <option value="19">Training course</option>
+                <option value="56">Training material</option>
+                <option value="64">Training records</option>
+                <option value="2">URD</option>
+                <option value="68">Unit test case</option>
+                <option value="75">Unit test plan</option>
+                <option value="73">Unit test report</option>
+                <option value="18">Use case</option>
+                <option value="15">User manual</option>
+                <option value="1">WO</option>
+              </select>
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Name*</th>
+            <td><span class="CellBGR3">
+              <textarea rows="4" cols="25" name="name"></textarea>
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Planned size unit*</th>
+            <td><span class="CellBGR3">
+              <select class="COMBO" name="estUnitID2" onchange="onEstUnitChange(0)">
+                <option selected="selected" value="N/A"></option>
+                <option value="058">ASP LOC</option>
+                <option value="059">Assembler LOC</option>
+                <option value="081">C LOC</option>
+                <option value="085">C# LOC</option>
+                <option value="086">C++ LOC</option>
+                <option value="0140">Crystal Reports Pages</option>
+                <option value="0161">Delphi 5 LOC</option>
+                <option value="0285">Java 2 LOC</option>
+                <option value="0286">Java Script LOC</option>
+                <option value="011">Microsoft Access LOC</option>
+                <option value="0658">Microsoft Excel Sheet 250c</option>
+                <option value="0654">Microsoft Excel (old) Sheet</option>
+                <option value="0349">Microsoft VB 5 LOC</option>
+                <option value="0350">Microsoft VB 6 LOC</option>
+                <option value="0352">Microsoft VC++ 5 LOC</option>
+                <option value="0353">Microsoft VC++ 6 LOC</option>
+                <option value="0657">Microsoft Word Page 250w</option>
+                <option value="0650">Microsoft Word (old) Page</option>
+                <option value="0656">Number of Test cases</option>
+                <option value="0471">RPG LOC</option>
+                <option value="0508">SQL LOC</option>
+                <option value="0510">SQL (DB/2) LOC</option>
+                <option value="0513">SQL (Oracle 8) LOC</option>
+                <option value="0514">SQL Server 6.5, 7, 2000 LOC</option>
+                <option value="0487">SilverStream LOC</option>
+                <option value="0609">WebLogic LOC</option>
+                <option value="0611">WebSphere LOC</option>
+              </select>
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Planned size*</th>
+            <td><span class="CellBGR3">
+              <input size="11" style="text-align: right;" maxlength="11" name="estSize2" type="text" />
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Re-planned size</th>
+            <td><span class="CellBGR3">
+              <input size="11" style="text-align: right;" maxlength="11" name="reestSize2" type="text" />
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Actual size unit</th>
+            <td><span class="CellBGR3">
+              <select class="COMBO" name="actUnitID2" style="width:200px">
+                <option selected="selected" value="N/A"></option>
+              </select>
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Actual size</th>
+            <td><span class="CellBGR3">
+              <input size="11" style="text-align: right;" maxlength="11" name="actSize2" type="text" />
+            </span></td>
+        </tr>
+            	<tr>
+        	<th>Description</th>
+            <td><span class="CellBGR3">
+              <textarea rows="4" cols="30" name="desc2"></textarea>
+            </span></td>
+        </tr>
+    </table>
+    <p>
+      <input type="button" value="Save Change" name="OK" onclick="location.href='Product.html'" />
+      <input type="button" value="Reset" name="Return" onclick="location.href='ProductDetail.html'" />
+      <input type="button" value="Return" name="Return" onclick="location.href='Product.html'" />
+    </p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  <!-- end .content --></div>
+  <div class="footer">
+    <p>DMS Group</p>
+    <!-- end .footer --></div>
+  <!-- end .container --></div>
+</body>
+</html>

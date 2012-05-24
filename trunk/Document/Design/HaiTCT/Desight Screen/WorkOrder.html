@@ -101,71 +101,200 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   <div class="header">
   <table width="960">
   	<tr>
-    	<td width="723" height="92">&nbsp;</td>
-        <td width="225" valign="top">
-        	Hello Admin ,  <a href="HomePage.html">Log Out</a>
-        </td>
+    	<td width="697" height="92">&nbsp;</td>
+        <td width="251" valign="top">
+        	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
+        </p>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
     </tr>
   </table>
   </div>
   <div class="content">
     <div id="tabs28">
       
-  <ul>
+   <ul>
   <h5>
-<li><a href="AdminHomePage.html"><span>HOME</span></a></li>
-<li><a href="AdminHomeProjectManagementPage.html"><span>Project Management</span></a></li>
-<li><a href="AdminHomeUserManagementPage.html"><span>User Management</span></a></li></h5>
+<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
+<li><a><span>Time Sheet</span></a></li>
+<li><a><span>Project Planner</span></a></li>
+<li><a><span>DMS</span></a></li>
+<li><a><span>Report</span></a></li>
+<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
+<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
+<li><a href="Cost.html"><span>Cost</span></a></li>
+<li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+   </h5>
 </ul>
 </div>
     <p>
-Create new Account
-<table>
-  <tr>
-    <td width="150">First Name*</td>
-    <td width="268"><input/></td>
-  </tr>
-  <tr>
-    <td>Last Name*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td>Account ID*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> Password*</td>
-    <td><input/>
-      ?</td>
-  </tr>
-  <tr>
-    <td> Retype Password*</td>
-    <td><input/></td>
-  </tr>
-    <tr>
-    <td>Phone number</td>
-    <td><input/></td>
-  </tr>
-    <tr>
-    <td>Organization</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> EMail*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td><input type="button" value="Submit" name="submit" onclick="location.href='AdminHomeUserManagementPage.html'" ></td>
-    <td><input type="button" value="Cancel" name="Cancel" onclick="location.href='AdminHomeUserManagementPage.html'" ></td>
+    <h1>Work order : Stages &amp; Deliverables </h1>
+    <h3>Stages</h3>
+    <table border="1">
+    	<tr>
+        	<td>&nbsp;</td>
+            <td>No</td>
+            <td>Stage</td>
+            <td>Number of iterations</td>
+            <td>Planned end date</td>
+            <td>Re-planned end date</td>
+            <td>Description</td>
+            <td>Milestone</td>
+      </tr>
+        <tr class="CellBGR3">
+       	  <td><input name="" type="checkbox" value="" /></td>
+            <td align="center">1</td>
+            <td><a href="StageDetail.html">Initiation</a></td>
+            <td align="center">0</td>
+            <td>24-May-12</td>
+            <td>N/A</td>
+            <td>Make plan</td>
+            <td>Finish Report No1, Report No2</td>
+        </tr>
+        
+        <tr class="CellBGRnews">
+        <td><input name="" type="checkbox" value="" /></td>
+            <td align="center">2</td>
+            <td><a href="StageDetail.html">Definition</a></td>
+            <td align="center">0</td>
+            <td>03-Jun-12</td>
+            <td>N/A</td>
+            <td>Software Requirement Specification</td>
+            <td>Finished SRS, Quality Report, Updated Plan</td>
+        </tr>
+        
+    </table>
+    <a href="StageDetail.html">
+    <input type="button" value="Add new Stage" name="OK" onclick="location.href='StageDetail.html'" />
     
-  </tr>
-</table>
+    </a><a href="StageDetail.html">
+    <input type="button" value="Delete" name="OK2" onclick="location.href='WorkOrder.html'" />
+    </a>
+<p>&nbsp;</p>
+	<h3>Deliverables</h3>
+    <table border="1">
+    <tr class="ColumnLabel">
+		<td align="center" width="3%"><input id="selectAll" name="selectAll" onClick="selectAll()" type="checkbox"></td>
+		<td align="center" width="3%">#</td>
+		<td width="27%"> Stage</td>
+		<td width="9%"> First committed </td>
+		<td width="9%"> Last committed </td>
+		<td width="9%"> Actual </td>
+		<td align="center" width="9%"> Status </td>
+		<td width="15%"> Deviation </td>
+		<td width="20%"> Note </td>
+	</tr>
+    <tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Initiation</td>
+ 	<td>
+    24-May-12
 
-</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+ <tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">1<input name="vtModuleID" value="0" type="hidden"></td>
+ <td>
+	 
+	 	<a href="DiliverableDetail.html">
+	 Report 1
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 17-May-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Introduction
+ </td>
+</tr>
+<tr class="CellBGRLongnews">
+ 	<td colspan="3" style="font-weight: bold;">&nbsp;Definition</td>
+ 	<td>
+    03-Jun-12
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>
+    N/A
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ </tr>
+ <tr class="CellBGR3">
+ <td align="center" width="3%"><input name="checkForUpdate" type="checkbox"></td>
+ <td align="center" width="3%">5<input name="vtModuleID" value="4" type="hidden"></td>
+ <td>
+	 
+	 	<a href="DiliverableDetail.html">
+	 Software Requirement Specification
+	 
+	 	</a>
+	 
+ </td>
+ <td>
+	 03-Jun-12
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+	 N/A
+
+ </td>
+ <td>
+  	 In Progress 
+  </td>
+ <td>
+ 	N/A
+ </td>
+ <td>
+ 	Functional Requirement, Non-functional requirement
+ </td>
+</tr>
+    </table>
+    <p><a href="StageDetail.html">
+      <input type="button" value="Add new Deliverable" name="OK3" onclick="location.href='DiliverableDetail.html'" />
+    </a><a href="StageDetail.html">
+    <input type="button" value="Delete" name="OK3" onclick="location.href='WorkOrder.html'" />
+    </a></p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>

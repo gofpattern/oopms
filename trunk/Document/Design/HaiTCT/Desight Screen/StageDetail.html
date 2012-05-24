@@ -101,69 +101,93 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   <div class="header">
   <table width="960">
   	<tr>
-    	<td width="723" height="92">&nbsp;</td>
-        <td width="225" valign="top">
-        	Hello Admin ,  <a href="HomePage.html">Log Out</a>
-        </td>
+    	<td width="697" height="92">&nbsp;</td>
+        <td width="251" valign="top">
+        	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
+        </p>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
     </tr>
   </table>
   </div>
   <div class="content">
     <div id="tabs28">
       
-  <ul>
+   <ul>
   <h5>
-<li><a href="AdminHomePage.html"><span>HOME</span></a></li>
-<li><a href="AdminHomeProjectManagementPage.html"><span>Project Management</span></a></li>
-<li><a href="AdminHomeUserManagementPage.html"><span>User Management</span></a></li></h5>
+<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
+<li><a><span>Time Sheet</span></a></li>
+<li><a><span>Project Planner</span></a></li>
+<li><a><span>DMS</span></a></li>
+<li><a><span>Report</span></a></li>
+<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
+<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
+<li><a href="Cost.html"><span>Cost</span></a></li>
+<li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+   </h5>
 </ul>
 </div>
     <p>
-Create new Account
-<table>
-  <tr>
-    <td width="150">First Name*</td>
-    <td width="268"><input/></td>
-  </tr>
-  <tr>
-    <td>Last Name*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td>Account ID*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> Password*</td>
-    <td><input/>
-      ?</td>
-  </tr>
-  <tr>
-    <td> Retype Password*</td>
-    <td><input/></td>
-  </tr>
-    <tr>
-    <td>Phone number</td>
-    <td><input/></td>
-  </tr>
-    <tr>
-    <td>Organization</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> EMail*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td><input type="button" value="Submit" name="submit" onclick="location.href='AdminHomeUserManagementPage.html'" ></td>
-    <td><input type="button" value="Cancel" name="Cancel" onclick="location.href='AdminHomeUserManagementPage.html'" ></td>
-    
-  </tr>
+    <h1>Stage Detail </h1>
+    <table>
+    <tbody>
+        <tr>
+            <td class="ColumnLabel" width="240">Stage *</td>
+            <td class="CellBGRnews"><input size="33" maxlength="30" name="txtStage" type="text"></td>
+        </tr>
+        <tr>
+            <td class="ColumnLabel" width="240"> Standard stage* </td>
+            <td class="CellBGRnews"><select name="cmbStandardStage" class="COMBO">                
+                <option selected="selected" value="0"></option>
+                
+                <option value="1">Initiation</option>
+                
+                <option value="2">Definition </option>
+                
+                <option value="3">Solution </option>
+                
+                <option value="4">Construction </option>
+                
+                <option value="5">Transition </option>
+                
+                <option value="6">Termination</option>
+                
+            </select></td>
+        </tr>
+        <tr>
+            <td class="ColumnLabel" width="240">Planned end date*</td>
+            <td class="CellBGRnews"><input size="10" maxlength="10" name="txtBEndD" type="text"> 
+            (dd-mm-yyyy)</td>        
+        </tr>
+        <tr>
+            <td class="ColumnLabel" width="240">Re-planned end date</td>
+            <td class="CellBGRnews"><input size="10" maxlength="10" name="txtPEndD" type="text">
+            (dd-mm-yyyy)</td>
+        </tr>
+        <tr>
+            <td class="ColumnLabel" width="240">Actual end date</td>
+            <td class="CellBGRnews"><input size="10" maxlength="10" name="txtAEndD" type="text">
+            (dd-mm-yyyy)</td>
+        </tr>        
+        <tr>
+            <td class="ColumnLabel" width="240">Description *</td>
+            <td class="CellBGRnews"><textarea rows="4" cols="50" name="txtDescription"></textarea></td>
+        </tr>
+        <tr>
+            <td class="ColumnLabel" width="240"> Milestone*</td>
+            <td class="CellBGRnews"><textarea rows="4" cols="50" name="txtMilestone"></textarea></td>
+        </tr>        
+        
+    </tbody> 
 </table>
-
-</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+    <p>
+      <input type="button" value="Save Change" name="OK" onclick="location.href='WorkOrder.html'" />
+      <input type="button" value="Reset" name="Return" onclick="location.href='StageDetail.html'" />
+      <input type="button" value="Return" name="Return" onclick="location.href='WorkOrder.html'" />
+    </p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
