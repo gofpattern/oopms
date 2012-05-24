@@ -101,47 +101,51 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   <div class="header">
   <table width="960">
   	<tr>
-    	<td width="723" height="92">&nbsp;</td>
-        <td width="225" valign="top">
-        	Hello Admin ,  <a href="HomePage.html">Log Out</a>
-        </td>
+    	<td width="697" height="92">&nbsp;</td>
+        <td width="251" valign="top">
+        	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
+        </p>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
     </tr>
   </table>
   </div>
   <div class="content">
     <div id="tabs28">
       
-  <ul>
+   <ul>
   <h5>
-<li><a href="AdminHomePage.html"><span>HOME</span></a></li>
-<li><a href="AdminHomeProjectManagementPage.html"><span>Project Management</span></a></li>
-<li><a href="AdminHomeUserManagementPage.html"><span>User Management</span></a></li></h5>
+<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
+<li><a><span>Time Sheet</span></a></li>
+<li><a><span>Project Planner</span></a></li>
+<li><a><span>DMS</span></a></li>
+<li><a><span>Report</span></a></li>
+<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
+<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
+<li><a href="Cost.html"><span>Cost</span></a></li>
+<li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+   </h5>
 </ul>
 </div>
     <p>
-Create new Account
-<table>
-  <tr>
-    <td width="150">First Name*</td>
-    <td width="268"><input/></td>
-  </tr>
-  <tr>
-    <td>Last Name*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td>Account ID*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> Password*</td>
-    <td><input/>
-      ?</td>
-  </tr>
-  <tr>
-    <td> Retype Password*</td>
-    <td><input/></td>
-  </tr>
+    <h1>User Detail</h1>
+    <table>
+      <tr>
+        <td>Last Name</td>
+        <td><input value="Sam"/></td>
+      </tr>
+      <tr>
+        <td>First Name</td>
+        <td><input value=""/></td>
+      </tr>
+      <tr>
+        <td>Account ID</td>
+        <td><input value="Sam" disabled="disabled"/></td>
+      </tr>
+      </tr>
     <tr>
     <td>Phone number</td>
     <td><input/></td>
@@ -150,20 +154,25 @@ Create new Account
     <td>Organization</td>
     <td><input/></td>
   </tr>
-  <tr>
-    <td> EMail*</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td><input type="button" value="Submit" name="submit" onclick="location.href='AdminHomeUserManagementPage.html'" ></td>
-    <td><input type="button" value="Cancel" name="Cancel" onclick="location.href='AdminHomeUserManagementPage.html'" ></td>
-    
-  </tr>
-</table>
-
-</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+      <tr>
+        <td> Mail</td>
+        <td><input value="Sam@Gmail"/></td>
+      </tr>
+    </table>
+    <input type="button" value="Save" name="submit" onclick="location.href='ManagerHomePage.html'" />
+    <input type="button" value="Return" name="Cancel" onclick="location.href='ManagerHomePage.html'" />
+    <table>
+    	<tr>
+        	<td>New Password</td>
+            <td><input/>?</td>
+        </tr>
+            	<tr>
+        	<td>Retype Password</td>
+            <td><input/></td>
+        </tr>
+    </table>
+    <input type="button" value="Change Password" name="Cancel" onclick="location.href='ManagerHomePage.html'" />
+    </p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>

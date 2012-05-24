@@ -84,7 +84,16 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 	line-height: 0px;
 }
 -->
-</style></head>
+</style>
+<style type="text/css"> 
+#tabs28 {   float:left;   width:100%;   background:#EFF4FA;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:10px 10px 0 50px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }</style>
+</head>
 
 <body>
 
@@ -92,42 +101,52 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
   <div class="header">
   <table width="960">
   	<tr>
-    	<td width="402" height="92">&nbsp;</td>
-        <td width="546" valign="top"><p>Username 
+    	<td width="389" height="92">&nbsp;</td>
+        <td width="559" valign="top"><p>Username
           <input/>
-          Password <input type="password" />
-          <input type="button" value="login" name="Login" onclick="location.href='AdminHomePage.html'" >
+          Password
+  <input type="password" />
+  <input type="button" value="login" name="Login" onclick="location.href='AdminHomePage.html'" />
         </p>
         <p><a href="Create accout.html">Regist new account</a></p></td>
     </tr>
   </table>
   </div>
-  <div class="content">
 
-    <p>Create new Account
+    <p>
+Create new Account
 <table>
   <tr>
-    <td>Last Name</td>
+    <td width="150">First Name*</td>
+    <td width="268"><input/></td>
+  </tr>
+  <tr>
+    <td>Last Name*</td>
     <td><input/></td>
   </tr>
   <tr>
-    <td>First Name</td>
+    <td>Account ID*</td>
     <td><input/></td>
   </tr>
   <tr>
-    <td>Account ID</td>
+    <td> Password*</td>
+    <td><input/>
+      ?</td>
+  </tr>
+  <tr>
+    <td> Retype Password*</td>
+    <td><input/></td>
+  </tr>
+    <tr>
+    <td>Phone number</td>
+    <td><input/></td>
+  </tr>
+    <tr>
+    <td>Organization</td>
     <td><input/></td>
   </tr>
   <tr>
-    <td> Password</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> Retype Password</td>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <td> Mail</td>
+    <td> EMail*</td>
     <td><input/></td>
   </tr>
   <tr>
@@ -135,7 +154,9 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
     <td><input type="button" value="Cancel" name="Cancel" onclick="location.href='HomePage.html'" ></td>
     
   </tr>
-</table></p>
+</table>
+
+</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
@@ -144,7 +165,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
-    <!-- end .content --></div>
+  <!-- end .content --></div>
   <div class="footer">
     <p>DMS Group</p>
     <!-- end .footer --></div>

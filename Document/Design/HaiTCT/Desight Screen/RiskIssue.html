@@ -105,7 +105,9 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td width="251" valign="top">
         	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
         </p>
-       	<p><a href="Create Project.html">Create new Project</a></p></td>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
     </tr>
   </table>
   </div>
@@ -123,6 +125,9 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 <li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
 <li><a href="Cost.html"><span>Cost</span></a></li>
 <li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+
    </h5>
 </ul>
 </div>
@@ -131,34 +136,33 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
     	<table width="800" border="1">
   <tr>
     <th scope="col">No</th>
-    <th scope="col">Name</th>
-    <th scope="col">Risk Potencial</th>
-    <th scope="col">Risk Impact</th>
+    <th scope="col">Risk Source</th>
     <th scope="col">Description</th>
-    <th scope="col">Solution</th>
+    <th scope="col">Probability</th>
+    <th scope="col">Risk Priority</th>
+    <th scope="col">Estimated Impact</th>
+    <th scope="col">Trigger </th>
     <th scope="col">Action</th>
   </tr>
   <tr>
     <td>1</td>
     <td><a href="RiskDetail.html">Risk A</a></td>
-    <td>High</td>
-    <td>Low</td>
-    <td>sakaska</td>
-    <td>When this happen do ....</td>
-    <td><input type="button" value="Remove This Risk" name="OK"/>
-    <input type="button" value="Send This Risk To Issues" name="OK"/>
-    </td>
+    <td>adsda</td>
+    <td>1</td>
+    <td>1</td>
+    <td>delay 1 day</td>
+    <td>dsadasd</td>
+    <td><input type="button" value="Remove This Risk" name="OK"/></td>
   </tr>
   <tr>
     <td>2</td>
     <td><a href="RiskDetail.html">Risk B</a></td>
-    <td>Medium</td>
-    <td>Low</td>
-    <td>sakaska</td>
-    <td>When this happen do ....</td>
-    <td><input type="button" value="Remove This Risk" name="OK"/>
-    <input type="button" value="Send This Risk To Issues" name="OK"/>
-    </td>
+    <td>dsadsads</td>
+    <td>1</td>
+    <td>1</td>
+    <td>delay 1 month</td>
+    <td>asdsada</td>
+    <td><input type="button" value="Remove This Risk" name="OK"/></td>
   </tr>
 </table>
 <a href="AddRisk.html">Add new Risk</a>
@@ -168,29 +172,39 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
     	<table width="800" border="1">
   <tr>
     <th scope="col">No</th>
-    <th scope="col">Name</th>
-    <th scope="col">Issue Impact</th>
     <th scope="col">Description</th>
-    <th scope="col">Solution</th>
-    <th scope="col">Stage</th>
+    <th scope="col">Status</th>
+    <th scope="col"><table cellspacing="0" cellpadding="0">
+      <tr>
+        <td></td>
+        <td>Priority</td>
+      </tr>
+    </table></th>
+    <th scope="col">Owner</th>
+    <th scope="col"><table cellspacing="0" cellpadding="0">
+      <tr>
+        <td></td>
+        <td nowrap="nowrap">Due Date</td>
+      </tr>
+    </table></th>
     <th scope="col">Action</th>
   </tr>
   <tr>
     <td>1</td>
     <td><a href="IssueDetail.html">Issue A</a></td>
-    <td>Low</td>
-    <td>sakaska</td>
-    <td>When this happen do ....</td>
     <td>Closed</td>
+    <td>high</td>
+    <td>David</td>
+    <td>30/5/2012</td>
     <td><input type="button" value="Remove This Issue" name="OK"/></td>
   </tr>
   <tr>
     <td>2</td>
     <td><a href="IssueDetail.html">Issue B</a></td>
-    <td>Low</td>
-    <td>sakaska</td>
-    <td>When this happen do ....</td>
-    <td>Ongoing</td>
+    <td>Open</td>
+    <td>low</td>
+    <td>Sam</td>
+    <td>30/5/2012</td>
     <td><input type="button" value="Remove This Issue" name="OK"/></td>
   </tr>
 </table>

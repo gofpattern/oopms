@@ -138,13 +138,41 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td><input name="txtProjectName" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
       <tr>
-        <td>Customer</td>
-        <td><input name="txtCustomer" value="" maxlength="50" size="50" type="text" /></td>
+        <td>Project Status </td>
+        <td><select name="select">
+        <option selected="selected">Tentative</option>
+      <option >Ongoing</option>
+      <option>Closed</option>
+            <option selected="selected">Cancelled</option>
+    </select></td>
       </tr>
       <tr>
-        <td>2nd Customer</td>
+        <td>Project Type </td>
+        <td><select name="select">
+      <option selected="selected">Product Maintainance</option>
+      <option>Project Development</option>
+    </select></td>
+      </tr>
+      <tr>
+        <td>Direct Customer</td>
+        <td><input name="txtCustomer" value="" maxlength="50" size="50" type="text" /><button>searchIcon</button></td>
+      </tr>
+      <tr>
+        <td>End Customer</td>
         <td><input name="txt2NDCustomer" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
+      <tr>
+    <td>Business Domain</td>
+    <td><select name="select">
+      <option selected="selected">Healthcare</option>
+      <option>Universities</option>
+      <option>Bank & Finance</option>
+      <option>Technology</option>
+      <option>Real Estate</option>
+      <option>Construction</option>
+      <option>Manufacturing</option>
+    </select></td>
+  </tr>
       <tr>
         <td>Planned Start Date* </td>
         <td><input maxlength="9" name="txtPlanStartDate" size="9" value="" type="text" />

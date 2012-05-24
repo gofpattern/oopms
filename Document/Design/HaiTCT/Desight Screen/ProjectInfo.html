@@ -105,7 +105,9 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td width="251" valign="top">
         	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
         </p>
-       	<p><a href="Create Project.html">Create new Project</a></p></td>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
     </tr>
   </table>
   </div>
@@ -123,6 +125,9 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 <li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
 <li><a href="Cost.html"><span>Cost</span></a></li>
 <li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+
    </h5>
 </ul>
 </div>
@@ -133,6 +138,10 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td>David</td>
       </tr>
       <tr>
+        <td>Project Status</td>
+        <td>Ongoing</td>
+      </tr>
+      <tr>
         <td>Project Code</td>
         <td>PA</td>
       </tr>
@@ -141,12 +150,20 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td>Project A</td>
       </tr>
       <tr>
-        <td>Customer</td>
+        <td>Project Type</td>
+        <td>Product Maintainance</td>
+      </tr>
+      <tr>
+        <td>Direct Customer</td>
         <td>Samatha</td>
       </tr>
       <tr>
-        <td>2nd Customer</td>
+        <td>End Customer</td>
         <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>Business Domain</td>
+        <td>Universities</td>
       </tr>
       <tr>
         <td>Planned Start Date</td>
@@ -157,8 +174,20 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td>12/23/2012          (mm-dd-yyyy)</td>
       </tr>
       <tr>
+        <td>Plan effort</td>
+        <td>1PersonDay</td>
+      </tr>
+      <tr>
+        <td>Actual Effort</td>
+        <td>1PersonDay</td>
+      </tr>
+      <tr>
         <td>Scope and Objective</td>
         <td>sadadasdasdasdsasdsadsadsadas</td>
+      </tr>
+      <tr>
+        <td>Project size</td>
+        <td>5</td>
       </tr>
       <tr>
         <td>Progress</td>
@@ -166,7 +195,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
       </tr>
       <tr>
         <td>Time Spent</td>
-        <td>22%</td>
+        <td>15/120</td>
       </tr>
       <tr>
         <td>Cost Expense/Budget</td>
@@ -176,9 +205,43 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
         <td>Risk,Issue</td>
         <td><a href="RiskIssue.html">5</a></td>
       </tr>
+      <tr>
+        <td>Change request</td>
+        <td><a href="ChangeRequest.html">5</a></td>
+      </tr>
+      <tr>
+        <td>Business Domain</td>
+        <td>Education</td>
+      </tr>
+            <tr>
+        <td>Project Health</td>
+        <td><input type="image" name="imageField" id="imageField" src="ProjectStatus_Green.JPG" /></td>
+      </tr>
+      <tr>
+        <td>Project evaluation</td>
+        <td>10</td>
+      </tr>
     </tbody>
-  </table></p>
-  <p>
+  </table>
+    <h3>&nbsp;</h3>
+    <h3>Contacts</h3>
+     <table width="588" border="1">
+  <tr>
+    <th width="51" scope="col">Name</th>
+    <th width="136" scope="col">Email</th>
+    <th width="110" scope="col">Phone</th>
+    <th width="141" scope="col">Organization</th>
+  </tr>
+  <tr>
+    <td>David</td>
+    <td>David@mail.com</td>
+    <td>08909898908</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+ 
+  </p>
+<p>
   		<a href="ChangeProjectInfo.html">Change Project Info</a><br/>
     	<a href="ProjectModuleControlPage.html">Config Modules</a><br/>
         <a href="ProjectUserManagementPage.html">Team management</a>   
