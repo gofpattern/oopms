@@ -3,11 +3,10 @@ Duy:
 	2 page
 	16 bugs
 
-Giang: ?
-
-
---> Bugs: 10/15
---> Pages: 4/5
+Giang: 
+	3 page
+	24 bugs
+	
 
 After Merging: 5 ? Hai verify?
 
