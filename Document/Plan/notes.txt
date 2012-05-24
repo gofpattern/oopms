@@ -24,6 +24,7 @@ Task:
 Duy refine report 2 after Thach Review
 Giang meeting minutes
 Truong SRS
+Hai Review refine
 
 29-05
 
