@@ -8,9 +8,27 @@
 
 24-05-12
 
-1. Report 1?
-2. Report 2
-3. Interview
-4. Report function
-5. SRS
-6. Product, Stage, deliverables
+1. Report 1? ok
+
+2. Report 2 ok
+3. Interview - ok Duy
+4. Report function - pending Giang
+5. SRS - Truong
+6. Product, Stage, deliverables - Hai
+7. Android module: Dashboard + optional 
+8. Change meeting day - 
+9. Get Uportal CSS _ Truong
+10. icon - Truong
+
+Task:
+Duy refine report 2 after Thach Review
+Giang meeting minutes
+Truong SRS
+
+29-05
+
+SRS
+HTML layouts
+icon
+chang meeting place + time
+
