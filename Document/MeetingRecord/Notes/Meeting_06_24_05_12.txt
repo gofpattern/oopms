@@ -1,0 +1,29 @@
+
+	1. Review last task, update plan tracking
+	
+	2. android: 
+		+ dashboard (bat buoc)
+		+ project detail,....		
+		
+	3. apppy U-portal css to HTML layout
+		+ include: fluid + jquery
+		
+	4. chinh sua lai time sheet cho phu hop
+		+ SEARCH COMBO BOX (hoac giam bot cac row theo tung role)
+		+ constrant giua nhung combo box 
+	5. review Report 2, questtion list
+	
+	6. assign task to member: 
+		All member: continue design HTML layout
+		, complete functional requirement and sent to Truong before Tuesday, 29-05-2012
+		Duy refine report 2 after Thach Review
+		Giang meeting minutes, 
+		Truong SRS
+		Hai Review refine
+
+	29-05
+
+	SRS
+	HTML layouts
+	icon
+	chang meeting place + time
