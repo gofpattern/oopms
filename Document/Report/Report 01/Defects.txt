@@ -8,5 +8,6 @@ Giang:
 	24 bugs
 	
 
-After Merging: 5 ? Hai verify?
+After Merging: 10 ? Hai verify?
 
+Final: 50 bugs
