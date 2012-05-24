@@ -5,7 +5,7 @@ Giang: 12 bugs
 
 All review: 42
 
---> Bugs: 0/60
+--> Bugs: 54/60
 --> Pages: 10/11
 
 Final: 54 bugs
