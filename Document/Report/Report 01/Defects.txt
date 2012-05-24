@@ -3,7 +3,7 @@ Duy:
 	2 page
 	16 bugs
 
-Giang:
+Giang: ?
 
 
 --> Bugs: 10/15
@@ -11,4 +11,3 @@ Giang:
 
 After Merging: 5 ? Hai verify?
 
-Report 2:
