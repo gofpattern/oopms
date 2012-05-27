@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<link href="Resource_files/StyleSheet.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+
+
+<div align="left">
+<hr color="#000000" noshade="noshade" size="1">
+</div>
+<form method="post" action="DashboardServlet" name="frmProjectDashboard">
+  <table border="0" cellspacing="1">
+    <tbody><tr>
+        <td colspan="12" align="left"><!-- GROUP COMBO -->
+        <table border="0" cellspacing="0" width="100%">
+            <tbody><tr>
+                   <td class="required_left_cell_bkgrnd" align="left" valign="middle" width="11%">
+                   <b><font color="#000080">&nbsp;&nbsp;Status&nbsp;&nbsp;</font></b>
+                	<select name="cboStatus" size="1" style="width: 90">                    
+                    <option selected="selected" value="-1">All status</option>                    
+                    <option value="1">Closed</option>                    
+                    <option value="2">Cancelled</option>                    
+                    <option value="3">Tentative</option>                    
+                    <option value="0">On-going</option>                    
+               	 	</select></td>
+                    <td class="required_left_cell_bkgrnd" align="left" valign="middle" width="11%">
+                   <b><font color="#000080">&nbsp;&nbsp;Stage&nbsp;&nbsp;</font></b>
+                	<select name="cboStatus" size="1" style="width: 90">                    
+                    <option selected="selected" value="-1">All stages</option>                    
+                    <option value="1">Initiation</option>                    
+                    <option value="2">Definition</option>                    
+                    <option value="3">Solution</option>                    
+                    <option value="4">Construction</option>   
+                    <option value="0">Transition & Termination </option>                
+               	 	</select></td>
+                     <td class="required_left_cell_bkgrnd" align="left" valign="middle" width="11%">
+                   <b><font color="#000080">&nbsp;&nbsp;Stage&nbsp;&nbsp;</font></b>
+                	<select name="cboStatus" size="1" style="width: 90">                    
+                    <option selected="selected" value="-1">All stages</option>                    
+                    <option value="1">Initiation</option>                    
+                    <option value="2">Definition</option>                    
+                    <option value="3">Solution</option>                    
+                    <option value="4">Construction</option>   
+                    <option value="0">Transition & Termination </option>                
+               	 	</select></td>
+                     <td class="required_left_cell_bkgrnd" align="left" valign="middle" width="11%">
+                   <b><font color="#000080">&nbsp;&nbsp;Product&nbsp;&nbsp;</font></b>
+                	<select name="cboStatus" size="1" style="width: 90">                    
+                    <option selected="selected" value="-1">All Product</option>                    
+                    <option value="1">LOC</option>                    
+                    <option value="2">Report</option>                    
+                    <option value="3">Document</option>                    
+                    <option value="4">Test Case</option>   
+                    <option value="0">Others</option>                
+               	 	</select></td>
+                <td class="required_left_cell_bkgrnd" align="left" valign="middle" width="12%">
+                <b><font color="#000080">&nbsp;&nbsp;Assigned To&nbsp;</font></b>     
+     			<select name="cboCategory" size="1" style="width: 100">
+           	 	<option selected="selected" value="-1">All categories</option>
+            	<option value="0">Development</option>
+            	<option value="1">Maintenance</option>
+            	<option value="2">Others</option>
+        		</select></td>
+
+                <td width="7%"><b><font color="#000080">&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</font></b></td>
+                <td width="11%"><select style="width: 100" name="cboOrder">
+                    <option selected="selected" value="0">Status</option>
+                    <option value="1">Task Name</option>
+                    <option value="2">Remaining Time</option>
+                    <option value="2">Stage</option>
+                    <option value="2">Product</option>
+                </select></td>
+                <td width="26%"><input name="DoSearchProject" onClick="" value="Search" type="button"></td>
+            </tr>
+        </tbody></table>
+        </td>
+    </tr>
+    <!-- PROJECT LIST -->
+    <tr class="table_header">
+        <!-- TABLE HEADER -->
+        <td width="80"><b><font size="1" face="Verdana"><span style="color: white">ID</span></font></b></td>
+        <td width="108"><b><font face="Verdana" size="1"><span style="color: white">Task Name</span></font></b></td>
+        <td width="48"><b><font size="1" face="Verdana"><span style="color: white">Stage</span></font></b></td>        
+        <td width="65"><b><font size="1" face="Verdana"><span style="color: white">Product</span></font></b></td>
+        <td width="109"><b><font face="Verdana" size="1"><span style="color: white">Assigned To</span></font></b></td>
+        <td width="98"><b><font size="1" face="Verdana"><span style="color: white">Remaining Time</span></font></b></td>
+        <td width="98"><b><font color="white" face="Verdana" size="1"><span style="color: white">Started Date</span></font></b></td>
+        <td width="92"><b><font color="white" face="Verdana" size="1"><span style="color: white">Finished Date</span></font></b></td>
+        <td width="86"><b><font color="white" face="Verdana" size="1"><span style="color: white">Planned Effort</span></font></b></td>
+        <td width="86"><b><font color="white" face="Verdana" size="1"><span style="color: white">Actual Effort</span></font></b></td>
+    </tr>
+    <tr>        
+    	<td width="80">PJA01</td>
+        <td width="108">Task No.1 of Project A</td>
+        <td width="48">Initation</td>
+        <td width="65">Document</td>
+        <td width="109">PNTG</td>
+        <td width="98">0</td>
+        <td width="98">03/28/2012</td>
+        <td width="92">03/30/2012</td>
+        <td width="92">10</td>
+        <td width="92">12</td>
+    </tr>
+    <tr>        
+    	<td width="80">PJA02</td>
+        <td width="108">Task No.2 of Project A</td>
+        <td width="48">Definition</td>
+        <td width="65">Document</td>
+        <td width="109">PNTG</td>
+        <td width="98">0</td>
+        <td width="98">03/28/2012</td>
+        <td width="92">03/30/2012</td>
+        <td width="92">10</td>
+        <td width="92">12</td>
+    </tr>
+    <tr>        
+    	<td width="80">PJA03</td>
+        <td width="108">Task No.3 of Project A</td>
+        <td width="48">Constuction</td>
+        <td width="65">LOC</td>
+        <td width="109">PNTG</td>
+        <td width="98">0</td>
+        <td width="98">03/28/2012</td>
+        <td width="92">03/30/2012</td>
+        <td width="92">10</td>
+        <td width="92">12</td>
+    </tr>
+    
+</tbody></table>
+<br>
+
+
+  <input class="button" name="addnew" value="Add New Task" onClick="" type="button">
+<input name="moModuleUpdate" value="Import File" class="BUTTON" onClick="" type="button">
+	<input name="moModuleDelete" value="Report" class="BUTTON" onClick="" type="button">
+
+
+</body></html>
