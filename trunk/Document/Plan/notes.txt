@@ -32,4 +32,19 @@ SRS
 HTML layouts
 icon
 chang meeting place + time
+ERD
+interview
+
+
+31-05
+
+uml notification (com)
+keep single usecase diagram
+Hai: Project eye
+
+cost - Hai
+progress - Giang
+quality (bug) - Truong	
+
+Health
 
