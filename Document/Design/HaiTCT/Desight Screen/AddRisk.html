@@ -132,37 +132,118 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 </div>
     <p>
     <h1>Add Risk</h1>
-    <table width="600" border="1">
+    <table width="635" border="1">
   <tr>
-    <th scope="row">Name</th>
-    <td><input/></td>
-  </tr>
-  <tr>
-    <th scope="row">Risk Potencial</th>
-    <td><select name="select">
-      <option selected="selected">High</option>
-      <option>Medium</option>
-      <option>Low</option>
+    <th width="186" scope="row">Risk Source* </th>
+    <td width="433"><select class="COMBO" name="risk_source" style="width=200">
+      <option selected="selected" value="-1"></option>
+      <option value="151">* External driven decisions forced on the project </option>
+      <option value="113">* Insufficient business knowledge </option>
+      <option value="172">* Not meeting performance requirements </option>
+      <option value="111">* Inexperience with Project Process </option>
+      <option value="112">* Inexperience with Project Technology </option>
+      <option value="132">* Critical Dependencies </option>
+      <option value="101">* Unclear Acceptance Criteria </option>
+      <option value="161">* Unclear requirements </option>
+      <option value="162">* Too many requirement changes </option>
+      <option value="121">* Unrealistic schedules </option>
+      <option value="123">* Data Migration Required </option>
+      <option value="175">* Design Difficulty </option>
+      <option value="133">* Existing System Documentation </option>
+      <option value="176">* Implementation Difficulty </option>
+      <option value="141">* Physical Facilities </option>
+      <option value="174">* Test Ability </option>
     </select></td>
   </tr>
   <tr>
-    <th scope="row">Risk Impact</th>
-    <td><select name="select">
-      <option>High</option>
-      <option>Medium</option>
-      <option selected="selected">Low</option>
-    </select></td>
-  </tr>
-  <tr>
-    <th scope="row">Description</th>
+    <th scope="row">Description*</th>
     <td><textarea rows="10" cols="70" name="txtScopeObjective"></textarea></td>
   </tr>
   <tr>
-    <th scope="row">Solution</th>
+    <th scope="row">Probability*</th>
+    <td><input/></td>
+  </tr>
+  <tr>
+    <th scope="row" rowspan="3">Estimated Impact* </th>
+    <td><select name="impactTo1" class="COMBO" id="i1">
+      <option selected="selected" value="a"></option>
+      <option value="b">Schedule</option>
+      <option value="c">Effort</option>
+      <option value="d">Finance</option>
+      <option value="e">Team</option>
+      <option value="f">Timeliness</option>
+      <option value="g">Requirement completion</option>
+      <option value="h">Leakage</option>
+      <option value="i">Customer satisfaction</option>
+      <option value="j">Correction Cost</option>
+      <option value="k">Other</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td><select name="unit1" class="COMBO" id="u1">
+      <option selected="selected" value="a"></option>
+      <option value="b">%</option>
+      <option value="c">day</option>
+      <option value="d">month</option>
+      <option value="e">person.day</option>
+      <option value="f">person.month</option>
+      <option value="g">$</option>
+      <option value="h">#</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td><input size="11" maxlength="11" name="estImpact1" style="text-align: right;" id="e1" type="text" /></td>
+  </tr>
+  <tr>
+    <th scope="row">Total Impact</th>
+    <td><input/></td>
+  </tr>
+  <tr>
+    <th scope="row"> Risk Priority* </th>
+    <td><input/></td>
+  </tr>
+  
+  <tr>
+    <th scope="row">Trigger </th>
     <td><textarea rows="10" cols="70" name="txtScopeObjective2"></textarea></td>
   </tr>
 </table>
 
+    </p>
+    <p>
+      <input type="button" value="Save Change" name="OK" onclick="location.href='RiskIssue.html'" />
+      <input type="button" value="Reset" name="Return" onclick="location.href='RiskManagement.html'" />
+      <input type="button" value="Return" name="Return" onclick="location.href='RiskIssue.html'" />
+      </p>
+      </p>
+    </p>
+    <h5>
+    <table width="572" border="1">
+      <tbody>
+        <tr style="color: red;">
+          <td  align="center" width="92"><b><font color="#000000">Column</font></b></td>
+          <td align="center" width="331"><b><font color="#000000">Value</font></b></td>
+          <td align="center" width="140"><b><font color="#000000">&nbsp;Formula</font></b></td>
+        </tr>
+        <tr style="color: red;">
+          <td width="92"><i>Probability</i></td>
+          <td align="left" width="331"><i><font color="#0000FF">High (0.8 – 1.0); Medium (0.4 – 0.7); Low 
+            (0.0 – 0.3)</font></i></td>
+          <td align="left" width="140">&nbsp;</td>
+        </tr>
+        <tr style="color: red;">
+          <td  width="92"><i>Total Impact </i></td>
+          <td  width="331"><i><font color="#0000FF">High (8.0 – 10.0); Moderate (4.0 – 7.0); 
+            Low (0.0 – 3.0)</font></i></td>
+          <td  align="left" width="140"><i><font color="#0000FF">&nbsp;SUM(Estimated impact)</font></i></td>
+        </tr>
+        <tr style="color: red;">
+          <td  width="92" height="23"><i>Risk Priority</i></td>
+          <td  width="331" height="23"><i><font color="#0000FF">1 to 10 (highest to lowest)</font></i></td>
+          <td  align="left" width="140" height="23"><i><font color="#0000FF">&nbsp;</font></i></td>
+        </tr>
+      </tbody>
+    </table>
     </p>
     <p>
       <input type="button" value="Add" name="OK" onclick="location.href='RiskIssue.html'" />

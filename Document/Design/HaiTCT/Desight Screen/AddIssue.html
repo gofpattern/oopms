@@ -133,35 +133,108 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
     <h1>Add Issue</h1>
     <table width="600" border="1">
   <tr>
-    <th width="127" scope="row">Name</th>
-    <td width="457"><input/></td>
+    <th width="125" scope="row">Description*</th>
+    <td width="459"><textarea rows="10" cols="70" name="txtScopeObjective"></textarea></td>
   </tr>
   <tr>
-    <th scope="row">Issue Impact</th>
-    <td><select name="select">
-      <option>High</option>
-      <option>Medium</option>
-      <option selected="selected">Low</option>
-      </select></td>
+    <th scope="row"><span class="ColumnLabel">Priority</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboPriority" class="COMBO" style="width:100">
+        <option value="0" selected="selected"> Low </option>
+        <option value="1"> Medium </option>
+        <option value="2"> High </option>
+        <option value="3"> Urgent </option>
+      </select>
+    </span></td>
   </tr>
   <tr>
-    <th scope="row">Description</th>
-    <td><textarea rows="10" cols="70" name="txtScopeObjective"></textarea></td>
+    <th scope="row"><span class="ColumnLabel">Status</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboStatus" onchange="occurredStatus()" class="COMBO" style="width:100">
+        <option value="0" selected="selected"> Open </option>
+        <option value="1"> Cancel </option>
+        <option value="2"> Closed </option>
+        <option value="3"> In progress </option>
+      </select>
+    </span></td>
   </tr>
   <tr>
-    <th scope="row">Solution</th>
-    <td><textarea rows="10" cols="70" name="txtScopeObjective2"></textarea></td>
+    <th scope="row"><span class="ColumnLabel">Type</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboType" class="COMBO" style="width:100">
+        <option value="0" selected="selected"> Organization </option>
+        <option value="1"> Customer </option>
+        <option value="2"> Resource </option>
+        <option value="3"> Operation </option>
+        <option value="4"> Others </option>
+      </select>
+    </span></td>
   </tr>
   <tr>
-    <th scope="row">Stage</th>
-    <td><select name="select">
-      <option>Pending</option>
-      <option>Closed</option>
-      <option selected="selected">Ongoing</option>
-      </select></td>
+    <th scope="row"><span class="ColumnLabel">Process related</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboProcess" class="COMBO" style="width:182">
+        <option selected="selected" value="23">Administration</option>
+        <option value="4">Coding</option>
+        <option value="21">Collaborator Management</option>
+        <option value="8">Configuration Management</option>
+        <option value="1">Contract management</option>
+        <option value="14">Correction</option>
+        <option value="6">Customer Support</option>
+        <option value="5">Deployment</option>
+        <option value="3">Design</option>
+        <option value="18">Document Control</option>
+        <option value="24">Facility Management</option>
+        <option value="19">IS Management</option>
+        <option value="13">Internal Audit</option>
+        <option value="15">Management Review</option>
+        <option value="26">Other</option>
+        <option value="28">Prevention</option>
+        <option value="29">Process Improvement</option>
+        <option value="9">Project Management</option>
+        <option value="12">Quality Control</option>
+        <option value="10">Quality Planning</option>
+        <option value="16">Recruitment</option>
+        <option value="2">Requirement</option>
+        <option value="25">Retirement</option>
+        <option value="20">Staff Management</option>
+        <option value="22">Student Management</option>
+        <option value="11">Subcontract Management</option>
+        <option value="27">Technology management</option>
+        <option value="7">Test</option>
+        <option value="17">Training</option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Creator</span></th>
+    <td><span class="CellBGR3">
+      Current Login user
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Created Date</span></th>
+    <td><span class="CellBGR3">23-May-12 </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Due Date*</span></th>
+    <td><input/>
+      (dd-mm-yyyy)</td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Closed Date</span></th>
+    <td><input/>
+      (dd-mm-yyyy)</td>
+  </tr>
+   <tr>
+     <th scope="row"><span class="ColumnLabel">Comment/Solution</span></th>
+     <td><textarea rows="10" cols="70" name="txtScopeObjective2"></textarea></td>
+   </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Reference</span></th>
+    <td><textarea rows="10" cols="70" name="txtScopeObjective3"></textarea></td>
   </tr>
 </table>
-
     </p>
     <p>
       <input type="button" value="Add" name="OK" onclick="location.href='RiskIssue.html'" />
