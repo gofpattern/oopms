@@ -1,0 +1,30 @@
+1, Sai ki hieu cua UML trong toan bo Usecase. Khong dung mui ten co chu used ma chi dung 1 doan thang.
+2. Moi sub system co 1 cai use case lon.Giu lai tung cai hinh nho trong tung use case.
+3. cach dat ten use case. TenSystem_UCxx
+4. thong nhat ten goi. Admin, Project Manager, Team Member
+5. ghi so logic thuc hien vao phan description co the dua vi du cu the
+6. them vao table usecase 3 field ben duoi Open Issues
+   Relationship(gan lien voi table nao trong database) 
+   Business rule (None, nhung gi lien quan den usecase nay(logic...))
+   Priority
+7. Field nao trong table trong thi de N/A
+8. cost them phan du. doan' vuot. chi tieu, budget con thua neu tinh trang. ko co gi thay doi.
+9. project health tinh theo (cost, Progress, Quality)
+   cost, progress, quality se~ tinh theo xanh, do~, vang.
+   1 trong 3 cai' tren do~ thi` health do~
+   1 trong 3 cai kia vang thi helth vang
+10. buffer cho PM tu defy (PMbuffer)
+10. buffer > PMbuffer xanh
+    0<=buffer <= PMbuffer vang
+    buffer < 0 do~.
+11. cach tinh progress se~ duoc ban` sau.
+12. cach tinh quality
+    gom co weighted defect (y)do PM defy
+    lay' so' bug(toan bo bug tru` cancel bug)/LOC ra so' x 
+    x > 110%y do~
+    90%y <= x <= 110%y vang
+    x<90%y xanh
+
+Task list
+HOan thanh SRS.
+Xem database cua~ Fsoft Insight nhung~ phan lien wan toi function cua minh
