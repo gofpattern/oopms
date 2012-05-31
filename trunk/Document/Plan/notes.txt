@@ -48,3 +48,56 @@ quality (bug) - Truong
 
 Health
 
+
+31_05_2012
+ 	
+	Hai: 
+		project eye
+			- project
+			- product
+			- user
+			- assignment
+			- deliverable
+			- stage
+			- module
+			- issue
+			- risk
+			- change request
+			- cost
+		admin: 
+			- user
+			- project
+	Giang: 
+		Dashboard
+		Planner:
+			- product
+			- delivery
+			- stage
+			- task
+			- user
+			- plan
+	Truong:
+		Time sheet:
+			- time sheet
+			- project
+			- user
+		DMS:
+			- project
+			- user
+			- defect
+	Duy:
+		Requirement
+			- project
+			- user
+			- requirement
+			----------------------------------------
+		
+		task:
+			GiangPNT: screen (timesheetList, ProjectInfo.html, dashboard, planner), support SRS, ERD (6h AM, 1-6),Review SRS, UR
+			Truong: SRS, ERD, review ERD
+			Duy: Meeting minutes, SRS review,User Requirement,ERD
+			Hai: ERD (6h AM, 1-6), Review SRS, UR
+			
+			Note: 
+			- finish ERD before 8h PM 1-6,
+			- finish SRS, User Requirement at 10 PM 1-6.
