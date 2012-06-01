@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0088)http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3660&page=menuOrg.jsp&main='Home' -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+
+<title>menuOrg.jsp</title>
+<script language="javascript" src="javaFns.js"></script>
+<script language="javascript">
+
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+<script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"></head>
+
+<body bgcolor="#C3D4E4" style="margin: 0px">
+<script type="text/javascript">
+//function Go(){return}
+</script>
+
+<script type="text/javascript" src="menuParams.js"></script>
+<script language="JavaScript">
+//after drill down on index, the left menu is refreshed, we must keep the selection
+selectedSub=null;
+selectedMain='Home';
+var NoOffFirstLineMenus=10;			// Number of first level items
+//The labels of menu are used in the loadMenu functions of the jsp, change them carefully
+Menu1=new Array("Home",URL+"1210&workUnitID=132","",0,20,mnuWdth);
+Menu2=new Array("Norms","","",2,20,mnuWdth);
+	Menu2_1=new Array("Software",URL+"3310&type=1","",0,20,180);
+	Menu2_2=new Array("Process",URL+"3310&type=10","",0);
+Menu3=new Array("Plans","","",6);
+	Menu3_1=new Array("Tasks",URL+"3510","",0,20,180);
+	Menu3_2=new Array("Staff",URL+"3560&section=Staff","",0);
+	Menu3_3=new Array("Finance",URL+"3560&section=Finance","",0);
+	Menu3_4=new Array("Infrastructure",URL+"3560&section=Infrastructure","",0);
+	Menu3_5=new Array("Product",URL+"3560&section=Product","",0);
+	Menu3_6=new Array("Process",URL+"3560&section=Process","",0);
+Menu4=new Array("Product","","",16);//if change needed , please synchronize with menuGroup.jsp and Product.jsp
+	Menu4_1=new Array("Summary",URL+"3280","",0,20,180);
+	Menu4_2=new Array("Inprogress projects",URL+"3290"+"&metricID="+"67","",0);
+	Menu4_3=new Array("Production size",URL+"3290"+"&metricID="+"51","",0);
+	Menu4_4=new Array("LOC Productivity",URL+"3290"+"&metricID="+"259","",0);
+	Menu4_5=new Array("Requirement stability",URL+"3290"+"&metricID="+"3","",0);
+	Menu4_6=new Array("Acceptance rate",URL+"3290"+"&metricID="+"1","",0);
+	Menu4_7=new Array("Req. completeness",URL+"3290"+"&metricID="+"2","",0);
+	Menu4_8=new Array("Timeliness",URL+"3290"+"&metricID="+"4","",0);
+	Menu4_9=new Array("Delivery sched. deviation",URL+"3290"+"&metricID="+"9","",0);
+	Menu4_10=new Array("Defect rate",URL+"3290"+"&metricID="+"35","",0);
+	Menu4_11=new Array("Leakage",URL+"3290"+"&metricID="+"36","",0);
+	Menu4_12=new Array("LOC Defect rate",URL+"3290"+"&metricID="+"255","",0);
+	Menu4_13=new Array("Customer satisfaction",URL+"3290"+"&metricID="+"41","",0);
+	Menu4_14=new Array("Effort efficiency",URL+"3290"+"&metricID="+"254","",0);
+	Menu4_15=new Array("Nonconf. product rate",URL+"3290"+"&metricID="+"68","",0);
+	Menu4_16=new Array("Delivery list",URL+"3290"+"&metricID="+"69","",0);
+Menu5=new Array("Tasks",URL+"3370","",0);
+Menu6=new Array("Issues",URL+"0","",0);
+Menu7=new Array("Mngmt. Decisions",URL+"3470","",0);
+Menu8=new Array("Process Assets","","",5);
+	Menu8_1=new Array("Project Description",URL+"3710&cboGroup=132","",0,20,180);//
+	Menu8_2=new Array("Tailoring&Deviation",URL+"3720&cboGroup=132","",0);
+	Menu8_3=new Array("Risks Encountered",URL+"3730&cboGroup=132","",0);
+	Menu8_4=new Array("Practices & Lessons",URL+"3740&cboGroup=132","",0);
+	Menu8_5=new Array("Issues",URL+"3750&cboGroup=132","",0);
+Menu9=new Array("PCB reports",URL+"3250","",1);
+	Menu9_1=new Array("Search/Create",URL+"3250","",0,20,mnuWdth);
+	Menu9_2=new Array("Gal information",URL+"3660&page=Group/pcbInformation.jsp","",0);
+	Menu9_3=new Array("Metrics",URL+"3660&page=Group/pcbMetrics.jsp","",0);
+	Menu9_4=new Array("Comments",URL+"3660&page=Group/pcbComments.jsp","",0);
+	Menu9_5=new Array("Conclusions",URL+"3660&page=Group/pcbConclusion.jsp","",0);
+Menu10=new Array("Customer",URL+"1632","",1);
+	Menu10_1=new Array("Customer",URL+"1632","",0,20,mnuWdth);
+</script>
+
+
+
+
+
+</body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1"></span><object id="skype_plugin_object" location.href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3660&amp;page=menuOrg.jsp&amp;main=&#39;Home&#39;" location.hostname="localhost" style="position: absolute; visibility: hidden; left: -100px; top: -100px; " width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>

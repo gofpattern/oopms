@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Add Timesheet</title>
+<link href="Timesheet List_files/tsStyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<h1> Add Timesheet </h1>
+<body>
+<table id="customers" border="0" cellpadding="3" cellspacing="0" width="100%" >
+	<tbody>
+		<tr>
+			<th width="9%" >Date</th>
+			<th width="4%" >Time</th>
+			<th width="25%" >Description</th>
+			<th width="10%" >Project</th>
+			<th width="8%" >Work</th>
+			<th width="10%" >Process</th>
+			<th width="10%" >Product Category</th>
+			<th width="15%" >Product</th>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[0]);" name="Date" id="Date0" value="05/14/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date0&quot;), document.getElementById(&quot;Date0&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(0, ProductCategory[0].value, this.value, Product[0].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(0, this.value, ProductCategory[0].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(0, this.value, Project[0].value, Product[0].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[1]);" name="Date" id="Date1" value="05/14/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date1&quot;), document.getElementById(&quot;Date1&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1"><input name="Description2" type="text" class="VeryBigTextbox" maxlength="100" /></td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(1, ProductCategory[1].value, this.value, Product[1].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(1, this.value, ProductCategory[1].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(1, this.value, Project[1].value, Product[1].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[2]);" name="Date" id="Date2" value="05/15/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date2&quot;), document.getElementById(&quot;Date2&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(2, ProductCategory[2].value, this.value, Product[2].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(2, this.value, ProductCategory[2].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(2, this.value, Project[2].value, Product[2].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[3]);" name="Date" id="Date3" value="05/15/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date3&quot;), document.getElementById(&quot;Date3&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(3, ProductCategory[3].value, this.value, Product[3].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(3, this.value, ProductCategory[3].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(3, this.value, Project[3].value, Product[3].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[4]);" name="Date" id="Date4" value="05/16/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date4&quot;), document.getElementById(&quot;Date4&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(4, ProductCategory[4].value, this.value, Product[4].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(4, this.value, ProductCategory[4].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(4, this.value, Project[4].value, Product[4].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[5]);" name="Date" id="Date5" value="05/16/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date5&quot;), document.getElementById(&quot;Date5&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(5, ProductCategory[5].value, this.value, Product[5].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(5, this.value, ProductCategory[5].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(5, this.value, Project[5].value, Product[5].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[6]);" name="Date" id="Date6" value="05/17/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date6&quot;), document.getElementById(&quot;Date6&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(6, ProductCategory[6].value, this.value, Product[6].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(6, this.value, ProductCategory[6].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(6, this.value, Project[6].value, Product[6].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[7]);" name="Date" id="Date7" value="05/17/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date7&quot;), document.getElementById(&quot;Date7&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(7, ProductCategory[7].value, this.value, Product[7].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(7, this.value, ProductCategory[7].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(7, this.value, Project[7].value, Product[7].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[8]);" name="Date" id="Date8" value="05/18/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date8&quot;), document.getElementById(&quot;Date8&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(8, ProductCategory[8].value, this.value, Product[8].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(8, this.value, ProductCategory[8].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(8, this.value, Project[8].value, Product[8].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[9]);" name="Date" id="Date9" value="05/18/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date9&quot;), document.getElementById(&quot;Date9&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(9, ProductCategory[9].value, this.value, Product[9].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(9, this.value, ProductCategory[9].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(9, this.value, Project[9].value, Product[9].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[10]);" name="Date" id="Date10" value="05/19/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date10&quot;), document.getElementById(&quot;Date10&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(10, ProductCategory[10].value, this.value, Product[10].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(10, this.value, ProductCategory[10].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(10, this.value, Project[10].value, Product[10].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[11]);" name="Date" id="Date11" value="05/19/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date11&quot;), document.getElementById(&quot;Date11&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(11, ProductCategory[11].value, this.value, Product[11].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(11, this.value, ProductCategory[11].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(11, this.value, Project[11].value, Product[11].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[12]);" name="Date" id="Date12" value="05/20/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date12&quot;), document.getElementById(&quot;Date12&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(12, ProductCategory[12].value, this.value, Product[12].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(12, this.value, ProductCategory[12].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(12, this.value, Project[12].value, Product[12].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+
+		<tr>
+			<td class="Row1">
+			<p style="display: block; margin: 0px;padding: 0px;">
+			<input type="text" onChange="return dateValidate(Date[13]);" name="Date" id="Date13" value="05/20/12" class="VerySmallTextbox">
+			<img src="./Add Timesheet_files/cal.gif" style="CURSOR: hand" onClick="showCalendar(document.getElementById(&quot;Date13&quot;), document.getElementById(&quot;Date13&quot;), &quot;mm/dd/yy&quot;,null,1,-1,-1,true)">			</p>			</td>
+			<td class="Row1">
+			<input name="Duration" type="text" size="5" maxlength="4" class="SmallestTextbox">			</td>
+			<td class="Row1">
+			<input name="Description" type="text" class="VeryBigTextbox" maxlength="100">			</td>
+			<!-- Project -->
+			<td class="Row1">
+			<select name="Project" class="SmallCombo" onChange="javascript:getWorkProductList(13, ProductCategory[13].value, this.value, Product[13].value);">
+				<option value="0" selected=""></option>
+<option value="130674">BSYS</option><option value="130910">FMIS.BU2 OtherAssign_12_In</option><option value="10036">MISC</option><option value="131848">TOKUTEN</option>
+			</select>			</td>
+			
+			<!-- Work -->
+			<td class="Row1">
+			<select name="TypeOfWork" class="VerySmallCombo">
+				<option value="0" selected=""></option>
+<option value="5">Correct</option><option value="2">Create</option><option value="3">Review</option><option value="1">Study</option><option value="4">Test</option><option value="6">Translate</option>
+			</select>			</td>
+					
+			<!-- Process -->		
+			<td class="Row1">
+			<select name="Process" class="SmallCombo1" onChange="javascript:getWorkProductCategoryList(13, this.value, ProductCategory[13].value);">
+				<option value="0" selected=""></option><option value="23">Administration</option><option value="4">Coding</option><option value="8">Configuration Management</option><option value="1">Contract Management</option><option value="10">Corporate Planning</option><option value="14">Correction</option><option value="6">Customer Support</option><option value="5">Deployment</option><option value="3">Design</option><option value="31">Finance</option><option value="20">HR Management</option><option value="19">IS Management</option><option value="32">ISMS</option><option value="13">Internal Audit</option><option value="15">Management Review</option><option value="29">Organization Improvement Deployment</option><option value="33">Organization Process Performance</option><option value="26">Other</option><option value="28">Prevention</option><option value="18">Process Development &amp; Management</option><option value="34">Procurement</option><option value="12">QA Control</option><option value="35">Quantitative Management</option><option value="16">Recruitment</option><option value="2">Requirement</option><option value="9">Software Project Management</option><option value="11">Subcontract Management</option><option value="7">Test</option><option value="17">Training</option>
+			</select>			</td>
+
+			<!-- Product Category -->
+			<td class="Row1">
+			<select name="ProductCategory" class="SmallCombo" onChange="javascript:getWorkProductList(13, this.value, Project[13].value, Product[13].value);">
+				<option value="0" selected=""></option>
+			</select>			</td>
+			
+			<!-- Product -->
+			<td class="Row1">
+			<select name="Product" class="SmallCombo">
+				<option value="0" selected=""></option>
+			</select>			</td>
+		</tr>
+	</tbody>
+</table>
+<p> <input type="button" name="Update" onclick="javascript:doUpdate()" value="Add" class="Button" />        
+		  <input type="button" name="Delete" onClick="javascript:doDelete()" value="Cancel" class="Button"></p>
+</body>
+</html>

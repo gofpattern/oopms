@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0075)http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3660&page=header.jsp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>header</title>
+<link rel="stylesheet" href="fms.css" type="text/css">
+<script language="javascript" src="javaFns.js"></script>
+<script language="javascript">
+
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+<script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"></head>
+
+<body bgcolor="#ffffff" style="margin: 0px" onLoad="mycursor()">
+
+<form method="post" name="frm" target="menu">
+<table cellpadding="0" cellspacing="0" bgcolor="#ffffff" width="100%" background="bgr1.gif">
+	<tbody>
+		<tr class="WelcomeName">
+			
+			<td width="141" style="text-align: right;"><a href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=2290" target="_top"><img src="logout.gif" border="0" style="vertical-align: top;"></a><a href="http://localhost:8080/FsoftInsight/help/index.htm" target="help">&nbsp;&nbsp;<img src="help.gif" border="0" style="vertical-align: top;"></a></td>
+			<td width="21"></td>
+		</tr>
+	</tbody>
+</table>
+
+</form>
+<script language="JavaScript">
+function doAction(strHref)
+{
+    /*if (strHref=='RMS2'){
+		window.open('/rms2');
+    }*/
+	if (strHref=='DMS'){
+		window.open('/dms');
+	}
+    if (strHref=='timesheet'){
+       	frm.action = "Fms1Servlet?reqType="+3630;
+        frm.target="timesheet";
+        frm.submit();
+        return;
+    }
+    if (strHref=='dashboard'){
+    	frm.action = "Fms1Servlet?reqType="+3610;
+        frm.target="dashboard";
+        frm.submit();
+        return;
+    }
+    if (strHref=='NCMS'){
+    	frm.action = "Fms1Servlet?reqType="+3620;
+    	frm.target="NCMS";
+        frm.submit();
+        return;
+    }
+
+	if (strHref=='menuDefault.jsp'){
+        document.images("imgDefault").src	= "image/Default.gif";
+    }
+    else{
+    	document.images("imgDefault").src	= "image/Default1.gif";
+    }
+    
+    if (strHref=='menuProject.jsp'){
+        document.images("imgProject").src	= "image/Project.gif";
+    }
+    else{
+    	document.images("imgProject").src	= "image/Project1.gif";
+    }
+	
+	    if (strHref=='menuOrg.jsp'){
+	        document.images("imgOrg").src	= "image/Organization.gif";
+	    }
+	    else{
+	    	document.images("imgOrg").src	= "image/Organization1.gif";
+	    }  
+    
+	    if (strHref=='menuGroup.jsp'){
+	        document.images("imgGroup").src	= "image/Group.gif";
+	    }
+	    else{
+	    	document.images("imgGroup").src	= "image/Group1.gif";
+	    } 
+    
+}
+function mycursor()
+{
+	//document.images('imgRMS').style.cursor="hand";
+	document.images('imgDMS').style.cursor="hand";
+	document.images('imgTimesheet').style.cursor="hand";
+	document.images('imgNCMS').style.cursor="hand";
+	document.images('imgDashboard').style.cursor="hand";
+}
+function notAllowed(){
+alert('Sorry! You are not allowed to access this section');
+}
+</script>
+
+
+</body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1"></span><object id="skype_plugin_object" location.href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3660&amp;page=header.jsp" location.hostname="localhost" style="position: absolute; visibility: hidden; left: -100px; top: -100px; " width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>

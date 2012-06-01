@@ -1,0 +1,453 @@
+BODY
+{
+    SCROLLBAR-FACE-COLOR: #ffffff;
+    SCROLLBAR-HIGHLIGHT-COLOR: #9aadba;
+    SCROLLBAR-SHADOW-COLOR: #9aadba;
+    SCROLLBAR-3DLIGHT-COLOR: #ffffff;
+    SCROLLBAR-ARROW-COLOR: #9aadba;
+    SCROLLBAR-TRACK-COLOR: #f7f7ef;
+    SCROLLBAR-DARKSHADOW-COLOR: #ffffff;
+    SCROLLBAR-BASE-COLOR: #9aadba;
+	COLOR: black;
+	FONT-FAMILY: tahoma,sans-serif;
+	background-color:#336699;
+}
+H1
+{
+    COLOR: #8B4513;
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+    FONT-SIZE: 14pt;
+    FONT-WEIGHT: bold;
+    TEXT-ALIGN: left
+}
+.leftA
+{
+	align: left;
+}
+.rightA
+{
+	align: right;
+}
+.left
+{
+	float: left;
+}
+.right
+{
+	float: right;
+}
+.labelMessage
+{
+    COLOR: blue;
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+    FONT-SIZE: 11px;
+    FONT-WEIGHT: bold;
+
+}
+.labelRMessage
+{
+    COLOR: #00FF00;
+    FONT-FAMILY: Verdana, Arial, Helvetica;
+    FONT-SIZE: 13px;
+    FONT-WEIGHT: bold;
+
+}
+.marginLR{
+	margin-left: 7px;
+	margin-right: 7px;
+}
+.marginTB{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.colorW{
+	color: white;
+}
+.colorY{
+	color: yellow;
+}
+.colorR{
+	color: red;
+}
+.label1
+{
+    FONT-SIZE: 11px;
+    FONT-WEIGHT: bold;
+}
+.label2
+{
+    FONT-SIZE: 11px;
+    FONT-WEIGHT: bold;
+    COLOR: #ccffcc
+}
+.label3
+{
+    FONT-SIZE: 15px;
+    FONT-WEIGHT: bold;
+    COLOR: #ccffcc
+}
+.labelDate
+{
+    FONT-SIZE: 11px;
+
+}
+.TableHeader1
+{
+    BACKGROUND: #104a7b;
+    BORDER-LEFT: #D1D6E9 1px solid;
+    BORDER-TOP: #D1D6E9 1px solid;
+    COLOR: #ffce00;
+    HEIGHT : 25px;
+    FONT-SIZE: 11px;
+    FONT-WEIGHT: bold;
+    PADDING-LEFT: 1px;
+    TEXT-ALIGN: center;
+}
+.Row1
+{
+	HEIGHT : 20px;
+    BACKGROUND: #d6e7ef;
+    PADDING-BOTTOM: 1px;
+    PADDING-LEFT: 1px;
+    PADDING-RIGHT: 1px;
+    PADDING-TOP: 1px;
+    BORDER-LEFT: #336699 1px solid;
+    BORDER-BOTTOM: #336699 1px solid;
+    FONT-SIZE: 11px;
+	color: black;
+}
+.Row2
+{
+	HEIGHT : 20px;
+    BACKGROUND: #fff7e5;
+    PADDING-BOTTOM: 1px;
+    PADDING-LEFT: 1px;
+    PADDING-RIGHT: 1px;
+    PADDING-TOP: 1px;
+    BORDER-LEFT: #336699 1px solid;
+    BORDER-BOTTOM: #336699 1px solid;    
+    FONT-SIZE: 11px;
+   	color: black;
+}
+INPUT.VeryBigTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: tahoma,san-serif;
+    FONT-SIZE: 11px;
+    WIDTH: 100%;
+}
+INPUT.BigTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: tahoma,san-serif;
+    FONT-SIZE: 11px;
+    WIDTH: 130pt
+}
+INPUT.MidTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: tahoma,san-serif;
+    FONT-SIZE: 11px;
+    WIDTH: 100pt
+}
+INPUT.SmallTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    WIDTH: 60pt;
+    BORDER-TOP: #104a7b 1px solid;
+    BORDER-LEFT: #104a7b 1px solid;
+    BORDER-BOTTOM: #afc4d5 1px solid;
+    BORDER-RIGHT: #afc4d5 1px solid;
+}
+INPUT.VerySmallTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: tahoma,san-serif;
+    FONT-SIZE: 11px;
+    WIDTH: 38pt;
+    HEIGHT: 18px;
+    BORDER-TOP: #104a7b 1px solid;
+    BORDER-LEFT: #104a7b 1px solid;
+    BORDER-BOTTOM: #afc4d5 1px solid;
+    BORDER-RIGHT: #afc4d5 1px solid;
+    text-align: center;
+}
+INPUT.SmallestTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: tahoma,san-serif;
+    FONT-SIZE: 11px;
+    WIDTH: 25pt
+}
+INPUT.TxtTime
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: tahoma,san-serif;
+    FONT-SIZE: 11px;
+    BORDER-TOP: #104a7b 1px solid;
+    BORDER-LEFT: #104a7b 1px solid;
+    BORDER-BOTTOM: #afc4d5 1px solid;
+    BORDER-RIGHT: #afc4d5 1px solid;
+    HEIGHT: 16px;
+    WIDTH: 25pt;
+}
+INPUT.flatTextbox
+{
+    BACKGROUND-COLOR: #d6e7ef; COLOR: #000066;
+    BORDER-TOP: #104a7b 1px solid;
+    BORDER-LEFT: #104a7b 1px solid;
+    BORDER-BOTTOM: #afc4d5 1px solid;
+    BORDER-RIGHT: #afc4d5 1px solid;
+    FONT-FAMILY: verdana,san-serif; FONT-SIZE: 11px;
+    HEIGHT: 20px
+}
+SELECT.BigCombo
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    WIDTH: 130pt
+}
+SELECT.SmallCombo
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    WIDTH: 90pt
+}
+SELECT.SmallCombo1
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    WIDTH: 145pt
+}
+SELECT.VerySmallCombo
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 8pt;
+    WIDTH: 60pt
+}
+SELECT.SmallestCombo
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 8pt;
+    WIDTH: 30pt
+}
+.Button
+{
+    BACKGROUND-COLOR: #93BEE2;
+    BORDER-TOP: #D8E8F5 thin solid;
+    BORDER-LEFT: #D8E8F5 thin solid;
+    BORDER-BOTTOM: #28527A thin solid;
+    BORDER-RIGHT: #28527A thin solid;
+    COLOR: black;
+    CURSOR: hand;
+    FONT-SIZE: 11px;
+    HEIGHT: 22px
+}
+.menuborder
+{
+    BACKGROUND: #0080FF;
+    BORDER-BOTTOM: #ffffff 1px solid;
+    BORDER-LEFT: #ffffff 1px solid;
+    BORDER-RIGHT: #ffffff 1px solid;
+    BORDER-TOP: #ffffff 1px solid;
+    COLOR: black;
+    FONT-SIZE: 12px;
+    FONT-WEIGHT: bold;
+    PADDING-LEFT: 0px
+}
+INPUT.FlatCheckbox
+{
+    BACKGROUND-COLOR: #d6e7ef;
+    COLOR: #000066;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 11px;
+    WIDTH: 15pt;
+    HEIGHT: 20pt;
+    BORDER-TOP: #104a7b 1px solid;
+    BORDER-LEFT: #104a7b 1px solid;
+    BORDER-BOTTOM: #afc4d5 1px solid;
+    BORDER-RIGHT: #afc4d5 1px solid;
+}
+A.HeaderMenu:link {
+    COLOR: #ffffff;
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none;
+    font-size: 11px;
+    FONT-WEIGHT: bold;
+}
+A.HeaderMenu:visited {
+    COLOR: #ffffff;
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none;
+    font-size: 11px;
+    FONT-WEIGHT: bold;
+}
+A.HeaderMenu:hover {
+    COLOR: #ff0000;
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none;
+    font-size: 11px;
+    FONT-WEIGHT: bold;
+}
+A.grayLink:link {
+    COLOR: #a5a2a5;
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none;
+    font-size: 11px;
+    FONT-WEIGHT: bold;
+}
+A.grayLink:visited {
+    COLOR: #a5a2a5;
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none;
+    font-size: 11px;
+    FONT-WEIGHT: bold;
+}
+A.grayLink:hover {
+    COLOR: #ff0000;
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none;
+    font-size: 11px;
+    FONT-WEIGHT: bold;
+}
+/*-------Truongnn1 start-------------------------------*/
+.table {
+    display:table; 
+    border:1px solid #c3c3c3;
+    border-collapse:collapse;
+    text-align:center;
+}
+.tableCaption {
+    display:table-caption;
+    border:1px solid #c3c3c3;
+    padding:3px;
+    HEIGHT : 25px;
+}
+.tableCaptionColor {
+    background-color:#104a7b;
+    color: #ffce00;
+    FONT-FAMILY: Tahoma,sans-serif;
+	FONT-SIZE: 11px;
+	FONT-WEIGHT: bold;
+}
+.tableCaptionText {
+    font-weight:bold;
+    text-align:center;
+    vertical-align:middle;
+}
+.tableRow {
+	display:table-row;
+}
+.tablecel {
+    display:table-cell; 
+    border:1px solid #c3c3c3;
+    padding:3px;
+}
+
+/*-------menu start-------------------------------*/
+.dropdown
+{
+	width: 110px;
+	float: left;
+	margin-left: 3px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	color: white;
+	font: 11px Verdana, Arial, Helvetica;
+}
+.dropdown *
+{
+	padding: 0;
+	margin: 0;
+}
+.dropdown dt
+{
+	text-align: center;
+	border: 1px solid white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-weight: bold;
+	cursor: pointer;
+	display: block;
+	background: #0080FF;
+}
+.dropdown dt:hover
+{
+	background: #0022AB;
+}
+.dropdown dd
+{
+	width:inherit;
+	position: absolute;
+	overflow: hidden;
+	display: block;
+	background: #fff;
+	z-index: 200;
+	opacity: 0;
+}
+.dropdown ul
+{
+	width:110px;
+	border: 1px solid #9ac1c9;
+	list-style: none;
+	border-top: none;
+}
+.dropdown li
+{
+	display: inline;
+}
+.dropdown a, .dropdown a:active, .dropdown a:visited
+{
+	display: block;
+	padding: 5px;
+	color: #333;
+	text-decoration: none;
+	background: #eaf0f2;
+}
+.dropdown a:hover
+{
+	background: #d9e1e4;
+	color: #000;
+}
+
+.dropdown .underline
+{
+	border-bottom: 1px dotted #b9d6dc;
+}
+/*-------menu end-------------------------------*/
+.vAlignMid img{
+	vertical-align: middle;
+}
+/*-------Search start-------------------------------*/
+.widthfull{
+	width: 100%;
+}
+.marginleft {
+	margin-left: 7px;
+}
+.margintop{
+	clear: both; margin-top:10px;
+}
+.TARight{
+	text-align: right;
+}
+/*-------Truongnn1 end-------------------------------*/

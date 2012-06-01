@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0096)http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3660&page=Group/decisionAdd.jsp&type=3510 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<link href="fms.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="javaFns.js"></script>
+<script language="JavaScript">
+        
+function mandatoryFld(control,alert){
+	if (trim(control.value)==""){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function mandatorySelect(control,alert){
+	if (control.value==0){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is mandatory",alert)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+
+function beforeTodayFld(control,alert){
+	if (!dateFld(control,alert))
+		return false;
+	else if (control.value!=""){
+		if (compareToToday(control.value)>0){
+			window.alert(getParamText(new Array("~PARAM1_NAME~ must be before or equal to today",alert)));
+			control.focus();
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
+}
+function maxLength(control,alert,length){
+	fieldLength =trim(control.value).length
+	if (fieldLength>length){
+		window.alert(getParamText(new Array("~PARAM1_NAME~ is limited to ~PARAM2_NUM~ characters (currently : ~PARAM3_NUM~)",alert,length,fieldLength)));
+		control.focus();
+		return false;
+	}
+	return true;
+}
+function dateFld(control,alert){
+	if((control.value !="")&&(!isDate(control.value))) {  	  
+  	  	window.alert(getParamText(new Array("Invalid date format for ~PARAM1_NAME~",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function numberFld(control,alert){
+	mystr =trim(control.value);
+	if((mystr !="")&&( isNaN(mystr) || !goodNumberFormat(mystr) ) ) {  	  
+  	  	window.alert(getParamText(new Array("Invalid number for ~PARAM1_NAME~ ",alert)));
+  	 	control.focus();
+  		return false;
+  	 }
+  	 return true;
+}
+function integerFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value.indexOf(".")>=0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be an integer",alert)));
+  	  	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function positiveFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && (control.value <0)){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+function percentageFld(control,alert){
+	if(!numberFld(control,alert)) {  	  
+  		return false;
+  	 }
+  	 if ((trim(control.value) !="") && ((control.value <0)||(control.value >100))){
+  	 	window.alert(getParamText(new Array("~PARAM1_NAME~ must be a positive number less than or equal to 100",alert)));
+  	 	control.focus();
+  	 	return false;
+  	 }
+  	 return true;
+}
+
+</script>
+
+<title>decision</title>
+<script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"></head>
+
+<body class="BD" onLoad="loadOrgMenu();">
+<p class="TITLE">Add Task</p>
+<br>
+<form action="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3520" name="frm" method="post">
+<table class="Table" cellspacing="1" width="560">
+<caption class="TableCaption">
+ Add new Task
+</caption>
+	<tbody>
+		<tr>
+			<td width="139" class="ColumnLabel">Title</td>
+			<td width="412" class="CellBGR3"><input name="code" size="9" type="text" ></td>
+		</tr>
+		<tr>
+			<td class="ColumnLabel"> Started date* </td>
+			<td class="CellBGR3"><input name="planDate" size="9" maxlength="9"> (DD-MMM-YY) </td>
+		</tr>
+		
+		<tr>
+			<td class="ColumnLabel"> Finished date </td>
+			<td class="CellBGR3"><input name="rePlanDate" size="9" maxlength="9"> (DD-MMM-YY) </td>
+		</tr>
+		
+		<tr>
+			<td class="ColumnLabel"> Actual Effort </td>
+			<td class="CellBGR3"><input name="rePlanDate" size="9" maxlength="9"> (Hours) </td>
+		</tr>
+		<tr>
+			<td class="ColumnLabel"> Status* </td>
+			<td class="CellBGR3">
+				<select name="assignedTo">                    
+                    <option value="1">Closed</option>
+                    
+                    <option value="2">Cancelled</option>
+                    
+                    <option value="3">Tentative</option>
+                    
+                    <option selected="selected" value="0">On-going</option>
+					
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColumnLabel"> Assigned to* </td>
+			<td class="CellBGR3">
+				<select name="assignedTo">
+					<option value="118124">PNTG</option>
+					<option value="1">SYSADMIN</option>
+					
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColumnLabel"> Process </td>
+				<td class="CellBGR3">
+					<select name="process">
+						<option value="23">Administration</option>
+						<option value="4">Coding</option>
+						<option value="21">Collaborator Management</option>
+						<option value="8">Configuration Management</option>
+						<option value="1">Contract management</option>
+						<option value="14">Correction</option>
+						<option value="6">Customer Support</option>
+						<option value="5">Deployment</option>
+						<option value="3">Design</option>
+						<option value="18">Document Control</option>
+						<option value="24">Facility Management</option>
+						<option value="19">IS Management</option>
+						<option value="13">Internal Audit</option>
+						<option value="15">Management Review</option>
+						<option value="26">Other</option>
+						<option value="28">Prevention</option>
+						<option value="29">Process Improvement</option>
+						<option value="9">Project Management</option>
+						<option value="12">Quality Control</option>
+						<option value="10">Quality Planning</option>
+						<option value="16">Recruitment</option>
+						<option value="2">Requirement</option>
+						<option value="25">Retirement</option>
+						<option value="20">Staff Management</option>
+						<option value="22">Student Management</option>
+						<option value="11">Subcontract Management</option>
+						<option value="27">Technology management</option>
+						<option value="7">Test</option>
+						<option value="17">Training</option>
+						
+					</select>
+				</td>
+		</tr>
+		
+		<tr>
+			<td class="ColumnLabel">Description</td>
+			<td class="CellBGR3"><textarea rows="4" cols="50" name="note"></textarea></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<p>
+<input type="button" onClick="onOK();" name="ok" value=" OK " class="BUTTON">
+<input type="button" name="cancel" value=" Cancel " class="BUTTON" onClick="doIt(3510);"></p>
+<p>
+
+
+<script language="JavaScript">
+function onOK()	{	
+	if (mandatoryFld(frm.code,"Code"))
+	
+	if (mandatoryFld(frm.desc,"Plan"))
+	
+	if (maxLength(frm.desc,"Decision",1000))
+	if (mandatoryDateFld(frm.planDate,"Planed date"))
+	
+	if (dateFld(frm.rePlanDate,"Re planned date"))	
+	
+	if (dateFld(frm.actualDate,"Actual date"))	
+	if (beforeTodayFld(frm.actualDate,"Actual date"))
+	if (maxLength(frm.note,"Note",200))
+		frm.submit();
+
+}
+</script>
+
+</p><div style="position: absolute; background-color: rgb(145, 151, 145); width: 140px; height: 22px; font-family: verdana, geneva, arial, helvetica, sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; visibility: hidden; top: 0px; left: 0px; "><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px; ">Customer</div></div><div style="position: absolute; background-color: rgb(145, 151, 145); width: 140px; height: 22px; font-family: verdana, geneva, arial, helvetica, sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; visibility: hidden; top: 0px; left: 0px; "><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 128px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px; ">Search/Create</div></div><div style="position: absolute; background-color: rgb(145, 151, 145); width: 182px; height: 106px; font-family: verdana, geneva, arial, helvetica, sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; visibility: hidden; top: 0px; left: 0px; "><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px; ">Project Description</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px; ">Tailoring&amp;Deviation</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px; ">Risks Encountered</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px; ">Practices &amp; Lessons</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px; ">Issues</div></div><div style="position: absolute; background-color: rgb(145, 151, 145); width: 182px; height: 337px; font-family: verdana, geneva, arial, helvetica, sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; visibility: hidden; top: 0px; left: 0px; "><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px; ">Summary</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px; ">Inprogress projects</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px; ">Production size</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px; ">LOC Productivity</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px; ">Requirement stability</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px; ">Acceptance rate</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 127px; ">Req. completeness</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 148px; ">Timeliness</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 169px; ">Delivery sched. deviation</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 190px; ">Defect rate</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 211px; ">Leakage</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 232px; ">LOC Defect rate</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 253px; ">Customer satisfaction</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 274px; ">Effort efficiency</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 295px; ">Nonconf. product rate</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 316px; ">Delivery list</div></div><div style="position: absolute; background-color: rgb(145, 151, 145); width: 182px; height: 127px; font-family: verdana, geneva, arial, helvetica, sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; visibility: hidden; top: 0px; left: 0px; "><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; text-align: left; color: black; background-color: rgb(150, 180, 207); width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px; ">Tasks</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px; ">Staff</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 43px; ">Finance</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 64px; ">Infrastructure</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 85px; ">Product</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 106px; ">Process</div></div><div style="position: absolute; background-color: rgb(145, 151, 145); width: 182px; height: 43px; font-family: verdana, geneva, arial, helvetica, sans-serif; font-weight: bold; font-style: normal; font-size: 9pt; z-index: 102; visibility: hidden; top: 0px; left: 0px; "><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 1px; ">Software</div><div style="position: absolute; visibility: inherit; overflow-x: hidden; overflow-y: hidden; cursor: default; color: black; background-color: rgb(195, 212, 228); text-align: left; width: 170px; height: 19px; padding-left: 10px; padding-top: 1px; left: 1px; top: 22px; ">Process</div></div></body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1"></span><object id="skype_plugin_object" location.href="http://localhost:8080/FsoftInsight/Fms1Servlet?reqType=3660&amp;page=Group/decisionAdd.jsp&amp;type=3510" location.hostname="localhost" style="position: absolute; visibility: hidden; left: -100px; top: -100px; " width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>
