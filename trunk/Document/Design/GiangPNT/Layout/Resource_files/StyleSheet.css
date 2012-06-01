@@ -224,5 +224,6 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 #content_planner { margin:0; padding:10px 10px 0 50px; list-style:none; height: 400px;  } 
 #content_projectinfo { margin:0; padding:10px 10px 0 50px; list-style:none; height: 1000x;  } 
 #content_dashboard { margin:0; padding:10px 10px 0 50px; list-style:none; height: 400px;} 
+#content_timesheet { margin:0; padding:10px 10px 0 50px; list-style:none; height: 600px;} 
 
 #button { margin:0; padding:10px 10px 0 50px; list-style:none; } 
