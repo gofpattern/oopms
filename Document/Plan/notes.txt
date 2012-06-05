@@ -101,3 +101,17 @@ Health
 			Note: 
 			- finish ERD before 8h PM 1-6,
 			- finish SRS, User Requirement at 10 PM 1-6.
+
+
+5-6
+Main flow:
+
+Register
+Login
+Create New Project
+Add User
+team management
+add expense
+Add risk, issue
+Add requirement
+..
