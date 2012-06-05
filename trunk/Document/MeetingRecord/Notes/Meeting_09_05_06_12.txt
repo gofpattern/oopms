@@ -1,0 +1,27 @@
+0. review older task
+1. man hinh register--> sau khi dk thanh cong thi se quay lai homepage (tu dong log in) (them exeption cho uc register)
+2. sau khi login se xuat hien man hinh gi???----> hom thu thong bao,
+3. create project:
+4. add user (admin_usecase 05)
+ chon main flow usecase roi review.
+5. Demo main flow user
+6. User join which projects what role (assignment)
+7. Page numbers, follow number of screen (use one css)
+8. Table of user, table of usecase
+9. View project detail , Giang
+10. task
+		1. Duy: CRC card template,Usecase matrix, Usecase main flow, Architecture design, component diagram.
+		2. Truong: User interface Css, framework. 
+		3. Giang: support css, User table[number, name], UseCase table [number, usecase ID, fullname].
+		4. HAi: support framework.
+		common:
+		Detail function design for each usecase, table detail (each table) [column name, type, max lenght, short description]
+		Screen description: (pending)
+		
+		sample of class diagram at: Document\Design\DetailDesign
+		
+		time: 
+			06-06-2012: Must finish: User table, UseCase table, CRC card template,Usecase matrix, Usecase main flow, Architecture design, component diagram.
+						Hai: review 1 Detail function design.
+			
+			09-06-2012: Detail function design for each usecase, table detail
