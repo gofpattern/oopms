@@ -1,12 +1,51 @@
+.up {
+font-family: Verdana,sans-serif;
+background: 
+darkGray;
+background-image: -moz-linear-gradient(top,
+#C3C3C3,
+#8F8F8F);
+background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,
+#C3C3C3),color-stop(1,
+#8F8F8F));
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#c3c3c3', EndColorStr='#8f8f8f')";
+background-image: linear-gradient(top,
+#C3C3C3,
+#8F8F8F);
+color: 
+#444;
+}
+
+.fl-theme-mist, .fl-theme-mist.fl-preview-theme {
+color: 
+black;
+background-color: 
+#F4F4F4;
+border-color: 
+#4070A1;
+}
+
+#portalPageBodyInner {
+padding: 2.5em 12px;
+background: white;
+ width: 1024px;
+    height: auto;
+    position: relative;
+	   margin-left: auto;
+
+    margin-right: auto;
+}
+
 body    {   
     position: relative;
-
+	font-family: Verdana,sans-serif;
+color: #444;
 }
 
  
 
 #bodyCenter {
-
+	
     width: 1024px;
 
     height: auto;
@@ -18,33 +57,35 @@ body    {
     margin-right: auto;
 
 }
+label#mainLabel {
+font-size:15px; font-weight: bold;
+color: #1C94C4;
+}
 
-table#example {
+table#mainTable {
     border-collapse: collapse;   
 }
-#example tr {
+#mainTable tr {
     background-color: #eee;
     border-top: 1px solid #fff;
 }
-#example th:hover {
+#mainTable th:hover {
     background: #5A95CF; 
 }
-#example tr:hover {
+#mainTable tr:hover {
     background: #F39814; color: white;
 }
-#example th {
-    background-color: 
-#5A95CF;
-color: 
-#333;
+#mainTable th {
+    background-color:#EB8F00;
+color: #fff;
 font-size: 85%;
 padding: 1px 1em;
 text-align: left;
 }
-#example th, #example td {
+#mainTable th, #mainTable td {
     padding: 3px 5px;
 }
-#example td:hover {
+#mainTable td:hover {
     cursor: pointer;
 }
 .selected td {
@@ -82,4 +123,35 @@ steelBlue),color-stop(1,
 background-image: linear-gradient(top,
 steelBlue,
 #294D6B);
+}
+
+#navigationList {
+text-align: left;
+border: 0;
+margin: 0 0 0 25px;
+zoom: 1;
+}
+
+.checkbox, .radio {
+	width: 19px;
+	height: 25px;
+	padding: 0 5px 0 0;
+	background: url(checkbox.png) no-repeat;
+	display: block;
+	clear: left;
+	float: left;
+	font-family: Lucida Sans Unicode,Lucida Grande,sans-serif
+}
+.radio {
+	background: url(radio.png) no-repeat;
+}
+.select {
+	position: absolute;
+	width: 158px; /* With the padding included, the width is 190 pixels: the actual width of the image. */
+	height: 21px;
+	padding: 0 24px 0 8px;
+	color: #fff;
+	font: 12px/21px arial,sans-serif;
+	background: url(select.png) no-repeat;
+	overflow: hidden;
 }

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+<link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="js/form-elements.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script>
+	$(function() {
+		$( "#radio" ).buttonset();
+		$( "#format" ).buttonset();
+			$( "input:submit, a, button", ".demo" ).button();
+		$( "a", ".demo" ).click(function() { return false; });
+		
+		// run the currently selected effect
+		function runEffect() {
+			// get effect type from 
+			var selectedEffect = $( "#effectTypes" ).val();
+
+			// most effect types need no options passed by default
+			var options = {};
+			// some effects have required parameters
+			if ( selectedEffect === "scale" ) {
+				options = { percent: 100 };
+			} else if ( selectedEffect === "size" ) {
+				options = { to: { width: 280, height: 185 } };
+			}
+
+			// run the effect
+			$( "#effect" ).show( selectedEffect, options, 500, callback );
+		};
+
+		//callback function to bring a hidden box back
+		function callback() {
+			setTimeout(function() {
+				$( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+			}, 1000 );
+		};
+
+		// set effect from select menu value
+		$( "#button" ).click(function() {
+			runEffect();
+			return false;
+		});
+
+		$( "#effect" ).hide();
+	});
+	</script>
+
+<style type="text/css"> 
+#tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:0px 10px 0 20px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }</style>
+</head>
+
+<body id="portal" class="up fl-theme-mist">
+
+<div id="portalPageBodyInner" class="container">
+  <div class="header">
+  <table width="960">
+  	<tr>
+    	<td width="723" height="92">&nbsp;</td>
+        <td width="225" valign="top">
+        	Hello Admin ,  <a href="HomePage.html">Log Out</a>
+        </td>
+    </tr>
+  </table>
+  </div>
+ 
+  <div class="content">
+    <div id="tabs28">
+      
+    <ul>
+  <h5>
+<li><a href="AdminHomePage.html"><span>HOME</span></a></li>
+<li><a href="AdminHomeProjectManagementPage.html"><span>Project Management</span></a></li>
+<li><a href="AdminHomeUserManagementPage.html"><span>User Management</span></a></li></h5>
+</ul>
+</div>
+  
+   
+	<div class="demo" style="font-size:20px" align="right">
+ 
+<a href="Create Project-Admin ver.html">Create Project</a>
+
+	
+	</div>
+	<input type="text" style="width:320px;" /> <input type="button" value="Search"/> <br><br>
+	<div>
+    <div id="radio" style="font-size:12px">
+		<input  type="radio" id="radio1" name="radio" /><label for="radio1">By Project Name</label>
+		<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">By Project Code</label>
+		<input type="radio" id="radio3" name="radio" /><label for="radio3">By Project Manager Name</label>
+	</div><br />
+	<label id="mainLabel">By Project Status</label>
+    <div id="format" style="font-size:9px">
+	<input type="checkbox" id="check1" /><label for="check1">Tentative</label>
+	<input type="checkbox" id="check2" /><label for="check2">Ongoing</label>
+	<input type="checkbox" id="check3" /><label for="check3">Cancelled</label>
+	</div>
+	</div>
+     <br />
+   <table id="mainTable" border="0" cellpadding="3" cellspacing="0" width="100%" >
+      <tr>
+    <th scope="col">No</th>
+    <th scope="col">Project Name</th>
+    <th scope="col">Project Code</th>
+    <th scope="col">Project Manager</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td><a href="AdminProjectManagementPage.html">Project A</a></td>
+    <td><a href="AdminProjectManagementPage.html">PA</a></td>
+    <td>David</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><a href="AdminProjectManagementPage.html">Project B</a></td>
+    <td><a href="AdminProjectManagementPage.html">PB</a></td>
+    <td>John</td>
+  </tr>
+</table>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  <!-- end .content --></div>
+  <div class="footer">
+    <p>DMS Group</p>
+    <!-- end .footer --></div>
+  <!-- end .container --></div>
+</body>
+</html>
