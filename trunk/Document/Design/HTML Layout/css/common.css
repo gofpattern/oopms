@@ -147,7 +147,7 @@ zoom: 1;
 }
 .select {
 	position: absolute;
-	width: 158px; /* With the padding included, the width is 190 pixels: the actual width of the image. */
+	width: 118px; /* With the padding included, the width is 190 pixels: the actual width of the image. */
 	height: 21px;
 	padding: 0 24px 0 8px;
 	color: #fff;
@@ -155,3 +155,11 @@ zoom: 1;
 	background: url(select.png) no-repeat;
 	overflow: hidden;
 }
+
+#tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:0px 10px 0 20px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }
