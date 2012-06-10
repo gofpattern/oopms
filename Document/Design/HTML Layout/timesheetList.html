@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<html autopagermatchedrules="1">
+
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+<link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+	#feedback { font-size: 1.4em; }
+	#selectable .ui-selecting { background: #FECA40; }
+	#selectable .ui-selected { background: #F39814; color: white; }
+	#selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+	#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+	</style>
+	<script language="javascript">
+	
+	$(function() {
+		$( "#datepicker1" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/calendar.gif",
+			buttonImageOnly: true
+		});
+		$( "#datepicker2" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/calendar.gif",
+			buttonImageOnly: true
+		});
+		$( "#selectable" ).selectable();
+	});
+	$(document).ready(function() {
+  $('#example tr')
+    .filter(':has(:checkbox:checked)')
+    .addClass('selected')
+    .end()
+  .click(function(event) {
+    $(this).toggleClass('selected');
+    if (event.target.type !== 'checkbox') {
+      $(':checkbox', this).attr('checked', function() {
+        return !this.checked;
+      });
+    }
+  });
+});
+	</script>
+
+<title>Timesheet System</title>
+</head>
+
+<body><h1 align="center">Timesheet System</h1>
+<div id="bodyCenter">
+
+
+<table  border="0" cellpadding="3" cellspacing="0" width="100%" align="left">
+    <tbody>
+	<tr><td><strong>User</strong></td><td width="20%">Mạnh Hoàng Trương</td>
+	<td ><strong>Project</strong></td>
+        <td width="26%"><select name="SearchProjectID" class="SmallCombo" value="0">
+<option selected="" value="0">All</option><option value="130674">BSYS</option><option value="10047">CMM-4</option><option value="100517">CMM5</option><option value="103058">CMMI-5</option><option value="125773">FMIS.BU2-JCT</option><option value="265">FMS-1</option><option value="100461">FMS-M-2003</option><option value="101720">FMS-M-2004</option><option value="102378">FMS-TD</option><option value="125608">HIVE-EH</option><option value="128650">JCIS</option><option value="10036">MISC</option><option value="129909">Mobile Renewal</option><option value="103799">RET</option><option value="111122">Sample</option><option value="125908">SNS</option><option value="126347">Tensuite</option><option value="131848">TOKUTEN</option>
+      </select></td> 
+	   <td ><strong>From Date</td>
+        <td  class="vAlignMid">
+         <input type="text" id="datepicker1">
+           
+      </td>
+		
+	  
+	  </tr>
+	<tr><td><strong>Role</strong></td><td>Developer</td>
+	 <td width="7%" align="left"><strong>Status</strong></td>
+        <td width="26%"><select size="1" name="SearchStatus" class="SmallCombo" value="0">
+            <option value="0" selected="">All</option>
+            <option value="1">Unapproved</option>
+            <option value="2">Approved</option>
+            <option value="3">Rejected</option>
+      </select></td>
+	   <td width="17%" align="left"><strong>To Date</strong></td>
+        <td colspan="2" class="vAlignMid">
+         <input type="text" id="datepicker2">
+           
+        </td><td></td></tr>
+</tbody></table>
+		<p><input type="button" name="Search" onClick="location.href='timesheetList.html'" value="Search" class="Button" >		  
+		
+		  <input type="button" name="Addnew" onclick="location.href='addTimeSheet.html'" value="Addnew" class="Button" />
+		 </p>
+
+<table border="0" cellpadding="3" cellspacing="0" width="100%" bgcolor="#5A95CF">
+    <tbody><tr>
+
+        <td height="10" valign="bottom">
+
+        <font color="#ffffff" class="label1">Result&nbsp;</font><font color="yellow" size="-1">1 - 20</font> <font color="#ffffff" class="label1"> of </font><font color="yellow" size="-1">20</font> <font color="#ffffff" class="label1"> records in </font><font color="yellow" size="-1">1</font> <font color="#ffffff" class="label1"> page(s)</font>
+
+        </td>
+        <td align="right" height="10" valign="top">
+
+    </td></tr>
+</tbody></table>
+<table id="example" border="0" cellpadding="3" cellspacing="0" width="100%" >
+
+
+    <colgroup>
+        <col width="2%"><col width="5%"><col width="10%"><col width="10%"><col width="15%">
+        <col width="10%"><col width="4%"><col width="4%"><col><col width="5%">
+    </colgroup><tbody><tr >
+        <th ><input type="checkbox" name="allbox" value="Check All"onClick="JavaScript:checkAll();"></th>
+        <th >Date</th>
+        <th >Project</th>
+        <th >Work</th>
+        <th >Process</th>
+        <th >Product Category</th>
+        <th >Product</th>
+        <th >Time</th>
+        <th >Description</th>
+        <th >Status</th>
+    </tr>    
+    <tr >
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/16/12</font></td>
+		
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">3.0</font></td>
+        <td>[TOKUTEN] Study Detail Design Document AWCF_W03 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr >
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/16/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">4.0</font></td>
+        <td>[TOKUTEN] Study Detail Design Document AWCommon <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+     <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/17/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Release_CD&amp;UT_20120614</font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN] Coding AWCommon <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/18/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">4.0</font></td>
+        <td>[TOKUTEN] Study Detail Design Document AWRF_W_WD-003 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+      <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/18/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">3.0</font></td>
+        <td>[TOKUTEN] Study Detail Design Document AWRF_W_WD-004 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/19/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Release_CD&amp;UT_20120614</font></td>
+        <td align="center"><font color="">4.0</font></td>
+        <td>[TOKUTEN] Coding AWCF_W03 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+      <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/19/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Release_CD&amp;UT_20120614</font></td>
+        <td align="center"><font color="">3.0</font></td>
+        <td>[TOKUTEN] Coding AWCF_W03 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/20/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Release_CD&amp;UT_20120614</font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN] Coding AWCF_W03 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/23/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN]Study Business TOKUTEN System <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/24/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN]Study Business TOKUTEN System <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/25/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Study</font></td>
+        <td><font color="">Design</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN]Study Business TOKUTEN System <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/26/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Release_CD&amp;UT_20120614</font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN] Coding AWRF_W_WD-002 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/27/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Release_CD&amp;UT_20120614</font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN] Coding AWRF_W_WD-002 <font color="">
+ </font></td>
+        <td><font color="">approved</font></td>
+    </tr>
+
+    <tr>
+      <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">04/30/12</font></td>
+        <td><font color="">MISC</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Other</font></td>
+        <td><font color="">Others</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>Holiday <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+    <tr>
+      <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">05/01/12</font></td>
+        <td><font color="">MISC</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Other</font></td>
+        <td><font color="">Others</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>Holiday <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">05/07/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Review</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">4.0</font></td>
+        <td>[TOKUTEN] Review Code Meeting <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">05/08/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Source code</font></td>
+        <td align="center"><font color="">7.0</font></td>
+        <td>[TOKUTEN] Coding RefundConfirmAction,Suspension Action <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+    <tr>
+      <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">05/09/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Source code</font></td>
+        <td align="center"><font color="">8.0</font></td>
+        <td>[TOKUTEN] Coding AWRF_W_WD-002 <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">05/10/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Review</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Record</font></td>
+        <td><font color=""></font></td>
+        <td align="center"><font color="">4.0</font></td>
+        <td>[TOKUTEN] Review Code Meeting <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td align="center"><font color="">05/11/12</font></td>
+        <td><font color="">TOKUTEN</font></td>
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>
+        <td><font color="">Software Package</font></td>
+        <td><font color="">Source code</font></td>
+        <td align="center"><font color="">7.0</font></td>
+        <td>[TOKUTEN] Coding AWRF_W_WD-002 <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+</tbody></table>
+<p> <input type="button" name="Update" onclick="javascript:doUpdate()" value="Update" class="Button" />        
+		  <input type="button" name="Delete" onClick="javascript:doDelete()" value="Delete" class="Button"></p>
+		  </div>
+</body>
+</html>
