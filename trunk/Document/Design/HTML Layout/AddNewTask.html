@@ -57,6 +57,7 @@ border-radius: .6em;
 </head>
 
 <body>
+<div align="center">
 <table class="Table" cellspacing="1" width="797">
 <caption class="TableCaption">
  <h1>Add new Task</h1>
@@ -64,7 +65,7 @@ border-radius: .6em;
 </caption>
 	<tbody>
 		<tr>
-			<td width="200" class="ColumnLabel">Title*</td>
+			<td width="150" class="ColumnLabel">Title*</td>
 			<td width="696" class="CellBGR3"><input name="code" size="9" type="text" ></td>
 		</tr>
 		<tr>
@@ -179,12 +180,13 @@ border-radius: .6em;
 			<td class="ColumnLabel">Description</td>
 			<td class="CellBGR3"><textarea rows="5" cols="50" name="note" ></textarea></td>
 		</tr>
+        <tr>
+        <td>
+                <input type="button" onClick="location.href='TaskManager.html'" name="ok" value=" OK " class="BUTTON">
+                <input type="button" name="cancel" value=" Cancel " class="BUTTON" onclick="location.href='TaskManager.html'" /></td>
+        </tr>
 	</tbody>
 </table>
-<p>
-<input type="button" onClick="location.href='TaskManager.html'" name="ok" value=" OK " class="BUTTON">
-<input type="button" name="cancel" value=" Cancel " class="BUTTON" onClick="location.href='TaskManager.html'">
-</p>
-
+</div>
 </body>
 </html>
