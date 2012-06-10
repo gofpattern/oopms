@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background: #42413C;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color: #42413C;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #6E6C64;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+
+/* ~~ this fixed width container surrounds the other divs ~~ */
+.container {
+	width: 960px;
+	background: #FFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+}
+
+/* ~~ the header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo ~~ */
+.header {
+	background: #ADB96E;
+}
+
+/* ~~ This is the layout information. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the div. The elements within this div have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
+
+*/
+
+.content {
+
+	padding: 10px 0;
+}
+
+/* ~~ The footer ~~ */
+.footer {
+	padding: 10px 0;
+	background: #CCC49F;
+}
+
+/* ~~ miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the #footer is removed or taken out of the #container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+-->
+</style>
+<style type="text/css"> 
+#tabs28 {   float:left;   width:100%;   background:#EFF4FA;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:10px 10px 0 50px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="header">
+  <table width="960">
+  	<tr>
+    	<td width="697" height="92">&nbsp;</td>
+        <td width="251" valign="top">
+        	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
+        </p>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
+    </tr>
+  </table>
+  </div>
+  <div class="content">
+    <div id="tabs28">
+      
+   <ul>
+  <h5>
+<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
+<li><a><span>Time Sheet</span></a></li>
+<li><a><span>Project Planner</span></a></li>
+<li><a><span>DMS</span></a></li>
+<li><a><span>Report</span></a></li>
+<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
+<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
+<li><a href="Cost.html"><span>Cost</span></a></li>
+<li><a><span>Requiment</span></a></li>
+<li><a href="Product.html"><span>Product</span></a></li>
+<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
+
+   </h5>
+</ul>
+</div>
+    <p>
+    <h1>Issue Detail</h1>
+    <table width="600" border="1">
+  <tr>
+    <th width="125" scope="row">Description*</th>
+    <td width="459"><textarea rows="10" cols="70" name="txtScopeObjective"></textarea></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Priority</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboPriority" class="COMBO" style="width:100">
+        <option value="0" selected="selected"> Low </option>
+        <option value="1"> Medium </option>
+        <option value="2"> High </option>
+        <option value="3"> Urgent </option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Status</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboStatus" onchange="occurredStatus()" class="COMBO" style="width:100">
+        <option value="0" selected="selected"> Open </option>
+        <option value="1"> Cancel </option>
+        <option value="2"> Closed </option>
+        <option value="3"> In progress </option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Type</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboType" class="COMBO" style="width:100">
+        <option value="0" selected="selected"> Organization </option>
+        <option value="1"> Customer </option>
+        <option value="2"> Resource </option>
+        <option value="3"> Operation </option>
+        <option value="4"> Others </option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Process related</span></th>
+    <td><span class="CellBGR3">
+      <select name="cboProcess" class="COMBO" style="width:182">
+        <option selected="selected" value="23">Administration</option>
+        <option value="4">Coding</option>
+        <option value="21">Collaborator Management</option>
+        <option value="8">Configuration Management</option>
+        <option value="1">Contract management</option>
+        <option value="14">Correction</option>
+        <option value="6">Customer Support</option>
+        <option value="5">Deployment</option>
+        <option value="3">Design</option>
+        <option value="18">Document Control</option>
+        <option value="24">Facility Management</option>
+        <option value="19">IS Management</option>
+        <option value="13">Internal Audit</option>
+        <option value="15">Management Review</option>
+        <option value="26">Other</option>
+        <option value="28">Prevention</option>
+        <option value="29">Process Improvement</option>
+        <option value="9">Project Management</option>
+        <option value="12">Quality Control</option>
+        <option value="10">Quality Planning</option>
+        <option value="16">Recruitment</option>
+        <option value="2">Requirement</option>
+        <option value="25">Retirement</option>
+        <option value="20">Staff Management</option>
+        <option value="22">Student Management</option>
+        <option value="11">Subcontract Management</option>
+        <option value="27">Technology management</option>
+        <option value="7">Test</option>
+        <option value="17">Training</option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Creator</span></th>
+    <td><span class="CellBGR3">
+      Current Login user
+    </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Created Date</span></th>
+    <td><span class="CellBGR3">23-May-12 </span></td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Due Date*</span></th>
+    <td><input/>
+      (dd-mm-yyyy)</td>
+  </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Closed Date</span></th>
+    <td><input/>
+      (dd-mm-yyyy)</td>
+  </tr>
+   <tr>
+     <th scope="row"><span class="ColumnLabel">Comment/Solution</span></th>
+     <td><textarea rows="10" cols="70" name="txtScopeObjective2"></textarea></td>
+   </tr>
+  <tr>
+    <th scope="row"><span class="ColumnLabel">Reference</span></th>
+    <td><textarea rows="10" cols="70" name="txtScopeObjective3"></textarea></td>
+  </tr>
+</table>
+
+    </p>
+    <p>
+      <input type="button" value="Save Change" name="OK" onclick="location.href='RiskIssue.html'" />
+      <input type="button" value="Reset" name="Return" onclick="location.href='IssueDetail.html'" />
+      <input type="button" value="Return" name="Return" onclick="location.href='RiskIssue.html'" />
+    </p>
+      </p>
+    </p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+  <!-- end .content --></div>
+  <div class="footer">
+    <p>DMS Group</p>
+    <!-- end .footer --></div>
+  <!-- end .container --></div>
+</body>
+</html>

@@ -7,6 +7,7 @@
 <link type="text/css" href="css/common.css" rel="Stylesheet" />	
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="js/form-elements.js"></script>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 	#feedback { font-size: 1.4em; }
@@ -31,7 +32,7 @@
 		$( "#selectable" ).selectable();
 	});
 	$(document).ready(function() {
-  $('#example tr')
+  $('#mainTable tr')
     .filter(':has(:checkbox:checked)')
     .addClass('selected')
     .end()
@@ -57,7 +58,7 @@
     <tbody>
 	<tr><td><strong>User</strong></td><td width="20%">Mạnh Hoàng Trương</td>
 	<td ><strong>Project</strong></td>
-        <td width="26%"><select name="SearchProjectID" class="SmallCombo" value="0">
+        <td width="26%"><select class="styled" name="SearchProjectID" class="SmallCombo" value="0">
 <option selected="" value="0">All</option><option value="130674">BSYS</option><option value="10047">CMM-4</option><option value="100517">CMM5</option><option value="103058">CMMI-5</option><option value="125773">FMIS.BU2-JCT</option><option value="265">FMS-1</option><option value="100461">FMS-M-2003</option><option value="101720">FMS-M-2004</option><option value="102378">FMS-TD</option><option value="125608">HIVE-EH</option><option value="128650">JCIS</option><option value="10036">MISC</option><option value="129909">Mobile Renewal</option><option value="103799">RET</option><option value="111122">Sample</option><option value="125908">SNS</option><option value="126347">Tensuite</option><option value="131848">TOKUTEN</option>
       </select></td> 
 	   <td ><strong>From Date</td>
@@ -70,7 +71,7 @@
 	  </tr>
 	<tr><td><strong>Role</strong></td><td>Developer</td>
 	 <td width="7%" align="left"><strong>Status</strong></td>
-        <td width="26%"><select size="1" name="SearchStatus" class="SmallCombo" value="0">
+        <td width="26%"><select class="styled" size="1" name="SearchStatus" class="SmallCombo" value="0">
             <option value="0" selected="">All</option>
             <option value="1">Unapproved</option>
             <option value="2">Approved</option>
@@ -87,7 +88,7 @@
 		  <input type="button" name="Addnew" onclick="location.href='addTimeSheet.html'" value="Addnew" class="Button" />
 		 </p>
 
-<table border="0" cellpadding="3" cellspacing="0" width="100%" bgcolor="#5A95CF">
+<table border="0" cellpadding="3" cellspacing="0" width="102%" bgcolor="#EB8F00">
     <tbody><tr>
 
         <td height="10" valign="bottom">
@@ -99,7 +100,7 @@
 
     </td></tr>
 </tbody></table>
-<table id="example" border="0" cellpadding="3" cellspacing="0" width="100%" >
+<table id="mainTable" border="0" cellpadding="3" cellspacing="0" width="100%" >
 
 
     <colgroup>
@@ -118,7 +119,7 @@
         <th >Status</th>
     </tr>    
     <tr >
-       <td class="cb"><input type="checkbox" value="yes"></td>
+       <td class="cb"><input type="checkbox"  value="yes"></td>
         <td align="center"><font color="">04/16/12</font></td>
 		
         <td><font color="">TOKUTEN</font></td>
