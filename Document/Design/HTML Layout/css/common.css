@@ -104,6 +104,18 @@ rgba(0, 0, 0, 0.2) inset;
 border-radius: .6em;
 }
 
+input[type="password"] {
+padding: .2em .4em;
+line-height: 1.4;
+background: 
+white;
+box-shadow: 0 1px 4px 
+rgba(0, 0, 0, 0.2) inset;
+-moz-border-radius: .6em;
+-webkit-border-radius: .6em;
+border-radius: .6em;
+}
+
 input[type="button"] {
 border-color: 
 #294D6B;
