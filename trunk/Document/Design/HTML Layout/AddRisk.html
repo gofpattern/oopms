@@ -8,20 +8,17 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/form-elements.js"></script>
+
+<style type="text/css"> 
+#tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:0px 10px 0 20px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }</style>
+
 <script>
-$(function() {
-		$( "#datepicker1" ).datepicker({
-			showOn: "button",
-			buttonImage: "images/calendar.gif",
-			buttonImageOnly: true
-		});
-		$( "#datepicker2" ).datepicker({
-			showOn: "button",
-			buttonImage: "images/calendar.gif",
-			buttonImageOnly: true
-		});
-		$( "#selectable" ).selectable();
-	});
 	$(function() {
 		$( "#radio" ).buttonset();
 		$( "#format" ).buttonset();
@@ -61,27 +58,38 @@ $(function() {
 
 		$( "#effect" ).hide();
 	});
-	</script>
-<style type="text/css"> 
-#tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
-#tabs28 ul { margin:0; padding:0px 10px 0 20px; list-style:none;   } 
-#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
-#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
-#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
-#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
-#tabs28 a:hover span {   background-position:100% -42px;   }
-textarea{
-padding: .2em .4em;
-line-height: 1.4;
-background: 
-white;
-box-shadow: 0 1px 4px 
-rgba(0, 0, 0, 0.2) inset;
--moz-border-radius: .6em;
--webkit-border-radius: .6em;
-border-radius: .6em;
-}
-</style>
+</script>
+<script language="javascript">
+	
+	$(function() {
+		$( "#datepicker1" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/calendar.gif",
+			buttonImageOnly: true
+		});
+		$( "#datepicker2" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/calendar.gif",
+			buttonImageOnly: true
+		});
+		$( "#selectable" ).selectable();
+	});
+	$(document).ready(function() {
+  $('#mainTable tr')
+    .filter(':has(:checkbox:checked)')
+    .addClass('selected')
+    .end()
+  .click(function(event) {
+    $(this).toggleClass('selected');
+    if (event.target.type !== 'checkbox') {
+      $(':checkbox', this).attr('checked', function() {
+        return !this.checked;
+      });
+    }
+  });
+});
+</script>
+
 </head>
 
 <body>
@@ -126,8 +134,8 @@ border-radius: .6em;
     <table width="635" border="0">
   <tr>
     <th width="186" scope="row">Risk Source* </th>
-    <td width="433"><select  class="styled" class="SmallCombo" name="risk_source" style="width=200">
-      <option selected="selected" value="-1"></option>
+    <td width="433">
+    <select class="styled" class="SmallCombo">
       <option value="151">* External driven decisions forced on the project </option>
       <option value="113">* Insufficient business knowledge </option>
       <option value="172">* Not meeting performance requirements </option>
@@ -156,8 +164,7 @@ border-radius: .6em;
   </tr>
   <tr>
     <th scope="row" rowspan="3">Estimated Impact* </th>
-    <td><select name="impactTo1"  class="styled" class="SmallCombo" id="i1">
-      <option selected="selected" value="a"></option>
+    <td><select class="styled" class="SmallCombo">
       <option value="b">Schedule</option>
       <option value="c">Effort</option>
       <option value="d">Finance</option>
@@ -171,8 +178,7 @@ border-radius: .6em;
     </select></td>
   </tr>
   <tr>
-    <td><select name="unit1"  class="styled" class="SmallCombo" id="u1">
-      <option selected="selected" value="a"></option>
+    <td><select class="styled" size="1" name="SearchStatus" class="SmallCombo">
       <option value="b">%</option>
       <option value="c">day</option>
       <option value="d">month</option>
