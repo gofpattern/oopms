@@ -1,4 +1,7 @@
 1. ERD
-2. Configuration
-3. Package and Deployment
-4. Interface
+2. Configuration (update later)
+3. Package and Deployment (update later)
+4. Interface (reference)
+5. Table Detail (reference)
+6. Function Detail design 
+7. CRC card
