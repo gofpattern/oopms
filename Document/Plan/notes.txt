@@ -115,3 +115,10 @@ add expense
 Add risk, issue
 Add requirement
 ..
+-------------------------------------------------------------
+13-06-2012
+Plan for next meeting: discuss about creating distinct table 
+						for commom properties like Status (on-going,closed,..)
+
+
+
