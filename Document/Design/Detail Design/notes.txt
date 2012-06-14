@@ -5,3 +5,27 @@
 5. Table Detail (reference)
 6. Function Detail design 
 7. CRC card
+
+
+Detail:
+System architectural
+Component diagram
+Class 
+Algorithm of important method
+Sequence diagram
+User Interface design
+database design
+
+
+Database:
+Functionality
+Tables and Fields
+Foreign key
+Naming conventions The usage of dashes, spaces, digits and special characters is a bad idea.
+Do not delete physically
+Discuss normalization
+Lack of documentation
+One table to hold all domain values
+Discuss using stored procedures to access data
+Build generic objects
+   
