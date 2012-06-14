@@ -121,4 +121,5 @@ Plan for next meeting: discuss about creating distinct table
 						for commom properties like Status (on-going,closed,..)
 
 
-
+14-06:
+Code vs ID ?
