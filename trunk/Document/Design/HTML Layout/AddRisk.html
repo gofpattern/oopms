@@ -5,6 +5,7 @@
 <title>Add Risk</title>
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
 <link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<link type="text/css" href="css/uportal.css" rel="Stylesheet" />	
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/form-elements.js"></script>
@@ -92,9 +93,11 @@
 
 </head>
 
-<body>
+<body id="portal" class="up fl-theme-mist">
 
-<div class="container">
+<div id="portalPageBodyInner" class="container">
+
+
   <div class="header">
   <table width="960">
   	<tr>
@@ -130,8 +133,10 @@
 		<a href="Create Project-Admin ver.html">Create Project</a>	
 </div>
     <p>
-    <h1>Add Risk</h1>
-    <table width="635" border="0">
+   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
+    	<h2 class="title" >Add Risk</h2>
+    </div>
+    <table class="portlet-table">
   <tr>
     <th width="186" scope="row">Risk Source* </th>
     <td width="433">
@@ -215,12 +220,12 @@
       </p>
     </p>
     <h5>
-    <table width="572" border="1">
+    <table class="portlet-table" border="1">
       <tbody>
         <tr style="color: red;">
-          <td  align="center" width="92"><b><font color="#000000">Column</font></b></td>
-          <td align="center" width="331"><b><font color="#000000">Value</font></b></td>
-          <td align="center" width="140"><b><font color="#000000">&nbsp;Formula</font></b></td>
+          <th  align="center" width="92"><b><font color="#000000">Column</font></b></td>
+          <th align="center" width="331"><b><font color="#000000">Value</font></b></td>
+          <th align="center" width="140"><b><font color="#000000">&nbsp;Formula</font></b></td>
         </tr>
         <tr style="color: red;">
           <td width="92"><i>Probability</i></td>

@@ -18,10 +18,12 @@ border-radius: .6em;
 }
 
 </style>
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+<link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<link type="text/css" href="css/uportal.css" rel="Stylesheet" />	
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/form-elements.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script language="javascript">
 	
 	$(function() {
@@ -56,40 +58,41 @@ border-radius: .6em;
 <title>Untitled Document</title>
 </head>
 
-<body>
-<div align="center">
-<table class="Table" cellspacing="1" width="797">
-<caption class="TableCaption">
- <h1>Add new Task</h1>
- <br />
-</caption>
+<body id="portal" class="up fl-theme-mist">
+
+<div id="portalPageBodyInner" class="container">
+<div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
+    	<h2 class="title" >Add New Task</h2>
+    </div>
+<table class="portlet-table" cellspacing="1" width="797">
+
 	<tbody>
 		<tr>
-			<td width="150" class="ColumnLabel">Title*</td>
-			<td width="696" class="CellBGR3"><input name="code" size="9" type="text" ></td>
+			<th >Title*</td>
+			<td><input name="code" size="9" type="text" ></td>
 		</tr>
 		<tr>
-			<td class="ColumnLabel"> Start Date* </td>
-			<td class="CellBGR3"><input name="planDate" size="9" maxlength="9" type="text" id="datepicker1">  
+			<th > Start Date* </td>
+			<td><input name="planDate" size="9" maxlength="9" type="text" id="datepicker1">  
 		    (DD-MM-YYYY) </td>
 		</tr>
 		
 		<tr>
-			<td class="ColumnLabel"> Finish Date </td>
-			<td class="CellBGR3"><input name="rePlanDate" size="9" maxlength="9" type="text" id="datepicker2"> 
+			<th> Finish Date </td>
+			<td><input name="rePlanDate" size="9" maxlength="9" type="text" id="datepicker2"> 
             (DD-MM-YYYY) </td>
 		</tr>
 		<tr>
-			<td class="ColumnLabel"> Planned Effort </td>
-			<td class="CellBGR3"><input name="rePlanDate" type="text" size="9" maxlength="9"> (Hours) </td>
+			<th > Planned Effort </td>
+			<td><input name="rePlanDate" type="text" size="9" maxlength="9"> (Hours) </td>
 		</tr>
 		<tr>
-			<td class="ColumnLabel"> Actual Effort </td>
-			<td class="CellBGR3"><input name="rePlanDate" type="text" size="9" maxlength="9"> (Hours) </td>
+			<th > Actual Effort </td>
+			<td><input name="rePlanDate" type="text" size="9" maxlength="9"> (Hours) </td>
 		</tr>
 		
         <tr>
-			<td> Stage* </td>
+			<th> Stage* </td>
 			<td>
 				<select class="styled" size="1" name="SearchStatus" class="SmallCombo">                    
                     <option selected="" value="0">All stages</option>                    
@@ -103,8 +106,8 @@ border-radius: .6em;
 		</tr>
 		
 		<tr>
-			<td class="ColumnLabel"> Process </td>
-				<td class="CellBGR3">
+			<th > Process </td>
+				<td>
 					<select name="process" class="styled" class="SmallCombo">
 						<option value="23">Administration</option>
 						<option value="4">Coding</option>
@@ -139,8 +142,8 @@ border-radius: .6em;
 				</td>
 		</tr>
         <tr>
-			<td class="ColumnLabel"> Product* </td>
-			<td class="CellBGR3">
+			<th > Product* </td>
+			<td>
 				<select name="cboStatus" size="1" style="width: 90" class="styled" class="SmallCombo">                    
                     <option selected="selected" value="-1">All Product</option>                    
                     <option value="1">LOC</option>                    
@@ -152,8 +155,8 @@ border-radius: .6em;
 			</td>
 		</tr>
         <tr>
-			<td class="ColumnLabel"> Assigned To* </td>
-			<td class="CellBGR3">
+			<th > Assigned To* </td>
+			<td>
 				<select name="assignedTo" class="styled" class="SmallCombo">
 					<option value="118124">PNTG</option>
 					<option value="1">SYSADMIN</option>
@@ -162,8 +165,8 @@ border-radius: .6em;
 			</td>
 		</tr>
 		<tr>
-			<td class="ColumnLabel"> Status* </td>
-			<td class="CellBGR3">
+			<th > Status* </td>
+			<td>
 				<select name="assignedTo" class="styled" class="SmallCombo">                    
                     <option value="1">Closed</option>
                     
@@ -177,16 +180,15 @@ border-radius: .6em;
 			</td>
 		</tr>
 		<tr>
-			<td class="ColumnLabel">Description</td>
-			<td class="CellBGR3"><textarea rows="5" cols="50" name="note" ></textarea></td>
+			<th >Description</td>
+			<td><textarea rows="5" cols="50" name="note" ></textarea></td>
 		</tr>
-        <tr>
-        <td>
-                <input type="button" onClick="location.href='TaskManager.html'" name="ok" value=" OK " class="BUTTON">
-                <input type="button" name="cancel" value=" Cancel " class="BUTTON" onclick="location.href='TaskManager.html'" /></td>
-        </tr>
+       
 	</tbody>
 </table>
+<br />
+    <input type="button" onClick="location.href='TaskManager.html'" name="ok" value=" OK " class="BUTTON">
+                <input type="button" name="cancel" value=" Cancel " class="BUTTON" onclick="location.href='TaskManager.html'" /></td>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
 <link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<link type="text/css" href="css/uportal.css" rel="Stylesheet" />	
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/form-elements.js"></script>
@@ -74,7 +75,12 @@
   </table>
   </div>
  
-  <div class="content">
+  <!-- Portlet -->
+<div class="fl-widget portlet snooper view-main" role="section">
+
+	
+    <!-- Portlet Titlebar -->
+   
     <div id="tabs28">
       
     <ul>
@@ -85,10 +91,12 @@
 </ul>
 </div>
   
-   
+    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
+    	<h2 class="title" role="heading"> Project Management</h2>
+    </div>
 	<div class="demo" style="font-size:20px" align="right">
  
-<a href="Create Project-Admin ver.html">Create Project</a>
+<a href="Create Project-Admin ver.html" >Create Project</a>
 
 	
 	</div>
@@ -107,7 +115,7 @@
 	</div>
 	</div>
      <br />
-   <table id="mainTable" border="0" cellpadding="3" cellspacing="0" width="100%" >
+   <table class="portlet-table" border="0" cellpadding="3" cellspacing="0" width="100%" >
       <tr>
     <th scope="col">No</th>
     <th scope="col">Project Name</th>
