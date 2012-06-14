@@ -3,6 +3,7 @@
 <head>
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
 <link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<link type="text/css" href="css/uportal.css" rel="Stylesheet" />	
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/form-elements.js"></script>
@@ -73,9 +74,9 @@ border-radius: .6em;
 </style>
 </head>
 
-<body>
+<body id="portal" class="up fl-theme-mist">
 
-<div class="container">
+<div id="portalPageBodyInner" class="container">
   <div class="header">
   <table width="996">
   	<tr>
@@ -109,21 +110,19 @@ border-radius: .6em;
 
 </div>
   
-   
+   <div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
 	<div class="demo" style="font-size:20px" align="right">
  
 		<a href="Create Project-Admin ver.html">Create Project</a>	
 	</div>
     <p>
-    <h1>Add Change Request</h1>
-    <table width="600" border="0">
+      <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
+    	<h2 class="title" >Add Change Request</h2>
+    </div>
+    <table class="portlet-table" >
   <tr>
     <th width="127" scope="row">Name</th>
     <td width="457"><input type="text"/></td>
-  </tr>
-  <tr>
-    <th scope="row">Description</th>
-    <td>&nbsp;</td>
   </tr>
   <tr>
     <th scope="row">Stage</th>
@@ -133,8 +132,13 @@ border-radius: .6em;
       <option selected="selected">Ongoing</option>
       </select></td>
   </tr>
+  <tr>
+    <th scope="row">Description</th>
+    <td> <textarea rows="10" cols="70" name="txtScopeObjective"></textarea></td>
+  </tr>
+  
 </table>
-    <textarea rows="10" cols="70" name="txtScopeObjective"></textarea>
+   
 
     </p>
     <p>
@@ -154,5 +158,6 @@ border-radius: .6em;
     <p>DMS Group</p>
     <!-- end .footer --></div>
   <!-- end .container --></div>
+  </div>
 </body>
 </html>
