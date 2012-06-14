@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>Project Dashboard</title>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+<link type="text/css" href="css/dashboard.css" rel="Stylesheet" />	
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="js/form-elements2.js"></script>
+<style type="text/css"> 
+#tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:0px 10px 0 20px; list-style:none;   } 
+#tabs28 li {   display:inline;   margin:0;   padding:0;   } 
+#tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
+#tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
+#tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
+#tabs28 a:hover span {   background-position:100% -42px;   }
+</style>
+	<script language="javascript">
+	
+	$(function() {
+		$( "#datepicker1" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/calendar.gif",
+			buttonImageOnly: true
+		});
+		$( "#datepicker2" ).datepicker({
+			showOn: "button",
+			buttonImage: "images/calendar.gif",
+			buttonImageOnly: true
+		});
+		$( "#selectable" ).selectable();
+	});
+	$(document).ready(function() {
+  $('#mainTable tr')
+    .filter(':has(:checkbox:checked)')
+    .addClass('selected')
+    .end()
+  .click(function(event) {
+    $(this).toggleClass('selected');
+    if (event.target.type !== 'checkbox') {
+      $(':checkbox', this).attr('checked', function() {
+        return !this.checked;
+      });
+    }
+  });
+});
+	</script>
+		</head>
+<body id="portal" class="up fl-theme-mist">
+<div id="portalPageBodyInner" style="width:1120px;" class="container">
+	 <div class="header">
+      <table >
+        <tr >
+            <td width="922" height="92">&nbsp;</td>
+            <td width="271" valign="top" style="color:#FFF">
+                <p>Hello Manager , <a href="HomePage.html">Log Out</a>
+            </p>
+            <p><a href="UserDetail.html">Change your Information</a></br>
+            <a href="Create Project.html">Create new Project</a>
+            </p></td>
+        </tr>
+      </table>
+  </div>
+   <div class="content">
+    <div id="tabs28">      
+    <ul> 
+ <li><a href="Dashboard.htm"><span>Dash Board</span></a></li>
+    <li><a><span>Time Sheet</span></a></li>
+    <li><a href="TaskManager.htm"><span>Project Planner</span></a></li>
+    <li><a><span>DMS</span></a></li>
+    <li><a><span>Report</span></a></li>
+    <li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
+    <li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
+    <li><a href="Cost.html"><span>Cost</span></a></li>
+    <li><a><span>Requiment</span></a></li>
+    <li><a href="Product.html"><span>Product</span></a></li>
+    <li><a href="WorkOrder.html"><span>Work Order</span></a></li> 
+</ul>
+</div>
+
+
+        <table id="filterTable"  border="0" cellspacing="0" width="100%">
+            <tbody>
+			<tr>
+			  <td ><b><font color="#000080">&nbsp;&nbsp;Status&nbsp;&nbsp;</font></b></td>
+			  <td><b><font color="#000080">&nbsp;&nbsp;Category&nbsp;&nbsp;</font></b></td>
+			    <td > <b><font color="#000080">&nbsp;&nbsp;Time&nbsp;&nbsp;&nbsp;</font></b></td>
+				<td> <b><font color="#000080">&nbsp;&nbsp;Progress</font></b></td>
+				 <td><b><font color="#000080">&nbsp;&nbsp;Efficiency</font></b></td>
+				 <td >            <b><font color="#000080">&nbsp;&nbsp;Cost&nbsp;&nbsp;&nbsp;</font></b></td>
+				  <td style="width:200px;" >          <b><font color="#000080">&nbsp;&nbsp;Start Date</font></b>   </td>
+				  <td style="width:200px; >           <b><font color="#000080">&nbsp;&nbsp;Finish Date</font></b></td>
+				 			</tr>
+			<tr>
+                
+               <td >
+                <select   class="styled"  name="cboStatus" size="1" >                    
+                    <option value="-1" selected>All status</option>                    
+                    <option value="1" >Closed</option>                    
+                    <option value="2">Cancelled</option>                    
+                    <option value="3">Tentative</option>                    
+                    <option value="0">On-going</option>                    
+                </select></td>
+                
+                <td><b><font color="#000080">
+        	<select class="styled" name="cboCategory" size="1" >
+            	<option selected="selected" value="-1">All categories</option>
+                <option value="0">Development</option>
+                <option value="1">Maintenance</option>
+                <option value="2">Others</option>
+        	</select></td>
+            
+            <td>           
+            <select class="styled" name="" >
+            	<option selected="selected" value="-1">All</option>
+                <option value="0">Good</option>
+                <option value="1">Normal</option>
+                <option value="2">Bad</option>
+        	</select>
+            </td>    
+                    
+            <td>
+            
+            <select class="styled" name="" >
+            	<option selected="selected" value="-1">All</option>
+                <option value="0">Good</option>
+                <option value="1">Normal</option>
+                <option value="2">Bad</option>
+        	</select>
+            </td>
+            <td align="left" valign="middle" width="8%">
+           
+            <select class="styled" name="" >
+            	<option selected="selected" value="-1">All</option>
+                <option value="0">Good</option>
+                <option value="1">Normal</option>
+                <option value="2">Bad</option>
+        	</select></td>
+            
+            <td align="left" >          
+            <select class="styled" name="" >
+            	<option selected="selected" value="-1">All</option>
+                <option value="0">Good</option>
+                <option value="1">Normal</option>
+                <option value="2">Bad</option>
+        	</select></td>
+            
+            <td style="width:150px;"  class="vAlignMid">
+         <input style="width:100px;" type="text" id="datepicker1">           
+      </td>
+            <td >           
+             <input style="width:100px;" type="text" id="datepicker2"> 
+               </td>
+               
+                <td><input name="DoSearchProject" onClick="" value="Search" type="button"></td>
+            </tr>
+        </tbody></table>
+      </td>
+    </tr>
+	</tbody>
+    <!-- PROJECT LIST -->
+	</table>
+	<table id="mainTable">
+    <tr class="table_header">
+        <!-- TABLE HEADER -->
+        <td width="68"><b><font color="white" face="Verdana" size="1">Project Code</span></font></b></td>
+        <td width="227"><b><font color="white" face="Verdana" size="1">Project Name</span></font></b></td>
+        <td width="162"><b><font color="white" face="Verdana" size="1">Project Manager</span></font></b></td>      
+        <td width="104"><b><font color="white" face="Verdana" size="1">Project Health</span></font></b></td>
+        <td width="172"><b><font color="white" face="Verdana" size="1">Time</span></font></b></td>
+        <td width="177"><b><font color="white" face="Verdana" size="1">Progress</span></font></b></td>
+        <td width="52"><b><font color="white" face="Verdana" size="1">Efficiency</span></font></b></td>
+        <td width="47"><b><font color="white" face="Verdana" size="1">Cost</span></font></b></td>
+        <td width="81"><b><font color="white" face="Verdana" size="1">Start Date</span></font></b></td>
+        <td width="72"><b><font color="white" face="Verdana" size="1">Finish Date</span></font></b></td>
+         <td width="45"><b><font color="white" face="Verdana" size="1">Planned Effort</span></font></b></td>
+        <td width="36"><b><font color="white" face="Verdana" size="1">Actual Effort</span></font></b></td>
+    </tr>
+    
+    <tr>
+    	<td width="68">APJ</td>
+        <td width="227"><a href="#">Demo A Project</a></td>
+        <td width="162">Manager A</td>
+        <td width="104"><img src="icons/circle_red.png" width="24" height="24"></td>
+        <td width="172"><img src="icons/progress_bar.png" width="150" height="24" ></td>
+        <td width="177"><img src="icons/progress_bar_red_50.png" width="150" height="24" ></td>
+      <td width="52"><img src="icons/circle_red.png" width="24" height="24"></td>
+      <td width="47"><img src="icons/circle_red.png" width="24" height="24"></td>
+        <td width="81">2/28/12</td>
+      <td width="72">6/28/12</td>
+      <td width="45">100</td>
+        <td width="36">0</td>
+   </tr>
+        <tr>
+    	<td width="68">BPJ</td>
+        <td width="227"><a href="#">Demo B Project</a></td>
+        <td width="162">Manager B</td>        
+        <td width="104"><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td width="172"><img src="icons/progress_bar.png" width="150" height="24" ></td>
+        <td width="177"><img src="icons/progress_bar.png" width="150" height="24" ></td>
+      <td width="52"><img src="icons/circle_yellow.png" width="24" height="24"></td>
+      <td width="47"><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td width="81">2/28/12</td>
+      <td width="72">6/28/12</td>
+      <td width="45">100</td>
+        <td width="36">0</td>
+   </tr>    
+   <tr>
+    	<td width="68">CPJ</td>
+       <td width="227"><a href="#">Demo C Project</a></td>
+        <td width="162">Manager C</td>
+        <td width="104"><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td width="172"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+        <td width="177"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+      <td width="52"><img src="icons/circle_yellow.png" width="24" height="24"></td>
+      <td width="47"><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td width="81">2/28/12</td>
+      <td width="72">4/28/12</td>
+      <td width="45">100</td>
+        <td width="36">120</td>
+   </tr>    <tr>
+    	<td width="68">DPJ</td>
+       <td width="227"><a href="#">Demo D Project</a></td>
+        <td width="162">Manager D</td>
+        <td width="104"><img src="icons/circle_green.png" width="24" height="24"></td>
+        <td width="172"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+        <td width="177"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+      <td width="52"><img src="icons/circle_green.png" width="24" height="24"></td>
+      <td width="47"><img src="icons/circle_green.png" width="24" height="24"></td>
+        <td width="81">2/28/12</td>
+      <td width="72">4/28/12</td>
+      <td width="45">100</td>
+        <td width="36">120</td>
+   </tr>
+</tbody></table>
+ <!-- end .content_dashboard--></div>
+     <div id="button">
+        <input type="button" name="input" value="Export"/>
+    </div>
+<!-- end .content--></div>
+
+  <div class="footer">
+    <p>OOPMS Group</p>
+    <!-- end .footer --></div>
+<!-- end .container --></div>
+</body></html>
