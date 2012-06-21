@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+>
+    <!-- ******************** Handler Interceptors & Mapping ******************** -->
+    
+    <bean id="portletModeParameterHandlerMapping" class="org.springframework.web.portlet.handler.ParameterHandlerMapping">
+        <property name="order" value="10" />
+        <property name="defaultHandler" ref="TODO SET THIS TO A CONTROLLER" />
+        <property name="parameterName" value="action" />
+        <property name="parameterMap">
+            <map>
+                <!-- Add paramter to controller mappings here -->
+            </map>
+        </property>
+    </bean>
+</beans>
