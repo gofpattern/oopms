@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="lib/runtime/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/jstl-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-beans-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-context-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-context-support-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-core-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-web-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-webmvc-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/spring-webmvc-portlet-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/standard-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/compile/portlet-api-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/compile/servlet-api-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/test/easymock-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/test/junit-4.2.jar"/>
+	<classpathentry kind="lib" path="lib/test/spring-test-2.5.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

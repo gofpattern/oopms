@@ -1,0 +1,153 @@
+<project name="Portlet Skeleton" basedir=".">
+    <property name="lib.basedir"        value="${basedir}/lib" />
+    <property name="lib.dir.compile"    value="${lib.basedir}/compile" />
+    <property name="lib.dir.provided"   value="${lib.basedir}/provided" />
+    <property name="lib.dir.test"       value="${lib.basedir}/test" />
+    <property name="lib.dir.runtime"    value="${lib.basedir}/runtime" />
+
+    <property environment="env" />
+    <property name="antBuildPropertiesFile" value="${basedir}/build.properties" />
+
+    <!-- Maven path related properties not provided by the pom -->
+    <property name="pom.build.resourcesDirectory"       value="${basedir}/src/main/resources" />
+    <property name="pom.build.testResourcesDirectory"   value="${basedir}/src/test/resources" />
+    <property name="pom.build.webappResourcesDirectory" value="${basedir}/src/main/webapp" />
+    
+    <property name="dest.dir" value="${basedir}/dist" />
+
+
+    <target name="clean" description="Required by MyUW build process. Cleans all generated files.">
+        <property file="${antBuildPropertiesFile}" />
+
+        <delete dir="${pom.build.directory}" />
+        <delete dir="${dest.dir}" />
+    </target>
+
+    <target name="dist" description="Required by MyUW build process. Packages a fully build portlet WAR"
+        depends="resource:resources, compiler:compile, jspc:compile, resource:testResources, compiler:testCompile, surefire:test, war:war">
+
+        <property file="${antBuildPropertiesFile}" />
+
+        <mkdir dir="${dest.dir}"/>
+        <copy file="${pom.build.directory}/${pom.build.finalName}.war" todir="${dest.dir}" />
+    </target>
+    
+    <target name="deploy" depends="dist" description="Deploys the packaged WAR to uPortal">
+        <fail message="portal.home does not exist. Set this to the location of uPortal in build.properties. (current location: ${portal.home})">
+            <condition>
+                <not>
+                    <available file="${portal.home}" />
+                </not>
+            </condition>
+        </fail>
+        
+        <ant target="deployPortletApp" antfile="${portal.home}/build.xml">
+            <property name="portletApp" value="${dest.dir}/${pom.build.finalName}.war" />
+        </ant>
+    </target>
+    
+    
+    <!--
+     | Utility targets that mimic the maven goals needed to build the project
+     +-->
+    <target name="resource:resources">
+        <property file="${antBuildPropertiesFile}" />
+
+        <mkdir dir="${pom.build.outputDirectory}" />
+        <copy todir="${pom.build.outputDirectory}">
+            <fileset dir="${pom.build.resourcesDirectory}" />
+        </copy>
+    </target>
+
+    <target name="compiler:compile" depends="checkLibDirs">
+        <property file="${antBuildPropertiesFile}" />
+
+        <mkdir dir="${pom.build.outputDirectory}" />
+        <javac srcdir="${pom.build.sourceDirectory}" destdir="${pom.build.outputDirectory}">
+            <classpath>
+                <fileset dir="${lib.dir.provided}" />
+                <fileset dir="${lib.dir.runtime}" />
+                <fileset dir="${lib.dir.compile}" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jspc:compile">
+        <echo>Not Implemented</echo>
+    </target>
+
+    <target name="resource:testResources">
+        <property file="${antBuildPropertiesFile}" />
+
+        <mkdir dir="${pom.build.testOutputDirectory}" />
+        <copy todir="${pom.build.testOutputDirectory}">
+            <fileset dir="${pom.build.testResourcesDirectory}" />
+        </copy>
+    </target>
+
+    <target name="compiler:testCompile" depends="checkLibDirs">
+        <property file="${antBuildPropertiesFile}" />
+
+        <mkdir dir="${pom.build.testOutputDirectory}" />
+        <javac srcdir="${pom.build.testSourceDirectory}" destdir="${pom.build.testOutputDirectory}">
+            <classpath>
+                <fileset dir="${lib.dir.provided}" />
+                <fileset dir="${lib.dir.runtime}" />
+                <fileset dir="${lib.dir.compile}" />
+                <fileset dir="${lib.dir.test}" />
+                <pathelement location="${pom.build.outputDirectory}" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="surefire:test" depends="checkLibDirs">
+        <property file="${antBuildPropertiesFile}" />
+        <property name="pom.build.test.reportsDirectory" value="${pom.build.directory}/surefire-reports" />
+
+        <mkdir dir="${pom.build.test.reportsDirectory}" />
+        <junit fork="true" showoutput="true" printsummary="yes">
+            <classpath>
+                <fileset dir="${lib.dir.provided}" />
+                <fileset dir="${lib.dir.runtime}" />
+                <fileset dir="${lib.dir.compile}" />
+                <fileset dir="${lib.dir.test}" />
+                <pathelement location="${pom.build.outputDirectory}" />
+                <pathelement location="${pom.build.testOutputDirectory}" />
+            </classpath>
+
+            <formatter type="plain" />
+
+            <batchtest fork="yes" todir="${pom.build.test.reportsDirectory}">
+                <fileset dir="${pom.build.testOutputDirectory}" />
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="war:war">
+        <property file="${antBuildPropertiesFile}" />
+
+        <property name="pom.war.directory" value="${pom.build.directory}/${pom.build.finalName}" />
+        <mkdir dir="${pom.build.directory}/${pom.build.finalName}" />
+        <copy todir="${pom.war.directory}">
+            <fileset dir="${pom.build.webappResourcesDirectory}" />
+        </copy>
+        <copy todir="${pom.war.directory}/WEB-INF/classes">
+            <fileset dir="${pom.build.outputDirectory}" />
+        </copy>
+        <copy todir="${pom.war.directory}/WEB-INF/lib">
+            <fileset dir="${lib.dir.runtime}" />
+        </copy>
+        <war destfile="${pom.war.directory}.war" webxml="${pom.war.directory}/WEB-INF/web.xml">
+            <fileset dir="${pom.war.directory}">
+                <exclude name="WEB-INF/web.xml" />
+            </fileset>
+        </war>
+    </target>
+    
+    <target name="checkLibDirs">
+        <mkdir dir="${lib.dir.provided}"/>
+        <mkdir dir="${lib.dir.runtime}"/>
+        <mkdir dir="${lib.dir.compile}"/>
+        <mkdir dir="${lib.dir.test}"/>
+    </target>
+</project>
