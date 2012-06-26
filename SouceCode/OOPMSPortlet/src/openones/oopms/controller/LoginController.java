@@ -24,7 +24,7 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.dao.UserDao;
 import openones.oopms.form.LoginForm;
-import openones.oopms.model.Users;
+import openones.oopms.model.Developer;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.webflow.context.servlet.HttpSessionMap;
+import org.springframework.web.portlet.mvc.SimpleFormController;
 
 /**
  * @author Thach.Le
@@ -44,6 +44,8 @@ import org.springframework.webflow.context.servlet.HttpSessionMap;
 @Controller
 @RequestMapping("VIEW")
 public class LoginController {
+    
+    Developer user = new Developer();
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(LoginController.class);
 
@@ -69,6 +71,7 @@ public class LoginController {
     public LoginForm getCommandObject() {
         log.debug("getCommandObject.START");
         LoginForm formBean = new LoginForm();
+        formBean.setUsername("test");
         return formBean;
     }
 
@@ -85,10 +88,16 @@ public class LoginController {
         log.debug("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
         
-        if (!result.hasErrors()) {
+        
+        UserDao userDao = new UserDao();
+        
+        user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
+        
+        if (!result.hasErrors() && user!=null) {
             // Prepare parameter to render phase
-            response.setRenderParameter("action", "login");
+           response.setRenderParameter("action", "login");           
         } else {
+            result.rejectValue("username", "error");
             log.error("Error in binding result:" + result.getErrorCount());
         }
     }
@@ -104,17 +113,9 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("HomePage"); // display ViewDefectList.jsp
         // mav.addObject("helloForm", new HelloForm());
         PortletSession session = request.getPortletSession();
-        Users user = new Users();
-        UserDao userDao = new UserDao();
-        
-        user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
-        if(user!=null) {
-            session.setAttribute("USER", user.getUsername(),PortletSession.APPLICATION_SCOPE);
-        }
-        else {
-            session.setAttribute("USER", "TruongMH",PortletSession.APPLICATION_SCOPE);
-        }
-        
+           
+            session.setAttribute("USER", user.getAccount(),PortletSession.APPLICATION_SCOPE);
+              
       
         return mav;
     }
