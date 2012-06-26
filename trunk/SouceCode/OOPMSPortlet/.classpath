@@ -10,8 +10,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="com.sun.portlet.plugin.library.portlet20"/>
-	<classpathentry kind="lib" path="WebContent/lib/jstl-1.1.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/lib/log4j-1.2.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Truong/Desktop/pluto-2.0.3/lib/pluto-taglib-2.0.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
