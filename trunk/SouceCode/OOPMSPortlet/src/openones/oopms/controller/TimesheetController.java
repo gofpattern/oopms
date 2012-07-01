@@ -43,26 +43,13 @@ import org.springframework.web.portlet.mvc.SimpleFormController;
  */
 @Controller
 @RequestMapping("VIEW")
-public class LoginController {
+public class TimesheetController {
     
     Developer user = new Developer();
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(LoginController.class);
 
-    /**
-     * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
-     * DefectViewList screen.
-     * @return name of view which is the name of the JSP page.
-     */
-    @RequestMapping
-    public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START");
-        // Get logon user
-        PortletSupport portletSupport = new PortletSupport(request);       
-            
-            return "login";
-       
-    }
+ 
     /**
      * Create bean for form.
      * @return Form bean for UI.
@@ -71,7 +58,7 @@ public class LoginController {
     public LoginForm getCommandObject() {
         log.debug("getCommandObject.START");
         LoginForm formBean = new LoginForm();
-        formBean.setUsername("TRUONGMH");
+        formBean.setUsername("test");
         return formBean;
     }
 
@@ -82,40 +69,26 @@ public class LoginController {
      * @param status status of session
      * @param response response of action
      */
-    @ActionMapping(params = "action=login")
+    @ActionMapping(params = "action=timesheet")
     public void processLogin(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processLogin.START");
         log.debug("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
         
-        
-        UserDao userDao = new UserDao();
-        
-        user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
-        
-        if (user!=null) {
-            // Prepare parameter to render phase
-           response.setRenderParameter("action", "login");           
-        } else {
-            result.rejectValue("username", "error");
-            log.error("Error in binding result:" + result.getErrorCount());
-        }
+        response.setRenderParameter("action", "timesheet");    
+      
     }
 
     /**
      * Process after the action "login" (method "processLogin") is executed.
      * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
      */
-    @RenderMapping(params = "action=login")
+    @RenderMapping(params = "action=timesheet")
     public ModelAndView postLogin(LoginForm formBean, RenderRequest request) {
         log.debug("postLogin.START");
         // request.setAttribute("user2", formBean);
-        ModelAndView mav = new ModelAndView("HomePage"); // display ViewDefectList.jsp
-        // mav.addObject("helloForm", new HelloForm());
-        PortletSession session = request.getPortletSession();
-           
-            session.setAttribute("USER", user.getAccount(),PortletSession.APPLICATION_SCOPE);
-              
+        ModelAndView mav = new ModelAndView("Timesheet"); // display ViewDefectList.jsp
+                     
       
         return mav;
     }

@@ -796,11 +796,7 @@ table#mainTable {
     background: #F39814; color: white;
 }
 #mainTable th {
-    background-color:#EB8F00;
-color: #fff;
-font-size: 85%;
-padding: 1px 1em;
-text-align: left;
+  background: #5f5f5f url(../images/button_bg.png) repeat-x 0 -1px; padding: 8px; text-align: left; color: #fff; 
 }
 #mainTable th, #mainTable td {
     padding: 3px 5px;
@@ -808,8 +804,29 @@ text-align: left;
 #mainTable td:hover {
     cursor: pointer;
 }
+#mainTable tbody {
+ border-left: 1px solid #ddd; border-right: 1px solid #ddd; 
+ }
+ #mainTable2 {
+ width: 100%; margin: 0 0 20px; border-collapse: collapse; 
+ }
+ #mainTable2 tbody { border-left: 1px solid #ddd; border-right: 1px solid #ddd; background: white;}
+#mainTable2 th { background: #5f5f5f url(../images/button_bg.png) repeat-x 0 -1px; padding: 8px; text-align: center; color: #fff; }
+#mainTable2 th.icons { width: 86px; }
+#mainTable2 td { line-height: 14px; }
+#mainTable2 th a { color: #fff; }
+#mainTable2 strong { color: #444; }
+#mainTable2 small { color: #aaa; font-size: 0.9em; }
+#mainTable2 tr.alt td { background: #f4f4f4; } 
+#mainTable2 tr.admin td { background: #FFFCDF; }
+ #mainTable2 td:hover {
+    cursor: pointer;
+}
+#mainTable2 tr:hover {
+    background: #30B7F3; color: white;
+}
 .selected td {
-       background: #F39814; color: white;
+       background: #30B7F3; color: white;
 }
 
 input[type="text"] {
@@ -819,9 +836,8 @@ background:
 white;
 box-shadow: 0 1px 4px 
 rgba(0, 0, 0, 0.2) inset;
--moz-border-radius: .6em;
--webkit-border-radius: .6em;
-border-radius: .6em;
+
+
 }
 
 input[type="password"] {
@@ -831,16 +847,14 @@ background:
 white;
 box-shadow: 0 1px 4px 
 rgba(0, 0, 0, 0.2) inset;
--moz-border-radius: .6em;
--webkit-border-radius: .6em;
-border-radius: .6em;
+
 }
 
 input[type="button"] {
 border-color: 
 #294D6B;
 background: 
-steelBlue;
+#1490E3;
 color: 
 white;
 text-shadow: 0 -1px 1px 

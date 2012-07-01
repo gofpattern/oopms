@@ -8,19 +8,44 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <%@ page import="javax.portlet.PortletSession"%>
  <portlet:defineObjects /> 
- 
+    
 	<title>Dashboard: Project Bubble</title>
 
 	<jsp:include page="header.jsp"/>
-		<style type="text/css">
-					</style>
-		
-			<script type="text/javascript">
-			$.ajaxSetup({
-			    cache: false
-			});
-		</script>
-	
+				
+			
+		<style>
+	#feedback { font-size: 1.4em; }
+	#selectable .ui-selecting { background: #FECA40; }
+	#selectable .ui-selected { background: #F39814; color: white; }
+	#selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+	#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+	</style>
+
+	    <script type="text/javascript">
+    $(document).ready(function() {
+	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
+	    $(this).toggleClass('selected');
+	    if (event.target.type !== 'checkbox') {
+	      $(':checkbox', this).attr('checked', function() {
+	        return !this.checked;
+	      });
+	    }
+	  });
+	  $( "#datepicker1" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#datepicker2" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#selectable" ).selectable();
+	});
+    
+    </script>
 </head>
 <body class="">
 
@@ -108,87 +133,74 @@
 	
 <div id="keepalive"></div>
 
-<div class="col1">
 
-	
-	<div class="hidden clearfix"></div>
+<table  border="0" >
+    <tbody>
+	<tr><td><strong>User</strong></td><td width="20%">Mạnh Hoàng Trương</td>
+	<td ><strong>Project</strong></td>
+        <td width="26%"><select class="styled" name="SearchProjectID" class="SmallCombo" value="0">
+<option selected="" value="0">All</option><option value="130674">BSYS</option><option value="10047">CMM-4</option><option value="100517">CMM5</option><option value="103058">CMMI-5</option><option value="125773">FMIS.BU2-JCT</option><option value="265">FMS-1</option><option value="100461">FMS-M-2003</option><option value="101720">FMS-M-2004</option><option value="102378">FMS-TD</option><option value="125608">HIVE-EH</option><option value="128650">JCIS</option><option value="10036">MISC</option><option value="129909">Mobile Renewal</option><option value="103799">RET</option><option value="111122">Sample</option><option value="125908">SNS</option><option value="126347">Tensuite</option><option value="131848">TOKUTEN</option>
+      </select></td> 
+	   <td ><strong>From Date</td>
+        <td  class="vAlignMid">
+         <input type="text" id="datepicker1">
+           
+      </td>
 		
-			<div class="helper start clearfix">
-      <a href='<portlet:renderURL>
-            <portlet:param name="action" value="timesheet"/>
-            <portlet:param name="userId">
-                <jsp:attribute name="value">
-                  <%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%>
-                </jsp:attribute>
-            </portlet:param>    
-        </portlet:renderURL>
-        '>Test</a>
-				<h2><strong>Welcome to your dashboard, <%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%> </strong></h2>
-				<h4><strong>Step 1: Let's create a new project</strong></h4>
-				<p>Click on the button below to create your first project.</p>
-				<br><br><br>
-				<p><a href="https://truong.projectbubble.com/manage/setup" class="button big showform">Create New Project</a></p>
-				<br class="clear"><br>
-			</div>
-				
-				
+	  
+	  </tr>
+	<tr><td><strong>Role</strong></td><td>Developer</td>
+	 <td width="7%" align="left"><strong>Status</strong></td>
+        <td width="26%"><select class="styled" size="1" name="SearchStatus" class="SmallCombo" value="0">
+            <option value="0" selected="">All</option>
+            <option value="1">Unapproved</option>
+            <option value="2">Approved</option>
+            <option value="3">Rejected</option>
+      </select></td>
+	   <td width="17%" align="left"><strong>To Date</strong></td>
+        <td colspan="2" class="vAlignMid">
+         <input type="text" id="datepicker2">
+           
+        </td><td></td></tr>
+</tbody></table>
+		<p><input type="button" class="button blue small" name="Search" onClick="location.href='timesheetList.html'" value="Search" class="Button" >		  
 		
-		
-		
-		
-	
-	<div class="module">
-	
-		<h4>Recent Activity</h4>
+		  <input type="button" class="button blue small" name="Addnew" onclick="location.href='addTimeSheet.html'" value="Addnew" class="Button" />
+		 </p>
 
-		<table class="default activity">
-			<thead>
-				<tr>
-					<th colspan="2" class="first last">Activity Feed</th>
-				</tr>
-			</thead>
-			<tbody id="activity">	<!--noactivity-->
-	<tr>
-		<td colspan="2">
-			There has not been any recent activity yet.
-		</td>
-	</tr>
-</tbody>
-		</table>	
-		
-					<div class="clearfix">
-				<p class="loadactivityparent"><a href="https://truong.projectbubble.com/manage/activity" class="button blue small loadactivity">More</a></p>
-			</div>
-				
-	</div>
-		
-	<p style="text-align: right;"><a href="https://truong.projectbubble.com/manage/dashboard#" class="button grey" id="totop">Back to top</a></p>	
+
+<table id="mainTable2" border="0" cellpadding="3" cellspacing="0" width="100%" >
+
+   <tbody><tr >
+        <th width="5%"><input type="checkbox" name="allbox" value="Check All"onClick="JavaScript:checkAll();"></th>
+        <th width="10%">Date</th>    
+        <th width="10%">Project</th>    
+        <th width="5%" >Work</th>
+        <th width="5%">Process</th>      
+        <th width="5%">Time</th>
+        <th width="50%">Description</th>
+        <th width="5%">Status</th>
+    </tr>    
+   
+    <tr>
+       <td class="cb"><input type="checkbox" value="yes"></td>
+        <td ><font color="">05/11/12</font></td>
+        <td ><font color="">TOKUTEN</font></td>      
+        <td><font color="">Create</font></td>
+        <td><font color="">Coding</font></td>        
+        <td align="center"><font color="">7.0</font></td>
+        <td>[TOKUTEN] Coding AWRF_W_WD-002 <font color="">
+ </font></td>
+        <td><font color="">unapproved</font></td>
+    </tr>
+
+</tbody></table>
+<p> <input type="button" class="button blue small" name="Update" onclick="javascript:doUpdate()" value="Update" class="Button" />        
+		  <input type="button" class="button blue small" name="Delete" onClick="javascript:doDelete()" value="Delete" class="Button"></p>
+	
 	
 </div>
-<div class="col2">
-	
-				
-				
-											<div class="helper upgrade clearfix">			
-					<h4><strong>Setup Progress</strong></h4>
-					
-					<div class="progress"><div class="progressbar" style="width:0%"></div></div>
-													
-					<ol>
-						<li class="">Create nre project</li>
-						<li class="">Invite users</li>
-						<li class="">Add products</li>
-						<li class="">Add tasks</li>
-					</ol>
-					
-									
-				</div>
-						
-				
-		
-<jsp:include page="calendar.jsp"/>
-	
-</div>
+
 	
 </div>		</div>
 
