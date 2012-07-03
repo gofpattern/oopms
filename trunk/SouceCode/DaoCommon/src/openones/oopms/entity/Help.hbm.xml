@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Help" table="HELP">
+        <composite-id name="id" class="openones.tms.dms.entity.HelpId">
+            <key-property name="topic" type="string">
+                <column name="TOPIC" length="50" />
+            </key-property>
+            <key-property name="seq" type="big_decimal">
+                <column name="SEQ" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="info" type="string">
+            <column name="INFO" length="80" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Practices" table="PRACTICES">
+        <comment>Practices and lessons (Insight)</comment>
+        <id name="practiceId" type="big_decimal">
+            <column name="PRACTICE_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="scenario" type="string">
+            <column name="SCENARIO" length="1500" />
+        </property>
+        <property name="practice" type="string">
+            <column name="PRACTICE" length="1500" />
+        </property>
+        <property name="type" type="big_decimal">
+            <column name="TYPE" precision="22" scale="0">
+                <comment>practice/lesson</comment>
+            </column>
+        </property>
+        <property name="category" type="string">
+            <column name="CATEGORY" length="150" />
+        </property>
+    </class>
+</hibernate-mapping>

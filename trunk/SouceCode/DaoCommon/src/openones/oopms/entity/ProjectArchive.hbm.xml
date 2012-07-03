@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.ProjectArchive" table="PROJECT_ARCHIVE">
+        <id name="projectId" type="big_decimal">
+            <column name="PROJECT_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="actualMaxTeamSize" type="big_decimal">
+            <column name="ACTUAL_MAX_TEAM_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="actualEffortUsage" type="big_decimal">
+            <column name="ACTUAL_EFFORT_USAGE" precision="22" scale="0" />
+        </property>
+        <property name="billableActualEffort" type="big_decimal">
+            <column name="BILLABLE_ACTUAL_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="actualManagement" type="big_decimal">
+            <column name="ACTUAL_MANAGEMENT" precision="22" scale="0" />
+        </property>
+        <property name="actualManEffort" type="big_decimal">
+            <column name="ACTUAL_MAN_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="actualDevEffort" type="big_decimal">
+            <column name="ACTUAL_DEV_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="correctionCost" type="big_decimal">
+            <column name="CORRECTION_COST" precision="22" scale="0" />
+        </property>
+        <property name="transCost" type="big_decimal">
+            <column name="TRANS_COST" precision="22" scale="0" />
+        </property>
+        <property name="actualEffort" type="big_decimal">
+            <column name="ACTUAL_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="totalReqCommittedSize" type="big_decimal">
+            <column name="TOTAL_REQ_COMMITTED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="totalReqDesignedSize" type="big_decimal">
+            <column name="TOTAL_REQ_DESIGNED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="totalReqCoded" type="big_decimal">
+            <column name="TOTAL_REQ_CODED" precision="22" scale="0" />
+        </property>
+        <property name="requirementStability" type="big_decimal">
+            <column name="REQUIREMENT_STABILITY" precision="22" scale="0" />
+        </property>
+        <property name="totalReqTestedSize" type="big_decimal">
+            <column name="TOTAL_REQ_TESTED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="totalRequirementSize" type="big_decimal">
+            <column name="TOTAL_REQUIREMENT_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="totalReqDeployedSize" type="big_decimal">
+            <column name="TOTAL_REQ_DEPLOYED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="averageReqResponseTime" type="big_decimal">
+            <column name="AVERAGE_REQ_RESPONSE_TIME" precision="22" scale="0" />
+        </property>
+        <property name="totalAcceptedSize" type="big_decimal">
+            <column name="TOTAL_ACCEPTED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="requirementGraphicsValue" type="string">
+            <column name="REQUIREMENT_GRAPHICS_VALUE" length="2000" />
+        </property>
+        <property name="requirementGraphicsName" type="string">
+            <column name="REQUIREMENT_GRAPHICS_NAME" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

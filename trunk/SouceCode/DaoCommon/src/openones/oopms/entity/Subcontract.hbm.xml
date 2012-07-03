@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Subcontract" table="SUBCONTRACT">
+        <comment>project subcontracts (Insight)</comment>
+        <id name="subcontractId" type="big_decimal">
+            <column name="SUBCONTRACT_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+            <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="deliverable" type="string">
+            <column name="DELIVERABLE" length="600" />
+        </property>
+        <property name="planDeliveryDate" type="date">
+            <column name="PLAN_DELIVERY_DATE" length="7" />
+        </property>
+        <property name="actualDeliveryDate" type="date">
+            <column name="ACTUAL_DELIVERY_DATE" length="7" />
+        </property>
+        <property name="job" type="string">
+            <column name="JOB" length="600" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="600" />
+        </property>
+        <property name="sname" type="string">
+            <column name="SNAME" length="600" />
+        </property>
+        <property name="contactPerson" type="string">
+            <column name="CONTACT_PERSON" length="600" />
+        </property>
+        <property name="refToContract" type="string">
+            <column name="REF_TO_CONTRACT" length="600" />
+        </property>
+    </class>
+</hibernate-mapping>

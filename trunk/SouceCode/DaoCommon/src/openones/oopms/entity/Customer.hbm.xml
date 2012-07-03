@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Customer" table="CUSTOMER">
+        <id name="customerId" type="big_decimal">
+            <column name="CUSTOMER_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="cusName" type="string">
+            <column name="CUS_NAME" />
+        </property>
+        <property name="parentId" type="big_decimal">
+            <column name="PARENT_ID" precision="22" scale="0" />
+        </property>
+        <property name="cusDescription" type="string">
+            <column name="CUS_DESCRIPTION" length="600" />
+        </property>
+        <property name="cusNote" type="string">
+            <column name="CUS_NOTE" length="600" />
+        </property>
+        <property name="og" type="string">
+            <column name="OG" length="600" />
+        </property>
+    </class>
+</hibernate-mapping>

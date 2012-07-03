@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.MeasurementsProgram" table="MEASUREMENTS_PROGRAM">
+        <id name="mesId" type="big_decimal">
+            <column name="MES_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="mesPrjId" type="big_decimal">
+            <column name="MES_PRJ_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="mesDataColect" type="string">
+            <column name="MES_DATA_COLECT" length="600" not-null="true" />
+        </property>
+        <property name="mesPurpose" type="string">
+            <column name="MES_PURPOSE" length="600" not-null="true" />
+        </property>
+        <property name="mesResponsible" type="string">
+            <column name="MES_RESPONSIBLE" length="600" not-null="true" />
+        </property>
+        <property name="mesWhen" type="string">
+            <column name="MES_WHEN" length="600" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

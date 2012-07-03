@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.RiskCategory" table="RISK_CATEGORY">
+        <id name="categoryId" type="big_decimal">
+            <column name="CATEGORY_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="categoryName" type="string">
+            <column name="CATEGORY_NAME" length="50" />
+        </property>
+        <property name="isNew" type="java.lang.Byte">
+            <column name="IS_NEW" precision="2" scale="0" />
+        </property>
+        <set name="riskSources" inverse="true">
+            <key>
+                <column name="CATEGORY_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="openones.tms.dms.entity.RiskSource" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.MetricDes" table="METRIC_DES">
+        <comment>(Insight) Metric definitions, descriptions</comment>
+        <id name="metricId" type="string">
+            <column name="METRIC_ID" length="10" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="metricgroup" class="openones.tms.dms.entity.Metricgroup" fetch="select">
+            <column name="MGROUP_ID" precision="22" scale="0">
+                <comment>metricgroup table</comment>
+            </column>
+        </many-to-one>
+        <property name="metricName" type="string">
+            <column name="METRIC_NAME" length="150" />
+        </property>
+        <property name="unit" type="string">
+            <column name="UNIT" length="30" />
+        </property>
+        <property name="displayIndex" type="java.lang.Long">
+            <column name="DISPLAY_INDEX" precision="10" scale="0" />
+        </property>
+        <property name="hotPriority" type="java.lang.Long">
+            <column name="HOT_PRIORITY" precision="10" scale="0" />
+        </property>
+        <property name="colorType" type="string">
+            <column name="COLOR_TYPE" length="1">
+                <comment>wether high value means good or bad</comment>
+            </column>
+        </property>
+        <property name="metricDesc" type="string">
+            <column name="METRIC_DESC" length="600" />
+        </property>
+        <property name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Nc" table="NC">
+        <comment>NC tracking (NCMS)</comment>
+        <id name="ncid" type="big_decimal">
+            <column name="NCID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="nclevel" type="big_decimal">
+            <column name="NCLEVEL" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="projectid" type="string">
+            <column name="PROJECTID" length="20" not-null="true" />
+        </property>
+        <property name="nctype" type="big_decimal">
+            <column name="NCTYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="detectedby" type="big_decimal">
+            <column name="DETECTEDBY" precision="22" scale="0" />
+        </property>
+        <property name="code" type="string">
+            <column name="CODE" length="50">
+                <comment>Mandatory</comment>
+            </column>
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="3000" />
+        </property>
+        <property name="creator" type="string">
+            <column name="CREATOR" length="60" not-null="true" />
+        </property>
+        <property name="creationdate" type="date">
+            <column name="CREATIONDATE" length="7" not-null="true" />
+        </property>
+        <property name="status" type="big_decimal">
+            <column name="STATUS" precision="22" scale="0" />
+        </property>
+        <property name="typeofcause" type="big_decimal">
+            <column name="TYPEOFCAUSE" precision="22" scale="0" />
+        </property>
+        <property name="cause" type="string">
+            <column name="CAUSE" length="3000" />
+        </property>
+        <property name="process" type="big_decimal">
+            <column name="PROCESS" precision="22" scale="0" />
+        </property>
+        <property name="impact" type="string">
+            <column name="IMPACT" length="3000" />
+        </property>
+        <property name="typeofaction" type="big_decimal">
+            <column name="TYPEOFACTION" precision="22" scale="0" />
+        </property>
+        <property name="cpaction" type="string">
+            <column name="CPACTION" length="3000" />
+        </property>
+        <property name="assignee" type="string">
+            <column name="ASSIGNEE" length="60" />
+        </property>
+        <property name="deadline" type="date">
+            <column name="DEADLINE" length="7" />
+        </property>
+        <property name="repeat" type="big_decimal">
+            <column name="REPEAT" precision="22" scale="0">
+                <comment>Yes/No</comment>
+            </column>
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="3000" />
+        </property>
+        <property name="closuredate" type="date">
+            <column name="CLOSUREDATE" length="7" />
+        </property>
+        <property name="reviewer" type="string">
+            <column name="REVIEWER" length="60" />
+        </property>
+        <property name="kpa" type="big_decimal">
+            <column name="KPA" precision="22" scale="0" />
+        </property>
+        <property name="isoclause" type="big_decimal">
+            <column name="ISOCLAUSE" precision="22" scale="0" />
+        </property>
+        <property name="groupname" type="string">
+            <column name="GROUPNAME" length="30" not-null="true" />
+        </property>
+        <property name="reviewdate" type="date">
+            <column name="REVIEWDATE" length="7" />
+        </property>
+        <property name="updatedBy" type="string">
+            <column name="UPDATED_BY" length="60">
+                <comment>Last updated user</comment>
+            </column>
+        </property>
+        <property name="effectofchange" type="string">
+            <column name="EFFECTOFCHANGE" length="3000" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.TrainingPlan" table="TRAINING_PLAN">
+        <comment>Project training plan (Insight)</comment>
+        <id name="trainingPlanId" type="big_decimal">
+            <column name="TRAINING_PLAN_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+            <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="600" />
+        </property>
+        <property name="participants" type="string">
+            <column name="PARTICIPANTS" length="600" />
+        </property>
+        <property name="waiverCriteria" type="string">
+            <column name="WAIVER_CRITERIA" length="600" />
+        </property>
+        <property name="startDate" type="date">
+            <column name="START_DATE" length="7" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="END_DATE" length="7" />
+        </property>
+        <property name="actualEndDate" type="date">
+            <column name="ACTUAL_END_DATE" length="7" />
+        </property>
+        <property name="topic" type="string">
+            <column name="TOPIC" length="150" />
+        </property>
+        <property name="verifyby" type="java.lang.Boolean">
+            <column name="VERIFYBY" precision="1" scale="0" />
+        </property>
+        <property name="duration" type="string">
+            <column name="DURATION" />
+        </property>
+    </class>
+</hibernate-mapping>

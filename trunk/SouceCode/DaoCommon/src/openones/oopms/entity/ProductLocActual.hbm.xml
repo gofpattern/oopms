@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.ProductLocActual" table="PRODUCT_LOC_ACTUAL">
+        <comment>FI: Store actual product LOC of project</comment>
+        <id name="productLocId" type="big_decimal">
+            <column name="PRODUCT_LOC_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="module" class="openones.tms.dms.entity.Module" fetch="select">
+            <column name="MODULE_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="language" class="openones.tms.dms.entity.Language" fetch="select">
+            <column name="LANGUAGE_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="locProductivity" type="big_decimal">
+            <column name="LOC_PRODUCTIVITY" precision="22" scale="0" />
+        </property>
+        <property name="locQuality" type="big_decimal">
+            <column name="LOC_QUALITY" precision="22" scale="0" />
+        </property>
+        <property name="motherBody" type="big_decimal">
+            <column name="MOTHER_BODY" precision="22" scale="0" />
+        </property>
+        <property name="added" type="big_decimal">
+            <column name="ADDED" precision="22" scale="0" />
+        </property>
+        <property name="modified" type="big_decimal">
+            <column name="MODIFIED" precision="22" scale="0" />
+        </property>
+        <property name="total" type="big_decimal">
+            <column name="TOTAL" precision="22" scale="0" />
+        </property>
+        <property name="reused" type="big_decimal">
+            <column name="REUSED" precision="22" scale="0" />
+        </property>
+        <property name="generated" type="big_decimal">
+            <column name="GENERATED" precision="22" scale="0" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="600" />
+        </property>
+    </class>
+</hibernate-mapping>
