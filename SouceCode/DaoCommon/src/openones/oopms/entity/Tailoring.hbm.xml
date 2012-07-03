@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Tailoring" table="TAILORING">
+        <comment>List of tailorings(Insight)</comment>
+        <id name="tailId" type="big_decimal">
+            <column name="TAIL_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="tailPer" type="string">
+            <column name="TAIL_PER" length="1500" not-null="true" />
+        </property>
+        <property name="appCri" type="string">
+            <column name="APP_CRI" length="600" not-null="true" />
+        </property>
+        <property name="processId" type="big_decimal">
+            <column name="PROCESS_ID" precision="22" scale="0" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="1" />
+        </property>
+        <property name="category" type="string">
+            <column name="CATEGORY" length="1" />
+        </property>
+        <property name="action" type="big_decimal">
+            <column name="ACTION" precision="22" scale="0" />
+        </property>
+        <property name="note" type="big_decimal">
+            <column name="NOTE" precision="22" scale="0" />
+        </property>
+        <set name="projectTailorings" inverse="true">
+            <key>
+                <column name="PROCESS_TAIL_ID" precision="22" scale="0" not-null="true">
+                    <comment>lonks to tailoring</comment>
+                </column>
+            </key>
+            <one-to-many class="openones.tms.dms.entity.ProjectTailoring" />
+        </set>
+    </class>
+</hibernate-mapping>

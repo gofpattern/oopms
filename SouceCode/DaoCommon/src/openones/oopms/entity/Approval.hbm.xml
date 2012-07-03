@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Approval" table="APPROVAL">
+        <comment>Signature lists of Insight</comment>
+        <id name="approvalId" type="big_decimal">
+            <column name="APPROVAL_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="approvalStatus" type="big_decimal">
+            <column name="APPROVAL_STATUS" precision="22" scale="0" />
+        </property>
+        <property name="approvalDate" type="date">
+            <column name="APPROVAL_DATE" length="7" />
+        </property>
+        <property name="type" type="big_decimal">
+            <column name="TYPE" precision="22" scale="0">
+                <comment>applies to PP or WO signatures</comment>
+            </column>
+        </property>
+        <property name="projectId" type="big_decimal">
+            <column name="PROJECT_ID" precision="22" scale="0" />
+        </property>
+        <property name="developerId" type="big_decimal">
+            <column name="DEVELOPER_ID" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

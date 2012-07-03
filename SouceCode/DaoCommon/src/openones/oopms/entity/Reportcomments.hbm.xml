@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Reportcomments" table="REPORTCOMMENTS">
+        <comment>Weekly and milestone report comments (Insight)</comment>
+        <id name="reportcommentsId" type="big_decimal">
+            <column name="REPORTCOMMENTS_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="reportType" type="string">
+            <column name="REPORT_TYPE" length="2" not-null="true">
+                <comment>can be 'WR' for weekly report or 'MR' for milestone report</comment>
+            </column>
+        </property>
+        <property name="reportDate" type="date">
+            <column name="REPORT_DATE" length="7" not-null="true">
+                <comment>date of the report</comment>
+            </column>
+        </property>
+        <property name="comments" type="clob">
+            <column name="COMMENTS" />
+        </property>
+    </class>
+</hibernate-mapping>

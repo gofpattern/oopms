@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Interface" table="INTERFACE">
+        <comment>Project's interface (Insight)</comment>
+        <id name="interfaceId" type="big_decimal">
+            <column name="INTERFACE_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="projectPlan" class="openones.tms.dms.entity.ProjectPlan" fetch="select">
+            <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" length="50" />
+        </property>
+        <property name="position" type="string">
+            <column name="POSITION" length="150" />
+        </property>
+        <property name="responsibility" type="string">
+            <column name="RESPONSIBILITY" length="600" />
+        </property>
+        <property name="contact" type="string">
+            <column name="CONTACT" length="600" />
+        </property>
+        <property name="type" type="big_decimal">
+            <column name="TYPE" precision="22" scale="0" />
+        </property>
+        <property name="assignToId" type="big_decimal">
+            <column name="ASSIGN_TO_ID" precision="22" scale="0" />
+        </property>
+        <property name="roleId" type="big_decimal">
+            <column name="ROLE_ID" precision="22" scale="0" />
+        </property>
+        <property name="communication" type="string">
+            <column name="COMMUNICATION" length="600" />
+        </property>
+        <property name="department" type="string">
+            <column name="DEPARTMENT" length="600" />
+        </property>
+        <property name="dependency" type="string">
+            <column name="DEPENDENCY" length="600" />
+        </property>
+        <property name="contactPerson" type="string">
+            <column name="CONTACT_PERSON" length="600" />
+        </property>
+        <property name="function" type="string">
+            <column name="FUNCTION" length="600" />
+        </property>
+        <property name="otherProjectName" type="string">
+            <column name="OTHER_PROJECT_NAME" length="600" />
+        </property>
+        <property name="contactAcc" type="string">
+            <column name="CONTACT_ACC" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

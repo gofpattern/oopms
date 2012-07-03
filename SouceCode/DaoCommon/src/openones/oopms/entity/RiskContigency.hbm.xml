@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.RiskContigency" table="RISK_CONTIGENCY">
+        <id name="riskContigencyId" type="big_decimal">
+            <column name="RISK_CONTIGENCY_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="risk" class="openones.tms.dms.entity.Risk" fetch="select">
+            <column name="RISK_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="contigency" type="string">
+            <column name="CONTIGENCY" length="600" />
+        </property>
+        <property name="developerAcc" type="string">
+            <column name="DEVELOPER_ACC" length="60" />
+        </property>
+        <property name="planEndDate" type="date">
+            <column name="PLAN_END_DATE" length="7" />
+        </property>
+        <property name="actualEndDate" type="date">
+            <column name="ACTUAL_END_DATE" length="7" />
+        </property>
+        <property name="actionStatus" type="big_decimal">
+            <column name="ACTION_STATUS" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

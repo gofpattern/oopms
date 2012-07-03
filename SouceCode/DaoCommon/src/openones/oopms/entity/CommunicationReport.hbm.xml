@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.CommunicationReport" table="COMMUNICATION_REPORT">
+        <id name="comId" type="big_decimal">
+            <column name="COM_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="comPrjId" type="big_decimal">
+            <column name="COM_PRJ_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="comType" type="string">
+            <column name="COM_TYPE" length="600" not-null="true" />
+        </property>
+        <property name="comParentType" type="big_decimal">
+            <column name="COM_PARENT_TYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="comMethodTool" type="string">
+            <column name="COM_METHOD_TOOL" length="600" />
+        </property>
+        <property name="comWhen" type="string">
+            <column name="COM_WHEN" length="600" />
+        </property>
+        <property name="comInformation" type="string">
+            <column name="COM_INFORMATION" length="600" />
+        </property>
+        <property name="comResponsible" type="string">
+            <column name="COM_RESPONSIBLE" length="600" />
+        </property>
+    </class>
+</hibernate-mapping>

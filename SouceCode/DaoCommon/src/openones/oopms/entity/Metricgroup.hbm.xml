@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Metricgroup" table="METRICGROUP">
+        <comment>Group of metrics, used in PCB (Insight)</comment>
+        <id name="mgroupId" type="big_decimal">
+            <column name="MGROUP_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="groupname" type="string">
+            <column name="GROUPNAME" length="30" not-null="true" />
+        </property>
+        <property name="parentId" type="big_decimal">
+            <column name="PARENT_ID" precision="22" scale="0" />
+        </property>
+        <set name="metricDeses" inverse="true">
+            <key>
+                <column name="MGROUP_ID" precision="22" scale="0">
+                    <comment>metricgroup table</comment>
+                </column>
+            </key>
+            <one-to-many class="openones.tms.dms.entity.MetricDes" />
+        </set>
+        <set name="pcbs" inverse="true" table="PCBMGROUP">
+            <key>
+                <column name="MGROUP_ID" precision="22" scale="0" not-null="true">
+                    <comment>links to metricgroup</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="openones.tms.dms.entity.Pcb">
+                <column name="PCB_ID" precision="22" scale="0" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

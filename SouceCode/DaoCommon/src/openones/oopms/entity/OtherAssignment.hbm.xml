@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.OtherAssignment" table="OTHER_ASSIGNMENT">
+        <comment>Dashboard: non-project assignments</comment>
+        <id name="oaId" type="big_decimal">
+            <column name="OA_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="developer" class="openones.tms.dms.entity.Developer" fetch="select">
+            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="type" type="byte">
+            <column name="TYPE" precision="2" scale="0" not-null="true" />
+        </property>
+        <property name="fromDate" type="date">
+            <column name="FROM_DATE" length="7" not-null="true" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="END_DATE" length="7" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="600" />
+        </property>
+        <property name="usage" type="big_decimal">
+            <column name="USAGE" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

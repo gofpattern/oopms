@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.Rightgroup" table="RIGHTGROUP">
+        <comment>User Roles list(Insight)</comment>
+        <id name="rightgroupid" type="string">
+            <column name="RIGHTGROUPID" length="50" />
+            <generator class="native" />
+        </id>
+        <property name="mnglevel" type="string">
+            <column name="MNGLEVEL" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="protected_" type="java.lang.Boolean">
+            <column name="PROTECTED" precision="1" scale="0">
+                <comment>protected items can't be deleted by users</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

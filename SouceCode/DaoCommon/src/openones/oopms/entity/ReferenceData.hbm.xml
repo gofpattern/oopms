@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.ReferenceData" table="REFERENCE_DATA">
+        <id name="referenceId" type="big_decimal">
+            <column name="REFERENCE_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="languageCode" class="openones.tms.dms.entity.LanguageCode" fetch="select">
+            <column name="LANG_CODE" length="30" />
+        </many-to-one>
+        <property name="groupCode" type="string">
+            <column name="GROUP_CODE" length="100" />
+        </property>
+        <property name="itemCode" type="string">
+            <column name="ITEM_CODE" length="100" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="500" />
+        </property>
+        <property name="disabled" type="java.lang.Byte">
+            <column name="DISABLED" precision="2" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

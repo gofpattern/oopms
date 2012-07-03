@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.tms.dms.entity.WpSize" table="WP_SIZE">
+        <comment>Defect planning for workproducts (DMS, Insight)</comment>
+        <composite-id name="id" class="openones.tms.dms.entity.WpSizeId">
+            <key-property name="projectId" type="big_decimal">
+                <column name="PROJECT_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="wpId" type="big_decimal">
+                <column name="WP_ID" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="apSizeunit" class="openones.tms.dms.entity.ApSizeunit" fetch="select">
+            <column name="UNIT_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="wpSize" type="big_decimal">
+            <column name="WP_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="plannedDefect" type="big_decimal">
+            <column name="PLANNED_DEFECT" precision="22" scale="0" />
+        </property>
+        <property name="replannedDefect" type="big_decimal">
+            <column name="REPLANNED_DEFECT" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>
