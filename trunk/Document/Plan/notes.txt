@@ -1,3 +1,62 @@
+03-07
+Core Features:
+	Schedule (task, deliverables)
+	Cost
+	Quality (timesheet, dms)
+
+Module:
+Dashboard
+Project Eye
+Admin
+Cost
+Risk-Issue
+Product-Deliverable
+Planner-Task
+Report
+Requirement
+Invoice
+DMS
+Timesheet
+
+
+database: use legacy system, ignore unused field.
+
+Register Personal Version(dbvis) : Create table, new field
+
+hibernate.reveng.xml
+user.hbm.xml
+auto gen what file? How to ?
+
+Reading book, find theory, methodology for project business- project based on what information, science?
+
+portletsession: 2 scope: application (com between portlets) or porlet (internal portlet usage)
+
+
+By this week:
+
+Duy: done Requirement
+Giang: done Planner
+Truong:
+Hai:
+
+Javascript ?
+
+Tech support:  post to open-one
+
+Resource file: change language
+
+Feature to used:
+Upload file
+Export
+validate
+
+portlet book
+
+Menu ? Truong. Menu portlet (module) create by UPortal.
+
+C:\Users\DuyNgo\Desktop\Capstone\OpenDVD\Tools\uPortal\uPortal-4.0.3\uPortal-4.0.3-quick-start\apache-tomcat-6.0.35\webapps\uPortal\WEB-INF\classes\properties\rdbm
+
+
 22-05-12
 
 1. Reviewer (meeting minutes). 
