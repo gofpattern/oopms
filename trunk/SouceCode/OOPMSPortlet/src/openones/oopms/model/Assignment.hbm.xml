@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.model.Assignment" table="ASSIGNMENT"  lazy="false">
+        <comment>Contain importance information of project team assignments, effect to Dashboard, FI and Timesheet</comment>
+        <id name="assignmentId" type="big_decimal">
+            <column name="ASSIGNMENT_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="project" class="openones.oopms.model.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="developerId" type="big_decimal">
+            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="type" type="byte">
+            <column name="TYPE" precision="2" scale="0" not-null="true" />
+        </property>
+        <property name="beginDate" type="date">
+            <column name="BEGIN_DATE" length="7" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="END_DATE" length="7" />
+        </property>
+        <property name="usage" type="big_decimal">
+            <column name="USAGE" precision="22" scale="0" />
+        </property>
+        <property name="response" type="java.lang.Short">
+            <column name="RESPONSE" precision="3" scale="0">
+                <comment>Responsibility</comment>
+            </column>
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="600">
+                <comment>For Insight comments</comment>
+            </column>
+        </property>
+        <property name="projectPositionCode" type="string">
+            <column name="PROJECT_POSITION_CODE" length="100" />
+        </property>
+        <property name="teamId" type="big_decimal">
+            <column name="TEAM_ID" precision="22" scale="0" />
+        </property>
+        <property name="qualification" type="string">
+            <column name="QUALIFICATION" length="600" />
+        </property>
+    </class>
+</hibernate-mapping>

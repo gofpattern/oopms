@@ -34,12 +34,12 @@
 	  });
 	  $( "#datepicker1" ).datepicker({
 	            showOn: "button",
-	            buttonImage: "images/calendar.gif",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
 	        $( "#datepicker2" ).datepicker({
 	            showOn: "button",
-	            buttonImage: "images/calendar.gif",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
 	        $( "#selectable" ).selectable();
@@ -133,15 +133,17 @@
 	
 <div id="keepalive"></div>
 
-
+<portlet:actionURL var="formAction">
+  <portlet:param name="action" value="searchTimesheet" />
+</portlet:actionURL>
+   <form:form method="post" commandName="timesheetForm" action="${formAction}">
 <table  border="0" >
     <tbody>
-	<tr><td><strong>User</strong></td><td width="20%">Mạnh Hoàng Trương</td>
+	<tr><td><strong>User</strong></td><td width="20%"><%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%></td>
 	<td ><strong>Project</strong></td>
-        <td width="26%"><select class="styled" name="SearchProjectID" class="SmallCombo" value="0">
-<option selected="" value="0">All</option><option value="130674">BSYS</option><option value="10047">CMM-4</option><option value="100517">CMM5</option><option value="103058">CMMI-5</option><option value="125773">FMIS.BU2-JCT</option><option value="265">FMS-1</option><option value="100461">FMS-M-2003</option><option value="101720">FMS-M-2004</option><option value="102378">FMS-TD</option><option value="125608">HIVE-EH</option><option value="128650">JCIS</option><option value="10036">MISC</option><option value="129909">Mobile Renewal</option><option value="103799">RET</option><option value="111122">Sample</option><option value="125908">SNS</option><option value="126347">Tensuite</option><option value="131848">TOKUTEN</option>
-      </select></td> 
-	   <td ><strong>From Date</td>
+        <td width="26%"> <form:select  cssClass="styled" path="projectDefault" multiple="single">
+        <form:options  items="${projectMap}" /></form:select> </td> 
+	   <td> <strong>From Date</strong></td>
         <td  class="vAlignMid">
          <input type="text" id="datepicker1">
            
@@ -163,11 +165,12 @@
            
         </td><td></td></tr>
 </tbody></table>
-		<p><input type="button" class="button blue small" name="Search" onClick="location.href='timesheetList.html'" value="Search" class="Button" >		  
+
+		<p> <form:button id="Search"  class="button blue small" name="Search" value="Search"/>		  
 		
 		  <input type="button" class="button blue small" name="Addnew" onclick="location.href='addTimeSheet.html'" value="Addnew" class="Button" />
 		 </p>
-
+</form:form>
 
 <table id="mainTable2" border="0" cellpadding="3" cellspacing="0" width="100%" >
 
@@ -195,6 +198,7 @@
     </tr>
 
 </tbody></table>
+
 <p> <input type="button" class="button blue small" name="Update" onclick="javascript:doUpdate()" value="Update" class="Button" />        
 		  <input type="button" class="button blue small" name="Delete" onClick="javascript:doDelete()" value="Delete" class="Button"></p>
 	

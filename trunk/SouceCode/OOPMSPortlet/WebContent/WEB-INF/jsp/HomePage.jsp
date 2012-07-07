@@ -80,7 +80,8 @@
 							<a href="../OOPMSPortlet/resource_files/css/Dashboard  Project Bubble.htm" class="direct">
 																	Dashboard															</a>
 						</li>
-																					<li class="direct"><a href="<portlet:renderURL><portlet:param name="jspPage" value="/login.jsp" /></portlet:renderURL>" />Timesheet</a></li>
+																					<li class="direct">  <a href='<portlet:renderURL><portlet:param name="action" value="timesheet"/>
+            <portlet:param name="userId"><jsp:attribute name="value"><%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%></jsp:attribute></portlet:param></portlet:renderURL>'>Timesheet</a></li>
 																						<li class=""><a href="https://truong.projectbubble.com/manage/tasks" class="direct">DMS</a></li>
 																						<li class=""><a href="https://truong.projectbubble.com/manage/calendar" class="direct">Tasks</a></li>
 																						<li class=""><a href="https://truong.projectbubble.com/manage/calendar" class="direct">Risk&Issue</a></li>
