@@ -7,9 +7,7 @@
       
     <html>  
     <body>  
-    <br>  
-    Welcome ${user2.username}  
     <h1>Hello World Portlet with Spring MVC Portlet framework 3.1</h1>  
-    <br><br>  
+ 
     </body>  
     </html>  
