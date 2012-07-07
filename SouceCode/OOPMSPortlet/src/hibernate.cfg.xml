@@ -14,5 +14,8 @@
     <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
     <mapping resource="openones/oopms/model/Developer.hbm.xml"/>
+     <mapping resource="openones/oopms/model/Assignment.hbm.xml"/>
+       <mapping resource="openones/oopms/model/Project.hbm.xml"/>
+         <mapping resource="openones/oopms/model/Timesheet.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
