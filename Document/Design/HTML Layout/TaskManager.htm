@@ -233,7 +233,13 @@ $(document).ready(function(){
 <div id="content_planner">
 <table>
 	<tr>
-                <td ><b>&nbsp;&nbsp;Status&nbsp;&nbsp;</b>
+    	<td><b>&nbsp;&nbsp;Status&nbsp;&nbsp;</b></td>
+        <td><b>&nbsp;&nbsp;Stage&nbsp;&nbsp;</b></td>
+        <td><b>&nbsp;&nbsp;Assigned To&nbsp;</b></td>
+        <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
+    </tr>
+	<tr>
+                <td>
                   <select class="styled" class="SmallCombo">
                     <option selected="selected" value="-1">All status</option>
                     <option value="1">Closed</option>
@@ -241,7 +247,7 @@ $(document).ready(function(){
                     <option value="3">Tentative</option>
                     <option value="0">On-going</option>
                   </select></td>
-                <td ><b>&nbsp;&nbsp;Stage&nbsp;&nbsp;</b>
+                <td >
                   <select class="styled" class="SmallCombo">
                     <option selected="selected" value="-1">All stages</option>
                     <option value="1">Initiation</option>
@@ -250,14 +256,14 @@ $(document).ready(function(){
                     <option value="4">Construction</option>
                     <option value="0">Transition &amp; Termination </option>
                   </select></td>
-                <td ><b>&nbsp;&nbsp;Assigned To&nbsp;</b>
+                <td >
                   <select class="styled" class="SmallCombo">
                     <option selected="selected" value="-1">All categories</option>
                     <option value="0">Development</option>
                     <option value="1">Maintenance</option>
                     <option value="2">Others</option>
                   </select></td>
-                <td width="10%"><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b>
+                <td width="10%">
                   <select class="styled" class="SmallCombo">
                     <option selected="selected" value="0">Status</option>
                     <option value="1">Task Name</option>
