@@ -3,20 +3,20 @@
 	<head>
 		<title>Project Dashboard</title>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-			<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
-<link type="text/css" href="css/dashboard.css" rel="Stylesheet" />	
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+<link type="text/css" href="css/common.css" rel="Stylesheet" />	
+<link type="text/css" href="css/uportal.css" rel="Stylesheet" />	
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
-<script type="text/javascript" src="js/form-elements2.js"></script>
+<script type="text/javascript" src="js/form-elements.js"></script>
 <style type="text/css"> 
-#tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
-#tabs28 ul { margin:0; padding:0px 10px 0 20px; list-style:none;   } 
+#tabs28 {   float:left;   width:100%;   background:#EFF4FA;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
+#tabs28 ul { margin:0; padding:10px 10px 0 50px; list-style:none;   } 
 #tabs28 li {   display:inline;   margin:0;   padding:0;   } 
 #tabs28 a {   float:left;   background:url(slide-left.gif) no-repeat left top;   margin:0;   padding:0 0 0 5px;   text-decoration:none;   } 
 #tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
 #tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
-#tabs28 a:hover span {   background-position:100% -42px;   }
-</style>
+#tabs28 a:hover span {   background-position:100% -42px;   }</style>
 	<script language="javascript">
 	
 	$(function() {
@@ -49,24 +49,24 @@
 	</script>
 		</head>
 <body id="portal" class="up fl-theme-mist">
-<div id="portalPageBodyInner" style="width:1120px;" class="container">
+<div id="portalPageBodyInner" class="container">
 	 <div class="header">
-      <table >
-        <tr >
-            <td width="922" height="92">&nbsp;</td>
-            <td width="271" valign="top" style="color:#FFF">
-                <p>Hello Manager , <a href="HomePage.html">Log Out</a>
-            </p>
-            <p><a href="UserDetail.html">Change your Information</a></br>
-            <a href="Create Project.html">Create new Project</a>
-            </p></td>
-        </tr>
-      </table>
+  <table width="960">
+  	<tr>
+    	<td width="697" height="92"</td>
+        <td width="251" valign="top">
+        	<p>Hello Manager , <a href="HomePage.html">Log Out</a>
+        </p>
+       	<p><a href="UserDetail.html">Change your Information</a></br>
+        <a href="Create Project.html">Create new Project</a>
+        </p></td>
+    </tr>
+  </table>
   </div>
-   <div class="content">
+  <div class="content">
     <div id="tabs28">      
     <ul> 
- <li><a href="Dashboard.htm"><span>Dash Board</span></a></li>
+ 	<li><a href="Dashboard.htm"><span>Dash Board</span></a></li>
     <li><a><span>Time Sheet</span></a></li>
     <li><a href="TaskManager.htm"><span>Project Planner</span></a></li>
     <li><a><span>DMS</span></a></li>
@@ -77,21 +77,19 @@
     <li><a><span>Requiment</span></a></li>
     <li><a href="Product.html"><span>Product</span></a></li>
     <li><a href="WorkOrder.html"><span>Work Order</span></a></li> 
-</ul>
-</div>
-
-
-        <table id="filterTable"  border="0" cellspacing="0" width="100%">
-            <tbody>
+	</ul>
+	</div>
+     <table>
+        <tbody>
 			<tr>
-			  <td ><b><font color="#000080">&nbsp;&nbsp;Status&nbsp;&nbsp;</font></b></td>
-			  <td><b><font color="#000080">&nbsp;&nbsp;Category&nbsp;&nbsp;</font></b></td>
-			    <td > <b><font color="#000080">&nbsp;&nbsp;Time&nbsp;&nbsp;&nbsp;</font></b></td>
-				<td> <b><font color="#000080">&nbsp;&nbsp;Progress</font></b></td>
-				 <td><b><font color="#000080">&nbsp;&nbsp;Efficiency</font></b></td>
-				 <td >            <b><font color="#000080">&nbsp;&nbsp;Cost&nbsp;&nbsp;&nbsp;</font></b></td>
-				  <td style="width:200px;" >          <b><font color="#000080">&nbsp;&nbsp;Start Date</font></b>   </td>
-				  <td style="width:200px; >           <b><font color="#000080">&nbsp;&nbsp;Finish Date</font></b></td>
+			  <td ><b>Status</b></td>
+			  <td><b>Category</b></td>
+			    <td><b>Time</b></td>
+				<td> <b>Progress</b></td>
+				 <td><b>Efficiency</font></b></td>
+				 <td >            <b>Cost</b></td>
+				  <td><b>Start Date</b>   </td>
+				  <td><b>Finish Date</b></td>
 				 			</tr>
 			<tr>
                 
@@ -104,8 +102,8 @@
                     <option value="0">On-going</option>                    
                 </select></td>
                 
-                <td><b><font color="#000080">
-        	<select class="styled" name="cboCategory" size="1" >
+                <td>
+                 <select class="styled" name="cboCategory" size="1" >
             	<option selected="selected" value="-1">All categories</option>
                 <option value="0">Development</option>
                 <option value="1">Maintenance</option>
@@ -162,76 +160,78 @@
 	</tbody>
     <!-- PROJECT LIST -->
 	</table>
-	<table id="mainTable">
-    <tr class="table_header">
+    
+	<table class="portlet-table">
+    <tr>
         <!-- TABLE HEADER -->
-        <td width="68"><b><font color="white" face="Verdana" size="1">Project Code</span></font></b></td>
-        <td width="227"><b><font color="white" face="Verdana" size="1">Project Name</span></font></b></td>
-        <td width="162"><b><font color="white" face="Verdana" size="1">Project Manager</span></font></b></td>      
-        <td width="104"><b><font color="white" face="Verdana" size="1">Project Health</span></font></b></td>
-        <td width="172"><b><font color="white" face="Verdana" size="1">Time</span></font></b></td>
-        <td width="177"><b><font color="white" face="Verdana" size="1">Progress</span></font></b></td>
-        <td width="52"><b><font color="white" face="Verdana" size="1">Efficiency</span></font></b></td>
-        <td width="47"><b><font color="white" face="Verdana" size="1">Cost</span></font></b></td>
-        <td width="81"><b><font color="white" face="Verdana" size="1">Start Date</span></font></b></td>
-        <td width="72"><b><font color="white" face="Verdana" size="1">Finish Date</span></font></b></td>
-         <td width="45"><b><font color="white" face="Verdana" size="1">Planned Effort</span></font></b></td>
-        <td width="36"><b><font color="white" face="Verdana" size="1">Actual Effort</span></font></b></td>
+        <th scope="col">Project Code</th>
+        <th scope="col">Project Name</th>
+        <th scope="col">Project Manager</th>      
+        <th scope="col">Project Health</th>
+        <th scope="col">Time</th>
+        <th scope="col">Progress</th>
+        <th scope="col">Efficiency</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Finish Date</th>
+        <th scope="col">Planned Effort</th>
+        <th scope="col">Actual Effort</th>
     </tr>
     
     <tr>
-    	<td width="68">APJ</td>
-        <td width="227"><a href="#">Demo A Project</a></td>
-        <td width="162">Manager A</td>
-        <td width="104"><img src="icons/circle_red.png" width="24" height="24"></td>
-        <td width="172"><img src="icons/progress_bar.png" width="150" height="24" ></td>
-        <td width="177"><img src="icons/progress_bar_red_50.png" width="150" height="24" ></td>
-      <td width="52"><img src="icons/circle_red.png" width="24" height="24"></td>
-      <td width="47"><img src="icons/circle_red.png" width="24" height="24"></td>
-        <td width="81">2/28/12</td>
-      <td width="72">6/28/12</td>
-      <td width="45">100</td>
-        <td width="36">0</td>
+    	<td>APJ</td>
+        <td><a href="#">Demo A Project</a></td>
+        <td>Manager A</td>
+        <td><img src="icons/circle_red.png" width="24" height="24"></td>
+        <td><img src="icons/progress_bar.png" width="150" height="24" ></td>
+        <td><img src="icons/progress_bar_red_50.png" width="150" height="24" ></td>
+      <td><img src="icons/circle_red.png" width="24" height="24"></td>
+      <td><img src="icons/circle_red.png" width="24" height="24"></td>
+        <td>2/28/12</td>
+      <td>6/28/12</td>
+      <td>100</td>
+        <td>0</td>
    </tr>
         <tr>
-    	<td width="68">BPJ</td>
-        <td width="227"><a href="#">Demo B Project</a></td>
-        <td width="162">Manager B</td>        
-        <td width="104"><img src="icons/circle_yellow.png" width="24" height="24"></td>
-        <td width="172"><img src="icons/progress_bar.png" width="150" height="24" ></td>
-        <td width="177"><img src="icons/progress_bar.png" width="150" height="24" ></td>
-      <td width="52"><img src="icons/circle_yellow.png" width="24" height="24"></td>
-      <td width="47"><img src="icons/circle_yellow.png" width="24" height="24"></td>
-        <td width="81">2/28/12</td>
-      <td width="72">6/28/12</td>
-      <td width="45">100</td>
-        <td width="36">0</td>
+    	<td>BPJ</td>
+        <td><a href="#">Demo B Project</a></td>
+        <td>Manager B</td>        
+        <td><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td><img src="icons/progress_bar.png" width="150" height="24" ></td>
+        <td><img src="icons/progress_bar.png" width="150" height="24" ></td>
+      <td><img src="icons/circle_yellow.png" width="24" height="24"></td>
+      <td><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td>2/28/12</td>
+      <td>6/28/12</td>
+      <td>100</td>
+        <td>0</td>
    </tr>    
    <tr>
-    	<td width="68">CPJ</td>
-       <td width="227"><a href="#">Demo C Project</a></td>
-        <td width="162">Manager C</td>
-        <td width="104"><img src="icons/circle_yellow.png" width="24" height="24"></td>
-        <td width="172"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
-        <td width="177"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
-      <td width="52"><img src="icons/circle_yellow.png" width="24" height="24"></td>
-      <td width="47"><img src="icons/circle_yellow.png" width="24" height="24"></td>
-        <td width="81">2/28/12</td>
-      <td width="72">4/28/12</td>
-      <td width="45">100</td>
-        <td width="36">120</td>
-   </tr>    <tr>
-    	<td width="68">DPJ</td>
-       <td width="227"><a href="#">Demo D Project</a></td>
-        <td width="162">Manager D</td>
-        <td width="104"><img src="icons/circle_green.png" width="24" height="24"></td>
-        <td width="172"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
-        <td width="177"><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
-      <td width="52"><img src="icons/circle_green.png" width="24" height="24"></td>
-      <td width="47"><img src="icons/circle_green.png" width="24" height="24"></td>
-        <td width="81">2/28/12</td>
-      <td width="72">4/28/12</td>
-      <td width="45">100</td>
+    	<td>CPJ</td>
+       <td><a href="#">Demo C Project</a></td>
+        <td>Manager C</td>
+        <td><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+        <td><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+      	<td><img src="icons/circle_yellow.png" width="24" height="24"></td>
+      	<td><img src="icons/circle_yellow.png" width="24" height="24"></td>
+        <td>2/28/12</td>
+      	<td>4/28/12</td>
+      	<td>100</td>
+        <td>120</td>
+   </tr>    
+   <tr>
+    	<td>DPJ</td>
+       	<td><a href="#">Demo D Project</a></td>
+        <td>Manager D</td>
+        <td><img src="icons/circle_green.png" width="24" height="24"></td>
+        <td><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+        <td><img src="icons/progress_bar_100.png" width="150" height="24" ></td>
+      	<td><img src="icons/circle_green.png" width="24" height="24"></td>
+      	<td><img src="icons/circle_green.png" width="24" height="24"></td>
+        <td>2/28/12</td>
+      	<td>4/28/12</td>
+      	<td>100</td>
         <td width="36">120</td>
    </tr>
 </tbody></table>
