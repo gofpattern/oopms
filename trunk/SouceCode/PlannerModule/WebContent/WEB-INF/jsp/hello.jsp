@@ -8,6 +8,6 @@
     <html>  
     <body>  
     <h1>Hello World Portlet with Spring MVC Portlet framework 3.1</h1>  
- 
+    <a href='<portlet:renderURL><portlet:param name="action" value="taskmanager"/></portlet:renderURL>'>Planner</a>
     </body>  
     </html>  
