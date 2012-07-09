@@ -288,13 +288,15 @@ $(document).ready(function(){
                 <td width="56%"><input type="button" name="input2" value="Search"/></td>
       </tr>
 </table>
+
+<c:set var="list" value="${taskList}"/>
+<c:if test="${not empty list}">
   <table class="portlet-table">
-    <tbody>
-      
-      <!-- PROJECT LIST -->
+  <thead>
       <tr>
         <!-- TABLE HEADER -->
-        <th ><b><font><span >ID</span></font></b> 
+        <th ><b><font><span >No.</span></font></b> 
+        <th ><b><font><span >Task Code</span></font></b> 
         <th ><b><font><span >Task Name</span></font></b> 
         <th width="10"><b><font><span>Stage</span></font></b> 
         <th ><b><font><span>Product</span></font></b> 
@@ -308,7 +310,35 @@ $(document).ready(function(){
         <th ><b><font><span >Update</span></font></b> 
         <th ><b><font><span >Delete</span></font></b>   
       </tr>
-      <tr>
+  </thead>
+    <tbody>
+        <c:set var="count" value="0"/>
+                    <c:forEach items="${list}" var="task">
+                        <tr>
+                        <form action="Controller">
+                        <c:set var="count" value="${count + 1}"/>
+                        <td>${count}</td>
+                        <td>${task.taskcode}</td>
+                        <td>${task.taskname}</td>
+                        <td>${task.stageid}</td>
+                        <td>${task.product}</td>
+                        <td>${task.assignmentid}</td>
+                        <td></td>
+                        <td>${task.completenessstatus}</td>
+                        <td>${task.startdate}</td>
+                        <td>${task.plannedenddate}</td>
+                        <td>${task.plannedeffort}</td>
+                        <td>${task.actualeffort}</td>
+                        <td><input type="image" alt="Submit" 
+                        src="../PlannerModule/Resource_files/icons/Actions-document-edit-icon.png" 
+                        width="24" height="24" value="edit" name="action"></input></td>
+                        <td><input type="image" alt="Submit" 
+                        src="../PlannerModule/Resource_files/icons/Actions-delete-icon.png" 
+                        width="24" height="24" value="delete" name="action"></input></td>
+                        </form>
+                        </tr>
+                    </c:forEach>
+     <!--  <tr>
         <td>PJA01</td>
         <td>Task No.1 of Project A</td>
         <td>Initation</td>
@@ -382,9 +412,12 @@ $(document).ready(function(){
         <td >12</td>
         <td><img src="../PlannerModule/Resource_files/icons/Actions-document-edit-icon.png" width="24" height="24"></td>
         <td><img src="../PlannerModule/Resource_files/icons/Actions-delete-icon.png" width="24" height="24"/></td>
-      </tr>
+      </tr> -->
+     
+      
     </tbody>
   </table>
+  </c:if>
         <c:set var="list" value="${taskList}"/>
         <c:if test="${not empty list}">
             <table border="1">
