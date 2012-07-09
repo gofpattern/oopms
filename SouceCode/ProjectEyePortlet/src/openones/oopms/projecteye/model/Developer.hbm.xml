@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 25, 2012 8:03:06 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.projecteye.model.Developer" table="DEVELOPER">
+        <comment>User profiles, using with the whole FMS packages</comment>
+        <id name="developerId" type="big_decimal">
+            <column name="DEVELOPER_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true" />
+        </property>
+        <property name="groupName" type="string">
+            <column name="GROUP_NAME" length="30" not-null="true" />
+        </property>
+        <property name="account" type="string">
+            <column name="ACCOUNT" length="60" unique="true" />
+        </property>
+        <property name="designation" type="string">
+            <column name="DESIGNATION" length="90" />
+        </property>
+        <property name="role" type="string">
+            <column name="ROLE" length="10">
+                <comment>10 binary numbers scheme</comment>
+            </column>
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" />
+        </property>
+        <property name="status" type="big_decimal">
+            <column name="STATUS" precision="22" scale="0" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="80">
+                <comment>Used for email features (Call Log)</comment>
+            </column>
+        </property>
+        <property name="beginDate" type="date">
+            <column name="BEGIN_DATE" length="7" />
+        </property>
+        <property name="quitDate" type="date">
+            <column name="QUIT_DATE" length="7" />
+        </property>
+        <property name="orgPositionCode" type="string">
+            <column name="ORG_POSITION_CODE" length="100" />
+        </property>
+        <property name="unitId" type="big_decimal">
+            <column name="UNIT_ID" precision="22" scale="0" />
+        </property>
+        <property name="userTypeCode" type="string">
+            <column name="USER_TYPE_CODE" length="100" />
+        </property>
+        <property name="location" type="string">
+            <column name="LOCATION" length="50" />
+        </property>
+        <property name="phoneNo" type="string">
+            <column name="PHONE_NO" length="16" />
+        </property>
+        <property name="alternativeEmail" type="string">
+            <column name="ALTERNATIVE_EMAIL" length="80" />
+        </property>
+        <property name="passwordHint" type="string">
+            <column name="PASSWORD_HINT" length="100" />
+        </property>
+        <property name="disabled" type="java.lang.Boolean">
+            <column name="DISABLED" precision="1" scale="0" />
+        </property>
+        <property name="passwordDate" type="date">
+            <column name="PASSWORD_DATE" length="7" />
+        </property>
+        <property name="changePw" type="java.lang.Boolean">
+            <column name="CHANGE_PW" precision="1" scale="0" />
+        </property>
+        <property name="accountExpired" type="java.lang.Character">
+            <column name="ACCOUNT_EXPIRED" length="1" />
+        </property>
+        <property name="accountLocked" type="java.lang.Character">
+            <column name="ACCOUNT_LOCKED" length="1" />
+        </property>
+        <property name="credentialsExpired" type="java.lang.Character">
+            <column name="CREDENTIALS_EXPIRED" length="1" />
+        </property>
+        <property name="passwordBackup" type="string">
+            <column name="PASSWORD_BACKUP" />
+        </property>
+        <property name="staffId" type="string">
+            <column name="STAFF_ID" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>
