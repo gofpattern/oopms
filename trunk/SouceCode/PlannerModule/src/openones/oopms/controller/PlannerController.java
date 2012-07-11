@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.dao.TaskDAO;
 import openones.oopms.form.HelloForm;
 import openones.oopms.form.PlannerForm;
 import openones.oopms.model.OopmsTask;
@@ -34,20 +35,18 @@ public class PlannerController {
     public PlannerForm getCommandObject() {
         log.debug("getCommandObject.START");
         
-        /*OopmsTask task1 = new OopmsTask(1);
+        /*OopmsTask task1 = new OopmsTask();
         task1.setTaskname("task number 01");
         
-        OopmsTask task2 = new OopmsTask(2);
+        OopmsTask task2 = new OopmsTask();
         task1.setTaskname("task number 02");
         
-        ArrayList<OopmsTask> taskList = new ArrayList<OopmsTask>();
+        OopmsTask[] taskList = new OopmsTask [task1,task2};*/
         
-        taskList.add(task1);
-        taskList.add(task2);*/
-        
+               
         PlannerForm formBean = new PlannerForm();
         formBean.setTitle("sds");
-//        formBean.setTaskList(taskList);
+        //  formBean.setTaskList(taskList);
         return formBean;
     }
     
@@ -74,7 +73,12 @@ public class PlannerController {
         //set portlet session                    
         
         ModelAndView mav = new ModelAndView("TaskManager");
+        TaskDAO taskDAO = new TaskDAO();
         
+        
+        formBean.taskList = taskDAO.getAllTask();
+        
+       // log.debug(formBean.taskList[0].getTaskname());
         mav.addObject("taskList", formBean.taskList);
         
         return mav;

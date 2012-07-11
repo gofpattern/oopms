@@ -417,32 +417,6 @@ $(document).ready(function(){
       
     </tbody>
   </table>
-  </c:if>
-        <c:set var="list" value="${taskList}"/>
-        <c:if test="${not empty list}">
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:set var="count" value="0"/>
-                    <c:forEach items="${list}" var="acc">
-                        <tr>
-                        <form action="Controller">
-                        <c:set var="count" value="${count + 1}"/>
-                        <td>${count}</td>
-                        <td><input type="text" name="txtUsername" value="${acc.taskid}"/></td>
-                        <td><input type="text" name="txtPassword" value="${acc.taskname}"/></td>
-                        </form>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
 </div>
 <div id="button">
 <input type="button" name="" value="Add New Task"/>
