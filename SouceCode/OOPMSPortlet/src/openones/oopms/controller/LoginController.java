@@ -113,7 +113,7 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("HomePage"); // display ViewDefectList.jsp
         // mav.addObject("helloForm", new HelloForm());
         PortletSession session = request.getPortletSession();
-           
+        session.setAttribute("USERID", user.getDeveloperId(),PortletSession.APPLICATION_SCOPE);
             session.setAttribute("USER", user.getAccount(),PortletSession.APPLICATION_SCOPE);
               
       
