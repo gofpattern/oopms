@@ -13,6 +13,9 @@ public class Timesheet  implements java.io.Serializable {
 
      private BigDecimal timesheetId;
      private Project project;
+     private String processName;
+     private String towName;
+     private String workProductName;
      private BigDecimal developerId;
      private Date createDate;
      private Date occurDate;
@@ -30,11 +33,58 @@ public class Timesheet  implements java.io.Serializable {
      private Date qaapprovedtime;
      private BigDecimal newTimesheetId;
      private String dummyField;
-
+     private String projectName;
     public Timesheet() {
     }
 
-	
+    
+
+    public String getTowName() {
+        return towName;
+    }
+
+
+
+    public void setTowName(String towName) {
+        this.towName = towName;
+    }
+
+
+
+    public String getWorkProductName() {
+        return workProductName;
+    }
+
+
+
+    public void setWorkProductName(String workProductName) {
+        this.workProductName = workProductName;
+    }
+
+
+
+    public String getProcessName() {
+        return processName;
+    }
+
+
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
+
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+
     public Timesheet(BigDecimal timesheetId, Project project, BigDecimal developerId, Date createDate, Date occurDate, BigDecimal duration) {
         this.timesheetId = timesheetId;
         this.project = project;

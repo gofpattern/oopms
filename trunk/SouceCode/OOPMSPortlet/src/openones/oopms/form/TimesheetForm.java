@@ -5,7 +5,7 @@ import java.util.Map;
 public class TimesheetForm {
     Map<String,String> projectMap;
     private String status;
-    private String projectDefault = "All";
+    private String projectDefault;
     
     public Map getProjectMap() {
         return projectMap;
@@ -26,6 +26,5 @@ public class TimesheetForm {
     public void setProjectMap(Map<String, String> projectMap) {
         this.projectMap = projectMap;
     }
-    
     
 }

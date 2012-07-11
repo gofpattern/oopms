@@ -2,7 +2,7 @@
 <!-- saved from url=(0049)https://truong.projectbubble.com/manage/dashboard -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
@@ -133,10 +133,10 @@
 	
 <div id="keepalive"></div>
 
-<portlet:actionURL var="formAction">
-  <portlet:param name="action" value="searchTimesheet" />
+<portlet:actionURL var="timesheetFormAction">
+  <portlet:param name="javax.portlet.action" value="searchTimeSheet"/>
 </portlet:actionURL>
-   <form:form method="post" commandName="timesheetForm" action="${formAction}">
+   <form:form method="post" commandName="timesheetForm" action="${timesheetFormAction}">
 <table  border="0" >
     <tbody>
 	<tr><td><strong>User</strong></td><td width="20%"><%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%></td>
@@ -165,10 +165,9 @@
            
         </td><td></td></tr>
 </tbody></table>
-
-		<p> <form:button id="Search"  class="button blue small" name="Search" value="Search"/>		  
-		
-		  <input type="button" class="button blue small" name="Addnew" onclick="location.href='addTimeSheet.html'" value="Addnew" class="Button" />
+            <form:button class="button blue small" name="Search" value="Search"></form:button>
+		<p>  <input type="submit" id="Search"  class="button blue small" name="Search" value="Search"/>  
+				 
 		 </p>
 </form:form>
 
@@ -183,7 +182,27 @@
         <th width="5%">Time</th>
         <th width="50%">Description</th>
         <th width="5%">Status</th>
-    </tr>    
+    </tr>
+    <c:if test="${not empty timesheetList}">
+  
+        <c:forEach var="timesheet" items="${timesheetList}">
+            <tr>
+              <td class="cb"><input type="checkbox" value="yes"></td>
+               <td ><font color="">${timesheet.occurDate}</font></td>
+                 <td ><font color="">${timesheet.project.name}</font></td>
+                <td ><font color="">${timesheet.towName}</font></td>
+                  <td ><font color="">${timesheet.processName}</font></td>
+                    <td ><font color="">${timesheet.duration}</font></td>
+                      <td ><font color="">${timesheet.description}</font></td>
+                       <td ><c:if test="${timesheet.status==0}">UnApprived</c:if>
+                      <c:if test="${timesheet.status==1}">Approved</c:if></td>
+                      
+            </tr>
+        </c:forEach>
+   
+</c:if>
+    
+    <!--    
    
     <tr>
        <td class="cb"><input type="checkbox" value="yes"></td>
@@ -197,7 +216,7 @@
         <td><font color="">unapproved</font></td>
     </tr>
 
-</tbody></table>
+--></tbody></table>
 
 <p> <input type="button" class="button blue small" name="Update" onclick="javascript:doUpdate()" value="Update" class="Button" />        
 		  <input type="button" class="button blue small" name="Delete" onClick="javascript:doDelete()" value="Delete" class="Button"></p>
