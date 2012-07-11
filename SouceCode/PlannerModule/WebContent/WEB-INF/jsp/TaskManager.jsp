@@ -417,6 +417,7 @@ $(document).ready(function(){
       
     </tbody>
   </table>
+  </c:if>        
 </div>
 <div id="button">
 <input type="button" name="" value="Add New Task"/>
