@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jul 9, 2012 10:54:27 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="sample.entity.OopmsTask" table="OOPMS_TASK" schema="FMSUSER">
+    <class name="openones.oopms.model.OopmsTask" table="TASKS" schema="FMSUSER">
         <id name="taskid" type="big_decimal">
             <column name="TASKID" precision="22" scale="0" />
             <generator class="assigned" />

@@ -1,4 +1,5 @@
 /**
+
  * Licensed to Open-Ones Group under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
@@ -30,23 +31,21 @@ import openones.oopms.model.Tasks;
  */
 public class PlannerForm {
     private String title;
-    public ArrayList<OopmsTask> taskList;
+    public OopmsTask[] taskList;
     
     
     public PlannerForm() {
         // TODO Auto-generated constructor stub
-        OopmsTask task1 = new OopmsTask(4);
-        task1.setTaskname("task number 01");
+//        OopmsTask task1 = new OopmsTask(4);
+//        task1.setTaskname("task number 01");
+//        
+//        OopmsTask task2 = new OopmsTask(3);
+//        task2.setTaskname("task number 02");
+//        
+//        OopmsTask task3 = new OopmsTask(6);
+//        task3.setTaskname("task number 03");     
         
-        OopmsTask task2 = new OopmsTask(3);
-        task2.setTaskname("task number 02");
-        
-        OopmsTask task3 = new OopmsTask(6);
-        task3.setTaskname("task number 03");     
-        
-        taskList.add(task1);
-        taskList.add(task2);
-        taskList.add(task3);
+
     }
     
     /**
@@ -69,7 +68,7 @@ public class PlannerForm {
      * Get value of taskList.
      * @return the taskList
      */
-    public ArrayList<OopmsTask> getTaskList() {
+    public OopmsTask[] getTaskList() {
         return taskList;
     }
 
@@ -77,7 +76,7 @@ public class PlannerForm {
      * Set the value for taskList.
      * @param taskList the taskList to set
      */
-    public void setTaskList(ArrayList<OopmsTask> taskList) {
+    public void setTaskList(OopmsTask[] taskList) {
         this.taskList = taskList;
     }
 

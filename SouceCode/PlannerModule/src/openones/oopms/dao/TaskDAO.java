@@ -1,24 +1,62 @@
 package openones.oopms.dao;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.List;
 
+import openones.oopms.controller.PlannerController;
+import openones.oopms.model.OopmsTask;
 import openones.oopms.model.Tasks;
 import openones.oopms.utils.HibernateUtil;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class TaskDAO {
     private Session session;
-    
+    private static Logger log = Logger.getLogger(TaskDAO.class); 
     public TaskDAO() {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         this.session = factory.getCurrentSession();
     }
     
-    public void save (Tasks task){
+    public OopmsTask[] getAllTask() {
+        log.debug("getAllTask.START");
+        try {
+            session.getTransaction().begin();
+            String sql = "from OopmsTask";
+            Query query = session.createQuery(sql);
+            List resultList = query.list();
+
+            OopmsTask[] taskArray = new OopmsTask[resultList.size()];
+            resultList.toArray(taskArray);
+            session.flush();
+            session.getTransaction().commit();                       
+            
+            return taskArray;
+        } catch (Exception e) {
+            if(session.getTransaction().isActive()){
+                session.getTransaction().rollback();
+            }
+            
+            //Convert e.printStackTrace() to string.
+            
+            StringWriter stringWriter= new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            e.printStackTrace(printWriter);
+            log.debug("getAllTask." +
+            		"exception");
+            log.debug(e.getMessage());
+            log.debug(stringWriter.toString());
+        }
+        return null;
+    }
+    
+    
+   /* public void save (Tasks task){
         try {
         session.getTransaction().begin();
         session.save(task);
@@ -30,9 +68,9 @@ public class TaskDAO {
             }
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public Tasks authenticate (String username, String password){
+/*    public Tasks authenticate (String username, String password){
         try {
             session.getTransaction().begin();
             String sql = "from Tasks where username = ? and password = ?";
@@ -51,7 +89,7 @@ public class TaskDAO {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public Tasks[] findByLastName (String lastname){
         try {

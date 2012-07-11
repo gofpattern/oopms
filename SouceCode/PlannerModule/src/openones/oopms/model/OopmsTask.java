@@ -2,6 +2,7 @@ package openones.oopms.model;
 // Generated Jul 9, 2012 10:54:25 AM by Hibernate Tools 3.2.1.GA
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -10,32 +11,35 @@ import java.util.Date;
 public class OopmsTask  implements java.io.Serializable {
 
 
-     private long taskid;
+     private BigDecimal taskid;
      private String taskcode;
      private String taskname;
-     private long status;
-     private long assignmentid;
-     private long stageid;
-     private long product;
-     private long productsize;
-     private long completenessstatus;
+     private BigDecimal status;
+     private String status_str;
+     private BigDecimal assignmentid;
+     private BigDecimal stageid;
+     private String stage_str;
+     private BigDecimal product;
+     private String product_str;
+     private BigDecimal productsize;
+     private BigDecimal completenessstatus;
      private Date startdate;
      private Date plannedenddate;
      private Date enddate;
-     private long plannedeffort;
-     private long actualeffort;
+     private BigDecimal plannedeffort;
+     private BigDecimal actualeffort;
      private String description;
-     private long projectid;
+     private BigDecimal projectid;
      private Boolean active;
 
     public OopmsTask() {
     }
 
 	
-    public OopmsTask(long taskid) {
+    public OopmsTask(BigDecimal taskid) {
         this.taskid = taskid;
     }
-    public OopmsTask(long taskid, String taskcode, String taskname, long status, long assignmentid, long stageid, long product, long productsize, long completenessstatus, Date startdate, Date plannedenddate, Date enddate, long plannedeffort, long actualeffort, String description, long projectid, Boolean active) {
+    public OopmsTask(BigDecimal taskid, String taskcode, String taskname, BigDecimal status, BigDecimal assignmentid, BigDecimal stageid, BigDecimal product, BigDecimal productsize, BigDecimal completenessstatus, Date startdate, Date plannedenddate, Date enddate, BigDecimal plannedeffort, BigDecimal actualeffort, String description, BigDecimal projectid, Boolean active) {
        this.taskid = taskid;
        this.taskcode = taskcode;
        this.taskname = taskname;
@@ -55,11 +59,11 @@ public class OopmsTask  implements java.io.Serializable {
        this.active = active;
     }
    
-    public long getTaskid() {
+    public BigDecimal getTaskid() {
         return this.taskid;
     }
     
-    public void setTaskid(long taskid) {
+    public void setTaskid(BigDecimal taskid) {
         this.taskid = taskid;
     }
     public String getTaskcode() {
@@ -76,46 +80,46 @@ public class OopmsTask  implements java.io.Serializable {
     public void setTaskname(String taskname) {
         this.taskname = taskname;
     }
-    public long getStatus() {
+    public BigDecimal getStatus() {
         return this.status;
     }
     
-    public void setStatus(long status) {
+    public void setStatus(BigDecimal status) {
         this.status = status;
     }
-    public long getAssignmentid() {
+    public BigDecimal getAssignmentid() {
         return this.assignmentid;
     }
     
-    public void setAssignmentid(long assignmentid) {
+    public void setAssignmentid(BigDecimal assignmentid) {
         this.assignmentid = assignmentid;
     }
-    public long getStageid() {
+    public BigDecimal getStageid() {
         return this.stageid;
     }
     
-    public void setStageid(long stageid) {
+    public void setStageid(BigDecimal stageid) {
         this.stageid = stageid;
     }
-    public long getProduct() {
+    public BigDecimal getProduct() {
         return this.product;
     }
     
-    public void setProduct(long product) {
+    public void setProduct(BigDecimal product) {
         this.product = product;
     }
-    public long getProductsize() {
+    public BigDecimal getProductsize() {
         return this.productsize;
     }
     
-    public void setProductsize(long productsize) {
+    public void setProductsize(BigDecimal productsize) {
         this.productsize = productsize;
     }
-    public long getCompletenessstatus() {
+    public BigDecimal getCompletenessstatus() {
         return this.completenessstatus;
     }
     
-    public void setCompletenessstatus(long completenessstatus) {
+    public void setCompletenessstatus(BigDecimal completenessstatus) {
         this.completenessstatus = completenessstatus;
     }
     public Date getStartdate() {
@@ -139,18 +143,18 @@ public class OopmsTask  implements java.io.Serializable {
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
-    public long getPlannedeffort() {
+    public BigDecimal getPlannedeffort() {
         return this.plannedeffort;
     }
     
-    public void setPlannedeffort(long plannedeffort) {
+    public void setPlannedeffort(BigDecimal plannedeffort) {
         this.plannedeffort = plannedeffort;
     }
-    public long getActualeffort() {
+    public BigDecimal getActualeffort() {
         return this.actualeffort;
     }
     
-    public void setActualeffort(long actualeffort) {
+    public void setActualeffort(BigDecimal actualeffort) {
         this.actualeffort = actualeffort;
     }
     public String getDescription() {
@@ -160,11 +164,11 @@ public class OopmsTask  implements java.io.Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public long getProjectid() {
+    public BigDecimal getProjectid() {
         return this.projectid;
     }
     
-    public void setProjectid(long projectid) {
+    public void setProjectid(BigDecimal projectid) {
         this.projectid = projectid;
     }
     public Boolean getActive() {
