@@ -1,13 +1,13 @@
-package openones.oopms.dao;
+package openones.oopms.planner.dao;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
 
-import openones.oopms.model.Process;
-import openones.oopms.model.Tasks;
-import openones.oopms.model.Stage;
-import openones.oopms.utils.HibernateUtil;
+import openones.oopms.planner.model.Process;
+import openones.oopms.planner.model.Stage;
+import openones.oopms.planner.model.Tasks;
+import openones.oopms.planner.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;

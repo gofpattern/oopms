@@ -17,24 +17,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package openones.oopms.form;
+package openones.oopms.planner.form;
 
 import java.util.List;
 
-import openones.oopms.model.Process;
-import openones.oopms.model.Stage;
-import openones.oopms.model.Tasks;
+import openones.oopms.planner.model.Process;
+import openones.oopms.planner.model.Stage;
+import openones.oopms.planner.model.Tasks;
 /**
  * @author PNTG
  */
 public class PlannerForm {
     private String title;
-    private  List<Tasks> taskList;
+    private List<Tasks> taskList;
     private List<Stage> stageList;
     private List<Process> processList;
 
     public PlannerForm() {
-        
+
     }
 
     /**
@@ -57,7 +57,7 @@ public class PlannerForm {
      * Get value of taskList.
      * @return the taskList
      */
-    public  List<Tasks> getTaskList() {
+    public List<Tasks> getTaskList() {
         return taskList;
     }
 
@@ -100,6 +100,5 @@ public class PlannerForm {
     public void setProcessList(List<Process> processList) {
         this.processList = processList;
     }
-    
-    
+
 }
