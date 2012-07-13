@@ -240,13 +240,13 @@
             <key>
                 <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.oopms.model.Assignment" />
+            <one-to-many class="openones.oopms.projecteye.model.Assignment" />
         </set>
         <set name="timesheets" inverse="true">
             <key>
                 <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.oopms.model.Timesheet" />
+            <one-to-many class="openones.oopms.projecteye.model.Timesheet" />
         </set>
     </class>
 </hibernate-mapping>

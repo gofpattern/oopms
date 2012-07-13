@@ -9,10 +9,10 @@
             <column name="TIMESHEET_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="developer" class="openones.oopms.model.Developer" fetch="select">
+        <many-to-one name="developer" class="openones.oopms.projecteye.model.Developer" fetch="select">
             <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <many-to-one name="project" class="openones.oopms.model.Project" fetch="select">
+        <many-to-one name="project" class="openones.oopms.projecteye.model.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <property name="createDate" type="date">

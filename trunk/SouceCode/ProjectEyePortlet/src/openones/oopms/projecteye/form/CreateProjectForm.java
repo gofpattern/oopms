@@ -18,6 +18,7 @@
  */
 package openones.oopms.projecteye.form;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -28,12 +29,12 @@ public class CreateProjectForm {
 	private String projectName;
 	private String customer;
 	private String endCustomer;
-	private String planStartDate;
-	private String planEndDate;
+	private Date planStartDate;
+	private Date planEndDate;
 	private String scopeObjective;
-	Map<String,String> projectStatus;
-	Map<String,String> projectType;
-	Map<String,String> businessDomain;
+	private Map<String,String> projectStatus;
+	private Map<String,String> projectType;
+	private Map<String,String> businessDomain;
 	/**
 	 * @return the projectStatus
 	 */
@@ -120,30 +121,6 @@ public class CreateProjectForm {
 		this.endCustomer = endCustomer;
 	}
 	/**
-	 * @return the planStartDate
-	 */
-	public String getPlanStartDate() {
-		return planStartDate;
-	}
-	/**
-	 * @param planStartDate the planStartDate to set
-	 */
-	public void setPlanStartDate(String planStartDate) {
-		this.planStartDate = planStartDate;
-	}
-	/**
-	 * @return the planEndDate
-	 */
-	public String getPlanEndDate() {
-		return planEndDate;
-	}
-	/**
-	 * @param planEndDate the planEndDate to set
-	 */
-	public void setPlanEndDate(String planEndDate) {
-		this.planEndDate = planEndDate;
-	}
-	/**
 	 * @return the scopeObjective
 	 */
 	public String getScopeObjective() {
@@ -154,6 +131,30 @@ public class CreateProjectForm {
 	 */
 	public void setScopeObjective(String scopeObjective) {
 		this.scopeObjective = scopeObjective;
+	}
+	/**
+	 * @return the planStartDate
+	 */
+	public Date getPlanStartDate() {
+		return planStartDate;
+	}
+	/**
+	 * @param planStartDate the planStartDate to set
+	 */
+	public void setPlanStartDate(Date planStartDate) {
+		this.planStartDate = planStartDate;
+	}
+	/**
+	 * @return the planEndDate
+	 */
+	public Date getPlanEndDate() {
+		return planEndDate;
+	}
+	/**
+	 * @param planEndDate the planEndDate to set
+	 */
+	public void setPlanEndDate(Date planEndDate) {
+		this.planEndDate = planEndDate;
 	}
 	
 	
