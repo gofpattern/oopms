@@ -7,7 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Create Project</title>
+<title>Create Product</title>
 <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon"/>
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/screen.css" rel="Stylesheet" />
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
@@ -28,32 +28,6 @@
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/default.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/manage.js"></script>
 	
-
-<script type="text/javascript">
-    $(document).ready(function() {
-	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
-	    $(this).toggleClass('selected');
-	    if (event.target.type !== 'checkbox') {
-	      $(':checkbox', this).attr('checked', function() {
-	        return !this.checked;
-	      });
-	    }
-	  });
-	  $( "#datepicker1" ).datepicker({
-	            showOn: "button",
-	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
-	            buttonImageOnly: true
-	        });
-	        $( "#datepicker2" ).datepicker({
-	            showOn: "button",
-	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
-	            buttonImageOnly: true
-	        });
-	        $( "#selectable" ).selectable();
-	});
-    
-    </script>
-
 </head>
 
 <body id="portal" class="up fl-theme-mist">

@@ -17,5 +17,11 @@
     <mapping resource="openones/oopms/projecteye/model/Assignment.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/Timesheet.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/Project.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Risk.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/RiskCategory.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/RiskContigency.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/RiskMitigation.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/RiskSource.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/RiskSourceMitigation.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -53,19 +53,17 @@ public class CreateProjectController {
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(CreateProjectController.class);
 
-    /**
-     * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
-     * DefectViewList screen.
-     * @return name of view which is the name of the JSP page.
-     */
-    @RequestMapping
-    public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START conme");         
-        PortletSession session = request.getPortletSession();        
-        session.setAttribute("loginUser", "cc",PortletSession.PORTLET_SCOPE);
-            return "CreateProject";
-       
-    }
+//    /**
+//     * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
+//     * DefectViewList screen.
+//     * @return name of view which is the name of the JSP page.
+//     */
+//    @RequestMapping
+//    public String initScreen(RenderRequest request) {
+//        log.debug("initScreen.START conme");         
+//            return "CreateProject";
+//       
+//    }
     /**
      * Create bean for form.
      * @return Form bean for UI.
@@ -93,14 +91,14 @@ public class CreateProjectController {
         //set value for project
         project.setCode(formBean.getProjectCode());
         project.setName(formBean.getProjectName());
-        project.setType("2");
     	project.setCustomer(formBean.getCustomer());
     	project.setCustomer2nd(formBean.getEndCustomer());
-    	project.setPlanStartDate(new Date());
-    	project.setPlanFinishDate(new Date());
+    	project.setPlanStartDate(formBean.getPlanStartDate());
+    	project.setPlanFinishDate(formBean.getPlanEndDate());
     	project.setDescription(formBean.getScopeObjective());
     	project.setStatus("1");
     	project.setCategory("1");
+        project.setType("2");
 //    	Map<String,String> projectStatus;
 //    	Map<String,String> projectType;
 //    	Map<String,String> businessDomain;
