@@ -1,15 +1,15 @@
-package openones.oopms.controller;
+package openones.oopms.planner.controller;
 
 import java.util.List;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.dao.TaskDAO;
-import openones.oopms.form.PlannerForm;
-import openones.oopms.model.Process;
-import openones.oopms.model.Tasks;
-import openones.oopms.model.Stage;
+import openones.oopms.planner.dao.TaskDAO;
+import openones.oopms.planner.form.PlannerForm;
+import openones.oopms.planner.model.Process;
+import openones.oopms.planner.model.Stage;
+import openones.oopms.planner.model.Tasks;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -71,13 +71,13 @@ public class PlannerController {
         }
         // Convert ProcessID to string
         try {
-        for (int i = 0; i < taskList.size(); i++) {
-            for (int j = 0; j < processList.size(); j++) {
-                if (taskList.get(i).getProcessId().equals(processList.get(j).getProcessId())) {
-                    taskList.get(i).setProcess_str(processList.get(j).getName());
+            for (int i = 0; i < taskList.size(); i++) {
+                for (int j = 0; j < processList.size(); j++) {
+                    if (taskList.get(i).getProcessId().equals(processList.get(j).getProcessId())) {
+                        taskList.get(i).setProcess_str(processList.get(j).getName());
+                    }
                 }
             }
-        }
         } catch (Exception ex) {
             // TODO: handle exception
             log.debug(processList.get(0).getName());

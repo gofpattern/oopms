@@ -1,13 +1,13 @@
-package openones.oopms.utils;
+package openones.oopms.planner.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-    
+
     private static SessionFactory sessionFactory;
-    
-    static{
+
+    static {
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable e) {
@@ -15,12 +15,12 @@ public class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
-    public static void shutDown(){
-        //closes caches and connections
+
+    public static void shutDown() {
+        // closes caches and connections
         getSessionFactory().close();
     }
 }
