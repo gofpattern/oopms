@@ -299,7 +299,7 @@ $(document).ready(function(){
         <th ><b><font><span >Task Code</span></font></b> 
         <th ><b><font><span >Task Name</span></font></b> 
         <th width="10"><b><font><span>Stage</span></font></b> 
-        <th ><b><font><span>Product</span></font></b> 
+        <th ><b><font><span>Process</span></font></b> 
         <th ><b><font><span>Assigned To</span></font></b> 
         <th ><b><font><span>Remaining Time</span></font></b> 
         <th ><b><font><span>Completeness Rate</span></font></b> 
@@ -320,8 +320,8 @@ $(document).ready(function(){
                         <td>${count}</td>
                         <td>${task.taskcode}</td>
                         <td>${task.taskname}</td>
-                        <td>${task.stageid}</td>
-                        <td>${task.product}</td>
+                        <td>${task.stage_str}</td>
+                        <td>${task.process_str}</td>
                         <td>${task.assignmentid}</td>
                         <td></td>
                         <td>${task.completenessstatus}</td>
@@ -417,7 +417,7 @@ $(document).ready(function(){
       
     </tbody>
   </table>
-  </c:if>        
+ </c:if>        
 </div>
 <div id="button">
 <input type="button" name="" value="Add New Task"/>

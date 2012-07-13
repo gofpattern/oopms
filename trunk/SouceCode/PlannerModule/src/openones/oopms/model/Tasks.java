@@ -1,5 +1,5 @@
 package openones.oopms.model;
-// Generated Jul 6, 2012 2:17:18 AM by Hibernate Tools 3.2.1.GA
+// Generated Jul 12, 2012 4:48:19 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -12,48 +12,55 @@ public class Tasks  implements java.io.Serializable {
 
 
      private BigDecimal taskid;
-     private Workunit workunit;
+     private String taskcode;
+     private String taskname;
+     private BigDecimal statusId;
+     private BigDecimal assignmentid;
+     private BigDecimal stageid;
+     private BigDecimal product;
+     private BigDecimal productsize;
+     private BigDecimal completenessstatus;
+     private Date startdate;
+     private Date plannedenddate;
+     private Date enddate;
+     private BigDecimal plannedeffort;
+     private BigDecimal actualeffort;
      private String description;
-     private BigDecimal assignedto;
-     private BigDecimal effort;
-     private Date planDate;
-     private Date actualDate;
-     private boolean status;
-     private byte type;
-     private String note;
-     private Short process;
-     private Date replanDate;
-     private Boolean feasible;
-     private String code;
+     private BigDecimal projectid;
+     private Boolean active;
+     private BigDecimal processId;
+     
+     private String status_str;
+     private String product_str;
+     private String stage_str;
+     private String process_str;
 
     public Tasks() {
     }
 
 	
-    public Tasks(BigDecimal taskid, Workunit workunit, String description, BigDecimal assignedto, Date planDate, boolean status, byte type) {
+    public Tasks(BigDecimal taskid) {
         this.taskid = taskid;
-        this.workunit = workunit;
-        this.description = description;
-        this.assignedto = assignedto;
-        this.planDate = planDate;
-        this.status = status;
-        this.type = type;
     }
-    public Tasks(BigDecimal taskid, Workunit workunit, String description, BigDecimal assignedto, BigDecimal effort, Date planDate, Date actualDate, boolean status, byte type, String note, Short process, Date replanDate, Boolean feasible, String code) {
+    public Tasks(BigDecimal taskid, String taskcode, String taskname, BigDecimal statusId, BigDecimal assignmentid, BigDecimal stageid, BigDecimal product, BigDecimal productsize, BigDecimal completenessstatus, Date startdate, Date plannedenddate, Date enddate, BigDecimal plannedeffort, BigDecimal actualeffort, String description, BigDecimal projectid, Boolean active, BigDecimal processId) {
        this.taskid = taskid;
-       this.workunit = workunit;
+       this.taskcode = taskcode;
+       this.taskname = taskname;
+       this.statusId = statusId;
+       this.assignmentid = assignmentid;
+       this.stageid = stageid;
+       this.product = product;
+       this.productsize = productsize;
+       this.completenessstatus = completenessstatus;
+       this.startdate = startdate;
+       this.plannedenddate = plannedenddate;
+       this.enddate = enddate;
+       this.plannedeffort = plannedeffort;
+       this.actualeffort = actualeffort;
        this.description = description;
-       this.assignedto = assignedto;
-       this.effort = effort;
-       this.planDate = planDate;
-       this.actualDate = actualDate;
-       this.status = status;
-       this.type = type;
-       this.note = note;
-       this.process = process;
-       this.replanDate = replanDate;
-       this.feasible = feasible;
-       this.code = code;
+       this.projectid = projectid;
+       this.active = active;
+       this.processId = processId;
     }
    
     public BigDecimal getTaskid() {
@@ -63,12 +70,96 @@ public class Tasks  implements java.io.Serializable {
     public void setTaskid(BigDecimal taskid) {
         this.taskid = taskid;
     }
-    public Workunit getWorkunit() {
-        return this.workunit;
+    public String getTaskcode() {
+        return this.taskcode;
     }
     
-    public void setWorkunit(Workunit workunit) {
-        this.workunit = workunit;
+    public void setTaskcode(String taskcode) {
+        this.taskcode = taskcode;
+    }
+    public String getTaskname() {
+        return this.taskname;
+    }
+    
+    public void setTaskname(String taskname) {
+        this.taskname = taskname;
+    }
+    public BigDecimal getStatusId() {
+        return this.statusId;
+    }
+    
+    public void setStatusId(BigDecimal statusId) {
+        this.statusId = statusId;
+    }
+    public BigDecimal getAssignmentid() {
+        return this.assignmentid;
+    }
+    
+    public void setAssignmentid(BigDecimal assignmentid) {
+        this.assignmentid = assignmentid;
+    }
+    public BigDecimal getStageid() {
+        return this.stageid;
+    }
+    
+    public void setStageid(BigDecimal stageid) {
+        this.stageid = stageid;
+    }
+    public BigDecimal getProduct() {
+        return this.product;
+    }
+    
+    public void setProduct(BigDecimal product) {
+        this.product = product;
+    }
+    public BigDecimal getProductsize() {
+        return this.productsize;
+    }
+    
+    public void setProductsize(BigDecimal productsize) {
+        this.productsize = productsize;
+    }
+    public BigDecimal getCompletenessstatus() {
+        return this.completenessstatus;
+    }
+    
+    public void setCompletenessstatus(BigDecimal completenessstatus) {
+        this.completenessstatus = completenessstatus;
+    }
+    public Date getStartdate() {
+        return this.startdate;
+    }
+    
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
+    }
+    public Date getPlannedenddate() {
+        return this.plannedenddate;
+    }
+    
+    public void setPlannedenddate(Date plannedenddate) {
+        this.plannedenddate = plannedenddate;
+    }
+    public Date getEnddate() {
+        return this.enddate;
+    }
+    
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
+    }
+    public BigDecimal getPlannedeffort() {
+        return this.plannedeffort;
+    }
+    
+    public void setPlannedeffort(BigDecimal plannedeffort) {
+        this.plannedeffort = plannedeffort;
+    }
+    public BigDecimal getActualeffort() {
+        return this.actualeffort;
+    }
+    
+    public void setActualeffort(BigDecimal actualeffort) {
+        this.actualeffort = actualeffort;
     }
     public String getDescription() {
         return this.description;
@@ -77,86 +168,101 @@ public class Tasks  implements java.io.Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public BigDecimal getAssignedto() {
-        return this.assignedto;
+    public BigDecimal getProjectid() {
+        return this.projectid;
     }
     
-    public void setAssignedto(BigDecimal assignedto) {
-        this.assignedto = assignedto;
+    public void setProjectid(BigDecimal projectid) {
+        this.projectid = projectid;
     }
-    public BigDecimal getEffort() {
-        return this.effort;
-    }
-    
-    public void setEffort(BigDecimal effort) {
-        this.effort = effort;
-    }
-    public Date getPlanDate() {
-        return this.planDate;
+    public Boolean getActive() {
+        return this.active;
     }
     
-    public void setPlanDate(Date planDate) {
-        this.planDate = planDate;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
-    public Date getActualDate() {
-        return this.actualDate;
-    }
-    
-    public void setActualDate(Date actualDate) {
-        this.actualDate = actualDate;
-    }
-    public boolean isStatus() {
-        return this.status;
+    public BigDecimal getProcessId() {
+        return this.processId;
     }
     
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-    public byte getType() {
-        return this.type;
-    }
-    
-    public void setType(byte type) {
-        this.type = type;
-    }
-    public String getNote() {
-        return this.note;
-    }
-    
-    public void setNote(String note) {
-        this.note = note;
-    }
-    public Short getProcess() {
-        return this.process;
-    }
-    
-    public void setProcess(Short process) {
-        this.process = process;
-    }
-    public Date getReplanDate() {
-        return this.replanDate;
-    }
-    
-    public void setReplanDate(Date replanDate) {
-        this.replanDate = replanDate;
-    }
-    public Boolean getFeasible() {
-        return this.feasible;
-    }
-    
-    public void setFeasible(Boolean feasible) {
-        this.feasible = feasible;
-    }
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
+    public void setProcessId(BigDecimal processId) {
+        this.processId = processId;
     }
 
 
+    /**
+     * Get value of status_str.
+     * @return the status_str
+     */
+    public String getStatus_str() {
+        return status_str;
+    }
 
+
+    /**
+     * Set the value for status_str.
+     * @param status_str the status_str to set
+     */
+    public void setStatus_str(String status_str) {
+        this.status_str = status_str;
+    }
+
+
+    /**
+     * Get value of product_str.
+     * @return the product_str
+     */
+    public String getProduct_str() {
+        return product_str;
+    }
+
+
+    /**
+     * Set the value for product_str.
+     * @param product_str the product_str to set
+     */
+    public void setProduct_str(String product_str) {
+        this.product_str = product_str;
+    }
+
+
+    /**
+     * Get value of stage_str.
+     * @return the stage_str
+     */
+    public String getStage_str() {
+        return stage_str;
+    }
+
+
+    /**
+     * Set the value for stage_str.
+     * @param stage_str the stage_str to set
+     */
+    public void setStage_str(String stage_str) {
+        this.stage_str = stage_str;
+    }
+
+
+    /**
+     * Get value of process_str.
+     * @return the process_str
+     */
+    public String getProcess_str() {
+        return process_str;
+    }
+
+
+    /**
+     * Set the value for process_str.
+     * @param process_str the process_str to set
+     */
+    public void setProcess_str(String process_str) {
+        this.process_str = process_str;
+    }
+
+    
 
 }
 

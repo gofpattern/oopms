@@ -19,35 +19,24 @@
  */
 package openones.oopms.form;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import openones.oopms.model.OopmsTask;
+import openones.oopms.model.Process;
+import openones.oopms.model.Stage;
 import openones.oopms.model.Tasks;
-
-
 /**
  * @author PNTG
- *
  */
 public class PlannerForm {
     private String title;
-    public OopmsTask[] taskList;
-    
-    
-    public PlannerForm() {
-        // TODO Auto-generated constructor stub
-//        OopmsTask task1 = new OopmsTask(4);
-//        task1.setTaskname("task number 01");
-//        
-//        OopmsTask task2 = new OopmsTask(3);
-//        task2.setTaskname("task number 02");
-//        
-//        OopmsTask task3 = new OopmsTask(6);
-//        task3.setTaskname("task number 03");     
-        
+    private  List<Tasks> taskList;
+    private List<Stage> stageList;
+    private List<Process> processList;
 
+    public PlannerForm() {
+        
     }
-    
+
     /**
      * Get value of title.
      * @return the title
@@ -68,7 +57,7 @@ public class PlannerForm {
      * Get value of taskList.
      * @return the taskList
      */
-    public OopmsTask[] getTaskList() {
+    public  List<Tasks> getTaskList() {
         return taskList;
     }
 
@@ -76,10 +65,41 @@ public class PlannerForm {
      * Set the value for taskList.
      * @param taskList the taskList to set
      */
-    public void setTaskList(OopmsTask[] taskList) {
+    public void setTaskList(List<Tasks> taskList) {
         this.taskList = taskList;
     }
 
- 
-   
+    /**
+     * Get value of stageList.
+     * @return the stageList
+     */
+    public List<Stage> getStageList() {
+        return stageList;
+    }
+
+    /**
+     * Set the value for stageList.
+     * @param stageList the stageList to set
+     */
+    public void setStageList(List<Stage> stageList) {
+        this.stageList = stageList;
+    }
+
+    /**
+     * Get value of processList.
+     * @return the processList
+     */
+    public List<Process> getProcessList() {
+        return processList;
+    }
+
+    /**
+     * Set the value for processList.
+     * @param processList the processList to set
+     */
+    public void setProcessList(List<Process> processList) {
+        this.processList = processList;
+    }
+    
+    
 }

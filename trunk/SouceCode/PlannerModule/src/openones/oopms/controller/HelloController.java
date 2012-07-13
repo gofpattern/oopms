@@ -18,22 +18,9 @@
  */
 package openones.oopms.controller;
 
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
-
-import openones.oopms.dao.UserDao;
-import openones.oopms.form.HelloForm;
-import openones.oopms.form.LoginForm;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.bind.annotation.ActionMapping;
-import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author PNTG
