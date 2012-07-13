@@ -13,6 +13,9 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
-    <mapping resource="openones/oopms/model/OopmsTask.hbm.xml"/>
+    <mapping resource="openones/oopms/model/Tasks.hbm.xml"/>
+    <mapping resource="openones/oopms/model/Stage.hbm.xml"/>
+    <mapping resource="openones/oopms/model/ProjectStatus.hbm.xml"/>
+    <mapping resource="openones/oopms/model/Process.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
