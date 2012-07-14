@@ -4,6 +4,8 @@ Features:
 + Display the login screen
 + Display Login form if non-authenticated.
   If authenticated user, display screen "/DMSPortlet/WebContent/WEB-INF/jsp/ViewDefectList.jsp"
++ Setting authenticated user for development environment is "pham.nguyen.truong.giang"
++ Demo preparing data for screen: text, combo-box (Project)
 
 How does Authentication work?
 ================================
