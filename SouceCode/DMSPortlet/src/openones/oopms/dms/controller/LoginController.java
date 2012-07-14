@@ -68,7 +68,6 @@ public class LoginController {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
             userInfo.setUsername(logonUser);
-
             mav = new ModelAndView("ViewDefectList"); // Display ViewDefectList.jsp
             prepareDataForViewDefectList(userInfo, mav);
             
@@ -103,6 +102,7 @@ public class LoginController {
         LOG.debug("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
         if (!result.hasErrors()) {
+            userInfo.setUsername(formBean.getUsername());
             // Prepare parameter to render phase
             response.setRenderParameter("action", "login");
         } else {
