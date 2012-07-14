@@ -61,7 +61,7 @@
         <!-- 
         <p><input name="Login" class="Button" onclick="DoLogin()" value="Login" type="button"></p>
         -->
-        <p><form:button id="Login" name="Login" value="Login"/></p>
+        <p><form:button id="Login" name="Login" value="Login">Login</form:button></p>
          
         </td>
     </tr>
