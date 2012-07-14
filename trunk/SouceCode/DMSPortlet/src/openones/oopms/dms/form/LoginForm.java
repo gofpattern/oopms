@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package openones.oopms.form;
+package openones.oopms.dms.form;
 
 /**
  * @author Thach.Le

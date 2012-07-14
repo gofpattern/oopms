@@ -1,200 +1,113 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
-    <title>Project Management System</title>
-
-    <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../OOPMSPortlet/resource_files/css/common.css" media="all">
-    <meta name="robots" content="noindex, nofollow">
-    
-        
-        
-    <link rel="stylesheet" type="text/css" href="./css/datepicker.css" media="all">
-    <link rel="fluid-icon" href="https://c15027075.ssl.cf2.rackcdn.com/images/apple-touch-icon-114x114.png">
-    
-    <script type="text/javascript" async="" src="./css/ga.js"></script><script language="javascript" type="text/javascript" src="./css/jquery.js"></script>
-    <script language="javascript" type="text/javascript" src="./css/jquery.cookie.js"></script>
-    <script language="javascript" type="text/javascript" src="./css/default.js"></script>
-    <script language="javascript" type="text/javascript" src="./css/manage.js"></script>
-    
-        
-        
-            <script type="text/javascript">
-            $(function(){
-                $('.showlogin').click(function(){
-                    $('.callus').hide();
-                    $('#login').fadeIn();
-                    return false;
-                });
-            });
-        </script>
-    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html><head>
+<script language="javascript" src="resource_files/fnc_CookieFunctions.js"></script>
+<script language="javascript" src="resource_files/CommonScript.js"></script>
+<script language="javascript" src="resource_files/BigInt.js"></script>
+<script language="javascript" src="resource_files/rsa.html"></script>
+<script language="javascript" src="resource_files/sha1.js"></script>
+<title>DMS Login Home Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="StyleSheet" href="resource_files/DMSStyleSheet.css" type="text/css">
 </head>
-<body>
+<body topmargin="0" leftmargin="0" onkeypress="javascript:setKeypress(event.which)" bgcolor="#FFFFFF">
+<table height="51" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+        <tr>
+            <td height="51" background="resource_files/bgr_header.gif" bgcolor="#310c52" width="212"> <img src="resource_files/defect_logop1.gif" border="0"><br>
+            </td>
+            <td align="left" height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" valign="top" width="50%"><img src="resource_files/defect_logop2.gif" border="0"></td>
+            <td align="right" height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" valign="top" width="50%"><img src="resource_files/header.gif" border="0"></td>
+        </tr>
+        <tr>
+            <td align="left" bgcolor="#000084" width="111"><img src="resource_files/logo2.gif" border="0"></td>
+            <td colspan="2" align="left" bgcolor="#310C52" valign="middle"></td>
+        </tr>
+    </tbody>
+</table>
+<div>
+<p><br>
+<img src="resource_files/Login.gif" height="28" border="0" width="411"></p>
+</div>
+<hr class="Line1">
+<br>
 
-<div class="bg">
-
-    <div id="header" class="">
-
-        <div class="container narrow">
-
-            <div id="logo" class="">
-            
-                            
-                    <a href="https://oopms.googlcode.com/"><img src="./css/logo.png" alt="Project Bubble" id="fDI2MDc" class="pic"></a>
-                    
-                                
-            </div>
-            <%-- Define actionURL --%>
+<%-- Define actionURL --%>
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="login" />
 </portlet:actionURL>
-      
-            <div id="toolbar" class="">
-            
-                                    
-                    <div id="login">
-        
-                        <form:form method="post" commandName="loginForm" action="${formAction}">
-                            <form:input path="username"/><!--
-                            <input type="text" name="username" title="your@email.com" class="longer formelement replacer">
-                            --><input type="password" name="password" title="password" class="formelement replacer">
-                            
-                              <form:button id="Login"  class="button blue small" name="Login" value="Login"/>
-                            <br class="clear">
-        
-                            <div class="extras">
-                                <label for="remember">Remember me</label>
-                                <input type="checkbox" name="remember" id="remember" value="1" class="nolabel" checked="checked">
-                            </div>
-                         
-                        </form:form>
-        
-                    </div>
-    
-                    <div class="callus">
-                        <span>Contact us: <strong>oopms@googlegroup.com</strong></span>
-                        <span><a href="https://oopms.googlcode.com/help">Help</a></span>
-                        <span><img src="./css/padlock.png" alt="Login"> <a href="./css/Project Bubble.htm">Login</a></span>
-                    </div>
-                    
-                    <ul class="bigger">
-                        <li class=""><a href="https://secure.projectbubble.com/pricing">Signup</a></li>
-                        <li class=""><a href="http://projectbubble.com/tour">About</a></li>
-                        <li class=""><a href="http://projectbubble.com/">Introduction</a></li>
-                    </ul>
-                  
-                    
-            </div>              
-            
-            
-        </div>
 
-    </div>
-
-    <div id="content" class="content ">
-
-        <div class="container narrow">
-
-            <div id="tpl-manage" class="clearfix">
-
-    <div id="tpl-signup">
-        
-        <div class="tpl-2col">
-        
-            <div class="col1 bigmargin">
-            
-                                
-                <div class="box">
-                
-                    <h1>Login</h1>
-                    <form:form method="post" commandName="loginForm" action="${formAction}" class="default biglabel">
-                    
-                                    
-                        <label for="email">Email:</label><!--
-                        <input type="text" id="email" name="username" class="formelement" placeholder="me@myemail.com">
-                       --><form:input path="username" cssClass="formelement"/>
-                       
-                        <br class="clear">                
-                        <label for="password">Password:</label>
-                        <form:password path="password" class="formelement"/>
-                        
-                        <br class="clear">
-                        <form:errors path="*" cssStyle="color:red;" />
-                        
-                        <label for="remember2">Remember me?</label>
-                        <input type="checkbox" name="remember" id="remember2" value="1" class="" checked="checked">
-                        <br class="clear"><br>                  
-                        <input type="submit" id="login" name="login" value="Login" class="button big">
-                        <br class="clear"><br>
-                       
-                            
-                        
-                    </form:form>
-            
-                </div>
-                
-                <div id="holdon">
-                
-                                        
-                </div>
-                
-            </div>
-            
-        </div>
-        
-    </div>
-
-        </div>
-
-        
-        </div>
-
-    </div>
-
-    <div id="footer" class="content clearfix">
-
-        <div class="container">
-        
-                        
-                <p class="links">
-                    <a href="https://oopms.googlcode.com/privacy">Privacy Policy</a> |
-                    <a href="https://oopms.googlcode.com/terms-of-service">Terms of Service</a> |
-                    <a href="https://oopms.googlcode.com/help">Help</a>
-                </p>
-                
-                <p class="copyright">
-                    <a href="http://projectbubble.com/"><img src="./css/marque.png" class="marque" alt="Project Bubble"></a>
-                    © 2012 Project Bubble LLC
-                </p>
-                                
-                        
-        </div>
-        
-    </div>
-
-
+<form:form method="post" commandName="loginForm" action="${formAction}">
+<table border="0" width="411">
+    <tbody><tr>
+        <td align="right" width="70%"><b>User name</b></td>
+        <td width="5%"></td>
+        <td align="right" width="25%"><input name="username" class="SmallBox" type="text"></td>
+    </tr>
+    <tr>
+        <td align="right" width="70%"><b>Password</b></td>
+        <td width="5%"></td>
+        <td align="right" width="25%"><input name="password" class="SmallBox" type="password"></td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+        <td align="right" width="70%"></td>
+        <td width="5%"></td>
+        <td width="25%">
+        <!-- 
+        <p><input name="Login" class="Button" onclick="DoLogin()" value="Login" type="button"></p>
+        -->
+        <p><form:button id="Login" name="Login" value="Login"/></p>
+         
+        </td>
+    </tr>
+</tbody></table>
+</form:form>
+<form method="POST" action="DMSServlet" name="frmLogin">
+<input name="hidActionDetail" value="" type="hidden">
+<input name="hidAction" value="" type="hidden">
+<input name="username" type="hidden">
+<input name="password" type="hidden">
+</form>
+<div>
+<p><br><br><br><br><br><br><br><br></p>
+<hr class="Line1">
+<table>
+    <tbody><tr>
+        <td width="10%"></td>
+        <td width="90%"><font class="label1">
+        Copyright © 2012-2017 Open-Ones. Online Open Management Suite, DMS Version 0.1.0<br>
+        </font>
+        </td>
+    </tr>
+</tbody></table>
 </div>
-
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-6656902-4']);
-  _gaq.push(['_setDomainName', 'projectbubble.com']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
+<script language="Javascript">
+    var key;
+    //LogForm(frmLogin, "load");
+    document.frmLoginPost.username.focus();
+function DoLogin() {
+    //Save Cookie:
+    //LogForm(document.frmLogin, "save");
+    var form = document.frmLogin;
+    document.frmLogin.username.value = document.frmLoginPost.username.value;
+    document.frmLogin.password.value = hex_sha1(document.frmLoginPost.password.value);
+    document.frmLogin.hidAction.value = "ViewDefectListing";
+    document.frmLogin.action = "DMSServlet";
+    document.frmLogin.submit();
+}
+function setKeypress(key) {
+    if (navigator.appName != "Netscape") {
+        key = event.keyCode;
+    }
+    if (key==13) {
+        DoLogin();
+    }
+}
 </script>
-
 
 </body></html>

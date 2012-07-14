@@ -16,15 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package openones.oopms.controller;
+package openones.oopms.dms.controller;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.dao.UserDao;
-import openones.oopms.form.LoginForm;
-import openones.oopms.model.Developer;
+import openones.oopms.dms.form.LoginForm;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -36,7 +33,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.portlet.mvc.SimpleFormController;
 
 /**
  * @author Thach.Le
@@ -44,8 +40,6 @@ import org.springframework.web.portlet.mvc.SimpleFormController;
 @Controller
 @RequestMapping("VIEW")
 public class LoginController {
-    
-    Developer user = new Developer();
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(LoginController.class);
 
@@ -58,10 +52,18 @@ public class LoginController {
     public String initScreen(RenderRequest request) {
         log.debug("initScreen.START");
         // Get logon user
-        PortletSupport portletSupport = new PortletSupport(request);       
-            
+        PortletSupport portletSupport = new PortletSupport(request);
+        String logonUser = portletSupport.getLogonUser();
+
+        log.debug("logonUser=" + logonUser);
+
+        if ((logonUser == null) || ("guest".equals(logonUser))) {
+            // Display login.jsp
             return "login";
-       
+        } else {
+            // Display ViewDefectList.jsp
+            return "ViewDefectList";
+        }
     }
     /**
      * Create bean for form.
@@ -71,7 +73,6 @@ public class LoginController {
     public LoginForm getCommandObject() {
         log.debug("getCommandObject.START");
         LoginForm formBean = new LoginForm();
-        formBean.setUsername("test");
         return formBean;
     }
 
@@ -87,17 +88,10 @@ public class LoginController {
         log.debug("processLogin.START");
         log.debug("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
-        
-        
-        UserDao userDao = new UserDao();
-        
-        user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
-        
-        if (!result.hasErrors() && user!=null) {
+        if (!result.hasErrors()) {
             // Prepare parameter to render phase
-           response.setRenderParameter("action", "login");           
+            response.setRenderParameter("action", "login");
         } else {
-            result.rejectValue("username", "error");
             log.error("Error in binding result:" + result.getErrorCount());
         }
     }
@@ -110,13 +104,8 @@ public class LoginController {
     public ModelAndView postLogin(LoginForm formBean, RenderRequest request) {
         log.debug("postLogin.START");
         // request.setAttribute("user2", formBean);
-        ModelAndView mav = new ModelAndView("HomePage"); // display ViewDefectList.jsp
+        ModelAndView mav = new ModelAndView("ViewDefectList"); // display ViewDefectList.jsp
         // mav.addObject("helloForm", new HelloForm());
-        PortletSession session = request.getPortletSession();
-           
-            session.setAttribute("USER", user.getAccount(),PortletSession.APPLICATION_SCOPE);
-              
-      
         return mav;
     }
 }
