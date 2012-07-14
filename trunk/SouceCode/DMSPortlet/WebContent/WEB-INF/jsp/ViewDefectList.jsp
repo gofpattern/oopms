@@ -1,4 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<portlet:defineObjects />
 <html><head>
 <title>View Defect Listing</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -155,7 +160,11 @@ function CheckAll2(form) {
 <div>
 <p><img src="resource_files/ViewDefectListing.gif" height="28" border="0" width="411"></p>
 </div>
-<form method="POST" action="DMSServlet" name="frmViewDefectListing">
+<portlet:actionURL var="formAction">
+  <portlet:param name="action" value="search" />
+</portlet:actionURL>
+<form:form commandName="viewDefectList" method="post" action="${formAction}">
+
 <input name="hidActionDetail" value="" type="hidden">
 <input name="hidAction" value="" type="hidden">
 <input name="CheckRole" value="1110000000" type="hidden">
@@ -165,18 +174,26 @@ function CheckAll2(form) {
 <table class="TblOut2" border="0" width="100%">
     <tbody><tr>
         <td width="8%"><b>User:</b></td>
-        <td width="24%">System Administrator</td>
+        <td width="24%">${portletSessionScope.UserInfo.username}</td>
         <td width="12%"><b>Login Date:</b></td>
-        <td width="25%">06/05/12</td>
+        <td width="25%">${portletSessionScope.UserInfo.loginDate}</td>
         <td width="9%"><b>Project</b></td>
-        <td align="right" width="22%"><select name="cboProjectList" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="118385">OOPMS</option>
-        </select></td>
+        <td align="right" width="22%">
+        <!-- 
+        <select name="cboProjectList" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="118385">OOPMS</option>
+        </select>
+         -->
+        <form:select id="cboProjectList" path="selProject" multiple="false" size="1" items="${viewDefectList.projectMap}">
+         <form:options ></form:options>
+         </form:select>
+         
+        </td>
     </tr>
     <tr>
         <td width="8%"><b>Group:</b></td>
-        <td width="24%">FSOFT</td>
+        <td width="24%">${portletSessionScope.UserInfo.group}</td>
         <td width="12%"><b>Position:</b></td>
-        <td width="25%">Project Leader</td>
+        <td width="25%">${portletSessionScope.UserInfo.position}</td>
         <td width="9%"><b>Status</b></td>
         <td align="right" width="22%"><select name="cboProjectStatus" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="0">On-going</option>        </select></td>
 
@@ -234,6 +251,6 @@ function CheckAll2(form) {
 <p><input name="btnAddQuery" class="Button" onclick="javascript:doAddQuery()" value="Add Query" type="button"> &nbsp;
 <input name="btnDeleteQuery" class="Button" onclick="javascript:doDeleteQuery()" value="Delete Query" type="button"> &nbsp;
 
-</p></form>
+</p></form:form>
 
 </body></html>
