@@ -16,6 +16,11 @@
     <mapping resource="openones/oopms/planner/model/Tasks.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Stage.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/ProjectStatus.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Project.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Process.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Developer.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Assignment.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Responsibility.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Team.hbm.xml" />
   </session-factory>
 </hibernate-configuration>

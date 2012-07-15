@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jul 12, 2012 4:48:21 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class name="openones.oopms.planner.model.Tasks" table="TASKS" schema="FMSUSER">
+  <class name="openones.oopms.planner.model.Tasks" table="TASKS" schema="FMSUSER" lazy="false">
     <id name="taskid" type="big_decimal">
       <column name="TASKID" precision="22" scale="0" />
       <generator class="assigned" />
@@ -17,8 +17,8 @@
     <property name="statusId" type="big_decimal">
       <column name="STATUS_ID" precision="22" scale="0" />
     </property>
-    <property name="assignmentid" type="big_decimal">
-      <column name="ASSIGNMENTID" precision="22" scale="0" />
+    <property name="developerid" type="big_decimal">
+      <column name="DEVELOPERID" precision="22" scale="0" />
     </property>
     <property name="stageid" type="big_decimal">
       <column name="STAGEID" precision="22" scale="0" />
