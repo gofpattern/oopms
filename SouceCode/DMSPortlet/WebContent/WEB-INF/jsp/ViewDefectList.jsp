@@ -210,15 +210,39 @@ function CheckAll2(form) {
             </tr>
             <tr class="Row2">
                 <td width="3%"></td>
-                <td height="19" width="59%"><a href="javascript:doAllDefects()">All Defects</a></td>
+                <td height="19" width="59%">
+                <!-- 
+                <a href="javascript:doAllDefects()">All Defects</a>
+                 -->
+                <a href='<portlet:renderURL>
+                            <portlet:param name="action" value="ViewDefectList"/>
+                            <portlet:param name="kindOfDefect" value="All"/>
+                </portlet:renderURL>'>All Defects</a>
+                </td>
             </tr>
             <tr class="Row1">
                 <td width="3%"></td>
-                <td height="19" width="59%"><a href="javascript:doAllOpenDefects()">All Open Defects</a></td>
+                <td height="19" width="59%">
+                <%--
+                <a href="javascript:doAllOpenDefects()">All Open Defects</a>
+                 --%>
+                 <a href='<portlet:renderURL>
+                            <portlet:param name="action" value="ViewDefectList"/>
+                            <portlet:param name="kindOfDefect" value="Open"/>
+                 </portlet:renderURL>'>All Open Defects</a>
+                </td>
             </tr>
             <tr class="Row2">
                 <td width="3%"></td>
-                <td height="19" width="59%"><a href="javascript:doAllLeakageDefects()">All Leakage Defects</a></td>
+                <td height="19" width="59%">
+                <%-- 
+                <a href="javascript:doAllLeakageDefects()">All Leakage Defects</a>
+                --%>
+                <a href='<portlet:renderURL>
+                           <portlet:param name="action" value="ViewDefectList"/>
+                           <portlet:param name="kindOfDefect" value="Leakage"/>
+                  </portlet:renderURL>'>All Leakage Defects</a>
+                </td>
             </tr>
         </tbody></table>
         </td>

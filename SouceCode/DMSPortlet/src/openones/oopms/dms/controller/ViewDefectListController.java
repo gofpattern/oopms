@@ -18,38 +18,65 @@
  */
 package openones.oopms.dms.controller;
 
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.dms.form.LoginForm;
+import openones.oopms.dms.biz.DMSWorkspace;
+import openones.oopms.dms.form.UserInfo;
+import openones.oopms.dms.form.ViewDefectListForm;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author Thach.Le
  */
 @Controller
-@RequestMapping(value = "VIEW", params = "action=InitViewDefectList")
-public class ViewDefectListController {
-    /** Logger for logging. */
-    private static final Logger LOG = Logger.getLogger(ViewDefectListController.class);
+@RequestMapping(value = "VIEW")
+public class ViewDefectListController extends BaseController {
 
     /**
      * Create bean for form.
      * @return Form bean for UI.
      */
-    @ModelAttribute("formBean")
-    public LoginForm getCommandObject() {
-        LOG.debug("getCommandObject.START");
-        LoginForm formBean = new LoginForm();
+    @ModelAttribute("viewDefectList")
+    public ViewDefectListForm getCommandObject() {
+        log.debug("getCommandObject.START");
+        ViewDefectListForm formBean = new ViewDefectListForm();
         return formBean;
     }
     
     @RequestMapping
     public String initScreen(RenderRequest request) {
-        LOG.debug("initScreen.START");
+        log.debug("initScreen.START");
         return "ViewDefectList";
+    }
+    
+    /**
+     * Process render event "ViewDefectList".
+     * Param kindOfDefect: 
+     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
+     */
+    @RenderMapping(params = "action=ViewDefectList")
+    public ModelAndView processViewDefectList(RenderRequest request, PortletSession session) {
+        log.debug("processViewDefectList.START");
+
+        ModelAndView mav = new ModelAndView("ViewDefectList2"); // display ViewDefectList.jsp
+        String kindOfDefect = request.getParameter("kindOfDefect");
+        log.info("kindOfDefect=" + kindOfDefect);
+        ViewDefectListForm viewDefectList = new ViewDefectListForm();
+        // Sample data
+        
+        // Set projects that logon user is joining
+        UserInfo userInfo = getUserInfo(session);
+        DMSWorkspace dmsWsp = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername());
+        
+        viewDefectList.addProject(dmsWsp.getProjects());
+
+        mav.addObject("viewDefectList", viewDefectList);
+        return mav;
     }
 }

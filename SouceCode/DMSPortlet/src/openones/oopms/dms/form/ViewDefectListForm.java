@@ -18,6 +18,7 @@
  */
 package openones.oopms.dms.form;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import java.util.Map;
  * @author Thach.Le
  */
 public class ViewDefectListForm {
-    /**  Selected project. */
+    /** Selected project. */
     private String selProject;
 
     /** List of the project are displayed in combo box Project. */
@@ -56,8 +57,18 @@ public class ViewDefectListForm {
         if (projectMap == null) {
             projectMap = new HashMap<String, String>();
         }
-        
+
         projectMap.put(key, value);
+    }
+
+    /**
+     * [Give the description for method].
+     * @param projectColl
+     */
+    public void addProject(Collection<String> projectColl) {
+        for (String project : projectColl) {
+            addProject(project, project);
+        }
     }
 
     /**

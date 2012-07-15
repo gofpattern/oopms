@@ -6,6 +6,8 @@ Features:
   If authenticated user, display screen "/DMSPortlet/WebContent/WEB-INF/jsp/ViewDefectList.jsp"
 + Setting authenticated user for development environment is "pham.nguyen.truong.giang"
 + Demo preparing data for screen: text, combo-box (Project)
++ Process hyperlinks to go to screen: ViewAllDefect, ViewOpenDefect, ViewLeadkageDefect
+  Demo using hyperlinks with parameters
 
 How does Authentication work?
 ================================
