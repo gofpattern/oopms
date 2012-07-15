@@ -13,7 +13,7 @@ public class Tasks implements java.io.Serializable {
     private String taskcode;
     private String taskname;
     private BigDecimal statusId;
-    private BigDecimal assignmentid;
+    private BigDecimal developerid;
     private BigDecimal stageid;
     private BigDecimal product;
     private BigDecimal productsize;
@@ -32,6 +32,23 @@ public class Tasks implements java.io.Serializable {
     private String product_str;
     private String stage_str;
     private String process_str;
+    private String developer_str;
+
+    /**
+     * Get value of developer_str.
+     * @return the developer_str
+     */
+    public String getDeveloper_str() {
+        return developer_str;
+    }
+
+    /**
+     * Set the value for developer_str.
+     * @param developer_str the developer_str to set
+     */
+    public void setDeveloper_str(String developer_str) {
+        this.developer_str = developer_str;
+    }
 
     public Tasks() {
     }
@@ -39,7 +56,7 @@ public class Tasks implements java.io.Serializable {
     public Tasks(BigDecimal taskid) {
         this.taskid = taskid;
     }
-    public Tasks(BigDecimal taskid, String taskcode, String taskname, BigDecimal statusId, BigDecimal assignmentid,
+    public Tasks(BigDecimal taskid, String taskcode, String taskname, BigDecimal statusId, BigDecimal developerid,
             BigDecimal stageid, BigDecimal product, BigDecimal productsize, BigDecimal completenessstatus,
             Date startdate, Date plannedenddate, Date enddate, BigDecimal plannedeffort, BigDecimal actualeffort,
             String description, BigDecimal projectid, Boolean active, BigDecimal processId) {
@@ -47,7 +64,7 @@ public class Tasks implements java.io.Serializable {
         this.taskcode = taskcode;
         this.taskname = taskname;
         this.statusId = statusId;
-        this.assignmentid = assignmentid;
+        this.developerid = developerid;
         this.stageid = stageid;
         this.product = product;
         this.productsize = productsize;
@@ -91,12 +108,12 @@ public class Tasks implements java.io.Serializable {
     public void setStatusId(BigDecimal statusId) {
         this.statusId = statusId;
     }
-    public BigDecimal getAssignmentid() {
-        return this.assignmentid;
+    public BigDecimal getDeveloperid() {
+        return this.developerid;
     }
 
-    public void setAssignmentid(BigDecimal assignmentid) {
-        this.assignmentid = assignmentid;
+    public void setDeveloperid(BigDecimal developerid) {
+        this.developerid = developerid;
     }
     public BigDecimal getStageid() {
         return this.stageid;

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jul 12, 2012 4:48:21 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class name="openones.oopms.planner.model.Process" table="PROCESS" schema="FMSUSER">
+  <class name="openones.oopms.planner.model.Process" table="PROCESS" schema="FMSUSER" lazy="false">
     <comment>Processes used in Timesheet, Insight and DMS</comment>
     <id name="code" type="string">
       <column name="CODE" length="100" />
