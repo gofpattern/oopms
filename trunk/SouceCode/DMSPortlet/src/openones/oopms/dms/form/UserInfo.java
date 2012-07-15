@@ -26,18 +26,26 @@ import java.util.Collection;
  * @author Thach.Le
  */
 public class UserInfo implements Serializable {
-    /**  User identifier. */
+    /** User identifier. */
     private String username;
-    
+
     private String group;
-    
-    /**  If roles has data. The position is the first role. */
+
+    /** If roles has data. The position is the first role. */
     private String position;
-    
+
     private String loginDate;
-    
-    /**  Roles of user. */
+
+    /** Roles of user. */
     private Collection<String> roles;
+
+    /**
+     * Create instance of UserInfo with authenticated user.
+     * @param logonUser
+     */
+    public UserInfo(String logonUser) {
+        this.username = logonUser;
+    }
     /**
      * Get value of username.
      * @return the username

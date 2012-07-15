@@ -22,13 +22,13 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.LoginForm;
 import openones.oopms.dms.form.UserInfo;
 import openones.oopms.dms.form.ViewDefectListForm;
 import openones.oopms.dms.util.AppUtil;
 import openones.portlet.PortletSupport;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,13 +43,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class LoginController {
-    /** Logger for logging. */
-    private final static Logger LOG = Logger.getLogger(LoginController.class);
-    
-    // Get information of authenticated user: position
-    UserInfo userInfo = new UserInfo();
-
+public class LoginController extends BaseController {
     /**
      * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
      * DefectViewList screen.
@@ -57,22 +51,22 @@ public class LoginController {
      */
     @RequestMapping
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
-        LOG.debug("initScreen.START");
+        log.debug("initScreen.START");
         ModelAndView mav;
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
 
-        LOG.debug("logonUser=" + logonUser);
+        log.debug("logonUser=" + logonUser);
 
         if ((logonUser == null) || ("guest".equals(logonUser))) {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
-            userInfo.setUsername(logonUser);
+            UserInfo userInfo = new UserInfo(logonUser);
             mav = new ModelAndView("ViewDefectList"); // Display ViewDefectList.jsp
             prepareDataForViewDefectList(userInfo, mav);
             
-            // Update user roles
-            session.setAttribute("UserInfo", userInfo);
+            // Update userInfo into the session
+            updateUserInfo(session, userInfo);
             
         }
 
@@ -84,7 +78,7 @@ public class LoginController {
      */
     @ModelAttribute("loginForm")
     public LoginForm getCommandObject() {
-        LOG.debug("getCommandObject.START");
+        log.debug("getCommandObject.START");
         LoginForm formBean = new LoginForm();
         return formBean;
     }
@@ -97,16 +91,22 @@ public class LoginController {
      * @param response response of action
      */
     @ActionMapping(params = "action=login")
-    public void processLogin(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        LOG.debug("processLogin.START");
-        LOG.debug("username=" + formBean.getUsername());
+    public void processLogin(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response, PortletSession session) {
+        log.debug("processLogin.START");
+        log.debug("username=" + formBean.getUsername());
+
         // session.setAttribute("user", formBean);
         if (!result.hasErrors()) {
+            UserInfo userInfo = getUserInfo(session);
+            if (userInfo == null) {
+                userInfo = new UserInfo(formBean.getUsername());
+            }
             userInfo.setUsername(formBean.getUsername());
+            updateUserInfo(session, userInfo);
             // Prepare parameter to render phase
             response.setRenderParameter("action", "login");
         } else {
-            LOG.error("Error in binding result:" + result.getErrorCount());
+            log.error("Error in binding result:" + result.getErrorCount());
         }
         
         // Logon success
@@ -119,14 +119,15 @@ public class LoginController {
      */
     @RenderMapping(params = "action=login")
     public ModelAndView postLogin(LoginForm formBean, RenderRequest request, PortletSession session) {
-        LOG.debug("postLogin.START");
+        log.debug("postLogin.START");
         // request.setAttribute("user2", formBean);
 
         ModelAndView mav = new ModelAndView("ViewDefectList"); // display ViewDefectList.jsp
+        UserInfo userInfo = getUserInfo(session);
         prepareDataForViewDefectList(userInfo, mav);
 
         // Update user roles
-        session.setAttribute("UserInfo", userInfo);
+        updateUserInfo(session, userInfo);
         
         return mav;
     }
@@ -150,8 +151,9 @@ public class LoginController {
         userInfo.setLoginDate(AppUtil.getCurrentDate());
         
         // Set projects that logon user is joining
-        viewDefectList.addProject("val1", "Project1");
-        viewDefectList.addProject("val2", "Project2");
+        DMSWorkspace dmsWsp = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername());
+        
+        viewDefectList.addProject(dmsWsp.getProjects());
 
         mav.addObject("viewDefectList", viewDefectList);
     }
