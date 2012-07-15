@@ -10,6 +10,8 @@ Features:
   Demo using hyperlinks with parameters
 + Process event "Add New" to display screen "Add new defect"
   Demo using renderUrl for button
+  Load some initial data for "Add New Defect"
+  Process button "Defect List" to go back the screen "Defect List2"
 
 How does Authentication work?
 ================================

@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
-import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author Thach.Le
@@ -104,7 +103,7 @@ public class LoginController extends BaseController {
             userInfo.setUsername(formBean.getUsername());
             updateUserInfo(session, userInfo);
             // Prepare parameter to render phase
-            response.setRenderParameter("action", "login");
+            response.setRenderParameter("action", "goViewDefectList");
         } else {
             log.error("Error in binding result:" + result.getErrorCount());
         }
@@ -117,20 +116,20 @@ public class LoginController extends BaseController {
      * Process after the action "login" (method "processLogin") is executed.
      * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
      */
-    @RenderMapping(params = "action=login")
-    public ModelAndView postLogin(LoginForm formBean, RenderRequest request, PortletSession session) {
-        log.debug("postLogin.START");
-        // request.setAttribute("user2", formBean);
-
-        ModelAndView mav = new ModelAndView("ViewDefectList"); // display ViewDefectList.jsp
-        UserInfo userInfo = getUserInfo(session);
-        prepareDataForViewDefectList(userInfo, mav);
-
-        // Update user roles
-        updateUserInfo(session, userInfo);
-        
-        return mav;
-    }
+//    @RenderMapping(params = "action=login")
+//    public ModelAndView postLogin(LoginForm formBean, RenderRequest request, PortletSession session) {
+//        log.debug("postLogin.START");
+//        // request.setAttribute("user2", formBean);
+//
+//        ModelAndView mav = new ModelAndView("ViewDefectList"); // display ViewDefectList.jsp
+//        UserInfo userInfo = getUserInfo(session);
+//        prepareDataForViewDefectList(userInfo, mav);
+//
+//        // Update user roles
+//        updateUserInfo(session, userInfo);
+//        
+//        return mav;
+//    }
     
     /**
      * Prepare data to initialize the screen ViewDefectList.

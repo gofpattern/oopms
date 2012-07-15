@@ -18,10 +18,14 @@
  */
 package openones.oopms.dms.biz;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import openones.oopms.daocommon.QcActivityDao;
+import openones.oopms.entity.QcActivity;
 
 /**
  * @author Thach.Le
@@ -30,7 +34,7 @@ public class DMSWorkspace {
     /** Authenticated username. */
     private String username;
 
-    private static DMSWorkspace defaultWsp = null;
+    private static DMSWorkspace defaultWsp = new DMSWorkspace();
 
     /** Table of (username, DMSWorkspace). */
     private static Map<String, DMSWorkspace> dmsWspMap = new HashMap<String, DMSWorkspace>();
@@ -38,9 +42,19 @@ public class DMSWorkspace {
     /**
      * @param username
      */
+    public DMSWorkspace() {
+    }
+    
+    /**
+     * @param username
+     */
     public DMSWorkspace(String username) {
         super();
         this.username = username;
+    }
+    
+    public static DMSWorkspace getDefaultWorkspace() {
+        return defaultWsp;
     }
 
     public static DMSWorkspace getDefaultWorkspace(String username) {
@@ -70,5 +84,18 @@ public class DMSWorkspace {
         String[] roles = new String[]{"OOPMS", "InterWeb"};
 
         return Arrays.asList(roles);
+    }
+
+    public Map<String, String> getActivityMap() {
+//        QcActivityDao dao = new QcActivityDao();
+//        ArrayList<QcActivity> qcActivityList = dao.getQcActivity();
+//        Map<String, String> actMap = new HashMap<String, String>();
+//        
+//        for (QcActivity qcAct : qcActivityList) {
+//            actMap.put(qcAct.getCode(), qcAct.getName());
+//        }
+        Map<String, String> actMap = new HashMap<String, String>();
+        actMap.put("11", "11-Integration test");
+        return actMap;
     }
 }

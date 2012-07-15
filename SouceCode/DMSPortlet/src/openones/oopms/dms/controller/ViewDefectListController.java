@@ -54,13 +54,22 @@ public class ViewDefectListController extends BaseController {
         log.debug("initScreen.START");
         return "ViewDefectList";
     }
+
+    @RenderMapping(params = "action=goViewDefectList")
+    public ModelAndView goViewDefectList(RenderRequest request, PortletSession session) {
+        log.debug("goViewDefectList.START");
+
+        ModelAndView mav = new ModelAndView("ViewDefectList"); // display ViewDefectList.jsp
+        
+        return mav;
+    }
     
     /**
      * Process render event "ViewDefectList".
      * Param kindOfDefect: All, Open, Leakage
      * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
      */
-    @RenderMapping(params = "action=ViewDefectList")
+    @RenderMapping(params = "action=goViewDefectList2")
     public ModelAndView processViewDefectList(RenderRequest request, PortletSession session) {
         log.debug("processViewDefectList.START");
 
@@ -80,12 +89,6 @@ public class ViewDefectListController extends BaseController {
         return mav;
     }
     
-    @RenderMapping(params = "action=goAddNewDefect")
-    public ModelAndView processAddNew(RenderRequest request, PortletSession session) {
-        log.debug("processAddNew.START");
 
-        ModelAndView mav = new ModelAndView("AddDefect"); // display AddDefect.jsp
-        return mav;
-    }
 
 }
