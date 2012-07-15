@@ -1,9 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<portlet:defineObjects />
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="resource_files/CommonScript.js"></script>
@@ -250,49 +245,12 @@ function selectWorkProduct(){
 }
 </script>
 
+<script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
+<%@ include file="/WEB-INF/jsp/headerDefect.jsp" %>
+<portlet:actionURL var="formAction"><portlet:param name="action" value="Save"/></portlet:actionURL>
+<portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="goViewDefectList2"/></portlet:renderURL>
 
-<div align="left"><link rel="stylesheet" type="text/css" href="resource_files/menu.css">
-<script type="text/javascript" src="resource_files/validate.js"></script>
-<script type="text/javascript" src="resource_files/menu.js"></script><div id="dropmenudiv" style="visibility:hidden;width:230;background-color:#E6E6E6" onmouseover="clearhidemenu()" onmouseout="dynamichide(event)"></div>
-
-<table height="51" bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
-    <tbody><tr>
-        <td height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" width="212"><img src="resource_files/defect_logop1.gif" height="51" border="0" width="188"><br></td>
-        <td align="left" height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" valign="top" width="50%"><img src="resource_files/defect_logop2.gif" height="51" border="0" width="173"></td>
-        <td align="right" height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" valign="top" width="50%"><img src="resource_files/header.gif" height="51" border="0" width="384"></td>
-    </tr>
-    <tr>
-        <td align="left" bgcolor="#000084" width="111"><img src="resource_files/logo2.gif" height="20" border="0" width="148"></td>
-        <td colspan="2" align="left" bgcolor="#FFD731" valign="middle">
-        <table height="20" bgcolor="#310C52" border="0" cellpadding="0" cellspacing="1" width="100%">
-            <tbody><tr>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="60"></td>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="210"></td>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="150"></td>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="80"></td>
-                <td align="right" width="50%"></td>
-            </tr>
-            <tr>
-                <td bgcolor="#310C52">&nbsp;</td>
-                <td bordercolor="#310C52" onmouseover="dropdownmenu(this, event, menu1, '150px')" onmouseout="delayhidemenu()" align="center" height="14" bgcolor="#FFD731" valign="middle">
-                <p><span style="color: #AE3800; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <font face="verdana"><b>Project&nbsp;Environment</b></font></span></p>
-                </td>
-                <td bordercolor="#310C52" onmouseover="dropdownmenu(this, event, menu2, '150px')" onmouseout="delayhidemenu()" align="center" height="14" bgcolor="#FFD731" valign="middle">
-                <p><span style="color: #AE3800; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <font face="Verdana"><b>Manage&nbsp;Defect</b></font></span></p>
-                </td>
-                <td bordercolor="#310C52" align="center" height="14" bgcolor="#FFD731" valign="middle">
-                <p align="center"><font face="Verdana" size="2"> <a href="javascript:void(0)" onclick="return menuClick('mnuLogout',document.forms[0])"> <span style="color: blue; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <b><font face="Verdana" color="#AE3800">Logout</font></b></span></a></font></p>
-                </td>
-                <td bordercolor="#310C52" align="center" height="14" bgcolor="#FFD731" valign="middle">
-                <p align="right"><font face="Verdana" size="2"> <a href="javascript:void(0)" onclick="return menuClick('mnuHelp',document.forms[0])"> <span style="color: blue; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <b><font face="Verdana" color="#AE3800">Help&nbsp;&nbsp;</font></b></span></a></font></p>
-                </td>
-            </tr>
-        </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-</div>
-<form method="POST" action="DMSServlet" name="frmDefectAdd">
+<form:form name="${portletNamespace}AddDefect" commandName="defect" method="post" action="${formAction}">
 <div><img src="resource_files/DefectAddnew.gif" height="28" border="0" width="411"></div>
 <input name="hidActionDetail" value="" type="hidden">
 <input name="hidAction" value="" type="hidden">
@@ -363,26 +321,43 @@ function selectWorkProduct(){
     <tr>
         <!-- Title -->
         <td align="left" valign="middle"><b><font color="black">Title</font></b><font color="red">&nbsp;*</font></td>
-        <td align="left" valign="middle"><input class="LongBox" maxlength="150" name="Title" value="These is no description flow of use cases" type="text"></td>
+        <td align="left" valign="middle">
+        <%-- 
+        <input class="LongBox" maxlength="150" name="Title" value="These is no description flow of use cases" type="text">
+        --%>
+        <form:input path="title" maxlength="150"/>
+        </td>
         <!-- Project Origin -->
         <td>&nbsp;</td>
         <td><b><font color="black">Project Origin</font></b></td>
-        <td><input class="SmallBox" maxlength="50" name="ProjectOrigin" type="text"></td>
+        <td><form:input path="projectOrigin" maxlength="50"/></td>
     </tr>
     <tr>
         <!-- Description -->
         <td align="left" valign="middle"><b><font color="black">Description</font></b><font color="red">&nbsp;*</font></td>
-        <td valign="middle"><textarea class="LargeTextarea" rows="3" wrap="virtual" name="txtDescription" onchange="Description.value=txtDescription.value">It's better if add more a section to describe the flow of use cases: using graph or matrix</textarea> <input name="Description" value="It's better if add more a section to describe the flow of use cases: using graph or matrix" type="hidden"></td>
+        <td valign="middle">
+        <%--
+        <textarea class="LargeTextarea" rows="3" wrap="virtual" name="txtDescription" onchange="Description.value=txtDescription.value">It's better if add more a section to describe the flow of use cases: using graph or matrix</textarea> <input name="Description" value="It's better if add more a section to describe the flow of use cases: using graph or matrix" type="hidden">
+         --%>
+         <form:textarea path="description" rows="3"/>
+        </td>
         <td>&nbsp;</td>
         <!-- Reference -->
         <td valign="top"><b><font color="black">Reference</font></b></td>
-        <td valign="top"><input class="SmallBox" maxlength="30" name="Ref" type="text"></td>
+        <td valign="top"><form:input path="ref" maxlength="30"/></td>
     </tr>
     <tr>
         <!-- QC Activity -->
         <td align="left" valign="middle"><font color="black"><b>QC activity</b></font><font color="red">&nbsp;*</font></td>
-        <td align="left" valign="middle"><select name="QCActivity" class="SmallCombo" onchange="ChangeTypeActivity()"><option value="10">10-Unit test</option><option value="11">11-Integration test</option><option value="12">12-System test</option><option value="13">13-Acceptance test</option><option value="14">14-Regression test</option><option value="15">15-After Release test</option><option value="16">16-Other test</option><option value="17">17-Prototype test</option><option selected="selected" value="20">20-Document review</option><option value="21">21-Code review</option><option value="22">22-After Release review</option><option value="23">23-Prototype review</option><option value="24">24-Other review</option><option value="30">30-Quality Gate inspection</option><option value="31">31-Final inspection</option><option value="32">32-Other inspection</option><option value="33">33-UT Inspection</option><option value="40">40-Baseline audit</option><option value="41">41-Other audit</option>
-        </select></td>
+        <td align="left" valign="middle">
+        <%--
+        <select name="QCActivity" class="SmallCombo" onchange="ChangeTypeActivity()"><option value="10">10-Unit test</option><option value="11">11-Integration test</option><option value="12">12-System test</option><option value="13">13-Acceptance test</option><option value="14">14-Regression test</option><option value="15">15-After Release test</option><option value="16">16-Other test</option><option value="17">17-Prototype test</option><option selected="selected" value="20">20-Document review</option><option value="21">21-Code review</option><option value="22">22-After Release review</option><option value="23">23-Prototype review</option><option value="24">24-Other review</option><option value="30">30-Quality Gate inspection</option><option value="31">31-Final inspection</option><option value="32">32-Other inspection</option><option value="33">33-UT Inspection</option><option value="40">40-Baseline audit</option><option value="41">41-Other audit</option>
+        </select>
+         --%>
+        <form:select path="qcActivity" multiple="false" size="1" items="${qcActivity}">
+        </form:select>
+        
+        </td>
         <td>&nbsp;</td>
         <!-- Defect Origin  -->
         <td align="left" valign="middle"><font color="black"><b>Defect origin</b></font><font color="red">&nbsp;*</font></td>
@@ -486,11 +461,11 @@ function selectWorkProduct(){
     </tr>
 </tbody></table>
 <p>
-<input name="NewDefect" class="Button" onclick="javascript:doSave()" value="Save" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
-<input name="Back" class="Button" onclick="javascript:doBack()" value="Defect List" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="NewDefect" class="Button" value="Save" type="Submit">&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="Back" class="Button" onclick='submitAction("${portletNamespace}AddDefect", "${goViewDefectList2}")' value="Defect List" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
 <input name="Attach" class="Button" onclick="javascript:doAttach()" value="Attach file" type="button">
 </p>
-</form>
+</form:form>
 <br>
 <br>
 <br>
