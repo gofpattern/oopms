@@ -8,6 +8,8 @@ Features:
 + Demo preparing data for screen: text, combo-box (Project)
 + Process hyperlinks to go to screen: ViewAllDefect, ViewOpenDefect, ViewLeadkageDefect
   Demo using hyperlinks with parameters
++ Process event "Add New" to display screen "Add new defect"
+  Demo using renderUrl for button
 
 How does Authentication work?
 ================================
