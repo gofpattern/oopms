@@ -281,6 +281,10 @@ function CheckAll(form) {
 }
 </script>
 
+<%--
+<script type="text/javascript" src='<%= renderRequest.getContextPath() + "/scripts/common.js"%>'></script>
+ --%>
+<script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
 
 <div align="left"><link rel="stylesheet" type="text/css" href="resource_files/menu.css">
 <script type="text/javascript" src="resource_files/validate.js"></script>
@@ -326,10 +330,17 @@ function CheckAll(form) {
 <div>
 <p><img src="resource_files/AllOpenDefectListing.gif" height="28" border="0" width="510"></p>
 </div>
+<c:set var="portletNamespace" scope="request"><portlet:namespace/></c:set>
+
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="search" />
 </portlet:actionURL>
-<form:form commandName="viewDefectList" method="post" action="${formAction}">
+<portlet:renderURL var="goAddNewDefect">
+  <portlet:param name="action" value="goAddNewDefect" />
+</portlet:renderURL>
+
+<form:form name="${portletNamespace}Search" commandName="viewDefectList" method="post" action="${formAction}">
+  <input name="eventId" value="" type="hidden">
 <input name="hidActionDetail" value="" type="hidden">
 <input name="hidAction" value="" type="hidden">
 <input name="userRole" value="1110000000" type="hidden">
@@ -361,7 +372,6 @@ function CheckAll(form) {
         </select>
         --%>
          <form:select id="cboProjectList" path="selProject" multiple="false" size="1" items="${viewDefectList.projectMap}">
-         <form:options ></form:options>
          </form:select>
         </td>
     </tr>
@@ -552,7 +562,7 @@ function CheckAll(form) {
 <table border="0" cellpadding="0" cellspacing="1" width="100%">
     <tbody><tr>
         <td align="left" width="50%">
-        <input name="AddnewDefect" class="Button" onclick="javascript:doAddNew()" value="Add New" type="button">
+        <input name="AddnewDefect" class="Button" onclick='submitAction("${portletNamespace}Search", "${goAddNewDefect}")' value="Add New" type="button">
         <input name="BatchUpdateDefect" class="Button" onclick="javascript:doBatchUpdate()" value="Batch Update" type="button">
         <input name="Refresh" class="Button" onclick="javascript:doRefresh()" value="Refresh" type="button">
         <input name="ExportDefect" class="Button" onclick="javascript:doExport()" value="Export" type="button">
