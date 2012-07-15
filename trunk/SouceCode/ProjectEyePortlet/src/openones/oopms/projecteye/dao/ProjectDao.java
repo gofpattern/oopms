@@ -1,5 +1,6 @@
 package openones.oopms.projecteye.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,25 +29,18 @@ public class ProjectDao {
    public List<Project> getProjectList(String developerId) {
        try {
            session.getTransaction().begin();
-           String hql = "from Assignment where developerId= ?";
-          
-        //   String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+           String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId)";
            Query query = session.createQuery(hql);
-           query.setString(0, developerId);
-           List<Assignment> assiList = query.list();
-           List<Project> projectList = new ArrayList<Project>();  
-          for(int i=0;i<assiList.size();i++) {
-              projectList.add(assiList.get(i).getProject());
-          }
-               
+           query.setParameter("devId", new BigDecimal(developerId));
+           List<Project> projectList = query.list();               
            session.flush();
            session.getTransaction().commit();
            System.out.println("Project Name Count : "+projectList.size());
+           log.error("Project Name Count : "+projectList.size());
            return projectList;
            
        } catch (Exception e) {
-          
-           e.printStackTrace();
+           log.error(e.getMessage());
        }
        return null;
    }

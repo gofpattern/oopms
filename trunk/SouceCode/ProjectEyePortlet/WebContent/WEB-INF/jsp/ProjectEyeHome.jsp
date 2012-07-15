@@ -34,22 +34,47 @@
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="homeCreateProject" />
 </portlet:actionURL>
-<form:form method="post" commandName="CreateProjectForm" action="${formAction}">
+<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Project</button>
 </form:form>
 
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="homeCreateProduct" />
 </portlet:actionURL>
-<form:form method="post" commandName="CreateProjectForm" action="${formAction}">
+<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Product</button>
 </form:form>
 
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="homeCreateRisk" />
 </portlet:actionURL>
-<form:form method="post" commandName="CreateProjectForm" action="${formAction}">
+<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Risk</button>
+</form:form>
+
+<portlet:actionURL var="formAction">
+  <portlet:param name="action" value="homeCreateRisk" />
+</portlet:actionURL>
+<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
+<table id="projectList" border="0" cellpadding="3" cellspacing="0" width="100%" >
+
+   <tbody><tr >
+        <th width="70%">Project Name</th>    
+        <th width="30%">Project Code</th>    
+    </tr>
+    <c:if test="${not empty projectList}">
+  
+        <c:forEach var="project" items="${projectList}">
+            <tr>
+               <td ><font color="">${project.name}</font></td>
+               <td ><font color="">${project.code}</font></td>                     
+            </tr>
+        </c:forEach>
+   
+	</c:if>
+    
+    </tbody>
+</table>
 </form:form>
 </body>
 </html>

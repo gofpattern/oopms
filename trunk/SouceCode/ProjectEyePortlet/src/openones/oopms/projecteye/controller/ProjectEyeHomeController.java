@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
@@ -32,6 +33,7 @@ import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.CreateRiskForm;
+import openones.oopms.projecteye.form.ProjectEyeHomeForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.RiskSource;
@@ -64,7 +66,10 @@ public class ProjectEyeHomeController {
      */
     @RequestMapping
     public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START conme");         
+        log.debug("initScreen.START conme");
+        ProjectDao pDao = new ProjectDao();
+        List<Project> projectList = pDao.getProjectList("1");
+        request.setAttribute("projectList", projectList);
             return "ProjectEyeHome";
        
     }
@@ -72,10 +77,10 @@ public class ProjectEyeHomeController {
      * Create bean for form.
      * @return Form bean for UI.
      */
-    @ModelAttribute("CreateProjectForm")
-    public CreateProjectForm getCommandObject() {
-        log.debug("CreateBean");
-        CreateProjectForm formBean = new CreateProjectForm();
+    @ModelAttribute("ProjectEyeHomeForm")
+    public ProjectEyeHomeForm getCommandObject() {
+        log.debug("CreateBean for Home JSP");
+        ProjectEyeHomeForm formBean = new ProjectEyeHomeForm();
         return formBean;
     }
 
@@ -87,7 +92,7 @@ public class ProjectEyeHomeController {
      * @param response response of action
      */
     @ActionMapping(params = "action=homeCreateProject")
-    public void processCreateProject(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processCreateProject(ProjectEyeHomeForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processHomeCreateProject.START");
         response.setRenderParameter("action", "homeCreateProject");    
     }
@@ -97,7 +102,7 @@ public class ProjectEyeHomeController {
      * @return view "CreateProject" which next page "CreateProject.jsp" will displayed
      */
     @RenderMapping(params = "action=homeCreateProject")
-    public ModelAndView postCreateProject(CreateProjectForm formBean, RenderRequest request) {
+    public ModelAndView postCreateProject(ProjectEyeHomeForm formBean, RenderRequest request) {
         log.debug("postCreateProject.START");
         ModelAndView mav = new ModelAndView("CreateProject");
         return mav;
@@ -111,7 +116,7 @@ public class ProjectEyeHomeController {
      * @param response response of action
      */
     @ActionMapping(params = "action=homeCreateProduct")
-    public void processCreateProduct(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processCreateProduct(ProjectEyeHomeForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processHomeCreateProduct.START");
         response.setRenderParameter("action", "homeCreateProduct");    
     }
@@ -121,7 +126,7 @@ public class ProjectEyeHomeController {
      * @return view "CreateProduct" which next page "CreateProduct.jsp" will displayed
      */
     @RenderMapping(params = "action=homeCreateProduct")
-    public ModelAndView postCreateProduct(CreateProjectForm formBean, RenderRequest request) {
+    public ModelAndView postCreateProduct(ProjectEyeHomeForm formBean, RenderRequest request) {
         log.debug("postCreateProduct.START");
         ModelAndView mav = new ModelAndView("CreateProduct");
         return mav;
@@ -135,7 +140,7 @@ public class ProjectEyeHomeController {
      * @param response response of action
      */
     @ActionMapping(params = "action=homeCreateRisk")
-    public void processCreateRisk(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processCreateRisk(ProjectEyeHomeForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processHomeCreateProduct.START");
         response.setRenderParameter("action", "homeCreateRisk");    
     }
@@ -145,14 +150,13 @@ public class ProjectEyeHomeController {
      * @return view "CreateProduct" which next page "CreateProduct.jsp" will displayed
      */
     @RenderMapping(params = "action=homeCreateRisk")
-    public ModelAndView postCreateRisk(CreateProjectForm formBean, RenderRequest request) {
+    public ModelAndView postCreateRisk(ProjectEyeHomeForm formBean, RenderRequest request) {
         log.debug("postCreateRisk.START cc");
         CreateRiskForm riskFormBean = new CreateRiskForm();
 		RiskDao rDao = new RiskDao();
 		ArrayList<RiskSource> riskSource = rDao.getRiskSourceList();
 		Map<String, String> riskSourcetMap = new LinkedHashMap<String, String>();
 		riskSourcetMap.put(" ", " ");
-		riskSourcetMap.put("aa", "aa");
 		for (int i = 0; i < riskSource.size(); i++) {
 			riskSourcetMap.put(riskSource.get(i).getSourceId().toString(),
 					riskSource.get(i).getSourceName());
@@ -161,6 +165,9 @@ public class ProjectEyeHomeController {
 		riskFormBean.setRiskSource_SelectedValue(" ");
         ModelAndView mav = new ModelAndView("CreateRisk");
         request.setAttribute("CreateRiskForm", riskFormBean);
+     // Set default value for risk source
+        mav.addObject("riskSource", riskFormBean.getRiskSource());
+        mav.addObject("riskSource_SelectedValue", riskFormBean.getRiskSource_SelectedValue());
         return mav;
     }
 }
