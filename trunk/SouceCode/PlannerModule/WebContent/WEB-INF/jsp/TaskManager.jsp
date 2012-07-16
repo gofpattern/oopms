@@ -153,40 +153,40 @@
             </caption>
             <tbody>
               <tr>
-                <td width="139" class="ColumnLabel">Title*</td>
+                <td width="139" class="ColumnLabel"><label for="add-form-title">Title*</label></td>
                 <td width="412" class="CellBGR3"><form:input path="title"></form:input></td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Start Date*</td>
+                <td class="ColumnLabel"><label for="datepicker1">Start Date</label></td>
                 <td class="CellBGR3"><input type="text" id="datepicker1" /> (DD-MMM-YY)</td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Finish Date</td>
+                <td class="ColumnLabel"><label for="datepicker2">Finish Date</label></td>
                 <td class="CellBGR3"><input type="text" id="datepicker2" /> (DD-MMM-YY)</td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Planned Effort</td>
-                <td class="CellBGR3"><input type="text" /> (Hours)</td>
+                <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort</label></td>
+                <td class="CellBGR3"><input type="text" id="add-form-plannedEffort"/> (Hours)</td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Actual Effort</td>
-                <td class="CellBGR3"><input type="text" /> (Hours)</td>
+                <td class="ColumnLabel"><label for="add-form-actualEffort">Actual Effort</label></td>
+                <td class="CellBGR3"><input type="text" id="add-form-actualEffort"/> (Hours)</td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Stage*</td>
-                <td><form:select class="styled" path="stageDefault" multiple="single">
+                <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
+                <td><form:select class="styled" path="stageDefault" multiple="single" id="add-form-stage">
                   <form:options items="${stageMap}" />
                 </form:select></td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Process</td>
-                <td><form:select class="styled" path="stageDefault" multiple="single">
+                <td class="ColumnLabel"><label for="add-form-process">Process</label></td>
+                <td><form:select class="styled" path="stageDefault" multiple="single" id="add-form-process">
                   <form:options items="${processMap}" />
                 </form:select></td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Product*</td>
-                <td class="CellBGR3"><select name="cboStatus2" class="styled" class="SmallCombo">
+                <td class="ColumnLabel"><label for="add-form-product">Product*</label></td>
+                <td class="CellBGR3"><select name="cboStatus2" class="styled" class="SmallCombo" id="add-form-product">
                     <option selected="selected" value="-1">All Product</option>
                     <option value="1">LOC</option>
                     <option value="2">Report</option>
@@ -196,20 +196,20 @@
                 </select></td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Assigned To*</td>
-                <td><form:select class="styled" path="developerDefault" multiple="single">
+                <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
+                <td><form:select class="styled" path="developerDefault" multiple="single" id="add-form-assignedTo">
                   <form:options items="${developerMap}" />
                 </form:select></td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Status*</td>
-                <td><form:select class="styled" path="statusDefault" multiple="single">
+                <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
+                <td><form:select class="styled" path="statusDefault" multiple="single" id="add-form-status">
                     <form:options items="${statusMap}" />
                   </form:select></td>
               </tr>
               <tr>
-                <td class="ColumnLabel">Description</td>
-                <td class="CellBGR3"><textarea rows="4" cols="50" name="note"></textarea></td>
+                <td class="ColumnLabel"><label for="add-form-description">Description</label></td>
+                <td class="CellBGR3"><textarea rows="4" cols="50" name="note" id="add-form-description"></textarea></td>
               </tr>
             </tbody>
           </table>
@@ -260,7 +260,7 @@
                   <th><b><font><span>No.</span></font></b>
                   <th><b><font><span>Task Code</span></font></b>
                   <th><b><font><span>Task Name</span></font></b>
-                  <th width="10"><b><font><span>Stage</span></font></b>
+                  <th><b><font><span>Stage</span></font></b>
                   <th><b><font><span>Process</span></font></b>
                   <th><b><font><span>Assigned To</span></font></b>
                   <th><b><font><span>Remaining Time</span></font></b>
