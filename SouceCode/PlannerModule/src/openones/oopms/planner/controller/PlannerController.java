@@ -38,6 +38,7 @@ public class PlannerController {
     private List<Process> processList;
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
+
     /**
      * Create bean for form.
      * @return Form bean for UI.

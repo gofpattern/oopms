@@ -25,19 +25,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author PNTG
  */
-@Controller
-@RequestMapping("VIEW")
+ @Controller
+ @RequestMapping("VIEW")
 public class HelloController {
     private static Logger log = Logger.getLogger(PlannerController.class);
     /**
      * Default screen.
      * @return name of view which is the name of the JSP page.
      */
-    @RequestMapping
-    public String initScreen() {
-        log.debug("initScreen.START");
-        // Display hello.jsp
-        return "hello";
-    }
+     @RequestMapping
+     public String initScreen() {
+     log.debug("initScreen.START");
+     // Display hello.jsp
+     return "hello";
+     }
 
 }
