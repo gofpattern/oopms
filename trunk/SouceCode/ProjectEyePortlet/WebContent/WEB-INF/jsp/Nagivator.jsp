@@ -30,19 +30,43 @@
 	
 </head>
 
-<body id="portal" class="up fl-theme-mist">
+  	<!-- begin .navigator -->
+	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
+    <div class="demo" style="font-size:17px">
+ 		<portlet:renderURL var="renderAction">
+    		<portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
+    	</portlet:renderURL>
+		<a href="${renderAction}">ProjectEye Home</a>
+		
+		<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoRiskIssue" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Risk, Issue</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoChangeRequest" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Change Request</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoProduct" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Product</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoWorkOrder" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Work Order</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoCostManagement" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Cost Management</a>	
+	</div>
+	</div>
 
-<div id="portalPageBodyInner" class="container">
-
-  <div class="content">
-  <!-- begin .navigator -->
-	<jsp:include page="Nagivator.jsp" />
-	<!-- end .navigator -->
-   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Create Project</h2>
-    </div>
-
-  <!-- end .content --></div>
-  <!-- end .container --></div>
-</body>
-</html>

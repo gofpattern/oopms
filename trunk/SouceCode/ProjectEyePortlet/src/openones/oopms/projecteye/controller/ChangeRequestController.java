@@ -18,14 +18,25 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.RiskDao;
+import openones.oopms.projecteye.form.CreateRiskForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Risk;
+import openones.oopms.projecteye.model.RiskSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
@@ -37,42 +48,27 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class ProjectDetailController {
+public class ChangeRequestController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(ProjectDetailController.class);
+	private static Logger log = Logger.getLogger(ChangeRequestController.class);
 
-	@ActionMapping(params = "action=goUpdateProject")
-    public void processGoUpdateProject(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process goUpdateProject.START");
-        response.setRenderParameter("action", "goUpdateProject");    
+    
+    @ActionMapping(params = "action=GoCreateChangeRequest")
+    public void processGoCreateChangeRequest(BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("process GoCreateChangeRequest.START");
+        response.setRenderParameter("action", "GoCreateChangeRequest");    
     }
     
-    @RenderMapping(params = "action=goUpdateProject")
-    public ModelAndView postGoUpdateProject(RenderRequest request) {
-        log.debug("post goUpdateProject.START");
-        ModelAndView mav = new ModelAndView("UpdateProject");
+    @RenderMapping(params = "action=GoCreateChangeRequest")
+    public ModelAndView postGoCreateChangeRequest(RenderRequest request) {
+        log.debug("post GoCreateChangeRequest.START");
+        ModelAndView mav = new ModelAndView("CreateChangeRequest");
         String projectId = request.getParameter("projectId");
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
     }
     
-    
-    @ActionMapping(params = "action=goTeamManagement")
-    public void processGoTeamManagement(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoTeamManagement.START");
-        response.setRenderParameter("action", "goTeamManagement");    
-    }
-    
-    @RenderMapping(params = "action=goTeamManagement")
-    public ModelAndView postGoTeamManagement(RenderRequest request) {
-        log.debug("post GoTeamManagement.START");
-        ModelAndView mav = new ModelAndView("TeamManagement");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
 }

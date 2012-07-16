@@ -37,42 +37,27 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class ProjectDetailController {
+public class ProductController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(ProjectDetailController.class);
+	private static Logger log = Logger.getLogger(ProductController.class);
 
-	@ActionMapping(params = "action=goUpdateProject")
-    public void processGoUpdateProject(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process goUpdateProject.START");
-        response.setRenderParameter("action", "goUpdateProject");    
+    
+    @ActionMapping(params = "action=GoCreateProduct")
+    public void processGoCreateProduct(BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("process GoCreateProduct.START");
+        response.setRenderParameter("action", "GoCreateProduct");    
     }
     
-    @RenderMapping(params = "action=goUpdateProject")
-    public ModelAndView postGoUpdateProject(RenderRequest request) {
-        log.debug("post goUpdateProject.START");
-        ModelAndView mav = new ModelAndView("UpdateProject");
+    @RenderMapping(params = "action=GoCreateProduct")
+    public ModelAndView postGoCreateProduct(RenderRequest request) {
+        log.debug("post GoCreateProduct.START");
+        ModelAndView mav = new ModelAndView("CreateProduct");
         String projectId = request.getParameter("projectId");
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
     }
     
-    
-    @ActionMapping(params = "action=goTeamManagement")
-    public void processGoTeamManagement(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoTeamManagement.START");
-        response.setRenderParameter("action", "goTeamManagement");    
-    }
-    
-    @RenderMapping(params = "action=goTeamManagement")
-    public ModelAndView postGoTeamManagement(RenderRequest request) {
-        log.debug("post GoTeamManagement.START");
-        ModelAndView mav = new ModelAndView("TeamManagement");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
 }

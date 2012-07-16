@@ -35,9 +35,17 @@
 <div id="portalPageBodyInner" class="container">
 
   <div class="content">
+  
+  	<!-- begin .navigator -->
+	<jsp:include page="Nagivator.jsp" />
+	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Add Risk</h2>
+    	<h2 class="title" >Create Risk</h2>
     </div>
+    
+    
+	
+<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">	
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="createRisk" />
 </portlet:actionURL>
@@ -99,11 +107,17 @@
     <td><textarea rows="10" cols="70" name="trigger"></textarea></td>
    </tr>
 </table>
-	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Submid</button>
+	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Create</button>
 	<button type="reset" class="button blue small">Reset</button>
-	<button type="submit" class="button blue small" name="buttonAction" value="Cancel">Cancel</button>
+	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoRiskIssue" />
+        	<portlet:param name="projectId" value="${projectId}" />
+  	</portlet:renderURL>
+    <a href="${renderAction}">
+		<button type="button" class="button blue small" name="Cancel" value="Cancel">Cancel</button>
+	</a>		
 </form:form>
-
+</div>
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
