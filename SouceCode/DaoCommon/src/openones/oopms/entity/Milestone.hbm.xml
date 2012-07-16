@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Milestone" table="MILESTONE">
+    <class name="openones.oopms.entity.Milestone" table="MILESTONE">
         <comment>Project Stages (Insight,Dashboard)</comment>
         <id name="milestoneId" type="big_decimal">
             <column name="MILESTONE_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <many-to-one name="developer" class="openones.tms.dms.entity.Developer" fetch="select">
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
             <column name="CONDUCTOR" precision="22" scale="0" />
         </many-to-one>
         <property name="name" type="string">
@@ -164,7 +164,7 @@
             <key>
                 <column name="MILESTONE_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.CusPoint" />
+            <one-to-many class="openones.oopms.entity.CusPoint" />
         </set>
         <set name="plansQcStages" inverse="true">
             <key>
@@ -172,13 +172,13 @@
                     <comment>Milestone, project stage</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.PlansQcStage" />
+            <one-to-many class="openones.oopms.entity.PlansQcStage" />
         </set>
         <set name="iterations" inverse="true">
             <key>
                 <column name="MILESTONE_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Iteration" />
+            <one-to-many class="openones.oopms.entity.Iteration" />
         </set>
     </class>
 </hibernate-mapping>

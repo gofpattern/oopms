@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.MetricDes" table="METRIC_DES">
+    <class name="openones.oopms.entity.MetricDes" table="METRIC_DES">
         <comment>(Insight) Metric definitions, descriptions</comment>
         <id name="metricId" type="string">
             <column name="METRIC_ID" length="10" />
             <generator class="native" />
         </id>
-        <many-to-one name="metricgroup" class="openones.tms.dms.entity.Metricgroup" fetch="select">
+        <many-to-one name="metricgroup" class="openones.oopms.entity.Metricgroup" fetch="select">
             <column name="MGROUP_ID" precision="22" scale="0">
                 <comment>metricgroup table</comment>
             </column>

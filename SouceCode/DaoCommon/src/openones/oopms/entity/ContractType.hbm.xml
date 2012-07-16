@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ContractType" table="CONTRACT_TYPE">
+    <class name="openones.oopms.entity.ContractType" table="CONTRACT_TYPE">
         <comment>List of Contract Type, see WO of FSOFT Insight</comment>
         <id name="contractTypeId" type="big_decimal">
             <column name="CONTRACT_TYPE_ID" precision="22" scale="0" />

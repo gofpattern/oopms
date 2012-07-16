@@ -3,12 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.GeneralReference" table="GENERAL_REFERENCE">
+    <class name="openones.oopms.entity.GeneralReference" table="GENERAL_REFERENCE">
         <id name="generalRefId" type="big_decimal">
             <column name="GENERAL_REF_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="languageCode" class="openones.tms.dms.entity.LanguageCode" fetch="select">
+        <many-to-one name="languageCode" class="openones.oopms.entity.LanguageCode" fetch="select">
             <column name="LANG_CODE" length="30" />
         </many-to-one>
         <property name="groupCode" type="string">

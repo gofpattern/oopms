@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Developer" table="DEVELOPER">
+    <class name="openones.oopms.entity.Developer" table="DEVELOPER">
         <comment>User profiles, using with the whole FMS packages</comment>
         <id name="developerId" type="big_decimal">
             <column name="DEVELOPER_ID" precision="22" scale="0" />
@@ -92,19 +92,19 @@
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.TimesheetArchive" />
+            <one-to-many class="openones.oopms.entity.TimesheetArchive" />
         </set>
         <set name="timesheets" inverse="true">
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Timesheet" />
+            <one-to-many class="openones.oopms.entity.Timesheet" />
         </set>
         <set name="teams" inverse="true">
             <key>
                 <column name="TEAM_LEADER_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Team" />
+            <one-to-many class="openones.oopms.entity.Team" />
         </set>
         <set name="timesheetExemptions" inverse="true">
             <key>
@@ -112,19 +112,19 @@
                     <comment>foreign key of timesheet_exemption table that connect to developer table</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.TimesheetExemption" />
+            <one-to-many class="openones.oopms.entity.TimesheetExemption" />
         </set>
         <set name="timesheetOldDatas" inverse="true">
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.TimesheetOldData" />
+            <one-to-many class="openones.oopms.entity.TimesheetOldData" />
         </set>
         <set name="groupses" inverse="true">
             <key>
                 <column name="LEADER" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Groups" />
+            <one-to-many class="openones.oopms.entity.Groups" />
         </set>
         <set name="defectAttachments" inverse="true">
             <key>
@@ -132,25 +132,25 @@
                     <comment>Attachment owner</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.DefectAttachment" />
+            <one-to-many class="openones.oopms.entity.DefectAttachment" />
         </set>
         <set name="assignments" inverse="true">
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Assignment" />
+            <one-to-many class="openones.oopms.entity.Assignment" />
         </set>
         <set name="otherAssignments" inverse="true">
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.OtherAssignment" />
+            <one-to-many class="openones.oopms.entity.OtherAssignment" />
         </set>
         <set name="milestones" inverse="true">
             <key>
                 <column name="CONDUCTOR" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Milestone" />
+            <one-to-many class="openones.oopms.entity.Milestone" />
         </set>
         <set name="defectQueries" inverse="true">
             <key>
@@ -158,25 +158,25 @@
                     <comment>Owner</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.DefectQuery" />
+            <one-to-many class="openones.oopms.entity.DefectQuery" />
         </set>
         <set name="pcbs" inverse="true">
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Pcb" />
+            <one-to-many class="openones.oopms.entity.Pcb" />
         </set>
         <set name="risks" inverse="true">
             <key>
                 <column name="DEVELOPER_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Risk" />
+            <one-to-many class="openones.oopms.entity.Risk" />
         </set>
         <set name="darPlans" inverse="true">
             <key>
                 <column name="DEVLOPER_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.DarPlan" />
+            <one-to-many class="openones.oopms.entity.DarPlan" />
         </set>
     </class>
 </hibernate-mapping>

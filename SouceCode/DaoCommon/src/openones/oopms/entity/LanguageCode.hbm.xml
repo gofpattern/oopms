@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.LanguageCode" table="LANGUAGE_CODE">
+    <class name="openones.oopms.entity.LanguageCode" table="LANGUAGE_CODE">
         <id name="langCode" type="string">
             <column name="LANG_CODE" length="30" />
             <generator class="native" />
@@ -15,13 +15,13 @@
             <key>
                 <column name="LANG_CODE" length="30" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.GeneralReference" />
+            <one-to-many class="openones.oopms.entity.GeneralReference" />
         </set>
         <set name="referenceDatas" inverse="true">
             <key>
                 <column name="LANG_CODE" length="30" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.ReferenceData" />
+            <one-to-many class="openones.oopms.entity.ReferenceData" />
         </set>
     </class>
 </hibernate-mapping>

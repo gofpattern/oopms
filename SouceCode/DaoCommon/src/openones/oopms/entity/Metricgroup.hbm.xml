@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Metricgroup" table="METRICGROUP">
+    <class name="openones.oopms.entity.Metricgroup" table="METRICGROUP">
         <comment>Group of metrics, used in PCB (Insight)</comment>
         <id name="mgroupId" type="big_decimal">
             <column name="MGROUP_ID" precision="22" scale="0" />
@@ -21,7 +21,7 @@
                     <comment>metricgroup table</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.MetricDes" />
+            <one-to-many class="openones.oopms.entity.MetricDes" />
         </set>
         <set name="pcbs" inverse="true" table="PCBMGROUP">
             <key>
@@ -29,7 +29,7 @@
                     <comment>links to metricgroup</comment>
                 </column>
             </key>
-            <many-to-many entity-name="openones.tms.dms.entity.Pcb">
+            <many-to-many entity-name="openones.oopms.entity.Pcb">
                 <column name="PCB_ID" precision="22" scale="0" not-null="true" />
             </many-to-many>
         </set>

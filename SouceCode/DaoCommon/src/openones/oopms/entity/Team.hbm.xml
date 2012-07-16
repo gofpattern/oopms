@@ -3,12 +3,12 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Team" table="TEAM">
+    <class name="openones.oopms.entity.Team" table="TEAM">
         <id name="teamId" type="big_decimal">
             <column name="TEAM_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="developer" class="openones.tms.dms.entity.Developer" fetch="select">
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
             <column name="TEAM_LEADER_ID" precision="22" scale="0" />
         </many-to-one>
         <property name="teamName" type="string">
@@ -24,7 +24,7 @@
             <key>
                 <column name="TEAM_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Assignment" />
+            <one-to-many class="openones.oopms.entity.Assignment" />
         </set>
     </class>
 </hibernate-mapping>

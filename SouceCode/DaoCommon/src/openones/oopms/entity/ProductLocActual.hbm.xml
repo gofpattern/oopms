@@ -3,19 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ProductLocActual" table="PRODUCT_LOC_ACTUAL">
+    <class name="openones.oopms.entity.ProductLocActual" table="PRODUCT_LOC_ACTUAL">
         <comment>FI: Store actual product LOC of project</comment>
         <id name="productLocId" type="big_decimal">
             <column name="PRODUCT_LOC_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="module" class="openones.tms.dms.entity.Module" fetch="select">
+        <many-to-one name="module" class="openones.oopms.entity.Module" fetch="select">
             <column name="MODULE_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <many-to-one name="language" class="openones.tms.dms.entity.Language" fetch="select">
+        <many-to-one name="language" class="openones.oopms.entity.Language" fetch="select">
             <column name="LANGUAGE_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <property name="locProductivity" type="big_decimal">

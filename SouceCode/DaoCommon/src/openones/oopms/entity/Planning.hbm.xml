@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Planning" table="PLANNING">
+    <class name="openones.oopms.entity.Planning" table="PLANNING">
         <comment>Plans (Insight)</comment>
         <id name="planningId" type="big_decimal">
             <column name="PLANNING_ID" precision="22" scale="0" />
@@ -12,7 +12,7 @@
         <property name="version" type="big_decimal">
             <column name="VERSION" precision="22" scale="0" />
         </property>
-        <many-to-one name="workunit" class="openones.tms.dms.entity.Workunit" fetch="select">
+        <many-to-one name="workunit" class="openones.oopms.entity.Workunit" fetch="select">
             <column name="WORKUNIT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <property name="year" type="big_decimal">

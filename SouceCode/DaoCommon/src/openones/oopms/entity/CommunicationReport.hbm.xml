@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.CommunicationReport" table="COMMUNICATION_REPORT">
+    <class name="openones.oopms.entity.CommunicationReport" table="COMMUNICATION_REPORT">
         <id name="comId" type="big_decimal">
             <column name="COM_ID" precision="22" scale="0" />
             <generator class="native" />

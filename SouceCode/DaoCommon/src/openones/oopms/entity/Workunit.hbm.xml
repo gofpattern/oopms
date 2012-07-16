@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Workunit" table="WORKUNIT">
+    <class name="openones.oopms.entity.Workunit" table="WORKUNIT">
         <comment>Abstraction of tables : project,group,organization(Insight)</comment>
         <id name="workunitid" type="big_decimal">
             <column name="WORKUNITID" precision="22" scale="0" />
@@ -34,19 +34,19 @@
             <key>
                 <column name="WORKUNIT" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Pcb" />
+            <one-to-many class="openones.oopms.entity.Pcb" />
         </set>
         <set name="plannings" inverse="true">
             <key>
                 <column name="WORKUNIT_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Planning" />
+            <one-to-many class="openones.oopms.entity.Planning" />
         </set>
         <set name="normplans" inverse="true">
             <key>
                 <column name="WORKUNIT" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Normplan" />
+            <one-to-many class="openones.oopms.entity.Normplan" />
         </set>
         <set name="issues" inverse="true">
             <key>
@@ -54,7 +54,7 @@
                     <comment>Owner WU</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.Issue" />
+            <one-to-many class="openones.oopms.entity.Issue" />
         </set>
     </class>
 </hibernate-mapping>

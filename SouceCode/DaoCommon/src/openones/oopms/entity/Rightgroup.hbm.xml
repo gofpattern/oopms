@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Rightgroup" table="RIGHTGROUP">
+    <class name="openones.oopms.entity.Rightgroup" table="RIGHTGROUP">
         <comment>User Roles list(Insight)</comment>
         <id name="rightgroupid" type="string">
             <column name="RIGHTGROUPID" length="50" />

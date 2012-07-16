@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ProcessWpMapping" table="PROCESS_WP_MAPPING">
+    <class name="openones.oopms.entity.ProcessWpMapping" table="PROCESS_WP_MAPPING">
         <comment>Process-Work product mapping, used in Timesheet</comment>
         <id name="procWpId" type="big_decimal">
             <column name="PROC_WP_ID" precision="22" scale="0" />

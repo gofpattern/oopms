@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Workproduct" table="WORKPRODUCT">
+    <class name="openones.oopms.entity.Workproduct" table="WORKPRODUCT">
         <comment>Categories of products</comment>
         <id name="code" type="string">
             <column name="CODE" length="100" />
@@ -33,13 +33,13 @@
             <key>
                 <column name="WORKPRODUCT_CODE" length="100" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Module" />
+            <one-to-many class="openones.oopms.entity.Module" />
         </set>
         <set name="processes" inverse="false" table="WORKPRODUCT_PROCESS">
             <key>
                 <column name="WP_CODE" length="100" not-null="true" />
             </key>
-            <many-to-many entity-name="openones.tms.dms.entity.Process">
+            <many-to-many entity-name="openones.oopms.entity.Process">
                 <column name="PROCESS_CODE" length="100" not-null="true" />
             </many-to-many>
         </set>
@@ -47,7 +47,7 @@
             <key>
                 <column name="WP_CODE" length="100" not-null="true" />
             </key>
-            <many-to-many entity-name="openones.tms.dms.entity.QcActivity">
+            <many-to-many entity-name="openones.oopms.entity.QcActivity">
                 <column name="QC_CODE" length="100" not-null="true" />
             </many-to-many>
         </set>

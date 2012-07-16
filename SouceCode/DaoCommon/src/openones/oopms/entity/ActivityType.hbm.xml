@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ActivityType" table="ACTIVITY_TYPE">
+    <class name="openones.oopms.entity.ActivityType" table="ACTIVITY_TYPE">
         <comment>(DMS)</comment>
         <id name="code" type="string">
             <column name="CODE" length="100" />
@@ -22,7 +22,7 @@
             <key>
                 <column name="TYPE_CODE" length="100" not-null="true" />
             </key>
-            <many-to-many entity-name="openones.tms.dms.entity.QcActivity">
+            <many-to-many entity-name="openones.oopms.entity.QcActivity">
                 <column name="QC_CODE" length="100" not-null="true" />
             </many-to-many>
         </set>

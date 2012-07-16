@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Responsibility" table="RESPONSIBILITY">
+    <class name="openones.oopms.entity.Responsibility" table="RESPONSIBILITY">
         <comment>List of responsibility used for project teams (Dashboard, Insight)</comment>
         <id name="projectPositionCode" type="string">
             <column name="PROJECT_POSITION_CODE" length="100" />
@@ -36,7 +36,7 @@
             <key>
                 <column name="PROJECT_POSITION_CODE" length="100" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Assignment" />
+            <one-to-many class="openones.oopms.entity.Assignment" />
         </set>
     </class>
 </hibernate-mapping>

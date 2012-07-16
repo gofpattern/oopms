@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Staffs" table="STAFFS">
+    <class name="openones.oopms.entity.Staffs" table="STAFFS">
         <comment>?</comment>
         <id name="code" type="long">
             <column name="CODE" precision="10" scale="0" />

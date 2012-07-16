@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.FinancialPlan" table="FINANCIAL_PLAN">
+    <class name="openones.oopms.entity.FinancialPlan" table="FINANCIAL_PLAN">
         <comment>Project's finances (Insight)</comment>
         <id name="invoiceScheduleId" type="big_decimal">
             <column name="INVOICE_SCHEDULE_ID" precision="22" scale="0" />

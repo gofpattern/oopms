@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Issue" table="ISSUE">
+    <class name="openones.oopms.entity.Issue" table="ISSUE">
         <comment>(Insight)</comment>
         <id name="issueid" type="long">
             <column name="ISSUEID" precision="10" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="workunit" class="openones.tms.dms.entity.Workunit" fetch="select">
+        <many-to-one name="workunit" class="openones.oopms.entity.Workunit" fetch="select">
             <column name="WORKUNITID" precision="22" scale="0" not-null="true">
                 <comment>Owner WU</comment>
             </column>

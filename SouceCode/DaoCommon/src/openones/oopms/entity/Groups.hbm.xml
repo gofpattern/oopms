@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Groups" table="GROUPS">
+    <class name="openones.oopms.entity.Groups" table="GROUPS">
         <comment>List of organization groups, effect to all FMS packages</comment>
         <id name="groupId" type="big_decimal">
             <column name="GROUP_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="developer" class="openones.tms.dms.entity.Developer" fetch="select">
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
             <column name="LEADER" precision="22" scale="0" />
         </many-to-one>
         <property name="groupname" type="string">

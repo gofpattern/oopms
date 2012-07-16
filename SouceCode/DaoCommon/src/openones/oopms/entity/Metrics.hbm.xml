@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Metrics" table="METRICS">
+    <class name="openones.oopms.entity.Metrics" table="METRICS">
         <comment>Used for metric values that need to be input from user(Insight). Avoid using this table as much as possible</comment>
         <id name="code" type="long">
             <column name="CODE" precision="10" scale="0" />
