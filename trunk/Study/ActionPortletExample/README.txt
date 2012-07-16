@@ -1,0 +1,1 @@
+This example helps you to use link action, link render, and button submit to go to action mapping in controller
