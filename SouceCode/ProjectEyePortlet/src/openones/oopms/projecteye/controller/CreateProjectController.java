@@ -49,26 +49,15 @@ public class CreateProjectController {
 
 
     /**
-     * Create bean for form.
-     * @return Form bean for UI.
-     */
-    @ModelAttribute("CreateProjectForm")
-    public CreateProjectForm getCommandObject() {
-        log.debug("CreateBean");
-        CreateProjectForm formBean = new CreateProjectForm();
-        return formBean;
-    }
-
-    /**
      * Process submitted form by clicking "Login" button.
      * @param formBean bean captures input data
      * @param result result of binding data
      * @param status status of session
      * @param response response of action
      */
-    @ActionMapping(params = "action=createProject")
+    @ActionMapping(params = "action=CreateProject")
     public void processCreateProject(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processCreateProject.START");
+        log.debug("process CreateProject.START");
         ProjectDao pDao = new ProjectDao();
         Project project = new Project();
         
@@ -80,16 +69,13 @@ public class CreateProjectController {
     	project.setPlanStartDate(formBean.getPlanStartDate());
     	project.setPlanFinishDate(formBean.getPlanEndDate());
     	project.setDescription(formBean.getScopeObjective());
-    	project.setStatus("1");
-    	project.setCategory("1");
-        project.setType("2");
-//    	Map<String,String> projectStatus;
-//    	Map<String,String> projectType;
-//    	Map<String,String> businessDomain;
+    	project.setProjectCategoryCode(formBean.getProjectCategory_SelectedValue());
+    	project.setProjectTypeCode(formBean.getBusinessDomain_SelectedValue());
+        project.setProjectStatusCode(formBean.getProjectStatus_SelectedValue());
     	
     	//Call dao to insert project to database
     	if(pDao.insertProject(project)) {
-    		response.setRenderParameter("action", "createProject");
+    		response.setRenderParameter("action", "CreateProject");
     		log.error("Insert success");
     	} else {
     		log.error("Cannot Insert");
@@ -101,11 +87,11 @@ public class CreateProjectController {
      * Process after the action "login" (method "processLogin") is executed.
      * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
      */
-    @RenderMapping(params = "action=createProject")
+    @RenderMapping(params = "action=CreateProject")
     public ModelAndView postCreateProject(CreateProjectForm formBean, RenderRequest request) {
-        log.debug("postLogin.START");
+        log.debug("post CreateProject.START");
         // request.setAttribute("user2", formBean);
-        ModelAndView mav = new ModelAndView("Success");
+        ModelAndView mav = new ModelAndView("ProjectEyeHome");
         return mav;
     }
 }

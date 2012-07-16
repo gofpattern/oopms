@@ -4,9 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
+<%@ taglib prefix="portlet2" uri="http://java.sun.com/portlet_2_0" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<portlet2:defineObjects />
+<portlet:defineObjects />
 <title>Create Project</title>
 <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon"/>
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/screen.css" rel="Stylesheet" />
@@ -61,16 +64,13 @@
 <div id="portalPageBodyInner" class="container">
 
   <div class="content">
-  <!-- begin .navigator -->
-	<jsp:include page="Nagivator.jsp" />
-	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
     	<h2 class="title" >Create Project</h2>
     </div>
 <portlet:actionURL var="formAction">
-  <portlet:param name="action" value="createProject" />
+  <portlet:param name="action" value="CreateProject" />
 </portlet:actionURL>
-<form:form method="post" commandName="CreateProjectForm" action="${formAction}">                       
+<form:form method="get" commandName="CreateProjectForm" action="${formAction}">                       
     <table class="portlet-table">
   <tr>
     <th width="186" scope="row">Project Manager</th>
@@ -86,23 +86,15 @@
   </tr>
   <tr>
     <th scope="row">Project Status</th>
-    <td><select class="styled" class="SmallCombo" name="projectStatus">
-      <option selected="selected">Tentative</option>
-      <option>Ongoing</option>
-      <option>Closed</option>
-      <option>Cancelled</option>
-    </select></td>
+    <td><form:select  class="SmallCombo" path="projectStatus_SelectedValue" items="${projectStatus}"/></td>
   </tr>
   <tr>
-    <th scope="row">Project Type</th>
-    <td><select class="styled" class="SmallCombo" name="projectType">
-      <option selected="selected">Product Maintainance</option>
-      <option>Project Development</option>
-    </select></td>
+    <th scope="row">Project Category</th>
+    <td><form:select  class="SmallCombo" path="projectCategory_SelectedValue" items="${projectCategory}"/></td>
   </tr>
   <tr>
    <th scope="row">Direct Customer</th>
-        <td><input name="customer" value="" maxlength="50" size="50" type="text" /><input type="button" value="Search Icon"></input></td>
+        <td><input name="customer" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
       <tr>
         <th scope="row">End Customer</th>
@@ -110,15 +102,7 @@
       </tr>
       <tr>
    <th scope="row">Business Domain</th>
-    <td><select name="businessDomain" class="styled" class="SmallCombo">
-      <option selected="selected">Healthcare</option>
-      <option>Universities</option>
-      <option>Bank & Finance</option>
-      <option>Technology</option>
-      <option>Real Estate</option>
-      <option>Construction</option>
-      <option>Manufacturing</option>
-    </select></td>
+    <td><form:select  class="SmallCombo" path="businessDomain_SelectedValue" items="${businessDomain}"/></td>
   </tr>
       <tr>
         <th scope="row">Planned Start Date* </th>
@@ -135,13 +119,13 @@
         <td><textarea rows="10" cols="70" name="scopeObjective"></textarea></td>
       </tr>
 </table>
-	<button type="submit" class="button blue small" name="Submit" value="Submit">Submid</button>
+	<button type="submit" class="button blue small" name="submid" value="submid">Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<portlet:renderURL var="renderAction">
     		<portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
     	</portlet:renderURL>
 		<a href="${renderAction}">
-	<button type="submit" class="button blue small" name="Cancel" value="Cancel">Cancel</button>
+	<button type="button" class="button blue small" name="Cancel" value="Cancel">Cancel</button>
 	</a>
 </form:form>
 

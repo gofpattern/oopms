@@ -33,7 +33,7 @@
 <body>
 <div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
 <portlet:actionURL var="formAction">
-  <portlet:param name="action" value="homeCreateProject" />
+  <portlet:param name="action" value="GoCreateProject" />
 </portlet:actionURL>
 <form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Project</button>

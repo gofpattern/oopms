@@ -23,5 +23,8 @@
     <mapping resource="openones/oopms/projecteye/model/RiskMitigation.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/RiskSource.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/RiskSourceMitigation.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/LanguageCode.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/GeneralReference.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/BusinessDomain.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

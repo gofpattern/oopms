@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.projecteye.model.LanguageCode" table="LANGUAGE_CODE">
+        <id name="langCode" type="string">
+            <column name="LANG_CODE" length="30" />
+            <generator class="native" />
+        </id>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="2000" />
+        </property>
+        <set name="generalReferences" inverse="true">
+            <key>
+                <column name="LANG_CODE" length="30" />
+            </key>
+            <one-to-many class="openones.oopms.projecteye.model.GeneralReference" />
+        </set>
+    </class>
+</hibernate-mapping>
