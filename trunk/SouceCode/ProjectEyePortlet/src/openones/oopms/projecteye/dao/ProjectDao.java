@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
+import openones.oopms.projecteye.model.BusinessDomain;
+import openones.oopms.projecteye.model.GeneralReference;
+import openones.oopms.projecteye.model.LanguageCode;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
@@ -64,6 +67,65 @@ public class ProjectDao {
 	   log.error("Insert ngon");
        return true;
    }
-  
+   
+   
+   public List<GeneralReference> getProjectStatusList() {
+       try {
+           session.getTransaction().begin();
+           String hql = "From GeneralReference where groupCode = :gCode and languageCode = :lCode";
+           Query query = session.createQuery(hql);
+           query.setParameter("gCode", "PROJECT_STATUS");
+           LanguageCode lCode = new LanguageCode();
+           lCode.setLangCode("en");
+           query.setParameter("lCode", lCode);
+           List<GeneralReference> projectStatusList = query.list();               
+           session.flush();
+           session.getTransaction().commit();
+           log.error("Project Status Count : "+projectStatusList.size());
+           return projectStatusList;
+           
+       } catch (Exception e) {
+           log.error(e.getMessage());
+       }
+       return null;
+   }
+   
+   public List<GeneralReference> getProjectCategoryList() {
+       try {
+           session.getTransaction().begin();
+           String hql = "From GeneralReference where groupCode = :gCode and languageCode = :lCode";
+           Query query = session.createQuery(hql);
+           query.setParameter("gCode", "PROJECT_CATEGORY");
+           LanguageCode lCode = new LanguageCode();
+           lCode.setLangCode("en");
+           query.setParameter("lCode", lCode);
+           List<GeneralReference> projectCategoryList = query.list();               
+           session.flush();
+           session.getTransaction().commit();
+           log.error("Project Category Count : "+projectCategoryList.size());
+           return projectCategoryList;
+           
+       } catch (Exception e) {
+           log.error(e.getMessage());
+       }
+       return null;
+   }
+   
+   public List<BusinessDomain> getProjectBussinessDomainList() {
+       try {
+           session.getTransaction().begin();
+           String hql = "From BusinessDomain";
+           Query query = session.createQuery(hql);
+           List<BusinessDomain> projectBussinessDomainList = query.list();               
+           session.flush();
+           session.getTransaction().commit();
+           log.error("Project Bussiness Domain Count : "+projectBussinessDomainList.size());
+           return projectBussinessDomainList;
+           
+       } catch (Exception e) {
+           log.error(e.getMessage());
+       }
+       return null;
+   }
 
 }

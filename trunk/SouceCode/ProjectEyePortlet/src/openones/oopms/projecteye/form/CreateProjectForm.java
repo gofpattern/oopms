@@ -33,8 +33,48 @@ public class CreateProjectForm {
 	private Date planEndDate;
 	private String scopeObjective;
 	private Map<String,String> projectStatus;
-	private Map<String,String> projectType;
+	private Map<String,String> projectCategory;
 	private Map<String,String> businessDomain;
+	private String projectStatus_SelectedValue;
+	private String projectCategory_SelectedValue;
+	private String businessDomain_SelectedValue;
+	/**
+	 * @return the projectStatus_SelectedValue
+	 */
+	public String getProjectStatus_SelectedValue() {
+		return projectStatus_SelectedValue;
+	}
+	/**
+	 * @param projectStatus_SelectedValue the projectStatus_SelectedValue to set
+	 */
+	public void setProjectStatus_SelectedValue(String projectStatus_SelectedValue) {
+		this.projectStatus_SelectedValue = projectStatus_SelectedValue;
+	}
+	/**
+	 * @return the projectCategory_SelectedValue
+	 */
+	public String getProjectCategory_SelectedValue() {
+		return projectCategory_SelectedValue;
+	}
+	/**
+	 * @param projectCategory_SelectedValue the projectCategory_SelectedValue to set
+	 */
+	public void setProjectCategory_SelectedValue(
+			String projectCategory_SelectedValue) {
+		this.projectCategory_SelectedValue = projectCategory_SelectedValue;
+	}
+	/**
+	 * @return the businessDomain_SelectedValue
+	 */
+	public String getBusinessDomain_SelectedValue() {
+		return businessDomain_SelectedValue;
+	}
+	/**
+	 * @param businessDomain_SelectedValue the businessDomain_SelectedValue to set
+	 */
+	public void setBusinessDomain_SelectedValue(String businessDomain_SelectedValue) {
+		this.businessDomain_SelectedValue = businessDomain_SelectedValue;
+	}
 	/**
 	 * @return the projectStatus
 	 */
@@ -47,17 +87,18 @@ public class CreateProjectForm {
 	public void setProjectStatus(Map<String, String> projectStatus) {
 		this.projectStatus = projectStatus;
 	}
+
 	/**
-	 * @return the projectType
+	 * @return the projectCategory
 	 */
-	public Map<String, String> getProjectType() {
-		return projectType;
+	public Map<String, String> getProjectCategory() {
+		return projectCategory;
 	}
 	/**
-	 * @param projectType the projectType to set
+	 * @param projectCategory the projectCategory to set
 	 */
-	public void setProjectType(Map<String, String> projectType) {
-		this.projectType = projectType;
+	public void setProjectCategory(Map<String, String> projectCategory) {
+		this.projectCategory = projectCategory;
 	}
 	/**
 	 * @return the businessDomain
