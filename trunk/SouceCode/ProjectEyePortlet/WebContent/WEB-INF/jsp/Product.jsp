@@ -7,7 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ProjectEye HomePage</title>
+<title>Product</title>
 <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon"/>
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/screen.css" rel="Stylesheet" />
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
@@ -27,56 +27,61 @@
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/jquery.cookie.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/default.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/manage.js"></script>
-
-
+	
 </head>
-<body>
-<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
-<portlet:actionURL var="formAction">
-  <portlet:param name="action" value="homeCreateProject" />
-</portlet:actionURL>
-<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
-	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Project</button>
-</form:form>
 
-<portlet:actionURL var="formAction">
-  <portlet:param name="action" value="homeCreateProduct" />
-</portlet:actionURL>
-<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
-	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Product</button>
-</form:form>
+<body id="portal" class="up fl-theme-mist">
 
-<portlet:actionURL var="formAction">
-  <portlet:param name="action" value="homeCreateRisk" />
-</portlet:actionURL>
-<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
-	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Risk</button>
-</form:form>
+<div id="portalPageBodyInner" class="container">
+
+  <div class="content">
+   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
+    	<h2 class="title" >Product</h2>
+    </div>
+
+	<!-- begin .navigator -->
+	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
+    <div class="demo" style="font-size:17px">
+ 		<portlet:renderURL var="renderAction">
+    		<portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
+    	</portlet:renderURL>
+		<a href="${renderAction}">ProjectEye Home</a>
+		
+		<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoRiskIssue" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Risk, Issue</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoChangeRequest" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Change Request</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoProduct" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Product</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoWorkOrder" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Work Order</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoCostManagement" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Cost Management</a>	
+	</div>
+	</div>
+	<!-- end .navigator -->
 
 
-<table class="portlet-table">
-
-   <tbody><tr >
-        <th width="70%" scope="row">Project Name</th>    
-        <th width="30%" scope="row">Project Code</th>    
-    </tr>
-    <c:if test="${not empty projectList}">
-  
-        <c:forEach var="project" items="${projectList}">
-            <tr>
-            <portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="homeProjectDetail" />
-            	<portlet:param name="projectId" value="${project.projectId}" />
-            </portlet:renderURL>
-               <td scope="row"><a href="${renderAction}">${project.name}</a></td>
-               <td scope="row"><a href="${renderAction}">${project.code}</a></td>                                    
-            </tr>
-        </c:forEach>
-   
-	</c:if>
-    
-    </tbody>
-</table>
-</div>
+  <!-- end .content --></div>
+  <!-- end .container --></div>
 </body>
 </html>

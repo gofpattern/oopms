@@ -22,7 +22,7 @@ package openones.oopms.projecteye.form;
 /**
  * @author HaiTCT
  */
-public class ProjectEyeHomeForm {
+public class UpdateProductForm {
 
 
 }

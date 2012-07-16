@@ -18,20 +18,16 @@
  */
 package openones.oopms.projecteye.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.RiskDao;
-import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.CreateRiskForm;
 import openones.oopms.projecteye.form.ProjectEyeHomeForm;
 import openones.oopms.projecteye.model.Developer;
@@ -39,7 +35,6 @@ import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.RiskSource;
 
 import org.apache.log4j.Logger;
-import org.hibernate.type.BigDecimalType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,7 +45,7 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
- * @author Thach.Le
+ * @author HaiTCT
  */
 @Controller
 @RequestMapping("VIEW")
@@ -168,6 +163,22 @@ public class ProjectEyeHomeController {
      // Set default value for risk source
         mav.addObject("riskSource", riskFormBean.getRiskSource());
         mav.addObject("riskSource_SelectedValue", riskFormBean.getRiskSource_SelectedValue());
+        return mav;
+    }
+    
+    @ActionMapping(params = "action=homeProjectDetail")
+    public void processProjectDetail(BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("processHomeProjectDetail.START");
+        response.setRenderParameter("action", "homeProjectDetail");    
+    }
+    
+    @RenderMapping(params = "action=homeProjectDetail")
+    public ModelAndView postProjectDetail(RenderRequest request) {
+        log.debug("postProjectDetail.START");
+        ModelAndView mav = new ModelAndView("ProjectDetail");
+        String projectId = request.getParameter("projectId");
+        log.debug("project ID la "+ projectId);
+        mav.addObject("projectId", projectId);
         return mav;
     }
 }

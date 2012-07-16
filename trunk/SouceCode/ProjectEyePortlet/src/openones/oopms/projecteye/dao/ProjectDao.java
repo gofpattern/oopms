@@ -1,11 +1,9 @@
 package openones.oopms.projecteye.dao;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
-import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
