@@ -67,7 +67,7 @@ public class AddDefectController extends BaseController {
         log.debug("processAddNew.START");
 
         ModelAndView mav = new ModelAndView("AddDefect"); // display AddDefect.jsp
-        Map<String, String> qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
+        Map<Integer, String> qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
         
         mav.addObject("defect", new DefectForm());
         mav.addObject("qcActivity", qcActivityMap);

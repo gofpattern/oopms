@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import openones.oopms.daocommon.QcActivityDao;
 import openones.oopms.entity.QcActivity;
@@ -86,16 +87,21 @@ public class DMSWorkspace {
         return Arrays.asList(roles);
     }
 
-    public Map<String, String> getActivityMap() {
+    /**
+     * Get master date "QC Activities".
+     * @return Map (id, name) of list of qc activities
+     */
+    public Map<Integer, String> getActivityMap() {
+        // TODO: Uncomment below codes to get QC Activities from database
 //        QcActivityDao dao = new QcActivityDao();
 //        ArrayList<QcActivity> qcActivityList = dao.getQcActivity();
-//        Map<String, String> actMap = new HashMap<String, String>();
+//        Map<Integer, String> actMap = new TreeMap<Integer, String>();
 //        
 //        for (QcActivity qcAct : qcActivityList) {
-//            actMap.put(qcAct.getCode(), qcAct.getName());
+//            actMap.put(qcAct.getQaId().intValue(), qcAct.getName());
 //        }
-        Map<String, String> actMap = new HashMap<String, String>();
-        actMap.put("11", "11-Integration test");
+        Map<Integer, String> actMap = new HashMap<Integer, String>();
+        actMap.put(11, "11-Integration test");
         return actMap;
     }
 }
