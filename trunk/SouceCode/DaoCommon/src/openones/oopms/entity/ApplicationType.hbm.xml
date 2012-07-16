@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ApplicationType" table="APPLICATION_TYPE">
+    <class name="openones.oopms.entity.ApplicationType" table="APPLICATION_TYPE">
         <comment>Project's application type (Insight)</comment>
         <id name="applicationId" type="big_decimal">
             <column name="APPLICATION_ID" precision="22" scale="0" />
@@ -19,7 +19,7 @@
             <key>
                 <column name="APPLICATION_TYPE" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.ProjectPlan" />
+            <one-to-many class="openones.oopms.entity.ProjectPlan" />
         </set>
     </class>
 </hibernate-mapping>

@@ -3,8 +3,8 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ArchiveActualEffortByType" table="ARCHIVE_ACTUAL_EFFORT_BY_TYPE">
-        <composite-id name="id" class="openones.tms.dms.entity.ArchiveActualEffortByTypeId">
+    <class name="openones.oopms.entity.ArchiveActualEffortByType" table="ARCHIVE_ACTUAL_EFFORT_BY_TYPE">
+        <composite-id name="id" class="openones.oopms.entity.ArchiveActualEffortByTypeId">
             <key-property name="projectId" type="big_decimal">
                 <column name="PROJECT_ID" precision="22" scale="0" />
             </key-property>

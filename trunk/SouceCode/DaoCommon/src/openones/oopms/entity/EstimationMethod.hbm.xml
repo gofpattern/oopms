@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.EstimationMethod" table="ESTIMATION_METHOD">
+    <class name="openones.oopms.entity.EstimationMethod" table="ESTIMATION_METHOD">
         <comment>(Insight)</comment>
         <id name="methodId" type="big_decimal">
             <column name="METHOD_ID" precision="22" scale="0" />
@@ -22,7 +22,7 @@
             <key>
                 <column name="METHOD_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Conversion" />
+            <one-to-many class="openones.oopms.entity.Conversion" />
         </set>
     </class>
 </hibernate-mapping>

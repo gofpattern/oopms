@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Tailoring" table="TAILORING">
+    <class name="openones.oopms.entity.Tailoring" table="TAILORING">
         <comment>List of tailorings(Insight)</comment>
         <id name="tailId" type="big_decimal">
             <column name="TAIL_ID" precision="22" scale="0" />
@@ -36,7 +36,7 @@
                     <comment>lonks to tailoring</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.ProjectTailoring" />
+            <one-to-many class="openones.oopms.entity.ProjectTailoring" />
         </set>
     </class>
 </hibernate-mapping>

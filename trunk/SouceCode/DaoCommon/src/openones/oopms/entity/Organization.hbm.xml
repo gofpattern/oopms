@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Organization" table="ORGANIZATION">
+    <class name="openones.oopms.entity.Organization" table="ORGANIZATION">
         <comment>Lists organizations (Insight)</comment>
         <id name="orgId" type="big_decimal">
             <column name="ORG_ID" precision="22" scale="0" />

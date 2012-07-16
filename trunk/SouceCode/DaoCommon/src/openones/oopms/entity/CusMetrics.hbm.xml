@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.CusMetrics" table="CUS_METRICS">
+    <class name="openones.oopms.entity.CusMetrics" table="CUS_METRICS">
         <comment>Project's custom metrics (Insight)</comment>
         <id name="code" type="big_decimal">
             <column name="CODE" precision="22" scale="0" />
@@ -40,7 +40,7 @@
             <key>
                 <column name="CODE" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.CusPoint" />
+            <one-to-many class="openones.oopms.entity.CusPoint" />
         </set>
     </class>
 </hibernate-mapping>

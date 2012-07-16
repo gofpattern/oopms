@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Constraints" table="CONSTRAINTS">
+    <class name="openones.oopms.entity.Constraints" table="CONSTRAINTS">
         <comment>Project constraints (Insight)</comment>
         <id name="constraintId" type="big_decimal">
             <column name="CONSTRAINT_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="projectPlan" class="openones.tms.dms.entity.ProjectPlan" fetch="select">
+        <many-to-one name="projectPlan" class="openones.oopms.entity.ProjectPlan" fetch="select">
             <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
         </many-to-one>
         <property name="description" type="string">

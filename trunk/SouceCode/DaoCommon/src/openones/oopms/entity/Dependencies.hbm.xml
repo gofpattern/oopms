@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Dependencies" table="DEPENDENCIES">
+    <class name="openones.oopms.entity.Dependencies" table="DEPENDENCIES">
         <comment>Project dependencies (Insight)</comment>
         <id name="dependencyId" type="big_decimal">
             <column name="DEPENDENCY_ID" precision="22" scale="0" />

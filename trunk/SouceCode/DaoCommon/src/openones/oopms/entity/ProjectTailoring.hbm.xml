@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.ProjectTailoring" table="PROJECT_TAILORING">
+    <class name="openones.oopms.entity.ProjectTailoring" table="PROJECT_TAILORING">
         <comment>Project tailorings (Insight)</comment>
-        <composite-id name="id" class="openones.tms.dms.entity.ProjectTailoringId">
+        <composite-id name="id" class="openones.oopms.entity.ProjectTailoringId">
             <key-property name="projectId" type="big_decimal">
                 <column name="PROJECT_ID" precision="22" scale="0" />
             </key-property>
@@ -13,7 +13,7 @@
                 <column name="PROCESS_TAIL_ID" precision="22" scale="0" />
             </key-property>
         </composite-id>
-        <many-to-one name="tailoring" class="openones.tms.dms.entity.Tailoring" update="false" insert="false" fetch="select">
+        <many-to-one name="tailoring" class="openones.oopms.entity.Tailoring" update="false" insert="false" fetch="select">
             <column name="PROCESS_TAIL_ID" precision="22" scale="0" not-null="true">
                 <comment>lonks to tailoring</comment>
             </column>

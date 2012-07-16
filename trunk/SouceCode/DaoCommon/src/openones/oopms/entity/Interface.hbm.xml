@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Interface" table="INTERFACE">
+    <class name="openones.oopms.entity.Interface" table="INTERFACE">
         <comment>Project's interface (Insight)</comment>
         <id name="interfaceId" type="big_decimal">
             <column name="INTERFACE_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="projectPlan" class="openones.tms.dms.entity.ProjectPlan" fetch="select">
+        <many-to-one name="projectPlan" class="openones.oopms.entity.ProjectPlan" fetch="select">
             <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
         </many-to-one>
         <property name="name" type="string">

@@ -3,9 +3,9 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.PlansQcStage" table="PLANS_QC_STAGE">
+    <class name="openones.oopms.entity.PlansQcStage" table="PLANS_QC_STAGE">
         <comment>Store Planned Defect Removal Efficiency by stage</comment>
-        <composite-id name="id" class="openones.tms.dms.entity.PlansQcStageId">
+        <composite-id name="id" class="openones.oopms.entity.PlansQcStageId">
             <key-property name="qcid" type="big_decimal">
                 <column name="QCID" precision="22" scale="0" />
             </key-property>
@@ -13,7 +13,7 @@
                 <column name="MILESTONEID" precision="22" scale="0" />
             </key-property>
         </composite-id>
-        <many-to-one name="milestone" class="openones.tms.dms.entity.Milestone" update="false" insert="false" fetch="select">
+        <many-to-one name="milestone" class="openones.oopms.entity.Milestone" update="false" insert="false" fetch="select">
             <column name="MILESTONEID" precision="22" scale="0" not-null="true">
                 <comment>Milestone, project stage</comment>
             </column>

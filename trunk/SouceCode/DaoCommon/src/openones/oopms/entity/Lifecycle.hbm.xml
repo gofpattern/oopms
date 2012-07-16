@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Lifecycle" table="LIFECYCLE">
+    <class name="openones.oopms.entity.Lifecycle" table="LIFECYCLE">
         <comment>Project lifecycle</comment>
         <id name="lifecycleId" type="big_decimal">
             <column name="LIFECYCLE_ID" precision="22" scale="0" />
@@ -18,7 +18,7 @@
                     <comment>Used for software norms</comment>
                 </column>
             </key>
-            <one-to-many class="openones.tms.dms.entity.Normplan" />
+            <one-to-many class="openones.oopms.entity.Normplan" />
         </set>
     </class>
 </hibernate-mapping>

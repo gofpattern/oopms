@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Iteration" table="ITERATION">
+    <class name="openones.oopms.entity.Iteration" table="ITERATION">
         <comment>Stages iterations (Insight)</comment>
         <id name="iterationId" type="big_decimal">
             <column name="ITERATION_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="milestone" class="openones.tms.dms.entity.Milestone" fetch="select">
+        <many-to-one name="milestone" class="openones.oopms.entity.Milestone" fetch="select">
             <column name="MILESTONE_ID" precision="22" scale="0" />
         </many-to-one>
         <property name="description" type="string">

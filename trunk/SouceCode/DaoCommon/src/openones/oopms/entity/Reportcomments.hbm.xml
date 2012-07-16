@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Reportcomments" table="REPORTCOMMENTS">
+    <class name="openones.oopms.entity.Reportcomments" table="REPORTCOMMENTS">
         <comment>Weekly and milestone report comments (Insight)</comment>
         <id name="reportcommentsId" type="big_decimal">
             <column name="REPORTCOMMENTS_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <property name="reportType" type="string">

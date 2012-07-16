@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Module" table="MODULE">
+    <class name="openones.oopms.entity.Module" table="MODULE">
         <comment>Project products (Insight)</comment>
         <id name="moduleId" type="big_decimal">
             <column name="MODULE_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <many-to-one name="workproduct" class="openones.tms.dms.entity.Workproduct" fetch="select">
+        <many-to-one name="workproduct" class="openones.oopms.entity.Workproduct" fetch="select">
             <column name="WORKPRODUCT_CODE" length="100" />
         </many-to-one>
         <property name="name" type="string">
@@ -146,13 +146,13 @@
             <key>
                 <column name="MODULE_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.ProductLocPlan" />
+            <one-to-many class="openones.oopms.entity.ProductLocPlan" />
         </set>
         <set name="productLocActuals" inverse="true">
             <key>
                 <column name="MODULE_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.ProductLocActual" />
+            <one-to-many class="openones.oopms.entity.ProductLocActual" />
         </set>
     </class>
 </hibernate-mapping>

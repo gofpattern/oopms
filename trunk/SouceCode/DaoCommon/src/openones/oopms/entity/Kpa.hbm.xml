@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Kpa" table="KPA">
+    <class name="openones.oopms.entity.Kpa" table="KPA">
         <comment>KPA, using with Timesheet</comment>
         <id name="kpaId" type="big_decimal">
             <column name="KPA_ID" precision="22" scale="0" />

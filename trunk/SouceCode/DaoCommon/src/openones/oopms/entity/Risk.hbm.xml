@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Risk" table="RISK">
+    <class name="openones.oopms.entity.Risk" table="RISK">
         <comment>Project risks (Insight)</comment>
         <id name="riskId" type="big_decimal">
             <column name="RISK_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="developer" class="openones.tms.dms.entity.Developer" fetch="select">
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
             <column name="DEVELOPER_ID" precision="22" scale="0" />
         </many-to-one>
-        <many-to-one name="project" class="openones.tms.dms.entity.Project" fetch="select">
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" />
         </many-to-one>
         <property name="condition" type="string">
@@ -111,13 +111,13 @@
             <key>
                 <column name="RISK_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.RiskMitigation" />
+            <one-to-many class="openones.oopms.entity.RiskMitigation" />
         </set>
         <set name="riskContigencies" inverse="true">
             <key>
                 <column name="RISK_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.RiskContigency" />
+            <one-to-many class="openones.oopms.entity.RiskContigency" />
         </set>
     </class>
 </hibernate-mapping>

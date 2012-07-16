@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.Language" table="LANGUAGE">
+    <class name="openones.oopms.entity.Language" table="LANGUAGE">
         <comment>languages used to estimate products size(Insight)</comment>
         <id name="languageId" type="big_decimal">
             <column name="LANGUAGE_ID" precision="22" scale="0" />
@@ -32,19 +32,19 @@
             <key>
                 <column name="LANGUAGE_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.ProductLocActual" />
+            <one-to-many class="openones.oopms.entity.ProductLocActual" />
         </set>
         <set name="conversions" inverse="true">
             <key>
                 <column name="LANGUAGE_ID" precision="22" scale="0" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.Conversion" />
+            <one-to-many class="openones.oopms.entity.Conversion" />
         </set>
         <set name="productLocPlans" inverse="true">
             <key>
                 <column name="LANGUAGE_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.tms.dms.entity.ProductLocPlan" />
+            <one-to-many class="openones.oopms.entity.ProductLocPlan" />
         </set>
     </class>
 </hibernate-mapping>

@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.DefectAttachment" table="DEFECT_ATTACHMENT">
+    <class name="openones.oopms.entity.DefectAttachment" table="DEFECT_ATTACHMENT">
         <comment>DMS: Store attachmnents of defect in BLOB format</comment>
         <id name="attachmentId" type="big_decimal">
             <column name="ATTACHMENT_ID" precision="22" scale="0" />
             <generator class="native" />
         </id>
-        <many-to-one name="defect" class="openones.tms.dms.entity.Defect" fetch="select">
+        <many-to-one name="defect" class="openones.oopms.entity.Defect" fetch="select">
             <column name="DEFECT_ID" precision="22" scale="0" />
         </many-to-one>
-        <many-to-one name="developer" class="openones.tms.dms.entity.Developer" fetch="select">
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
             <column name="DEVELOPER_ID" precision="22" scale="0">
                 <comment>Attachment owner</comment>
             </column>

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.tms.dms.entity.RiskSourceMitigation" table="RISK_SOURCE_MITIGATION">
+    <class name="openones.oopms.entity.RiskSourceMitigation" table="RISK_SOURCE_MITIGATION">
         <id name="riskSourceMitigationId" type="big_decimal">
             <column name="RISK_SOURCE_MITIGATION_ID" precision="22" scale="0" />
             <generator class="native" />
