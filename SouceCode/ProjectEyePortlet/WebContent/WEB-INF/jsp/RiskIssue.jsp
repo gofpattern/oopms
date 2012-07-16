@@ -35,51 +35,28 @@
 <div id="portalPageBodyInner" class="container">
 
   <div class="content">
-   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Risk, Issue</h2>
-    </div>
     
     <!-- begin .navigator -->
-	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
-    <div class="demo" style="font-size:17px">
- 		<portlet:renderURL var="renderAction">
-    		<portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
-    	</portlet:renderURL>
-		<a href="${renderAction}">ProjectEye Home</a>
-		
-		<portlet:renderURL var="renderAction">
-    		<portlet:param name="action" value="GoRiskIssue" />
-        	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Risk, Issue</a>
-    	
-    	<portlet:renderURL var="renderAction">
-    		<portlet:param name="action" value="GoChangeRequest" />
-        	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Change Request</a>
-    	
-    	<portlet:renderURL var="renderAction">
-    		<portlet:param name="action" value="GoProduct" />
-        	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Product</a>
-    	
-    	<portlet:renderURL var="renderAction">
-    		<portlet:param name="action" value="GoWorkOrder" />
-        	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Work Order</a>
-    	
-    	<portlet:renderURL var="renderAction">
-    		<portlet:param name="action" value="GoCostManagement" />
-        	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Cost Management</a>	
-	</div>
-	</div>
+	<jsp:include page="Nagivator.jsp" />
 	<!-- end .navigator -->
 	
+	   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
+    	<h2 class="title" >Risk, Issue</h2>
+    </div>
+	
+	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
+		<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoCreateRisk" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<a href="${renderAction}">Add new Risk</a>
+    	
+    	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoCreateIssue" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+    	<br/><a href="${renderAction}">Add new Issue</a>
+	</div>
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

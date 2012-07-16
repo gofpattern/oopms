@@ -18,10 +18,17 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.RiskDao;
+import openones.oopms.projecteye.form.CreateRiskForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.RiskSource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -37,22 +44,22 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class ProjectDetailController {
+public class WorkOrderController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(ProjectDetailController.class);
+	private static Logger log = Logger.getLogger(WorkOrderController.class);
 
-	@ActionMapping(params = "action=goUpdateProject")
-    public void processGoUpdateProject(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process goUpdateProject.START");
-        response.setRenderParameter("action", "goUpdateProject");    
+	@ActionMapping(params = "action=GoCreateStage")
+    public void processGoCreateStage(BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("process GoCreateStage.START");
+        response.setRenderParameter("action", "GoCreateStage");    
     }
     
-    @RenderMapping(params = "action=goUpdateProject")
-    public ModelAndView postGoUpdateProject(RenderRequest request) {
-        log.debug("post goUpdateProject.START");
-        ModelAndView mav = new ModelAndView("UpdateProject");
+	@RenderMapping(params = "action=GoCreateStage")
+    public ModelAndView postGoCreateStage(RenderRequest request) {
+        log.debug("post GoCreateIssue.START");
+        ModelAndView mav = new ModelAndView("CreateStage");
         String projectId = request.getParameter("projectId");
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
@@ -60,19 +67,20 @@ public class ProjectDetailController {
     }
     
     
-    @ActionMapping(params = "action=goTeamManagement")
-    public void processGoTeamManagement(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoTeamManagement.START");
-        response.setRenderParameter("action", "goTeamManagement");    
+    @ActionMapping(params = "action=GoCreateDeliverable")
+    public void processGoCreateDeliverable(BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("process GoCreateDeliverable.START");
+        response.setRenderParameter("action", "GoCreateDeliverable");    
     }
     
-    @RenderMapping(params = "action=goTeamManagement")
-    public ModelAndView postGoTeamManagement(RenderRequest request) {
-        log.debug("post GoTeamManagement.START");
-        ModelAndView mav = new ModelAndView("TeamManagement");
+    @RenderMapping(params = "action=GoCreateDeliverable")
+    public ModelAndView postGoCreateDeliverable(RenderRequest request) {
+        log.debug("post GoCreateDeliverable.START");
+        ModelAndView mav = new ModelAndView("CreateDeliverable");
         String projectId = request.getParameter("projectId");
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
     }
+    
 }

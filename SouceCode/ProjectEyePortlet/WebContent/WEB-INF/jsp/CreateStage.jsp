@@ -7,7 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Project Detail</title>
+<title>Create Stage</title>
 <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon"/>
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/screen.css" rel="Stylesheet" />
 <link type="text/css" href="../OOPMSPortlet/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
@@ -35,9 +35,29 @@
 <div id="portalPageBodyInner" class="container">
 
   <div class="content">
+  <!-- begin .navigator -->
+	<jsp:include page="Nagivator.jsp" />
+	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Create Project</h2>
+    	<h2 class="title" >Create Stage</h2>
     </div>
+
+<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">	
+<portlet:actionURL var="formAction">
+  <portlet:param name="action" value="CreateStage" />
+</portlet:actionURL>
+<form:form method="get" commandName="CreateStageForm" action="${formAction}">   
+	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Create</button>
+	<button type="reset" class="button blue small">Reset</button>
+	<portlet:renderURL var="renderAction">
+    		<portlet:param name="action" value="GoWorkOrder" />
+        	<portlet:param name="projectId" value="${projectId}" />
+  	</portlet:renderURL>
+    <a href="${renderAction}">
+		<button type="button" class="button blue small" name="buttonAction" value="Cancel">Cancel</button>
+	</a>	
+</form:form>	
+</div>
 
   <!-- end .content --></div>
   <!-- end .container --></div>

@@ -35,6 +35,9 @@
 <div id="portalPageBodyInner" class="container">
 
   <div class="content">
+  <!-- begin .navigator -->
+	<jsp:include page="Nagivator.jsp" />
+	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
     	<h2 class="title" >Create Project</h2>
     </div>

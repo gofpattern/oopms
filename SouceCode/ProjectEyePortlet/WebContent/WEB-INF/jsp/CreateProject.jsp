@@ -61,6 +61,9 @@
 <div id="portalPageBodyInner" class="container">
 
   <div class="content">
+  <!-- begin .navigator -->
+	<jsp:include page="Nagivator.jsp" />
+	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
     	<h2 class="title" >Create Project</h2>
     </div>
@@ -133,7 +136,13 @@
       </tr>
 </table>
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Submid</button>
+	<button type="reset" class="button blue small">Reset</button>
+	<portlet:renderURL var="renderAction">
+    		<portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
+    	</portlet:renderURL>
+		<a href="${renderAction}">
 	<button type="submit" class="button blue small" name="Cancel" value="Cancel">Cancel</button>
+	</a>
 </form:form>
 
   <!-- end .content --></div>
