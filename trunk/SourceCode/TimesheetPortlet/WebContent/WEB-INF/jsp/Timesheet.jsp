@@ -38,6 +38,26 @@
             }
             
             $(document).ready( function() {
+
+                  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
+                        $(this).toggleClass('selected');
+                        if (event.target.type !== 'checkbox') {
+                          $(':checkbox', this).attr('checked', function() {
+                            return !this.checked;
+                          });
+                        }
+                      });
+                      $( "#datepicker1" ).datepicker({
+                                showOn: "button",
+                                buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
+                                buttonImageOnly: true
+                            });
+                            $( "#datepicker2" ).datepicker({
+                                showOn: "button",
+                                buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
+                                buttonImageOnly: true
+                            });
+                            $( "#selectable" ).selectable();
                 fnFeaturesInit();
                 $('#mainTable2').dataTable( {
                     "bFilter": true,
@@ -48,30 +68,13 @@
                 
                 SyntaxHighlighter.config.clipboardSwf = 'media/javascript/syntax/clipboard.swf';
                 SyntaxHighlighter.all();
+                
             } );
         </script>
 <script type="text/javascript">
     $(document).ready(function() {
 
-      $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
-        $(this).toggleClass('selected');
-        if (event.target.type !== 'checkbox') {
-          $(':checkbox', this).attr('checked', function() {
-            return !this.checked;
-          });
-        }
-      });
-      $( "#datepicker1" ).datepicker({
-                showOn: "button",
-                buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
-                buttonImageOnly: true
-            });
-            $( "#datepicker2" ).datepicker({
-                showOn: "button",
-                buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
-                buttonImageOnly: true
-            });
-            $( "#selectable" ).selectable();
+    
     });
    
     </script>
@@ -92,7 +95,7 @@
     <tbody>
       <tr>
         <td><strong>User</strong></td>
-        <td width="20%"><%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%></td>
+        <td width="20%"><strong><font color="#1490E3"><%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td><strong>Project</strong></td>
         <td width="26%"><form:select cssClass="styled"
           path="projectDefault" multiple="single">
@@ -106,7 +109,7 @@
       </tr>
       <tr>
         <td><strong>Role</strong></td>
-        <td>Developer</td>
+        <td><strong><font color="#1490E3">Developer</font></strong></td>
         <td width="7%" align="left"><strong>Status</strong></td>
         <td width="26%"><select class="styled" size="1"
           name="status" class="SmallCombo" value="0">
@@ -124,10 +127,10 @@
   </table>
 
   <p><input type="submit" id="Search" class="button blue small"
-    name="Search" value="Search" /></p>-->
+    name="Search" value="Search" /></p>
     
 </form:form>
-<table id="mainTable2" cellpadding="0" cellspacing="0" border="0" >
+<table id="mainTable2" class="display dataTable"  cellpadding="0" cellspacing="0" border="0" >
   <thead>
     <tr>
       <th width="5%"><input type="checkbox" name="allbox"
@@ -137,11 +140,11 @@
       <th width="5%">Work</th>
       <th width="5%">Process</th>
       <th width="5%">Time</th>
-      <th width="50%">Description</th>
-      <th width="5%">Status</th>
+      <th width="48%">Description</th>
+      <th width="7%">Status</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody align="center">
     <c:if test="${not empty timesheetList}">
 
       <c:forEach var="timesheet" items="${timesheetList}">
