@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
-import openones.oopms.projecteye.model.Assignment;
-import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.model.RiskSource;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

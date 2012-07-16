@@ -18,11 +18,29 @@
  */
 package openones.oopms.projecteye.form;
 
+import java.util.List;
+
+import openones.oopms.projecteye.model.Project;
 
 /**
  * @author HaiTCT
  */
-public class ProjectEyeHomeForm {
+public class ProjectDetailForm {
+	List<Project> projectList;
 
+	/**
+	 * @return the projectList
+	 */
+	public List<Project> getProjectList() {
+		return projectList;
+	}
+
+	/**
+	 * @param projectList the projectList to set
+	 */
+	public void setProjectList(List<Project> projectList) {
+		this.projectList = projectList;
+	} 
+	
 
 }

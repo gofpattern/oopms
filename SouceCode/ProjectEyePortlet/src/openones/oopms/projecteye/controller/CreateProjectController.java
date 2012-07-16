@@ -18,12 +18,7 @@
  */
 package openones.oopms.projecteye.controller;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Map;
-
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ProjectDao;
@@ -32,7 +27,6 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Project;
 
 import org.apache.log4j.Logger;
-import org.hibernate.type.BigDecimalType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,7 +37,7 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
- * @author Thach.Le
+ * @author HaiTCT
  */
 @Controller
 @RequestMapping("VIEW")
@@ -53,17 +47,7 @@ public class CreateProjectController {
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(CreateProjectController.class);
 
-//    /**
-//     * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
-//     * DefectViewList screen.
-//     * @return name of view which is the name of the JSP page.
-//     */
-//    @RequestMapping
-//    public String initScreen(RenderRequest request) {
-//        log.debug("initScreen.START conme");         
-//            return "CreateProject";
-//       
-//    }
+
     /**
      * Create bean for form.
      * @return Form bean for UI.
