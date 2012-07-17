@@ -46,7 +46,41 @@
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="CreateProduct" />
 </portlet:actionURL>
-<form:form method="post" commandName="CreateProductForm" action="${formAction}">                       
+<form:form method="post" commandName="CreateProductForm" action="${formAction}">
+	<table class="portlet-table">
+	  <tr>      
+   		<th scope="row">Work product*</th>
+    	<td><form:select  class="SmallCombo" path="workProduct_SelectedValue" items="${workProduct}"/></td>
+  	  </tr>
+  	  <tr>
+        <th scope="row">Name*</th>
+        <td><textarea rows="10" cols="70" name="name"></textarea></td>
+      </tr>
+      <tr>      
+   		<th scope="row">Planned size unit*</th>
+    	<td><form:select  class="SmallCombo" path="plannedSizeUnit_SelectedValue" items="${plannedSizeUnit}"/></td>
+  	  </tr>
+  	  <tr>
+    	<th width="186" scope="row">Planned size*</th>
+        <td><input name="plannedSize" value="" maxlength="50" size="50" type="text" /></td>
+  	  </tr>
+  	  <tr>
+    	<th width="186" scope="row">Re-planned size</th>
+        <td><input name="rePlannedSize" value="" maxlength="50" size="50" type="text" /></td>
+  	  </tr>
+  	  <tr>      
+   		<th scope="row">Actual size unit</th>
+    	<td><form:select  class="SmallCombo" path="actualSizeUnit_SelectedValue" items="${actualSizeUnit}"/></td>
+  	  </tr>
+  	  <tr>
+    	<th width="186" scope="row">Actual size</th>
+        <td><input name="actualSize" value="" maxlength="50" size="50" type="text" /></td>
+  	  </tr>
+  	  <tr>
+        <th scope="row">Description</th>
+        <td><textarea rows="10" cols="70" name="description"></textarea></td>
+      </tr>
+  </table>                       
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Submid</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<portlet:renderURL var="renderAction">

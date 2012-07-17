@@ -27,7 +27,35 @@
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/jquery.cookie.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/default.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/manage.js"></script>
-	
+<script type="text/javascript">
+    $(document).ready(function() {
+	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
+	    $(this).toggleClass('selected');
+	    if (event.target.type !== 'checkbox') {
+	      $(':checkbox', this).attr('checked', function() {
+	        return !this.checked;
+	      });
+	    }
+	  });
+	  $( "#datepicker1" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#datepicker2" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#datepicker3" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#selectable" ).selectable();
+	});
+    
+    </script>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -46,7 +74,36 @@
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="CreateDeliverable" />
 </portlet:actionURL>
-<form:form method="get" commandName="CreateDeliverableForm" action="${formAction}">   
+<form:form method="get" commandName="CreateDeliverableForm" action="${formAction}">
+<table class="portlet-table">
+      <tr>      
+   		<th scope="row">Standard stage*</th>
+    	<td><form:select  class="SmallCombo" path="deliverable_SelectedValue" items="${deliverable}"/></td>
+  	  </tr>
+  	  <tr>
+        <th scope="row">First committed date*</th>
+        <td><input maxlength="9" name="firstCommittedDate" size="9" value="" type="text" id="datepicker1"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Last committed date</th>
+        <td><input maxlength="9" name="lastCommittedDate" size="9" value="" type="text" id="datepicker2"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Actual committed date</th>
+        <td><input maxlength="9" name="actualDate" size="9" value="" type="text" id="datepicker3"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Status</th>
+        <td><form:select  class="SmallCombo" path="status_SelectedValue" items="${status}"/></td>
+      </tr>
+      <tr>
+        <th scope="row">Note</th>
+        <td><textarea rows="10" cols="70" name="note"></textarea></td>
+      </tr>
+     </table>   
 	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<portlet:renderURL var="renderAction">

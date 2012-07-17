@@ -18,25 +18,21 @@
  */
 package openones.oopms.projecteye.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.projecteye.dao.RiskDao;
-import openones.oopms.projecteye.form.CreateRiskForm;
+import openones.oopms.projecteye.dao.ChangeRequestDao;
+import openones.oopms.projecteye.form.CreateChangeRequestForm;
 import openones.oopms.projecteye.model.Developer;
-import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.Risk;
-import openones.oopms.projecteye.model.RiskSource;
+import openones.oopms.projecteye.model.Ncconstant;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
@@ -54,21 +50,32 @@ public class ChangeRequestController {
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(ChangeRequestController.class);
 
-    
-    @ActionMapping(params = "action=GoCreateChangeRequest")
-    public void processGoCreateChangeRequest(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoCreateChangeRequest.START");
-        response.setRenderParameter("action", "GoCreateChangeRequest");    
-    }
-    
-    @RenderMapping(params = "action=GoCreateChangeRequest")
-    public ModelAndView postGoCreateChangeRequest(RenderRequest request) {
-        log.debug("post GoCreateChangeRequest.START");
-        ModelAndView mav = new ModelAndView("CreateChangeRequest");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
+	@ActionMapping(params = "action=GoCreateChangeRequest")
+	public void processGoCreateChangeRequest(BindingResult result,
+			SessionStatus status, ActionResponse response) {
+		log.debug("process GoCreateChangeRequest.START");
+		response.setRenderParameter("action", "GoCreateChangeRequest");
+	}
+
+	@RenderMapping(params = "action=GoCreateChangeRequest")
+	public ModelAndView postGoCreateChangeRequest(RenderRequest request) {
+		log.debug("post GoCreateChangeRequest.START");
+		ChangeRequestDao crDao = new ChangeRequestDao();
+		// get status List
+		List<Ncconstant> statusList = crDao.getStatusList();
+		Map<String, String> statusMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < statusList.size(); i++) {
+			statusMap.put(statusList.get(i).getConstantid().toString(),
+					statusList.get(i).getDescription());
+		}
+		CreateChangeRequestForm projectFormBean = new CreateChangeRequestForm();
+		request.setAttribute("CreateChangeRequestForm", projectFormBean);
+		ModelAndView mav = new ModelAndView("CreateChangeRequest");
+		mav.addObject("status", statusMap);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
 }

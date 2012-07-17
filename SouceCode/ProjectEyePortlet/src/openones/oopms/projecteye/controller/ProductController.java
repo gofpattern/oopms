@@ -18,10 +18,18 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.ProductDao;
+import openones.oopms.projecteye.form.CreateProductForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Language;
+import openones.oopms.projecteye.model.Workproduct;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -43,21 +51,43 @@ public class ProductController {
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(ProductController.class);
 
-    
-    @ActionMapping(params = "action=GoCreateProduct")
-    public void processGoCreateProduct(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoCreateProduct.START");
-        response.setRenderParameter("action", "GoCreateProduct");    
-    }
-    
-    @RenderMapping(params = "action=GoCreateProduct")
-    public ModelAndView postGoCreateProduct(RenderRequest request) {
-        log.debug("post GoCreateProduct.START");
-        ModelAndView mav = new ModelAndView("CreateProduct");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
+	@ActionMapping(params = "action=GoCreateProduct")
+	public void processGoCreateProduct(BindingResult result,
+			SessionStatus status, ActionResponse response) {
+		log.debug("process GoCreateProduct.START");
+		response.setRenderParameter("action", "GoCreateProduct");
+	}
+
+	@RenderMapping(params = "action=GoCreateProduct")
+	public ModelAndView postGoCreateProduct(RenderRequest request) {
+		log.debug("post GoCreateProduct.START");
+		ProductDao pDao = new ProductDao();
+		// get work Product List
+		List<Workproduct> workProductList = pDao.getWorkProductList();
+		Map<String, String> workProductMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < workProductList.size(); i++) {
+			workProductMap.put(workProductList.get(i).getWpId().toString(),
+					workProductList.get(i).getName());
+		}
+
+		// get size Unit List
+		List<Language> productSizeUnitList = pDao.getProductSizeUnitList();
+		Map<String, String> productSizeUnitMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < productSizeUnitList.size(); i++) {
+			productSizeUnitMap.put(productSizeUnitList.get(i).getLanguageId()
+					.toString(), productSizeUnitList.get(i).getName() + " "
+					+ productSizeUnitList.get(i).getSizeUnit());
+		}
+		CreateProductForm projectFormBean = new CreateProductForm();
+		request.setAttribute("CreateProductForm", projectFormBean);
+		ModelAndView mav = new ModelAndView("CreateProduct");
+		mav.addObject("workProduct", workProductMap);
+		mav.addObject("plannedSizeUnit", productSizeUnitMap);
+		mav.addObject("actualSizeUnit", productSizeUnitMap);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
 }

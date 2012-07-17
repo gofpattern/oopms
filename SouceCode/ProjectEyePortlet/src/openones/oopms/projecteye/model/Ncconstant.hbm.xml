@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.projecteye.model.Ncconstant" table="NCCONSTANT">
+        <comment>Store all constants of NCMS that used in combo boxes</comment>
+        <id name="constantid" type="big_decimal">
+            <column name="CONSTANTID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="type" type="string">
+            <column name="TYPE" length="30" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" not-null="true">
+                <comment>Become a Type when it is System Type</comment>
+            </column>
+        </property>
+        <property name="systemtype" type="big_decimal">
+            <column name="SYSTEMTYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="usage" type="big_decimal">
+            <column name="USAGE" precision="22" scale="0">
+                <comment>NCMS/Call Log</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

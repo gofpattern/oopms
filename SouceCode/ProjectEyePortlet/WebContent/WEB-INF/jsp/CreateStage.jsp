@@ -27,7 +27,35 @@
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/jquery.cookie.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/default.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/manage.js"></script>
-	
+<script type="text/javascript">
+    $(document).ready(function() {
+	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
+	    $(this).toggleClass('selected');
+	    if (event.target.type !== 'checkbox') {
+	      $(':checkbox', this).attr('checked', function() {
+	        return !this.checked;
+	      });
+	    }
+	  });
+	  $( "#datepicker1" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#datepicker2" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#datepicker3" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#selectable" ).selectable();
+	});
+    
+    </script>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -47,6 +75,39 @@
   <portlet:param name="action" value="CreateStage" />
 </portlet:actionURL>
 <form:form method="get" commandName="CreateStageForm" action="${formAction}">   
+	<table class="portlet-table">
+	 <tr>
+        <th scope="row">Stage*</th>
+        <td><input name="stage" value="" maxlength="50" size="50" type="text" /></td>
+      </tr>
+      <tr>      
+   		<th scope="row">Standard stage*</th>
+    	<td><form:select  class="SmallCombo" path="standarStage_SelectedValue" items="${standarStage}"/></td>
+  	  </tr>
+  	  <tr>
+        <th scope="row">Planned end date*</th>
+        <td><input maxlength="9" name="plannedEndDate" size="9" value="" type="text" id="datepicker1"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Re-planned end date</th>
+        <td><input maxlength="9" name="rePlannedEndDate" size="9" value="" type="text" id="datepicker2"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Actual end date</th>
+        <td><input maxlength="9" name="actualEndDate" size="9" value="" type="text" id="datepicker3"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Description*</th>
+        <td><textarea rows="10" cols="70" name="description"></textarea></td>
+      </tr>
+      <tr>
+        <th scope="row">Milestone*</th>
+        <td><textarea rows="10" cols="70" name="milestone"></textarea></td>
+      </tr>
+     </table>
 	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<portlet:renderURL var="renderAction">
