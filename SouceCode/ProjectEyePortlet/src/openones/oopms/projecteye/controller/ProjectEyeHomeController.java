@@ -68,7 +68,7 @@ public class ProjectEyeHomeController {
 	public String initScreen(RenderRequest request) {
 		log.debug("initScreen.START conme");
 		ProjectDao pDao = new ProjectDao();
-		List<Project> projectList = pDao.getProjectList("1");
+		List<Project> projectList = pDao.getProjectList("118125");
 		request.setAttribute("projectList", projectList);
 		return "ProjectEyeHome";
 
@@ -208,7 +208,7 @@ public class ProjectEyeHomeController {
 	@RenderMapping(params = "action=homeCreateRisk")
 	public ModelAndView postCreateRisk(ProjectEyeHomeForm formBean,
 			RenderRequest request) {
-		log.debug("postCreateRisk.START cc");
+		log.debug("postCreateRisk.START");
 		CreateRiskForm riskFormBean = new CreateRiskForm();
 		RiskDao rDao = new RiskDao();
 		ArrayList<RiskSource> riskSource = rDao.getRiskSourceList();
