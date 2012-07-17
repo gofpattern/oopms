@@ -27,7 +27,31 @@
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/jquery.cookie.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/default.js"></script>
 	<script language="javascript" type="text/javascript" src="../OOPMSPortlet/resource_files/css/manage.js"></script>
-	
+
+<script type="text/javascript">
+    $(document).ready(function() {
+	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
+	    $(this).toggleClass('selected');
+	    if (event.target.type !== 'checkbox') {
+	      $(':checkbox', this).attr('checked', function() {
+	        return !this.checked;
+	      });
+	    }
+	  });
+	  $( "#datepicker1" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#datepicker2" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "../OOPMSPortlet/resource_files/images/calendar.gif",
+	            buttonImageOnly: true
+	        });
+	        $( "#selectable" ).selectable();
+	});
+    
+    </script>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -47,6 +71,58 @@
   <portlet:param name="action" value="CreateIssue" />
 </portlet:actionURL>
 <form:form method="get" commandName="CreateIssueForm" action="${formAction}">   
+	 <table class="portlet-table">
+	 <tr>
+        <th scope="row">Description*</th>
+        <td><textarea rows="10" cols="70" name="description"></textarea></td>
+      </tr>
+      <tr>      
+   		<th scope="row">Priority</th>
+    	<td><form:select  class="SmallCombo" path="priority_SelectedValue" items="${priority}"/></td>
+  	  </tr>
+  	  <tr>      
+   		<th scope="row">Status</th>
+    	<td><form:select  class="SmallCombo" path="status_SelectedValue" items="${status}"/></td>
+  	  </tr>
+  	  <tr>      
+   		<th scope="row">Type</th>
+    	<td><form:select  class="SmallCombo" path="type_SelectedValue" items="${type}"/></td>
+  	  </tr>
+  	  <tr>      
+   		<th scope="row">Process related</th>
+    	<td><form:select  class="SmallCombo" path="processRelated_SelectedValue" items="${processRelated}"/></td>
+  	  </tr>
+  	  <tr>      
+   		<th scope="row">Creator</th>
+    	<td>Current Login User</td>
+  	  </tr>
+  	  <tr>      
+   		<th scope="row">Created Date</th>
+   		<% 
+   		java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
+   		String formattedDate = df.format(new java.util.Date());
+   		%>
+    	<td><%= formattedDate %></td>
+  	  </tr>
+  	  <tr>
+        <th scope="row">Due Date*</th>
+        <td><input maxlength="9" name="planStartDate" size="9" value="" type="text" id="datepicker1"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+      <tr>
+        <th scope="row">Closed Date</th>
+        <td><input maxlength="9" name="planEndDate" size="9" value="" type="text" id="datepicker2"/>
+          (mm/dd/yyyy)</td>
+      </tr>
+  	  <tr>
+        <th scope="row">Comment/Solution</th>
+        <td><textarea rows="10" cols="70" name="commentSolution"></textarea></td>
+      </tr>
+      <tr>
+        <th scope="row">Reference</th>
+        <td><textarea rows="10" cols="70" name="reference"></textarea></td>
+      </tr>
+	 </table>
 	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<portlet:renderURL var="renderAction">

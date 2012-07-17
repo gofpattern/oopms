@@ -21,15 +21,12 @@ public class ProjectDao {
     private Transaction tx = null;
     private static Logger log = Logger.getLogger(CreateProjectController.class);
     
-    public ProjectDao() {
-       
-      SessionFactory factory = HibernateUtil.getSessionFactory();
-        this.session = factory.getCurrentSession();
-    }
     
    public List<Project> getProjectList(String developerId) {
        try {
-           session.getTransaction().begin();
+    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+    	   session = sessionfactory.openSession();
+    	   session.beginTransaction();
            String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId)";
            Query query = session.createQuery(hql);
            query.setParameter("devId", new BigDecimal(developerId));
@@ -71,7 +68,9 @@ public class ProjectDao {
    
    public List<GeneralReference> getProjectStatusList() {
        try {
-           session.getTransaction().begin();
+    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+    	   session = sessionfactory.openSession();
+    	   session.beginTransaction();
            String hql = "From GeneralReference where groupCode = :gCode and languageCode = :lCode";
            Query query = session.createQuery(hql);
            query.setParameter("gCode", "PROJECT_STATUS");
@@ -92,7 +91,9 @@ public class ProjectDao {
    
    public List<GeneralReference> getProjectCategoryList() {
        try {
-           session.getTransaction().begin();
+    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+    	   session = sessionfactory.openSession();
+    	   session.beginTransaction();
            String hql = "From GeneralReference where groupCode = :gCode and languageCode = :lCode";
            Query query = session.createQuery(hql);
            query.setParameter("gCode", "PROJECT_CATEGORY");
@@ -113,7 +114,9 @@ public class ProjectDao {
    
    public List<BusinessDomain> getProjectBussinessDomainList() {
        try {
-           session.getTransaction().begin();
+    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+    	   session = sessionfactory.openSession();
+    	   session.beginTransaction();
            String hql = "From BusinessDomain";
            Query query = session.createQuery(hql);
            List<BusinessDomain> projectBussinessDomainList = query.list();               

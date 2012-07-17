@@ -124,8 +124,7 @@ public class ProjectEyeHomeController {
 					.toString(), projectCategoryList.get(i).getDescription());
 		}
 		// get Status list
-		ProjectDao pDao2 = new ProjectDao();
-		List<GeneralReference> projectStatusList = pDao2.getProjectStatusList();
+		List<GeneralReference> projectStatusList = pDao.getProjectStatusList();
 		Map<String, String> projectStatusMap = new LinkedHashMap<String, String>();
 		for (int i = 0; i < projectStatusList.size(); i++) {
 			projectStatusMap.put(projectStatusList.get(i).getGeneralRefId()
@@ -133,8 +132,7 @@ public class ProjectEyeHomeController {
 		}
 
 		// get Bussiness domain list
-		ProjectDao pDao3 = new ProjectDao();
-		List<BusinessDomain> projectBussinessDomainList = pDao3.getProjectBussinessDomainList();
+		List<BusinessDomain> projectBussinessDomainList = pDao.getProjectBussinessDomainList();
 		Map<String, String> projectBussinessDomainMap = new LinkedHashMap<String, String>();
 		for (int i = 0; i < projectBussinessDomainList.size(); i++) {
 			projectBussinessDomainMap.put(projectBussinessDomainList.get(i).getDomainId()

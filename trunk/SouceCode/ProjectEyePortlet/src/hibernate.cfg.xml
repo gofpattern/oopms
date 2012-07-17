@@ -26,5 +26,12 @@
     <mapping resource="openones/oopms/projecteye/model/LanguageCode.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/GeneralReference.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/BusinessDomain.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/DefectPriority.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Ncconstant.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Process.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Module.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Workproduct.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Language.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Stage.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -46,7 +46,21 @@
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="CreateChangeRequest" />
 </portlet:actionURL>
-<form:form method="get" commandName="CreateChangeRequestForm" action="${formAction}">   
+<form:form method="get" commandName="CreateChangeRequestForm" action="${formAction}">
+	 <table class="portlet-table">
+	 <tr>
+    <th scope="row">Name*</th>
+    <td><input name="name" value="" maxlength="50" size="50" type="text" /></td>
+  </tr>
+	 <tr>
+        <th scope="row">Description*</th>
+        <td><textarea rows="10" cols="70" name="description"></textarea></td>
+      </tr>
+      <tr>      
+   		<th scope="row">Status</th>
+    	<td><form:select  class="SmallCombo" path="status_SelectedValue" items="${status}"/></td>
+  	  </tr>
+      </table>   
 	<button type="submit" class="button blue small" name="buttonAction" value="Submit">Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<portlet:renderURL var="renderAction">

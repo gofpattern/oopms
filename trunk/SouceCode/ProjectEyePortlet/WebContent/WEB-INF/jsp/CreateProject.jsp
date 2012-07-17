@@ -107,12 +107,12 @@
       <tr>
         <th scope="row">Planned Start Date* </th>
         <td><input maxlength="9" name="planStartDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm-dd-yyyy)</td>
+          (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Planned End Date* </th>
         <td><input maxlength="9" name="planEndDate" size="9" value="" type="text" id="datepicker2"/>
-          (mm-dd-yyyy)</td>
+          (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Scope and Objective</th>
