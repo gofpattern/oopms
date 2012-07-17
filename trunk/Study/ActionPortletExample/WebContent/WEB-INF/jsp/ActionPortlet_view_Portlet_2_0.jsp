@@ -10,23 +10,23 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
 
 <portlet:defineObjects />
+<c:set var="portletNamespace" scope="request"><portlet:namespace/></c:set>
 
-
+<script type="text/javascript" src='/ActionPortletExample/scripts/common.js'></script>
 <b>
-    Test page 2
+    Test page 3: Test return
     
-      <portlet:actionURL var="formAction5">
+      <portlet:renderURL var="formAction5">
   <portlet:param name="action" value="return" />
-</portlet:actionURL>
- <portlet:actionURL var="formAction6">
+</portlet:renderURL>
+ <portlet:renderURL var="formAction6">
   <portlet:param name="action" value="returnHome" />
-</portlet:actionURL>
+</portlet:renderURL>
 
-<form:form method="post" commandName="loginForm" action="${formAction5}">
-   <form:button id="changepw"  class="button blue small" name="Change Password" value="Return">Return Portlet 2.0 </form:button>
- </form:form>
- <form:form method="post" commandName="loginForm" action="${formAction6}">
-   <form:button id="changepw"  class="button blue small" name="Change Password" value="Return">Return Home</form:button>
+<form:form name="${portletNamespace}Return" method="post" commandName="loginForm" action="#">
+   <form:button onclick='submitAction("${portletNamespace}Return", "${formAction5}")'  class="button blue small" name="Change Password" value="Return">Return Portlet 2.0 </form:button>
+
+   <form:button onclick='submitAction("${portletNamespace}Return", "${formAction6}")'  class="button blue small" name="Change Password" value="Return">Return Home</form:button>
  </form:form>
  
  
