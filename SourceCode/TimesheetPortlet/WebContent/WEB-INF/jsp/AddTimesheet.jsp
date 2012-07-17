@@ -84,19 +84,19 @@
 <table id="mainTable2" class="display dataTable"  cellpadding="0" cellspacing="0"  border="0" >
   <thead>
     <tr>      
-      <th width="10%">Date</th>
-      <th width="10%">Project</th>
-      <th width="5%">Work</th>
-      <th width="5%">Process</th>
-      <th width="5%">Time</th>
-      <th width="65%">Description</th>      
+      <th style="width: 120px;">Date</th>
+      <th >Project</th>
+      <th >Work</th>
+      <th >Process</th>
+      <th >Time</th>
+      <th >Description</th>      
     </tr>
   </thead>
   <tbody align="center">
   
       <c:forEach var="timesheet" varStatus="status" items="${addTimesheetForm.timesheetList}">
         <tr>        
-          <td><input id="${status.index}datepicker" name="timesheetList[${status.index}].occurDateString" value="${timesheet.occurDateString}"/></td>
+          <td><p style="display: block; margin: 0px;padding: 0px;"><input style="width: 80px;" id="${status.index}datepicker" name="timesheetList[${status.index}].occurDateString" value="${timesheet.occurDateString}"/></p></td>
           <td><form:select 
           path="timesheetList[${status.index}].projectName" multiple="single">
           <form:options items="${projectMap}" />
@@ -109,8 +109,8 @@
           path="timesheetList[${status.index}].processName" multiple="single">
           <form:options items="${processMap}" />
         </form:select></td>
-         <td><input name="timesheetList[${status.index}].duration" value="${timesheet.duration}"/></td>
-          <td><input name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
+         <td><input style="width: 30px;" name="timesheetList[${status.index}].duration" value="${timesheet.duration}"/></td>
+          <td><input style="width: 300px;" name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
          <!--
          
           <td><input name="timesheetList[${status.index}].towName" value="${timesheet.towName}"/></td>
