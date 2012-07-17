@@ -1,6 +1,8 @@
 package openones.oopms.timesheet.form;
 
+import java.util.List;
 import java.util.Map;
+import openones.oopms.timesheet.model.Timesheet;
 
 public class TimesheetForm {
     Map<String,String> projectMap;
@@ -9,10 +11,19 @@ public class TimesheetForm {
     private String buttonFlag;
     private String fromDate;
     private String toDate;
+    private List<Timesheet> timesheetList;
     
     
     
     
+    public List<Timesheet> getTimesheetList() {
+        return timesheetList;
+    }
+
+    public void setTimesheetList(List<Timesheet> timesheetList) {
+        this.timesheetList = timesheetList;
+    }
+
     public String getFromDate() {
         return fromDate;
     }

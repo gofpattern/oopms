@@ -19,6 +19,7 @@ public class Timesheet  implements java.io.Serializable {
      private BigDecimal developerId;
      private Date createDate;
      private Date occurDate;
+     private String occurDateString;
      private BigDecimal duration;
      private BigDecimal status;
      private BigDecimal kpaId;
@@ -38,12 +39,25 @@ public class Timesheet  implements java.io.Serializable {
     }
 
     
+    
+
+    public String getOccurDateString() {
+        return occurDateString;
+    }
+
+
+
+
+    public void setOccurDateString(String occurDateString) {
+        this.occurDateString = occurDateString;
+    }
+
+
+
 
     public String getTowName() {
         return towName;
     }
-
-
 
     public void setTowName(String towName) {
         this.towName = towName;

@@ -13,7 +13,7 @@
 <portlet2:defineObjects />
 <portlet:defineObjects />
 
-<title>Dashboard: Project Bubble</title>
+<title>Timesheet System</title>
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
@@ -130,6 +130,15 @@
     name="Search" value="Search" /></p>
     
 </form:form>
+<portlet:actionURL
+  var="timesheetFormAction2">
+  <portlet:param name="action" value="addTimesheet" />
+</portlet:actionURL> <form:form name="timesheet" method="post" commandName="timesheetForm"
+  action="${timesheetFormAction2}">
+    <p><input type="submit" id="Search" class="button blue small"
+    name="Add" value="Add" /></p>
+  </form:form>
+  
 <table id="mainTable2" class="display dataTable"  cellpadding="0" cellspacing="0" border="0" >
   <thead>
     <tr>
