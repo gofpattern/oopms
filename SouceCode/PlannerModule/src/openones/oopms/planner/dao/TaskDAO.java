@@ -5,7 +5,6 @@ import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.List;
 
-import openones.oopms.planner.model.Assignment;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.ProjectStatus;
@@ -129,7 +128,11 @@ public class TaskDAO {
         return null;
     }
 
-    // Get developers belong to project
+    /**
+     * [Get developers belong to project].
+     * @param projectId
+     * @return
+     */
     public List<Developer> getDeveloper(String projectId) {
         log.debug("getAssignment.START");
         try {
@@ -151,5 +154,23 @@ public class TaskDAO {
             log.error("getAllProcess.Exception", e);
         }
         return null;
+    }
+
+    /**
+     * [add new task to DB].
+     * @param task
+     */
+    public void addTask (Tasks task){
+        try {
+        session.getTransaction().begin();
+        session.save(task);
+        session.flush();
+        session.getTransaction().commit();
+        } catch (Exception e) {
+            if(session.getTransaction().isActive()){
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }
