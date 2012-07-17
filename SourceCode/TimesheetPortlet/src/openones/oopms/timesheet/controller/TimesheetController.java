@@ -3,7 +3,10 @@
  */
 package openones.oopms.timesheet.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +53,14 @@ public class TimesheetController {
     private static List<Workproduct> workProductList = new ArrayList<Workproduct>();
     // Developer object
     private Developer user = new Developer();
-
+    // Map project
+    Map<String, String> projectMap;
+    // Map Type of work
+    Map<String, String> towMap;
+    // Map Process
+    Map<String, String> processMap;
+    // Map Work Product
+    Map<String, String> workProductMap;
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(TimesheetController.class);
 
@@ -124,7 +134,7 @@ public class TimesheetController {
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
         log.debug("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
         TimesheetDao timesheetDao = new TimesheetDao();
-        Map<String, String> projectMap = new LinkedHashMap<String, String>();
+        projectMap = new LinkedHashMap <String, String>();
         
         // Get project List from database
         List<Project> projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
@@ -205,7 +215,7 @@ public class TimesheetController {
     public ModelAndView postTimesheet(TimesheetForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
         TimesheetDao timesheetDao = new TimesheetDao();
-        Map<String, String> projectMap = new LinkedHashMap<String, String>();
+         projectMap = new LinkedHashMap<String, String>();
         
         // Get project List from database
         List<Project> projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
@@ -243,6 +253,79 @@ public class TimesheetController {
       
         mav.addObject("timesheetList", timesheetList);
 
+        return mav;
+    }
+    
+    /**
+     * Create bean for timesheet form.
+     * 
+     * @return Form bean for UI.
+     */
+    
+    @ModelAttribute("addTimesheetForm")
+    public TimesheetForm getCommandObject3() {
+        log.debug("getCommandObject.START");
+        // Decalre Bean and Dao
+        TimesheetForm formBean = new TimesheetForm();
+       List<Timesheet> timesheetList = new ArrayList<Timesheet>();
+       Timesheet timesheet = new Timesheet();
+       int numRecord = 10;
+       SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+       Calendar cal = Calendar.getInstance();      
+       for(int i=0;i<numRecord-1;i++) {
+           if(i%2==0) {
+               cal.add(Calendar.DATE, 1);
+           }
+           timesheet.setOccurDateString(sdf.format(cal.getTime()));
+           timesheetList.add(timesheet);
+       }
+       formBean.setTimesheetList(timesheetList);
+        return formBean;
+    }
+
+    @ActionMapping(params = "action=addTimesheet")
+    public void processAddTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
+        log.debug("processSearchTimesheet.START");
+        if (result.hasErrors()) {
+            log.debug("search timesheet error");
+        }
+        else {
+            log.debug("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
+            response.setRenderParameter("action", "addTimesheet");
+        }
+      
+    }
+    
+    @RenderMapping(params = "action=addTimesheet")
+    public ModelAndView postAddTimesheet(TimesheetForm formBean, RenderRequest request) {
+        log.debug("postAdd.START");
+        // Declare view for this render       
+        ModelAndView mav = new ModelAndView("AddTimesheet"); // display AddTimesheet.jsp
+       
+        // Create towMap, processMap, workProductMap
+        towMap = new LinkedHashMap <String, String>();
+        for (int i = 0; i < towList.size(); i++) {
+            towMap.put(towList.get(i).getTowId().toString(), towList.get(i).getName());
+        } 
+        processMap = new LinkedHashMap <String, String>();
+        for (int i = 0; i < processList.size(); i++) {
+            processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
+        } 
+               
+        // Set project list to form
+        projectMap.remove("All");
+        formBean.setProjectMap(projectMap);
+               
+
+        // Set default value for timesheet.jsp
+        mav.addObject("projectMap", formBean.getProjectMap());
+        mav.addObject("processMap", processMap);
+        mav.addObject("towMap", towMap);
+                              
+        // Add object timesheetList to request
+       // mav.addObject("timesheetList", timesheetList);
+        // Return to jsp
         return mav;
     }
 
