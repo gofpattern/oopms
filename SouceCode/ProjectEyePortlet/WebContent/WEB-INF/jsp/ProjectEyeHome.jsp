@@ -39,21 +39,6 @@
 	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Project</button>
 </form:form>
 
-<portlet:actionURL var="formAction">
-  <portlet:param name="action" value="homeCreateProduct" />
-</portlet:actionURL>
-<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
-	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Product</button>
-</form:form>
-
-<portlet:actionURL var="formAction">
-  <portlet:param name="action" value="homeCreateRisk" />
-</portlet:actionURL>
-<form:form method="post" commandName="ProjectEyeHomeForm" action="${formAction}">
-	<button type="submit" class="button blue small" name="Submit" value="Submit">Create New Risk</button>
-</form:form>
-
-
 <table class="portlet-table">
 
    <tbody><tr >
