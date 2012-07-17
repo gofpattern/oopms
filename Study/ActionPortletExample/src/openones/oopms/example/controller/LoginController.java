@@ -49,11 +49,7 @@ public class LoginController {
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(LoginController.class);
 
-    /**
-     * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
-     * DefectViewList screen.
-     * @return name of view which is the name of the JSP page.
-     */
+   
     @RequestMapping
     public String initScreen(RenderRequest request) {
         log.debug("initScreen.START");
@@ -63,10 +59,7 @@ public class LoginController {
             return "login";
        
     }
-    /**
-     * Create bean for form.
-     * @return Form bean for UI.
-     */
+   
     @ModelAttribute("loginForm")
     public LoginForm getCommandObject() {
         log.debug("getCommandObject.START");
@@ -75,40 +68,49 @@ public class LoginController {
         return formBean;
     }
 
-    /**
-     * Process submitted form by clicking "Login" button.
-     * @param formBean bean captures input data
-     * @param result result of binding data
-     * @param status status of session
-     * @param response response of action
-     */
+  
     @ActionMapping(params = "action=forward")
-    public void processLogin(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processLogin.START");
+    public void processForward(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("processForward");
         log.debug("username=" + formBean.getUsername());
-        // session.setAttribute("user", formBean);
-        
+       
        
            response.setRenderParameter("action", "forward");          
        
     }
 
-    /**
-     * Process after the action "login" (method "processLogin") is executed.
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
+   
     @RenderMapping(params = "action=forward")
-    public ModelAndView postLogin(LoginForm formBean, RenderRequest request) {
-        log.debug("postLogin.START");
-        // request.setAttribute("user2", formBean);
-        ModelAndView mav = new ModelAndView("ActionPortlet_view"); // display ViewDefectList.jsp
-        // mav.addObject("helloForm", new HelloForm());
+    public ModelAndView postForward(LoginForm formBean, RenderRequest request) {
+        log.debug("postForward.START");
+       
+        ModelAndView mav = new ModelAndView("ActionPortlet_view");
+      
+        return mav;
+    }
     
+   
+    @ActionMapping(params = "action=forward2")
+    public void processForward2(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("processForward2.START");
+        log.debug("username=" + formBean.getUsername());
+       
+           response.setRenderParameter("action", "forward");          
+       
+    }
+
+   
+    @RenderMapping(params = "action=forward2")
+    public ModelAndView postForward2(LoginForm formBean, RenderRequest request) {
+        log.debug("postForward2.START");
+      
+        ModelAndView mav = new ModelAndView("ActionPortlet_view_Portlet_2_0"); // display ViewDefectList.jsp
+      
         return mav;
     }
     
     @ActionMapping(params = "action=returnHome")
-    public void processChangePw(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processReturnHome(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processReturnHome.START");
         log.debug("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
@@ -118,17 +120,13 @@ public class LoginController {
        
     }
 
-    /**
-     * Process after the action "login" (method "processLogin") is executed.
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
+   
     @RenderMapping(params = "action=returnHome")
-    public ModelAndView postChangePw(LoginForm formBean, RenderRequest request) {
+    public ModelAndView postReturnHome(LoginForm formBean, RenderRequest request) {
         log.debug("postReturnHome.START");
-        // request.setAttribute("user2", formBean);
-        ModelAndView mav = new ModelAndView("ActionPortlet_edit"); // display ViewDefectList.jsp
-        // mav.addObject("helloForm", new HelloForm());
-    
+       
+        ModelAndView mav = new ModelAndView("ActionPortlet_edit");
+     
         return mav;
     }
     
@@ -136,24 +134,20 @@ public class LoginController {
     public void processReturn(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processReturn.START");
         log.debug("username=" + formBean.getUsername());
-        // session.setAttribute("user", formBean);
+      
         
        
            response.setRenderParameter("action", "return");          
        
     }
 
-    /**
-     * Process after the action "login" (method "processLogin") is executed.
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
+   
     @RenderMapping(params = "action=return")
     public ModelAndView postReturn(LoginForm formBean, RenderRequest request) {
         log.debug("postReturn.START");
-        // request.setAttribute("user2", formBean);
-        ModelAndView mav = new ModelAndView("ActionPortlet_view"); // display ViewDefectList.jsp
-        // mav.addObject("helloForm", new HelloForm());
-    
+      
+        ModelAndView mav = new ModelAndView("ActionPortlet_view");
+      
         return mav;
     }
     

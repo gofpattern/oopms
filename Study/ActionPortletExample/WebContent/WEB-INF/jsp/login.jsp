@@ -37,6 +37,12 @@
            </portlet:renderURL>'>Render Forward</a>
   <a href='<portlet:actionURL><portlet:param name="action" value="forward"/>
            </portlet:actionURL>'>Action Forward</a>
+           
+                <a href='<portlet:renderURL><portlet:param name="action" value="forward2"/>
+           </portlet:renderURL>'>Render Forward Portlet 2.0</a>
+  <a href='<portlet:actionURL><portlet:param name="action" value="forward2"/>
+           </portlet:actionURL>'>Action Forward Portlet 2.0</a>
+                   
                     </div>
     
                     <div class="callus">
@@ -80,12 +86,18 @@
            </portlet:renderURL>'>Render Forward</a>
   <a href='<portlet:actionURL><portlet:param name="action" value="forward"/>
            </portlet:actionURL>'>Action Forward</a>
+           
+                <a href='<portlet:renderURL><portlet:param name="action" value="forward2"/>
+           </portlet:renderURL>'>Render Forward Portlet 2.0</a>
+  <a href='<portlet:actionURL><portlet:param name="action" value="forward2"/>
+           </portlet:actionURL>'>Action Forward Portlet 2.0</a>
+                   
              
                     <form:form method="post" commandName="loginForm" action="${formAction}" class="default biglabel">
                     
                                     
                       
-                        <input type="submit" id="login" name="login" value="Forward" class="button big">
+                        <input type="submit" id="login" name="login" value="Forward" class="button small ">
                                          
                             
                         
