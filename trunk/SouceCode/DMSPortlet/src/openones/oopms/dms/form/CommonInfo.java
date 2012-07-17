@@ -18,10 +18,29 @@
  */
 package openones.oopms.dms.form;
 
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author Thach.Le
  */
-public class ViewDefectListForm extends BaseDefectListForm {
+public class CommonInfo implements Serializable {
+    /** List of project. */
+    private Map<Integer, String> projectMap;
 
+    /**
+     * Get value of projectMap.
+     * @return the projectMap
+     */
+    public Map<Integer, String> getProjectMap() {
+        return projectMap;
+    }
+
+    /**
+     * Set the value for projectMap.
+     * @param projectMap the projectMap to set
+     */
+    public void setProjectMap(Map<Integer, String> projectMap) {
+        this.projectMap = projectMap;
+    }
 }

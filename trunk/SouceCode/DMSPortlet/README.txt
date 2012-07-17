@@ -12,6 +12,7 @@ Features:
   Demo using renderUrl for button
   Load some initial data for "Add New Defect"
   Process button "Defect List" to go back the screen "Defect List2"
++ Add screen Batch Update Defect
 
 How does Authentication work?
 ================================

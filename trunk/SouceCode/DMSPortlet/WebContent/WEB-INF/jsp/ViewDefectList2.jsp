@@ -298,6 +298,10 @@ function CheckAll(form) {
   <portlet:param name="action" value="goAddNewDefect" />
 </portlet:renderURL>
 
+<portlet:renderURL var="goBatchUpdate">
+  <portlet:param name="action" value="goBatchUpdate" />
+</portlet:renderURL>
+
 <form:form name="${portletNamespace}Search" commandName="viewDefectList" method="post" action="${formAction}">
   <input name="eventId" value="" type="hidden">
 <input name="hidActionDetail" value="" type="hidden">
@@ -318,33 +322,7 @@ function CheckAll(form) {
         <td align="right"><a href="javascript:doQueryListing()">View DefectListing</a></td>
     </tr>
 </tbody></table>
-<table class="TblOut2" border="0" cellpadding="0" cellspacing="1" width="100%">
-    <tbody><tr>
-        <td width="8%"><b>User:</b></td>
-        <td width="24%">${portletSessionScope.UserInfo.username}</td>
-        <td width="12%"><b>Login Date:</b></td>
-        <td width="25%">${portletSessionScope.UserInfo.loginDate}</td>
-        <td width="9%"><b>Project</b></td>
-        <td align="right" width="22%">
-        <%-- 
-        <select name="cboProjectList" class="SmallCombo" onchange="javascript:doChangeProject('DM','SearchDefect','ViewAllOpenDefects');"><option selected="selected" value="118385">OOPMS</option>
-        </select>
-        --%>
-         <form:select id="cboProjectList" path="selProject" multiple="false" size="1" items="${viewDefectList.projectMap}">
-         </form:select>
-        </td>
-    </tr>
-    <tr>
-        <td width="8%"><b>Group:</b></td>
-        <td width="24%">FSOFT</td>
-        <td width="12%"><b>Position:</b></td>
-        <td width="25%">Project Leader</td>
-        <td width="9%"><b>Status</b></td>
-        <td align="right" width="22%"><select name="cboProjectStatus" class="SmallCombo" onchange="javascript:doChangeProject('DM','SearchDefect','ViewAllOpenDefects');"><option selected="selected" value="0">On-going</option>
-        </select></td>
-
-    </tr>
-</tbody></table>
+<%@ include file="/WEB-INF/jsp/header2Defect.jsp" %>
 <p></p>
 <table border="0" cellpadding="1" cellspacing="0" width="100%">
     <colgroup>
@@ -522,7 +500,7 @@ function CheckAll(form) {
     <tbody><tr>
         <td align="left" width="50%">
         <input name="AddnewDefect" class="Button" onclick='submitAction("${portletNamespace}Search", "${goAddNewDefect}")' value="Add New" type="button">
-        <input name="BatchUpdateDefect" class="Button" onclick="javascript:doBatchUpdate()" value="Batch Update" type="button">
+        <input name="BatchUpdateDefect" class="Button" onclick='submitAction("${portletNamespace}Search", "${goBatchUpdate}")' value="Batch Update" type="button">
         <input name="Refresh" class="Button" onclick="javascript:doRefresh()" value="Refresh" type="button">
         <input name="ExportDefect" class="Button" onclick="javascript:doExport()" value="Export" type="button">
     </td></tr>
