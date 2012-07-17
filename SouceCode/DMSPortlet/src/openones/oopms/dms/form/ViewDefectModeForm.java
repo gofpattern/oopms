@@ -22,6 +22,6 @@ package openones.oopms.dms.form;
 /**
  * @author Thach.Le
  */
-public class ViewDefectListForm extends BaseDefectListForm {
+public class ViewDefectModeForm extends BaseDefectListForm {
 
 }

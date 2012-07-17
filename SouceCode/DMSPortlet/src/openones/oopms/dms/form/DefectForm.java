@@ -22,7 +22,7 @@ package openones.oopms.dms.form;
  * @author Thach.Le
  *
  */
-public class DefectForm {
+public class DefectForm extends BaseDefectListForm {
 
     private String title;
     private String projectOrigin;

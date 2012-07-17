@@ -18,6 +18,8 @@
  */
 package openones.oopms.dms.controller;
 
+import java.util.Map;
+
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
@@ -25,7 +27,7 @@ import javax.portlet.RenderRequest;
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.LoginForm;
 import openones.oopms.dms.form.UserInfo;
-import openones.oopms.dms.form.ViewDefectListForm;
+import openones.oopms.dms.form.ViewDefectModeForm;
 import openones.oopms.dms.util.AppUtil;
 import openones.portlet.PortletSupport;
 
@@ -61,16 +63,13 @@ public class LoginController extends BaseController {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
             UserInfo userInfo = new UserInfo(logonUser);
-            mav = new ModelAndView("ViewDefectList"); // Display ViewDefectList.jsp
-            prepareDataForViewDefectList(userInfo, mav);
-            
-            // Update userInfo into the session
-            updateUserInfo(session, userInfo);
-            
+            mav = new ModelAndView("ViewDefectMode"); // Display ViewDefectMode.jsp
+            prepareCommonInfo(userInfo, mav, session);
         }
 
         return mav;
     }
+
     /**
      * Create bean for form.
      * @return Form bean for UI.
@@ -103,7 +102,7 @@ public class LoginController extends BaseController {
             userInfo.setUsername(formBean.getUsername());
             updateUserInfo(session, userInfo);
             // Prepare parameter to render phase
-            response.setRenderParameter("action", "goViewDefectList");
+            response.setRenderParameter("action", "goViewDefectMode");
         } else {
             log.error("Error in binding result:" + result.getErrorCount());
         }
@@ -113,47 +112,30 @@ public class LoginController extends BaseController {
     }
 
     /**
-     * Process after the action "login" (method "processLogin") is executed.
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
-//    @RenderMapping(params = "action=login")
-//    public ModelAndView postLogin(LoginForm formBean, RenderRequest request, PortletSession session) {
-//        log.debug("postLogin.START");
-//        // request.setAttribute("user2", formBean);
-//
-//        ModelAndView mav = new ModelAndView("ViewDefectList"); // display ViewDefectList.jsp
-//        UserInfo userInfo = getUserInfo(session);
-//        prepareDataForViewDefectList(userInfo, mav);
-//
-//        // Update user roles
-//        updateUserInfo(session, userInfo);
-//        
-//        return mav;
-//    }
-    
-    /**
-     * Prepare data to initialize the screen ViewDefectList.
+     * Prepare data to initialize the screen ViewDefectMode.
      * Update information of user: roles, group, loginDate
      * @param userInfo is updated roles by username
      * @param mav contains data
      *   -------------------------------------------
      *   |key             |value
      *   -------------------------------------------
-     *   |viewDefectList  |ViewDefectListForm
+     *   |                |
      */
-    void prepareDataForViewDefectList(UserInfo userInfo, ModelAndView mav) {
-        ViewDefectListForm viewDefectList = new ViewDefectListForm();
+    void prepareCommonInfo(UserInfo userInfo, ModelAndView mav, PortletSession session) {
         // Sample data
         // Set roles for user
         userInfo.addRole("Developer");
         userInfo.setGroup("Development");
         userInfo.setLoginDate(AppUtil.getCurrentDate());
+        // Update userInfo into the session
+        updateUserInfo(session, userInfo);
         
-        // Set projects that logon user is joining
-        DMSWorkspace dmsWsp = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername());
+        Map<Integer, String> projectMap = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername()).getProjectMap();
         
-        viewDefectList.addProject(dmsWsp.getProjects());
+        // Update list of project
+        updateProjectMap(session, projectMap);
 
-        mav.addObject("viewDefectList", viewDefectList);
+
+        mav.addObject("viewDefectMode", new ViewDefectModeForm());
     }
 }

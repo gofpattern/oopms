@@ -45,13 +45,14 @@ function doAddQuery() {
     form.submit();
 }
 
-function doDeleteQuery() {
-    var form = document.frmViewDefectListing;
+function doDeleteQuery(formName, actionUrl) {
+    var form = document.forms[formName];
+
     if (checkValid1() || checkValid2()) {
         if (confirm("Do you want to delete selected records, continue?")) {
             form.hidAction.value = "DM";
             form.hidActionDetail.value = "DeleteQuery";
-            form.action = "DMSServlet";
+            form.action = actionUrl";
             form.submit();
         }
     }
@@ -126,7 +127,16 @@ function CheckAll2(form) {
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="search" />
 </portlet:actionURL>
-<form:form commandName="viewDefectList" method="post" action="${formAction}">
+
+<portlet:renderURL var="goAddQuery">
+  <portlet:param name="action" value="goAddQuery" />
+</portlet:renderURL>
+
+<portlet:actionURL var="doAddQuery">
+  <portlet:param name="action" value="deleteQuery" />
+</portlet:actionURL>
+
+<form:form name="ViewMode" commandName="viewDefectMode" method="post" action="${formAction}">
 
 <input name="hidActionDetail" value="" type="hidden">
 <input name="hidAction" value="" type="hidden">
@@ -134,34 +144,7 @@ function CheckAll2(form) {
 <input name="hidTypeOfView" value="" type="hidden">
 <input name="Role" value="1000100000" type="hidden">
 <p></p>
-<table class="TblOut2" border="0" width="100%">
-    <tbody><tr>
-        <td width="8%"><b>User:</b></td>
-        <td width="24%">${portletSessionScope.UserInfo.username}</td>
-        <td width="12%"><b>Login Date:</b></td>
-        <td width="25%">${portletSessionScope.UserInfo.loginDate}</td>
-        <td width="9%"><b>Project</b></td>
-        <td align="right" width="22%">
-        <!-- 
-        <select name="cboProjectList" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="118385">OOPMS</option>
-        </select>
-         -->
-        <form:select id="cboProjectList" path="selProject" multiple="false" size="1" items="${viewDefectList.projectMap}">
-         <form:options ></form:options>
-         </form:select>
-         
-        </td>
-    </tr>
-    <tr>
-        <td width="8%"><b>Group:</b></td>
-        <td width="24%">${portletSessionScope.UserInfo.group}</td>
-        <td width="12%"><b>Position:</b></td>
-        <td width="25%">${portletSessionScope.UserInfo.position}</td>
-        <td width="9%"><b>Status</b></td>
-        <td align="right" width="22%"><select name="cboProjectStatus" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="0">On-going</option>        </select></td>
-
-    </tr>
-</tbody></table>
+<%@ include file="/WEB-INF/jsp/header2Defect.jsp" %>
 <p></p>
 <table class="TblOut" border="0" cellpadding="1" cellspacing="1" width="100%">
     <tbody><tr>
@@ -235,8 +218,8 @@ function CheckAll2(form) {
         </td>
     </tr>
 </tbody></table>
-<p><input name="btnAddQuery" class="Button" onclick="javascript:doAddQuery()" value="Add Query" type="button"> &nbsp;
-<input name="btnDeleteQuery" class="Button" onclick="javascript:doDeleteQuery()" value="Delete Query" type="button"> &nbsp;
+<p><input name="btnAddQuery" class="Button" onclick='submitAction("${portletNamespace}ViewMode", "${goAddQuery}")' value="Add Query" type="button"> &nbsp;
+<input name="btnDeleteQuery" class="Button" onclick='doDeleteQuery"${portletNamespace}ViewMode", "${doDeleteQuery}")' value="Delete Query" type="button"> &nbsp;
 
 </p></form:form>
 

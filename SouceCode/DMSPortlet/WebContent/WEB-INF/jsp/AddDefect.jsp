@@ -270,27 +270,7 @@ function selectWorkProduct(){
         <td align="right"><a href="javascript:doQueryListing()">View DefectListing</a></td>
     </tr>
 </tbody></table>
-<table class="TblOut2" border="0" width="100%">
-    <tbody><tr>
-        <td width="8%"><b>User:</b></td>
-        <td width="24%">System Administrator</td>
-        <td width="12%"><b>Login Date:</b></td>
-        <td width="25%">06/05/12</td>
-        <td width="9%"><b>Project</b></td>
-        <td align="right" width="22%"><select name="cboProjectList" disabled="disabled" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="118385">OOPMS</option>
-        </select></td>
-    </tr>
-    <tr>
-        <td width="8%"><b>Group:</b></td>
-        <td width="24%">FSOFT</td>
-        <td width="12%"><b>Position:</b></td>
-        <td width="25%">Project Leader</td>
-        <td width="9%"><b>Status</b></td>
-        <td align="right" width="22%"><select name="cboProjectStatus" disabled="disabled" class="SmallCombo" onchange="javascript:doChangeProject('DM','QueryListing','');"><option selected="selected" value="0">On-going</option>        
-        </select></td>
-
-    </tr>
-</tbody></table>
+<%@ include file="/WEB-INF/jsp/header2Defect.jsp" %>
 <br>
 <table class="TblOut" border="0" cellpadding="1" cellspacing="1" width="100%">
     <tbody><tr class="Row0">

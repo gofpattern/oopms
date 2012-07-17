@@ -21,8 +21,8 @@ package openones.oopms.dms.controller;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.dms.form.UserInfo;
 import openones.oopms.dms.form.ViewDefectListForm;
+import openones.oopms.dms.form.ViewDefectModeForm;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,25 +35,19 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping(value = "VIEW")
-public class ViewDefectListController extends BaseController {
+public class ViewDefectModeController extends BaseController {
 
     /**
      * Create bean for form.
      * @return Form bean for UI.
      */
-    @ModelAttribute("viewDefectList")
-    public ViewDefectListForm getCommandObject() {
+    @ModelAttribute("viewDefectMode")
+    public ViewDefectModeForm getCommandObject() {
         log.debug("getCommandObject.START");
-        ViewDefectListForm formBean = new ViewDefectListForm();
+        ViewDefectModeForm formBean = new ViewDefectModeForm();
         return formBean;
     }
     
-    @RequestMapping
-    public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START");
-        return "ViewDefectList";
-    }
-
     @RenderMapping(params = "action=goViewDefectMode")
     public ModelAndView goViewDefectMode(RenderRequest request, PortletSession session) {
         log.debug("goViewDefectMode.START");
@@ -62,32 +56,4 @@ public class ViewDefectListController extends BaseController {
         
         return mav;
     }
-    
-    /**
-     * Process render event "ViewDefectList".
-     * Param kindOfDefect: All, Open, Leakage
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
-    @RenderMapping(params = "action=goViewDefectList2")
-    public ModelAndView processViewDefectList(RenderRequest request, PortletSession session) {
-        log.debug("processViewDefectList.START");
-
-        ModelAndView mav = new ModelAndView("ViewDefectList2"); // display ViewDefectList2.jsp
-        String kindOfDefect = request.getParameter("kindOfDefect");
-        log.info("kindOfDefect=" + kindOfDefect);
-        ViewDefectListForm viewDefectList = new ViewDefectListForm();
-        // Sample data
-        
-        // Set projects that logon user is joining
-        UserInfo userInfo = getUserInfo(session);
-//        DMSWorkspace dmsWsp = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername());
-//        
-//        viewDefectList.addProject(dmsWsp.getProjects());
-
-        mav.addObject("viewDefectList", viewDefectList);
-        return mav;
-    }
-    
-
-
 }

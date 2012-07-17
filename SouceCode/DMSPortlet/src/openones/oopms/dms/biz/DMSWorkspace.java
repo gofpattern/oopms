@@ -81,12 +81,24 @@ public class DMSWorkspace {
      * Get projects of user.
      * @return
      */
-    public Collection<String> getProjects() {
-        String[] roles = new String[]{"OOPMS", "InterWeb"};
-
-        return Arrays.asList(roles);
+//    public Collection<String> getProjects() {
+//        String[] roles = new String[]{"OOPMS", "InterWeb"};
+//
+//        return Arrays.asList(roles);
+//    }
+    
+    /**
+     * Get project of given user.
+     * @return
+     */
+    public Map<Integer, String> getProjectMap() {
+        Map<Integer, String> prjMap = new HashMap<Integer, String>();
+        prjMap.put(01, "OOPMS");
+        prjMap.put(02, "InterWeb");
+        
+        return prjMap;
     }
-
+    
     /**
      * Get master date "QC Activities".
      * @return Map (id, name) of list of qc activities
