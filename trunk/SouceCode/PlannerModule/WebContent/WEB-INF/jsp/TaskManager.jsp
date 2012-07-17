@@ -15,14 +15,14 @@
 <script type="text/javascript" src="../PlannerModule/resource_files/js/form-elements.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#datepicker1")
+		$("#add-form-startDate")
 				.datepicker(
 						{
 							showOn : "button",
 							buttonImage : "../PlannerModule/resource_files/images/calendar.gif",
 							buttonImageOnly : true
 						});
-		$("#datepicker2")
+		$("#add-form-finishDate")
 				.datepicker(
 						{
 							showOn : "button",
@@ -157,36 +157,37 @@
                 <td width="412" class="CellBGR3"><form:input path="title"></form:input></td>
               </tr>
               <tr>
-                <td class="ColumnLabel"><label for="datepicker1">Start Date</label></td>
-                <td class="CellBGR3"><input type="text" id="datepicker1" /> (DD-MMM-YY)</td>
+                <td class="ColumnLabel"><label for="add-form-startDate">Start Date</label></td>
+                <td class="CellBGR3"><form:input path="startDate" id="add-form-startDate"></form:input>(DD-MMM-YY)</td>
               </tr>
               <tr>
-                <td class="ColumnLabel"><label for="datepicker2">Finish Date</label></td>
-                <td class="CellBGR3"><input type="text" id="datepicker2" /> (DD-MMM-YY)</td>
+                <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date</label></td>
+                <td class="CellBGR3"><form:input path="endDate" id="add-form-finishDate" /> (DD-MMM-YY)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort</label></td>
-                <td class="CellBGR3"><input type="text" id="add-form-plannedEffort"/> (Hours)</td>
+                <td class="CellBGR3"><form:input path="plannedEffort" id="add-form-plannedEffort" /> (Hours)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-actualEffort">Actual Effort</label></td>
-                <td class="CellBGR3"><input type="text" id="add-form-actualEffort"/> (Hours)</td>
+                <td class="CellBGR3"><form:input path="actualEffort" id="add-form-actualEffort" /> (Hours)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
-                <td><form:select class="styled" path="stageDefault" multiple="single" id="add-form-stage">
-                  <form:options items="${stageMap}" />
-                </form:select></td>
+                <td><form:select class="styled" path="stageId" multiple="single" id="add-form-stage">
+                    <form:options items="${stageMap}" />
+                  </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-process">Process</label></td>
-                <td><form:select class="styled" path="stageDefault" multiple="single" id="add-form-process">
-                  <form:options items="${processMap}" />
-                </form:select></td>
+                <td><form:select class="styled" path="processId" multiple="single" id="add-form-process">
+                    <form:options items="${processMap}" />
+                  </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-product">Product*</label></td>
-                <td class="CellBGR3"><select name="cboStatus2" class="styled" class="SmallCombo" id="add-form-product">
+                <td class="CellBGR3"><select name="cboStatus2" class="styled" class="SmallCombo"
+                  id="add-form-product">
                     <option selected="selected" value="-1">All Product</option>
                     <option value="1">LOC</option>
                     <option value="2">Report</option>
@@ -197,25 +198,25 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
-                <td><form:select class="styled" path="developerDefault" multiple="single" id="add-form-assignedTo">
-                  <form:options items="${developerMap}" />
-                </form:select></td>
+                <td><form:select class="styled" path="developerId" multiple="single" id="add-form-assignedTo">
+                    <form:options items="${developerMap}" />
+                  </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
-                <td><form:select class="styled" path="statusDefault" multiple="single" id="add-form-status">
+                <td><form:select class="styled" path="statusId" multiple="single" id="add-form-status">
                     <form:options items="${statusMap}" />
                   </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description</label></td>
-                <td class="CellBGR3"><textarea rows="4" cols="50" name="note" id="add-form-description"></textarea></td>
+                <td class="CellBGR3"><form:textarea path="description" rows="4" cols="50" name="note" id="add-form-description"></form:textarea></td>
               </tr>
             </tbody>
           </table>
           </p>
           <p>
-            <input type="submit" name="ok" value=" OK " class="BUTTON"> <input id="cancel-button" type="button"
+            <input type="submit" name="ok" class="BUTTON"> <input id="cancel-button" type="button"
               name="cancel-button" value=" Cancel " />
           </p>
         </form:form>
@@ -225,12 +226,16 @@
         <form:form commandName="PlannerForm" method="post" action="${formAction}">
           <table>
             <tr>
+              <td><b>&nbsp;&nbsp;Project&nbsp;&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Status&nbsp;&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Stage&nbsp;&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Assigned To&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
             </tr>
             <tr>
+              <td><form:select class="styled" path="statusDefault" multiple="single">
+                  <form:options items="${statusMap}" />
+                </form:select></td>
               <td><form:select class="styled" path="statusDefault" multiple="single">
                   <form:options items="${statusMap}" />
                 </form:select></td>

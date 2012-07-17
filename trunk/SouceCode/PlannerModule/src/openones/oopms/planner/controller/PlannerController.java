@@ -48,7 +48,7 @@ public class PlannerController {
         log.debug("getCommandObject.START");
 
         PlannerForm formBean = new PlannerForm();
-
+        
         return formBean;
     }
 
@@ -64,7 +64,9 @@ public class PlannerController {
         ModelAndView mav = new ModelAndView("TaskManager");
 
         formBean.setTitle("sds");
+        formBean.setStartDate("01-01-2001");
         formBean.setProjectId("118385");
+
         formBean.setStatusDefault("All");
         formBean.setStageDefault("All");
         formBean.setDeveloperDefault("All");
@@ -151,7 +153,25 @@ public class PlannerController {
     @ActionMapping(params = "action=addTask")
     public void processAddTask(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processAddTask.START");
-
+        
+        TaskDAO taskDAO = new TaskDAO();
+        Tasks task = new Tasks();
+        
+        try {
+//            task.setTaskid(new BigDecimal(taskList.size() + 1));
+            task.setTaskname(formBean.getTitle());
+            task.setTaskcode("NEWTASK");
+            task.setStageid(new BigDecimal(formBean.getStageId()));
+            task.setProcessId(new BigDecimal(formBean.getProcessId()));
+            task.setDeveloperid(new BigDecimal(formBean.getDeveloperId()));
+            task.setPlannedeffort(new BigDecimal(formBean.getPlannedEffort()));
+            task.setActualeffort(new BigDecimal(formBean.getActualEffort()));
+            
+            taskDAO.addTask(task);
+        } catch (Exception ex) {
+            log.error("error when add new task", ex);
+        }
+        response.setRenderParameter("action", "taskmanager");   
         log.debug("title=" + formBean.getTitle());
 
     }

@@ -6,7 +6,7 @@
   <class name="openones.oopms.planner.model.Tasks" table="TASKS" schema="FMSUSER" lazy="false">
     <id name="taskid" type="big_decimal">
       <column name="TASKID" precision="22" scale="0" />
-      <generator class="assigned" />
+      <generator class="increment" />
     </id>
     <property name="taskcode" type="string">
       <column name="TASKCODE" length="40" />

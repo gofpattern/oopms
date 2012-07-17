@@ -30,7 +30,18 @@ import openones.oopms.planner.model.Tasks;
  */
 public class PlannerForm {
     private String title;
+    private String startDate;
+    private String endDate;
+    private String plannedEffort;
+    private String actualEffort;
+    private String stageId;
+    private String processId;
+    private String productId;
+    private String developerId;
+    private String statusId;
+    private String description;
     private String projectId;
+    
     private String statusDefault;
     private String stageDefault;
     private String developerDefault;
@@ -44,6 +55,168 @@ public class PlannerForm {
     Map<String, String> stageMap;
     Map<String, String> developerMap;
     Map<String, String> processMap;
+
+    
+    
+    /**
+     * Get value of startDate.
+     * @return the startDate
+     */
+    public String getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Set the value for startDate.
+     * @param startDate the startDate to set
+     */
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Get value of endDate.
+     * @return the endDate
+     */
+    public String getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * Set the value for endDate.
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * Get value of plannedEffort.
+     * @return the plannedEffort
+     */
+    public String getPlannedEffort() {
+        return plannedEffort;
+    }
+
+    /**
+     * Set the value for plannedEffort.
+     * @param plannedEffort the plannedEffort to set
+     */
+    public void setPlannedEffort(String plannedEffort) {
+        this.plannedEffort = plannedEffort;
+    }
+
+    /**
+     * Get value of actualEffort.
+     * @return the actualEffort
+     */
+    public String getActualEffort() {
+        return actualEffort;
+    }
+
+    /**
+     * Set the value for actualEffort.
+     * @param actualEffort the actualEffort to set
+     */
+    public void setActualEffort(String actualEffort) {
+        this.actualEffort = actualEffort;
+    }
+
+    /**
+     * Get value of stageId.
+     * @return the stageId
+     */
+    public String getStageId() {
+        return stageId;
+    }
+
+    /**
+     * Set the value for stageId.
+     * @param stageId the stageId to set
+     */
+    public void setStageId(String stageId) {
+        this.stageId = stageId;
+    }
+
+    /**
+     * Get value of processId.
+     * @return the processId
+     */
+    public String getProcessId() {
+        return processId;
+    }
+
+    /**
+     * Set the value for processId.
+     * @param processId the processId to set
+     */
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
+
+    /**
+     * Get value of productId.
+     * @return the productId
+     */
+    public String getProductId() {
+        return productId;
+    }
+
+    /**
+     * Set the value for productId.
+     * @param productId the productId to set
+     */
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    /**
+     * Get value of developerId.
+     * @return the developerId
+     */
+    public String getDeveloperId() {
+        return developerId;
+    }
+
+    /**
+     * Set the value for developerId.
+     * @param developerId the developerId to set
+     */
+    public void setDeveloperId(String developerId) {
+        this.developerId = developerId;
+    }
+
+    /**
+     * Get value of statusId.
+     * @return the statusId
+     */
+    public String getStatusId() {
+        return statusId;
+    }
+
+    /**
+     * Set the value for statusId.
+     * @param statusId the statusId to set
+     */
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
+
+    /**
+     * Get value of description.
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Set the value for description.
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     /**
      * Get value of processMap.
@@ -154,6 +327,14 @@ public class PlannerForm {
     }
 
     /**
+     * Set the value for title.
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    /**
      * Get value of statusDefault.
      * @return the statusDefault
      */
@@ -167,14 +348,6 @@ public class PlannerForm {
      */
     public void setStatusDefault(String statusDefault) {
         this.statusDefault = statusDefault;
-    }
-
-    /**
-     * Set the value for title.
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     /**
