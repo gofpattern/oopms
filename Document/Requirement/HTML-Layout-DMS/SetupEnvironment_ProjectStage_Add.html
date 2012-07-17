@@ -1,0 +1,135 @@
+<html><head>
+	<script src="resource_files/CommonScript.js"></script>
+	<script src="resource_files/validate.js"></script>
+	<script src="resource_files/utils.js"></script>
+
+	<!-- Html Form Title -->
+	<title>ProjectStage Update</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="StyleSheet" href="resource_files/DMSStyleSheet.css" type="text/css">
+
+<script language="javascript">
+function doSave()
+{
+	var form = document.frmProjectStageUpdate;
+
+	var strName;
+	form.txtName.value = trimSpaces(form.txtName.value);
+	strName = form.txtName.value;
+
+	  if (strName.length == 0)
+	  {
+	          alert('The value must not be empty!');
+	          form.txtName.focus();
+	          return;
+  }
+
+  	form.hidAction.value = "SE";
+	form.hidActionDetail.value = "SaveUpdateProjectStage";
+	form.action = "DMSServlet";
+	form.submit();
+}
+
+function doBack()
+{
+	var form = document.frmProjectStageUpdate;
+
+	form.hidAction.value = "SE";
+	form.hidActionDetail.value = "ProjectStageList";
+	form.action = "DMSServlet";
+	form.submit();
+}
+</script>
+</head>
+
+<!-- Form Header Information -->
+<body topmargin="0" leftmargin="0" bgcolor="#FFFFFF">
+<i></i><table height="51" bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
+		  <tbody>
+		  <tr>
+		    <td height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" width="212"><img src="resource_files/defect_logop1.gif" border="0"><br></td>
+		    <td align="left" height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" valign="top" width="50%"><img src="resource_files/defect_logop2.gif" border="0"></td>
+		    <td align="right" height="51" background="resource_files/bgr_header.gif" bgcolor="#310C52" valign="top" width="50%"><img src="resource_files/header.gif" border="0"></td></tr>
+		  <tr>
+		          <td align="left" bgcolor="#000084" width="111"><img src="resource_files/logo2.gif" border="0"></td>
+		          <td colspan="2" align="left" bgcolor="#310C52" valign="middle">
+		   </td></tr>
+		   </tbody>
+ </table>
+
+<div><p><img src="resource_files/ProjectStageUpdate.gif" height="28" border="0" width="411"></p></div>
+
+<table border="0" width="100%">
+	<tbody><tr>
+		<td class="Href" align="left" width="50%">
+			<p><a href="javascript:doSetupEnvironment(document.forms[0])">
+			<span style="color:blue; font-family:arial, helvetica; font-size:10pt; font-weight:bold;">Return Setup Environment</span></a></p>
+		</td>
+		<td class="Href" align="right" width="50%">
+			<p><a href="javascript:doLogout(document.forms[0])">
+			<span style="color:blue; font-family:arial, helvetica; font-size:10pt; font-weight:bold;">Logout</span></a></p>
+		</td>
+	</tr>
+</tbody></table>
+
+  <!-- ************************************  Form Body  ************************************ -->
+	<form method="post" action="DMSServlet" name="frmProjectStageUpdate">
+	  <!-- ************************************  Standard Screen Identification  ************************************ -->
+		<input name="hidActionDetail" value="" type="hidden">
+    	<input name="hidAction" value="" type="hidden">
+
+	  <!-- ************************************  Form variables  ************************************ -->
+     <table border="0" width="100%">
+     <tbody><tr>
+     	<td width="15%"></td>
+     	<td>
+     	<table class="TblOut2" border="0" width="100%">
+	 		    <tbody><tr>
+				  <td width="3%"></td>
+	 		      <td width="6%"><b>User:</b> </td>
+	 		      <td width="15%">System Administrator</td>
+
+	 		      <td width="6%"><b>Group:</b></td>
+	 		      <td width="15%">FSOFT</td>
+
+	 			  <td width="9%"><b>Login Date:</b> </td>
+	 		      <td width="13%">06/05/12</td>
+
+	 		    </tr>
+		 </tbody></table>
+		 </td>
+		 <td width="15%"></td>
+	 </tr>
+	 </tbody></table>
+
+     <p></p>
+
+     <table border="0" width="100%">
+     <tbody><tr>
+     	<td width="15%"></td>
+     	<td>
+     	<table bgcolor="#000000" border="0" cellpadding="0" cellspacing="1" width="100%">
+              <tbody><tr class="Row0">
+                <td align="center" height="19" width="15%">ID</td>
+                <td align="center" height="19" width="50%">Name</td>
+              </tr>
+              <tr class="Row2">
+                <td width="15%">&nbsp;13
+                	<input name="hidID" value="13" type="hidden"></td>
+                <td width="50%"><input name="txtName" value="Initiation&amp;Definition" style="width: 100%;" maxlength="30" type="text"></td>
+               </tr>
+          </tbody></table>
+          </td>
+          <td width="15%"></td>
+       </tr>
+       </tbody></table>
+
+	  <!-- ************************************  Form Code Here  ************************************ -->
+
+		<p align="center"><input name="UpdateProjectStage" class="Button" onclick="javascript:doSave()" value="Update" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
+		<input name="Back" class="Button" onclick="javascript:doBack()" value="Back" type="button"></p>
+		<input name="hiddenText" style="visibility: hidden;" type="text">
+
+</form>
+
+</body></html>
