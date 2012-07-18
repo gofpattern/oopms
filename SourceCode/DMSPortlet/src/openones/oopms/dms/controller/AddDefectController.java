@@ -56,12 +56,6 @@ public class AddDefectController extends BaseController {
         return formBean;
     }
     
-    @RequestMapping
-    public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START");
-        return "AddDefect";
-    }
-    
     @RenderMapping(params = "action=goAddNewDefect")
     public ModelAndView processAddNew(RenderRequest request, PortletSession session) {
         log.debug("processAddNew.START");
