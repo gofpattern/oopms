@@ -13,7 +13,13 @@ Features:
   Load some initial data for "Add New Defect"
   Process button "Defect List" to go back the screen "Defect List2"
 + Add screen Batch Update Defect
-
++ Add data validator for screen AddDefect. View source files:
+  /resource/messages.properties: define key and content of error messages
+  /DMSPortlet/WebContent/WEB-INF/DMSPortlet-portlet.xm: define bean messageSource
+  Class "AddDefectValidator": perform validate by codes
+  Class AddDefetController: processSave
+  AddDefect.jsp: using tag "<form:errors path="*"></form:errors>" to display all errors
+  
 How to make distribution
 ================================
 run 'ant dist'

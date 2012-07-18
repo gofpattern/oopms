@@ -26,10 +26,11 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.DefectForm;
-import openones.oopms.dms.form.UserInfo;
+import openones.oopms.dms.validator.AddDefectValidator;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
@@ -48,12 +49,18 @@ public class AddDefectController extends BaseController {
      * Create bean for form.
      * @return Form bean for UI.
      */
-    @ModelAttribute("defect")
+    @ModelAttribute("defectForm")
     public DefectForm getCommandObject() {
         log.debug("getCommandObject.START");
         DefectForm formBean = new DefectForm();
 
         return formBean;
+    }
+    
+    @RequestMapping
+    public String initScreen(RenderRequest request) {
+        log.debug("initScreen.START");
+        return "AddDefect";
     }
     
     @RenderMapping(params = "action=goAddNewDefect")
@@ -77,16 +84,22 @@ public class AddDefectController extends BaseController {
      * @param response response of action
      */
     @ActionMapping(params = "action=save")
-    public void processSave(DefectForm formBean, BindingResult result, SessionStatus status, ActionResponse response, PortletSession session) {
-        log.debug("processLogin.START");
+    public void processSave(DefectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("processSave.START");
+        
+        log.debug("formBean:title=" + formBean.getTitle());
 
+        Validator addDefectValidator = new AddDefectValidator();
+        addDefectValidator.validate(formBean, result);
+        
         if (!result.hasErrors()) {
-            UserInfo userInfo = getUserInfo(session);
-
             // Prepare parameter to render phase
             response.setRenderParameter("action", "goViewDefectList2");
         } else {
             log.error("Error in binding result:" + result.getErrorCount());
+            
+            // Re-display the Add Defect screen with errors
+            response.setRenderParameter("action", "goAddNewDefect");
         }
     }   
 }
