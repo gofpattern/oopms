@@ -36,6 +36,22 @@ public class CreateProductForm {
 	private String workProduct_SelectedValue;
 	private String plannedSizeUnit_SelectedValue;
 	private String actualSizeUnit_SelectedValue;
+	private String projectId;
+
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+
+	/**
+	 * @param projectId
+	 *            the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
 
 	/**
 	 * @return the workProduct

@@ -3,7 +3,9 @@ package openones.oopms.projecteye.dao;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
+import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Language;
+import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Workproduct;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
@@ -55,5 +57,22 @@ public class ProductDao {
         }
         return null;
     }
+    
+    public boolean insertProduct(Module product) {
+  	   try {
+         SessionFactory sessfac = HibernateUtil.getSessionFactory();
+         session = sessfac.openSession();
+         tx = session.beginTransaction();
+         session.save(product);
+         tx.commit();
+         sessfac.close();       
+  	   } catch (Exception e) {
+  		   log.error("Insert ko duoc");
+  		   log.error(e.getMessage());
+  	       return false;             
+         }
+  	   log.error("Insert ngon");
+         return true;
+     }
 
 }

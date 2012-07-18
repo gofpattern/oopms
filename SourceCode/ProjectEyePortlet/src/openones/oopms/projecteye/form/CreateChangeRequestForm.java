@@ -29,6 +29,7 @@ public class CreateChangeRequestForm {
 	private String description;
 	private Map<String,String> status;
 	private String status_SelectedValue;
+	private String projectId;
 	/**
 	 * @return the name
 	 */
@@ -76,6 +77,18 @@ public class CreateChangeRequestForm {
 	 */
 	public void setStatus_SelectedValue(String status_SelectedValue) {
 		this.status_SelectedValue = status_SelectedValue;
+	}
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 	
 	
