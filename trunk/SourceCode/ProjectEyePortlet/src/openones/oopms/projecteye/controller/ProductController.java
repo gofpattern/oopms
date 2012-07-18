@@ -66,7 +66,7 @@ public class ProductController {
 		List<Workproduct> workProductList = pDao.getWorkProductList();
 		Map<String, String> workProductMap = new LinkedHashMap<String, String>();
 		for (int i = 0; i < workProductList.size(); i++) {
-			workProductMap.put(workProductList.get(i).getWpId().toString(),
+			workProductMap.put(workProductList.get(i).getCode(),
 					workProductList.get(i).getName());
 		}
 

@@ -3,7 +3,9 @@ package openones.oopms.projecteye.dao;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
+import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Ncconstant;
+import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -35,6 +37,23 @@ public class ChangeRequestDao {
             log.error(e.getMessage());
         }
         return null;
-    }  
+    }
+    
+    public boolean insertChangeRequest(ChangesOfProjectPlan changeRequest) {
+ 	   try {
+        SessionFactory sessfac = HibernateUtil.getSessionFactory();
+        session = sessfac.openSession();
+        tx = session.beginTransaction();
+        session.save(changeRequest);
+        tx.commit();
+        sessfac.close();       
+ 	   } catch (Exception e) {
+ 		   log.error("Insert ko duoc");
+ 		   log.error(e.getMessage());
+ 	       return false;             
+        }
+ 	   log.error("Insert ngon");
+        return true;
+    }
 
 }

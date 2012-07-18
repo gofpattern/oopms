@@ -18,18 +18,14 @@
  */
 package openones.oopms.projecteye.controller;
 
-import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.model.Developer;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
@@ -43,87 +39,53 @@ public class NavigatorController {
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(NavigatorController.class);
 
-	@ActionMapping(params = "action=GoRiskIssue")
-    public void processGoRiskIssue(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoRiskIssue.START");
-        response.setRenderParameter("action", "GoRiskIssue");    
-    }
-    
-    @RenderMapping(params = "action=GoRiskIssue")
-    public ModelAndView postGoRiskIssue(RenderRequest request) {
-        log.debug("post GoRiskIssue.START");
-        ModelAndView mav = new ModelAndView("RiskIssue");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
-    
-    @ActionMapping(params = "action=GoChangeRequest")
-    public void processGoChangeRequest(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoChangeRequest.START");
-        response.setRenderParameter("action", "GoChangeRequest");    
-    }
-    
-    @RenderMapping(params = "action=GoChangeRequest")
-    public ModelAndView postGoChangeRequest(RenderRequest request) {
-        log.debug("post GoChangeRequest.START");
-        ModelAndView mav = new ModelAndView("ChangeRequest");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
-    
-    @ActionMapping(params = "action=GoProduct")
-    public void processGoProduct(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoProduct.START");
-        response.setRenderParameter("action", "GoProduct");    
-    }
-    
-    @RenderMapping(params = "action=GoProduct")
-    public ModelAndView postGoProduct(RenderRequest request) {
-        log.debug("post GoProduct.START");
-        ModelAndView mav = new ModelAndView("Product");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
-    
-    @ActionMapping(params = "action=GoWorkOrder")
-    public void processGoWorkOrder(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoWorkOrder.START");
-        response.setRenderParameter("action", "GoWorkOrder");    
-    }
-    
-    @RenderMapping(params = "action=GoWorkOrder")
-    public ModelAndView postGoWorkOrder(RenderRequest request) {
-        log.debug("post GoWorkOrder.START");
-        ModelAndView mav = new ModelAndView("WorkOrder");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
-    
-    @ActionMapping(params = "action=GoCostManagement")
-    public void processGoCostManagement(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoCostManagement.START");
-        response.setRenderParameter("action", "GoCostManagement");    
-    }
-    
-    @RenderMapping(params = "action=GoCostManagement")
-    public ModelAndView postGoCostManagement(RenderRequest request) {
-        log.debug("post GoCostManagement.START");
-        ModelAndView mav = new ModelAndView("CostManagement");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
+	@RenderMapping(params = "action=GoRiskIssue")
+	public ModelAndView postGoRiskIssue(RenderRequest request) {
+		log.debug("post GoRiskIssue.START");
+		ModelAndView mav = new ModelAndView("RiskIssue");
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
+	@RenderMapping(params = "action=GoChangeRequest")
+	public ModelAndView postGoChangeRequest(RenderRequest request) {
+		log.debug("post GoChangeRequest.START");
+		ModelAndView mav = new ModelAndView("ChangeRequest");
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
+	@RenderMapping(params = "action=GoProduct")
+	public ModelAndView postGoProduct(RenderRequest request) {
+		log.debug("post GoProduct.START");
+		ModelAndView mav = new ModelAndView("Product");
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
+	@RenderMapping(params = "action=GoWorkOrder")
+	public ModelAndView postGoWorkOrder(RenderRequest request) {
+		log.debug("post GoWorkOrder.START");
+		ModelAndView mav = new ModelAndView("WorkOrder");
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
+	@RenderMapping(params = "action=GoCostManagement")
+	public ModelAndView postGoCostManagement(RenderRequest request) {
+		log.debug("post GoCostManagement.START");
+		ModelAndView mav = new ModelAndView("CostManagement");
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
 }

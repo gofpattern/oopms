@@ -68,7 +68,7 @@ public class ProjectEyeHomeController {
 	public String initScreen(RenderRequest request) {
 		log.debug("initScreen.START conme");
 		ProjectDao pDao = new ProjectDao();
-		List<Project> projectList = pDao.getProjectList("118125");
+		List<Project> projectList = pDao.getProjectList("1");
 		request.setAttribute("projectList", projectList);
 		return "ProjectEyeHome";
 

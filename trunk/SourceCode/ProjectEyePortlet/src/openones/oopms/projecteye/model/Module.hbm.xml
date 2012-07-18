@@ -7,7 +7,7 @@
         <comment>Project products (Insight)</comment>
         <id name="moduleId" type="big_decimal">
             <column name="MODULE_ID" precision="22" scale="0" />
-            <generator class="native" />
+            <generator class="increment" />
         </id>
         <many-to-one name="project" class="openones.oopms.projecteye.model.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />

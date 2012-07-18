@@ -69,7 +69,7 @@ public class CreateProjectController {
     	project.setPlanFinishDate(formBean.getPlanEndDate());
     	project.setDescription(formBean.getScopeObjective());
     	project.setProjectCategoryCode(formBean.getProjectCategory_SelectedValue());
-    	project.setProjectTypeCode(formBean.getBusinessDomain_SelectedValue());
+    	project.setType(formBean.getBusinessDomain_SelectedValue());
         project.setProjectStatusCode(formBean.getProjectStatus_SelectedValue());
     	
     	//Call dao to insert project to database
@@ -89,7 +89,6 @@ public class CreateProjectController {
     @RenderMapping(params = "action=CreateProject")
     public ModelAndView postCreateProject(CreateProjectForm formBean, RenderRequest request) {
         log.debug("post CreateProject.START");
-        // request.setAttribute("user2", formBean);
         ModelAndView mav = new ModelAndView("ProjectEyeHome");
         return mav;
     }
