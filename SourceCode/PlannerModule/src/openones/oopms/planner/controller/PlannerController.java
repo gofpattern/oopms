@@ -1,7 +1,6 @@
 package openones.oopms.planner.controller;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerForm;
-import openones.oopms.planner.model.Assignment;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.ProjectStatus;
@@ -19,6 +17,7 @@ import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,9 +61,7 @@ public class PlannerController {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
         ModelAndView mav = new ModelAndView("TaskManager");
-
-        formBean.setTitle("sds");
-        formBean.setStartDate("01-01-2001");
+        
         formBean.setProjectId("118385");
 
         formBean.setStatusDefault("All");
@@ -126,7 +123,7 @@ public class PlannerController {
                 }
             }
         } catch (Exception ex) {
-            // TODO: handle exception
+         
             log.error("Convert ProcessID to string", ex);
         }
 
@@ -147,7 +144,6 @@ public class PlannerController {
         mav.addObject("stageMap", formBean.getStageMap());
         mav.addObject("developerMap", formBean.getDeveloperMap());
         mav.addObject("processMap", formBean.getProcessMap());
-
         return mav;
     }
     @ActionMapping(params = "action=addTask")
@@ -158,7 +154,6 @@ public class PlannerController {
         Tasks task = new Tasks();
         
         try {
-//            task.setTaskid(new BigDecimal(taskList.size() + 1));
             task.setTaskname(formBean.getTitle());
             task.setTaskcode("NEWTASK");
             task.setStageid(new BigDecimal(formBean.getStageId()));
@@ -172,8 +167,25 @@ public class PlannerController {
             log.error("error when add new task", ex);
         }
         response.setRenderParameter("action", "taskmanager");   
-        log.debug("title=" + formBean.getTitle());
-
+    }
+    
+    @ActionMapping(params = "action=deleteTask")
+    public void processDeleteTask(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("processDeleteTask.ACTION.START"); 
+        log.debug(formBean.getTaskId());
+        TaskDAO taskDAO = new TaskDAO();
+        taskDAO.deleteTask(new BigDecimal(formBean.getTaskId()));
+        
+        System.out.println("processDeleteTask.ACTION.START");
+        System.out.println(formBean.getTaskId());
+        
+        
+        response.setRenderParameter("action", "taskmanager");   
+    }
+    
+    @RenderMapping(params = "action=deleteTask")
+    public void processDeleteTaskRender(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("processDeleteTask.RENDER.START"); 
     }
 
 }

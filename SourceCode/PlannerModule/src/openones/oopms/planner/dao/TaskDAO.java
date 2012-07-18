@@ -33,8 +33,7 @@ public class TaskDAO {
             session.getTransaction().begin();
             String sql = "from ProjectStatus";
             Query query = session.createQuery(sql);
-            List resultList = query.list();
-            List<ProjectStatus> statusList = (List<ProjectStatus>) resultList;
+            List<ProjectStatus> statusList = query.list();
             // session.flush();
             // session.getTransaction().commit();
             System.out.println("getAllStatus.end");
@@ -57,8 +56,7 @@ public class TaskDAO {
             // session.getTransaction().begin();
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
-            List resultList = query.list();
-            List<Tasks> taskList = (List<Tasks>) resultList;
+            List<Tasks> taskList = query.list();
             // session.flush();
             // session.getTransaction().commit();
             System.out.println("getAllTask.end");
@@ -87,9 +85,7 @@ public class TaskDAO {
             // session.getTransaction().begin();
             String sql = "from Stage";
             Query query = session.createQuery(sql);
-            List resultList = query.list();
-
-            List<Stage> stageList = (List<Stage>) resultList;
+            List<Stage> stageList = query.list();
 
             // session.flush();
             // session.getTransaction().commit();
@@ -111,9 +107,7 @@ public class TaskDAO {
             // session.getTransaction().begin();
             String sql = "from Process";
             Query query = session.createQuery(sql);
-            List resultList = query.list();
-
-            List<Process> processList = (List<Process>) resultList;
+            List<Process> processList = query.list();
 
             // session.flush();
             // session.getTransaction().commit();
@@ -133,15 +127,15 @@ public class TaskDAO {
      * @param projectId
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<Developer> getDeveloper(String projectId) {
         log.debug("getAssignment.START");
         try {
             // session.getTransaction().begin();
             String sql = "select developer from Assignment ass where ass.project.projectId = :projectId";
             Query query = session.createQuery(sql);
-            query.setParameter("projectId", new BigDecimal(projectId));           
-            List<Developer> developerList =  query.list();
-
+            query.setParameter("projectId", new BigDecimal(projectId)); 
+            List<Developer> developerList = query.list();
             session.flush();
             session.getTransaction().commit();
             
@@ -157,7 +151,7 @@ public class TaskDAO {
     }
 
     /**
-     * [add new task to DB].
+     * add new task to DB
      * @param task
      */
     public void addTask (Tasks task){
@@ -166,6 +160,24 @@ public class TaskDAO {
         session.save(task);
         session.flush();
         session.getTransaction().commit();
+        } catch (Exception e) {
+            if(session.getTransaction().isActive()){
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * delete task
+     * @param id of task
+     */
+    public void deleteTask (BigDecimal id){
+        try {
+            session.getTransaction().begin();
+            session.delete(session.get(Tasks.class, id));
+            session.flush();
+            session.getTransaction().commit();
         } catch (Exception e) {
             if(session.getTransaction().isActive()){
                 session.getTransaction().rollback();
