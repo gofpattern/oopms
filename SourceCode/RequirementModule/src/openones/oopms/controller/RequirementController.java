@@ -2,7 +2,9 @@ package openones.oopms.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
@@ -60,9 +62,9 @@ public class RequirementController {
     
     @ActionMapping(params = "action=requirementmanager")
     public void processRequirement(RequirementForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processRequirement.START");
-        
+        log.debug("processRequirement.START");        
     }
+    
     @RenderMapping(params = "action=requirementmanager")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request) {
         log.debug("postRequirementSTART");
@@ -96,8 +98,32 @@ public class RequirementController {
         
         formBean.setRequirementList(requirementList);                
         mav.addObject("requirementList", formBean.getRequirementList());
+        
+      //set projectMap
+        
+        Map<String,String> projectMap = new LinkedHashMap<String,String>();
+        log.debug("projectmap before:" +projectMap.size());
+        projectMap.put("All", "All");
+        for (int i=0; i<projectList.size();i++) {
+            projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+        }
+        log.debug("projectmap after:" +projectMap.size());
+        
+        formBean.setProjectMap(projectMap);
+        formBean.setProjectDefault("All"); 
+        mav.addObject("projectDefault", formBean.getProjectDefault());
+        mav.addObject("projectMap", formBean.getProjectMap());
+        
         return mav;
     }
-         
+              
+    @RenderMapping(params = "action=sort")
+    public ModelAndView postRequirementSort(RequirementForm formBean, RenderRequest request) {
+        log.debug("postRequirementSortSTART");                         
+        
+        ModelAndView mav = new ModelAndView("RequirementAdd");        
+                        
+        return mav;
+    }
 
 }

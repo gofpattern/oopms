@@ -30,16 +30,35 @@ import java.util.List;
  * @author KenDa
  *
  */
-public class RequirementForm {
+public class RequirementAddForm {
     Map<String,String> projectMap;
     private String projectDefault;
-    private String title;    
-    private List<Requirements> requirementList;
+    private String title;        
+    private String requirementName;
+    private String RequirementAdd;
     
     
-    public RequirementForm() {
+    public RequirementAddForm() {
         // TODO Auto-generated constructor stub         
 
+    }
+    
+    /**
+     * Get value of requirementName.
+     * @return the requirementName
+     */
+    public String getRequirementName() {
+        return requirementName;
+    }
+
+
+
+    /**
+     * Set the value for requirementName.
+     * @param requirementName the requirementName to set
+     */
+    public void setRequirementName(String requirementName) {
+        this.requirementName = requirementName;
     }
     
     /**
@@ -57,22 +76,7 @@ public class RequirementForm {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    /**
-     * Get value of requirementList.
-     * @return the requirementList
-     */
-    public List<Requirements> getRequirementList() {
-        return requirementList;
-    }
-
-    /**
-     * Set the value for requirementList.
-     * @param requirementList the requirementList to set
-     */
-    public void setRequirementList(List<Requirements> requirementList) {
-        this.requirementList = requirementList;
-    }
+   
 
     public Map getProjectMap() {
         return projectMap;
@@ -86,6 +90,22 @@ public class RequirementForm {
     }
     public void setProjectMap(Map<String, String> projectMap) {
         this.projectMap = projectMap;
+    }
+
+    /**
+    * Get value of requirementAdd.
+    * @return the requirementAdd
+    */
+    public String getRequirementAdd() {
+        return RequirementAdd;
+    }
+
+    /**
+     * Set the value for requirementAdd.
+     * @param requirementAdd the requirementAdd to set
+     */
+    public void setRequirementAdd(String requirementAdd) {
+        RequirementAdd = requirementAdd;
     }
 
  

@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%-- Uncomment below lines to add portlet taglibs to jsp
-<%@ page import="javax.portlet.*"%>
-<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet"%>
-<portlet:defineObjects />
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -15,13 +9,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Add Requirement</title>
-<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />   
-<link type="text/css" href="css/common.css" rel="Stylesheet" /> 
+
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="js/form-elements.js"></script>
+
+<title>Add Requirement</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet">
+<link type="text/css" href="css/common.css" rel="Stylesheet"> 
+
+
 
 <style type="text/css"> 
 #tabs28 {   float:left;   width:100%;   background:#444;   font-size:93%;   line-height:normal; border-bottom:1px solid #DD740B;   }
@@ -41,8 +41,11 @@ rgba(0, 0, 0, 0.2) inset;
 -moz-border-radius: .6em;
 -webkit-border-radius: .6em;
 border-radius: .6em;
-}</style>
-<script>
+}
+</style>
+
+<script language="javascript">
+    
     $(function() {
         $( "#radio" ).buttonset();
         $( "#format" ).buttonset();
@@ -82,8 +85,6 @@ border-radius: .6em;
 
         $( "#effect" ).hide();
     });
-    </script>
-    <script language="javascript">
     
     $(function() {
         $( "#datepicker1" ).datepicker({
@@ -113,14 +114,28 @@ border-radius: .6em;
         }
     });
 });
-    </script>
-
+    
+    $( "#datepicker1" ).datepicker({
+        showOn: "button",
+        buttonImage: "../RequirementModule/resource_files/images/calendar.gif",
+        buttonImageOnly: true
+    });
+    $( "#datepicker2" ).datepicker({
+        showOn: "button",
+        buttonImage: "../RequirementModule/resource_files/images/calendar.gif",
+        buttonImageOnly: true
+    });
+    
+</script>
+<script type="text/javascript" src='/RequirementModule/scripts/common.js'></script>
 
 </head>
 
 <body>
 
 <div class="container">
+  
+  <!-- Header -->
   <div class="header">
    <table width="960">
     <tr>
@@ -132,56 +147,83 @@ border-radius: .6em;
     </tr>
   </table>
   </div>
+  
+  
   <div class="content">
-    <div id="tabs28">      
-  <ul>
-  <h5>
-<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
-</h5>
-</ul>
+
+
+<div id="tabs28">      
+    <ul>
+    <h5>
+        <li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
+    </h5>
+    </ul>
 </div>
+
  <div class="demo" style="font-size:20px" align="right">
  <a href="Create Project-Admin ver.html">Create Project</a> 
  </div>
-    <p><table width="95%" cellspacing="1">
-    <h3>Add Requirement</h3>
-    <tbody>
+        
+    <%--Submit action --%>
+    <portlet:actionURL var="formAction"><portlet:param name="action" value="Save"/></portlet:actionURL>
+    <%-- Back to Requirement List --%>
+    <portlet:renderURL var="requirementmanager"><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>
+
+<form:form name="${portletNamespace}RequirementAdd" commandName="RequirementForm" method="post" action="${formAction}">
+    
+    
+    <table width="95%" cellspacing="1">    
+        
+    <div>
+    <tbody>      
       <tr>
-        <td>Project Code*</td>
-        <td><input name="txtProjectCode" value="" maxlength="50" size="50" type="text" /></td>
+        <td>Project Name*</td>                
+        <td width="26%"> <form:select  cssClass="styled" path="projectDefault" multiple="single">
+        <c:set var="projectMap" value="${projectMap}" />
+        <form:options  items="${projectMap}" /></form:select> </td>
+      </tr> 
+           
+      <tr>               
+        <!-- Requirement Name -->
+        <td align="left" valign="middle"><b><font color="black">Requirement Name* </font></b><font color="red">&nbsp;*</font></td>
+        <td align="left" valign="middle">        
+        <form:input path="requirementName" maxlength="150"/>
+        </td>        
+      </tr>                
+      
+      <tr>               
+        <!-- Requirement Name -->
+        <td align="left" valign="middle"><b><font color="black">Requirement Title* </font></b><font color="red">&nbsp;*</font></td>
+        <td align="left" valign="middle">        
+        <form:input path="title" maxlength="150"/>
+        </td>        
       </tr>
-      <tr>
-        <td>Project Name*</td>
-        <td><input name="txtProjectName" value="" maxlength="50" size="50" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Requirement Code* </td>
-        <td><input name="txtRequirementCode" value="" maxlength="50" size="50" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Requirement Name* </td>
-        <td><input name="txtRequirementName" value="" maxlength="50" size="50" type="text" /></td>
-      </tr>
-      <tr>
-        <td>Requirement Description* </td>
-        <td><input name="txtRequirementDescription" value="" maxlength="50" size="50" type="text" /></td>
-      </tr>  
+      
+      <%--
+             
       <tr>
         <td>Requirement Size* </td>
-        <td><select name="select" class="styled" class="SmallCombo">
+        <td>
+        <select name="select" class="styled" class="SmallCombo">
         <option selected="selected">1</option>
-      <option >2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select></td>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        </select>
+        </td>
       </tr>
       <tr>
         <td>Requirement Type* </td>
-        <td><select name="select" class="styled" class="SmallCombo">
-      <option selected="selected">New</option>
-      <option>Change Request</option>     
-    </select></td>
+        <td>
+        <select name="select" class="styled" class="SmallCombo">
+        <option selected="selected">1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        </select>
+        </td>
       </tr>
       <tr>
         <td>Release Notes</td>
@@ -229,20 +271,27 @@ border-radius: .6em;
         <td>Cancelled Date</td>
         <td><input maxlength="9" name="txtCancelledDate" size="9" value="" type="text" id="datepicker1"/>
           (mm-dd-yyyy)</td>
-      </tr>      
+      </tr>   
+      
+      --%>
+         
     </tbody>
-  </table>
-  <input type="button" value="Submit" name="submit" onclick="location.href='RequirementHome.html'" >
-  <input type="button" value="Cancel" name="submit2" onclick="location.href='RequirementHome.html'" />
-  </p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-  <!-- end .content --></div>
+    </div>
+  
+    
+  </table>  
+  
+  <input name="RequirementAdd" class="Button" value="Save" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;
+  <input name="Back" class="Button" onclick='submitAction("${portletNamespace}RequirementAdd", "${requirementmanager}")' value="Requirement List" type="button">&nbsp;&nbsp;&nbsp;&nbsp;  
+          
+  </form:form>
+       
   <div class="footer">
-    <p>DMS Group</p>
-    <!-- end .footer --></div>
-  <!-- end .container --></div>
+    <p>DMS Group</p>    
+  </div> <!-- end .footer -->
+  
+  </div> <!-- end .content -->
+  
+  </div> <!-- end .container -->
 </body>
 </html>
