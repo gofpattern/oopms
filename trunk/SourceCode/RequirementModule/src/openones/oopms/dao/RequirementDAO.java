@@ -20,8 +20,11 @@ public class RequirementDAO {
     private static Logger log = Logger.getLogger(RequirementDAO.class);
     
     public RequirementDAO() {
+        log.debug("New RequirementDao");
         SessionFactory factory = HibernateUtil.getSessionFactory();
+        log.debug("Get hibernate Session");
         this.session = factory.getCurrentSession();
+        log.debug("Get current Session");
     }
     
     @SuppressWarnings("unchecked")

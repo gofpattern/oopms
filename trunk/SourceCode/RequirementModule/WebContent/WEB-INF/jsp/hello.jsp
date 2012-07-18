@@ -7,7 +7,7 @@
       
     <html>  
     <body>  
-    <h1>Hello World Portlet with Spring MVC Portlet framework 3.1</h1>  
-    <a href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Requirement</a>
+    <h1>Welcome to Requirement Module</h1>  
+    <a href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Requirement Management</a>
     </body>  
     </html>  
