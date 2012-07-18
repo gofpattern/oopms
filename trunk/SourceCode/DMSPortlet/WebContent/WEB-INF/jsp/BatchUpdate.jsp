@@ -31,6 +31,8 @@
 	 	}
 	} 
 </script>
+<script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
+
 <div align="left"><link rel="stylesheet" type="text/css" href="resource_files/menu.css">
 <script type="text/javascript" src="resource_files/validate.js"></script>
 <script type="text/javascript" src="resource_files/menu.js"></script><div id="dropmenudiv" style="visibility:hidden;width:230;background-color:#E6E6E6" onmouseover="clearhidemenu()" onmouseout="dynamichide(event)"></div>

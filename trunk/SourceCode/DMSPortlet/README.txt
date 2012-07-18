@@ -14,6 +14,10 @@ Features:
   Process button "Defect List" to go back the screen "Defect List2"
 + Add screen Batch Update Defect
 
+How to make distribution
+================================
+run 'ant dist'
+
 How does Authentication work?
 ================================
 In development environment (Eclipse + Glashfish + Open Portlet Container), logon user is declared in file /DMSPortlet/resource/dev.properties.

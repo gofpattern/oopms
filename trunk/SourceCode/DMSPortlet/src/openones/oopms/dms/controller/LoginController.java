@@ -50,7 +50,7 @@ public class LoginController extends BaseController {
      * DefectViewList screen.
      * @return name of view which is the name of the JSP page.
      */
-    @RequestMapping
+    @RequestMapping(value="VIEW")
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
         ModelAndView mav;

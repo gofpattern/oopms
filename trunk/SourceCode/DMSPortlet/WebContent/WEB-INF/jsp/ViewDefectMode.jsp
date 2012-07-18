@@ -1,15 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<portlet:defineObjects />
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <html><head>
 <title>View Defect Listing</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="StyleSheet" href="resource_files/DMSStyleSheet.css" type="text/css">
-<script src="resource_files/CommonScript.js"></script>
-<script src="resource_files/utils.js"></script>
+<link rel="StyleSheet" href="/<spring:message code="app.context"/>/resource_files/DMSStyleSheet.css" type="text/css">
+<script src="/<spring:message code="app.context"/>/resource_files/CommonScript.js"></script>
+<script src="/<spring:message code="app.context"/>/resource_files/utils.js"></script>
 <script language="JavaScript">
 function doAllDefects() {
     var form = document.frmViewDefectListing;
@@ -52,7 +47,7 @@ function doDeleteQuery(formName, actionUrl) {
         if (confirm("Do you want to delete selected records, continue?")) {
             form.hidAction.value = "DM";
             form.hidActionDetail.value = "DeleteQuery";
-            form.action = actionUrl";
+            form.action = actionUrl;
             form.submit();
         }
     }
@@ -115,6 +110,7 @@ function CheckAll2(form) {
 }
 
 </script>
+
 </head>
 <body topmargin="0" leftmargin="0" bgcolor="#FFFFFF">
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
@@ -122,7 +118,7 @@ function CheckAll2(form) {
 <%@ include file="/WEB-INF/jsp/headerDefect.jsp" %>
 
 <div>
-<p><img src="resource_files/ViewDefectListing.gif" height="28" border="0" width="411"></p>
+<p><img src="/<spring:message code="app.context"/>/resource_files/ViewDefectListing.gif" height="28" border="0" width="411"></p>
 </div>
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="search" />

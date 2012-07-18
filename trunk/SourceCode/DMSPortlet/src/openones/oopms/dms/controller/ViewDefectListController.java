@@ -48,12 +48,6 @@ public class ViewDefectListController extends BaseController {
         return formBean;
     }
     
-    @RequestMapping
-    public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START");
-        return "ViewDefectList";
-    }
-
     @RenderMapping(params = "action=goViewDefectMode")
     public ModelAndView goViewDefectMode(RenderRequest request, PortletSession session) {
         log.debug("goViewDefectMode.START");
