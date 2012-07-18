@@ -13,6 +13,7 @@
 <script type="text/javascript" src="../PlannerModule/resource_files/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../PlannerModule/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="../PlannerModule/resource_files/js/form-elements.js"></script>
+<script type="text/javascript" src="../PlannerModule/resource_files/js/common.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#add-form-startDate")
@@ -137,13 +138,24 @@
 
       <input id="add-button" type="button" name="ok" value=" Add " />
 
-      <portlet:actionURL var="formAction">
+      <portlet:actionURL var="addTaskAction">
         <portlet:param name="action" value="addTask" />
       </portlet:actionURL>
 
+      <portlet:actionURL var="searchTaskAction">
+        <portlet:param name="action" value="searchTask" />
+      </portlet:actionURL>
+
+      <portlet:actionURL var="deleteTaskAction">
+        <portlet:param name="action" value="deleteTask" />
+      </portlet:actionURL>
+
+      <portlet:actionURL var="editTaskAction">
+        <portlet:param name="action" value="editTask" />
+      </portlet:actionURL>
 
       <div class="hidden-add-form">
-        <form:form commandName="PlannerForm" method="post" action="${formAction}">
+        <form:form commandName="PlannerForm" method="post" action="${addTaskAction}">
 
           <p id="add-form">
           <table class="Table" cellspacing="1" width="560">
@@ -210,7 +222,8 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description</label></td>
-                <td class="CellBGR3"><form:textarea path="description" rows="4" cols="50" name="note" id="add-form-description"></form:textarea></td>
+                <td class="CellBGR3"><form:textarea path="description" rows="4" cols="50" name="note"
+                    id="add-form-description"></form:textarea></td>
               </tr>
             </tbody>
           </table>
@@ -223,7 +236,7 @@
       </div>
 
       <div id="content_planner">
-        <form:form commandName="PlannerForm" method="post" action="${formAction}">
+        <form:form commandName="PlannerForm" method="post" action="${searchTaskAction}">
           <table>
             <tr>
               <td><b>&nbsp;&nbsp;Project&nbsp;&nbsp;</b></td>
@@ -255,60 +268,59 @@
               <td width="56%"><input type="button" name="input2" value="Search" /></td>
             </tr>
           </table>
-
-          <c:set var="list" value="${taskList}" />
-          <c:if test="${not empty list}">
-            <table class="portlet-table">
-              <thead>
-                <tr>
-                  <!-- TABLE HEADER -->
-                  <th><b><font><span>No.</span></font></b>
-                  <th><b><font><span>Task Code</span></font></b>
-                  <th><b><font><span>Task Name</span></font></b>
-                  <th><b><font><span>Stage</span></font></b>
-                  <th><b><font><span>Process</span></font></b>
-                  <th><b><font><span>Assigned To</span></font></b>
-                  <th><b><font><span>Remaining Time</span></font></b>
-                  <th><b><font><span>Completeness Rate</span></font></b>
-                  <th><b><font><span>Start Date</span></font></b>
-                  <th><b><font><span>Finish Date</span></font></b>
-                  <th><b><font><span>Planned Effort</span></font></b>
-                  <th><b><font><span>Actual Effort</span></font></b>
-                  <th><b><font><span>Update</span></font></b>
-                  <th><b><font><span>Delete</span></font></b>
-                </tr>
-              </thead>
-              <tbody>
-                <c:set var="count" value="0" />
-                <c:forEach items="${taskList}" var="task">
-                  <tr>
-                    <form action="Controller">
-                      <c:set var="count" value="${count + 1}" />
-                      <td>${count}</td>
-                      <td>${task.taskcode}</td>
-                      <td>${task.taskname}</td>
-                      <td>${task.stage_str}</td>
-                      <td>${task.process_str}</td>
-                      <td>${task.developer_str}</td>
-                      <td></td>
-                      <td>${task.completenessstatus}</td>
-                      <td>${task.startdate}</td>
-                      <td>${task.plannedenddate}</td>
-                      <td>${task.plannedeffort}</td>
-                      <td>${task.actualeffort}</td>
-                      <td><input type="image" alt="Submit"
-                        src="../PlannerModule/resource_files/icons/Actions-document-edit-icon.png" width="24"
-                        height="24" value="edit" name="action"></input></td>
-                      <td><input type="image" alt="Submit"
-                        src="../PlannerModule/resource_files/icons/Actions-delete-icon.png" width="24" height="24"
-                        value="delete" name="action"></input></td>
-                    </form>
-                  </tr>
-                </c:forEach>
-              </tbody>
-            </table>
-          </c:if>
         </form:form>
+        <c:set var="list" value="${taskList}" />
+        <c:if test="${not empty list}">
+          <table class="portlet-table">
+            <thead>
+              <tr>
+                <!-- TABLE HEADER -->
+                <th><b><font><span>No.</span></font></b>
+                <th><b><font><span>Task Code</span></font></b>
+                <th><b><font><span>Task Name</span></font></b>
+                <th><b><font><span>Stage</span></font></b>
+                <th><b><font><span>Process</span></font></b>
+                <th><b><font><span>Assigned To</span></font></b>
+                <th><b><font><span>Remaining Time</span></font></b>
+                <th><b><font><span>Completeness Rate</span></font></b>
+                <th><b><font><span>Start Date</span></font></b>
+                <th><b><font><span>Finish Date</span></font></b>
+                <th><b><font><span>Planned Effort</span></font></b>
+                <th><b><font><span>Actual Effort</span></font></b>
+                <th><b><font><span>Update</span></font></b>
+                <th><b><font><span>Delete</span></font></b>
+              </tr>
+            </thead>
+            <tbody>
+              <c:set var="count" value="0" />
+              <c:forEach items="${taskList}" var="task">
+                <tr>
+                  <form:form name="${task.taskid}modTask" commandName="PlannerForm" method="post" action="#">
+                    <c:set var="count" value="${count + 1}" />
+                    <td>${count}</td>
+                    <td>${task.taskcode}</td>
+                    <td>${task.taskname}</td>
+                    <td>${task.stage_str}</td>
+                    <td>${task.process_str}</td>
+                    <td>${task.developer_str}</td>
+                    <td></td>
+                    <td>${task.completenessstatus}</td>
+                    <td>${task.startdate}</td>
+                    <td>${task.plannedenddate}</td>
+                    <td>${task.plannedeffort}</td>
+                    <td>${task.actualeffort}</td>
+                    <td><input type="image" alt="Submit"
+                      src="../PlannerModule/resource_files/icons/Actions-document-edit-icon.png" width="24" height="24"
+                      onclick='submitAction("${task.taskid}modTask", "${editTaskAction}")'></input></td>
+                    <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
+                      alt="Submit" src="../PlannerModule/resource_files/icons/Actions-delete-icon.png" width="24"
+                      height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
+                  </form:form>
+                </tr>
+              </c:forEach>
+            </tbody>
+          </table>
+        </c:if>
       </div>
       <div id="button">
         <input type="button" name="" value="Add New Task" /> <input type="button" name="" value="Import" /> <input

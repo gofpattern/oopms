@@ -29,6 +29,7 @@ import openones.oopms.planner.model.Tasks;
  * @author PNTG
  */
 public class PlannerForm {
+    private String taskId;
     private String title;
     private String startDate;
     private String endDate;
@@ -58,6 +59,22 @@ public class PlannerForm {
 
     
     
+    /**
+     * Get value of taskId.
+     * @return the taskId
+     */
+    public String getTaskId() {
+        return taskId;
+    }
+
+    /**
+     * Set the value for taskId.
+     * @param taskId the taskId to set
+     */
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
     /**
      * Get value of startDate.
      * @return the startDate
