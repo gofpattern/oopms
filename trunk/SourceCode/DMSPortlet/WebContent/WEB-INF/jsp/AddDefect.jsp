@@ -247,10 +247,10 @@ function selectWorkProduct(){
 
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
 <%@ include file="/WEB-INF/jsp/headerDefect.jsp" %>
-<portlet:actionURL var="formAction"><portlet:param name="action" value="Save"/></portlet:actionURL>
+<portlet:actionURL var="formAction"><portlet:param name="action" value="save"/></portlet:actionURL>
 <portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="goViewDefectList2"/></portlet:renderURL>
 
-<form:form name="${portletNamespace}AddDefect" commandName="defect" method="post" action="${formAction}">
+<form:form name="${portletNamespace}AddDefect" commandName="defectForm" method="post" action="${formAction}">
 <div><img src="resource_files/DefectAddnew.gif" height="28" border="0" width="411"></div>
 <input name="hidActionDetail" value="" type="hidden">
 <input name="hidAction" value="" type="hidden">
@@ -265,6 +265,8 @@ function selectWorkProduct(){
 <input name="ProjectID" value="118385" type="hidden">
 <input name="hidFileIndex" value="" type="hidden">
 <input name="hidSaveNewCounter" value="0" type="hidden">
+
+
 <table border="0" width="100%">
     <tbody><tr>
         <td align="right"><a href="javascript:doQueryListing()">View DefectListing</a></td>
@@ -272,6 +274,9 @@ function selectWorkProduct(){
 </tbody></table>
 <%@ include file="/WEB-INF/jsp/header2Defect.jsp" %>
 <br>
+<%--Display errors --%>
+<font color="red"><form:errors path="*"></form:errors></font>
+
 <table class="TblOut" border="0" cellpadding="1" cellspacing="1" width="100%">
     <tbody><tr class="Row0">
         <td align="center" width="100%"><font size="+1">Main</font></td>
@@ -305,7 +310,7 @@ function selectWorkProduct(){
         <%-- 
         <input class="LongBox" maxlength="150" name="Title" value="These is no description flow of use cases" type="text">
         --%>
-        <form:input path="title" maxlength="150"/>
+        <form:input path="title" maxlength="255"/>
         </td>
         <!-- Project Origin -->
         <td>&nbsp;</td>
@@ -441,7 +446,10 @@ function selectWorkProduct(){
     </tr>
 </tbody></table>
 <p>
+<%--
 <input name="NewDefect" class="Button" value="Save" type="Submit">&nbsp;&nbsp;&nbsp;&nbsp;
+ --%>
+<input name="Save" class="Button" onclick='submitAction("${portletNamespace}AddDefect", "${formAction}")' value="Save" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
 <input name="Back" class="Button" onclick='submitAction("${portletNamespace}AddDefect", "${goViewDefectList2}")' value="Defect List" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
 <input name="Attach" class="Button" onclick="javascript:doAttach()" value="Attach file" type="button">
 </p>
