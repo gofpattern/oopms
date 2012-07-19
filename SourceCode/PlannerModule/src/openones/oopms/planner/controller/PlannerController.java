@@ -12,9 +12,11 @@ import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
+import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
+import openones.oopms.planner.model.Workproduct;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpRequest;
@@ -37,6 +39,8 @@ public class PlannerController {
     private List<Process> processList;
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
+    private List<Project> projectList;
+    private List<Workproduct> productList;
 
     /**
      * Create bean for form.
@@ -47,7 +51,6 @@ public class PlannerController {
         log.debug("getCommandObject.START");
 
         PlannerForm formBean = new PlannerForm();
-        
         return formBean;
     }
 
@@ -64,21 +67,29 @@ public class PlannerController {
         
         formBean.setProjectId("118385");
 
+        formBean.setActualEffort("10");
+        formBean.setPlannedEffort("10");
+
         formBean.setStatusDefault("All");
         formBean.setStageDefault("All");
         formBean.setDeveloperDefault("All");
+        formBean.setProjectDefault("All");
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
         Map<String, String> processMap = new LinkedHashMap<String, String>();
+        Map<String, String> projectMap = new LinkedHashMap<String, String>();
+        Map<String, String> productMap = new LinkedHashMap<String, String>();
 
         statusList = taskDAO.getAllStatus();
         taskList = taskDAO.getAllTask();
         stageList = taskDAO.getAllStage();
+        projectList = taskDAO.getAllProject();
+        productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
         developerList = taskDAO.getDeveloper(formBean.getProjectId());
 
-        // Set value for statusMap
+        // set value for statusMap
         statusMap.put("All", "All");
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
@@ -98,12 +109,29 @@ public class PlannerController {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
         formBean.setDeveloperMap(developerMap);
+        
+     // Set value for productMap
+        for (int i = 0; i < productList.size(); i++) {
+            productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
+        }
+        formBean.setProductMap(productMap);
+        
+        //System.out.println("Size: " + productList.size());
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
             processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
         formBean.setProcessMap(processMap);
+        
+     // Set value for projectMap
+        projectMap.put("All", "All");
+        for (int i = 0; i < projectList.size(); i++) {
+            projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+        }
+        formBean.setProjectMap(projectMap);
+        
+        
 
         // Convert StageID to string
         for (int i = 0; i < taskList.size(); i++) {
@@ -113,6 +141,16 @@ public class PlannerController {
                 }
             }
         }
+        
+//        // Convert ProjectID to string
+//        for (int i = 0; i < taskList.size(); i++) {
+//            for (int j = 0; j < projectList.size(); j++) {
+//                if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
+//                    taskList.get(i).setProject_str(projectList.get(j).getName());
+//                }
+//            }
+//        }
+        
         // Convert ProcessID to string
         try {
             for (int i = 0; i < taskList.size(); i++) {
@@ -144,6 +182,10 @@ public class PlannerController {
         mav.addObject("stageMap", formBean.getStageMap());
         mav.addObject("developerMap", formBean.getDeveloperMap());
         mav.addObject("processMap", formBean.getProcessMap());
+        mav.addObject("projectMap", formBean.getProjectMap());
+        mav.addObject("productMap", formBean.getProductMap());
+        mav.addObject("pEff", formBean.getPlannedEffort());
+        mav.addObject("aEff", formBean.getActualEffort());
         return mav;
     }
     @ActionMapping(params = "action=addTask")

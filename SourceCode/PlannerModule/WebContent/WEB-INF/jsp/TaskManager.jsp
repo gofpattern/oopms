@@ -178,11 +178,11 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort</label></td>
-                <td class="CellBGR3"><form:input path="plannedEffort" id="add-form-plannedEffort" /> (Hours)</td>
+                <td class="CellBGR3"><form:input path="plannedEffort" id="add-form-plannedEffort" value="${pEff}"/> (Hours)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-actualEffort">Actual Effort</label></td>
-                <td class="CellBGR3"><form:input path="actualEffort" id="add-form-actualEffort" /> (Hours)</td>
+                <td class="CellBGR3"><form:input path="actualEffort" id="add-form-actualEffort" value="${aEff}"/> (Hours)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
@@ -198,15 +198,9 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-product">Product*</label></td>
-                <td class="CellBGR3"><select name="cboStatus2" class="styled" class="SmallCombo"
-                  id="add-form-product">
-                    <option selected="selected" value="-1">All Product</option>
-                    <option value="1">LOC</option>
-                    <option value="2">Report</option>
-                    <option value="3">Document</option>
-                    <option value="4">Test Case</option>
-                    <option value="0">Others</option>
-                </select></td>
+                <td><form:select class="styled" path="productId" multiple="single" id="add-form-process">
+                    <form:options items="${productMap}" />
+                  </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
@@ -246,8 +240,8 @@
               <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
             </tr>
             <tr>
-              <td><form:select class="styled" path="statusDefault" multiple="single">
-                  <form:options items="${statusMap}" />
+              <td><form:select class="styled" path="projectDefault" multiple="single">
+                  <form:options items="${projectMap}" />
                 </form:select></td>
               <td><form:select class="styled" path="statusDefault" multiple="single">
                   <form:options items="${statusMap}" />
