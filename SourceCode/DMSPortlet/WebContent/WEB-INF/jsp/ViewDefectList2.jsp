@@ -286,7 +286,7 @@ function CheckAll(form) {
  --%>
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
 
-<%@ include file="/WEB-INF/jsp/headerDefect.jsp" %>
+<%@ include file="/WEB-INF/jsp/menu.jsp" %>
 <div>
 <p><img src="resource_files/AllOpenDefectListing.gif" height="28" border="0" width="510"></p>
 </div>

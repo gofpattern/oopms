@@ -18,6 +18,7 @@
  */
 package openones.oopms.dms.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.portlet.PortletSession;
@@ -25,6 +26,7 @@ import javax.portlet.PortletSession;
 import org.apache.log4j.Logger;
 
 import openones.oopms.dms.form.CommonInfo;
+import openones.oopms.dms.form.SubMenu;
 import openones.oopms.dms.form.UserInfo;
 
 /**
@@ -89,5 +91,9 @@ public class BaseController {
         }
         commonInfo.setProjectMap(projectMap);
         updateCommonInfo(session, commonInfo);
+    }
+    
+    public void updateMenuBar(PortletSession session, List<SubMenu> subMenuList) {
+        session.setAttribute("MenuBar", subMenuList);
     }
 }

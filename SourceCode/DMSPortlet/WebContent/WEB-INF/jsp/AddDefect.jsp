@@ -246,7 +246,7 @@ function selectWorkProduct(){
 </script>
 
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
-<%@ include file="/WEB-INF/jsp/headerDefect.jsp" %>
+<%@ include file="/WEB-INF/jsp/menu.jsp" %>
 <portlet:actionURL var="formAction"><portlet:param name="action" value="save"/></portlet:actionURL>
 <portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="goViewDefectList2"/></portlet:renderURL>
 
