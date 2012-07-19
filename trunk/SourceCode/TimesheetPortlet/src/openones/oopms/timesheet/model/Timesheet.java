@@ -20,6 +20,7 @@ public class Timesheet  implements java.io.Serializable {
      private Date createDate;
      private Date occurDate;
      private String occurDateString;
+     private String durationString;
      private BigDecimal duration;
      private BigDecimal status;
      private BigDecimal kpaId;
@@ -40,6 +41,20 @@ public class Timesheet  implements java.io.Serializable {
 
     
     
+
+    public String getDurationString() {
+        return durationString;
+    }
+
+
+
+
+    public void setDurationString(String durationString) {
+        this.durationString = durationString;
+    }
+
+
+
 
     public String getOccurDateString() {
         return occurDateString;

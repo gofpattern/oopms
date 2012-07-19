@@ -7,7 +7,7 @@
         <comment>(Timesheet) effort tracking</comment>
         <id name="timesheetId" type="big_decimal">
             <column name="TIMESHEET_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+           <generator class="increment"/>
         </id>
         <many-to-one name="project" class="openones.oopms.timesheet.model.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />

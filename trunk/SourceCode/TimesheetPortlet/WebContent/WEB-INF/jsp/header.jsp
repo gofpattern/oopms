@@ -18,6 +18,7 @@
 <script type="text/javascript" src="../TimesheetPortlet/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="../TimesheetPortlet/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="../TimesheetPortlet/resource_files/js/datatable.js"></script>
+<script type="text/javascript" src="../TimesheetPortlet/resource_files/js/custom.js"></script>
 	<meta name="robots" content="noindex, nofollow">
 			
 	<link rel="stylesheet" type="text/css" href="../TimesheetPortlet/resource_files/css/manage.css" media="all">
