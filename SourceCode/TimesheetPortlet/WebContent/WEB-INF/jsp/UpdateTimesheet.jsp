@@ -13,7 +13,7 @@
 <portlet2:defineObjects />
 <portlet:defineObjects />
 
-<title>Timesheet System : Add timesheet</title>
+<title>Timesheet System : Update timesheet</title>
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
@@ -75,8 +75,8 @@
 <div id="content" class="content loggedin">
 
 <div class="container "><portlet:actionURL
-  var="timesheetFormAction">
-  <portlet:param name="action" value="searchTimesheet" />
+  var="updateTimesheeetAction">
+  <portlet:param name="action" value="updateTimesheet" />
 </portlet:actionURL> 
 <portlet:actionURL
   var="addTimesheetAction">
@@ -85,7 +85,7 @@
 <portlet:actionURL var="backAction">
   <portlet:param name="action" value="init" />
 </portlet:actionURL>
-<form:form onsubmit='return validate("validate");' name="AddTimesheet" method="post" commandName="addTimesheetForm"
+<form:form onsubmit='return validate("validate");' name="AddTimesheet" method="post" commandName="timesheetForm"
   action="${timesheetFormAction}"> 
   
   <form:errors path="*" cssStyle="color:red;" />
@@ -94,7 +94,7 @@
   <thead>
     <tr>      
       <th style="width: 120px;">Date</th>
-      <th >Project</th>
+      <th >Project </th>
       <th >Work</th>
       <th >Process</th>
       <th >Time</th>
@@ -107,18 +107,18 @@
         <tr>        
           <td><p style="display: block; margin: 0px;padding: 0px;"><input style="width: 80px;" id="${status.index}datepicker" name="timesheetList[${status.index}].occurDateString" value="${timesheet.occurDateString}"/></p></td>
           <td><form:select cssClass="validate" 
-          path="timesheetList[${status.index}].projectName" multiple="single">
+          path="timesheetList[${status.index}].project.projectId" multiple="single">
           <form:options items="${projectMap}" />
          </form:select></td>
          <td><form:select 
-          path="timesheetList[${status.index}].towName" multiple="single">
+          path="timesheetList[${status.index}].towId" multiple="single">
           <form:options items="${towMap}" />
         </form:select></td>
         <td><form:select 
-          path="timesheetList[${status.index}].processName" multiple="single">
+          path="timesheetList[${status.index}].processId" multiple="single">
           <form:options items="${processMap}" />
         </form:select></td>
-         <td><input style="width: 30px;" name="timesheetList[${status.index}].durationString" value=""/></td>
+         <td><input style="width: 30px;" name="timesheetList[${status.index}].durationString" value="${timesheet.durationString}"/></td>
           <td><input style="width: 300px;" name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
          
          <!--
@@ -135,7 +135,7 @@
 
   </tbody>
 </table>
-<p> <input onclick='submitAction("AddTimesheet", "${addTimesheetAction}")' name="Submit" value="Submit" class="button blue small" type="button"/>
+<p> <input onclick='submitAction("AddTimesheet", "${updateTimesheeetAction}")' name="Submit" value="Update" class="button blue small" type="button"/>
 <input onclick='submitAction("AddTimesheet", "${backAction}")' name="Submit" value="Back" class="button grey small" type="button"/></p>
 </form:form>
 

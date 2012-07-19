@@ -102,7 +102,7 @@
           <form:options items="${projectMap}" />
         </form:select></td>
         <td><strong>From Date</strong></td>
-        <td class="vAlignMid"><form:input path="fromDate"
+        <td class="vAlignMid"><form:input cssStyle="width:80px;" path="fromDate"
           id="datepicker1" /></td>
 
 
@@ -119,7 +119,7 @@
           <option value="3">Rejected</option>
         </select></td>
         <td width="17%" align="left"><strong>To Date</strong></td>
-        <td colspan="2" class="vAlignMid"><form:input path="toDate"
+        <td colspan="2" class="vAlignMid"><form:input cssStyle="width:80px;" path="toDate"
           id="datepicker2" /></td>
         <td></td>
       </tr>
@@ -132,13 +132,22 @@
 </form:form>
 <portlet:actionURL
   var="timesheetFormAction2">
-  <portlet:param name="action" value="addTimesheet" />
+  <portlet:param name="action" value="goAddTimesheet" />
 </portlet:actionURL> <form:form name="timesheet" method="post" commandName="timesheetForm"
   action="${timesheetFormAction2}">
-    <p><input type="submit" id="Search" class="button blue small"
+    <p><input type="submit" id="Search" class="button green small"
     name="Add" value="Add" /></p>
   </form:form>
-  
+  <portlet:actionURL
+  var="goUpdateTimesheetAction">
+  <portlet:param name="action" value="goUpdateTimesheet" />
+</portlet:actionURL>
+<portlet:actionURL
+  var="deleteTimesheetAction">
+  <portlet:param name="action" value="deleteTimesheet" />
+</portlet:actionURL>
+ <form:form name="Timesheet" method="post" commandName="timesheetForm"
+  action="${goUpdateTimesheetAction}">
 <table id="mainTable2" class="display dataTable"  cellpadding="0" cellspacing="0" border="0" >
   <thead>
     <tr>
@@ -156,16 +165,16 @@
   <tbody align="center">
     <c:if test="${not empty timesheetList}">
 
-      <c:forEach var="timesheet" items="${timesheetList}">
+      <c:forEach var="timesheet" varStatus="status" items="${timesheetList}">
         <tr>
-          <td class="cb"><input type="checkbox" value="yes"></td>
-          <td><font color="">${timesheet.occurDate}</font></td>
+          <td class="cb"><input type="checkbox" name="timesheetList[${status.index}].timesheetId" value="${timesheet.timesheetId}"></td>
+          <td><font color="">${timesheet.occurDateString}</font></td>
           <td><font color="">${timesheet.project.name}</font></td>
           <td><font color="">${timesheet.towName}</font></td>
           <td><font color="">${timesheet.processName}</font></td>
           <td><font color="">${timesheet.duration}</font></td>
           <td><font color="">${timesheet.description}</font></td>
-          <td><c:if test="${timesheet.status==0}">UnApprived</c:if>
+          <td><c:if test="${timesheet.status==0}">UnApproved</c:if>
           <c:if test="${timesheet.status==1}">Approved</c:if></td>
 
         </tr>
@@ -177,11 +186,11 @@
 </table>
 
 <p><input type="button" class="button blue small" name="Update"
-  onclick="javascript:doUpdate()" value="Update" class="Button" /> <input
+ onclick='submitAction("Timesheet", "${goUpdateTimesheetAction}")' value="Update" class="Button" /> <input
   type="button" class="button blue small" name="Delete"
-  onClick="javascript:doDelete()" value="Delete" class="Button"></p>
+ onclick='submitAction("Timesheet", "${deleteTimesheetAction}")'value="Delete" class="Button"></p>
 
-
+</form:form>
 </div>
 </div>
 </div>
