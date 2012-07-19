@@ -58,6 +58,7 @@ public class SubMenu implements Serializable {
         this.id = id;
         this.name = name;
         this.iconPath = iconPath;
+        this.actionId = "";
     }
 
     /**

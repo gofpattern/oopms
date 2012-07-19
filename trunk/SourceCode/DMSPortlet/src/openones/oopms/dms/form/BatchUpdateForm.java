@@ -21,6 +21,5 @@ package openones.oopms.dms.form;
 /**
  * @author Thach.Le
  */
-public class BatchUpdateForm {
-
+public class BatchUpdateForm extends BaseDefectListForm {
 }

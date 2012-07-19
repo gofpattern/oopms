@@ -45,12 +45,13 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
 @Controller
 @RequestMapping("VIEW")
 public class LoginController extends BaseController {
+
     /**
      * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
      * DefectViewList screen.
      * @return name of view which is the name of the JSP page.
      */
-    @RequestMapping(value="VIEW")
+    @RequestMapping
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
         ModelAndView mav;

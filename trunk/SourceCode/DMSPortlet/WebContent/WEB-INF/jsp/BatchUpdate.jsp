@@ -32,52 +32,11 @@
 	} 
 </script>
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
+<%@ include file="/WEB-INF/jsp/menu.jsp" %>
 
-<div align="left"><link rel="stylesheet" type="text/css" href="resource_files/menu.css">
-<script type="text/javascript" src="resource_files/validate.js"></script>
-<script type="text/javascript" src="resource_files/menu.js"></script><div id="dropmenudiv" style="visibility:hidden;width:230;background-color:#E6E6E6" onmouseover="clearhidemenu()" onmouseout="dynamichide(event)"></div>
-
-<table bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" height="51" width="100%">
-    <tbody><tr>
-        <td background="resource_files/bgr_header.gif" bgcolor="#310C52" height="51" width="212"><img src="resource_files/defect_logop1.gif" border="0" height="51" width="188"><br></td>
-        <td align="left" background="resource_files/bgr_header.gif" bgcolor="#310C52" height="51" valign="top" width="50%"><img src="resource_files/defect_logop2.gif" border="0" height="51" width="173"></td>
-        <td align="right" background="resource_files/bgr_header.gif" bgcolor="#310C52" height="51" valign="top" width="50%"><img src="resource_files/header.gif" border="0" height="51" width="384"></td>
-    </tr>
-    <tr>
-        <td align="left" bgcolor="#000084" width="111"><img src="resource_files/logo2.gif" border="0" height="20" width="148"></td>
-        <td colspan="2" align="left" bgcolor="#FFD731" valign="middle">
-        <table bgcolor="#310C52" border="0" cellpadding="0" cellspacing="1" height="20" width="100%">
-            <tbody><tr>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="60"></td>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="210"></td>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="150"></td>
-                <td align="left"><img src="resource_files/invisible.gif" height="1" width="80"></td>
-                <td align="right" width="50%"></td>
-            </tr>
-            <tr>
-                <td bgcolor="#310C52">&nbsp;</td>
-                <td bordercolor="#310C52" onmouseover="dropdownmenu(this, event, menu1, '150px')" onmouseout="delayhidemenu()" align="center" bgcolor="#FFD731" height="14" valign="middle">
-                <p><span style="color: #AE3800; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <font face="verdana"><b>Project&nbsp;Environment</b></font></span></p>
-                </td>
-                <td bordercolor="#310C52" onmouseover="dropdownmenu(this, event, menu2, '150px')" onmouseout="delayhidemenu()" align="center" bgcolor="#FFD731" height="14" valign="middle">
-                <p><span style="color: #AE3800; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <font face="Verdana"><b>Manage&nbsp;Defect</b></font></span></p>
-                </td>
-                <td bordercolor="#310C52" align="center" bgcolor="#FFD731" height="14" valign="middle">
-                <p align="center"><font face="Verdana" size="2"> <a href="javascript:void(0)" onclick="return menuClick('mnuLogout',document.forms[0])"> <span style="color: blue; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <b><font color="#AE3800" face="Verdana">Logout</font></b></span></a></font></p>
-                </td>
-                <td bordercolor="#310C52" align="center" bgcolor="#FFD731" height="14" valign="middle">
-                <p align="right"><font face="Verdana" size="2"> <a href="javascript:void(0)" onclick="return menuClick('mnuHelp',document.forms[0])"> <span style="color: blue; font-family: arial, helvetica; font-size: 10pt; text-decoration: none; font-weight: bold"> <b><font color="#AE3800" face="Verdana">Help&nbsp;&nbsp;</font></b></span></a></font></p>
-                </td>
-            </tr>
-        </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-</div>
 <div>
 <p><img src="resource_files/DefectBatchUpdate.gif" border="0" height="28" width="411"></p>
 </div>
-<script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
 
 <portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="goViewDefectList2"/></portlet:renderURL>
 
@@ -99,31 +58,9 @@
         <td align="right"><a href="javascript:doQueryListing()">View DefectListing</a></td>
     </tr>
 </tbody></table>
-<table class="TblOut2" border="0" width="100%">
-    <tbody><tr>
-        <td width="8%"><b>User:</b></td>
-        <td width="24%">thachln</td>
-        <td width="12%"><b>Login Date:</b></td>
-        <td width="25%">07/17/12</td>
-        <td width="9%"><b>Project</b></td>
-        <td align="right" width="22%">
-        <select name="cboProjectList" disabled="disabled" class="SmallCombo" onchange="javascript:doChangeProject('DM','BatchUpdateDefect','');">
-<option value="118405">InterWeb</option><option selected="selected" value="118385">OOPMS</option>
-        </select></td>
-    </tr>
-    <tr>
-        <td width="8%"><b>Group:</b></td>
-        <td width="24%">FU</td>
-        <td width="12%"><b>Position:</b></td>
-        <td width="25%">Project Leader</td>
-        <td width="9%"><b>Status</b></td>
-        <td align="right" width="22%">
-        <select name="cboProjectStatus" disabled="disabled" class="SmallCombo" onchange="javascript:doChangeProject('DM','BatchUpdateDefect','');">
-<option selected="selected" value="0">On-going</option>
-        </select>
-        </td>
-    </tr>
-</tbody></table>
+
+<%@ include file="/WEB-INF/jsp/header2Defect.jsp" %>
+
 <p></p>
 <table bgcolor="#000000" border="0" cellpadding="0" cellspacing="1" width="100%">
     <tbody><tr class="Row0" height="19">
