@@ -130,12 +130,15 @@ public class LoginController extends BaseController {
         // Update userInfo into the session
         updateUserInfo(session, userInfo);
         
-        Map<Integer, String> projectMap = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername()).getProjectMap();
+        DMSWorkspace dmsWsp = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername());
+        Map<Integer, String> projectMap = dmsWsp.getProjectMap();
         
         // Update list of project
         updateProjectMap(session, projectMap);
 
-
+        // Save menu
+        updateMenuBar(session, dmsWsp.getMenuBar());
+        
         mav.addObject("viewDefectMode", new ViewDefectModeForm());
     }
 }

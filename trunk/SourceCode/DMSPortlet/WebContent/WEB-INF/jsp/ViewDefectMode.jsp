@@ -115,8 +115,10 @@ function CheckAll2(form) {
 <body topmargin="0" leftmargin="0" bgcolor="#FFFFFF">
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
 
+<%--
 <%@ include file="/WEB-INF/jsp/headerDefect.jsp" %>
-
+ --%>
+<%@ include file="/WEB-INF/jsp/menu.jsp" %>
 <div>
 <p><img src="/<spring:message code="app.context"/>/resource_files/ViewDefectListing.gif" height="28" border="0" width="411"></p>
 </div>

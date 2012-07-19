@@ -20,8 +20,8 @@
 /**
  * Submit the form.
  * @param formName Identifier of the form. It combines the namespace of portlet and logical name of form.
- * @param eventId Code of event.
- * @return
+ * @param actionUrl renderURL or actionURL of the form/button.
+ * @return none
  */
 function submitAction(formName, actionUrl) {
 	var frm = document.forms[formName];
