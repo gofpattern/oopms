@@ -42,23 +42,25 @@ public class PlannerForm {
     private String statusId;
     private String description;
     private String projectId;
-    
+
     private String statusDefault;
     private String stageDefault;
     private String developerDefault;
+    private String projectDefault;
 
     private List<Tasks> taskList;
     private List<Stage> stageList;
     private List<Process> processList;
-
+    private List<Process> projectList;
+    private List<Process> productList;
 
     Map<String, String> statusMap;
     Map<String, String> stageMap;
     Map<String, String> developerMap;
     Map<String, String> processMap;
+    Map<String, String> projectMap;
+    Map<String, String> productMap;
 
-    
-    
     /**
      * Get value of taskId.
      * @return the taskId
@@ -350,7 +352,7 @@ public class PlannerForm {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     /**
      * Get value of statusDefault.
      * @return the statusDefault
@@ -429,6 +431,86 @@ public class PlannerForm {
      */
     public void setStatusMap(Map<String, String> statusMap) {
         this.statusMap = statusMap;
+    }
+
+    /**
+     * Get value of projectDefault.
+     * @return the projectDefault
+     */
+    public String getProjectDefault() {
+        return projectDefault;
+    }
+
+    /**
+     * Set the value for projectDefault.
+     * @param projectDefault the projectDefault to set
+     */
+    public void setProjectDefault(String projectDefault) {
+        this.projectDefault = projectDefault;
+    }
+
+    /**
+     * Get value of projectList.
+     * @return the projectList
+     */
+    public List<Process> getProjectList() {
+        return projectList;
+    }
+
+    /**
+     * Set the value for projectList.
+     * @param projectList the projectList to set
+     */
+    public void setProjectList(List<Process> projectList) {
+        this.projectList = projectList;
+    }
+
+    /**
+     * Get value of projectMap.
+     * @return the projectMap
+     */
+    public Map<String, String> getProjectMap() {
+        return projectMap;
+    }
+
+    /**
+     * Set the value for projectMap.
+     * @param projectMap the projectMap to set
+     */
+    public void setProjectMap(Map<String, String> projectMap) {
+        this.projectMap = projectMap;
+    }
+
+    /**
+     * Get value of productList.
+     * @return the productList
+     */
+    public List<Process> getProductList() {
+        return productList;
+    }
+
+    /**
+     * Set the value for productList.
+     * @param productList the productList to set
+     */
+    public void setProductList(List<Process> productList) {
+        this.productList = productList;
+    }
+
+    /**
+     * Get value of productMap.
+     * @return the productMap
+     */
+    public Map<String, String> getProductMap() {
+        return productMap;
+    }
+
+    /**
+     * Set the value for productMap.
+     * @param productMap the productMap to set
+     */
+    public void setProductMap(Map<String, String> productMap) {
+        this.productMap = productMap;
     }
 
 }

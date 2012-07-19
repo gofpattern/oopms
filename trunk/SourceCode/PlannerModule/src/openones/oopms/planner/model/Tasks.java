@@ -33,6 +33,7 @@ public class Tasks implements java.io.Serializable {
     private String stage_str;
     private String process_str;
     private String developer_str;
+    private String project_str;
 
     /**
      * Get value of developer_str.
@@ -269,6 +270,22 @@ public class Tasks implements java.io.Serializable {
      */
     public void setProcess_str(String process_str) {
         this.process_str = process_str;
+    }
+
+    /**
+     * Get value of project_str.
+     * @return the project_str
+     */
+    public String getProject_str() {
+        return project_str;
+    }
+
+    /**
+     * Set the value for project_str.
+     * @param project_str the project_str to set
+     */
+    public void setProject_str(String project_str) {
+        this.project_str = project_str;
     }
 
 }

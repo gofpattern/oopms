@@ -7,9 +7,11 @@ import java.util.List;
 
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
+import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
+import openones.oopms.planner.model.Workproduct;
 import openones.oopms.planner.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -38,7 +40,7 @@ public class TaskDAO {
             // session.getTransaction().commit();
             System.out.println("getAllStatus.end");
             return statusList;
-            
+
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -101,16 +103,50 @@ public class TaskDAO {
     }
 
     @SuppressWarnings("unchecked")
+    public List<Project> getAllProject() {
+        log.debug("getAllProject.START");
+        try {
+            String sql = "from Project";
+            Query query = session.createQuery(sql);
+            List<Project> projectList = query.list();
+            return projectList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getAllStage.Exception", e);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Workproduct> getAllProduct() {
+        log.debug("getAllProduct.START");
+        try {
+
+            String sql = "from Workproduct";
+            Query query = session.createQuery(sql);
+            List<Workproduct> productList = query.list();
+
+            return productList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getAllProduct.Exception", e);
+        }
+        return null;
+    }
+    
+    @SuppressWarnings("unchecked")   
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
         try {
-            // session.getTransaction().begin();
+
             String sql = "from Process";
             Query query = session.createQuery(sql);
             List<Process> processList = query.list();
 
-            // session.flush();
-            // session.getTransaction().commit();
             System.out.println("getAllProcess.end");
             return processList;
         } catch (Exception e) {
@@ -123,7 +159,7 @@ public class TaskDAO {
     }
 
     /**
-     * [Get developers belong to project].
+     * Get developers belong to project.
      * @param projectId
      * @return
      */
@@ -134,11 +170,11 @@ public class TaskDAO {
             // session.getTransaction().begin();
             String sql = "select developer from Assignment ass where ass.project.projectId = :projectId";
             Query query = session.createQuery(sql);
-            query.setParameter("projectId", new BigDecimal(projectId)); 
+            query.setParameter("projectId", new BigDecimal(projectId));
             List<Developer> developerList = query.list();
             session.flush();
             session.getTransaction().commit();
-            
+
             System.out.println("getAssignment.end");
             return developerList;
         } catch (Exception e) {
@@ -154,32 +190,32 @@ public class TaskDAO {
      * add new task to DB
      * @param task
      */
-    public void addTask (Tasks task){
+    public void addTask(Tasks task) {
         try {
-        session.getTransaction().begin();
-        session.save(task);
-        session.flush();
-        session.getTransaction().commit();
+            session.getTransaction().begin();
+            session.save(task);
+            session.flush();
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if(session.getTransaction().isActive()){
+            if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
             e.printStackTrace();
         }
     }
-    
+
     /**
      * delete task
      * @param id of task
      */
-    public void deleteTask (BigDecimal id){
+    public void deleteTask(BigDecimal id) {
         try {
             session.getTransaction().begin();
             session.delete(session.get(Tasks.class, id));
             session.flush();
             session.getTransaction().commit();
         } catch (Exception e) {
-            if(session.getTransaction().isActive()){
+            if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
             e.printStackTrace();
