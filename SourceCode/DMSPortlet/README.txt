@@ -19,6 +19,12 @@ Features:
   Class "AddDefectValidator": perform validate by codes
   Class AddDefetController: processSave
   AddDefect.jsp: using tag "<form:errors path="*"></form:errors>" to display all errors
++ Using jQuery Menu (Sample: https://open-ones.googlecode.com/svn/trunk/OOG-Handbook/Samples/Portlet/jQueryMenuPortlet)  
+  This menu is customized in the DMSPortlet:
+    + Menu Items are loaded dynamically from source code (view bean SubMenu, MenuItem)
+  To run view Menu Bar fully in Glashfish, please following:
+    + Create folder "ResourceServingWebapp" within folder $glassfishv3_home/glassfish/domains/domain1/docroot
+    + Copy folder /DMSPortlet/WebContent/resource-menu into $glassfishv3_home/glassfish/domains/domain1/docroot/ResourceServingWebapp
   
 How to make distribution
 ================================
