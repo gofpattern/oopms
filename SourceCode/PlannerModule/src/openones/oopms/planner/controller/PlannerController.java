@@ -9,6 +9,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.TaskDAO;
+import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
@@ -19,7 +20,6 @@ import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
 
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,26 +49,34 @@ public class PlannerController {
     @ModelAttribute("PlannerForm")
     public PlannerForm getCommandObject() {
         log.debug("getCommandObject.START");
-
         PlannerForm formBean = new PlannerForm();
         return formBean;
     }
 
+    @ModelAttribute("PlannerAddForm")
+    public PlannerAddForm getCommandObjectSubForm() {
+        log.debug("getCommandObjectSubForm.START");
+
+        PlannerAddForm formBean = new PlannerAddForm();
+        return formBean;
+    }
+
     @ActionMapping(params = "action=taskmanager")
-    public void processPlanner(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
         log.debug("processPlanner.START");
 
     }
     @RenderMapping(params = "action=taskmanager")
-    public ModelAndView postPlanner(PlannerForm formBean, RenderRequest request) {
+    public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request) {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
         ModelAndView mav = new ModelAndView("TaskManager");
-        
+
         formBean.setProjectId("118385");
 
-        formBean.setActualEffort("10");
-        formBean.setPlannedEffort("10");
+        // formBean.setActualEffort("10");
+        // formBean.setPlannedEffort("10");
 
         formBean.setStatusDefault("All");
         formBean.setStageDefault("All");
@@ -109,29 +117,27 @@ public class PlannerController {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
         formBean.setDeveloperMap(developerMap);
-        
-     // Set value for productMap
+
+        // Set value for productMap
         for (int i = 0; i < productList.size(); i++) {
             productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
         }
         formBean.setProductMap(productMap);
-        
-        //System.out.println("Size: " + productList.size());
+
+        // System.out.println("Size: " + productList.size());
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
             processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
         formBean.setProcessMap(processMap);
-        
-     // Set value for projectMap
+
+        // Set value for projectMap
         projectMap.put("All", "All");
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
         formBean.setProjectMap(projectMap);
-        
-        
 
         // Convert StageID to string
         for (int i = 0; i < taskList.size(); i++) {
@@ -141,16 +147,16 @@ public class PlannerController {
                 }
             }
         }
-        
-//        // Convert ProjectID to string
-//        for (int i = 0; i < taskList.size(); i++) {
-//            for (int j = 0; j < projectList.size(); j++) {
-//                if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
-//                    taskList.get(i).setProject_str(projectList.get(j).getName());
-//                }
-//            }
-//        }
-        
+
+        // // Convert ProjectID to string
+        // for (int i = 0; i < taskList.size(); i++) {
+        // for (int j = 0; j < projectList.size(); j++) {
+        // if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
+        // taskList.get(i).setProject_str(projectList.get(j).getName());
+        // }
+        // }
+        // }
+
         // Convert ProcessID to string
         try {
             for (int i = 0; i < taskList.size(); i++) {
@@ -161,7 +167,7 @@ public class PlannerController {
                 }
             }
         } catch (Exception ex) {
-         
+
             log.error("Convert ProcessID to string", ex);
         }
 
@@ -184,50 +190,35 @@ public class PlannerController {
         mav.addObject("processMap", formBean.getProcessMap());
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("productMap", formBean.getProductMap());
-        mav.addObject("pEff", formBean.getPlannedEffort());
-        mav.addObject("aEff", formBean.getActualEffort());
+        // Object form PlannerAddForm
+        mav.addObject("pEff", formBeanAdd.getPlannedEffort());
+        mav.addObject("aEff", formBeanAdd.getActualEffort());
+        mav.addObject("statusMapAdd", formBeanAdd.getStatusMap());
+        mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
+        mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
+        mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
+        mav.addObject("productMapAdd", formBeanAdd.getProductMap());
         return mav;
     }
-    @ActionMapping(params = "action=addTask")
-    public void processAddTask(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processAddTask.START");
-        
-        TaskDAO taskDAO = new TaskDAO();
-        Tasks task = new Tasks();
-        
-        try {
-            task.setTaskname(formBean.getTitle());
-            task.setTaskcode("NEWTASK");
-            task.setStageid(new BigDecimal(formBean.getStageId()));
-            task.setProcessId(new BigDecimal(formBean.getProcessId()));
-            task.setDeveloperid(new BigDecimal(formBean.getDeveloperId()));
-            task.setPlannedeffort(new BigDecimal(formBean.getPlannedEffort()));
-            task.setActualeffort(new BigDecimal(formBean.getActualEffort()));
-            
-            taskDAO.addTask(task);
-        } catch (Exception ex) {
-            log.error("error when add new task", ex);
-        }
-        response.setRenderParameter("action", "taskmanager");   
-    }
-    
+
     @ActionMapping(params = "action=deleteTask")
-    public void processDeleteTask(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processDeleteTask.ACTION.START"); 
+    public void processDeleteTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("processDeleteTask.ACTION.START");
         log.debug(formBean.getTaskId());
         TaskDAO taskDAO = new TaskDAO();
         taskDAO.deleteTask(new BigDecimal(formBean.getTaskId()));
-        
+
         System.out.println("processDeleteTask.ACTION.START");
         System.out.println(formBean.getTaskId());
-        
-        
-        response.setRenderParameter("action", "taskmanager");   
+
+        response.setRenderParameter("action", "taskmanager");
     }
-    
+
     @RenderMapping(params = "action=deleteTask")
-    public void processDeleteTaskRender(PlannerForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processDeleteTask.RENDER.START"); 
+    public void processDeleteTaskRender(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("processDeleteTask.RENDER.START");
     }
 
 }

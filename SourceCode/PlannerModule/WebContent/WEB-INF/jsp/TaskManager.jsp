@@ -105,7 +105,6 @@
 }
 
 .hidden-add-form {
-  display: none;
   webkit-box-shadow: rgb(170, 170, 170) 0px 0px 5px 0px;
   background-attachment: scroll;
   background-color: #EFEFEF;
@@ -135,9 +134,11 @@
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
-
-      <input id="add-button" type="button" name="ok" value=" Add " />
-
+    
+      <portlet:actionURL var="PlannerAddAction">
+        <portlet:param name="action" value="plannerAdd" />
+      </portlet:actionURL>
+      
       <portlet:actionURL var="addTaskAction">
         <portlet:param name="action" value="addTask" />
       </portlet:actionURL>
@@ -153,10 +154,16 @@
       <portlet:actionURL var="editTaskAction">
         <portlet:param name="action" value="editTask" />
       </portlet:actionURL>
+      
+      <form:form commandName="PlannerAddForm" method="post" action="${PlannerAddAction}">
+      <input id="add-button" type="submit" name="ok" value=" Add "/>
+      </form:form>
+      
+      <%-- <a id="add-button" href='<portlet:actionURL><portlet:param name="action" value="plannerAdd"/></portlet:actionURL>'>AddTask</a> --%>    
 
       <div class="hidden-add-form">
-        <form:form commandName="PlannerForm" method="post" action="${addTaskAction}">
-
+      
+        <form:form commandName="PlannerAddForm" method="post" action="${addTaskAction}">
           <p id="add-form">
           <table class="Table" cellspacing="1" width="560">
             <caption class="TableCaption">&nbsp;</caption>
@@ -187,31 +194,31 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
                 <td><form:select class="styled" path="stageId" multiple="single" id="add-form-stage">
-                    <form:options items="${stageMap}" />
+                    <form:options items="${stageMapAdd}" />
                   </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-process">Process</label></td>
                 <td><form:select class="styled" path="processId" multiple="single" id="add-form-process">
-                    <form:options items="${processMap}" />
+                    <form:options items="${processMapAdd}" />
                   </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-product">Product*</label></td>
                 <td><form:select class="styled" path="productId" multiple="single" id="add-form-process">
-                    <form:options items="${productMap}" />
+                    <form:options items="${productMapAdd}" />
                   </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
                 <td><form:select class="styled" path="developerId" multiple="single" id="add-form-assignedTo">
-                    <form:options items="${developerMap}" />
+                    <form:options items="${developerMapAdd}" />
                   </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
                 <td><form:select class="styled" path="statusId" multiple="single" id="add-form-status">
-                    <form:options items="${statusMap}" />
+                    <form:options items="${statusMapAdd}" />
                   </form:select></td>
               </tr>
               <tr>
