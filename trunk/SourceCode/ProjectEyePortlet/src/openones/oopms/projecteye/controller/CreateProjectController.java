@@ -18,6 +18,8 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.util.List;
+
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
@@ -90,6 +92,9 @@ public class CreateProjectController {
     public ModelAndView postCreateProject(CreateProjectForm formBean, RenderRequest request) {
         log.debug("post CreateProject.START");
         ModelAndView mav = new ModelAndView("ProjectEyeHome");
+        ProjectDao pDao = new ProjectDao();
+		List<Project> projectList = pDao.getProjectList("1");
+		mav.addObject("projectList", projectList);
         return mav;
     }
 }

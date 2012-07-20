@@ -23,12 +23,11 @@ import java.math.BigDecimal;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.projecteye.dao.ProductDao;
-import openones.oopms.projecteye.form.CreateProductForm;
+import openones.oopms.projecteye.dao.WorkOrderDao;
+import openones.oopms.projecteye.form.CreateStageForm;
 import openones.oopms.projecteye.model.Developer;
-import openones.oopms.projecteye.model.Module;
+import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.Workproduct;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -44,57 +43,40 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateProductController {
+public class CreateStageController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger
-			.getLogger(CreateProductController.class);
+	private static Logger log = Logger.getLogger(CreateStageController.class);
 	String projectId;
 
-	@ActionMapping(params = "action=CreateProduct")
-	public void processCreateProject(CreateProductForm formBean,
+	@ActionMapping(params = "action=CreateStage")
+	public void processCreateStage(CreateStageForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
-		log.debug("process CreateProduct.START");
-		ProductDao pDao = new ProductDao();
+		log.debug("process CreateStage.START");
+		WorkOrderDao woDao = new WorkOrderDao();
 		Project project = new Project();
 		projectId = formBean.getProjectId();
 		project.setProjectId(new BigDecimal(projectId));
-		Workproduct workProduct = new Workproduct();
-		workProduct.setCode(formBean.getWorkProduct_SelectedValue());
-		Module product = new Module();
+		Milestone stage = new Milestone();
 
 		// set value for Product
-		product.setProject(project);
-		product.setIsDeliverable(new BigDecimal("0"));
-		//isDeliverable 0 is not added to any deliverable, 1 is added to deliverable plan
-		product.setName(formBean.getName());
-		product.setWorkproduct(workProduct);
-		product.setPlannedSizeUnitId(new BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
-		if(formBean.getPlannedSize().equals("") || formBean.getPlannedSize()==null) {
-			product.setPlannedSize(null);
-		} else {
-			product.setPlannedSize(new BigDecimal(formBean.getPlannedSize()));
-		}
-		
-		if(formBean.getRePlannedSize().equals("") || formBean.getRePlannedSize()==null) {
-			product.setReplannedSize(null);
-		} else {
-			product.setReplannedSize(new BigDecimal(formBean.getRePlannedSize()));
-		}
-		
-		if(formBean.getActualSize().equals("") || formBean.getActualSize()==null) {
-			product.setActualSize(null);
-		} else {
-			product.setActualSize(new BigDecimal(formBean.getActualSize()));
-		}
-		
-		product.setActualSizeUnitId(new BigDecimal(formBean.getActualSizeUnit_SelectedValue()));
-		
-		product.setNote(formBean.getDescription());
+		stage.setProject(project);
+		stage.setComplete(new BigDecimal("0"));
+		stage.setName(formBean.getStage());
+		stage.setStandardstage(new BigDecimal(formBean
+				.getStandarStage_SelectedValue()));
+		stage.setPlanStartDate(formBean.getPlannedStartDate());
+		stage.setBaseStartDate(formBean.getRePlannedStartDate());
+		stage.setActualStartDate(formBean.getActualStartDate());
+		stage.setPlanFinishDate(formBean.getPlannedEndDate());
+		stage.setBaseFinishDate(formBean.getRePlannedEndDate());
+		stage.setActualFinishDate(formBean.getActualEndDate());
+		stage.setDescription(formBean.getDescription());
+		stage.setMilestone(formBean.getMilestone());
 		// Call dao to insert project to database
-		if (pDao.insertProduct(product)) {
-			response.setRenderParameter("action", "CreateProduct");
+		if (woDao.insertStage(stage)) {
+			response.setRenderParameter("action", "CreateStage");
 			log.error("Insert success");
 		} else {
 			log.error("Cannot Insert");
@@ -102,10 +84,10 @@ public class CreateProductController {
 
 	}
 
-	@RenderMapping(params = "action=CreateProduct")
-	public ModelAndView postCreateProject(RenderRequest request) {
-		log.debug("post CreateProduct.START");
-		ModelAndView mav = new ModelAndView("Product");
+	@RenderMapping(params = "action=CreateStage")
+	public ModelAndView postCreateStage(RenderRequest request) {
+		log.debug("post CreateStage.START");
+		ModelAndView mav = new ModelAndView("WorkOrder");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;

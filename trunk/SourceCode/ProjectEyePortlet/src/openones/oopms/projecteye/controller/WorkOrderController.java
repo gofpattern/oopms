@@ -18,6 +18,7 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,9 @@ import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CreateDeliverableForm;
 import openones.oopms.projecteye.form.CreateStageForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Ncconstant;
+import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Stage;
 
 import org.apache.log4j.Logger;
@@ -90,6 +93,7 @@ public class WorkOrderController {
 	@RenderMapping(params = "action=GoCreateDeliverable")
 	public ModelAndView postGoCreateDeliverable(RenderRequest request) {
 		log.debug("post GoCreateDeliverable.START");
+		String projectId = request.getParameter("projectId");
 		// get status list
 		WorkOrderDao woDao = new WorkOrderDao();
 		List<Ncconstant> statusList = woDao.getStatusList();
@@ -98,12 +102,26 @@ public class WorkOrderController {
 			statusMap.put(statusList.get(i).getConstantid().toString(),
 					statusList.get(i).getDescription());
 		}
+
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		List<Module> productList = woDao
+				.getUnsetDeliverableProductList(project);
+		Map<String, String> productMap = new LinkedHashMap<String, String>();
+		if (productList.size() != 0) {
+
+			for (int i = 0; i < productList.size(); i++) {
+				productMap.put(productList.get(i).getModuleId().toString(),
+						productList.get(i).getName());
+			}
+		} else {
+
+		}
 		CreateDeliverableForm projectFormBean = new CreateDeliverableForm();
 		request.setAttribute("CreateDeliverableForm", projectFormBean);
 		ModelAndView mav = new ModelAndView("CreateDeliverable");
 		mav.addObject("status", statusMap);
-		mav.addObject("deliverable", statusMap);
-		String projectId = request.getParameter("projectId");
+		mav.addObject("deliverable", productMap);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;

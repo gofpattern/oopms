@@ -26,132 +26,122 @@ import java.util.Map;
  */
 public class CreateDeliverableForm {
 	private Map<String, String> deliverable;
-	private Date firstCommittedDate;
-	private Date lastCommittedDate;
-	private Date actualDate;
+	private Date plannedCommittedDate;
+	private Date rePlannedCommittedDate;
+	private Date actualCommittedDate;
 	private Map<String, String> status;
 	private String note;
 	private String deliverable_SelectedValue;
 	private String status_SelectedValue;
-
+	private String projectId;
 	/**
 	 * @return the deliverable
 	 */
 	public Map<String, String> getDeliverable() {
 		return deliverable;
 	}
-
 	/**
-	 * @param deliverable
-	 *            the deliverable to set
+	 * @param deliverable the deliverable to set
 	 */
 	public void setDeliverable(Map<String, String> deliverable) {
 		this.deliverable = deliverable;
 	}
-
 	/**
-	 * @return the firstCommittedDate
+	 * @return the plannedCommittedDate
 	 */
-	public Date getFirstCommittedDate() {
-		return firstCommittedDate;
+	public Date getPlannedCommittedDate() {
+		return plannedCommittedDate;
 	}
-
 	/**
-	 * @param firstCommittedDate
-	 *            the firstCommittedDate to set
+	 * @param plannedCommittedDate the plannedCommittedDate to set
 	 */
-	public void setFirstCommittedDate(Date firstCommittedDate) {
-		this.firstCommittedDate = firstCommittedDate;
+	public void setPlannedCommittedDate(Date plannedCommittedDate) {
+		this.plannedCommittedDate = plannedCommittedDate;
 	}
-
 	/**
-	 * @return the lastCommittedDate
+	 * @return the rePlannedCommittedDate
 	 */
-	public Date getLastCommittedDate() {
-		return lastCommittedDate;
+	public Date getRePlannedCommittedDate() {
+		return rePlannedCommittedDate;
 	}
-
 	/**
-	 * @param lastCommittedDate
-	 *            the lastCommittedDate to set
+	 * @param rePlannedCommittedDate the rePlannedCommittedDate to set
 	 */
-	public void setLastCommittedDate(Date lastCommittedDate) {
-		this.lastCommittedDate = lastCommittedDate;
+	public void setRePlannedCommittedDate(Date rePlannedCommittedDate) {
+		this.rePlannedCommittedDate = rePlannedCommittedDate;
 	}
-
 	/**
-	 * @return the actualDate
+	 * @return the actualCommittedDate
 	 */
-	public Date getActualDate() {
-		return actualDate;
+	public Date getActualCommittedDate() {
+		return actualCommittedDate;
 	}
-
 	/**
-	 * @param actualDate
-	 *            the actualDate to set
+	 * @param actualCommittedDate the actualCommittedDate to set
 	 */
-	public void setActualDate(Date actualDate) {
-		this.actualDate = actualDate;
+	public void setActualCommittedDate(Date actualCommittedDate) {
+		this.actualCommittedDate = actualCommittedDate;
 	}
-
 	/**
 	 * @return the status
 	 */
 	public Map<String, String> getStatus() {
 		return status;
 	}
-
 	/**
-	 * @param status
-	 *            the status to set
+	 * @param status the status to set
 	 */
 	public void setStatus(Map<String, String> status) {
 		this.status = status;
 	}
-
 	/**
 	 * @return the note
 	 */
 	public String getNote() {
 		return note;
 	}
-
 	/**
-	 * @param note
-	 *            the note to set
+	 * @param note the note to set
 	 */
 	public void setNote(String note) {
 		this.note = note;
 	}
-
 	/**
 	 * @return the deliverable_SelectedValue
 	 */
 	public String getDeliverable_SelectedValue() {
 		return deliverable_SelectedValue;
 	}
-
 	/**
-	 * @param deliverable_SelectedValue
-	 *            the deliverable_SelectedValue to set
+	 * @param deliverable_SelectedValue the deliverable_SelectedValue to set
 	 */
 	public void setDeliverable_SelectedValue(String deliverable_SelectedValue) {
 		this.deliverable_SelectedValue = deliverable_SelectedValue;
 	}
-
 	/**
 	 * @return the status_SelectedValue
 	 */
 	public String getStatus_SelectedValue() {
 		return status_SelectedValue;
 	}
-
 	/**
-	 * @param status_SelectedValue
-	 *            the status_SelectedValue to set
+	 * @param status_SelectedValue the status_SelectedValue to set
 	 */
 	public void setStatus_SelectedValue(String status_SelectedValue) {
 		this.status_SelectedValue = status_SelectedValue;
 	}
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
 
+	
 }

@@ -34,5 +34,6 @@
     <mapping resource="openones/oopms/projecteye/model/Language.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/Stage.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/ChangesOfProjectPlan.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/Milestone.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
