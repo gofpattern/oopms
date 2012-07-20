@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ProjectDao;
@@ -36,6 +37,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.RiskSource;
+import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -70,6 +72,9 @@ public class ProjectEyeHomeController {
 		ProjectDao pDao = new ProjectDao();
 		List<Project> projectList = pDao.getProjectList("1");
 		request.setAttribute("projectList", projectList);
+		PortletSupport portletSupport = new PortletSupport(request);
+        String logonUser = portletSupport.getLogonUser();
+        request.getPortletSession().setAttribute("LoginUsername", logonUser, PortletSession.PORTLET_SCOPE);
 		return "ProjectEyeHome";
 
 	}
