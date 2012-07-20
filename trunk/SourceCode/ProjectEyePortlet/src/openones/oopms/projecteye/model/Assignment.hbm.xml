@@ -7,7 +7,7 @@
         <comment>Contain importance information of project team assignments, effect to Dashboard, FI and Timesheet</comment>
         <id name="assignmentId" type="big_decimal">
             <column name="ASSIGNMENT_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="project" class="openones.oopms.projecteye.model.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
