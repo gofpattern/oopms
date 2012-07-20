@@ -25,7 +25,8 @@ Features:
   To run view Menu Bar fully in Glashfish, please following:
     + Create folder "ResourceServingWebapp" within folder $glassfishv3_home/glassfish/domains/domain1/docroot
     + Copy folder /DMSPortlet/WebContent/resource-menu into $glassfishv3_home/glassfish/domains/domain1/docroot/ResourceServingWebapp
-  
++ Menu is loaded from external XML file "MenuBar.xml"
+
 How to make distribution
 ================================
 run 'ant dist'

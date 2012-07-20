@@ -29,12 +29,16 @@ public class MenuItem implements Serializable {
     private String actionId;
     private String iconPath;
 
+    public MenuItem() {
+    }
+
     public MenuItem(String id, String name, String iconPath, String actionId) {
         this.id = id;
         this.name = name;
         this.iconPath = iconPath;
         this.actionId = actionId;
     }
+
     /**
      * Get value of id.
      * @return the id

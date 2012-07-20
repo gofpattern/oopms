@@ -33,19 +33,8 @@ public class SubMenu implements Serializable {
     private String actionId;
     List<MenuItem> menuItemList = new ArrayList<MenuItem>();
 
-    /**
-     * Get value of id.
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-    /**
-     * Set the value for id.
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
+    public SubMenu() {
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -74,6 +63,22 @@ public class SubMenu implements Serializable {
         this.iconPath = iconPath;
         this.actionId = actionId;
     }
+
+    /**
+     * Get value of id.
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+    /**
+     * Set the value for id.
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      * Get value of name.
      * @return the name
@@ -132,7 +137,11 @@ public class SubMenu implements Serializable {
     }
 
     public void addMenuItem(MenuItem menuItem) {
-        menuItemList.add(menuItem);
+        this.menuItemList.add(menuItem);
+    }
+
+    public void addMenuItem(List<MenuItem> menuItemList) {
+        this.menuItemList.addAll(menuItemList);
     }
 
     /**
@@ -143,6 +152,6 @@ public class SubMenu implements Serializable {
      * @param actionId
      */
     public void addMenuItem(String id, String name, String iconPath, String actionId) {
-        menuItemList.add(new MenuItem(id, name, iconPath, actionId));
+        this.menuItemList.add(new MenuItem(id, name, iconPath, actionId));
     }
 }

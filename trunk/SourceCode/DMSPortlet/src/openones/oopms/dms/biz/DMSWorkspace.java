@@ -18,7 +18,6 @@
  */
 package openones.oopms.dms.biz;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import openones.oopms.dms.form.SubMenu;
+import openones.oopms.dms.util.AppUtil;
 
 /**
  * @author Thach.Le
@@ -122,24 +122,7 @@ public class DMSWorkspace {
      */
     public List<SubMenu> getMenuBar() {
 
-        List<SubMenu> subMenuList = new ArrayList<SubMenu>();
-        SubMenu subMenu1 = new SubMenu("ctl00_MainMenun0", "Project Environment", "admin.png");
-        SubMenu subMenu2 = new SubMenu("ctl00_MainMenun1", "Manage Defect", "until.png");
-        
-        subMenu1.addMenuItem("1", "Assign User", SubMenu.NO_ICON, "goAssignUser");
-        subMenu1.addMenuItem("2", "Work Product", SubMenu.NO_ICON, "goWorkProduct");
-        subMenu1.addMenuItem("3", "Module", SubMenu.NO_ICON, "goModule");
-        subMenu1.addMenuItem("4", "Setup Environment", SubMenu.NO_ICON, "goSetupEnvironment");
-        
-        subMenu2.addMenuItem("1", "Manage Views", SubMenu.NO_ICON, "goManageViews");
-        subMenu2.addMenuItem("2", "New Defect", SubMenu.NO_ICON, "goNewDefect");
-        subMenu2.addMenuItem("3", "Manage Planned Defect", SubMenu.NO_ICON, "goManagePlannedDefect");
-        subMenu2.addMenuItem("4", "Project Summary", SubMenu.NO_ICON, "goProjectSummary");
-       
-
-        subMenuList.add(subMenu1);
-        subMenuList.add(subMenu2);
-
+        List<SubMenu> subMenuList = AppUtil.loadMenuBar();
         return subMenuList;
     }
 }

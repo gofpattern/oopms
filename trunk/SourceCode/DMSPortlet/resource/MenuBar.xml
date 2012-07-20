@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuBar>
+  <SubMenu name="Project Environment" action="" icon="admin.png">
+    <Item name="Setup Environment" action="goSetupEnvironment"/>
+  </SubMenu>
+  
+  <SubMenu name="Manage Defect" action="" icon="until.png">
+    <Item name="Manage Views" action="goManageViews"/>
+    <Item name="New Defect" action="goNewDefect"/>
+    <Item name="Project Summary" action="goProjectSummary"/>
+    <Item name="Import Defect" action="goImportDefect"/>
+  </SubMenu>
+</MenuBar>
