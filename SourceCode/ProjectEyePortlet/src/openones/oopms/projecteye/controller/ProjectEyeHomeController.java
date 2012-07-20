@@ -27,6 +27,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
@@ -56,10 +57,10 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @RequestMapping("VIEW")
 public class ProjectEyeHomeController {
 
-	Developer user = new Developer();
 	/** Logger for logging. */
 	private static Logger log = Logger
 			.getLogger(ProjectEyeHomeController.class);
+	public static String username;
 
 	/**
 	 * Default screen.
@@ -69,12 +70,13 @@ public class ProjectEyeHomeController {
 	@RequestMapping
 	public String initScreen(RenderRequest request) {
 		log.debug("initScreen.START conme");
-		ProjectDao pDao = new ProjectDao();
-		List<Project> projectList = pDao.getProjectList("1");
-		request.setAttribute("projectList", projectList);
 		PortletSupport portletSupport = new PortletSupport(request);
-        String logonUser = portletSupport.getLogonUser();
-        request.getPortletSession().setAttribute("LoginUsername", logonUser, PortletSession.PORTLET_SCOPE);
+        username = portletSupport.getLogonUser();
+		ProjectDao pDao = new ProjectDao();
+		DeveloperDao dDao = new DeveloperDao();
+		Developer dev = dDao.getDeveloper(username);
+		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
+		request.setAttribute("projectList", projectList);		
 		return "ProjectEyeHome";
 
 	}
@@ -87,6 +89,7 @@ public class ProjectEyeHomeController {
 	@ModelAttribute("ProjectEyeHomeForm")
 	public ProjectEyeHomeForm getCommandObject() {
 		log.debug("CreateBean for Home JSP");
+
 		ProjectEyeHomeForm formBean = new ProjectEyeHomeForm();
 		return formBean;
 	}

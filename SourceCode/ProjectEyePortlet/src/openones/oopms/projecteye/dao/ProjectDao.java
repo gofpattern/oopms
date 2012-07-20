@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
+import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.LanguageCode;
@@ -22,14 +23,14 @@ public class ProjectDao {
     private static Logger log = Logger.getLogger(CreateProjectController.class);
     
     
-   public List<Project> getProjectList(String developerId) {
+   public List<Project> getProjectList(BigDecimal developerId) {
        try {
     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
     	   session = sessionfactory.openSession();
     	   session.beginTransaction();
            String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId)";
            Query query = session.createQuery(hql);
-           query.setParameter("devId", new BigDecimal(developerId));
+           query.setParameter("devId", developerId);
            List<Project> projectList = query.list();               
            session.flush();
            session.getTransaction().commit();
@@ -48,12 +49,15 @@ public class ProjectDao {
     * @param project
     * @return
     */
-   public boolean insertProject(Project project) {
+   public boolean insertProject(Project project, Assignment assignment) {
 	   try {
        SessionFactory sessfac = HibernateUtil.getSessionFactory();
        session = sessfac.openSession();
        tx = session.beginTransaction();
        session.save(project);
+       session.flush();
+       assignment.setProject(project);
+       session.save(assignment);
        tx.commit();
        sessfac.close();       
 	   } catch (Exception e) {

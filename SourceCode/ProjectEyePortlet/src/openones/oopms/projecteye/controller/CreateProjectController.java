@@ -18,13 +18,17 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
+import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Project;
 
@@ -58,7 +62,10 @@ public class CreateProjectController {
      */
     @ActionMapping(params = "action=CreateProject")
     public void processCreateProject(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process CreateProject.START");
+        log.debug("process CreateProject.START");        
+        DeveloperDao dDao = new DeveloperDao();
+		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
+        
         ProjectDao pDao = new ProjectDao();
         Project project = new Project();
         
@@ -74,8 +81,13 @@ public class CreateProjectController {
     	project.setType(formBean.getBusinessDomain_SelectedValue());
         project.setProjectStatusCode(formBean.getProjectStatus_SelectedValue());
     	
+        Assignment assignment = new Assignment();
+        //set value for assgment
+        assignment.setDeveloperId(dev.getDeveloperId());
+        assignment.setType(new Byte("2"));
+        assignment.setBeginDate(formBean.getPlanStartDate());
     	//Call dao to insert project to database
-    	if(pDao.insertProject(project)) {
+        if(pDao.insertProject(project,assignment)) {
     		response.setRenderParameter("action", "CreateProject");
     		log.error("Insert success");
     	} else {
@@ -93,7 +105,9 @@ public class CreateProjectController {
         log.debug("post CreateProject.START");
         ModelAndView mav = new ModelAndView("ProjectEyeHome");
         ProjectDao pDao = new ProjectDao();
-		List<Project> projectList = pDao.getProjectList("1");
+        DeveloperDao dDao = new DeveloperDao();
+		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
+		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
 		mav.addObject("projectList", projectList);
         return mav;
     }
