@@ -21,7 +21,6 @@ package openones.oopms.dms.controller;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.dms.form.ViewDefectListForm;
 import openones.oopms.dms.form.ViewDefectModeForm;
 
 import org.springframework.stereotype.Controller;
