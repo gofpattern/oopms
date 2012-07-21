@@ -17,7 +17,6 @@ import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
-import openones.oopms.planner.model.Workproduct;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,6 @@ public class PlannerController {
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
     private List<Project> projectList;
-    private List<Workproduct> productList;
 
     /**
      * Create bean for form.
@@ -75,9 +73,6 @@ public class PlannerController {
 
         formBean.setProjectId("118385");
 
-        // formBean.setActualEffort("10");
-        // formBean.setPlannedEffort("10");
-
         formBean.setStatusDefault("All");
         formBean.setStageDefault("All");
         formBean.setDeveloperDefault("All");
@@ -85,15 +80,12 @@ public class PlannerController {
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
-        Map<String, String> processMap = new LinkedHashMap<String, String>();
         Map<String, String> projectMap = new LinkedHashMap<String, String>();
-        Map<String, String> productMap = new LinkedHashMap<String, String>();
 
         statusList = taskDAO.getAllStatus();
         taskList = taskDAO.getAllTask();
         stageList = taskDAO.getAllStage();
         projectList = taskDAO.getAllProject();
-        productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
         developerList = taskDAO.getDeveloper(formBean.getProjectId());
 
@@ -102,86 +94,68 @@ public class PlannerController {
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
         }
-        formBean.setStatusMap(statusMap);
 
         // Set value for stageMap
         stageMap.put("All", "All");
         for (int i = 0; i < stageList.size(); i++) {
             stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
-        formBean.setStageMap(stageMap);
 
         // Set value for developerMap
         developerMap.put("All", "All");
         for (int i = 0; i < developerList.size(); i++) {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
-        formBean.setDeveloperMap(developerMap);
-
-        // Set value for productMap
-        for (int i = 0; i < productList.size(); i++) {
-            productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
-        }
-        formBean.setProductMap(productMap);
-
-        // System.out.println("Size: " + productList.size());
-
-        // Set value for processMap
-        for (int i = 0; i < processList.size(); i++) {
-            processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
-        }
-        formBean.setProcessMap(processMap);
 
         // Set value for projectMap
         projectMap.put("All", "All");
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
-        formBean.setProjectMap(projectMap);
 
-        // Convert StageID to string
-        for (int i = 0; i < taskList.size(); i++) {
-            for (int j = 0; j < stageList.size(); j++) {
-                if (taskList.get(i).getStageid().equals(stageList.get(j).getStageId())) {
-                    taskList.get(i).setStage_str(stageList.get(j).getName());
-                }
-            }
-        }
-
-        // // Convert ProjectID to string
-        // for (int i = 0; i < taskList.size(); i++) {
-        // for (int j = 0; j < projectList.size(); j++) {
-        // if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
-        // taskList.get(i).setProject_str(projectList.get(j).getName());
-        // }
-        // }
-        // }
-
-        // Convert ProcessID to string
+        // Convert Id to name
         try {
             for (int i = 0; i < taskList.size(); i++) {
+                // Convert stageId to name
+                for (int j = 0; j < stageList.size(); j++) {
+                    if (taskList.get(i).getStageid().equals(stageList.get(j).getStageId())) {
+                        taskList.get(i).setStage_str(stageList.get(j).getName());
+                    }
+                }
+                // Convert processId to name
                 for (int j = 0; j < processList.size(); j++) {
                     if (taskList.get(i).getProcessId().equals(processList.get(j).getProcessId())) {
                         taskList.get(i).setProcess_str(processList.get(j).getName());
                     }
                 }
-            }
-        } catch (Exception ex) {
-
-            log.error("Convert ProcessID to string", ex);
-        }
-
-        // Convert DeveloperID to string
-        for (int i = 0; i < taskList.size(); i++) {
-            for (int j = 0; j < developerList.size(); j++) {
-                if (taskList.get(i).getDeveloperid().equals(developerList.get(j).getDeveloperId())) {
-                    taskList.get(i).setDeveloper_str(developerList.get(j).getName());
+                // Convert developerId to name
+                for (int j = 0; j < developerList.size(); j++) {
+                    if (taskList.get(i).getDeveloperid().equals(developerList.get(j).getDeveloperId())) {
+                        taskList.get(i).setDeveloper_str(developerList.get(j).getName());
+                    }
+                }
+                // Convert projectId to code
+                for (int j = 0; j < projectList.size(); j++) {
+                    if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
+                        taskList.get(i).setProject_str(projectList.get(j).getCode());
+                        log.debug("projectcode"+ taskList.get(i).getProject_str());
+                    }
                 }
             }
+
+        } catch (Exception ex) {
+
+            log.error("Convert id to name", ex);
         }
 
+        // Value for PlannerForm
         formBean.setTaskList(taskList);
+        formBean.setStatusMap(statusMap);
+        formBean.setStageMap(stageMap);
+        formBean.setDeveloperMap(developerMap);
+        formBean.setProjectMap(projectMap);
 
+        // Object form PlannerForm
         mav.addObject("taskList", formBean.getTaskList());
         mav.addObject("statusDefault", formBean.getStatusDefault());
         mav.addObject("statusMap", formBean.getStatusMap());
@@ -190,22 +164,27 @@ public class PlannerController {
         mav.addObject("processMap", formBean.getProcessMap());
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("productMap", formBean.getProductMap());
+
         // Object form PlannerAddForm
+        mav.addObject("title", formBeanAdd.getTitle());
         mav.addObject("pEff", formBeanAdd.getPlannedEffort());
         mav.addObject("aEff", formBeanAdd.getActualEffort());
+        mav.addObject("stageId", formBeanAdd.getStageId());
         mav.addObject("statusMapAdd", formBeanAdd.getStatusMap());
         mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
         mav.addObject("productMapAdd", formBeanAdd.getProductMap());
+        mav.addObject("plAddAction", formBeanAdd.getAction_str());
+        mav.addObject("taskid", formBeanAdd.getTaskId());
+
         return mav;
     }
 
     @ActionMapping(params = "action=deleteTask")
     public void processDeleteTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
-        log.debug("processDeleteTask.ACTION.START");
-        log.debug(formBean.getTaskId());
+        // log.debug("processDeleteTask.ACTION.START");
         TaskDAO taskDAO = new TaskDAO();
         taskDAO.deleteTask(new BigDecimal(formBean.getTaskId()));
 

@@ -23,25 +23,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import openones.oopms.planner.model.Process;
-import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 /**
  * @author PNTG
  */
 public class PlannerForm {
     private String taskId;
-//    private String title;
-//    private String startDate;
-//    private String endDate;
-//    private String plannedEffort;
-//    private String actualEffort;
-//    private String stageId;
-//    private String processId;
-//    private String productId;
-//    private String developerId;
-//    private String statusId;
-//    private String description;
+    private String currentTaskIndex;
+    // private String title;
+    // private String startDate;
+    // private String endDate;
+    // private String plannedEffort;
+    // private String actualEffort;
+    // private String stageId;
+    // private String processId;
+    // private String productId;
+    // private String developerId;
+    // private String statusId;
+    // private String description;
     private String projectId;
 
     private String statusDefault;
@@ -50,10 +49,6 @@ public class PlannerForm {
     private String projectDefault;
 
     private List<Tasks> taskList;
-    private List<Stage> stageList;
-    private List<Process> processList;
-    private List<Process> projectList;
-    private List<Process> productList;
 
     Map<String, String> statusMap;
     Map<String, String> stageMap;
@@ -62,22 +57,36 @@ public class PlannerForm {
     Map<String, String> projectMap;
     Map<String, String> productMap;
 
-    
-    
-    public PlannerForm (){
+    public PlannerForm() {
         statusMap = new LinkedHashMap<String, String>();
         stageMap = new LinkedHashMap<String, String>();
         developerMap = new LinkedHashMap<String, String>();
         processMap = new LinkedHashMap<String, String>();
-        productMap = new LinkedHashMap<String, String>(); 
-        
+        productMap = new LinkedHashMap<String, String>();
+
         statusMap.put(" ", " ");
         stageMap.put(" ", " ");
         developerMap.put(" ", " ");
         processMap.put(" ", " ");
         productMap.put(" ", " ");
     }
-    
+
+    /**
+     * Get value of currentTaskIndex.
+     * @return the currentTaskIndex
+     */
+    public String getCurrentTaskIndex() {
+        return currentTaskIndex;
+    }
+
+    /**
+     * Set the value for currentTaskIndex.
+     * @param currentTaskIndex the currentTaskIndex to set
+     */
+    public void setCurrentTaskIndex(String currentTaskIndex) {
+        this.currentTaskIndex = currentTaskIndex;
+    }
+
     /**
      * Get value of taskId.
      * @return the taskId
@@ -158,7 +167,6 @@ public class PlannerForm {
         this.developerMap = developerMap;
     }
 
-   
     /**
      * Get value of stageDefault.
      * @return the stageDefault
@@ -191,7 +199,6 @@ public class PlannerForm {
         this.stageMap = stageMap;
     }
 
-
     /**
      * Get value of statusDefault.
      * @return the statusDefault
@@ -222,38 +229,6 @@ public class PlannerForm {
      */
     public void setTaskList(List<Tasks> taskList) {
         this.taskList = taskList;
-    }
-
-    /**
-     * Get value of stageList.
-     * @return the stageList
-     */
-    public List<Stage> getStageList() {
-        return stageList;
-    }
-
-    /**
-     * Set the value for stageList.
-     * @param stageList the stageList to set
-     */
-    public void setStageList(List<Stage> stageList) {
-        this.stageList = stageList;
-    }
-
-    /**
-     * Get value of processList.
-     * @return the processList
-     */
-    public List<Process> getProcessList() {
-        return processList;
-    }
-
-    /**
-     * Set the value for processList.
-     * @param processList the processList to set
-     */
-    public void setProcessList(List<Process> processList) {
-        this.processList = processList;
     }
 
     /**
@@ -289,22 +264,6 @@ public class PlannerForm {
     }
 
     /**
-     * Get value of projectList.
-     * @return the projectList
-     */
-    public List<Process> getProjectList() {
-        return projectList;
-    }
-
-    /**
-     * Set the value for projectList.
-     * @param projectList the projectList to set
-     */
-    public void setProjectList(List<Process> projectList) {
-        this.projectList = projectList;
-    }
-
-    /**
      * Get value of projectMap.
      * @return the projectMap
      */
@@ -318,22 +277,6 @@ public class PlannerForm {
      */
     public void setProjectMap(Map<String, String> projectMap) {
         this.projectMap = projectMap;
-    }
-
-    /**
-     * Get value of productList.
-     * @return the productList
-     */
-    public List<Process> getProductList() {
-        return productList;
-    }
-
-    /**
-     * Set the value for productList.
-     * @param productList the productList to set
-     */
-    public void setProductList(List<Process> productList) {
-        this.productList = productList;
     }
 
     /**

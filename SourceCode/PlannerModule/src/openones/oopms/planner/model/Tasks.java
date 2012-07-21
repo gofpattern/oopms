@@ -10,7 +10,6 @@ import java.util.Date;
 public class Tasks implements java.io.Serializable {
 
     private BigDecimal taskid;
-    private String taskcode;
     private String taskname;
     private BigDecimal statusId;
     private BigDecimal developerid;
@@ -57,12 +56,11 @@ public class Tasks implements java.io.Serializable {
     public Tasks(BigDecimal taskid) {
         this.taskid = taskid;
     }
-    public Tasks(BigDecimal taskid, String taskcode, String taskname, BigDecimal statusId, BigDecimal developerid,
-            BigDecimal stageid, BigDecimal product, BigDecimal productsize, BigDecimal completenessstatus,
-            Date startdate, Date plannedenddate, Date enddate, BigDecimal plannedeffort, BigDecimal actualeffort,
-            String description, BigDecimal projectid, Boolean active, BigDecimal processId) {
+    public Tasks(BigDecimal taskid, String taskname, BigDecimal statusId, BigDecimal developerid, BigDecimal stageid,
+            BigDecimal product, BigDecimal productsize, BigDecimal completenessstatus, Date startdate,
+            Date plannedenddate, Date enddate, BigDecimal plannedeffort, BigDecimal actualeffort, String description,
+            BigDecimal projectid, Boolean active, BigDecimal processId) {
         this.taskid = taskid;
-        this.taskcode = taskcode;
         this.taskname = taskname;
         this.statusId = statusId;
         this.developerid = developerid;
@@ -88,13 +86,7 @@ public class Tasks implements java.io.Serializable {
     public void setTaskid(BigDecimal taskid) {
         this.taskid = taskid;
     }
-    public String getTaskcode() {
-        return this.taskcode;
-    }
 
-    public void setTaskcode(String taskcode) {
-        this.taskcode = taskcode;
-    }
     public String getTaskname() {
         return this.taskname;
     }

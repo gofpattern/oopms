@@ -39,28 +39,52 @@ public class PlannerAddForm {
     private String description;
     private String projectId;
 
+    private String action_str;
+
     Map<String, String> statusMap;
     Map<String, String> stageMap;
     Map<String, String> developerMap;
     Map<String, String> processMap;
     Map<String, String> productMap;
-    
-    
-    public PlannerAddForm () {
-        
+
+    public PlannerAddForm() {
+
         statusMap = new LinkedHashMap<String, String>();
         stageMap = new LinkedHashMap<String, String>();
         developerMap = new LinkedHashMap<String, String>();
         processMap = new LinkedHashMap<String, String>();
-        productMap = new LinkedHashMap<String, String>(); 
-        
+        productMap = new LinkedHashMap<String, String>();
+
         statusMap.put(" ", " ");
         stageMap.put(" ", " ");
         developerMap.put(" ", " ");
         processMap.put(" ", " ");
-        productMap.put(" ", " ");      
+        productMap.put(" ", " ");
+
+        taskId = " ";
+        title = " ";
+        plannedEffort = " ";
+        actualEffort = " ";
+        stageId = " ";
+        action_str = "none";
     }
-    
+
+    /**
+     * Get value of action_str.
+     * @return the action_str
+     */
+    public String getAction_str() {
+        return action_str;
+    }
+
+    /**
+     * Set the value for action_str.
+     * @param action_str the action_str to set
+     */
+    public void setAction_str(String action_str) {
+        this.action_str = action_str;
+    }
+
     /**
      * Get value of taskId.
      * @return the taskId
@@ -313,6 +337,5 @@ public class PlannerAddForm {
     public void setProductMap(Map<String, String> productMap) {
         this.productMap = productMap;
     }
-    
-    
+
 }
