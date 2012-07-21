@@ -117,13 +117,6 @@ public class RequirementController {
         return mav;
     }
               
-    @RenderMapping(params = "action=sort")
-    public ModelAndView postRequirementSort(RequirementForm formBean, RenderRequest request) {
-        log.debug("postRequirementSortSTART");                         
-        
-        ModelAndView mav = new ModelAndView("RequirementAdd");        
-                        
-        return mav;
-    }
+    
 
 }

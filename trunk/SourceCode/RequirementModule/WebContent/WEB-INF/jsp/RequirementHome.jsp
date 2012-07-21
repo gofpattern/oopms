@@ -7,9 +7,11 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<portlet:defineObjects />
+<c:set var="portletNamespace" scope="request"><portlet:namespace/></c:set>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -148,20 +150,29 @@
     <portlet:actionURL var="formAction">
       <portlet:param name="action" value="search" />
     </portlet:actionURL>
+    
     <portlet:renderURL var="goAddNewRequirement">
       <portlet:param name="action" value="goAddNewRequirement" />
     </portlet:renderURL>
+    
+    <portlet:actionURL var="goAddNewRequirementAction">
+      <portlet:param name="action" value="goAddNewRequirementAction" />
+    </portlet:actionURL>
+    
+    
     <portlet:renderURL var="sortRequirement">
       <portlet:param name="action" value="sort" />
     </portlet:renderURL>
+    <portlet:actionURL var="sortRequirementAction">
+      <portlet:param name="action" value="sortAction" />
+    </portlet:actionURL>
 
 
-    <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post"
-      action="${formAction}">
+    <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
       <div class="content">
 
-        <!-- Module link -->
-        <!--   
+<!-- Module link -->
+<!--   
 <div id="tabs28">      
 <ul>
   <h5>
@@ -223,7 +234,13 @@
             <td><input name="RequirementAdd" class="Button"
               onclick='submitAction("${portletNamespace}RequirementHome", "${sortRequirement}")' value="Sort"
               type="button"></td>
+              <td><input name="RequirementAdd" class="Button"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${sortRequirementAction}")' value="Sort Action"
+              type="button"></td>              
             <td><input name="RequirementAdd" class="Button"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")' value="Add New Action"
+              type="button"></td>
+              <td><input name="RequirementAdd" class="Button"
               onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirement}")' value="Add New"
               type="button"></td>
           </tr>
@@ -318,7 +335,7 @@
         <tbody>
           <tr>
             <td align="left" width="50%"><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirement}")' value="Add New"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")' value="Add New"
               type="button"> <input name="Refresh" class="Button" onclick="javascript:doRefresh()"
               value="Refresh" type="button"> <input name="ExportDefect" class="Button"
               onclick="javascript:doExport()" value="Export" type="button"></td>

@@ -39,13 +39,35 @@ public class AddRequirementController {
      * @return Form bean for UI.
      */
     @ModelAttribute("RequirementForm")
-    public RequirementAddForm getCommandObject(RenderRequest request) {
+    public RequirementForm getCommandObject(RenderRequest request) {
         log.debug("RequirementAddForm.START");                       
                
-        RequirementAddForm formBean = new RequirementAddForm();
+        RequirementForm formBean = new RequirementForm();
         formBean.setTitle("RequirementAddForm");                                          
         return formBean;
     }
+    
+    @RenderMapping(params = "action=sort")
+    public  ModelAndView postRequirementSort(RequirementForm formBean, RenderRequest request) {
+        log.debug("postRequirementSortSTART");                                 
+        ModelAndView mav = new ModelAndView("RequirementAdd");                
+        return mav;
+    }
+    
+    @ActionMapping(params = "action=sortAction")
+    public void processSortAction(RequirementAddForm formBean, BindingResult result, SessionStatus status, ActionResponse response, PortletSession session) {
+        log.debug("processSortActionSTART");
+        log.debug("Sort requirement button ");
+    }
+    
+    @ActionMapping(params = "action=goAddNewRequirementAction")
+    public void processgoAddNewRequirementAction(RequirementForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+        log.debug("goAddNewRequirementActionSTART");
+        log.debug("goAddNewRequirementAction Test");
+        System.out.println("testgoAddNewRequirementAction");
+        response.setRenderParameter("action", "goAddNewRequirement");
+    }
+    
     
     @RenderMapping(params = "action=goAddNewRequirement")
     public ModelAndView postRequirementAdd(RequirementForm formBean, RenderRequest request) {
