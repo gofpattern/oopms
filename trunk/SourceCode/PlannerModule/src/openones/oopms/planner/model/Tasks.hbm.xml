@@ -8,9 +8,6 @@
       <column name="TASKID" precision="22" scale="0" />
       <generator class="increment" />
     </id>
-    <property name="taskcode" type="string">
-      <column name="TASKCODE" length="40" />
-    </property>
     <property name="taskname" type="string">
       <column name="TASKNAME" length="100" />
     </property>

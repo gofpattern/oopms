@@ -134,14 +134,18 @@
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
-    
-      <portlet:actionURL var="PlannerAddAction">
+
+      <portlet:actionURL var="DoPlannerAddAction">
         <portlet:param name="action" value="plannerAdd" />
       </portlet:actionURL>
-      
-      <portlet:actionURL var="addTaskAction">
-        <portlet:param name="action" value="addTask" />
+
+      <portlet:actionURL var="PlannerAddAction">
+        <portlet:param name="action" value="${plAddAction}" />
       </portlet:actionURL>
+
+<%--       <portlet:actionURL var="addTaskAction">
+        <portlet:param name="action" value="addTask" />
+      </portlet:actionURL> --%>
 
       <portlet:actionURL var="searchTaskAction">
         <portlet:param name="action" value="searchTask" />
@@ -151,19 +155,19 @@
         <portlet:param name="action" value="deleteTask" />
       </portlet:actionURL>
 
-      <portlet:actionURL var="editTaskAction">
-        <portlet:param name="action" value="editTask" />
+      <portlet:actionURL var="DoPlannerEditAction">
+        <portlet:param name="action" value="plannerEdit" />
       </portlet:actionURL>
-      
-      <form:form commandName="PlannerAddForm" method="post" action="${PlannerAddAction}">
-      <input id="add-button" type="submit" name="ok" value=" Add "/>
+
+      <form:form commandName="PlannerAddForm" method="post" action="${DoPlannerAddAction}">
+        <input id="add-button" type="submit" name="ok" value=" Add " />
       </form:form>
-      
-      <%-- <a id="add-button" href='<portlet:actionURL><portlet:param name="action" value="plannerAdd"/></portlet:actionURL>'>AddTask</a> --%>    
+
+      <%-- <a id="add-button" href='<portlet:actionURL><portlet:param name="action" value="plannerAdd"/></portlet:actionURL>'>AddTask</a> --%>
 
       <div class="hidden-add-form">
-      
-        <form:form commandName="PlannerAddForm" method="post" action="${addTaskAction}">
+
+        <form:form commandName="PlannerAddForm" method="post" action="${PlannerAddAction}">
           <p id="add-form">
           <table class="Table" cellspacing="1" width="560">
             <caption class="TableCaption">&nbsp;</caption>
@@ -173,7 +177,10 @@
             <tbody>
               <tr>
                 <td width="139" class="ColumnLabel"><label for="add-form-title">Title*</label></td>
-                <td width="412" class="CellBGR3"><form:input path="title"></form:input></td>
+                <td width="412" class="CellBGR3">
+                <form:input path="title" id="add-form-title" value="${title}"></form:input>
+                <form:input path="taskId" value="${taskid}" type="hidden" />                               
+                </td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-startDate">Start Date</label></td>
@@ -185,11 +192,13 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort</label></td>
-                <td class="CellBGR3"><form:input path="plannedEffort" id="add-form-plannedEffort" value="${pEff}"/> (Hours)</td>
+                <td class="CellBGR3"><form:input path="plannedEffort" id="add-form-plannedEffort" value="${pEff}" />
+                  (Hours)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-actualEffort">Actual Effort</label></td>
-                <td class="CellBGR3"><form:input path="actualEffort" id="add-form-actualEffort" value="${aEff}"/> (Hours)</td>
+                <td class="CellBGR3"><form:input path="actualEffort" id="add-form-actualEffort" value="${aEff}" />
+                  (Hours)</td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
@@ -299,7 +308,7 @@
                   <form:form name="${task.taskid}modTask" commandName="PlannerForm" method="post" action="#">
                     <c:set var="count" value="${count + 1}" />
                     <td>${count}</td>
-                    <td>${task.taskcode}</td>
+                    <td>${task.project_str}</td>
                     <td>${task.taskname}</td>
                     <td>${task.stage_str}</td>
                     <td>${task.process_str}</td>
@@ -312,7 +321,7 @@
                     <td>${task.actualeffort}</td>
                     <td><input type="image" alt="Submit"
                       src="../PlannerModule/resource_files/icons/Actions-document-edit-icon.png" width="24" height="24"
-                      onclick='submitAction("${task.taskid}modTask", "${editTaskAction}")'></input></td>
+                      onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
                     <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
                       alt="Submit" src="../PlannerModule/resource_files/icons/Actions-delete-icon.png" width="24"
                       height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />

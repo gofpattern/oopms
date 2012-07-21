@@ -81,6 +81,24 @@ public class TaskDAO {
     }
 
     @SuppressWarnings("unchecked")
+    public Tasks getTaskById(BigDecimal taskId) {
+        log.debug("getTaskById.START");
+        try {
+           // session.getTransaction().begin();
+            String sql = "from Tasks where taskid = :taskId";
+            Query query = session.createQuery(sql);
+            query.setParameter("taskId", taskId);
+            Tasks task = (Tasks) query.uniqueResult();
+           // session.flush();
+           // session.getTransaction().commit();
+            System.out.println("getTaskById.end");
+            return task;
+        } catch (Exception e) {
+            log.error("getTaskById.Exception", e);
+        }
+        return null;
+    }
+    @SuppressWarnings("unchecked")
     public List<Stage> getAllStage() {
         log.debug("getAllStage.START");
         try {
@@ -137,8 +155,8 @@ public class TaskDAO {
         }
         return null;
     }
-    
-    @SuppressWarnings("unchecked")   
+
+    @SuppressWarnings("unchecked")
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
         try {
@@ -221,4 +239,34 @@ public class TaskDAO {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * update Task
+     * @param newTask: new value of current task
+     * @param id: id of current task
+     */
+    public void updateTask(Tasks newTask, BigDecimal id) {
+        log.debug("updateTask.START");
+        try {
+            session.getTransaction().begin();
+            Tasks task = (Tasks) session.get(Tasks.class, id);
+            task.setTaskname(newTask.getTaskname());
+            task.setPlannedeffort(newTask.getPlannedeffort());
+            task.setActualeffort(newTask.getActualeffort());
+            task.setStageid(newTask.getStageid());
+            task.setProcessId(newTask.getProcessId());
+            task.setProduct(newTask.getProduct());
+            task.setDeveloperid(newTask.getDeveloperid());
+            task.setStatusId(newTask.getStatusId());
+            session.update(task);
+            session.flush();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
 }

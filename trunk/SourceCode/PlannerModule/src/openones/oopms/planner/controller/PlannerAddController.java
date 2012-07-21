@@ -39,7 +39,6 @@ import openones.oopms.planner.model.Workproduct;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
@@ -48,7 +47,6 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author PNTG
- *
  */
 @Controller
 @RequestMapping("VIEW")
@@ -59,34 +57,33 @@ public class PlannerAddController {
     private List<Process> processList;
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
-    private List<Workproduct> productList;    
+    private List<Workproduct> productList;
 
-//    @ModelAttribute("PlannerAddForm")
-//    public PlannerAddForm getCommandObjectSubForm() {
-//        log.debug("getCommandObjectSubForm.START");
-//        PlannerAddForm formBeanAdd = new PlannerAddForm();
-//        //PlannerForm formBeanAddPlannerForm = new PlannerForm();
-//        return formBeanAdd;
-//    }
-    
-//    @ModelAttribute("PlannerForm")
-//    public PlannerForm getCommandObject() {
-//        log.debug("getCommandObject.START");
-//        PlannerForm formBean = new PlannerForm();
-//        return formBean;
-//    }
-    
+    // @ModelAttribute("PlannerAddForm")
+    // public PlannerAddForm getCommandObjectSubForm() {
+    // log.debug("getCommandObjectSubForm.START");
+    // PlannerAddForm formBeanAdd = new PlannerAddForm();
+    // //PlannerForm formBeanAddPlannerForm = new PlannerForm();
+    // return formBeanAdd;
+    // }
+
+    // @ModelAttribute("PlannerForm")
+    // public PlannerForm getCommandObject() {
+    // log.debug("getCommandObject.START");
+    // PlannerForm formBean = new PlannerForm();
+    // return formBean;
+    // }
+
     @ActionMapping(params = "action=plannerAdd")
-    public void processPlannerAdd(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processPlannerAdd(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
         log.debug("processPlannerAdd.START");
         TaskDAO taskDAO = new TaskDAO();
-//        ModelAndView mav = new ModelAndView("TaskManager");
-//        
         formBean.setProjectId("118385");
-//
+
         formBeanAdd.setActualEffort("10");
         formBeanAdd.setPlannedEffort("10");
-        
+
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
@@ -113,54 +110,152 @@ public class PlannerAddController {
         for (int i = 0; i < developerList.size(); i++) {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
-        
-     // Set value for productMap
+
+        // Set value for productMap
         for (int i = 0; i < productList.size(); i++) {
             productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
         }
-        
+
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
             processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
-        
+
         formBeanAdd.setStatusMap(statusMap);
         formBeanAdd.setProcessMap(processMap);
         formBeanAdd.setStageMap(stageMap);
         formBeanAdd.setDeveloperMap(developerMap);
         formBeanAdd.setProductMap(productMap);
-        
-        
+        formBeanAdd.setAction_str("addTask");
+
         response.setRenderParameter("action", "taskmanager");
     }
-    
+
     @RenderMapping(params = "action=plannerAdd")
     public ModelAndView postPlannerAdd(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request) {
         log.debug("postPlannerAdd.START");
         ModelAndView mav = new ModelAndView("TaskManager");
         return mav;
     }
-    
+
     @ActionMapping(params = "action=addTask")
-    public void processAddTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result, SessionStatus status, ActionResponse response) {
+    public void processAddTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
         log.debug("processAddTask.START");
-        
+
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
-        
+
         try {
             task.setTaskname(formBeanAdd.getTitle());
-            task.setTaskcode("NEWTASK");
             task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
             task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
             task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
             task.setPlannedeffort(new BigDecimal(formBeanAdd.getPlannedEffort()));
             task.setActualeffort(new BigDecimal(formBeanAdd.getActualEffort()));
-            
+
             taskDAO.addTask(task);
         } catch (Exception ex) {
             log.error("error when add new task", ex);
         }
-        response.setRenderParameter("action", "taskmanager");   
+        response.setRenderParameter("action", "taskmanager");
+    }
+
+    @ActionMapping(params = "action=plannerEdit")
+    public void processPlannerEdit(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("processEditTask.ACTION.START");
+        TaskDAO taskDAO = new TaskDAO();
+        Tasks task = new Tasks();
+
+        formBean.setProjectId("118385");
+
+        Map<String, String> statusMap = new LinkedHashMap<String, String>();
+        Map<String, String> stageMap = new LinkedHashMap<String, String>();
+        Map<String, String> developerMap = new LinkedHashMap<String, String>();
+        Map<String, String> processMap = new LinkedHashMap<String, String>();
+        Map<String, String> productMap = new LinkedHashMap<String, String>();
+
+        statusList = taskDAO.getAllStatus();
+        task = taskDAO.getTaskById(new BigDecimal(formBean.getTaskId())); // Put here to avoid
+                                                                          // org.hibernate.SessionException: Session is
+                                                                          // closed!
+        stageList = taskDAO.getAllStage();
+        productList = taskDAO.getAllProduct();
+        processList = taskDAO.getAllProcess();
+        developerList = taskDAO.getDeveloper(formBean.getProjectId());
+
+        // set value for statusMap
+        for (int i = 0; i < statusList.size(); i++) {
+            statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
+        }
+
+        // Set value for stageMap
+        for (int i = 0; i < stageList.size(); i++) {
+            stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
+        }
+
+        // Set value for developerMap
+        for (int i = 0; i < developerList.size(); i++) {
+            developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
+        }
+
+        // Set value for productMap
+        for (int i = 0; i < productList.size(); i++) {
+            productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
+        }
+
+        // Set value for processMap
+        for (int i = 0; i < processList.size(); i++) {
+            processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
+        }
+
+        formBeanAdd.setStatusMap(statusMap);
+        formBeanAdd.setProcessMap(processMap);
+        formBeanAdd.setStageMap(stageMap);
+        formBeanAdd.setDeveloperMap(developerMap);
+        formBeanAdd.setProductMap(productMap);
+
+        formBeanAdd.setTitle(task.getTaskname());
+        formBeanAdd.setPlannedEffort(task.getPlannedeffort().toString());
+        formBeanAdd.setActualEffort(task.getActualeffort().toString());
+        formBeanAdd.setStageId(task.getStageid().toString());
+
+        formBeanAdd.setTaskId(formBean.getTaskId()); // get current task id to edit
+
+        formBeanAdd.setAction_str("editTask"); // set form action form add to edit
+
+        response.setRenderParameter("action", "taskmanager");
+    }
+
+    @RenderMapping(params = "action=plannerEdit")
+    public void postPlannerEdit(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("postEditTask.RENDER.START");
+    }
+
+    @ActionMapping(params = "action=editTask")
+    public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("processEditTask.START");
+
+        TaskDAO taskDAO = new TaskDAO();
+        Tasks task = new Tasks();
+        try {
+            task.setTaskid(new BigDecimal(formBeanAdd.getTaskId()));
+            task.setTaskname(formBeanAdd.getTitle());
+            task.setPlannedeffort(new BigDecimal(formBeanAdd.getPlannedEffort()));
+            task.setActualeffort(new BigDecimal(formBeanAdd.getActualEffort()));
+            task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
+            task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
+            task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
+            task.setStatusId(new BigDecimal(formBeanAdd.getStatusId()));
+
+            taskDAO.updateTask(task, task.getTaskid());
+
+        } catch (Exception ex) {
+            log.error("error when update task", ex);
+        }
+        response.setRenderParameter("action", "taskmanager");
     }
 }
