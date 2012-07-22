@@ -24,7 +24,8 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.dms.form.BatchUpdateForm;
 import openones.oopms.dms.form.DefectForm;
-import openones.oopms.dms.form.UserInfo;
+import openones.oopms.form.UserInfo;
+import openones.oopms.portlet.controller.BaseController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

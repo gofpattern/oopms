@@ -6,7 +6,7 @@
   
   <SubMenu name="Manage Defect" action="" icon="until.png">
     <Item name="Manage Views" action="goManageViews"/>
-    <Item name="New Defect" action="goNewDefect"/>
+    <Item name="New Defect" action="goAddNewDefect"/>
     <Item name="Project Summary" action="goProjectSummary"/>
     <Item name="Import Defect" action="goImportDefect"/>
   </SubMenu>

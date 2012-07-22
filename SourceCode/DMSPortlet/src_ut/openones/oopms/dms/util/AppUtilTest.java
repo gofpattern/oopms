@@ -18,12 +18,12 @@
  */
 package openones.oopms.dms.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import openones.oopms.dms.form.MenuItem;
-import openones.oopms.dms.form.SubMenu;
+import openones.oopms.form.MenuItem;
+import openones.oopms.form.SubMenu;
 
 import org.junit.Test;
 

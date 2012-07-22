@@ -27,6 +27,10 @@ Features:
     + Copy folder /DMSPortlet/WebContent/resource-menu into $glassfishv3_home/glassfish/domains/domain1/docroot/ResourceServingWebapp
 + Menu is loaded from external XML file "MenuBar.xml"
 
+Used libraries:
++ OOPMS BasePortlet
++ Portlet Support
+
 How to make distribution
 ================================
 run 'ant dist'
