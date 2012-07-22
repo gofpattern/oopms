@@ -33,6 +33,11 @@ var frm = document.forms[formName];
     
 	
 }
+
+
+    
+   
+
 function validate(checkedClass){
     alert("validate");
     var requiredList = $(checkedClass);

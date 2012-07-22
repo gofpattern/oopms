@@ -118,7 +118,7 @@
           path="timesheetList[${status.index}].processId" multiple="single">
           <form:options items="${processMap}" />
         </form:select></td>
-         <td><input style="width: 30px;" name="timesheetList[${status.index}].durationString" value="${timesheet.durationString}"/></td>
+         <td><input style="width: 30px;" name="timesheetList[${status.index}].duration" value="${timesheet.durationString}"/></td>
           <td><input style="width: 300px;" name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
          
          <!--
