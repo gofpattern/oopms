@@ -65,13 +65,15 @@ public class TimesheetDao {
         return null;
     }
     
-    public Timesheet getProjectById(BigDecimal id) {
+    public Timesheet getTimesheetById(BigDecimal id) {
         try {
         session.getTransaction().begin();
         String hql = "from Timesheet where timesheetId =:prId";
         Query query = session.createQuery(hql);
         query.setParameter("prId", id);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Timesheet timesheet = (Timesheet) query.uniqueResult();
+        timesheet.setOccurDateString(sdf.format(timesheet.getOccurDate()));
         return timesheet;
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -183,8 +185,7 @@ public class TimesheetDao {
     }
 
     public Project getProject(String projectId) {
-        try {
-            session.getTransaction().begin();
+        try {           
             String hql = "from Project where projectId =:projId";
             Query query = session.createQuery(hql);
             query.setParameter("projId", new BigDecimal(projectId));
@@ -213,12 +214,11 @@ public class TimesheetDao {
                 timesheetList.get(i).setWpId(new BigDecimal(1));
                 timesheetList.get(i).setKpaId(new BigDecimal(1));
                 timesheetList.get(i).setCreateDate(new Date());
-                timesheetList.get(i).setStatus(new BigDecimal(1));
+                timesheetList.get(i).setStatus(new BigDecimal(0));
                 timesheetList.get(i).setProcessId(new BigDecimal(timesheetList.get(i).getProcessName()));
                 timesheetList.get(i).setTowId(new BigDecimal(timesheetList.get(i).getTowName()));
                 timesheetList.get(i).setOccurDate(sdf.parse(timesheetList.get(i).getOccurDateString()));
-
-                timesheetList.get(i).setDuration(new BigDecimal(2));
+                timesheetList.get(i).setDuration(new BigDecimal(timesheetList.get(i).getDurationString()));
                 session.save(timesheetList.get(i));
             }
 
@@ -228,6 +228,75 @@ public class TimesheetDao {
         } catch (Exception e) {
             session.getTransaction().rollback();
             session.close();
+
+        }
+    }
+    
+    public void updateTimesheet(List<Timesheet> timesheetList, BigDecimal devId) throws ParseException {
+
+        try {
+            
+            session.getTransaction().begin();
+            String hql="UPDATE Timesheet ts SET ts.project =:project, ts.developerId =:developerId," +
+            		"ts.wpId =:wpId, ts.kpaId=:kpaId, ts.towId= :towId, ts.createDate =:createDate, ts.status =:status," +
+            		"ts.processId =:processId, ts.occurDate =:occurDate WHERE ts.timesheetId =:tsId";
+         
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            for (int i = 0; i < timesheetList.size(); i++) {
+                Query query = session.createQuery(hql);
+                query.setParameter("project", getProject(timesheetList.get(i).getProjectName()));
+                query.setParameter("wpId", new BigDecimal(1));
+                query.setParameter("kpaId", new BigDecimal(1));
+                query.setParameter("towId", timesheetList.get(i).getTowId());
+                query.setParameter("processId", timesheetList.get(i).getProcessId());
+                query.setParameter("duration",timesheetList.get(i).getDuration());
+                query.setParameter("occurDate", sdf.parse(timesheetList.get(i).getOccurDateString()));
+                query.setParameter("createDate", new Date());
+                query.setParameter("tsId",timesheetList.get(i).getTimesheetId());
+                query.setParameter("status",new BigDecimal(0));
+                
+                int rowCount = query.executeUpdate();
+                
+                System.out.println("Rows affected: " + rowCount);               
+            }
+            session.flush();
+            session.getTransaction().commit();
+
+          
+
+        } catch (Exception e) {
+            e.printStackTrace();
+//            session.getTransaction().rollback();
+//            session.close();
+
+        }
+    }
+    
+    public void deleteTimesheet(List<Timesheet> timesheetList, BigDecimal devId) throws ParseException {
+
+        try {
+            
+            session.getTransaction().begin();
+            String hql="DELETE Timesheet WHERE timesheetId =:tsId";
+                    
+            for (int i = 0; i < timesheetList.size(); i++) {
+                Query query = session.createQuery(hql);               
+                query.setParameter("tsId",timesheetList.get(i).getTimesheetId());
+                
+                
+                int rowCount = query.executeUpdate();
+                
+                System.out.println("Rows affected: " + rowCount);               
+            }
+            session.flush();
+            session.getTransaction().commit();
+
+          
+
+        } catch (Exception e) {
+            e.printStackTrace();
+//            session.getTransaction().rollback();
+//            session.close();
 
         }
     }

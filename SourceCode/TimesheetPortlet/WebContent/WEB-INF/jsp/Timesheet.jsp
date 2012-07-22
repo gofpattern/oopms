@@ -17,6 +17,18 @@
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
+function submitAction(formName, actionUrl) {
+    
+    var frm = document.forms[formName];
+        
+        frm.action = actionUrl;
+        
+        frm.submit();
+        
+        
+    }
+
+
             function fnFeaturesInit ()
             {
                 /* Not particularly modular this - but does nicely :-) */
@@ -36,9 +48,34 @@
                     $('ul.limit_length li.css_link').css( 'display', 'none' );
                 } );
             }
-            
+            function submitActionConfirm(formName, actionUrl) {
+        	   
+        	    var r=confirm("Are you sure to delete ?");
+        	    if (r==true)
+        	      {
+        	     var frm = document.forms[formName];
+        	            
+        	            frm.action = actionUrl;
+        	            
+        	            frm.submit();
+        	      }
+        	    else
+        	      {
+        	     return;
+        	      }
+            }
             $(document).ready( function() {
-
+        	// Listen for click on toggle checkbox
+        	$('#select-all').click(function(event) {   
+        	    if(this.checked) {
+        	        // Iterate each checkbox
+        	        $(':checkbox').each(function() {
+        	            this.checked = true;                        
+        	        });
+        	    } else { 
+        		 $(":checkbox").each(function() { this.checked = false; }); 
+        		 }
+        	});
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
                         if (event.target.type !== 'checkbox') {
@@ -95,15 +132,15 @@
     <tbody>
       <tr>
         <td><strong>User</strong></td>
-        <td width="20%"><strong><font color="#1490E3"><%=portletSession.getAttribute("USER",  PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+        <td width="20%"><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td><strong>Project</strong></td>
         <td width="26%"><form:select cssClass="styled"
           path="projectDefault" multiple="single">
           <form:options items="${projectMap}" />
         </form:select></td>
         <td><strong>From Date</strong></td>
-        <td class="vAlignMid"><form:input cssStyle="width:80px;" path="fromDate"
-          id="datepicker1" /></td>
+        <td class="vAlignMid"><form:input cssStyle="width:80px;"
+          path="fromDate" id="datepicker1" /></td>
 
 
       </tr>
@@ -119,8 +156,8 @@
           <option value="3">Rejected</option>
         </select></td>
         <td width="17%" align="left"><strong>To Date</strong></td>
-        <td colspan="2" class="vAlignMid"><form:input cssStyle="width:80px;" path="toDate"
-          id="datepicker2" /></td>
+        <td colspan="2" class="vAlignMid"><form:input
+          cssStyle="width:80px;" path="toDate" id="datepicker2" /></td>
         <td></td>
       </tr>
     </tbody>
@@ -128,70 +165,68 @@
 
   <p><input type="submit" id="Search" class="button blue small"
     name="Search" value="Search" /></p>
-    
-</form:form>
-<portlet:actionURL
-  var="timesheetFormAction2">
+
+</form:form> <portlet:actionURL var="timesheetFormAction2">
   <portlet:param name="action" value="goAddTimesheet" />
 </portlet:actionURL> <form:form name="timesheet" method="post" commandName="timesheetForm"
   action="${timesheetFormAction2}">
-    <p><input type="submit" id="Search" class="button green small"
+  <p><input type="submit" id="Search" class="button green small"
     name="Add" value="Add" /></p>
-  </form:form>
-  <portlet:actionURL
-  var="goUpdateTimesheetAction">
+</form:form> <portlet:actionURL var="goUpdateTimesheetAction">
   <portlet:param name="action" value="goUpdateTimesheet" />
-</portlet:actionURL>
-<portlet:actionURL
-  var="deleteTimesheetAction">
+</portlet:actionURL> <portlet:actionURL var="deleteTimesheetAction">
   <portlet:param name="action" value="deleteTimesheet" />
-</portlet:actionURL>
- <form:form name="Timesheet" method="post" commandName="timesheetForm"
+</portlet:actionURL> <form:form name="Timesheet" method="post" commandName="timesheetForm"
   action="${goUpdateTimesheetAction}">
-<table id="mainTable2" class="display dataTable"  cellpadding="0" cellspacing="0" border="0" >
-  <thead>
-    <tr>
-      <th width="5%"><input type="checkbox" name="allbox"
-        value="Check All" onClick="JavaScript:checkAll();"></th>
-      <th width="10%">Date</th>
-      <th width="10%">Project</th>
-      <th width="5%">Work</th>
-      <th width="5%">Process</th>
-      <th width="5%">Time</th>
-      <th width="48%">Description</th>
-      <th width="7%">Status</th>
-    </tr>
-  </thead>
-  <tbody align="center">
-    <c:if test="${not empty timesheetList}">
+  <table id="mainTable2" class="display dataTable" cellpadding="0"
+    cellspacing="0" border="0">
+    <thead>
+      <tr>
+        <th width="5%"><input id="select-all" type="checkbox"
+          name="allbox" value="checkAll"></th>
+        <th width="10%">Date</th>
+        <th width="10%">Project</th>
+        <th width="5%">Work</th>
+        <th width="5%">Process</th>
+        <th width="5%">Time</th>
+        <th width="48%">Description</th>
+        <th width="7%">Status</th>
+      </tr>
+    </thead>
+    <tbody align="center">
+      <c:if test="${not empty timesheetList}">
 
-      <c:forEach var="timesheet" varStatus="status" items="${timesheetList}">
-        <tr>
-          <td class="cb"><input type="checkbox" name="timesheetList[${status.index}].timesheetId" value="${timesheet.timesheetId}"></td>
-          <td><font color="">${timesheet.occurDateString}</font></td>
-          <td><font color="">${timesheet.project.name}</font></td>
-          <td><font color="">${timesheet.towName}</font></td>
-          <td><font color="">${timesheet.processName}</font></td>
-          <td><font color="">${timesheet.duration}</font></td>
-          <td><font color="">${timesheet.description}</font></td>
-          <td><c:if test="${timesheet.status==0}">UnApproved</c:if>
-          <c:if test="${timesheet.status==1}">Approved</c:if></td>
+        <c:forEach var="timesheet" varStatus="status"
+          items="${timesheetList}">
+          <tr>
+            <td class="cb"><input id="checkbox" type="checkbox"
+              name="timesheetList[${status.index}].timesheetId"
+              value="${timesheet.timesheetId}"></td>
+            <td><font color="">${timesheet.occurDateString}</font></td>
+            <td><font color="">${timesheet.project.name}</font></td>
+            <td><font color="">${timesheet.towName}</font></td>
+            <td><font color="">${timesheet.processName}</font></td>
+            <td><font color="">${timesheet.duration}</font></td>
+            <td><font color="">${timesheet.description}</font></td>
+            <td><c:if test="${timesheet.status==0}">UnApproved</c:if>
+            <c:if test="${timesheet.status==1}">Approved</c:if></td>
 
-        </tr>
-      </c:forEach>
+          </tr>
+        </c:forEach>
 
-    </c:if>
+      </c:if>
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<p><input type="button" class="button blue small" name="Update"
- onclick='submitAction("Timesheet", "${goUpdateTimesheetAction}")' value="Update" class="Button" /> <input
-  type="button" class="button blue small" name="Delete"
- onclick='submitAction("Timesheet", "${deleteTimesheetAction}")'value="Delete" class="Button"></p>
+  <p><input type="button" class="button blue small" name="Update"
+    onclick='submitAction("Timesheet", "${goUpdateTimesheetAction}")'
+    value="Update" class="button blue small" /> <input type="button"
+    class="button blue small" name="Delete"
+    onclick='submitActionConfirm("Timesheet", "${deleteTimesheetAction}");'
+    value="Delete" class="button red small" /></p>
 
-</form:form>
-</div>
+</form:form></div>
 </div>
 </div>
 

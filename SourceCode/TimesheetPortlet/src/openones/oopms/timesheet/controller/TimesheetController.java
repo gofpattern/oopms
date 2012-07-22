@@ -66,7 +66,8 @@ public class TimesheetController {
     Map<String, String> workProductMap;
     // List update timesheet
     List<Timesheet> updateTimesheetList;
-
+    // List delete timesheet
+    List<Timesheet>deleteTimesheetList;
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(TimesheetController.class);
 
@@ -416,7 +417,7 @@ public class TimesheetController {
         TimesheetDao timeDao = new TimesheetDao();
         for (int i = 0; i < updateTimesheetList.size(); i++) {
 
-            timesheet = timeDao.getProjectById(updateTimesheetList.get(i).getTimesheetId());
+            timesheet = timeDao.getTimesheetById(updateTimesheetList.get(i).getTimesheetId());
             timesheetList.add(timesheet);
         }
 
@@ -426,11 +427,7 @@ public class TimesheetController {
         mav.addObject("projectMap", projectMap);
         mav.addObject("processMap", processMap);
         mav.addObject("towMap", towMap);
-        for (int i = 0; i < timesheetList.size(); i++) {
-            mav.addObject("timesheetList[" + i + "].projectName", timesheetList.get(i).getProjectName());
-            mav.addObject("timesheetList[" + i + "].processName", timesheetList.get(i).getProcessName());
-            mav.addObject("timesheetList[" + i + "].towName", timesheetList.get(i).getTowName());
-        }
+       
         // Add object timesheetList to request
         mav.addObject("timesheetList", timesheetList);
         updateTimesheetList = timesheetList;
@@ -445,6 +442,8 @@ public class TimesheetController {
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
         for (int i = 0; i < tempList.size(); i++) {
+            System.out.println("occurDateString :"+ tempList.get(i).getOccurDateString()+"projId "
+                    + tempList.get(i).getProject().getProjectId()+ "duration :" + tempList.get(i).getDuration()+"desc : "+tempList.get(i).getDescription());
             updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
             updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
             updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
@@ -453,10 +452,27 @@ public class TimesheetController {
             updateTimesheetList.get(i).setDescription(tempList.get(i).getDescription());
             
            TimesheetDao timeDao = new TimesheetDao();
-           timeDao.insertTimesheet(updateTimesheetList, user.getDeveloperId());
+           timeDao.updateTimesheet(updateTimesheetList, user.getDeveloperId());
            
-           System.out.println(" "+tempList.get(i).getProcessId()+" "+tempList.get(i).getTowId()+" " + tempList.get(i).getProject().getProjectId());
+           
         }
+        response.setRenderParameter("action", "init");
+
+    }
+    
+    @ActionMapping(params = "action=deleteTimesheet")   
+    public void processdeleteTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) throws ParseException {
+        deleteTimesheetList = new ArrayList<Timesheet>();
+        List<Timesheet> tempList = new ArrayList<Timesheet>();
+        tempList = formBean.getTimesheetList();
+        for (int i = 0; i < tempList.size(); i++) {
+            if (tempList.get(i).getTimesheetId() != null) {
+                deleteTimesheetList.add(tempList.get(i));
+            }
+        }
+        TimesheetDao timeDao = new TimesheetDao();
+        timeDao.deleteTimesheet(deleteTimesheetList, user.getDeveloperId());
         response.setRenderParameter("action", "init");
 
     }
