@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env>
+  <data name="ProjectStage"></data>
+  <data name="DefectType"></data>
+  <data name="Severity"></data>
+  <data name="Priority"></data>
+  <data name="QCActivity"></data>
+  <data name="Status"></data>
+  <data name="WorkProduct"></data>
+  <data name="Process"></data>
+  <data name="KPA"></data>
+  <data name="TypeOfWork"></data>
+</env>
