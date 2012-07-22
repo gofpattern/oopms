@@ -18,9 +18,9 @@
     </tr>
     <tr>
         <td width="8%"><b>Group:</b></td>
-        <td width="24%">FSOFT</td>
+        <td width="24%">${portletSessionScope.UserInfo.group}</td>
         <td width="12%"><b>Position:</b></td>
-        <td width="25%">Project Leader</td>
+        <td width="25%">${portletSessionScope.UserInfo.position}</td>
         <td width="9%"><b>Status</b></td>
         <td align="right" width="22%"><select name="cboProjectStatus" class="SmallCombo" onchange="javascript:doChangeProject('DM','SearchDefect','ViewAllOpenDefects');"><option selected="selected" value="0">On-going</option>
         </select></td>

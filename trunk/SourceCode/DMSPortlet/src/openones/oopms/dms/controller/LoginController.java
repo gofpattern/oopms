@@ -26,9 +26,11 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.LoginForm;
-import openones.oopms.dms.form.UserInfo;
 import openones.oopms.dms.form.ViewDefectModeForm;
 import openones.oopms.dms.util.AppUtil;
+import openones.oopms.form.UserInfo;
+import openones.oopms.portlet.controller.BaseController;
+import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.springframework.stereotype.Controller;
@@ -63,6 +65,8 @@ public class LoginController extends BaseController {
         if ((logonUser == null) || ("guest".equals(logonUser))) {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
+            // Update User Information
+            super.initScreen(request, session);
             UserInfo userInfo = new UserInfo(logonUser);
             mav = new ModelAndView("ViewDefectMode"); // Display ViewDefectMode.jsp
             prepareCommonInfo(userInfo, mav, session);
@@ -127,7 +131,7 @@ public class LoginController extends BaseController {
         // Set roles for user
         userInfo.addRole("Developer");
         userInfo.setGroup("Development");
-        userInfo.setLoginDate(AppUtil.getCurrentDate());
+        userInfo.setLoginDate(BaseUtil.getCurrentDate());
         // Update userInfo into the session
         updateUserInfo(session, userInfo);
         

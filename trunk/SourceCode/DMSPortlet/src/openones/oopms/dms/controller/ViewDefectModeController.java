@@ -22,6 +22,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.dms.form.ViewDefectModeForm;
+import openones.oopms.portlet.controller.BaseController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

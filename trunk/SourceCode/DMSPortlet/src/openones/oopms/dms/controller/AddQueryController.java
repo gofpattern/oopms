@@ -26,6 +26,7 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.DefectForm;
+import openones.oopms.dms.form.QueryForm;
 import openones.oopms.dms.validator.AddDefectValidator;
 import openones.oopms.portlet.controller.BaseController;
 
@@ -44,31 +45,25 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping(value = "VIEW")
-public class AddDefectController extends BaseController {
+public class AddQueryController extends BaseController {
 
     /**
      * Create bean for form.
      * @return Form bean for UI.
      */
-    @ModelAttribute("defectForm")
-    public DefectForm getCommandObject() {
+    @ModelAttribute("queryForm")
+    public QueryForm getCommandObject() {
         log.debug("getCommandObject.START");
-        DefectForm formBean = new DefectForm();
+        QueryForm formBean = new QueryForm();
 
         return formBean;
     }
     
-    @RequestMapping
-    public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START");
-        return "AddDefect";
-    }
-    
-    @RenderMapping(params = "action=goAddNewDefect")
-    public ModelAndView processAddNew(RenderRequest request, PortletSession session) {
-        log.debug("processAddNew.START");
+    @RenderMapping(params = "action=goAddQuery")
+    public ModelAndView processGoAddQuery(RenderRequest request, PortletSession session) {
+        log.debug("processGoAddQuery");
 
-        ModelAndView mav = new ModelAndView("AddDefect"); // display AddDefect.jsp
+        ModelAndView mav = new ModelAndView("AddQuery"); // display AddDefect.jsp
         Map<Integer, String> qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
         
         mav.addObject("defect", new DefectForm());
@@ -84,23 +79,9 @@ public class AddDefectController extends BaseController {
      * @param status status of session
      * @param response response of action
      */
-    @ActionMapping(params = "action=save")
-    public void processSave(DefectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
+    @ActionMapping(params = "action=saveQuery")
+    public void processSave(QueryForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processSave.START");
-        
-        log.debug("formBean:title=" + formBean.getTitle());
 
-        Validator addDefectValidator = new AddDefectValidator();
-        addDefectValidator.validate(formBean, result);
-        
-        if (!result.hasErrors()) {
-            // Prepare parameter to render phase
-            response.setRenderParameter("action", "goViewDefectList2");
-        } else {
-            log.error("Error in binding result:" + result.getErrorCount());
-            
-            // Re-display the Add Defect screen with errors
-            response.setRenderParameter("action", "goAddNewDefect");
-        }
     }   
 }

@@ -18,9 +18,7 @@
  */
 package openones.oopms.dms.util;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.xpath.XPath;
@@ -28,8 +26,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import openones.oopms.dms.form.MenuItem;
-import openones.oopms.dms.form.SubMenu;
+import openones.oopms.form.MenuItem;
+import openones.oopms.form.SubMenu;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -45,17 +43,6 @@ import rocky.common.XMLUtil;
 public class AppUtil {
     /** Logger for logging. */
     private final static Logger log = Logger.getLogger("AppUtil");
-
-    /** . */
-    final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-
-    /**
-     * [Give the description for method].
-     * @return
-     */
-    public static String getCurrentDate() {
-        return sdf.format(new Date());
-    }
 
     public static List<SubMenu> loadMenuBar() {
         List<SubMenu> subMenuList = new ArrayList<SubMenu>();

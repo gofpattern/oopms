@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import openones.oopms.dms.form.SubMenu;
 import openones.oopms.dms.util.AppUtil;
+import openones.oopms.form.SubMenu;
 
 /**
  * @author Thach.Le
