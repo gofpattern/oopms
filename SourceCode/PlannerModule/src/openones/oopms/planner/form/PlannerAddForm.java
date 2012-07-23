@@ -21,10 +21,16 @@ package openones.oopms.planner.form;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.hibernate.criterion.Projections;
+
+import openones.oopms.planner.model.Tasks;
+
 /**
  * @author PNTG
  */
 public class PlannerAddForm {
+
+    private Tasks editTask;
     private String taskId;
     private String title;
     private String startDate;
@@ -46,6 +52,7 @@ public class PlannerAddForm {
     Map<String, String> developerMap;
     Map<String, String> processMap;
     Map<String, String> productMap;
+    Map<String, String> projectMap;
 
     public PlannerAddForm() {
 
@@ -54,12 +61,14 @@ public class PlannerAddForm {
         developerMap = new LinkedHashMap<String, String>();
         processMap = new LinkedHashMap<String, String>();
         productMap = new LinkedHashMap<String, String>();
+        projectMap = new LinkedHashMap<String, String>();
 
         statusMap.put(" ", " ");
         stageMap.put(" ", " ");
         developerMap.put(" ", " ");
         processMap.put(" ", " ");
         productMap.put(" ", " ");
+        projectMap.put(" ", " ");
 
         taskId = " ";
         title = " ";
@@ -67,6 +76,26 @@ public class PlannerAddForm {
         actualEffort = " ";
         stageId = " ";
         action_str = "none";
+        startDate = " ";
+        endDate = " ";
+        description = " ";
+        projectId = " ";
+    }
+
+    /**
+     * Get value of editTask.
+     * @return the editTask
+     */
+    public Tasks getEditTask() {
+        return editTask;
+    }
+
+    /**
+     * Set the value for editTask.
+     * @param editTask the editTask to set
+     */
+    public void setEditTask(Tasks editTask) {
+        this.editTask = editTask;
     }
 
     /**
@@ -337,5 +366,23 @@ public class PlannerAddForm {
     public void setProductMap(Map<String, String> productMap) {
         this.productMap = productMap;
     }
+
+    /**
+     * Get value of projectMap.
+     * @return the projectMap
+     */
+    public Map<String, String> getProjectMap() {
+        return projectMap;
+    }
+
+    /**
+     * Set the value for projectMap.
+     * @param projectMap the projectMap to set
+     */
+    public void setProjectMap(Map<String, String> projectMap) {
+        this.projectMap = projectMap;
+    }
+    
+    
 
 }
