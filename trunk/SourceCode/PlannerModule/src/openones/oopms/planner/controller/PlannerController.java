@@ -165,16 +165,15 @@ public class PlannerController {
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("productMap", formBean.getProductMap());
 
-        // Object form PlannerAddForm
-        mav.addObject("title", formBeanAdd.getTitle());
-        mav.addObject("pEff", formBeanAdd.getPlannedEffort());
-        mav.addObject("aEff", formBeanAdd.getActualEffort());
-        mav.addObject("stageId", formBeanAdd.getStageId());
+        // Object form PlannerAddForm    
+        mav.addObject("edTask", formBeanAdd.getEditTask());
+        
         mav.addObject("statusMapAdd", formBeanAdd.getStatusMap());
         mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
         mav.addObject("productMapAdd", formBeanAdd.getProductMap());
+        mav.addObject("projectMapAdd", formBeanAdd.getProjectMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
         mav.addObject("taskid", formBeanAdd.getTaskId());
 
@@ -189,7 +188,7 @@ public class PlannerController {
         taskDAO.deleteTask(new BigDecimal(formBean.getTaskId()));
 
         System.out.println("processDeleteTask.ACTION.START");
-        System.out.println(formBean.getTaskId());
+       
 
         response.setRenderParameter("action", "taskmanager");
     }

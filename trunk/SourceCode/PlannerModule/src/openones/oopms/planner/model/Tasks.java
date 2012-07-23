@@ -51,6 +51,18 @@ public class Tasks implements java.io.Serializable {
     }
 
     public Tasks() {
+        taskid = new BigDecimal("0");
+        taskname = " ";
+        startdate  = new Date();
+        plannedenddate = new Date();
+        plannedeffort = new BigDecimal("0");
+        actualeffort = new BigDecimal("0");
+        description = " ";
+        stageid = new BigDecimal("0");
+        processId = new BigDecimal("0");
+        product = new BigDecimal("0");
+        developerid = new BigDecimal("0");
+        statusId = new BigDecimal("0");
     }
 
     public Tasks(BigDecimal taskid) {

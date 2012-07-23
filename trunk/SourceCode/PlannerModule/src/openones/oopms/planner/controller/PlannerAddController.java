@@ -19,6 +19,8 @@
 package openones.oopms.planner.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +33,14 @@ import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
+import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
 
 import org.apache.log4j.Logger;
+import org.hibernate.type.DateType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,74 +62,56 @@ public class PlannerAddController {
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
     private List<Workproduct> productList;
-
-    // @ModelAttribute("PlannerAddForm")
-    // public PlannerAddForm getCommandObjectSubForm() {
-    // log.debug("getCommandObjectSubForm.START");
-    // PlannerAddForm formBeanAdd = new PlannerAddForm();
-    // //PlannerForm formBeanAddPlannerForm = new PlannerForm();
-    // return formBeanAdd;
-    // }
-
-    // @ModelAttribute("PlannerForm")
-    // public PlannerForm getCommandObject() {
-    // log.debug("getCommandObject.START");
-    // PlannerForm formBean = new PlannerForm();
-    // return formBean;
-    // }
+    private List<Project> projectList;
 
     @ActionMapping(params = "action=plannerAdd")
     public void processPlannerAdd(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processPlannerAdd.START");
         TaskDAO taskDAO = new TaskDAO();
+        
         formBean.setProjectId("118385");
 
         formBeanAdd.setActualEffort("10");
         formBeanAdd.setPlannedEffort("10");
 
-        Map<String, String> statusMap = new LinkedHashMap<String, String>();
-        Map<String, String> stageMap = new LinkedHashMap<String, String>();
-        Map<String, String> developerMap = new LinkedHashMap<String, String>();
-        Map<String, String> processMap = new LinkedHashMap<String, String>();
-        Map<String, String> productMap = new LinkedHashMap<String, String>();
-
         statusList = taskDAO.getAllStatus();
         stageList = taskDAO.getAllStage();
         productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
+        projectList = taskDAO.getAllProject();
         developerList = taskDAO.getDeveloper(formBean.getProjectId());
 
         // set value for statusMap
         for (int i = 0; i < statusList.size(); i++) {
-            statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
+            formBeanAdd.getStatusMap().put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
         }
 
         // Set value for stageMap
         for (int i = 0; i < stageList.size(); i++) {
-            stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
+            formBeanAdd.getStageMap().put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
 
         // Set value for developerMap
         for (int i = 0; i < developerList.size(); i++) {
-            developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
+            formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
 
         // Set value for productMap
         for (int i = 0; i < productList.size(); i++) {
-            productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
+            formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
         }
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
-            processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
+            formBeanAdd.getProcessMap().put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
+        }
+        
+     // Set value for projectMap
+        for (int i = 0; i < projectList.size(); i++) {
+            formBeanAdd.getProjectMap().put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
 
-        formBeanAdd.setStatusMap(statusMap);
-        formBeanAdd.setProcessMap(processMap);
-        formBeanAdd.setStageMap(stageMap);
-        formBeanAdd.setDeveloperMap(developerMap);
-        formBeanAdd.setProductMap(productMap);
         formBeanAdd.setAction_str("addTask");
 
         response.setRenderParameter("action", "taskmanager");
@@ -148,11 +134,16 @@ public class PlannerAddController {
 
         try {
             task.setTaskname(formBeanAdd.getTitle());
+            task.setStatusId(new BigDecimal(formBeanAdd.getStatusId()));
             task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
             task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
             task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
             task.setPlannedeffort(new BigDecimal(formBeanAdd.getPlannedEffort()));
             task.setActualeffort(new BigDecimal(formBeanAdd.getActualEffort()));
+            task.setStartdate(new Date(formBeanAdd.getStartDate()));
+            task.setPlannedenddate(new Date(formBeanAdd.getEndDate()));
+            task.setDescription(formBeanAdd.getDescription());
+            task.setProjectid(new BigDecimal("118385"));
 
             taskDAO.addTask(task);
         } catch (Exception ex) {
@@ -216,12 +207,20 @@ public class PlannerAddController {
         formBeanAdd.setDeveloperMap(developerMap);
         formBeanAdd.setProductMap(productMap);
 
-        formBeanAdd.setTitle(task.getTaskname());
-        formBeanAdd.setPlannedEffort(task.getPlannedeffort().toString());
-        formBeanAdd.setActualEffort(task.getActualeffort().toString());
-        formBeanAdd.setStageId(task.getStageid().toString());
-
-        formBeanAdd.setTaskId(formBean.getTaskId()); // get current task id to edit
+//        formBeanAdd.setTitle(task.getTaskname());
+//        formBeanAdd.setPlannedEffort(task.getPlannedeffort().toString());
+//        formBeanAdd.setActualEffort(task.getActualeffort().toString());
+//        
+//        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT); 
+//        formBeanAdd.setStartDate(dateFormat.format(task.getStartdate()));
+//        formBeanAdd.setEndDate(dateFormat.format(task.getPlannedenddate()));
+//        
+//        formBeanAdd.setDescription(task.getDescription());
+//
+//        formBeanAdd.setStageId(task.getStageid().toString());
+//        formBeanAdd.setTaskId(formBean.getTaskId()); // get current task id to edit
+        
+        formBeanAdd.setEditTask(task);
 
         formBeanAdd.setAction_str("editTask"); // set form action form add to edit
 
