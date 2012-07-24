@@ -36,6 +36,7 @@ public class PlannerAddForm {
     private String startDate;
     private String endDate;
     private String plannedEffort;
+    private String currentEffort;
     private String actualEffort;
     private String stageId;
     private String processId;
@@ -44,6 +45,8 @@ public class PlannerAddForm {
     private String statusId;
     private String description;
     private String projectId;
+    private String productSize;
+    private String completedSize;
 
     private String action_str;
 
@@ -56,6 +59,8 @@ public class PlannerAddForm {
 
     public PlannerAddForm() {
 
+        editTask = new Tasks();
+        
         statusMap = new LinkedHashMap<String, String>();
         stageMap = new LinkedHashMap<String, String>();
         developerMap = new LinkedHashMap<String, String>();
@@ -72,14 +77,22 @@ public class PlannerAddForm {
 
         taskId = " ";
         title = " ";
-        plannedEffort = " ";
-        actualEffort = " ";
-        stageId = " ";
-        action_str = "none";
         startDate = " ";
         endDate = " ";
+        plannedEffort = " ";
+        currentEffort = " ";
+        actualEffort = " ";
         description = " ";
+        stageId = " ";
+        processId = " ";
+        productId = " ";
+        productSize = " ";
+        completedSize = " ";
         projectId = " ";
+        developerId = " ";
+        statusId = " ";
+
+        action_str = "none";
     }
 
     /**
@@ -382,7 +395,53 @@ public class PlannerAddForm {
     public void setProjectMap(Map<String, String> projectMap) {
         this.projectMap = projectMap;
     }
-    
-    
 
+    /**
+     * Get value of productSize.
+     * @return the productSize
+     */
+    public String getProductSize() {
+        return productSize;
+    }
+
+    /**
+     * Set the value for productSize.
+     * @param productSize the productSize to set
+     */
+    public void setProductSize(String productSize) {
+        this.productSize = productSize;
+    }
+
+    /**
+     * Get value of currentEffort.
+     * @return the currentEffort
+     */
+    public String getCurrentEffort() {
+        return currentEffort;
+    }
+
+    /**
+     * Set the value for currentEffort.
+     * @param currentEffort the currentEffort to set
+     */
+    public void setCurrentEffort(String currentEffort) {
+        this.currentEffort = currentEffort;
+    }
+
+    /**
+     * Get value of completedSize.
+     * @return the completedSize
+     */
+    public String getCompletedSize() {
+        return completedSize;
+    }
+
+    /**
+     * Set the value for completedSize.
+     * @param completedSize the completedSize to set
+     */
+    public void setCompletedSize(String completedSize) {
+        this.completedSize = completedSize;
+    }
+    
 }

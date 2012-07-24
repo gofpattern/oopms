@@ -93,6 +93,9 @@
 			$(".hidden-add-form").hide("slow");
 		});
 	});
+	function load() {
+		document.getElementById('add-form-description').innerHTML = "${edTask.description}";
+	}
 </script>
 <style type="text/css">
 <!--
@@ -117,7 +120,7 @@
   color: #505050;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  height: 500px;
+  height: 400px;
   margin-bottom: 20px;
   margin-left: 50px;
   margin-right: 0px;
@@ -131,7 +134,7 @@
 -->
 </style>
 </head>
-<body id="portal" class="up fl-theme-mist">
+<body id="portal" class="up fl-theme-mist" onload="load()">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
 
@@ -185,22 +188,21 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-startDate">Start Date</label></td>
                 <td class="CellBGR3"><form:input path="startDate" value="${edTask.startdate}"
-                    id="add-form-startDate"></form:input>(DD-MMM-YY)</td>
+                    id="add-form-startDate"></form:input> (MM-DD-YY)</td>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
                 <td><form:select class="styled" path="stageId" value="${edTask.stageid}" multiple="single"
                     id="add-form-stage">
                     <form:options items="${stageMapAdd}" />
                   </form:select></td>
-                 <td class="ColumnLabel"><label for="add-form-project">Project*</label></td>
-                <td><form:select class="styled" path="projectId" multiple="single"
-                    id="add-form-stage">
+                <td class="ColumnLabel"><label for="add-form-project">Project*</label></td>
+                <td><form:select class="styled" path="projectId" multiple="single" id="add-form-stage">
                     <form:options items="${projectMapAdd}" />
                   </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date</label></td>
                 <td class="CellBGR3"><form:input path="endDate" value="${edTask.plannedenddate}"
-                    id="add-form-finishDate" /> (DD-MMM-YY)</td>
+                    id="add-form-finishDate" /> (MM-DD-YY)</td>
                 <td class="ColumnLabel"><label for="add-form-process">Process&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td><form:select class="styled" path="processId" value="${edTask.processId}" multiple="single"
                     id="add-form-process">
@@ -230,35 +232,22 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort</label></td>
-                <td class="CellBGR3"><form:input path="plannedEffort" id="add-form-currentEffort" /> (Hours)</td>
+                <td class="CellBGR3"><form:input path="currentEffort" id="add-form-currentEffort" /> (Hours)</td>
                 <td class="ColumnLabel"><label for="add-form-productSize">Product Size</label></td>
-                <td class="CellBGR3"><form:input path="productId" id="add-form-productSize"/></td>
+                <td class="CellBGR3"><form:input path="productSize" value="${edTask.productsize}"
+                    id="add-form-productSize" /></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-actualEffort">Actual Effort</label></td>
                 <td class="CellBGR3"><form:input path="actualEffort" id="add-form-actualEffort"
                     value="${edTask.actualeffort}" /> (Hours)</td>
                 <td class="ColumnLabel"><label for="add-form-completedSize">Completed Size</label></td>
-                <td class="CellBGR3"><form:input path="productId" id="add-form-completedSize" /></td>
-              </tr>
-              <tr>
-
-              </tr>
-              <tr>
-
-              </tr>
-              <tr>
-
-              </tr>
-              <tr>
-
-              </tr>
-              <tr>
-
+                <td class="CellBGR3"><form:input path="completedSize" value="${edTask.completenessstatus}"
+                    id="add-form-completedSize" /></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
-                <td class="CellBGR3"><form:textarea path="description" rows="4" cols="40" name="note"
+                <td class="CellBGR3"><form:textarea path="description" value="123" rows="4" cols="40"
                     id="add-form-description"></form:textarea></td>
               </tr>
             </tbody>
