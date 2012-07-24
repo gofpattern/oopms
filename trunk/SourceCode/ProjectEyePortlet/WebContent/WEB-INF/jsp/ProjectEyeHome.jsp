@@ -49,7 +49,7 @@
         <c:forEach var="project" items="${projectList}">
             <tr>
             <portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="homeProjectDetail" />
+            	<portlet:param name="action" value="GoProjectDetail" />
             	<portlet:param name="projectId" value="${project.projectId}" />
             </portlet:renderURL>
                <td scope="row"><a href="${renderAction}">${project.name}</a></td>

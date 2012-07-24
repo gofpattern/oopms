@@ -38,6 +38,7 @@ public class CreateRiskForm {
 	private String riskSource_SelectedValue;
 	private String estimatedImpactTo_SelectedValue;
 	private String estimatedImpactUnit_SelectedValue;
+	private String projectId;
 
 	/**
 	 * @return the riskSource
@@ -236,4 +237,19 @@ public class CreateRiskForm {
 		this.estimatedImpactUnit_SelectedValue = estimatedImpactUnit_SelectedValue;
 	}
 
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	
 }

@@ -39,6 +39,19 @@ public class CreateIssueForm {
 	private String status_SelectedValue;
 	private String type_SelectedValue;
 	private String processRelated_SelectedValue;
+	private String projectId;
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
 	/**
 	 * @return the description
 	 */

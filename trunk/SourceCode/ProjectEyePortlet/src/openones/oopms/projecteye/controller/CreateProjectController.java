@@ -31,6 +31,7 @@ import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.validator.CreateProjectValidator;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,10 @@ public class CreateProjectController {
      */
     @ActionMapping(params = "action=CreateProject")
     public void processCreateProject(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process CreateProject.START");        
+        log.debug("process CreateProject.START");
+        CreateProjectValidator validator = new CreateProjectValidator();
+        validator.validate(formBean, result);
+        if(!result.hasErrors()) {
         DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
         
@@ -84,7 +88,7 @@ public class CreateProjectController {
         Assignment assignment = new Assignment();
         //set value for assgment
         assignment.setDeveloperId(dev.getDeveloperId());
-        assignment.setType(new Byte("2"));
+        assignment.setType(new Byte("1")); // type 1 is project Manager
         assignment.setBeginDate(formBean.getPlanStartDate());
     	//Call dao to insert project to database
         if(pDao.insertProject(project,assignment)) {
@@ -93,6 +97,10 @@ public class CreateProjectController {
     	} else {
     		log.error("Cannot Insert");
     	}
+        } else {
+        	response.setRenderParameter("action", "GoCreateProject");
+        	log.error("Error in binding result:" + result.getErrorCount());
+        }
         
     }
 

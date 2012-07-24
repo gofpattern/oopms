@@ -21,6 +21,7 @@ package openones.oopms.projecteye.controller;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.form.TeamManagementForm;
 import openones.oopms.projecteye.model.Developer;
 
 import org.apache.log4j.Logger;
@@ -69,7 +70,9 @@ public class ProjectDetailController {
     @RenderMapping(params = "action=goTeamManagement")
     public ModelAndView postGoTeamManagement(RenderRequest request) {
         log.debug("post GoTeamManagement.START");
-        ModelAndView mav = new ModelAndView("TeamManagement");
+        TeamManagementForm form = new TeamManagementForm();
+        form.setSearchType("name");
+        ModelAndView mav = new ModelAndView("TeamManagement", "TeamManagementForm", form);
         String projectId = request.getParameter("projectId");
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);

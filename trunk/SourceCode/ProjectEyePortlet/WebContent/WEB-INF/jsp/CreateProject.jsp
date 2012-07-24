@@ -73,15 +73,17 @@
     <table class="portlet-table">
   <tr>
     <th width="186" scope="row">Project Manager</th>
-    <td width="433">Manager</td>
+    <td width="433">${username}</td>
   </tr>
   <tr>
     <th scope="row">Project Code* </th>
     <td><input name="projectCode" value="" maxlength="50" size="50" type="text" /></td>
+    <font color="red"><form:errors path="projectCode"></form:errors></font>
   </tr>
   <tr>
     <th scope="row">Project Name* </th>
     <td><input name="projectName" value="" maxlength="50" size="50" type="text" /></td>
+    <font color="red"><form:errors path="projectName"></form:errors></font>
   </tr>
   <tr>
     <th scope="row">Project Status</th>
@@ -121,6 +123,7 @@
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>
+	<font color="red"><form:errors path="*"></form:errors></font>
 </form:form>
 
   <!-- end .content --></div>

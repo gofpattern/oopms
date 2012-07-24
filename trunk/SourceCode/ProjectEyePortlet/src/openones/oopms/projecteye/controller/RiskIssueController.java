@@ -71,19 +71,38 @@ public class RiskIssueController {
 		RiskDao rDao = new RiskDao();
 		ArrayList<RiskSource> riskSource = rDao.getRiskSourceList();
 		Map<String, String> riskSourcetMap = new LinkedHashMap<String, String>();
-		riskSourcetMap.put(" ", " ");
 		for (int i = 0; i < riskSource.size(); i++) {
 			riskSourcetMap.put(riskSource.get(i).getSourceId().toString(),
 					riskSource.get(i).getSourceName());
 		}
-		riskFormBean.setRiskSource(riskSourcetMap);
-		riskFormBean.setRiskSource_SelectedValue(" ");
+		
+		Map<String, String> EstimatedImpactToMap = new LinkedHashMap<String, String>();
+		EstimatedImpactToMap.put("1", "Schedule");
+		EstimatedImpactToMap.put("2", "Effort");
+		EstimatedImpactToMap.put("3", "Finance");
+		EstimatedImpactToMap.put("4", "Team");
+		EstimatedImpactToMap.put("5", "Timeliness");
+		EstimatedImpactToMap.put("6", "Requirement");
+		EstimatedImpactToMap.put("7", "Leakage");
+		EstimatedImpactToMap.put("8", "Customer");
+		EstimatedImpactToMap.put("9", "Correction");
+		EstimatedImpactToMap.put("10", "Other");
+		
+		Map<String, String> EstimatedImpactUnitMap = new LinkedHashMap<String, String>();
+		EstimatedImpactUnitMap.put("1", "%");
+		EstimatedImpactUnitMap.put("2", "day");
+		EstimatedImpactUnitMap.put("3", "month");
+		EstimatedImpactUnitMap.put("4", "person.day");
+		EstimatedImpactUnitMap.put("5", "person.month");
+		EstimatedImpactUnitMap.put("6", "$");
+		EstimatedImpactUnitMap.put("7", "#");
+		
 		ModelAndView mav = new ModelAndView("CreateRisk");
 		request.setAttribute("CreateRiskForm", riskFormBean);
 		// Set default value for risk source
-		mav.addObject("riskSource", riskFormBean.getRiskSource());
-		mav.addObject("riskSource_SelectedValue",
-				riskFormBean.getRiskSource_SelectedValue());
+		mav.addObject("riskSource", riskSourcetMap);
+		mav.addObject("estimatedImpactTo", EstimatedImpactToMap);
+		mav.addObject("estimatedImpactUnit", EstimatedImpactUnitMap);
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
@@ -141,6 +160,7 @@ public class RiskIssueController {
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		mav.addObject("username",ProjectEyeHomeController.username);
 		return mav;
 	}
 

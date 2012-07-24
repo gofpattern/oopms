@@ -19,25 +19,16 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Date;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.projecteye.dao.DeveloperDao;
-import openones.oopms.projecteye.dao.RiskDao;
-import openones.oopms.projecteye.form.CreateRiskForm;
-import openones.oopms.projecteye.model.Developer;
-import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.Risk;
-import openones.oopms.projecteye.model.RiskSource;
+import openones.oopms.projecteye.form.CreateIssueForm;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
@@ -49,11 +40,10 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateRiskController {
+public class CreateIssueController {
 
-	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(CreateRiskController.class);
+	private static Logger log = Logger.getLogger(CreateIssueController.class);
 	String projectId;
 
 	/**
@@ -68,38 +58,38 @@ public class CreateRiskController {
 	 * @param response
 	 *            response of action
 	 */
-	@ActionMapping(params = "action=createRisk")
-	public void processCreateRisk(CreateRiskForm formBean,
+	@ActionMapping(params = "action=CreateIssue")
+	public void processCreateIssue(CreateIssueForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
-			log.debug("processCreateRisk.START");
-			DeveloperDao dDao = new DeveloperDao();
-			Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
-			RiskDao rDao = new RiskDao();
-			Risk risk = new Risk();
-			projectId = formBean.getProjectId();
-			// set value for risk
-			Project project = new Project();
-			project.setProjectId(new BigDecimal(projectId));
-			risk.setProject(project);
-			risk.setDeveloper(dev);
-			
-			risk.setSourceId(new BigDecimal(formBean.getRiskSource_SelectedValue()));
-			risk.setCondition(formBean.getDescription());
-			risk.setProb(formBean.getProbability());
-			risk.setImpactTo(new BigDecimal(formBean.getEstimatedImpactTo_SelectedValue()));
-			risk.setUnit(new BigDecimal(formBean.getEstimatedImpactUnit_SelectedValue()));
-			risk.setEstimatedImpact(formBean.getEstimatedImpact());
-			risk.setImpact(formBean.getTotalImpact());
-			risk.setRiskPriority(formBean.getRiskPriority());
-			risk.setTriggerName(formBean.getTrigger());
-			// Call dao to insert risk to database
-			if (rDao.insertRisk(risk)) {
-				response.setRenderParameter("action", "createRisk");
-				log.error("Insert success");
-			} else {
-				log.error("Cannot Insert");
-			}
-
+//		log.debug("process CreateIssue.START");
+//		IssueDao iDao = new IssueDao();
+//		Issue issue = new Issue();
+//		projectId = formBean.getProjectId();
+//		// set value for risk
+//		Project project = new Project();
+//		project.setProjectId(new BigDecimal(projectId));
+//		issue.setProject(project);
+//		issue.setOwner(ProjectEyeHomeController.username);
+//		issue.setDescription(formBean.getDescription());
+//		issue.setPriorityid(Integer.parseInt(formBean
+//				.getPriority_SelectedValue()));
+//		issue.setStatusid(Integer.parseInt(formBean.getStatus_SelectedValue()));
+//		issue.setTypeid(Integer.parseInt(formBean.getType_SelectedValue()));
+//		issue.setProcessId(Short.parseShort(formBean
+//				.getProcessRelated_SelectedValue()));
+//		issue.setStartdate(new Date());
+//		issue.setDuedate(formBean.getDueDate());
+//		issue.setCloseddate(formBean.getClosedDate());
+//		issue.setComments(formBean.getCommentSolution());
+//		issue.setReference(formBean.getReference());
+//		// Call dao to insert risk to database
+//		if (iDao.insertIssue(issue)) {
+//			response.setRenderParameter("action", "CreateIssue");
+//			log.error("Insert success");
+//		} else {
+//			log.error("Cannot Insert");
+//		}
+		response.setRenderParameter("action", "CreateIssue");
 	}
 
 	/**
@@ -108,7 +98,7 @@ public class CreateRiskController {
 	 * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will
 	 *         displayed
 	 */
-	@RenderMapping(params = "action=createRisk")
+	@RenderMapping(params = "action=CreateIssue")
 	public ModelAndView postCreateStage(RenderRequest request) {
 		log.debug("post CreateStage.START");
 		ModelAndView mav = new ModelAndView("RiskIssue");
