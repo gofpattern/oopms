@@ -36,8 +36,8 @@ public class TaskDAO {
             String sql = "from ProjectStatus";
             Query query = session.createQuery(sql);
             List<ProjectStatus> statusList = query.list();
-            // session.flush();
-            // session.getTransaction().commit();
+//             session.flush();
+//             session.getTransaction().commit();
             System.out.println("getAllStatus.end");
             return statusList;
 

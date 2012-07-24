@@ -20,10 +20,12 @@ package openones.oopms.planner.controller;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.DataFormatException;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
@@ -69,22 +71,24 @@ public class PlannerAddController {
             SessionStatus status, ActionResponse response) {
         log.debug("processPlannerAdd.START");
         TaskDAO taskDAO = new TaskDAO();
-        
-        formBean.setProjectId("118385");
 
-        formBeanAdd.setActualEffort("10");
-        formBeanAdd.setPlannedEffort("10");
+        formBeanAdd.setProjectId("118385");
+
+        // formBeanAdd.setActualEffort("10");
+        // formBeanAdd.setPlannedEffort("10");
 
         statusList = taskDAO.getAllStatus();
         stageList = taskDAO.getAllStage();
         productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
         projectList = taskDAO.getAllProject();
-        developerList = taskDAO.getDeveloper(formBean.getProjectId());
+        developerList = taskDAO.getDeveloper(formBeanAdd.getProjectId());
+        System.out.println("developerList.size" + developerList.size());
 
         // set value for statusMap
         for (int i = 0; i < statusList.size(); i++) {
-            formBeanAdd.getStatusMap().put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
+            formBeanAdd.getStatusMap().put(statusList.get(i).getProjectStatusId().toString(),
+                    statusList.get(i).getProjectStatusName());
         }
 
         // Set value for stageMap
@@ -94,7 +98,8 @@ public class PlannerAddController {
 
         // Set value for developerMap
         for (int i = 0; i < developerList.size(); i++) {
-            formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
+            formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(),
+                    developerList.get(i).getName());
         }
 
         // Set value for productMap
@@ -106,12 +111,13 @@ public class PlannerAddController {
         for (int i = 0; i < processList.size(); i++) {
             formBeanAdd.getProcessMap().put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
-        
-     // Set value for projectMap
+
+        // Set value for projectMap
         for (int i = 0; i < projectList.size(); i++) {
             formBeanAdd.getProjectMap().put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
 
+        // Action for PlannerAddForm
         formBeanAdd.setAction_str("addTask");
 
         response.setRenderParameter("action", "taskmanager");
@@ -132,23 +138,40 @@ public class PlannerAddController {
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
 
-        try {
+       // try {
             task.setTaskname(formBeanAdd.getTitle());
-            task.setStatusId(new BigDecimal(formBeanAdd.getStatusId()));
-            task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
-            task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
-            task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
+
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+
+            try {
+                task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
+                task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
+            } catch (ParseException ex) {
+                // TODO Auto-generated catch block
+                ex.printStackTrace();
+            }
+            
+
+            System.out.println("formBeanAdd.getPlannedEffort()"+formBeanAdd.getPlannedEffort());
             task.setPlannedeffort(new BigDecimal(formBeanAdd.getPlannedEffort()));
             task.setActualeffort(new BigDecimal(formBeanAdd.getActualEffort()));
-            task.setStartdate(new Date(formBeanAdd.getStartDate()));
-            task.setPlannedenddate(new Date(formBeanAdd.getEndDate()));
             task.setDescription(formBeanAdd.getDescription());
-            task.setProjectid(new BigDecimal("118385"));
+
+            task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
+            task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
+
+            task.setProduct(new BigDecimal(formBeanAdd.getProductId()));
+            task.setProductsize(new BigDecimal(formBeanAdd.getProductSize()));
+            task.setCompletenessstatus(new BigDecimal(formBeanAdd.getCompletedSize()));
+
+            task.setProjectid(new BigDecimal(formBeanAdd.getProjectId()));
+            task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
+            task.setStatusId(new BigDecimal(formBeanAdd.getStatusId()));
 
             taskDAO.addTask(task);
-        } catch (Exception ex) {
-            log.error("error when add new task", ex);
-        }
+//        } catch (Exception ex) {
+//            log.error("error when add new task", ex);
+//        }
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -207,19 +230,6 @@ public class PlannerAddController {
         formBeanAdd.setDeveloperMap(developerMap);
         formBeanAdd.setProductMap(productMap);
 
-//        formBeanAdd.setTitle(task.getTaskname());
-//        formBeanAdd.setPlannedEffort(task.getPlannedeffort().toString());
-//        formBeanAdd.setActualEffort(task.getActualeffort().toString());
-//        
-//        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT); 
-//        formBeanAdd.setStartDate(dateFormat.format(task.getStartdate()));
-//        formBeanAdd.setEndDate(dateFormat.format(task.getPlannedenddate()));
-//        
-//        formBeanAdd.setDescription(task.getDescription());
-//
-//        formBeanAdd.setStageId(task.getStageid().toString());
-//        formBeanAdd.setTaskId(formBean.getTaskId()); // get current task id to edit
-        
         formBeanAdd.setEditTask(task);
 
         formBeanAdd.setAction_str("editTask"); // set form action form add to edit

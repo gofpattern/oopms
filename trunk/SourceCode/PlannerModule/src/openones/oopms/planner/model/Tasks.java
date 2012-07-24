@@ -63,6 +63,8 @@ public class Tasks implements java.io.Serializable {
         product = new BigDecimal("0");
         developerid = new BigDecimal("0");
         statusId = new BigDecimal("0");
+        productsize =  new BigDecimal("0");
+        completenessstatus =  new BigDecimal("0");
     }
 
     public Tasks(BigDecimal taskid) {
