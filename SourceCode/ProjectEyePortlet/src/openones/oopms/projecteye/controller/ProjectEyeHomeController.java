@@ -18,36 +18,31 @@
  */
 package openones.oopms.projecteye.controller;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
-import openones.oopms.projecteye.form.CreateRiskForm;
 import openones.oopms.projecteye.form.ProjectEyeHomeForm;
 import openones.oopms.projecteye.model.BusinessDomain;
+import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.RiskSource;
+import openones.oopms.projecteye.model.Risk;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
@@ -71,12 +66,12 @@ public class ProjectEyeHomeController {
 	public String initScreen(RenderRequest request) {
 		log.debug("initScreen.START conme");
 		PortletSupport portletSupport = new PortletSupport(request);
-        username = portletSupport.getLogonUser();
+		username = portletSupport.getLogonUser();
 		ProjectDao pDao = new ProjectDao();
 		DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(username);
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
-		request.setAttribute("projectList", projectList);		
+		request.setAttribute("projectList", projectList);
 		return "ProjectEyeHome";
 
 	}
@@ -95,32 +90,14 @@ public class ProjectEyeHomeController {
 	}
 
 	/**
-	 * Process submitted form by clicking "Create New Project" button.
-	 * 
-	 * @param formBean
-	 *            bean captures input data
-	 * @param result
-	 *            result of binding data
-	 * @param status
-	 *            status of session
-	 * @param response
-	 *            response of action
-	 */
-	@ActionMapping(params = "action=GoCreateProject")
-	public void processCreateProject(ProjectEyeHomeForm formBean, BindingResult result,
-			SessionStatus status, ActionResponse response) {
-		log.debug("process GoCreateProject.START");
-		response.setRenderParameter("action", "GoCreateProject");
-	}
-
-	/**
 	 * Process after the action "Create New Project"
 	 * 
 	 * @return view "CreateProject" which next page "CreateProject.jsp" will
 	 *         displayed
 	 */
 	@RenderMapping(params = "action=GoCreateProject")
-	public ModelAndView postCreateProject(ProjectEyeHomeForm formBean, RenderRequest request) {
+	public ModelAndView postCreateProject(CreateProjectForm formBean,
+			RenderRequest request) {
 		log.debug("post GoCreateProject.START");
 		ProjectDao pDao = new ProjectDao();
 		// get category List
@@ -140,115 +117,72 @@ public class ProjectEyeHomeController {
 		}
 
 		// get Bussiness domain list
-		List<BusinessDomain> projectBussinessDomainList = pDao.getProjectBussinessDomainList();
+		List<BusinessDomain> projectBussinessDomainList = pDao
+				.getProjectBussinessDomainList();
 		Map<String, String> projectBussinessDomainMap = new LinkedHashMap<String, String>();
 		for (int i = 0; i < projectBussinessDomainList.size(); i++) {
-			projectBussinessDomainMap.put(projectBussinessDomainList.get(i).getDomainId()
-					.toString(), projectBussinessDomainList.get(i).getDomainName());
+			projectBussinessDomainMap.put(projectBussinessDomainList.get(i)
+					.getDomainId().toString(), projectBussinessDomainList
+					.get(i).getDomainName());
 		}
-		CreateProjectForm projectFormBean = new CreateProjectForm();
-		request.setAttribute("CreateProjectForm", projectFormBean);
+		request.setAttribute("CreateProjectForm", formBean);
 		ModelAndView mav = new ModelAndView("CreateProject");
 		mav.addObject("projectStatus", projectStatusMap);
 		mav.addObject("projectCategory", projectCategoryMap);
 		mav.addObject("businessDomain", projectBussinessDomainMap);
+		mav.addObject("username", username);
 		return mav;
 	}
 
-	/**
-	 * Process submitted form by clicking "Create New Product" button.
-	 * 
-	 * @param formBean
-	 *            bean captures input data
-	 * @param result
-	 *            result of binding data
-	 * @param status
-	 *            status of session
-	 * @param response
-	 *            response of action
-	 */
-	@ActionMapping(params = "action=homeCreateProduct")
-	public void processCreateProduct(ProjectEyeHomeForm formBean,
-			BindingResult result, SessionStatus status, ActionResponse response) {
-		log.debug("processHomeCreateProduct.START");
-		response.setRenderParameter("action", "homeCreateProduct");
-	}
-
-	/**
-	 * Process after the action "Create New Product"
-	 * 
-	 * @return view "CreateProduct" which next page "CreateProduct.jsp" will
-	 *         displayed
-	 */
-	@RenderMapping(params = "action=homeCreateProduct")
-	public ModelAndView postCreateProduct(ProjectEyeHomeForm formBean,
-			RenderRequest request) {
-		log.debug("postCreateProduct.START");
-		ModelAndView mav = new ModelAndView("CreateProduct");
-		return mav;
-	}
-
-	/**
-	 * Process submitted form by clicking "Create New Product" button.
-	 * 
-	 * @param formBean
-	 *            bean captures input data
-	 * @param result
-	 *            result of binding data
-	 * @param status
-	 *            status of session
-	 * @param response
-	 *            response of action
-	 */
-	@ActionMapping(params = "action=homeCreateRisk")
-	public void processCreateRisk(ProjectEyeHomeForm formBean,
-			BindingResult result, SessionStatus status, ActionResponse response) {
-		log.debug("processHomeCreateProduct.START");
-		response.setRenderParameter("action", "homeCreateRisk");
-	}
-
-	/**
-	 * Process after the action "Create New Product"
-	 * 
-	 * @return view "CreateProduct" which next page "CreateProduct.jsp" will
-	 *         displayed
-	 */
-	@RenderMapping(params = "action=homeCreateRisk")
-	public ModelAndView postCreateRisk(ProjectEyeHomeForm formBean,
-			RenderRequest request) {
-		log.debug("postCreateRisk.START");
-		CreateRiskForm riskFormBean = new CreateRiskForm();
-		RiskDao rDao = new RiskDao();
-		ArrayList<RiskSource> riskSource = rDao.getRiskSourceList();
-		Map<String, String> riskSourcetMap = new LinkedHashMap<String, String>();
-		riskSourcetMap.put(" ", " ");
-		for (int i = 0; i < riskSource.size(); i++) {
-			riskSourcetMap.put(riskSource.get(i).getSourceId().toString(),
-					riskSource.get(i).getSourceName());
-		}
-		riskFormBean.setRiskSource(riskSourcetMap);
-		riskFormBean.setRiskSource_SelectedValue(" ");
-		ModelAndView mav = new ModelAndView("CreateRisk");
-		request.setAttribute("CreateRiskForm", riskFormBean);
-		// Set default value for risk source
-		mav.addObject("riskSource", riskFormBean.getRiskSource());
-		mav.addObject("riskSource_SelectedValue",
-				riskFormBean.getRiskSource_SelectedValue());
-		return mav;
-	}
-
-	@ActionMapping(params = "action=homeProjectDetail")
-	public void processProjectDetail(BindingResult result,
-			SessionStatus status, ActionResponse response) {
-		log.debug("processHomeProjectDetail.START");
-		response.setRenderParameter("action", "homeProjectDetail");
-	}
-
-	@RenderMapping(params = "action=homeProjectDetail")
+	@RenderMapping(params = "action=GoProjectDetail")
 	public ModelAndView postProjectDetail(RenderRequest request) {
 		log.debug("postProjectDetail.START");
-		ModelAndView mav = new ModelAndView("ProjectDetail");
 		String projectId = request.getParameter("projectId");
+		ProjectDao pDao = new ProjectDao();
+		Project project = pDao.getProject(projectId);
+		// Get project Manager Name
+		DeveloperDao dDao = new DeveloperDao();
+		Developer developer = dDao.getProjectManager(project);
+		List<Developer> projectTeam = dDao.getDeveloperTeamOfProject(project);
+		RiskDao rDao = new RiskDao();
+		List<Risk> projectRiskList = rDao.getProjectRiskList(project);
+		ChangeRequestDao crDao = new ChangeRequestDao();
+		List<ChangesOfProjectPlan> projectChangeRequestList = crDao
+				.getProjectChangeRequestList(project);
+		ModelAndView mav = new ModelAndView("ProjectDetail");
+		mav.addObject("projectManager", developer.getName());
+		if (project.getProjectStatusCode() != null) {
+			mav.addObject("projectStatus",
+					pDao.getProjectStatus(project.getProjectStatusCode())
+							.getDescription());
+		}
+		mav.addObject("projectCode", project.getCode());
+		mav.addObject("projectName", project.getName());
+		if (project.getProjectCategoryCode() != null) {
+			mav.addObject("projectCategory",
+					pDao.getProjectCategory(project.getProjectCategoryCode())
+							.getDescription());
+		}
+		mav.addObject("directCustomer", project.getCustomer());
+		mav.addObject("endCustomer", project.getCustomer2nd());
+		if (project.getType() != null) {
+			mav.addObject("businessDomain",
+					pDao.getProjectBussinessDomain(project.getType())
+							.getDomainName());
+		}
+		mav.addObject("plannedStartDate", project.getPlanStartDate());
+		mav.addObject("plannedEndDate", project.getPlanFinishDate());
+		mav.addObject("scopeAndObjective", project.getDescription());
+		mav.addObject("projectSize", projectTeam.size());
+		mav.addObject("riskIssue", projectRiskList.size());
+		mav.addObject("changeRequest", projectChangeRequestList.size());
+		// mav.addObject("planEffort", project);
+		// mav.addObject("actualEffort", project);
+		// mav.addObject("progress", project);
+		// mav.addObject("cost", project);
+		// mav.addObject("projectHealth", project);
+		// mav.addObject("projectEvaluation", project);
+
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;

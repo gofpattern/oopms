@@ -5,6 +5,8 @@ import java.util.List;
 import openones.oopms.projecteye.controller.CreateProjectController;
 import openones.oopms.projecteye.model.DefectPriority;
 import openones.oopms.projecteye.model.Ncconstant;
+import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.model.RiskCategory;
 import openones.oopms.projecteye.model.Process;
 import openones.oopms.projecteye.utils.HibernateUtil;
@@ -97,6 +99,40 @@ public class IssueDao {
         }
         return null;
     }
-  
+    
+//    public boolean insertIssue(Issue issue) {
+// 	   try {
+//        SessionFactory sessfac = HibernateUtil.getSessionFactory();
+//        session = sessfac.openSession();
+//        tx = session.beginTransaction();
+//        session.save(issue);
+//        tx.commit();
+//        sessfac.close();       
+// 	   } catch (Exception e) {
+// 		   log.error("Insert deo duoc");
+// 		   log.error(e.getMessage());
+// 	       return false;             
+//        }
+// 	   log.error("Insert ngon");
+//        return true;
+//    }
+    
+    public List<Risk> getProjectRiskList(Project project) {
+ 	   try {
+     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+     	   session = sessionfactory.openSession();
+     	   session.beginTransaction();
+     	   String hql = "From Risk where project = :projectId";
+            Query query = session.createQuery(hql);
+            query.setParameter("projectId", project);
+            List<Risk> riskList = query.list();               
+            session.getTransaction().commit();
+            return riskList;
+            
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return null;
+    }
 
 }

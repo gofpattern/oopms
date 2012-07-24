@@ -6,6 +6,7 @@ import openones.oopms.projecteye.controller.CreateProjectController;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -54,6 +55,24 @@ public class ChangeRequestDao {
         }
  	   log.error("Insert ngon");
         return true;
+    }
+    
+    public List<ChangesOfProjectPlan> getProjectChangeRequestList(Project project) {
+ 	   try {
+     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+     	   session = sessionfactory.openSession();
+     	   session.beginTransaction();
+     	   String hql = "From ChangesOfProjectPlan where project = :projectId";
+            Query query = session.createQuery(hql);
+            query.setParameter("projectId", project);
+            List<ChangesOfProjectPlan> changeRequestList = query.list();               
+            session.getTransaction().commit();
+            return changeRequestList;
+            
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
 }

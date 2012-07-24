@@ -23,6 +23,58 @@ package openones.oopms.projecteye.form;
  * @author HaiTCT
  */
 public class TeamManagementForm {
-
-
+	private String projectId;
+	private String developerId;
+	private String searchString;
+	private String searchType;
+	/**
+	 * @return the searchType
+	 */
+	public String getSearchType() {
+		return searchType;
+	}
+	/**
+	 * @param searchType the searchType to set
+	 */
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+	/**
+	 * @return the developerId
+	 */
+	public String getDeveloperId() {
+		return developerId;
+	}
+	/**
+	 * @param developerId the developerId to set
+	 */
+	public void setDeveloperId(String developerId) {
+		this.developerId = developerId;
+	}
+	/**
+	 * @return the searchString
+	 */
+	public String getSearchString() {
+		return searchString;
+	}
+	/**
+	 * @param searchString the searchString to set
+	 */
+	public void setSearchString(String searchString) {
+		this.searchString = searchString;
+	}
+	
+	
 }
