@@ -86,7 +86,7 @@ public class TimesheetDao {
             String toDateString, String status) {
         try {
             session.getTransaction().begin();
-            String hql = "from Timesheet where developerId= :devId order by occurDate desc";
+            String hql = "from Timesheet where developerId= :devId ";
             boolean projFlag = false;
             boolean fromDFlag = false;
             boolean toDFlag = false;
@@ -111,7 +111,9 @@ public class TimesheetDao {
                 hql += "and status = :status";
                 statusFlag = true;
             }
+            hql+= " order by occurDate desc";
             BigDecimal devId = new BigDecimal(developerId);
+            System.out.println("HQL" + hql);
             Query query = session.createQuery(hql);
             query.setParameter("devId", (devId));
             if (projFlag) {
@@ -141,8 +143,7 @@ public class TimesheetDao {
             return timesheetList;
 
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
+           
 
         }
         return null;
@@ -254,6 +255,43 @@ public class TimesheetDao {
                 query.setParameter("createDate", new Date());
                 query.setParameter("tsId",timesheetList.get(i).getTimesheetId());
                 query.setParameter("status",new BigDecimal(0));
+                
+                int rowCount = query.executeUpdate();
+                
+                System.out.println("Rows affected: " + rowCount);               
+            }
+            session.flush();
+            session.getTransaction().commit();
+
+          
+
+        } catch (Exception e) {
+            e.printStackTrace();
+//            session.getTransaction().rollback();
+//            session.close();
+
+        }
+    }
+    
+    public void approveRejectTimesheet(List<Timesheet> timesheetList, BigDecimal devId, boolean approveFlag) throws ParseException {
+
+        try {
+            
+            session.getTransaction().begin();
+            String hql="UPDATE Timesheet ts SET  ts.status =:status WHERE ts.timesheetId =:tsId";
+         
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            for (int i = 0; i < timesheetList.size(); i++) {
+                Query query = session.createQuery(hql);
+               
+                query.setParameter("tsId",timesheetList.get(i).getTimesheetId());
+                
+                if(approveFlag) {
+                    query.setParameter("status",new BigDecimal(1));
+                }
+                else {
+                    query.setParameter("status",new BigDecimal(2));
+                }
                 
                 int rowCount = query.executeUpdate();
                 
