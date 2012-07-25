@@ -21,6 +21,7 @@ package openones.oopms.planner.controller;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -145,12 +146,12 @@ public class PlannerAddController {
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
-            
+
             taskDAO.addTask(task);
         } catch (ParseException ex) {
             log.error("error when add new task", ex);
         }
-       // formBean.setFlag(true);
+        // formBean.setFlag(true);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -184,24 +185,58 @@ public class PlannerAddController {
         }
 
         // Set value for stageMap
+        // get name and set to the top
+        for (int i = 0; i < stageList.size(); i++) {
+            if (task.getStageid().equals(stageList.get(i).getStageId())) {
+                task.setStage_str(stageList.get(i).getName());
+                break;
+            }
+        }
+        stageMap.put(task.getStageid().toString(), task.getStage_str());
         for (int i = 0; i < stageList.size(); i++) {
             stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
-
+        
         // Set value for developerMap
+        for (int i = 0; i < developerList.size(); i++) {
+            if (task.getDeveloperid().equals(developerList.get(i).getDeveloperId())) {
+                task.setDeveloper_str(developerList.get(i).getName());
+                break;
+            }
+        }
+        developerMap.put(task.getDeveloperid().toString(), task.getDeveloper_str());
         for (int i = 0; i < developerList.size(); i++) {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
 
         // Set value for productMap
         for (int i = 0; i < productList.size(); i++) {
+            if (task.getProduct().equals(productList.get(i).getWpId())) {
+                task.setProduct_str(productList.get(i).getName());
+                break;
+            }
+        }
+        productMap.put(task.getProduct().toString(), task.getProduct_str());
+        for (int i = 0; i < productList.size(); i++) {
             productMap.put(productList.get(i).getWpId().toString(), productList.get(i).getName());
         }
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
+            if (task.getProcessId().equals(processList.get(i).getProcessId())) {
+                task.setProcess_str(processList.get(i).getName());
+                break;
+            }
+        }
+        processMap.put(task.getProcessId().toString(), task.getProcess_str());
+        for (int i = 0; i < processList.size(); i++) {
             processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
+
+        // Convert date
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        task.setStartdate_str(dateFormat.format(task.getStartdate()));
+        task.setPlannedenddate_str(dateFormat.format(task.getPlannedenddate()));
 
         formBeanAdd.setStatusMap(statusMap);
         formBeanAdd.setProcessMap(processMap);
@@ -212,7 +247,7 @@ public class PlannerAddController {
         formBeanAdd.setEditTask(task);
 
         formBeanAdd.setAction_str("editTask"); // set form action form add to edit
-        
+
         formBean.setFlag(1);
         response.setRenderParameter("action", "taskmanager");
     }
@@ -232,7 +267,7 @@ public class PlannerAddController {
         Tasks task = new Tasks();
         try {
             task = formBeanAdd.getTask();
-            
+
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
