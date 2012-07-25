@@ -23,11 +23,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.corba.se.impl.protocol.BootstrapServerRequestDispatcher;
+
 import openones.oopms.planner.model.Tasks;
 /**
  * @author PNTG
  */
 public class PlannerForm {
+    private int flag;
     private String taskId;
     private String currentTaskIndex;
     private String projectId;
@@ -55,6 +58,8 @@ public class PlannerForm {
         stageMap.put(" ", " ");
         developerMap.put(" ", " ");
         projectMap.put(" ", " ");
+
+        flag = 0;
     }
 
     /**
@@ -264,5 +269,22 @@ public class PlannerForm {
     public void setProjectMap(Map<String, String> projectMap) {
         this.projectMap = projectMap;
     }
+
+    /**
+     * Get value of flag.
+     * @return the flag
+     */
+    public int getFlag() {
+        return flag;
+    }
+
+    /**
+     * Set the value for flag.
+     * @param flag the flag to set
+     */
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+     
 
 }

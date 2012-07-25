@@ -119,6 +119,7 @@ public class PlannerAddController {
 
         // Action for PlannerAddForm
         formBeanAdd.setAction_str("addTask");
+        formBean.setFlag(1);
 
         response.setRenderParameter("action", "taskmanager");
     }
@@ -149,7 +150,7 @@ public class PlannerAddController {
         } catch (ParseException ex) {
             log.error("error when add new task", ex);
         }
-
+       // formBean.setFlag(true);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -211,7 +212,8 @@ public class PlannerAddController {
         formBeanAdd.setEditTask(task);
 
         formBeanAdd.setAction_str("editTask"); // set form action form add to edit
-
+        
+        formBean.setFlag(1);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -240,6 +242,7 @@ public class PlannerAddController {
         } catch (Exception ex) {
             log.error("error when update task", ex);
         }
+        // formBean.setFlag(true);
         response.setRenderParameter("action", "taskmanager");
     }
 }
