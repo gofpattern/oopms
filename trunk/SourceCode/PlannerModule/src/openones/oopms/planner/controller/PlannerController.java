@@ -1,6 +1,8 @@
 package openones.oopms.planner.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,7 +116,7 @@ public class PlannerController {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
 
-        // Convert Id to name
+        // Convert
         try {
             for (int i = 0; i < taskList.size(); i++) {
                 // Convert stageId to name
@@ -142,6 +144,10 @@ public class PlannerController {
                         log.debug("projectcode"+ taskList.get(i).getProject_str());
                     }
                 }
+             // Convert date
+                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
+                taskList.get(i).setPlannedenddate_str(dateFormat.format(taskList.get(i).getPlannedenddate()));
             }
 
         } catch (Exception ex) {

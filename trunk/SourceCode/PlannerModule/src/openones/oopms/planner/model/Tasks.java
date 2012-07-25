@@ -2,6 +2,8 @@ package openones.oopms.planner.model;
 // Generated Jul 12, 2012 4:48:19 PM by Hibernate Tools 3.2.1.GA
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -34,6 +36,9 @@ public class Tasks implements java.io.Serializable {
     private String process_str;
     private String developer_str;
     private String project_str;
+    private String startdate_str;
+    private String plannedenddate_str;
+    
 
     /**
      * Get value of developer_str.
@@ -54,17 +59,17 @@ public class Tasks implements java.io.Serializable {
     public Tasks() {
         taskid = new BigDecimal("0");
         taskname = " ";
-        startdate = new Date();
-        plannedenddate = new Date();
+        
+                
         plannedeffort = new BigDecimal("0");
         currenteffort = new BigDecimal("0");
         actualeffort = new BigDecimal("0");
         description = "no thing";
-        stageid = new BigDecimal("0");
-        processId = new BigDecimal("0");
-        product = new BigDecimal("0");
-        developerid = new BigDecimal("0");
-        statusId = new BigDecimal("0");
+        // stageid = new BigDecimal("2");
+        // processId = new BigDecimal("22");
+        // product = new BigDecimal("2");
+        // developerid = new BigDecimal("1");
+        // statusId = new BigDecimal("1");
         productsize = new BigDecimal("0");
         completenessstatus = new BigDecimal("0");
         active = true;
@@ -313,4 +318,36 @@ public class Tasks implements java.io.Serializable {
         this.currenteffort = currenteffort;
     }
 
+    /**
+     * Get value of startdate_str.
+     * @return the startdate_str
+     */
+    public String getStartdate_str() {
+        return startdate_str;
+    }
+
+    /**
+     * Set the value for startdate_str.
+     * @param startdate_str the startdate_str to set
+     */
+    public void setStartdate_str(String startdate_str) {
+        this.startdate_str = startdate_str;
+    }
+
+    /**
+     * Get value of plannedenddate_str.
+     * @return the plannedenddate_str
+     */
+    public String getPlannedenddate_str() {
+        return plannedenddate_str;
+    }
+
+    /**
+     * Set the value for plannedenddate_str.
+     * @param plannedenddate_str the plannedenddate_str to set
+     */
+    public void setPlannedenddate_str(String plannedenddate_str) {
+        this.plannedenddate_str = plannedenddate_str;
+    }    
+    
 }

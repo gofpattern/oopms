@@ -192,7 +192,7 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-startDate">Start Date</label></td>
-                <td class="CellBGR3"><form:input path="startDate" value="${edTask.startdate}"
+                <td class="CellBGR3"><form:input path="startDate" value="${edTask.startdate_str}"
                     id="add-form-startDate"></form:input> (MM-DD-YY)</td>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
                 <td><form:select class="styled" path="task.stageid" value="${edTask.stageid}" multiple="single"
@@ -206,7 +206,7 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date</label></td>
-                <td class="CellBGR3"><form:input path="endDate" value="${edTask.plannedenddate}"
+                <td class="CellBGR3"><form:input path="endDate" value="${edTask.plannedenddate_str}"
                     id="add-form-finishDate" /> (MM-DD-YY)</td>
                 <td class="ColumnLabel"><label for="add-form-process">Process&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td><form:select class="styled" path="task.processId" value="${edTask.processId}" multiple="single"
@@ -335,8 +335,8 @@
                     <td>${task.developer_str}</td>
                     <td></td>
                     <td>${task.completenessstatus}</td>
-                    <td>${task.startdate}</td>
-                    <td>${task.plannedenddate}</td>
+                    <td>${task.startdate_str}</td>
+                    <td>${task.plannedenddate_str}</td>
                     <td>${task.plannedeffort}</td>
                     <td>${task.actualeffort}</td>
                     <td><input type="image" alt="Submit"
