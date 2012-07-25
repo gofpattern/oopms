@@ -21,6 +21,7 @@ public class Tasks implements java.io.Serializable {
     private Date plannedenddate;
     private Date enddate;
     private BigDecimal plannedeffort;
+    private BigDecimal currenteffort;
     private BigDecimal actualeffort;
     private String description;
     private BigDecimal projectid;
@@ -53,18 +54,20 @@ public class Tasks implements java.io.Serializable {
     public Tasks() {
         taskid = new BigDecimal("0");
         taskname = " ";
-        startdate  = new Date();
+        startdate = new Date();
         plannedenddate = new Date();
         plannedeffort = new BigDecimal("0");
+        currenteffort = new BigDecimal("0");
         actualeffort = new BigDecimal("0");
-        description = " ";
+        description = "no thing";
         stageid = new BigDecimal("0");
         processId = new BigDecimal("0");
         product = new BigDecimal("0");
         developerid = new BigDecimal("0");
         statusId = new BigDecimal("0");
-        productsize =  new BigDecimal("0");
-        completenessstatus =  new BigDecimal("0");
+        productsize = new BigDecimal("0");
+        completenessstatus = new BigDecimal("0");
+        active = true;
     }
 
     public Tasks(BigDecimal taskid) {
@@ -292,6 +295,22 @@ public class Tasks implements java.io.Serializable {
      */
     public void setProject_str(String project_str) {
         this.project_str = project_str;
+    }
+
+    /**
+     * Get value of currenteffort.
+     * @return the currenteffort
+     */
+    public BigDecimal getCurrenteffort() {
+        return currenteffort;
+    }
+
+    /**
+     * Set the value for currenteffort.
+     * @param currenteffort the currenteffort to set
+     */
+    public void setCurrenteffort(BigDecimal currenteffort) {
+        this.currenteffort = currenteffort;
     }
 
 }

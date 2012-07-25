@@ -54,7 +54,6 @@ public class PlannerController {
     @ModelAttribute("PlannerAddForm")
     public PlannerAddForm getCommandObjectSubForm() {
         log.debug("getCommandObjectSubForm.START");
-
         PlannerAddForm formBean = new PlannerAddForm();
         return formBean;
     }
@@ -69,7 +68,9 @@ public class PlannerController {
     public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request) {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
-        ModelAndView mav = new ModelAndView("TaskManager");
+        ModelAndView mav = new ModelAndView("TaskManager");     
+
+       
 
         formBean.setProjectId("118385");
 
@@ -161,9 +162,7 @@ public class PlannerController {
         mav.addObject("statusMap", formBean.getStatusMap());
         mav.addObject("stageMap", formBean.getStageMap());
         mav.addObject("developerMap", formBean.getDeveloperMap());
-        mav.addObject("processMap", formBean.getProcessMap());
         mav.addObject("projectMap", formBean.getProjectMap());
-        mav.addObject("productMap", formBean.getProductMap());
 
         // Object form PlannerAddForm    
         mav.addObject("edTask", formBeanAdd.getEditTask());
@@ -175,8 +174,7 @@ public class PlannerController {
         mav.addObject("productMapAdd", formBeanAdd.getProductMap());
         mav.addObject("projectMapAdd", formBeanAdd.getProjectMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
-        mav.addObject("taskid", formBeanAdd.getTaskId());
-
+        
         return mav;
     }
 
