@@ -138,40 +138,18 @@ public class PlannerAddController {
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
 
-       // try {
-            task.setTaskname(formBeanAdd.getTitle());
+        try {
+            task = formBeanAdd.getTask();
 
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-
-            try {
-                task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
-                task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
-            } catch (ParseException ex) {
-                // TODO Auto-generated catch block
-                ex.printStackTrace();
-            }
+            task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
+            task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
             
-
-            System.out.println("formBeanAdd.getPlannedEffort()"+formBeanAdd.getPlannedEffort());
-            task.setPlannedeffort(new BigDecimal(formBeanAdd.getPlannedEffort()));
-            task.setActualeffort(new BigDecimal(formBeanAdd.getActualEffort()));
-            task.setDescription(formBeanAdd.getDescription());
-
-            task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
-            task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
-
-            task.setProduct(new BigDecimal(formBeanAdd.getProductId()));
-            task.setProductsize(new BigDecimal(formBeanAdd.getProductSize()));
-            task.setCompletenessstatus(new BigDecimal(formBeanAdd.getCompletedSize()));
-
-            task.setProjectid(new BigDecimal(formBeanAdd.getProjectId()));
-            task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
-            task.setStatusId(new BigDecimal(formBeanAdd.getStatusId()));
-
             taskDAO.addTask(task);
-//        } catch (Exception ex) {
-//            log.error("error when add new task", ex);
-//        }
+        } catch (ParseException ex) {
+            log.error("error when add new task", ex);
+        }
+
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -251,14 +229,11 @@ public class PlannerAddController {
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
         try {
-            task.setTaskid(new BigDecimal(formBeanAdd.getTaskId()));
-            task.setTaskname(formBeanAdd.getTitle());
-            task.setPlannedeffort(new BigDecimal(formBeanAdd.getPlannedEffort()));
-            task.setActualeffort(new BigDecimal(formBeanAdd.getActualEffort()));
-            task.setStageid(new BigDecimal(formBeanAdd.getStageId()));
-            task.setProcessId(new BigDecimal(formBeanAdd.getProcessId()));
-            task.setDeveloperid(new BigDecimal(formBeanAdd.getDeveloperId()));
-            task.setStatusId(new BigDecimal(formBeanAdd.getStatusId()));
+            task = formBeanAdd.getTask();
+            
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+            task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
+            task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
 
             taskDAO.updateTask(task, task.getTaskid());
 

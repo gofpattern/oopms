@@ -30,17 +30,6 @@ import openones.oopms.planner.model.Tasks;
 public class PlannerForm {
     private String taskId;
     private String currentTaskIndex;
-    // private String title;
-    // private String startDate;
-    // private String endDate;
-    // private String plannedEffort;
-    // private String actualEffort;
-    // private String stageId;
-    // private String processId;
-    // private String productId;
-    // private String developerId;
-    // private String statusId;
-    // private String description;
     private String projectId;
 
     private String statusDefault;
@@ -55,20 +44,17 @@ public class PlannerForm {
     Map<String, String> developerMap;
     Map<String, String> processMap;
     Map<String, String> projectMap;
-    Map<String, String> productMap;
 
     public PlannerForm() {
         statusMap = new LinkedHashMap<String, String>();
         stageMap = new LinkedHashMap<String, String>();
         developerMap = new LinkedHashMap<String, String>();
-        processMap = new LinkedHashMap<String, String>();
-        productMap = new LinkedHashMap<String, String>();
+        projectMap = new LinkedHashMap<String, String>();
 
         statusMap.put(" ", " ");
         stageMap.put(" ", " ");
         developerMap.put(" ", " ");
-        processMap.put(" ", " ");
-        productMap.put(" ", " ");
+        projectMap.put(" ", " ");
     }
 
     /**
@@ -277,22 +263,6 @@ public class PlannerForm {
      */
     public void setProjectMap(Map<String, String> projectMap) {
         this.projectMap = projectMap;
-    }
-
-    /**
-     * Get value of productMap.
-     * @return the productMap
-     */
-    public Map<String, String> getProductMap() {
-        return productMap;
-    }
-
-    /**
-     * Set the value for productMap.
-     * @param productMap the productMap to set
-     */
-    public void setProductMap(Map<String, String> productMap) {
-        this.productMap = productMap;
     }
 
 }

@@ -21,8 +21,6 @@ package openones.oopms.planner.form;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.hibernate.criterion.Projections;
-
 import openones.oopms.planner.model.Tasks;
 
 /**
@@ -31,22 +29,10 @@ import openones.oopms.planner.model.Tasks;
 public class PlannerAddForm {
 
     private Tasks editTask;
-    private String taskId;
-    private String title;
+    private Tasks task;
     private String startDate;
     private String endDate;
-    private String plannedEffort;
-    private String currentEffort;
-    private String actualEffort;
-    private String stageId;
-    private String processId;
-    private String productId;
-    private String developerId;
-    private String statusId;
-    private String description;
     private String projectId;
-    private String productSize;
-    private String completedSize;
 
     private String action_str;
 
@@ -60,7 +46,8 @@ public class PlannerAddForm {
     public PlannerAddForm() {
 
         editTask = new Tasks();
-        
+        task = new Tasks();
+
         statusMap = new LinkedHashMap<String, String>();
         stageMap = new LinkedHashMap<String, String>();
         developerMap = new LinkedHashMap<String, String>();
@@ -75,22 +62,9 @@ public class PlannerAddForm {
         productMap.put(" ", " ");
         projectMap.put(" ", " ");
 
-        taskId = " ";
-        title = " ";
         startDate = " ";
         endDate = " ";
-        plannedEffort = " ";
-        currentEffort = " ";
-        actualEffort = " ";
-        description = " ";
-        stageId = " ";
-        processId = " ";
-        productId = " ";
-        productSize = " ";
-        completedSize = " ";
         projectId = " ";
-        developerId = " ";
-        statusId = " ";
 
         action_str = "none";
     }
@@ -128,34 +102,6 @@ public class PlannerAddForm {
     }
 
     /**
-     * Get value of taskId.
-     * @return the taskId
-     */
-    public String getTaskId() {
-        return taskId;
-    }
-    /**
-     * Set the value for taskId.
-     * @param taskId the taskId to set
-     */
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
-    }
-    /**
-     * Get value of title.
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
-    /**
-     * Set the value for title.
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    /**
      * Get value of startDate.
      * @return the startDate
      */
@@ -183,118 +129,7 @@ public class PlannerAddForm {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
-    /**
-     * Get value of plannedEffort.
-     * @return the plannedEffort
-     */
-    public String getPlannedEffort() {
-        return plannedEffort;
-    }
-    /**
-     * Set the value for plannedEffort.
-     * @param plannedEffort the plannedEffort to set
-     */
-    public void setPlannedEffort(String plannedEffort) {
-        this.plannedEffort = plannedEffort;
-    }
-    /**
-     * Get value of actualEffort.
-     * @return the actualEffort
-     */
-    public String getActualEffort() {
-        return actualEffort;
-    }
-    /**
-     * Set the value for actualEffort.
-     * @param actualEffort the actualEffort to set
-     */
-    public void setActualEffort(String actualEffort) {
-        this.actualEffort = actualEffort;
-    }
-    /**
-     * Get value of stageId.
-     * @return the stageId
-     */
-    public String getStageId() {
-        return stageId;
-    }
-    /**
-     * Set the value for stageId.
-     * @param stageId the stageId to set
-     */
-    public void setStageId(String stageId) {
-        this.stageId = stageId;
-    }
-    /**
-     * Get value of processId.
-     * @return the processId
-     */
-    public String getProcessId() {
-        return processId;
-    }
-    /**
-     * Set the value for processId.
-     * @param processId the processId to set
-     */
-    public void setProcessId(String processId) {
-        this.processId = processId;
-    }
-    /**
-     * Get value of productId.
-     * @return the productId
-     */
-    public String getProductId() {
-        return productId;
-    }
-    /**
-     * Set the value for productId.
-     * @param productId the productId to set
-     */
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-    /**
-     * Get value of developerId.
-     * @return the developerId
-     */
-    public String getDeveloperId() {
-        return developerId;
-    }
-    /**
-     * Set the value for developerId.
-     * @param developerId the developerId to set
-     */
-    public void setDeveloperId(String developerId) {
-        this.developerId = developerId;
-    }
-    /**
-     * Get value of statusId.
-     * @return the statusId
-     */
-    public String getStatusId() {
-        return statusId;
-    }
-    /**
-     * Set the value for statusId.
-     * @param statusId the statusId to set
-     */
-    public void setStatusId(String statusId) {
-        this.statusId = statusId;
-    }
-    /**
-     * Get value of description.
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-    /**
-     * Set the value for description.
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
     /**
      * Get value of projectId.
      * @return the projectId
@@ -397,51 +232,19 @@ public class PlannerAddForm {
     }
 
     /**
-     * Get value of productSize.
-     * @return the productSize
+     * Get value of task.
+     * @return the task
      */
-    public String getProductSize() {
-        return productSize;
+    public Tasks getTask() {
+        return task;
     }
 
     /**
-     * Set the value for productSize.
-     * @param productSize the productSize to set
+     * Set the value for task.
+     * @param task the task to set
      */
-    public void setProductSize(String productSize) {
-        this.productSize = productSize;
+    public void setTask(Tasks task) {
+        this.task = task;
     }
 
-    /**
-     * Get value of currentEffort.
-     * @return the currentEffort
-     */
-    public String getCurrentEffort() {
-        return currentEffort;
-    }
-
-    /**
-     * Set the value for currentEffort.
-     * @param currentEffort the currentEffort to set
-     */
-    public void setCurrentEffort(String currentEffort) {
-        this.currentEffort = currentEffort;
-    }
-
-    /**
-     * Get value of completedSize.
-     * @return the completedSize
-     */
-    public String getCompletedSize() {
-        return completedSize;
-    }
-
-    /**
-     * Set the value for completedSize.
-     * @param completedSize the completedSize to set
-     */
-    public void setCompletedSize(String completedSize) {
-        this.completedSize = completedSize;
-    }
-    
 }
