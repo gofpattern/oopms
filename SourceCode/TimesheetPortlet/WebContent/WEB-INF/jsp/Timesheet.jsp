@@ -146,7 +146,7 @@ function submitAction(formName, actionUrl) {
       </tr>
       <tr>
         <td><strong>Role</strong></td>
-        <td><strong><font color="#1490E3">Developer</font></strong></td>
+        <td><strong><font color="#1490E3"><%=portletSession.getAttribute("ROLE", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td width="7%" align="left"><strong>Status</strong></td>
         <td width="26%"><select class="styled" size="1"
           name="status" class="SmallCombo" value="0">
@@ -176,7 +176,13 @@ function submitAction(formName, actionUrl) {
   <portlet:param name="action" value="goUpdateTimesheet" />
 </portlet:actionURL> <portlet:actionURL var="deleteTimesheetAction">
   <portlet:param name="action" value="deleteTimesheet" />
-</portlet:actionURL> <form:form name="Timesheet" method="post" commandName="timesheetForm"
+</portlet:actionURL> 
+<portlet:actionURL var="approveTimesheetAction">
+  <portlet:param name="action" value="approveTimesheet" />
+</portlet:actionURL>
+<portlet:actionURL var="rejectTimesheetAction">
+  <portlet:param name="action" value="rejectTimesheet" />
+</portlet:actionURL><form:form name="Timesheet" method="post" commandName="timesheetForm"
   action="${goUpdateTimesheetAction}">
   <table id="mainTable2" class="display dataTable" cellpadding="0"
     cellspacing="0" border="0">
@@ -209,7 +215,8 @@ function submitAction(formName, actionUrl) {
             <td><font color="">${timesheet.duration}</font></td>
             <td><font color="">${timesheet.description}</font></td>
             <td><c:if test="${timesheet.status==0}">UnApproved</c:if>
-            <c:if test="${timesheet.status==1}">Approved</c:if></td>
+            <c:if test="${timesheet.status==1}">Approved</c:if>
+             <c:if test="${timesheet.status==2}"><font color="red">Rejected</font></c:if></td>
 
           </tr>
         </c:forEach>
@@ -224,7 +231,17 @@ function submitAction(formName, actionUrl) {
     value="Update" class="button blue small" /> <input type="button"
     class="button blue small" name="Delete"
     onclick='submitActionConfirm("Timesheet", "${deleteTimesheetAction}");'
-    value="Delete" class="button red small" /></p>
+    value="Delete" class="button red small" />
+    <c:if test="${ROLE=='Project Manager' }">
+    <input type="button" class="button blue small" name="Approve"
+    onclick='submitAction("Timesheet", "${approveTimesheetAction}")'
+    value="Approve" class="button blue small" />
+    <input type="button" class="button blue small" name="Reject"
+    onclick='submitAction("Timesheet", "${rejectTimesheetAction}")'
+    value="Reject" class="button blue small" />
+    </c:if>
+    
+    </p>
 
 </form:form></div>
 </div>

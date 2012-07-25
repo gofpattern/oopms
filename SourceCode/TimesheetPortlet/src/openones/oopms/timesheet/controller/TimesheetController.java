@@ -66,6 +66,10 @@ public class TimesheetController {
     Map<String, String> workProductMap;
     // List update timesheet
     List<Timesheet> updateTimesheetList;
+    // List approve timesheet
+    List<Timesheet> approveTimesheetList;
+    // List reject timesheet
+    List<Timesheet> rejectTimesheetList;
     // List delete timesheet
     List<Timesheet>deleteTimesheetList;
     /** Logger for logging. */
@@ -162,11 +166,11 @@ public class TimesheetController {
         PortletSession session = request.getPortletSession();
         session.setAttribute("USERID", user.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("USER", user.getAccount(), PortletSession.APPLICATION_SCOPE);
-
+        session.setAttribute("ROLE", user.getDesignation(), PortletSession.APPLICATION_SCOPE);
         // Set default value for timesheet.jsp
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("projectDefault", formBean.getProjectDefault());
-
+        mav.addObject("ROLE", user.getDesignation());
         // Search all timesheet record from database
         TimesheetDao timeDao = new TimesheetDao();
         List<Timesheet> timesheetList = timeDao.getTimesheetList(String.valueOf(user.getDeveloperId()), "All", "", "",
@@ -252,6 +256,7 @@ public class TimesheetController {
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("projectDefault", formBean.getProjectDefault());
         TimesheetDao timeDao = new TimesheetDao();
+        System.out.println("Search Project :" + formBean.getProjectDefault());
         // Get timesheet List from database with value from form
         List<Timesheet> timesheetList = timeDao.getTimesheetList(String.valueOf(user.getDeveloperId()),
                 formBean.getProjectDefault(), formBean.getFromDate(), formBean.getToDate(), formBean.getStatus());
@@ -441,9 +446,7 @@ public class TimesheetController {
             ActionResponse response) throws ParseException {
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        for (int i = 0; i < tempList.size(); i++) {
-            System.out.println("occurDateString :"+ tempList.get(i).getOccurDateString()+"projId "
-                    + tempList.get(i).getProject().getProjectId()+ "duration :" + tempList.get(i).getDuration()+"desc : "+tempList.get(i).getDescription());
+        for (int i = 0; i < tempList.size(); i++) {          
             updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
             updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
             updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
@@ -473,6 +476,40 @@ public class TimesheetController {
         }
         TimesheetDao timeDao = new TimesheetDao();
         timeDao.deleteTimesheet(deleteTimesheetList, user.getDeveloperId());
+        response.setRenderParameter("action", "init");
+
+    }
+    
+    @ActionMapping(params = "action=approveTimesheet")   
+    public void processApproveTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) throws ParseException {
+        approveTimesheetList = new ArrayList<Timesheet>();
+        List<Timesheet> tempList = new ArrayList<Timesheet>();
+        tempList = formBean.getTimesheetList();
+        for (int i = 0; i < tempList.size(); i++) {
+            if (tempList.get(i).getTimesheetId() != null) {
+                approveTimesheetList.add(tempList.get(i));
+            }
+        }
+        TimesheetDao timeDao = new TimesheetDao();
+        timeDao.approveRejectTimesheet(approveTimesheetList, user.getDeveloperId(), true);
+        response.setRenderParameter("action", "init");
+
+    }
+    
+    @ActionMapping(params = "action=rejectTimesheet")   
+    public void processRpproveTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) throws ParseException {
+        approveTimesheetList = new ArrayList<Timesheet>();
+        List<Timesheet> tempList = new ArrayList<Timesheet>();
+        tempList = formBean.getTimesheetList();
+        for (int i = 0; i < tempList.size(); i++) {
+            if (tempList.get(i).getTimesheetId() != null) {
+                approveTimesheetList.add(tempList.get(i));
+            }
+        }
+        TimesheetDao timeDao = new TimesheetDao();
+        timeDao.approveRejectTimesheet(approveTimesheetList, user.getDeveloperId(), false);
         response.setRenderParameter("action", "init");
 
     }
