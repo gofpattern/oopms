@@ -175,6 +175,9 @@ public class PlannerController {
         mav.addObject("projectMapAdd", formBeanAdd.getProjectMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
         
+        // flag to hide and show Add-Edit window
+        mav.addObject("flag", formBean.getFlag());
+        
         return mav;
     }
 

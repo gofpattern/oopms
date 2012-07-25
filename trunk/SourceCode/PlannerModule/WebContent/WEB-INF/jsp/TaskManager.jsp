@@ -89,6 +89,11 @@
 		// set description when update a task
 		document.getElementById('add-form-description').innerHTML = "${edTask.description}";
 		
+		// set show and hide for hidden-add-form
+		if('${flag}' == 0){
+			$(".hidden-add-form").hide();
+		}
+		
 		$("#add-button").click(function() {
 			$(".hidden-add-form").show("slow");
 		});
@@ -108,6 +113,7 @@
 }
 
 .hidden-add-form {
+
   webkit-box-shadow: rgb(170, 170, 170) 0px 0px 5px 0px;
   background-attachment: scroll;
   background-color: #EFEFEF;
