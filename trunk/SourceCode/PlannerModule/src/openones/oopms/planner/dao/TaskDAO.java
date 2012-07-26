@@ -36,8 +36,8 @@ public class TaskDAO {
             String sql = "from ProjectStatus";
             Query query = session.createQuery(sql);
             List<ProjectStatus> statusList = query.list();
-//             session.flush();
-//             session.getTransaction().commit();
+            // session.flush();
+            // session.getTransaction().commit();
             System.out.println("getAllStatus.end");
             return statusList;
 
@@ -84,13 +84,13 @@ public class TaskDAO {
     public Tasks getTaskById(BigDecimal taskId) {
         log.debug("getTaskById.START");
         try {
-           // session.getTransaction().begin();
+            // session.getTransaction().begin();
             String sql = "from Tasks where taskid = :taskId";
             Query query = session.createQuery(sql);
             query.setParameter("taskId", taskId);
             Tasks task = (Tasks) query.uniqueResult();
-           // session.flush();
-           // session.getTransaction().commit();
+            // session.flush();
+            // session.getTransaction().commit();
             System.out.println("getTaskById.end");
             return task;
         } catch (Exception e) {
@@ -239,26 +239,21 @@ public class TaskDAO {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * update Task
-     * @param newTask: new value of current task
+     * @param editTask: new value of current task
      * @param id: id of current task
      */
-    public void updateTask(Tasks newTask, BigDecimal id) {
+    public void updateTask(Tasks editTask) {
         log.debug("updateTask.START");
         try {
             session.getTransaction().begin();
-            Tasks task = (Tasks) session.get(Tasks.class, id);
-            task.setTaskname(newTask.getTaskname());
-            task.setPlannedeffort(newTask.getPlannedeffort());
-            task.setActualeffort(newTask.getActualeffort());
-            task.setStageid(newTask.getStageid());
-            task.setProcessId(newTask.getProcessId());
-            task.setProduct(newTask.getProduct());
-            task.setDeveloperid(newTask.getDeveloperid());
-            task.setStatusId(newTask.getStatusId());
-            session.update(task);
+            // Tasks task = (Tasks) session.get(Tasks.class, id);
+            if(editTask.getStatusId().equals(new BigDecimal(2))){
+                editTask.setEnddate(editTask.getPlannedenddate());
+            }
+            session.update(editTask);
             session.flush();
             session.getTransaction().commit();
         } catch (Exception e) {

@@ -122,7 +122,6 @@ public class PlannerAddController {
     public void processAddTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processAddTask.START");
-
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
 
@@ -166,12 +165,19 @@ public class PlannerAddController {
         developerList = taskDAO.getDeveloper(formBean.getProjectId());
 
         // set value for statusMap
+        // get name and set to the top
+        for (int i = 0; i < statusList.size(); i++) {
+            if (task.getStatusId().equals(statusList.get(i).getProjectStatusId())) {
+                task.setStatus_str(statusList.get(i).getProjectStatusName());
+                break;
+            }
+        }
+        statusMap.put(task.getStatusId().toString(), task.getStatus_str());
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
         }
 
         // Set value for stageMap
-        // get name and set to the top
         for (int i = 0; i < stageList.size(); i++) {
             if (task.getStageid().equals(stageList.get(i).getStageId())) {
                 task.setStage_str(stageList.get(i).getName());
@@ -248,18 +254,28 @@ public class PlannerAddController {
     public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processEditTask.START");
-
-        formBeanAdd.setProjectId(PlannerController.projectDefault);
+        //formBeanAdd.setProjectId(PlannerController.projectDefault);
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
         try {
             task = formBeanAdd.getTask();
-
+            task.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
+            log.debug(formBeanAdd.getStartDate().toString());
+            log.debug(formBeanAdd.getEndDate().toString());
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
+            
 
-            taskDAO.updateTask(task, task.getTaskid());
+            log.debug(task.getStartdate().toString());
+            log.debug(task.getPlannedenddate().toString());
+            log.debug(task.getCurrenteffort().toString());
+            log.debug(task.getDescription());
+            log.debug(task.getProductsize());
+            log.debug(task.getCompletenessstatus());
+            
+            
+            taskDAO.updateTask(task);
 
         } catch (Exception ex) {
             log.error("error when update task", ex);
