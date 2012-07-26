@@ -6,28 +6,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link type="text/css" href="../PlannerModule/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css"
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css"
   rel="Stylesheet" />
-<link type="text/css" href="../PlannerModule/resource_files/css/common.css" rel="Stylesheet" />
-<link type="text/css" href="../PlannerModule/resource_files/css/uportal.css" rel="Stylesheet" />
-<script type="text/javascript" src="../PlannerModule/resource_files/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="../PlannerModule/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script type="text/javascript" src="../PlannerModule/resource_files/js/form-elements.js"></script>
-<script type="text/javascript" src="../PlannerModule/resource_files/js/common.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/common.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#add-form-startDate")
 				.datepicker(
 						{
 							showOn : "button",
-							buttonImage : "../PlannerModule/resource_files/images/calendar.gif",
+							buttonImage : "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
 							buttonImageOnly : true
 						});
 		$("#add-form-finishDate")
 				.datepicker(
 						{
 							showOn : "button",
-							buttonImage : "../PlannerModule/resource_files/images/calendar.gif",
+							buttonImage : "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
 							buttonImageOnly : true
 						});
 		$("#selectable").selectable();
@@ -338,10 +338,10 @@
                     <td>${task.plannedeffort}</td>
                     <td>${task.actualeffort}</td>
                     <td><input type="image" alt="Submit"
-                      src="../PlannerModule/resource_files/icons/Actions-document-edit-icon.png" width="24" height="24"
+                      src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png" width="24" height="24"
                       onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
                     <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
-                      alt="Submit" src="../PlannerModule/resource_files/icons/Actions-delete-icon.png" width="24"
+                      alt="Submit" src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png" width="24"
                       height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
                   </form:form>
                 </tr>
