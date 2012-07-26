@@ -19,6 +19,7 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
@@ -27,6 +28,7 @@ import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.form.CreateChangeRequestForm;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Project;
 
 import org.apache.log4j.Logger;
@@ -75,11 +77,24 @@ public class CreateChangeRequestController {
 		}
 
 	}
-
+	
 	@RenderMapping(params = "action=CreateChangeRequest")
-	public ModelAndView postCreateProject(RenderRequest request) {
-		log.debug("post CreateChangeRequest.START");
-		ModelAndView mav = new ModelAndView("ChangeRequest");
+	public ModelAndView postCreateChangeRequest(RenderRequest request) {
+		log.debug("post GoChangeRequest.START");
+		ModelAndView mav = new ModelAndView("ChangeRequest");		
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		ChangeRequestDao crDao = new ChangeRequestDao();
+		List<ChangesOfProjectPlan> projectChangeRequestList = crDao
+				.getProjectChangeRequestList(project);
+		if(projectChangeRequestList.size()>0) {
+			for(int i = 0; i<projectChangeRequestList.size();i++) {
+				Ncconstant status = crDao.getChangeRequestStatus(projectChangeRequestList.get(i).getVersion());
+				projectChangeRequestList.get(i).setVersion(status.getDescription());
+			}
+		}
+		mav.addObject("projectChangeRequestList", projectChangeRequestList);
+		
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;
