@@ -6,6 +6,7 @@ import java.util.List;
 import openones.oopms.projecteye.controller.CreateProjectController;
 import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
+import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
@@ -76,8 +77,73 @@ public class ProductDao {
 		return true;
 	}
 	
+	public List<Module> getProjectProductList(Project project, String searchType) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "";
+			if(searchType.equals("All")) {
+				hql = "From Module where project = :projectId";
+			} else {
+				hql = "From Module where project = :projectId and workproduct = :workProductCode";				
+			}
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", project);
+			if(!searchType.equals("All")) {
+				Workproduct workProduct = new Workproduct();
+				workProduct.setCode(searchType);
+				query.setParameter("workProductCode", workProduct);				
+			}			
+			List<Module> productList = query.list();
+			session.flush();
+			session.getTransaction().commit();
+			log.error("product list size : " + productList.size());
+			return productList;
 
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public Workproduct getWorkProduct(String workProductCode) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From Workproduct where code = :workProductCode";
+			Query query = session.createQuery(hql);
+			query.setParameter("workProductCode", workProductCode);
+			Workproduct workProduct = (Workproduct) query.uniqueResult();
+			session.flush();
+			session.getTransaction().commit();
+			return workProduct;
+
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
 	
+	public Language getProductSizeUnit(BigDecimal languageId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From Language where languageId = :languageId";
+			Query query = session.createQuery(hql);
+			query.setParameter("languageId", languageId);
+			Language productSizeUnit = (Language)query.uniqueResult();
+			session.flush();
+			session.getTransaction().commit();
+			return productSizeUnit;
+
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
 	
 
 }

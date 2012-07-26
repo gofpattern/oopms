@@ -19,13 +19,19 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ProductDao;
 import openones.oopms.projecteye.form.CreateProductForm;
+import openones.oopms.projecteye.form.ProductForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
@@ -71,6 +77,7 @@ public class CreateProductController {
 		product.setName(formBean.getName());
 		product.setWorkproduct(workProduct);
 		product.setPlannedSizeUnitId(new BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
+		
 		if(formBean.getPlannedSize().equals("") || formBean.getPlannedSize()==null) {
 			product.setPlannedSize(null);
 		} else {
@@ -105,7 +112,43 @@ public class CreateProductController {
 	@RenderMapping(params = "action=CreateProduct")
 	public ModelAndView postCreateProject(RenderRequest request) {
 		log.debug("post CreateProduct.START");
-		ModelAndView mav = new ModelAndView("Product");
+		ProductDao pDao = new ProductDao();
+		// get work Product List
+		List<Workproduct> workProductList = pDao.getWorkProductList();
+		Map<String, String> workProductMap = new LinkedHashMap<String, String>();
+		workProductMap.put("All", "All");
+		for (int i = 0; i < workProductList.size(); i++) {
+			workProductMap.put(workProductList.get(i).getCode(),
+					workProductList.get(i).getName());
+		}
+		ModelAndView mav = new ModelAndView("Product", "ProductForm", new ProductForm());
+		
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		List<Module> productList = pDao.getProjectProductList(project, "All");
+		List<ProductForm> projectProductList = new ArrayList<ProductForm>();
+		if(productList.size()>0) {			
+			for(int i=0; i<productList.size();i++) {
+				ProductForm temp = new ProductForm();
+				temp.setName(productList.get(i).getName());
+				//Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
+				temp.setWorkProduct(productList.get(i).getWorkproduct().getName());
+				Language unitSize = pDao.getProductSizeUnit(productList.get(i).getPlannedSizeUnitId());
+				temp.setPlannedSize(productList.get(i).getPlannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				if(productList.get(i).getReplannedSize()!=null) {
+					temp.setRePlannedSize(productList.get(i).getReplannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				}
+				if((productList.get(i).getActualSize()!=null) && (productList.get(i).getActualSizeUnitId()!=null)) {
+					unitSize = pDao.getProductSizeUnit(productList.get(i).getActualSizeUnitId());
+					temp.setRePlannedSize(productList.get(i).getActualSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				}
+				//temp.setCreatedSize(createdSize)
+				temp.setDescription(productList.get(i).getNote());
+				projectProductList.add(temp);
+			}
+		}
+		mav.addObject("workProduct", workProductMap);
+		mav.addObject("projectProductList", projectProductList);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;
