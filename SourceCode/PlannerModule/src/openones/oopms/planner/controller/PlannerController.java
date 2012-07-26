@@ -86,7 +86,12 @@ public class PlannerController {
         Map<String, String> projectMap = new LinkedHashMap<String, String>();
 
         statusList = taskDAO.getAllStatus();
+        
+        if(formBean.getInit())
         taskList = taskDAO.getAllTask();
+        else
+        taskList = formBean.getSearchResult();        
+        
         stageList = taskDAO.getAllStage();
         projectList = taskDAO.getAllProject();
         processList = taskDAO.getAllProcess();

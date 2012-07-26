@@ -29,6 +29,7 @@ import openones.oopms.planner.model.Tasks;
  */
 public class PlannerForm {
     private int flag;
+    private Boolean init;
     private String taskId;
     private String currentTaskIndex;
     private String projectId;
@@ -39,6 +40,7 @@ public class PlannerForm {
     private String projectDefault;
 
     private List<Tasks> taskList;
+    private List<Tasks> searchResult;
 
     Map<String, String> statusMap;
     Map<String, String> stageMap;
@@ -58,6 +60,7 @@ public class PlannerForm {
         projectMap.put(" ", " ");
 
         flag = 0;
+        init = true;
     }
 
     /**
@@ -283,6 +286,39 @@ public class PlannerForm {
     public void setFlag(int flag) {
         this.flag = flag;
     }
-     
+
+    /**
+     * Get value of init.
+     * @return the init
+     */
+    public Boolean getInit() {
+        return init;
+    }
+
+    /**
+     * Set the value for init.
+     * @param init the init to set
+     */
+    public void setInit(Boolean init) {
+        this.init = init;
+    }
+
+    /**
+     * Get value of searchResult.
+     * @return the searchResult
+     */
+    public List<Tasks> getSearchResult() {
+        return searchResult;
+    }
+
+    /**
+     * Set the value for searchResult.
+     * @param searchResult the searchResult to set
+     */
+    public void setSearchResult(List<Tasks> searchResult) {
+        this.searchResult = searchResult;
+    }
+    
+    
 
 }

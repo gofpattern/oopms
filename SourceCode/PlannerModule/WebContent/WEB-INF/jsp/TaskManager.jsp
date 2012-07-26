@@ -2,16 +2,19 @@
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css"
+<link type="text/css"
+  href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css"
   rel="Stylesheet" />
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript"
+  src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/common.js"></script>
 <script type="text/javascript">
@@ -144,18 +147,17 @@
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
-
       <portlet:actionURL var="DoPlannerAddAction">
         <portlet:param name="action" value="plannerAdd" />
+      </portlet:actionURL>      
+      
+      <portlet:actionURL var="DoPlannerEditAction">
+        <portlet:param name="action" value="plannerEdit" />
       </portlet:actionURL>
 
       <portlet:actionURL var="PlannerAddAction">
         <portlet:param name="action" value="${plAddAction}" />
       </portlet:actionURL>
-
-      <%--       <portlet:actionURL var="addTaskAction">
-        <portlet:param name="action" value="addTask" />
-      </portlet:actionURL> --%>
 
       <portlet:actionURL var="searchTaskAction">
         <portlet:param name="action" value="searchTask" />
@@ -163,10 +165,6 @@
 
       <portlet:actionURL var="deleteTaskAction">
         <portlet:param name="action" value="deleteTask" />
-      </portlet:actionURL>
-
-      <portlet:actionURL var="DoPlannerEditAction">
-        <portlet:param name="action" value="plannerEdit" />
       </portlet:actionURL>
 
       <form:form commandName="PlannerAddForm" method="post" action="${DoPlannerAddAction}">
@@ -325,24 +323,35 @@
                 <tr>
                   <form:form name="${task.taskid}modTask" commandName="PlannerForm" method="post" action="#">
                     <c:set var="count" value="${count + 1}" />
+                    <fmt:parseNumber var="i" type="number" value="${task.completenessstatus}" />
+                    <fmt:parseNumber var="j" type="number" value="${task.productsize}" />
+                    <fmt:formatNumber var="completeRate" value="${(i/j)}" minFractionDigits="2" type="percent" />
                     <td>${count}</td>
                     <td>${task.project_str}</td>
                     <td>${task.taskname}</td>
                     <td>${task.stage_str}</td>
                     <td>${task.process_str}</td>
                     <td>${task.developer_str}</td>
-                    <td></td>
-                    <td>${task.completenessstatus}</td>
+                    <td>${task.plannedeffort - task.currenteffort}&nbsp;Hour</td>
+                    <td>${completeRate}</td>
                     <td>${task.startdate_str}</td>
                     <td>${task.plannedenddate_str}</td>
                     <td>${task.plannedeffort}</td>
-                    <td>${task.actualeffort}</td>
+                    <c:choose>
+                      <c:when test="${task.statusId =='2'}">
+                        <td>${task.actualeffort}</td>
+                      </c:when>
+                      <c:otherwise>
+                        <td>N/A</td>
+                      </c:otherwise>
+                    </c:choose>
                     <td><input type="image" alt="Submit"
-                      src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png" width="24" height="24"
-                      onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
+                      src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png"
+                      width="24" height="24" onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
                     <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
-                      alt="Submit" src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png" width="24"
-                      height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
+                      alt="Submit"
+                      src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png"
+                      width="24" height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
                   </form:form>
                 </tr>
               </c:forEach>

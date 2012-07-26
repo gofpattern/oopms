@@ -28,7 +28,7 @@ border-color:
 #portalPageBodyInner {
 padding: 2.5em 12px;
 background: white;
- width: 1024px;
+ /* width: 1024px; */
     height: auto;
     position: relative;
 	   margin-left: auto;
@@ -766,7 +766,7 @@ div#tpl-popup { width: 580px; height: auto !important; height: 280px; min-height
 
 #bodyCenter {
 	
-    width: 1024px;
+    /* width: 1024px; */
 
     height: auto;
 
