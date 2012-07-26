@@ -148,13 +148,44 @@ function submitAction(formName, actionUrl) {
         <td><strong>Role</strong></td>
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("ROLE", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td width="7%" align="left"><strong>Status</strong></td>
-        <td width="26%"><select class="styled" size="1"
-          name="status" class="SmallCombo" value="0">
-          <option value="All" selected="">All</option>
-          <option value="1">Unapproved</option>
-          <option value="2">Approved</option>
-          <option value="3">Rejected</option>
-        </select></td>
+        <td width="26%">
+        <c:if test="${empty projectStatus }">
+        <select class="styled" size="1"
+          name="status" class="SmallCombo" >
+          <option value="All" >All</option>
+          <option value="0">Unapproved</option>
+          <option value="1">Approved</option>
+          <option value="2">Rejected</option>
+        </select>
+        </c:if>
+         <c:if test="${projectStatus=='0' }">
+        <select class="styled" size="1"
+          name="status" class="SmallCombo" >
+          <option value="All" >All</option>
+          <option value="0" selected="selected">Unapproved</option>
+          <option value="1">Approved</option>
+          <option value="2">Rejected</option>
+        </select>
+        </c:if>
+         <c:if test="${projectStatus=='1' }">
+        <select class="styled" size="1"
+          name="status" class="SmallCombo" >
+          <option value="All" >All</option>
+          <option value="0" >Unapproved</option>
+          <option value="1" selected="selected">Approved</option>
+          <option value="2">Rejected</option>
+        </select>
+        </c:if>
+         <c:if test="${projectStatus=='2' }">
+        <select class="styled" size="1"
+          name="status" class="SmallCombo" >
+          <option value="All" >All</option>
+          <option value="0">Unapproved</option>
+          <option value="1">Approved</option>
+          <option value="2" selected="selected">Rejected</option>
+        </select>
+        </c:if>
+        </td>
         <td width="17%" align="left"><strong>To Date</strong></td>
         <td colspan="2" class="vAlignMid"><form:input
           cssStyle="width:80px;" path="toDate" id="datepicker2" /></td>
@@ -180,8 +211,8 @@ function submitAction(formName, actionUrl) {
 <portlet:actionURL var="approveTimesheetAction">
   <portlet:param name="action" value="approveTimesheet" />
 </portlet:actionURL>
-<portlet:actionURL var="rejectTimesheetAction">
-  <portlet:param name="action" value="rejectTimesheet" />
+<portlet:actionURL var="goRejectTimesheetAction">
+  <portlet:param name="action" value="goRejectTimesheet" />
 </portlet:actionURL><form:form name="Timesheet" method="post" commandName="timesheetForm"
   action="${goUpdateTimesheetAction}">
   <table id="mainTable2" class="display dataTable" cellpadding="0"
@@ -237,7 +268,7 @@ function submitAction(formName, actionUrl) {
     onclick='submitAction("Timesheet", "${approveTimesheetAction}")'
     value="Approve" class="button blue small" />
     <input type="button" class="button blue small" name="Reject"
-    onclick='submitAction("Timesheet", "${rejectTimesheetAction}")'
+    onclick='submitAction("Timesheet", "${goRejectTimesheetAction}")'
     value="Reject" class="button blue small" />
     </c:if>
     

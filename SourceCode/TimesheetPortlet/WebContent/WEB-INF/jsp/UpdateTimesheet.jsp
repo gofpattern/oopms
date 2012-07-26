@@ -79,13 +79,17 @@
   <portlet:param name="action" value="updateTimesheet" />
 </portlet:actionURL> 
 <portlet:actionURL
-  var="addTimesheetAction">
-  <portlet:param name="action" value="addTimesheet" />
+  var="rejectTimesheeetAction">
+  <portlet:param name="action" value="rejectTimesheet" />
+</portlet:actionURL> 
+<portlet:actionURL
+  var="UpdateTimesheetAction">
+  <portlet:param name="action" value="UpdateTimesheet" />
 </portlet:actionURL> 
 <portlet:actionURL var="backAction">
   <portlet:param name="action" value="init" />
 </portlet:actionURL>
-<form:form onsubmit='return validate("validate");' name="AddTimesheet" method="post" commandName="timesheetForm"
+<form:form onsubmit='return validate("validate");' name="UpdateTimesheet" method="post" commandName="timesheetForm"
   action="${timesheetFormAction}"> 
   
   <form:errors path="*" cssStyle="color:red;" />
@@ -98,7 +102,9 @@
       <th >Work</th>
       <th >Process</th>
       <th >Time</th>
-      <th >Description</th>      
+      <th >Description</th>           
+      <th >Comment</th>
+       
     </tr>
   </thead>
   <tbody align="center">
@@ -119,8 +125,13 @@
           <form:options items="${processMap}" />
         </form:select></td>
          <td><input style="width: 30px;" name="timesheetList[${status.index}].duration" value="${timesheet.durationString}"/></td>
-          <td><input style="width: 300px;" name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
-         
+          <td><input style="width: 200px;" name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
+             <c:if test="${ROLE=='Project Manager' }">
+              <td><input style="width: 100px;" name="timesheetList[${status.index}].rcomment" value="${timesheet.rcomment}"/></td>
+             </c:if>
+              <c:if test="${ROLE!='Project Manager' }">
+              <td><input disabled="disabled" style="width: 300px;" name="timesheetList[${status.index}].rcomment" value="${timesheet.rcomment}"/></td>
+             </c:if>
          <!--
          
           <td><input name="timesheetList[${status.index}].towName" value="${timesheet.towName}"/></td>
@@ -135,8 +146,14 @@
 
   </tbody>
 </table>
-<p> <input onclick='submitAction("AddTimesheet", "${updateTimesheeetAction}")' name="Submit" value="Update" class="button blue small" type="button"/>
-<input onclick='submitAction("AddTimesheet", "${backAction}")' name="Submit" value="Back" class="button grey small" type="button"/></p>
+<p>
+ <c:if test="${rejectFlag=='true' }">
+  <input onclick='submitAction("UpdateTimesheet", "${rejectTimesheeetAction}")' name="Submit" value="Reject" class="button blue small" type="button"/>
+ </c:if>
+  <c:if test="${rejectFlag!='true' }">
+ <input onclick='submitAction("UpdateTimesheet", "${updateTimesheeetAction}")' name="Submit" value="Update" class="button blue small" type="button"/>
+ </c:if>
+<input onclick='submitAction("UpdateTimesheet", "${backAction}")' name="Submit" value="Back" class="button grey small" type="button"/></p>
 </form:form>
 
 </div>
