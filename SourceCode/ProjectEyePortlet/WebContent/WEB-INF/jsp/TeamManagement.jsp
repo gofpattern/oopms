@@ -54,6 +54,32 @@
             	<portlet:param name="projectId" value="${projectId}" />
             </portlet:renderURL>
 <form:form name="${portletNamespace}TeamManagement" commandName="TeamManagementForm" method="post" action="${formAction}">
+	<table class="portlet-table">
+	<c:if test="${not empty projectTeamList}">
+   <tbody><tr >
+        <th width="5%" scope="row">No</th>    
+        <th width="30%" scope="row">Name</th>
+        <th width="20%" scope="row">Account</th>
+        <th width="20%" scope="row">Member Role</th>
+        <th width="25%" scope="row">Action</th>
+    </tr>  
+        <c:forEach var="user" items="${projectTeamList}" varStatus="count">
+            <tr>
+            <portlet:renderURL var="renderAction">
+            	<portlet:param name="action" value="GoProjectDetail" />
+            	<portlet:param name="projectId" value="${project.projectId}" />
+            </portlet:renderURL>
+               <td scope="row">${count.count}</td>
+               <td scope="row">${user.userName}</td>
+               <td scope="row">${user.userAccount}</td>
+               <td scope="row">${user.userRole}</td>
+               <td scope="row"><button type="button" class="button blue small" >Remove from this Project</button></td>                               
+            </tr>
+        </c:forEach>
+   </tbody>
+	</c:if>
+	</table>
+	<br/><br/>
 	Search User <input name="searchString" value="" maxlength="50" size="50" type="text" /> 	
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${searchAction}")'>Search</button><br/>
 	<form:radiobutton path="searchType" value="name"/> By Name 

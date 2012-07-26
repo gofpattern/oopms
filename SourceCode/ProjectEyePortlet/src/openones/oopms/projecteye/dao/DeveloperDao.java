@@ -9,6 +9,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.LanguageCode;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -71,9 +72,11 @@ public class DeveloperDao {
     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
     	   session = sessionfactory.openSession();
     	   session.beginTransaction();
-           String hql = "from Developer where developerId = (select developerId from Assignment where project = :projectId and TYPE = 1)";
+           String hql = "from Developer where developerId = (select developerId from Assignment where project = :projectId and (TYPE = :PMType or TYPE = :POaPMType))";
            Query query = session.createQuery(hql);
            query.setParameter("projectId", project);
+           query.setParameter("PMType", new BigDecimal(Constant.ProjectManagerType));
+           query.setParameter("POaPMType", new BigDecimal(Constant.ProjectOwnerAndProjectManagerType));
            Developer developer = (Developer) query.uniqueResult();               
            session.flush();
            session.getTransaction().commit();

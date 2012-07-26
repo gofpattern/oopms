@@ -31,6 +31,7 @@ import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.validator.CreateProjectValidator;
 
 import org.apache.log4j.Logger;
@@ -88,7 +89,7 @@ public class CreateProjectController {
         Assignment assignment = new Assignment();
         //set value for assgment
         assignment.setDeveloperId(dev.getDeveloperId());
-        assignment.setType(new Byte("1")); // type 1 is project Manager
+        assignment.setType(new Byte(Constant.ProjectOwnerAndProjectManagerType)); // type 1 is project Manager
         assignment.setBeginDate(formBean.getPlanStartDate());
     	//Call dao to insert project to database
         if(pDao.insertProject(project,assignment)) {

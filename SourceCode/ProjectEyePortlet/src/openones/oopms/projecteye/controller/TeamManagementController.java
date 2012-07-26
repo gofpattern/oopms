@@ -19,6 +19,7 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.utils.Constant;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -76,10 +78,41 @@ public class TeamManagementController {
 	@RenderMapping(params = "action=SearchUser")
 	public ModelAndView postSearchUser(RenderRequest request) {
 		log.debug("post SearchUser.START");
+        Project project = new Project();
+        project.setProjectId(new BigDecimal(projectId));
+        DeveloperDao dDao = new DeveloperDao();
+        AssignmentDao aDao = new AssignmentDao();
+        List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
+        List<TeamManagementForm> projectTeamList = new ArrayList<TeamManagementForm>();
+        if(teamOfProject.size()>0) {
+        	for(int i=0; i<teamOfProject.size();i++) {
+        		TeamManagementForm temp = new TeamManagementForm();
+        		temp.setUserName(teamOfProject.get(i).getName());
+        		temp.setUserAccount(teamOfProject.get(i).getAccount());
+        		Assignment role = aDao.getUserRole(project, teamOfProject.get(i).getDeveloperId());
+        		if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Project Owner and Project Manager");
+        		} else if (Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Project Manager");
+        		} else if (Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Developer");
+        		} else if (Constant.TesterType.equals(String.valueOf(role.getType()))){
+        			temp.setUserRole("Tester");
+        		} else if (Constant.QAType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("QA");
+        		} else if (Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Customer");
+        		} else if (Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Project Owner");
+        		}
+        		projectTeamList.add(temp);
+        	}
+        }
 		TeamManagementForm form = new TeamManagementForm();
         form.setSearchType(searchType);
         ModelAndView mav = new ModelAndView("TeamManagement", "TeamManagementForm", form);
 		log.debug("project ID la " + projectId);
+		mav.addObject("projectTeamList",projectTeamList);
 		mav.addObject("userList", userList);
 		mav.addObject("projectId", projectId);
 		return mav;
@@ -96,15 +129,43 @@ public class TeamManagementController {
 		project.setProjectId(new BigDecimal(projectId));
 		assignment.setProject(project);
         assignment.setDeveloperId(new BigDecimal(developerId));
-        assignment.setType(new Byte("2"));
+        assignment.setType(new Byte(Constant.DeveloperType));
         assignment.setBeginDate(new Date());
         AssignmentDao aDao = new AssignmentDao();
         aDao.insertAssigment(assignment);
+        DeveloperDao dDao = new DeveloperDao();
+        List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
+        List<TeamManagementForm> projectTeamList = new ArrayList<TeamManagementForm>();
+        if(teamOfProject.size()>0) {
+        	for(int i=0; i<teamOfProject.size();i++) {
+        		TeamManagementForm temp = new TeamManagementForm();
+        		temp.setUserName(teamOfProject.get(i).getName());
+        		temp.setUserAccount(teamOfProject.get(i).getAccount());
+        		Assignment role = aDao.getUserRole(project, teamOfProject.get(i).getDeveloperId());
+        		if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Project Owner and Project Manager");
+        		} else if (Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Project Manager");
+        		} else if (Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Developer");
+        		} else if (Constant.TesterType.equals(String.valueOf(role.getType()))){
+        			temp.setUserRole("Tester");
+        		} else if (Constant.QAType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("QA");
+        		} else if (Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Customer");
+        		} else if (Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+        			temp.setUserRole("Project Owner");
+        		}
+        		projectTeamList.add(temp);
+        	}
+        }
         TeamManagementForm form = new TeamManagementForm();
         form.setSearchType("name");
         ModelAndView mav = new ModelAndView("TeamManagement", "TeamManagementForm", form);;
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		mav.addObject("projectTeamList",projectTeamList);
 		return mav;
 	}
 }

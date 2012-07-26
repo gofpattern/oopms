@@ -5,8 +5,10 @@ import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
 import openones.oopms.projecteye.model.Assignment;
+import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
+import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
@@ -39,7 +41,25 @@ public class AssignmentDao {
 		return true;
 	}
 	
-
+	public Assignment getUserRole(Project project, BigDecimal developerId) {
+		 try {
+	    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+	    	   session = sessionfactory.openSession();
+	    	   session.beginTransaction();
+	    	   String hql = "From Assignment where developerId = :developerId and project= :projectId and endDate is null ";
+	           Query query = session.createQuery(hql);
+	           query.setParameter("developerId", developerId);
+	           query.setParameter("projectId", project);
+	           Assignment role = (Assignment)query.uniqueResult();            
+	           session.getTransaction().commit();
+	           log.error("role la : " + role);
+	           return role;
+	           
+	       } catch (Exception e) {
+	           log.error(e.getMessage());
+	       }
+	       return null;
+	}
 	
 	
 
