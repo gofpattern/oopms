@@ -27,6 +27,9 @@ public class TeamManagementForm {
 	private String developerId;
 	private String searchString;
 	private String searchType;
+	private String userName;
+	private String userAccount;
+	private String userRole;
 	/**
 	 * @return the searchType
 	 */
@@ -74,6 +77,42 @@ public class TeamManagementForm {
 	 */
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
+	}
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	/**
+	 * @return the userAccount
+	 */
+	public String getUserAccount() {
+		return userAccount;
+	}
+	/**
+	 * @param userAccount the userAccount to set
+	 */
+	public void setUserAccount(String userAccount) {
+		this.userAccount = userAccount;
+	}
+	/**
+	 * @return the userRole
+	 */
+	public String getUserRole() {
+		return userRole;
+	}
+	/**
+	 * @param userRole the userRole to set
+	 */
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 	
 	
