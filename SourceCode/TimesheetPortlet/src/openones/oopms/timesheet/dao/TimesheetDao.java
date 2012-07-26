@@ -76,10 +76,10 @@ public class TimesheetDao {
             query.setString(0, developerId);
             query.setString(1, projectId);
            Assignment assi = (Assignment) query.uniqueResult();
-          if("PP_PM".equals(assi.getProjectPositionCode())) {
+          if(assi.getType()==1) {
               return "Project Manager";
           }
-          else if("PP_DEV".equals(assi.getProjectPositionCode())) {
+          else if(assi.getType()==2) {
               return "Developer";
           }
 
