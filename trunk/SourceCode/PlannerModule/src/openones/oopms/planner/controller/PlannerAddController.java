@@ -22,14 +22,11 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.DataFormatException;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.TaskDAO;
@@ -37,14 +34,12 @@ import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Process;
-import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
 
 import org.apache.log4j.Logger;
-import org.hibernate.type.DateType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +61,6 @@ public class PlannerAddController {
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
     private List<Workproduct> productList;
-    private List<Project> projectList;
 
     @ActionMapping(params = "action=plannerAdd")
     public void processPlannerAdd(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
@@ -81,7 +75,6 @@ public class PlannerAddController {
         stageList = taskDAO.getAllStage();
         productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
-        projectList = taskDAO.getAllProject();
         developerList = taskDAO.getDeveloper(formBeanAdd.getProjectId());
 
         // set value for statusMap
@@ -111,11 +104,6 @@ public class PlannerAddController {
             formBeanAdd.getProcessMap().put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
 
-        // Set value for projectMap
-        for (int i = 0; i < projectList.size(); i++) {
-            formBeanAdd.getProjectMap().put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
-        }
-
         // Action for PlannerAddForm
         formBeanAdd.setAction_str("addTask");
         formBean.setFlag(1);// to show add form
@@ -134,7 +122,7 @@ public class PlannerAddController {
     public void processAddTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processAddTask.START");
-        
+
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
 
@@ -260,7 +248,7 @@ public class PlannerAddController {
     public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processEditTask.START");
-        
+
         formBeanAdd.setProjectId(PlannerController.projectDefault);
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();

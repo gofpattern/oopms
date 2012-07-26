@@ -41,7 +41,6 @@ public class PlannerAddForm {
     Map<String, String> developerMap;
     Map<String, String> processMap;
     Map<String, String> productMap;
-    Map<String, String> projectMap;
 
     public PlannerAddForm() {
 
@@ -53,14 +52,12 @@ public class PlannerAddForm {
         developerMap = new LinkedHashMap<String, String>();
         processMap = new LinkedHashMap<String, String>();
         productMap = new LinkedHashMap<String, String>();
-        projectMap = new LinkedHashMap<String, String>();
 
         statusMap.put(" ", " ");
         stageMap.put(" ", " ");
         developerMap.put(" ", " ");
         processMap.put(" ", " ");
         productMap.put(" ", " ");
-        projectMap.put(" ", " ");
 
         startDate = " ";
         endDate = " ";
@@ -213,22 +210,6 @@ public class PlannerAddForm {
      */
     public void setProductMap(Map<String, String> productMap) {
         this.productMap = productMap;
-    }
-
-    /**
-     * Get value of projectMap.
-     * @return the projectMap
-     */
-    public Map<String, String> getProjectMap() {
-        return projectMap;
-    }
-
-    /**
-     * Set the value for projectMap.
-     * @param projectMap the projectMap to set
-     */
-    public void setProjectMap(Map<String, String> projectMap) {
-        this.projectMap = projectMap;
     }
 
     /**

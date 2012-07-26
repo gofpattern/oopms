@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
@@ -80,7 +79,7 @@ public class PlannerController {
         formBean.setStatusDefault("All");
         formBean.setStageDefault("All");
         formBean.setDeveloperDefault("All");
-        
+
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
@@ -156,12 +155,11 @@ public class PlannerController {
 
             log.error("Convert id to name", ex);
         }
-        
-        
+
         //
         PortletSession portletSession = request.getPortletSession();
-        portletSession.setAttribute("PROJECTID", projectDefault,PortletSession.APPLICATION_SCOPE);
-                
+        portletSession.setAttribute("PROJECTID", projectDefault, PortletSession.APPLICATION_SCOPE);
+
         // Value for PlannerForm
         formBean.setProjectId(projectDefault);
         formBean.setTaskList(taskList);
@@ -186,7 +184,6 @@ public class PlannerController {
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
         mav.addObject("productMapAdd", formBeanAdd.getProductMap());
-        mav.addObject("projectMapAdd", formBeanAdd.getProjectMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
 
         // flag to hide and show Add-Edit window
