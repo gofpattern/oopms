@@ -149,15 +149,25 @@ function submitAction(formName, actionUrl) {
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("ROLE", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td width="7%" align="left"><strong>Status</strong></td>
         <td width="26%">
-        <c:if test="${empty projectStatus }">
+        <c:if test="${projectStatus=='' }">
         <select class="styled" size="1"
           name="status" class="SmallCombo" >
-          <option value="All" >All</option>
+          <option value="All" selected="selected" >All</option>
           <option value="0">Unapproved</option>
           <option value="1">Approved</option>
           <option value="2">Rejected</option>
         </select>
         </c:if>
+         <c:if test="${projectStatus=='All' }">
+        <select class="styled" size="1"
+          name="status" class="SmallCombo" >
+          <option value="All" selected="selected" >All</option>
+          <option value="0">Unapproved</option>
+          <option value="1">Approved</option>
+          <option value="2">Rejected</option>
+        </select>
+        </c:if>
+       
          <c:if test="${projectStatus=='0' }">
         <select class="styled" size="1"
           name="status" class="SmallCombo" >
