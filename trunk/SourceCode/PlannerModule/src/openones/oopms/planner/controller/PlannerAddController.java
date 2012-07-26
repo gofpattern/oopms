@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.zip.DataFormatException;
 
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.TaskDAO;
@@ -73,10 +74,8 @@ public class PlannerAddController {
         log.debug("processPlannerAdd.START");
         TaskDAO taskDAO = new TaskDAO();
 
-        formBeanAdd.setProjectId("118385");
-
-        // formBeanAdd.setActualEffort("10");
-        // formBeanAdd.setPlannedEffort("10");
+        // get project default to init developer list
+        formBeanAdd.setProjectId(PlannerController.projectDefault);
 
         statusList = taskDAO.getAllStatus();
         stageList = taskDAO.getAllStage();
@@ -84,7 +83,6 @@ public class PlannerAddController {
         processList = taskDAO.getAllProcess();
         projectList = taskDAO.getAllProject();
         developerList = taskDAO.getDeveloper(formBeanAdd.getProjectId());
-        System.out.println("developerList.size" + developerList.size());
 
         // set value for statusMap
         for (int i = 0; i < statusList.size(); i++) {
@@ -120,7 +118,7 @@ public class PlannerAddController {
 
         // Action for PlannerAddForm
         formBeanAdd.setAction_str("addTask");
-        formBean.setFlag(1);
+        formBean.setFlag(1);// to show add form
 
         response.setRenderParameter("action", "taskmanager");
     }
@@ -136,13 +134,13 @@ public class PlannerAddController {
     public void processAddTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processAddTask.START");
-
+        
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
 
         try {
             task = formBeanAdd.getTask();
-
+            task.setProjectid(new BigDecimal(PlannerController.projectDefault));
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
@@ -162,7 +160,7 @@ public class PlannerAddController {
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
 
-        formBean.setProjectId("118385");
+        formBean.setProjectId(PlannerController.projectDefault);
 
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
@@ -196,7 +194,7 @@ public class PlannerAddController {
         for (int i = 0; i < stageList.size(); i++) {
             stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
-        
+
         // Set value for developerMap
         for (int i = 0; i < developerList.size(); i++) {
             if (task.getDeveloperid().equals(developerList.get(i).getDeveloperId())) {
@@ -262,7 +260,8 @@ public class PlannerAddController {
     public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processEditTask.START");
-
+        
+        formBeanAdd.setProjectId(PlannerController.projectDefault);
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
         try {

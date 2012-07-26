@@ -84,23 +84,25 @@
 	});
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {
-	    
-		// set description when update a task
-		document.getElementById('add-form-description').innerHTML = "${edTask.description}";
-		
-		// set show and hide for hidden-add-form
-		if('${flag}' == 0){
-			$(".hidden-add-form").hide();
-		}
-		
-		$("#add-button").click(function() {
-			$(".hidden-add-form").show("slow");
-		});
-		$("#cancel-button").click(function() {
-			$(".hidden-add-form").hide("slow");
-		});
-	});
+	$(document)
+			.ready(
+					function() {
+
+						// set description when update a task
+						document.getElementById('add-form-description').innerHTML = "${edTask.description}";
+
+						// set show and hide for hidden-add-form
+						if ('${flag}' == 0) {
+							$(".hidden-add-form").hide();
+						}
+
+						$("#add-button").click(function() {
+							$(".hidden-add-form").show("slow");
+						});
+						$("#cancel-button").click(function() {
+							$(".hidden-add-form").hide("slow");
+						});
+					});
 </script>
 <style type="text/css">
 <!--
@@ -113,7 +115,6 @@
 }
 
 .hidden-add-form {
-
   webkit-box-shadow: rgb(170, 170, 170) 0px 0px 5px 0px;
   background-attachment: scroll;
   background-color: #EFEFEF;
@@ -199,10 +200,6 @@
                     id="add-form-stage">
                     <form:options items="${stageMapAdd}" />
                   </form:select></td>
-                <td class="ColumnLabel"><label for="add-form-project">Project*</label></td>
-                <td><form:select class="styled" path="task.projectid" multiple="single" id="add-form-stage">
-                    <form:options items="${projectMapAdd}" />
-                  </form:select></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date</label></td>
@@ -237,7 +234,8 @@
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort</label></td>
-                <td class="CellBGR3"><form:input path="task.currenteffort" value="${edTask.currenteffort}" id="add-form-currentEffort" /> (Hours)</td>
+                <td class="CellBGR3"><form:input path="task.currenteffort" value="${edTask.currenteffort}"
+                    id="add-form-currentEffort" /> (Hours)</td>
                 <td class="ColumnLabel"><label for="add-form-productSize">Product Size</label></td>
                 <td class="CellBGR3"><form:input path="task.productsize" value="${edTask.productsize}"
                     id="add-form-productSize" /></td>
@@ -276,7 +274,7 @@
               <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
             </tr>
             <tr>
-              <td><form:select class="styled" path="projectDefault" multiple="single">
+              <td><form:select class="styled" path="projectId" multiple="single">
                   <form:options items="${projectMap}" />
                 </form:select></td>
               <td><form:select class="styled" path="statusDefault" multiple="single">
