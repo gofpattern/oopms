@@ -65,6 +65,34 @@ public class TimesheetDao {
         return null;
     }
     
+    public String getRole(String developerId, String projectId) {
+        try {           
+            System.out.println("getRole : "+ developerId + " " +projectId);
+            session.getTransaction().begin();
+            String hql = "from Assignment where developerId= ? and project.projectId = ?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, developerId);
+            query.setString(1, projectId);
+           Assignment assi = (Assignment) query.uniqueResult();
+          if("PP_PM".equals(assi.getProjectPositionCode())) {
+              return "Project Manager";
+          }
+          else if("PP_DEV".equals(assi.getProjectPositionCode())) {
+              return "Developer";
+          }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            session.close();
+
+        }
+        return null;
+    }
+    
+    
     public Timesheet getTimesheetById(BigDecimal id) {
         try {
         session.getTransaction().begin();
@@ -227,8 +255,8 @@ public class TimesheetDao {
             session.getTransaction().commit();
 
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
+//            session.getTransaction().rollback();
+//            session.close();
 
         }
     }
@@ -278,9 +306,13 @@ public class TimesheetDao {
         try {
             
             session.getTransaction().begin();
-            String hql="UPDATE Timesheet ts SET  ts.status =:status WHERE ts.timesheetId =:tsId";
-         
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            String hql="UPDATE Timesheet ts SET  ts.status =:status";
+            if(!approveFlag) {
+                hql+=", ts.rcomment =:rcomment";
+            }            
+            	hql+=" WHERE ts.timesheetId =:tsId";
+            
+        
             for (int i = 0; i < timesheetList.size(); i++) {
                 Query query = session.createQuery(hql);
                
@@ -290,6 +322,7 @@ public class TimesheetDao {
                     query.setParameter("status",new BigDecimal(1));
                 }
                 else {
+                    query.setParameter("rcomment",timesheetList.get(i).getRcomment());
                     query.setParameter("status",new BigDecimal(2));
                 }
                 

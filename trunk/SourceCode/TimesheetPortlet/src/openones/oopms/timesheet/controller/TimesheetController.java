@@ -71,7 +71,17 @@ public class TimesheetController {
     // List reject timesheet
     List<Timesheet> rejectTimesheetList;
     // List delete timesheet
-    List<Timesheet>deleteTimesheetList;
+    List<Timesheet>deleteTimesheetList;    
+    // Role
+    String role = "";
+    // From Date
+    String fromDate ="";
+    // To Date
+    String toDate ="";
+    // Project default
+    String projectDefault ="";
+    // Project status
+    String projectStatus ="";
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(TimesheetController.class);
 
@@ -84,14 +94,10 @@ public class TimesheetController {
 
     @RequestMapping
     public String initScreen(RenderRequest request) {
-        log.debug("initScreen.START");
+        System.out.println("initScreen.START");
         // Get logon user
-        if (!error) {
+       
             return "login";
-
-        } else {
-            return "AddTimesheet";
-        }
 
     }
 
@@ -102,7 +108,7 @@ public class TimesheetController {
      */
     @ModelAttribute("loginForm")
     public LoginForm getCommandObject() {
-        log.debug("getCommandObject.START");
+        System.out.println("getCommandObject.START");
         LoginForm formBean = new LoginForm();
         formBean.setUsername("TRUONGMH");
         return formBean;
@@ -122,10 +128,10 @@ public class TimesheetController {
      */
     @ActionMapping(params = "action=init")
     public void processLogin(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processLogin.START");
-        log.debug("username=" + formBean.getUsername());
+        System.out.println("processLogin.START");
+        System.out.println("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
-
+        
         UserDao userDao = new UserDao();
 
         user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
@@ -146,16 +152,18 @@ public class TimesheetController {
      */
     @RenderMapping(params = "action=init")
     public ModelAndView postLogin(TimesheetForm formBean, RenderRequest request) {
-        log.debug("postLogin.START");
+        System.out.println("postLogin.START");
         // Declare view for this render
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
-        log.debug("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
+        System.out.println("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
         TimesheetDao timesheetDao = new TimesheetDao();
         projectMap = new LinkedHashMap<String, String>();
 
         // Get project List from database
         projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
-        projectMap.put("All", "All");
+        role = timesheetDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+       System.out.println("ROLE : " + role);
+        //projectMap.put("All", "All");
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
@@ -166,11 +174,9 @@ public class TimesheetController {
         PortletSession session = request.getPortletSession();
         session.setAttribute("USERID", user.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("USER", user.getAccount(), PortletSession.APPLICATION_SCOPE);
-        session.setAttribute("ROLE", user.getDesignation(), PortletSession.APPLICATION_SCOPE);
-        // Set default value for timesheet.jsp
-        mav.addObject("projectMap", formBean.getProjectMap());
-        mav.addObject("projectDefault", formBean.getProjectDefault());
-        mav.addObject("ROLE", user.getDesignation());
+        session.setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);
+      
+        mav.addObject("ROLE",role);
         // Search all timesheet record from database
         TimesheetDao timeDao = new TimesheetDao();
         List<Timesheet> timesheetList = timeDao.getTimesheetList(String.valueOf(user.getDeveloperId()), "All", "", "",
@@ -182,6 +188,20 @@ public class TimesheetController {
 
         timesheetList = prepareTimesheetList(timesheetList);
 
+       
+        // Set default value for timesheet.jsp
+        mav.addObject("projectMap", formBean.getProjectMap());
+        if(!"".equals(projectDefault)) {
+            mav.addObject("projectDefault", formBean.getProjectDefault());
+        }
+        else {
+            mav.addObject("projectDefault", projectDefault);
+        }
+        
+        mav.addObject("timesheetList", timesheetList);
+        mav.addObject("projectStatus", projectStatus);
+        mav.addObject("fromDate", fromDate);
+        mav.addObject("toDate", toDate);
         // Add object timesheetList to request
         mav.addObject("timesheetList", timesheetList);
         // Return to jsp
@@ -212,7 +232,7 @@ public class TimesheetController {
 
     @ModelAttribute("timesheetForm")
     public TimesheetForm getCommandObject2() {
-        log.debug("getCommandObject.START");
+        System.out.println("getCommandObject.START");
         // Decalre Bean and Dao
         TimesheetForm formBean = new TimesheetForm();
 
@@ -222,11 +242,15 @@ public class TimesheetController {
     @ActionMapping(params = "action=searchTimesheet")
     public void processSearchTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
-        log.debug("processSearchTimesheet.START");
+        System.out.println("processSearchTimesheet.START");
         if (result.hasErrors()) {
-            log.debug("search timesheet error");
+            System.out.println("search timesheet error");
         } else {
-            log.debug("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
+            System.out.println("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
+           projectDefault = formBean.getProjectDefault();
+           projectStatus = formBean.getStatus();
+           fromDate = formBean.getFromDate();
+           toDate = formBean.getToDate();
             response.setRenderParameter("action", "searchTimesheet");
         }
 
@@ -272,7 +296,7 @@ public class TimesheetController {
         }
 
         mav.addObject("timesheetList", timesheetList);
-
+        mav.addObject("projectStatus", projectStatus);
         return mav;
     }
 
@@ -294,11 +318,11 @@ public class TimesheetController {
     @ActionMapping(params = "action=goAddTimesheet")
     public void processAddTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
-        log.debug("processSearchTimesheet.START");
+        System.out.println("processSearchTimesheet.START");
         if (result.hasErrors()) {
-            log.debug("search timesheet error");
+            System.out.println("search timesheet error");
         } else {
-            log.debug("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
+            System.out.println("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
             response.setRenderParameter("action", "goAddTimesheet");
         }
 
@@ -329,7 +353,7 @@ public class TimesheetController {
         }
 
         formBean.setTimesheetList(timesheetList);
-        log.debug("postAdd.START");
+        System.out.println("postAdd.START");
         // Declare view for this render
         ModelAndView mav = new ModelAndView("AddTimesheet"); // display AddTimesheet.jsp
         prepareMaps();
@@ -407,7 +431,22 @@ public class TimesheetController {
         response.setRenderParameter("action", "goUpdateTimesheet");
 
     }
+    
+    @ActionMapping(params = "action=goRejectTimesheet")
+    public void processGoRejectTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
+        rejectTimesheetList = new ArrayList<Timesheet>();
+        List<Timesheet> tempList = new ArrayList<Timesheet>();
+        tempList = formBean.getTimesheetList();
+        for (int i = 0; i < tempList.size(); i++) {
+            if (tempList.get(i).getTimesheetId() != null) {
+                rejectTimesheetList.add(tempList.get(i));
+            }
+        }
+        response.setRenderParameter("action", "goRejectTimesheet");
 
+    }
+    
     /**
      * Process after the action "updateTimesheet" (method "processsearchTimesheet") is executed.
      * 
@@ -425,7 +464,7 @@ public class TimesheetController {
             timesheet = timeDao.getTimesheetById(updateTimesheetList.get(i).getTimesheetId());
             timesheetList.add(timesheet);
         }
-
+        System.out.println("num of record :" + timesheetList.size());
         timesheetList = prepareTimesheetList(timesheetList);
         formBean.setTimesheetList(timesheetList);
         prepareMaps();
@@ -440,6 +479,74 @@ public class TimesheetController {
         return mav;
 
     }
+    
+    /**
+     * Process after the action "updateTimesheet" (method "processsearchTimesheet") is executed.
+     * 
+     * @return view "Timesheet.jsp" which next page "Timesheet.jsp" will displayed
+     */
+    @RenderMapping(params = "action=goRejectTimesheet")
+    public ModelAndView postGRejectTimesheet(TimesheetForm formBean, RenderRequest request) {
+       
+        ModelAndView mav = new ModelAndView("UpdateTimesheet"); // display Timesheet.jsp
+        List<Timesheet> timesheetList = new ArrayList<Timesheet>();
+        Timesheet timesheet;
+        TimesheetDao timeDao = new TimesheetDao();
+        for (int i = 0; i < rejectTimesheetList.size(); i++) {
+
+            timesheet = timeDao.getTimesheetById(rejectTimesheetList.get(i).getTimesheetId());
+            timesheetList.add(timesheet);
+        }
+        System.out.println("num of record :" + timesheetList.size());
+        timesheetList = prepareTimesheetList(timesheetList);
+        formBean.setTimesheetList(timesheetList);
+        prepareMaps();
+        mav.addObject("projectMap", projectMap);
+        mav.addObject("processMap", processMap);
+        mav.addObject("towMap", towMap);
+       
+        // Add object timesheetList to request
+        mav.addObject("timesheetList", timesheetList);
+        mav.addObject("rejectFlag", "true");
+        rejectTimesheetList = timesheetList;
+        // Return to jsp
+        return mav;
+
+    }
+    
+    /**
+     * Process after the action "updateTimesheet" (method "processsearchTimesheet") is executed.
+     * 
+     * @return view "Timesheet.jsp" which next page "Timesheet.jsp" will displayed
+     */
+    @RenderMapping(params = "action=goUpdateTimesheet")
+    public ModelAndView postRejectTimesheet(TimesheetForm formBean, RenderRequest request) {
+       
+        ModelAndView mav = new ModelAndView("UpdateTimesheet"); // display Timesheet.jsp
+        List<Timesheet> timesheetList = new ArrayList<Timesheet>();
+        Timesheet timesheet;
+        TimesheetDao timeDao = new TimesheetDao();
+        for (int i = 0; i < rejectTimesheetList.size(); i++) {
+
+            timesheet = timeDao.getTimesheetById(rejectTimesheetList.get(i).getTimesheetId());
+            timesheetList.add(timesheet);
+        }
+        System.out.println("num of record :" + timesheetList.size());
+        timesheetList = prepareTimesheetList(timesheetList);
+        formBean.setTimesheetList(timesheetList);
+        prepareMaps();
+        mav.addObject("projectMap", projectMap);
+        mav.addObject("processMap", processMap);
+        mav.addObject("towMap", towMap);
+       
+        // Add object timesheetList to request
+        mav.addObject("timesheetList", timesheetList);
+        rejectTimesheetList = timesheetList;
+        // Return to jsp
+        return mav;
+
+    }
+    
     
     @ActionMapping(params = "action=updateTimesheet")
     public void processUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
@@ -497,19 +604,21 @@ public class TimesheetController {
 
     }
     
-    @ActionMapping(params = "action=rejectTimesheet")   
-    public void processRpproveTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
+
+    @ActionMapping(params = "action=rejectTimesheet")
+    public void processRejectTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws ParseException {
-        approveTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        for (int i = 0; i < tempList.size(); i++) {
-            if (tempList.get(i).getTimesheetId() != null) {
-                approveTimesheetList.add(tempList.get(i));
-            }
+        for (int i = 0; i < tempList.size(); i++) {          
+           
+            rejectTimesheetList.get(i).setRcomment((tempList.get(i).getRcomment()));
+            
+           TimesheetDao timeDao = new TimesheetDao();
+           timeDao.approveRejectTimesheet(rejectTimesheetList, user.getDeveloperId(),false);
+           
+           
         }
-        TimesheetDao timeDao = new TimesheetDao();
-        timeDao.approveRejectTimesheet(approveTimesheetList, user.getDeveloperId(), false);
         response.setRenderParameter("action", "init");
 
     }
