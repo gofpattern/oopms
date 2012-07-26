@@ -375,13 +375,13 @@ table.display tr.even.row_selected td {
 
 table.display tr.odd.row_selected td {
     background-color: #9FAFD1;
-}
+}/*
 
 
-/*
+
  * Sorting classes for columns
  */
-/* For the standard odd/even */
+ /*For the standard odd/even 
 tr.odd td.sorting_1 {
   color:#FFFFFF;
     background-color: #157DEC;
@@ -413,8 +413,8 @@ tr.even td.sorting_3 {
 }
 
 
-/* For the Conditional-CSS grading rows */
-/*
+ */For the Conditional-CSS grading rows */
+
     Colour calculations (based off the main row colours)
   Level 1:
         dd > c4
@@ -422,8 +422,8 @@ tr.even td.sorting_3 {
     Level 2:
       dd > d1
       ee > e2
- */
-tr.odd.gradeA td.sorting_1 {
+ 
+*/tr.odd.gradeA td.sorting_1 {
     background-color: #c4ffc4;
 }
 
