@@ -7,7 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.TaskDAO;
@@ -41,6 +43,7 @@ public class PlannerController {
     private List<ProjectStatus> statusList;
     private List<Developer> developerList;
     private List<Project> projectList;
+    static String projectDefault;
 
     /**
      * Create bean for form.
@@ -70,16 +73,14 @@ public class PlannerController {
     public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request) {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
-        ModelAndView mav = new ModelAndView("TaskManager");     
+        ModelAndView mav = new ModelAndView("TaskManager");
 
-       
-
-        formBean.setProjectId("118385");
+        // formBean.setProjectId("118385");
 
         formBean.setStatusDefault("All");
         formBean.setStageDefault("All");
         formBean.setDeveloperDefault("All");
-        formBean.setProjectDefault("All");
+        
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
@@ -90,7 +91,9 @@ public class PlannerController {
         stageList = taskDAO.getAllStage();
         projectList = taskDAO.getAllProject();
         processList = taskDAO.getAllProcess();
-        developerList = taskDAO.getDeveloper(formBean.getProjectId());
+        // get developer form first project
+        projectDefault = projectList.get(0).getProjectId().toString();
+        developerList = taskDAO.getDeveloper(projectDefault);
 
         // set value for statusMap
         statusMap.put("All", "All");
@@ -111,7 +114,6 @@ public class PlannerController {
         }
 
         // Set value for projectMap
-        projectMap.put("All", "All");
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
@@ -141,10 +143,10 @@ public class PlannerController {
                 for (int j = 0; j < projectList.size(); j++) {
                     if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
                         taskList.get(i).setProject_str(projectList.get(j).getCode());
-                        log.debug("projectcode"+ taskList.get(i).getProject_str());
+                        log.debug("projectcode" + taskList.get(i).getProject_str());
                     }
                 }
-             // Convert date
+                // Convert date
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
                 taskList.get(i).setPlannedenddate_str(dateFormat.format(taskList.get(i).getPlannedenddate()));
@@ -154,8 +156,14 @@ public class PlannerController {
 
             log.error("Convert id to name", ex);
         }
-
+        
+        
+        //
+        PortletSession portletSession = request.getPortletSession();
+        portletSession.setAttribute("PROJECTID", projectDefault,PortletSession.APPLICATION_SCOPE);
+                
         // Value for PlannerForm
+        formBean.setProjectId(projectDefault);
         formBean.setTaskList(taskList);
         formBean.setStatusMap(statusMap);
         formBean.setStageMap(stageMap);
@@ -170,9 +178,9 @@ public class PlannerController {
         mav.addObject("developerMap", formBean.getDeveloperMap());
         mav.addObject("projectMap", formBean.getProjectMap());
 
-        // Object form PlannerAddForm    
+        // Object form PlannerAddForm
         mav.addObject("edTask", formBeanAdd.getEditTask());
-        
+
         mav.addObject("statusMapAdd", formBeanAdd.getStatusMap());
         mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
@@ -180,10 +188,10 @@ public class PlannerController {
         mav.addObject("productMapAdd", formBeanAdd.getProductMap());
         mav.addObject("projectMapAdd", formBeanAdd.getProjectMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
-        
+
         // flag to hide and show Add-Edit window
         mav.addObject("flag", formBean.getFlag());
-        
+
         return mav;
     }
 
@@ -195,7 +203,6 @@ public class PlannerController {
         taskDAO.deleteTask(new BigDecimal(formBean.getTaskId()));
 
         System.out.println("processDeleteTask.ACTION.START");
-       
 
         response.setRenderParameter("action", "taskmanager");
     }
