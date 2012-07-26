@@ -26,6 +26,7 @@ Features:
     + Create folder "ResourceServingWebapp" within folder $glassfishv3_home/glassfish/domains/domain1/docroot
     + Copy folder /DMSPortlet/WebContent/resource-menu into $glassfishv3_home/glassfish/domains/domain1/docroot/ResourceServingWebapp
 + Menu is loaded from external XML file "MenuBar.xml"
++ Handling system errors: using message error (key "system.error") in messages.properties to display error.
 
 Used libraries:
 + OOPMS BasePortlet

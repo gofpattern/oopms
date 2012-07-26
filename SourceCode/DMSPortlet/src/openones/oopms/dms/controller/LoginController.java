@@ -27,7 +27,6 @@ import javax.portlet.RenderRequest;
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.LoginForm;
 import openones.oopms.dms.form.ViewDefectModeForm;
-import openones.oopms.dms.util.AppUtil;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
 import openones.oopms.util.BaseUtil;
