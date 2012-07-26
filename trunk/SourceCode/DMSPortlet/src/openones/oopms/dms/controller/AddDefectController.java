@@ -102,5 +102,6 @@ public class AddDefectController extends BaseController {
             // Re-display the Add Defect screen with errors
             response.setRenderParameter("action", "goAddNewDefect");
         }
-    }   
+    }
+
 }

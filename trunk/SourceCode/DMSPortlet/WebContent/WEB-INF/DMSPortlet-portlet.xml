@@ -17,6 +17,10 @@
     <property name="suffix" value=".jsp" />
   </bean>
 
+  <bean class="org.springframework.web.portlet.handler.SimpleMappingExceptionResolver">  
+       <property name="defaultErrorView" value="SystemError" />  
+  </bean>
+  
   <!-- Message source for this context, loaded from localized "messages_xx" files -->
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
     <property name="basenames">

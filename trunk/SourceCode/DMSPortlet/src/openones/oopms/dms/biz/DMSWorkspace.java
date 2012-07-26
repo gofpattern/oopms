@@ -18,13 +18,17 @@
  */
 package openones.oopms.dms.biz;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import openones.oopms.daocommon.QcActivityDao;
 import openones.oopms.dms.util.AppUtil;
+import openones.oopms.entity.QcActivity;
 import openones.oopms.form.SubMenu;
 
 /**
@@ -104,15 +108,15 @@ public class DMSWorkspace {
      */
     public Map<Integer, String> getActivityMap() {
         // TODO: Uncomment below codes to get QC Activities from database
-//        QcActivityDao dao = new QcActivityDao();
-//        ArrayList<QcActivity> qcActivityList = dao.getQcActivity();
-//        Map<Integer, String> actMap = new TreeMap<Integer, String>();
-//        
-//        for (QcActivity qcAct : qcActivityList) {
-//            actMap.put(qcAct.getQaId().intValue(), qcAct.getName());
-//        }
-        Map<Integer, String> actMap = new HashMap<Integer, String>();
-        actMap.put(11, "11-Integration test");
+        QcActivityDao dao = new QcActivityDao();
+        ArrayList<QcActivity> qcActivityList = dao.getQcActivity();
+        Map<Integer, String> actMap = new TreeMap<Integer, String>();
+        
+        for (QcActivity qcAct : qcActivityList) {
+            actMap.put(qcAct.getQaId().intValue(), qcAct.getName());
+        }
+//        Map<Integer, String> actMap = new HashMap<Integer, String>();
+//        actMap.put(11, "11-Integration test");
         return actMap;
     }
 
