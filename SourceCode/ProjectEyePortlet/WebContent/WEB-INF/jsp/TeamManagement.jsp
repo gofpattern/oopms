@@ -49,6 +49,14 @@
   <portlet:param name="action" value="SearchUser" />
   <portlet:param name="projectId" value="${projectId}" />
 </portlet:actionURL>
+<portlet:actionURL var="updateRoleAction">
+  <portlet:param name="action" value="UpdateRoleAction" />
+  <portlet:param name="projectId" value="${projectId}" />
+</portlet:actionURL>
+<portlet:renderURL var="renderAction">
+            	<portlet:param name="action" value="GoProjectDetail" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            </portlet:renderURL>
 <portlet:renderURL var="renderAction">
             	<portlet:param name="action" value="GoProjectDetail" />
             	<portlet:param name="projectId" value="${projectId}" />
@@ -65,21 +73,38 @@
     </tr>  
         <c:forEach var="user" items="${projectTeamList}" varStatus="count">
             <tr>
-            <portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="GoProjectDetail" />
-            	<portlet:param name="projectId" value="${projectId}" />
-            </portlet:renderURL>
                <td scope="row">${count.count}</td>
                <td scope="row">${user.userName}</td>
                <td scope="row">${user.userAccount}</td>
-               <td scope="row">${user.userRole}</td>
-               <td scope="row"><button type="button" class="button blue small" >Remove from this Project</button></td>                               
+               <td scope="row">
+               <c:if test="${user.selectedRole == 0}">
+               		Project Owner and Project Manager
+               </c:if>
+               <c:if test="${user.selectedRole == 1}">
+               		Project Manager
+               </c:if>
+               <c:if test="${user.selectedRole == 6}">
+               		Project Owner
+               </c:if>
+               <c:if test="${user.selectedRole != 0}">
+               	<c:if test="${user.selectedRole != 1}">
+               	<c:if test="${user.selectedRole != 6}">
+               		<form:select  class="SmallCombo" path="projectTeamList[${count.index}].selectedRole" items="${roleList}"/>
+               	</c:if>
+               </c:if>
+               </c:if>               		
+               	</td>
+               <td scope="row"><button type="button" class="button blue small" >Remove from this Project</button></td>
             </tr>
+            <input name="projectTeamList[${count.index}].developerId" value="${user.developerId}" type="hidden" />
         </c:forEach>
    </tbody>
 	</c:if>
 	</table>
-	<br/><br/>
+	<br/>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${updateRoleAction}")'>Save</button>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${renderAction}")'>Back</button>
+	<br/>
 	Search User <input name="searchString" value="" maxlength="50" size="50" type="text" /> 	
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${searchAction}")'>Search</button><br/>
 	<form:radiobutton path="searchType" value="name"/> By Name 
@@ -108,7 +133,6 @@
    </tbody>
 	</c:if>
 	</table>
-	<br/><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${renderAction}")'>Back</button>
 </form:form>
   <!-- end .content --></div>
   <!-- end .container --></div>

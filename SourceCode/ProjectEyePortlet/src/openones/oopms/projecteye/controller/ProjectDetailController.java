@@ -20,7 +20,9 @@ package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
@@ -28,6 +30,7 @@ import javax.portlet.RenderRequest;
 import openones.oopms.projecteye.dao.AssignmentDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.form.AssignProjectManagerForm;
+import openones.oopms.projecteye.form.TeamManagement;
 import openones.oopms.projecteye.form.TeamManagementForm;
 import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.Developer;
@@ -86,35 +89,31 @@ public class ProjectDetailController {
         DeveloperDao dDao = new DeveloperDao();
         AssignmentDao aDao = new AssignmentDao();
         List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
-        List<TeamManagementForm> projectTeamList = new ArrayList<TeamManagementForm>();
+        List<TeamManagement> projectTeamList = new ArrayList<TeamManagement>();
+        List<TeamManagement> projectTeamList2 = new ArrayList<TeamManagement>();
         if(teamOfProject.size()>0) {
         	for(int i=0; i<teamOfProject.size();i++) {
-        		TeamManagementForm temp = new TeamManagementForm();
+        		TeamManagement temp = new TeamManagement();
         		temp.setUserName(teamOfProject.get(i).getName());
         		temp.setUserAccount(teamOfProject.get(i).getAccount());
+        		temp.setDeveloperId(teamOfProject.get(i).getDeveloperId().toString());
         		Assignment role = aDao.getUserRole(project, teamOfProject.get(i).getDeveloperId());
-        		if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Project Owner and Project Manager");
-        		} else if (Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Project Manager");
-        		} else if (Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Developer");
-        		} else if (Constant.TesterType.equals(String.valueOf(role.getType()))){
-        			temp.setUserRole("Tester");
-        		} else if (Constant.QAType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("QA");
-        		} else if (Constant.CustomerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Customer");
-        		} else if (Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Project Owner");
-        		}
+        		temp.setSelectedRole(String.valueOf(role.getType()));
         		projectTeamList.add(temp);
+        		projectTeamList2.add(temp);
         	}
         }
+        Map<String, String> roleList = new LinkedHashMap<String, String>();
+        roleList.put(Constant.DeveloperType, "Developer");
+        roleList.put(Constant.TesterType, "Tester");
+        roleList.put(Constant.QAType, "QA");
+        roleList.put(Constant.CustomerType, "Customer");
         TeamManagementForm form = new TeamManagementForm();
         form.setSearchType("name");
+        form.setProjectTeamList(projectTeamList2);
         ModelAndView mav = new ModelAndView("TeamManagement", "TeamManagementForm", form);
         mav.addObject("projectTeamList",projectTeamList);
+        mav.addObject("roleList",roleList);
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
