@@ -18,6 +18,8 @@
  */
 package openones.oopms.projecteye.form;
 
+import java.util.List;
+
 
 /**
  * @author HaiTCT
@@ -27,9 +29,7 @@ public class TeamManagementForm {
 	private String developerId;
 	private String searchString;
 	private String searchType;
-	private String userName;
-	private String userAccount;
-	private String userRole;
+	private List<TeamManagement> projectTeamList;
 	/**
 	 * @return the searchType
 	 */
@@ -79,41 +79,19 @@ public class TeamManagementForm {
 		this.searchString = searchString;
 	}
 	/**
-	 * @return the userName
+	 * @return the projectTeamList
 	 */
-	public String getUserName() {
-		return userName;
+	public List<TeamManagement> getProjectTeamList() {
+		return projectTeamList;
 	}
 	/**
-	 * @param userName the userName to set
+	 * @param projectTeamList the projectTeamList to set
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setProjectTeamList(List<TeamManagement> projectTeamList) {
+		this.projectTeamList = projectTeamList;
 	}
-	/**
-	 * @return the userAccount
-	 */
-	public String getUserAccount() {
-		return userAccount;
-	}
-	/**
-	 * @param userAccount the userAccount to set
-	 */
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
-	}
-	/**
-	 * @return the userRole
-	 */
-	public String getUserRole() {
-		return userRole;
-	}
-	/**
-	 * @param userRole the userRole to set
-	 */
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
-	}
+
+	
 	
 	
 }
