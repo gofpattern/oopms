@@ -1,6 +1,7 @@
 package openones.oopms.projecteye.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
@@ -10,6 +11,7 @@ import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -61,6 +63,60 @@ public class AssignmentDao {
 	       return null;
 	}
 	
+	public boolean removeTeamMember(Project project, BigDecimal developerId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+	    	   session = sessionfactory.openSession();
+	    	   session.beginTransaction();
+	    	   String hql = "From Assignment where developerId = :developerId and project= :projectId and endDate is null ";
+	           Query query = session.createQuery(hql);
+	           query.setParameter("developerId", developerId);
+	           query.setParameter("projectId", project);
+	           Assignment removeMember = (Assignment)query.uniqueResult();
+	           removeMember.setEndDate(new Date());
+	           session.merge(removeMember);
+	           session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error("Insert ko duoc");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert ngon");
+		return true;
+	}
 	
+	public boolean removeProjectManager(Project project) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+	    	   session = sessionfactory.openSession();
+	    	   session.beginTransaction();
+	    	   String hql = "From Assignment where (TYPE = :PMType or TYPE = :POaPMType) and project= :projectId and endDate is null ";
+	           Query query = session.createQuery(hql);
+	           query.setParameter("projectId", project);
+	           query.setParameter("PMType", new BigDecimal(Constant.ProjectManagerType));
+	           query.setParameter("POaPMType", new BigDecimal(Constant.ProjectOwnerAndProjectManagerType));
+	           Assignment removeMember = (Assignment)query.uniqueResult();
+	           removeMember.setEndDate(new Date());
+	           session.merge(removeMember);
+	           session.getTransaction().commit();
+	           // assign new role after reject PM role
+	           Assignment assignment = new Assignment();
+        	   assignment.setProject(project);
+               assignment.setDeveloperId(removeMember.getDeveloperId());               
+               assignment.setBeginDate(new Date());
+	           if(Constant.ProjectManagerType.equals(String.valueOf(removeMember.getType()))) {
+	        	   assignment.setType(new Byte(Constant.DeveloperType));
+	           } else {
+	        	   assignment.setType(new Byte(Constant.ProjectOwnerType));
+	           }
+	           insertAssigment(assignment);	           
+		} catch (Exception e) {
+			log.error("Insert ko duoc");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert ngon");
+		return true;
+	}
 
 }

@@ -20,6 +20,7 @@ package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ActionResponse;
@@ -27,11 +28,15 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.AssignmentDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
+import openones.oopms.projecteye.dao.ProductDao;
 import openones.oopms.projecteye.form.AssignProjectManagerForm;
+import openones.oopms.projecteye.form.CreateProductForm;
 import openones.oopms.projecteye.form.TeamManagementForm;
 import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Workproduct;
 import openones.oopms.projecteye.utils.Constant;
 
 import org.apache.log4j.Logger;
@@ -48,86 +53,33 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class ProjectDetailController {
+public class AssignProjectManagerController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(ProjectDetailController.class);
-
-	@ActionMapping(params = "action=goUpdateProject")
-    public void processGoUpdateProject(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process goUpdateProject.START");
-        response.setRenderParameter("action", "goUpdateProject");    
-    }
-    
-    @RenderMapping(params = "action=goUpdateProject")
-    public ModelAndView postGoUpdateProject(RenderRequest request) {
-        log.debug("post goUpdateProject.START");
-        ModelAndView mav = new ModelAndView("UpdateProject");
-        String projectId = request.getParameter("projectId");
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
-    
-    @ActionMapping(params = "action=goTeamManagement")
-    public void processGoTeamManagement(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process GoTeamManagement.START");
-        response.setRenderParameter("action", "goTeamManagement");    
-    }
-    
-    @RenderMapping(params = "action=goTeamManagement")
-    public ModelAndView postGoTeamManagement(RenderRequest request) {
-        log.debug("post GoTeamManagement.START");
-        String projectId = request.getParameter("projectId");
-        Project project = new Project();
-        project.setProjectId(new BigDecimal(projectId));
+	private static Logger log = Logger
+			.getLogger(AssignProjectManagerController.class);
+	
+	
+	@RenderMapping(params = "action=ChangeProjectManager")
+	public ModelAndView postChangeProjectManager(RenderRequest request) {
+		log.debug("post ChangeProjectManager.START");
+		String projectId = request.getParameter("projectId");
+		String userId = request.getParameter("userId");
+		Assignment assignment = new Assignment();
+		AssignmentDao aDao = new AssignmentDao();
+        //set value for assgment
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		aDao.removeTeamMember(project, new BigDecimal(userId));
+		aDao.removeProjectManager(project);
+		assignment.setProject(project);
+        assignment.setDeveloperId(new BigDecimal(userId));
+        assignment.setType(new Byte(Constant.ProjectManagerType));
+        assignment.setBeginDate(new Date());
+        
+        aDao.insertAssigment(assignment);
         DeveloperDao dDao = new DeveloperDao();
-        AssignmentDao aDao = new AssignmentDao();
-        List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
-        List<TeamManagementForm> projectTeamList = new ArrayList<TeamManagementForm>();
-        if(teamOfProject.size()>0) {
-        	for(int i=0; i<teamOfProject.size();i++) {
-        		TeamManagementForm temp = new TeamManagementForm();
-        		temp.setUserName(teamOfProject.get(i).getName());
-        		temp.setUserAccount(teamOfProject.get(i).getAccount());
-        		Assignment role = aDao.getUserRole(project, teamOfProject.get(i).getDeveloperId());
-        		if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Project Owner and Project Manager");
-        		} else if (Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Project Manager");
-        		} else if (Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Developer");
-        		} else if (Constant.TesterType.equals(String.valueOf(role.getType()))){
-        			temp.setUserRole("Tester");
-        		} else if (Constant.QAType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("QA");
-        		} else if (Constant.CustomerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Customer");
-        		} else if (Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
-        			temp.setUserRole("Project Owner");
-        		}
-        		projectTeamList.add(temp);
-        	}
-        }
-        TeamManagementForm form = new TeamManagementForm();
-        form.setSearchType("name");
-        ModelAndView mav = new ModelAndView("TeamManagement", "TeamManagementForm", form);
-        mav.addObject("projectTeamList",projectTeamList);
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
-    }
-    
-    @RenderMapping(params = "action=GoAssignProjectManager")
-    public ModelAndView postGoAssignProjectManager(RenderRequest request) {
-        log.debug("post GoAssignProjectManager.START");
-        String projectId = request.getParameter("projectId");
-        Project project = new Project();
-        project.setProjectId(new BigDecimal(projectId));
-        DeveloperDao dDao = new DeveloperDao();
-        AssignmentDao aDao = new AssignmentDao();
         List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
         List<AssignProjectManagerForm> projectTeamList = new ArrayList<AssignProjectManagerForm>();
         if(teamOfProject.size()>0) {
@@ -162,5 +114,5 @@ public class ProjectDetailController {
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
-    }
+	}
 }

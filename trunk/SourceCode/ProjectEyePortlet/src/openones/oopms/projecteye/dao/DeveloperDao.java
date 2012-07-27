@@ -72,7 +72,7 @@ public class DeveloperDao {
     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
     	   session = sessionfactory.openSession();
     	   session.beginTransaction();
-           String hql = "from Developer where developerId = (select developerId from Assignment where project = :projectId and (TYPE = :PMType or TYPE = :POaPMType))";
+           String hql = "from Developer where developerId = (select developerId from Assignment where project = :projectId and (TYPE = :PMType or TYPE = :POaPMType) and endDate is null)";
            Query query = session.createQuery(hql);
            query.setParameter("projectId", project);
            query.setParameter("PMType", new BigDecimal(Constant.ProjectManagerType));

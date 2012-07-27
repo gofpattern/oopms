@@ -24,12 +24,14 @@ import java.util.Map;
 
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.AssignmentDao;
 import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.ProjectEyeHomeForm;
+import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Developer;
@@ -176,6 +178,11 @@ public class ProjectEyeHomeController {
 		mav.addObject("projectSize", projectTeam.size());
 		mav.addObject("riskIssue", projectRiskList.size());
 		mav.addObject("changeRequest", projectChangeRequestList.size());
+		
+		AssignmentDao aDao = new AssignmentDao();
+		Developer dev = dDao.getDeveloper(username);
+		Assignment role = aDao.getUserRole(project, dev.getDeveloperId());
+		mav.addObject("role", String.valueOf(role.getType()));
 		// mav.addObject("planEffort", project);
 		// mav.addObject("actualEffort", project);
 		// mav.addObject("progress", project);
