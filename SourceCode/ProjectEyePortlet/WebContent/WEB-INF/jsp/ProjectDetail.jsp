@@ -142,6 +142,7 @@
         <td>${projectEvaluation}</td>
       </tr>
   </table>
+  <c:if test="${(role == 1) || (role==0)}"> 
 	<portlet:renderURL var="renderAction">
     	<portlet:param name="action" value="goUpdateProject" />
         <portlet:param name="projectId" value="${projectId}" />
@@ -153,6 +154,14 @@
         <portlet:param name="projectId" value="${projectId}" />
     </portlet:renderURL>
     <br/><a href="${renderAction}">Team Management</a>
+ </c:if>
+ <c:if test="${(role == 6) || (role==0)}">
+ <portlet:renderURL var="renderAction">
+    	<portlet:param name="action" value="GoAssignProjectManager" />
+        <portlet:param name="projectId" value="${projectId}" />
+    </portlet:renderURL>
+    <br/><a href="${renderAction}">Assign Project Manager</a> 
+ </c:if>
 </div>
   <!-- end .content --></div>
   <!-- end .container --></div>

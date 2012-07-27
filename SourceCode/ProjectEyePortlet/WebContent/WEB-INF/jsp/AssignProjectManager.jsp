@@ -28,7 +28,7 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>
 
-<title>Team Management</title>	
+<title>Assign Project Manager</title>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -42,18 +42,18 @@
 	<!-- end .navigator -->
   
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Team Management</h2>
+    	<h2 class="title" >Assign Project Manager</h2>
     </div>
 	
 	<portlet:actionURL var="searchAction">
-  <portlet:param name="action" value="SearchUser" />
+  <portlet:param name="action" value="SearchUserToAddProjectManager" />
   <portlet:param name="projectId" value="${projectId}" />
 </portlet:actionURL>
 <portlet:renderURL var="renderAction">
             	<portlet:param name="action" value="GoProjectDetail" />
             	<portlet:param name="projectId" value="${projectId}" />
             </portlet:renderURL>
-<form:form name="${portletNamespace}TeamManagement" commandName="TeamManagementForm" method="post" action="${formAction}">
+<form:form name="${portletNamespace}AssignProjectManager" commandName="AssignProjectManagerForm" method="post" action="${formAction}">
 	<table class="portlet-table">
 	<c:if test="${not empty projectTeamList}">
    <tbody><tr >
@@ -65,50 +65,30 @@
     </tr>  
         <c:forEach var="user" items="${projectTeamList}" varStatus="count">
             <tr>
-            <portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="GoProjectDetail" />
+            <portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="ChangeProjectManager" />
             	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="userId" value="${user.userId}" />
             </portlet:renderURL>
                <td scope="row">${count.count}</td>
                <td scope="row">${user.userName}</td>
                <td scope="row">${user.userAccount}</td>
-               <td scope="row">${user.userRole}</td>
-               <td scope="row"><button type="button" class="button blue small" >Remove from this Project</button></td>                               
+               <td scope="row">${user.userRoleString}</td>
+               <td scope="row">
+				<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}AssignProjectManager", "${renderAction2}")'>Set this User to Project Manager</button>
+               <c:if test="${(user.userRole) == 1 || (user.userRole == 0)} ">
+               		This user is already Project Manager
+               	</c:if>
+               <c:if test="${(user.userRole != 1) && (user.userRole != 0)} ">
+               		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}AssignProjectManager", "${renderAction2}")'>Set this User to Project Manager</button>
+               	</c:if>
+               </td>                            
             </tr>
         </c:forEach>
    </tbody>
 	</c:if>
 	</table>
-	<br/><br/>
-	Search User <input name="searchString" value="" maxlength="50" size="50" type="text" /> 	
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${searchAction}")'>Search</button><br/>
-	<form:radiobutton path="searchType" value="name"/> By Name 
-	<form:radiobutton path="searchType" value="account"/> by Account 
-	<table class="portlet-table">
-	<c:if test="${not empty userList}">
-   <tbody><tr >
-        <th width="40%" scope="row">Name</th>    
-        <th width="40%" scope="row">Account</th>
-        <th width="20%" scope="row">Action</th>    
-    </tr>
-    
-  
-        <c:forEach var="developer" items="${userList}">
-            <tr>
-            <portlet:renderURL var="AddAction">
-            	<portlet:param name="action" value="AddUserToTeam" />
-            	<portlet:param name="projectId" value="${projectId}" />
-            	<portlet:param name="developerId" value="${developer.developerId}" />
-            </portlet:renderURL>
-               <td scope="row"><a href="${renderAction}">${developer.name}</a></td>
-               <td scope="row"><a href="${renderAction}">${developer.account}</a></td>  
-               <td scope="row"><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${AddAction}")'>Add to Project team</button></td>                                  
-            </tr>
-        </c:forEach>
-   </tbody>
-	</c:if>
-	</table>
-	<br/><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${renderAction}")'>Back</button>
+	<br/><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}AssignProjectManager", "${renderAction}")'>Back</button>
 </form:form>
   <!-- end .content --></div>
   <!-- end .container --></div>
