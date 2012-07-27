@@ -8,7 +8,7 @@
     <title>Project Management System</title>
 
     <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../TimesheetPortlet/resource_files/css/common.css" media="all">
+   <jsp:include page="header.jsp" />
     <meta name="robots" content="noindex, nofollow">
     
         

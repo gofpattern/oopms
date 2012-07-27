@@ -86,12 +86,12 @@ function submitAction(formName, actionUrl) {
                       });
                       $( "#datepicker1" ).datepicker({
                                 showOn: "button",
-                                buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
+                                buttonImage: "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
                                 buttonImageOnly: true
                             });
                             $( "#datepicker2" ).datepicker({
                                 showOn: "button",
-                                buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
+                                buttonImage: "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
                                 buttonImageOnly: true
                             });
                             $( "#selectable" ).selectable();

@@ -514,39 +514,7 @@ public class TimesheetController {
 
     }
     
-    /**
-     * Process after the action "updateTimesheet" (method "processsearchTimesheet") is executed.
-     * 
-     * @return view "Timesheet.jsp" which next page "Timesheet.jsp" will displayed
-     */
-    @RenderMapping(params = "action=goUpdateTimesheet")
-    public ModelAndView postRejectTimesheet(TimesheetForm formBean, RenderRequest request) {
        
-        ModelAndView mav = new ModelAndView("UpdateTimesheet"); // display Timesheet.jsp
-        List<Timesheet> timesheetList = new ArrayList<Timesheet>();
-        Timesheet timesheet;
-        TimesheetDao timeDao = new TimesheetDao();
-        for (int i = 0; i < rejectTimesheetList.size(); i++) {
-
-            timesheet = timeDao.getTimesheetById(rejectTimesheetList.get(i).getTimesheetId());
-            timesheetList.add(timesheet);
-        }
-        System.out.println("num of record :" + timesheetList.size());
-        timesheetList = prepareTimesheetList(timesheetList);
-        formBean.setTimesheetList(timesheetList);
-        prepareMaps();
-        mav.addObject("projectMap", projectMap);
-        mav.addObject("processMap", processMap);
-        mav.addObject("towMap", towMap);
-       
-        // Add object timesheetList to request
-        mav.addObject("timesheetList", timesheetList);
-        rejectTimesheetList = timesheetList;
-        // Return to jsp
-        return mav;
-
-    }
-    
     
     @ActionMapping(params = "action=updateTimesheet")
     public void processUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
