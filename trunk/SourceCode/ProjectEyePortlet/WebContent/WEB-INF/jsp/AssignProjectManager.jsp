@@ -82,9 +82,6 @@
 				<c:if test="${sosanh==0}">
 				This user is already Project Manager
 				</c:if>
-               <c:if test="${(sosanh == 1) || (sosanh == 0)} ">
-               		This user is already Project Manager
-               	</c:if>
                <c:if test="${sosanh != 1}">
                	  <c:if test="${sosanh != 0}">
                		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}AssignProjectManager", "${renderAction2}")'>Set this User to Project Manager</button>
