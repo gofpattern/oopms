@@ -26,5 +26,45 @@
 function submitAction(formName, actionUrl) {
 	var frm = document.forms[formName];
 	frm.action = actionUrl;
+	alert("change");
 	frm.submit();
 }
+
+
+function showAlert() {
+	alert("showAlert");
+};
+
+/**
+ * @returns {Boolean}
+ */
+function validateForm() {
+	var x = document.getElementById("add-form-title").value;
+	var strError;
+	if (x == null || x == "") {
+		alert("Title must be filled out");
+		strError = "Title must be filled out"
+		return false;
+	}
+	x = document.getElementById("add-form-startDate").value;
+	if (x == null || x == "") {
+		alert("Start Date must be filled out");
+		return false;
+	}
+	x = document.getElementById("add-form-finishDate").value;
+	if (x == null || x == "") {
+		alert("Finish Date must be filled out");
+		return false;
+	}
+	x = document.getElementById("add-form-startDate").value;
+	if (x == null || x == "") {
+		alert("Title must be filled out");
+		return false;
+	}
+	x = document.getElementById("add-form-startDate").value;
+	if (x == null || x == "") {
+		alert("Title must be filled out");
+		return false;
+	}
+	return true;
+};

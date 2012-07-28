@@ -12,11 +12,14 @@
   rel="Stylesheet" />
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript"
   src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/common.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#add-form-startDate")
@@ -94,6 +97,8 @@
 						// set description when update a task
 						document.getElementById('add-form-description').innerHTML = "${edTask.description}";
 
+						yav.init('addForm', rules);
+
 						// set show and hide for hidden-add-form
 						if ('${flag}' == 0) {
 							$(".hidden-add-form").hide();
@@ -107,8 +112,36 @@
 						});
 					});
 </script>
+<SCRIPT type="text/javascript">
+	var rules = new Array();
+	rules[0] = 'task.taskname:Title|required';
+	rules[1] = 'startDate:Start Date|required';
+	rules[2] = 'startDate:Start Date|date';
+	rules[3] = 'endDate:Finish Date|required';
+	rules[4] = 'endDate:Finish Date|date';
+	rules[5] = 'startDate|date_le|$endDate';
+	rules[6] = 'task.plannedeffort:Planned Effort|required';
+	rules[7] = 'task.plannedeffort:Planned Effort|numeric';
+	rules[8] = 'task.stageid:Stage|required';
+	rules[9] = 'task.processId:Process|required';
+	rules[10] = 'task.product:Product|required';
+	rules[11] = 'task.productsize:Product Size|required';
+	rules[12] = 'task.productsize:Product Size|numeric';
+	rules[13] = 'task.developerid: Assigned To|required';
+	rules[14] = 'task.statusId:Status|required';
+
+	yav.addHelp('task.taskname', 'Provide your Title');
+	yav.addHelp('startDate', 'Provide your Start Date');
+	yav.addHelp('endDate', 'Provide your Finish Date');
+	yav.addHelp('task.plannedeffort', 'Provide your Planned Effort');
+	yav.addHelp('task.stageid', 'Provide your Stage');
+	yav.addHelp('task.processId', 'Provide your Process');
+	yav.addHelp('task.product', 'Provide your Product');
+	yav.addHelp('task.productsize', 'Provide your Product Size');
+	yav.addHelp('task.developerid', 'Provide your assigned member');
+	yav.addHelp('task.statusId', 'Provide your Task Status');
+</SCRIPT>
 <style type="text/css">
-<!--
 #portal #portalPageBodyInner .content #content_planner .portlet-table {
   font-size: 12px;
 }
@@ -130,7 +163,7 @@
   color: #505050;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  height: 400px;
+  height: auto;
   margin-bottom: 20px;
   margin-left: 50px;
   margin-right: 0px;
@@ -141,16 +174,15 @@
   padding-top: 25px;
   width: 900px;
 }
--->
 </style>
 </head>
-<body id="portal" class="up fl-theme-mist">
+<body id="portal" class="up fl-theme-mist"">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
       <portlet:actionURL var="DoPlannerAddAction">
         <portlet:param name="action" value="plannerAdd" />
-      </portlet:actionURL>      
-      
+      </portlet:actionURL>
+
       <portlet:actionURL var="DoPlannerEditAction">
         <portlet:param name="action" value="plannerEdit" />
       </portlet:actionURL>
@@ -159,8 +191,12 @@
         <portlet:param name="action" value="${plAddAction}" />
       </portlet:actionURL>
 
-      <portlet:actionURL var="searchTaskAction">
-        <portlet:param name="action" value="searchTask" />
+      <portlet:actionURL var="searchAction">
+        <portlet:param name="action" value="search" />
+      </portlet:actionURL>
+
+      <portlet:actionURL var="searchByStatusAction">
+        <portlet:param name="action" value="searchByStatus" />
       </portlet:actionURL>
 
       <portlet:actionURL var="deleteTaskAction">
@@ -174,8 +210,9 @@
       <%-- <a id="add-button" href='<portlet:actionURL><portlet:param name="action" value="plannerAdd"/></portlet:actionURL>'>AddTask</a> --%>
 
       <div class="hidden-add-form">
-
-        <form:form commandName="PlannerAddForm" method="post" action="${PlannerAddAction}">
+        <DIV id=errorsDiv></DIV>
+        <form:form name="addForm" commandName="PlannerAddForm" method="post" action="${PlannerAddAction}"
+          onsubmit="return yav.performCheck('addForm', rules, 'inline');">
 
           <p id="add-form">
           <table class="Table" cellspacing="1" width="560">
@@ -187,56 +224,66 @@
               <tr>
                 <td width="139" class="ColumnLabel"><label for="add-form-title">Title*</label></td>
                 <td width="412" class="CellBGR3"><form:input path="task.taskname" id="add-form-title"
-                    value="${edTask.taskname}" /> <form:input path="task.taskid" value="${edTask.taskid}" type="hidden" /></td>
+                    value="${edTask.taskname}" /> <form:input path="task.taskid" value="${edTask.taskid}" type="hidden" /><br />
+                  <span id=errorsDiv_task.taskname></span></td>
               </tr>
               <tr>
-                <td class="ColumnLabel"><label for="add-form-startDate">Start Date</label></td>
+                <td class="ColumnLabel"><label for="add-form-startDate">Start Date*</label></td>
                 <td class="CellBGR3"><form:input path="startDate" value="${edTask.startdate_str}"
-                    id="add-form-startDate"></form:input> (MM-DD-YY)</td>
+                    id="add-form-startDate"></form:input> (MM-DD-YYYY)<br />
+                <span id=errorsDiv_startDate></span></td>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
                 <td><form:select class="styled" path="task.stageid" value="${edTask.stageid}" multiple="single"
                     id="add-form-stage">
                     <form:options items="${stageMapAdd}" />
-                  </form:select></td>
+                  </form:select><br />
+                <span id=errorsDiv_task.stageid></span></td>
               </tr>
               <tr>
-                <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date</label></td>
+                <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date*</label></td>
                 <td class="CellBGR3"><form:input path="endDate" value="${edTask.plannedenddate_str}"
-                    id="add-form-finishDate" /> (MM-DD-YY)</td>
-                <td class="ColumnLabel"><label for="add-form-process">Process&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
+                    id="add-form-finishDate" /> (MM-DD-YYYY)<br />
+                <span id=errorsDiv_endDate></span></td>
+                <td class="ColumnLabel"><label for="add-form-process">Process*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td><form:select class="styled" path="task.processId" value="${edTask.processId}" multiple="single"
                     id="add-form-process">
                     <form:options items="${processMapAdd}" />
-                  </form:select></td>
+                  </form:select><br />
+                <span id=errorsDiv_task.processId></span></td>
                 <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
                 <td><form:select class="styled" path="task.developerid" value="${edTask.developerid}"
                     multiple="single" id="add-form-assignedTo">
                     <form:options items="${developerMapAdd}" />
-                  </form:select></td>
+                  </form:select><br />
+                <span id=errorsDiv_task.developerid></span></td>
               </tr>
               <tr>
-                <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort</label></td>
+                <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.plannedeffort" value="${edTask.plannedeffort}"
-                    id="add-form-plannedEffort" /> (Hours)</td>
+                    id="add-form-plannedEffort" /> (Hours)<br />
+                <span id=errorsDiv_task.plannedeffort></span></td>
                 <td class="ColumnLabel"><label for="add-form-product">Product*</label></td>
                 <td><form:select class="styled" path="task.product" value="${edTask.product}" multiple="single"
                     id="add-form-process">
                     <form:options items="${productMapAdd}" />
-                  </form:select></td>
+                  </form:select><br />
+                <span id=errorsDiv_task.product></span></td>
 
                 <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
                 <td><form:select class="styled" path="task.statusId" value="${edTask.statusId}" multiple="single"
                     id="add-form-status">
                     <form:options items="${statusMapAdd}" />
-                  </form:select></td>
+                  </form:select><br />
+                <span id=errorsDiv_task.statusId></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort</label></td>
                 <td class="CellBGR3"><form:input path="task.currenteffort" value="${edTask.currenteffort}"
                     id="add-form-currentEffort" /> (Hours)</td>
-                <td class="ColumnLabel"><label for="add-form-productSize">Product Size</label></td>
+                <td class="ColumnLabel"><label for="add-form-productSize">Product Size*</label></td>
                 <td class="CellBGR3"><form:input path="task.productsize" value="${edTask.productsize}"
-                    id="add-form-productSize" /></td>
+                    id="add-form-productSize" /><br />
+                <span id=errorsDiv_task.productsize></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-actualEffort">Actual Effort</label></td>
@@ -262,7 +309,7 @@
       </div>
 
       <div id="content_planner">
-        <form:form commandName="PlannerForm" method="post" action="${searchTaskAction}">
+        <form:form name="searchTask" commandName="PlannerForm" method="post" action="${searchAction}">
           <table>
             <tr>
               <td><b>&nbsp;&nbsp;Project&nbsp;&nbsp;</b></td>
@@ -275,7 +322,7 @@
               <td><form:select class="styled" path="projectId" multiple="single">
                   <form:options items="${projectMap}" />
                 </form:select></td>
-              <td><form:select class="styled" path="statusDefault" multiple="single">
+              <td><form:select class="styled" path="statusDefault" multiple="single" onchange="showAlert()">
                   <form:options items="${statusMap}" />
                 </form:select></td>
               <td><form:select class="styled" path="stageDefault" multiple="single">
@@ -284,7 +331,7 @@
               <td><form:select class="styled" path="developerDefault" multiple="single">
                   <form:options items="${developerMap}" />
                 </form:select></td>
-              <td width="10%"><select class="styled">
+              <td width="10%"><select class="styled" onchange="showAlert()">
                   <option selected="selected" value="0">Status</option>
                   <option value="1">Task Name</option>
                   <option value="2">Remaining Time</option>
@@ -333,7 +380,14 @@
                     <td>${task.process_str}</td>
                     <td>${task.developer_str}</td>
                     <td>${task.plannedeffort - task.currenteffort}&nbsp;Hour</td>
-                    <td>${completeRate}</td>
+                    <c:choose>
+                      <c:when test="${not empty completeRate}">
+                        <td>${completeRate}</td>
+                      </c:when>
+                      <c:otherwise>
+                        <td>N/A</td>
+                      </c:otherwise>
+                    </c:choose>
                     <td>${task.startdate_str}</td>
                     <td>${task.plannedenddate_str}</td>
                     <td>${task.plannedeffort}</td>
