@@ -51,7 +51,7 @@
   		<portlet:param name="projectId" value="${projectId}" />
 	</portlet:actionURL>
 <form:form name="${portletNamespace}SearchProduct" commandName="ProductForm" method="post" action="${formAction}">
-    Product List <form:select  class="SmallCombo" path="workProduct_SelectedValue" items="${workProduct}"/>
+    Product List <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/>
     <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button> 
 </form:form>
     <table class="portlet-table">

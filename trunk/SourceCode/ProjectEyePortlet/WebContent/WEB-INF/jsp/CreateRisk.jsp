@@ -61,7 +61,7 @@
   <tr>
     <th width="186" scope="row">Risk Source*</th>
     <td width="433">
-    <form:select  class="SmallCombo" path="riskSource_SelectedValue" items="${riskSource}"/>
+    <form:select  class="styled" path="riskSource_SelectedValue" items="${riskSource}"/>
     </td>
   </tr>
   <tr>
@@ -74,10 +74,10 @@
   </tr>
   <tr>
     <th scope="row" rowspan="3">Estimated Impact*</th>
-    <td><form:select  class="SmallCombo" path="estimatedImpactTo_SelectedValue" items="${estimatedImpactTo}"/></td>
+    <td><form:select  class="styled" path="estimatedImpactTo_SelectedValue" items="${estimatedImpactTo}"/></td>
   </tr>
   <tr>
-    <td><form:select  class="SmallCombo" path="estimatedImpactUnit_SelectedValue" items="${estimatedImpactUnit}"/></td>
+    <td><form:select  class="styled" path="estimatedImpactUnit_SelectedValue" items="${estimatedImpactUnit}"/></td>
   </tr>
   <tr>
     <td><input name="estimatedImpact" value="" maxlength="50" size="50" type="text" /></td>

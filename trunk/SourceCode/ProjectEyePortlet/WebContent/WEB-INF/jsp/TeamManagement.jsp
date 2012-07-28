@@ -57,10 +57,6 @@
             	<portlet:param name="action" value="GoProjectDetail" />
             	<portlet:param name="projectId" value="${projectId}" />
             </portlet:renderURL>
-<portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="GoProjectDetail" />
-            	<portlet:param name="projectId" value="${projectId}" />
-            </portlet:renderURL>
 <form:form name="${portletNamespace}TeamManagement" commandName="TeamManagementForm" method="post" action="${formAction}">
 	<table class="portlet-table">
 	<c:if test="${not empty projectTeamList}">
@@ -73,6 +69,11 @@
     </tr>  
         <c:forEach var="user" items="${projectTeamList}" varStatus="count">
             <tr>
+            <portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="RemoveTeamMember" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="developerId" value="${user.developerId}" />
+            </portlet:renderURL>
                <td scope="row">${count.count}</td>
                <td scope="row">${user.userName}</td>
                <td scope="row">${user.userAccount}</td>
@@ -89,12 +90,21 @@
                <c:if test="${user.selectedRole != 0}">
                	<c:if test="${user.selectedRole != 1}">
                	<c:if test="${user.selectedRole != 6}">
-               		<form:select  class="SmallCombo" path="projectTeamList[${count.index}].selectedRole" items="${roleList}"/>
+               		<form:select  class="styled" path="projectTeamList[${count.index}].selectedRole" items="${roleList}"/>
                	</c:if>
                </c:if>
                </c:if>               		
                	</td>
-               <td scope="row"><button type="button" class="button blue small" >Remove from this Project</button></td>
+               <td scope="row">
+               <c:if test="${user.selectedRole != 0}">
+               	<c:if test="${user.selectedRole != 1}">
+               	<c:if test="${user.selectedRole != 6}">
+               		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${renderAction2}")'>Remove from this Project</button>
+               	</c:if>
+               </c:if>
+               </c:if> 
+					
+				</td>
             </tr>
             <input name="projectTeamList[${count.index}].developerId" value="${user.developerId}" type="hidden" />
         </c:forEach>
@@ -125,8 +135,8 @@
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="developerId" value="${developer.developerId}" />
             </portlet:renderURL>
-               <td scope="row"><a href="${renderAction}">${developer.name}</a></td>
-               <td scope="row"><a href="${renderAction}">${developer.account}</a></td>  
+               <td scope="row">${developer.name}</td>
+               <td scope="row">${developer.account}</td>  
                <td scope="row"><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${AddAction}")'>Add to Project team</button></td>                                  
             </tr>
         </c:forEach>

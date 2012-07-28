@@ -103,7 +103,7 @@
       </tr>
       <tr>      
    		<th scope="row">Standard stage*</th>
-    	<td><form:select  class="SmallCombo" path="standarStage_SelectedValue" items="${standarStage}"/></td>
+    	<td><form:select  class="styled" path="standarStage_SelectedValue" items="${standarStage}"/></td>
   	  </tr>
   	  <tr>
         <th scope="row">Planned start date*</th>

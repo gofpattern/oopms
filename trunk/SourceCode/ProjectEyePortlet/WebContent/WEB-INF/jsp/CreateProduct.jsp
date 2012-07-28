@@ -56,7 +56,7 @@
 	<table class="portlet-table">
 	  <tr>      
    		<th scope="row">Work product*</th>
-    	<td><form:select  class="SmallCombo" path="workProduct_SelectedValue" items="${workProduct}"/></td>
+    	<td><form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/></td>
   	  </tr>
   	  <tr>
         <th scope="row">Name*</th>
@@ -64,7 +64,7 @@
       </tr>
       <tr>      
    		<th scope="row">Planned size unit*</th>
-    	<td><form:select  class="SmallCombo" path="plannedSizeUnit_SelectedValue" items="${plannedSizeUnit}"/></td>
+    	<td><form:select  class="styled" path="plannedSizeUnit_SelectedValue" items="${plannedSizeUnit}"/></td>
   	  </tr>
   	  <tr>
     	<th width="186" scope="row">Planned size*</th>
@@ -76,7 +76,7 @@
   	  </tr>
   	  <tr>      
    		<th scope="row">Actual size unit</th>
-    	<td><form:select  class="SmallCombo" path="actualSizeUnit_SelectedValue" items="${actualSizeUnit}"/></td>
+    	<td><form:select  class="styled" path="actualSizeUnit_SelectedValue" items="${actualSizeUnit}"/></td>
   	  </tr>
   	  <tr>
     	<th width="186" scope="row">Actual size</th>

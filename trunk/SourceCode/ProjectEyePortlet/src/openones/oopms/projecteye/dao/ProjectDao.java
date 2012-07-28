@@ -200,7 +200,7 @@ public class ProjectDao {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
-			String hql = "From BusinessDomain where domainId = :domainId";			
+			String hql = "From BusinessDomain where domainId = :domainId";
 			Query query = session.createQuery(hql);
 			query.setParameter("domainId", new BigDecimal(id));
 			BusinessDomain projectBussinessDomain = (BusinessDomain) query
@@ -213,5 +213,30 @@ public class ProjectDao {
 			log.error(e.getMessage());
 		}
 		return null;
+	}
+
+	// return false if not exist in database
+	public boolean checkDuplicateProjectCode(String projectCode) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From Project where code = :projectCode";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectCode", projectCode);
+			Project project = (Project) query.uniqueResult();
+			session.flush();
+			session.getTransaction().commit();
+			if (project == null) {
+				log.error("This Code not in database yet");
+				return false;
+			} else {
+				log.error("This Code already in database");
+				return true;
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
 	}
 }

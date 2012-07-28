@@ -85,19 +85,19 @@
       </tr>
       <tr>      
    		<th scope="row">Priority</th>
-    	<td><form:select  class="SmallCombo" path="priority_SelectedValue" items="${priority}"/></td>
+    	<td><form:select  class="styled" path="priority_SelectedValue" items="${priority}"/></td>
   	  </tr>
   	  <tr>      
    		<th scope="row">Status</th>
-    	<td><form:select  class="SmallCombo" path="status_SelectedValue" items="${status}"/></td>
+    	<td><form:select  class="styled" path="status_SelectedValue" items="${status}"/></td>
   	  </tr>
   	  <tr>      
    		<th scope="row">Type</th>
-    	<td><form:select  class="SmallCombo" path="type_SelectedValue" items="${type}"/></td>
+    	<td><form:select  class="styled" path="type_SelectedValue" items="${type}"/></td>
   	  </tr>
   	  <tr>      
    		<th scope="row">Process related</th>
-    	<td><form:select  class="SmallCombo" path="processRelated_SelectedValue" items="${processRelated}"/></td>
+    	<td><form:select  class="styled" path="processRelated_SelectedValue" items="${processRelated}"/></td>
   	  </tr>
   	  <tr>      
    		<th scope="row">Creator</th>
