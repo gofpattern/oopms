@@ -43,6 +43,7 @@ public class PlannerController {
     private List<Developer> developerList;
     private List<Project> projectList;
     static String projectDefault;
+    static String statusDefault;
 
     /**
      * Create bean for form.
@@ -210,9 +211,25 @@ public class PlannerController {
     }
 
     @RenderMapping(params = "action=deleteTask")
-    public void processDeleteTaskRender(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+    public void postDeleteTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
-        log.debug("processDeleteTask.RENDER.START");
+        log.debug("postDeleteTask.START");
+    }
+    
+    @ActionMapping(params = "action=searchByStatus")
+    public void processSearchByStatus(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("processSearchByStatus.START");
+        
+        formBean.setInit(false);
+
+        response.setRenderParameter("action", "taskmanager");
+    }
+
+    @RenderMapping(params = "action=searchByStatus")
+    public void postSearchByStatus(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
+            SessionStatus status, ActionResponse response) {
+        log.debug("postSearchByStatus.START");
     }
 
 }

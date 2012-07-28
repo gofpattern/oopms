@@ -53,11 +53,11 @@ public class PlannerAddForm {
         processMap = new LinkedHashMap<String, String>();
         productMap = new LinkedHashMap<String, String>();
 
-        statusMap.put(" ", " ");
-        stageMap.put(" ", " ");
-        developerMap.put(" ", " ");
-        processMap.put(" ", " ");
-        productMap.put(" ", " ");
+        statusMap.put("", " ");
+        stageMap.put("", " ");
+        developerMap.put("", " ");
+        processMap.put("", " ");
+        productMap.put("", " ");
 
         startDate = " ";
         endDate = " ";
