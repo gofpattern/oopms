@@ -8,4 +8,5 @@ public class Constant {
 	public static String QAType = "4";
 	public static String CustomerType = "5";
 	public static String ProjectOwnerType = "6";
+	public static String WorkUnitProjectType = "2";
 }

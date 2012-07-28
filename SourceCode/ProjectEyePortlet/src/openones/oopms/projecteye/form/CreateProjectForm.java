@@ -29,8 +29,8 @@ public class CreateProjectForm {
 	private String projectName;
 	private String customer;
 	private String endCustomer;
-	private Date planStartDate;
-	private Date planEndDate;
+	private String planStartDate;
+	private String planEndDate;
 	private String scopeObjective;
 	private Map<String,String> projectStatus;
 	private Map<String,String> projectCategory;
@@ -176,27 +176,28 @@ public class CreateProjectForm {
 	/**
 	 * @return the planStartDate
 	 */
-	public Date getPlanStartDate() {
+	public String getPlanStartDate() {
 		return planStartDate;
 	}
 	/**
 	 * @param planStartDate the planStartDate to set
 	 */
-	public void setPlanStartDate(Date planStartDate) {
+	public void setPlanStartDate(String planStartDate) {
 		this.planStartDate = planStartDate;
 	}
 	/**
 	 * @return the planEndDate
 	 */
-	public Date getPlanEndDate() {
+	public String getPlanEndDate() {
 		return planEndDate;
 	}
 	/**
 	 * @param planEndDate the planEndDate to set
 	 */
-	public void setPlanEndDate(Date planEndDate) {
+	public void setPlanEndDate(String planEndDate) {
 		this.planEndDate = planEndDate;
 	}
+
 	
 	
 }

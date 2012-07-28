@@ -19,22 +19,36 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.ProjectDao;
+import openones.oopms.projecteye.dao.WorkUnitDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.model.Assignment;
+import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Workunit;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.validator.CreateProjectValidator;
 
 import org.apache.log4j.Logger;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,75 +63,154 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @Controller
 @RequestMapping("VIEW")
 public class CreateProjectController {
-    
-    Developer user = new Developer();
-    /** Logger for logging. */
-    private static Logger log = Logger.getLogger(CreateProjectController.class);
 
+	Developer user = new Developer();
+	/** Logger for logging. */
+	private static Logger log = Logger.getLogger(CreateProjectController.class);
 
-    /**
-     * Process submitted form by clicking "Login" button.
-     * @param formBean bean captures input data
-     * @param result result of binding data
-     * @param status status of session
-     * @param response response of action
-     */
-    @ActionMapping(params = "action=CreateProject")
-    public void processCreateProject(CreateProjectForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process CreateProject.START");
-        CreateProjectValidator validator = new CreateProjectValidator();
-        validator.validate(formBean, result);
-        if(!result.hasErrors()) {
-        DeveloperDao dDao = new DeveloperDao();
-		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
-        
-        ProjectDao pDao = new ProjectDao();
-        Project project = new Project();
-        
-        //set value for project
-        project.setCode(formBean.getProjectCode());
-        project.setName(formBean.getProjectName());
-    	project.setCustomer(formBean.getCustomer());
-    	project.setCustomer2nd(formBean.getEndCustomer());
-    	project.setPlanStartDate(formBean.getPlanStartDate());
-    	project.setPlanFinishDate(formBean.getPlanEndDate());
-    	project.setDescription(formBean.getScopeObjective());
-    	project.setProjectCategoryCode(formBean.getProjectCategory_SelectedValue());
-    	project.setType(formBean.getBusinessDomain_SelectedValue());
-        project.setProjectStatusCode(formBean.getProjectStatus_SelectedValue());
-    	
-        Assignment assignment = new Assignment();
-        //set value for assgment
-        assignment.setDeveloperId(dev.getDeveloperId());
-        assignment.setType(new Byte(Constant.ProjectOwnerAndProjectManagerType)); // type 1 is project Manager
-        assignment.setBeginDate(formBean.getPlanStartDate());
-    	//Call dao to insert project to database
-        if(pDao.insertProject(project,assignment)) {
-    		response.setRenderParameter("action", "CreateProject");
-    		log.error("Insert success");
-    	} else {
-    		log.error("Cannot Insert");
-    	}
-        } else {
-        	response.setRenderParameter("action", "GoCreateProject");
-        	log.error("Error in binding result:" + result.getErrorCount());
-        }
-        
-    }
+	/**
+	 * Process submitted form by clicking "Login" button.
+	 * 
+	 * @param formBean
+	 *            bean captures input data
+	 * @param result
+	 *            result of binding data
+	 * @param status
+	 *            status of session
+	 * @param response
+	 *            response of action
+	 */
+	@ActionMapping(params = "action=CreateProject")
+	public void processCreateProject(CreateProjectForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("process CreateProject.START");
+		try {
+			CreateProjectValidator validator = new CreateProjectValidator();
+			validator.validate(formBean, result);
+			if (!result.hasErrors()) {
+				DeveloperDao dDao = new DeveloperDao();
+				Developer dev = dDao
+						.getDeveloper(ProjectEyeHomeController.username);
 
-    /**
-     * Process after the action "login" (method "processLogin") is executed.
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
-    @RenderMapping(params = "action=CreateProject")
-    public ModelAndView postCreateProject(CreateProjectForm formBean, RenderRequest request) {
-        log.debug("post CreateProject.START");
-        ModelAndView mav = new ModelAndView("ProjectEyeHome");
-        ProjectDao pDao = new ProjectDao();
-        DeveloperDao dDao = new DeveloperDao();
+				ProjectDao pDao = new ProjectDao();
+				Project project = new Project();
+
+				// set value for project
+				project.setCode(formBean.getProjectCode());
+				project.setName(formBean.getProjectName());
+				project.setCustomer(formBean.getCustomer());
+				project.setCustomer2nd(formBean.getEndCustomer());
+				DateFormat formatter;
+				formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+				project.setPlanStartDate((Date) formatter.parse(formBean
+						.getPlanStartDate()));
+
+				project.setPlanFinishDate((Date) formatter.parse(formBean
+						.getPlanEndDate()));
+				project.setDescription(formBean.getScopeObjective());
+				project.setProjectCategoryCode(formBean
+						.getProjectCategory_SelectedValue());
+				project.setType(formBean.getBusinessDomain_SelectedValue());
+				project.setProjectStatusCode(formBean
+						.getProjectStatus_SelectedValue());
+
+				Assignment assignment = new Assignment();
+				// set value for assgment
+				assignment.setDeveloperId(dev.getDeveloperId());
+				assignment.setType(new Byte(
+						Constant.ProjectOwnerAndProjectManagerType));
+				assignment.setBeginDate((Date) formatter.parse(formBean
+						.getPlanStartDate()));
+				// Call dao to insert project to database
+				if (pDao.insertProject(project, assignment)) {
+					Workunit workunit = new Workunit();
+					workunit.setType(Integer
+							.parseInt(Constant.WorkUnitProjectType));
+					workunit.setWorkunitname(project.getCode());
+					WorkUnitDao wuDao = new WorkUnitDao();
+					if (wuDao.insertWorkUnit(workunit)) {
+						response.setRenderParameter("action", "CreateProject");
+						log.error("Insert success");
+					} else {
+						log.error("Cannot Insert WorkUnit");
+					}
+
+				} else {
+					log.error("Cannot Insert");
+				}
+			} else {
+				response.setRenderParameter("action", "GoCreateProject2");
+				log.error("Error in binding result:" + result.getErrorCount());
+			}
+		} catch (ParseException e) {
+			log.error(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * Process after the action "login" (method "processLogin") is executed.
+	 * 
+	 * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will
+	 *         displayed
+	 */
+	@RenderMapping(params = "action=CreateProject")
+	public ModelAndView postCreateProject(CreateProjectForm formBean,
+			RenderRequest request) {
+		log.debug("post CreateProject.START");
+		ModelAndView mav = new ModelAndView("ProjectEyeHome");
+		ProjectDao pDao = new ProjectDao();
+		DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
 		mav.addObject("projectList", projectList);
-        return mav;
-    }
+		return mav;
+	}
+	
+	/**
+	 * Process after the action "Create New Project"
+	 * 
+	 * @return view "CreateProject" which next page "CreateProject.jsp" will
+	 *         displayed
+	 */
+	@RenderMapping(params = "action=GoCreateProject2")
+	public ModelAndView postGoCreateProject(
+			RenderRequest request ,PortletSession session) {
+		log.debug("post GoCreateProject.START");
+		ProjectDao pDao = new ProjectDao();
+		// get category List
+		List<GeneralReference> projectCategoryList = pDao
+				.getProjectCategoryList();
+		Map<String, String> projectCategoryMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < projectCategoryList.size(); i++) {
+			projectCategoryMap.put(projectCategoryList.get(i).getGeneralRefId()
+					.toString(), projectCategoryList.get(i).getDescription());
+		}
+		// get Status list
+		List<GeneralReference> projectStatusList = pDao.getProjectStatusList();
+		Map<String, String> projectStatusMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < projectStatusList.size(); i++) {
+			projectStatusMap.put(projectStatusList.get(i).getGeneralRefId()
+					.toString(), projectStatusList.get(i).getDescription());
+		}
+
+		// get Bussiness domain list
+		List<BusinessDomain> projectBussinessDomainList = pDao
+				.getProjectBussinessDomainList();
+		Map<String, String> projectBussinessDomainMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < projectBussinessDomainList.size(); i++) {
+			projectBussinessDomainMap.put(projectBussinessDomainList.get(i)
+					.getDomainId().toString(), projectBussinessDomainList
+					.get(i).getDomainName());
+		}
+		request.setAttribute("CreateProjectForm", new CreateProjectForm());
+		ModelAndView mav = new ModelAndView("CreateProject");
+		mav.addObject("projectStatus", projectStatusMap);
+		mav.addObject("projectCategory", projectCategoryMap);
+		mav.addObject("businessDomain", projectBussinessDomainMap);
+		mav.addObject("username", ProjectEyeHomeController.username);
+		log.error("luu dan");
+		return mav;
+	}
 }

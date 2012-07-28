@@ -85,7 +85,7 @@
 <table class="portlet-table">
       <tr>      
    		<th scope="row">Deliverable</th>
-    	<td><form:select  class="SmallCombo" path="deliverable_SelectedValue" items="${deliverable}"/></td>
+    	<td><form:select  class="styled" path="deliverable_SelectedValue" items="${deliverable}"/></td>
   	  </tr>
   	  <tr>
         <th scope="row">Planned committed date*</th>
@@ -104,7 +104,7 @@
       </tr>
       <tr>
         <th scope="row">Status</th>
-        <td><form:select  class="SmallCombo" path="status_SelectedValue" items="${status}"/></td>
+        <td><form:select  class="styled" path="status_SelectedValue" items="${status}"/></td>
       </tr>
       <tr>
         <th scope="row">Note</th>

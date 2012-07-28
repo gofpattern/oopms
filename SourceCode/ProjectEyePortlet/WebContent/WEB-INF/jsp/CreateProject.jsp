@@ -87,11 +87,11 @@
   </tr>
   <tr>
     <th scope="row">Project Status</th>
-    <td><form:select  class="SmallCombo" path="projectStatus_SelectedValue" items="${projectStatus}"/></td>
+    <td><form:select  class="styled" path="projectStatus_SelectedValue" items="${projectStatus}"/></td>
   </tr>
   <tr>
     <th scope="row">Project Category</th>
-    <td><form:select  class="SmallCombo" path="projectCategory_SelectedValue" items="${projectCategory}"/></td>
+    <td><form:select  class="styled" path="projectCategory_SelectedValue" items="${projectCategory}"/></td>
   </tr>
   <tr>
    <th scope="row">Direct Customer</th>
@@ -103,16 +103,16 @@
       </tr>
       <tr>
    <th scope="row">Business Domain</th>
-    <td><form:select  class="SmallCombo" path="businessDomain_SelectedValue" items="${businessDomain}"/></td>
+    <td><form:select  class="styled" path="businessDomain_SelectedValue" items="${businessDomain}"/></td>
   </tr>
       <tr>
         <th scope="row">Planned Start Date* </th>
-        <td><input maxlength="9" name="planStartDate" size="9" value="" type="text" id="datepicker1"/>
+        <td><input maxlength="9" name="planStartDate" size="9" value="" type="text" id="datepicker1" readonly="true"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Planned End Date* </th>
-        <td><input maxlength="9" name="planEndDate" size="9" value="" type="text" id="datepicker2"/>
+        <td><input maxlength="9" name="planEndDate" size="9" value="" type="text" id="datepicker2" readonly="true"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>

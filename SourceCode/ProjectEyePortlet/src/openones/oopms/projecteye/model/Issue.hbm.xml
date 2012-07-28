@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.projecteye.model.Issue" table="ISSUE">
+        <comment>(Insight)</comment>
+        <id name="issueid" type="long">
+            <column name="ISSUEID" precision="10" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="workunit" class="openones.oopms.projecteye.model.Workunit" fetch="select">
+            <column name="WORKUNITID" precision="22" scale="0" not-null="true">
+                <comment>Owner WU</comment>
+            </column>
+        </many-to-one>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="750" not-null="true" />
+        </property>
+        <property name="statusid" type="int">
+            <column name="STATUSID" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="priorityid" type="int">
+            <column name="PRIORITYID" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="typeid" type="int">
+            <column name="TYPEID" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="owner" type="string">
+            <column name="OWNER" length="50" />
+        </property>
+        <property name="startdate" type="date">
+            <column name="STARTDATE" length="7" />
+        </property>
+        <property name="duedate" type="date">
+            <column name="DUEDATE" length="7" />
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="750" />
+        </property>
+        <property name="closeddate" type="date">
+            <column name="CLOSEDDATE" length="7" />
+        </property>
+        <property name="reference" type="string">
+            <column name="REFERENCE" length="400" />
+        </property>
+        <property name="creator" type="string">
+            <column name="CREATOR" length="50" />
+        </property>
+        <property name="riskid" type="big_decimal">
+            <column name="RISKID" precision="22" scale="0">
+                <comment>When Issues are generated from occured risks</comment>
+            </column>
+        </property>
+        <property name="processId" type="java.lang.Short">
+            <column name="PROCESS_ID" precision="3" scale="0" />
+        </property>
+        <property name="wuId" type="big_decimal">
+            <column name="WU_ID" precision="22" scale="0">
+                <comment>the wu the issue is related to (see PQA issues)</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

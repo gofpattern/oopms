@@ -243,4 +243,50 @@ public class TeamManagementController {
         mav.addObject("projectId", projectId);
         return mav;
 	}
+	
+	@RenderMapping(params = "action=RemoveTeamMember")
+	public ModelAndView postRemoveTeamMember(RenderRequest request) {
+		log.debug("post RemoveTeamMember.START");
+		projectId = request.getParameter("projectId");
+		String developerId = request.getParameter("developerId");
+		// set value for assgment
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		AssignmentDao aDao = new AssignmentDao();
+		aDao.removeTeamMember(project, new BigDecimal(developerId));
+		DeveloperDao dDao = new DeveloperDao();
+		List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
+		List<TeamManagement> projectTeamList = new ArrayList<TeamManagement>();
+		List<TeamManagement> projectTeamList2 = new ArrayList<TeamManagement>();
+		if (teamOfProject.size() > 0) {
+			for (int i = 0; i < teamOfProject.size(); i++) {
+				TeamManagement temp = new TeamManagement();
+				temp.setUserName(teamOfProject.get(i).getName());
+				temp.setUserAccount(teamOfProject.get(i).getAccount());
+				temp.setDeveloperId(teamOfProject.get(i).getDeveloperId()
+						.toString());
+				Assignment role = aDao.getUserRole(project, teamOfProject
+						.get(i).getDeveloperId());
+				temp.setSelectedRole(String.valueOf(role.getType()));
+				projectTeamList.add(temp);
+				projectTeamList2.add(temp);
+			}
+		}
+		Map<String, String> roleList = new LinkedHashMap<String, String>();
+		roleList.put(Constant.DeveloperType, "Developer");
+		roleList.put(Constant.TesterType, "Tester");
+		roleList.put(Constant.QAType, "QA");
+		roleList.put(Constant.CustomerType, "Customer");
+		TeamManagementForm form = new TeamManagementForm();
+		form.setSearchType("name");
+		form.setProjectTeamList(projectTeamList2);
+		ModelAndView mav = new ModelAndView("TeamManagement",
+				"TeamManagementForm", form);
+		;
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		mav.addObject("projectTeamList", projectTeamList);
+		mav.addObject("roleList", roleList);
+		return mav;
+	}
 }

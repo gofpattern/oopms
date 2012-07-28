@@ -64,7 +64,7 @@
       </tr>
       <tr>      
    		<th scope="row">Status</th>
-    	<td><form:select  class="SmallCombo" path="status_SelectedValue" items="${status}"/></td>
+    	<td><form:select  class="styled" path="status_SelectedValue" items="${status}"/></td>
   	  </tr>
       </table>   
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateChangeRequest", "${formAction}")'>Create</button>
