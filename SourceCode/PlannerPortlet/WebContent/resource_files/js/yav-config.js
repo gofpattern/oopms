@@ -31,7 +31,7 @@ trimenabled : true,
 // change to set your own decimal separator and your date format
 DECIMAL_SEP : '.',
 THOUSAND_SEP : ',',
-DATE_FORMAT : 'MM-dd-yyyy',
+DATE_FORMAT : 'MM/dd/yyyy',
 
 // change to set your own rules based on regular expressions
 alphabetic_regex : "^[A-Za-z]*$",

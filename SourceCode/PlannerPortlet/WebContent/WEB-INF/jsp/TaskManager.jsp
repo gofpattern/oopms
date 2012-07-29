@@ -129,7 +129,9 @@
 	rules[12] = 'task.productsize:Product Size|numeric';
 	rules[13] = 'task.developerid: Assigned To|required';
 	rules[14] = 'task.statusId:Status|required';
-
+    rules[15]='alphabetic|mask|alphabetic';
+    rules[16]='startDate|mask|mydate';
+    rules[17]='endDate|mask|mydate';
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('endDate', 'Provide your Finish Date');
@@ -140,6 +142,7 @@
 	yav.addHelp('task.productsize', 'Provide your Product Size');
 	yav.addHelp('task.developerid', 'Provide your assigned member');
 	yav.addHelp('task.statusId', 'Provide your Task Status');
+	yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
 <style type="text/css">
 #portal #portalPageBodyInner .content #content_planner .portlet-table {

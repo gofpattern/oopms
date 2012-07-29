@@ -59,8 +59,6 @@ public class PlannerAddForm {
         processMap.put("", " ");
         productMap.put("", " ");
 
-        startDate = " ";
-        endDate = " ";
         projectId = " ";
 
         action_str = "none";
