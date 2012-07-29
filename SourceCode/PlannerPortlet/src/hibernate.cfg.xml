@@ -22,6 +22,7 @@
     <mapping resource="openones/oopms/planner/model/Assignment.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Responsibility.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Team.hbm.xml" />    
-    <mapping resource="openones/oopms/planner/model/Workproduct.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Workproduct.hbm.xml" />        
+    <mapping resource="openones/oopms/planner/model/Workunit.hbm.xml" />
   </session-factory>
 </hibernate-configuration>

@@ -1,25 +1,35 @@
-Moi nguoi add them table Tasks(script ben duoi) vao DB cua FMS de chay nhe.
-Table Tasks cu rename thanh Tasks_old la duoc.
+Minh su dung lai table TASKS cu nhug co them va thay doi thuoc tinh cua 1 so feild, 
+Các ban xoa table TASKS hien tai va tao lai TASKS moi theo script nay cho nhanh nhe.
 CREATE TABLE
     TASKS
     (
         TASKID NUMBER NOT NULL,
-        TASKNAME VARCHAR2(100),
-        STATUS_ID NUMBER,
-        DEVELOPERID NUMBER,
-        STAGEID NUMBER,
+        WORKUNITID NUMBER,
+        DESCRIPTION VARCHAR2(1000) NOT NULL,
+        ASSIGNEDTO NUMBER NOT NULL,
+        EFFORT NUMBER,
+        PLAN_DATE DATE NOT NULL,
+        ACTUAL_DATE DATE,
+        STATUS NUMBER(1) NOT NULL,
+        TYPE NUMBER(2),
+        NOTE VARCHAR2(200),
+        PROCESS NUMBER NOT NULL,
+        REPLAN_DATE DATE,
+        FEASIBLE NUMBER(1),
+        CODE VARCHAR2(20),
+        TASKNAME NVARCHAR2(100) NOT NULL,
+        STAGEID NUMBER NOT NULL,
         PRODUCT NUMBER,
         PRODUCTSIZE NUMBER,
-        COMPLETENESSSTATUS NUMBER,
+        COMPLETEDSIZE NUMBER,
         STARTDATE DATE,
-        PLANNEDENDDATE DATE,
-        ENDDATE DATE,
         PLANNEDEFFORT NUMBER,
-        ACTUALEFFORT NUMBER,
-        DESCRIPTION NVARCHAR2(1000),
-        PROJECTID NUMBER,
-        ACTIVE NUMBER(1),
-        PROCESS_ID NUMBER,
         CURRENTEFFORT NUMBER,
-        PRIMARY KEY (TASKID)
-    )
+        PROJECTID NUMBER NOT NULL,
+        STATUSID NUMBER NOT NULL,
+        PRIMARY KEY (TASKID),
+        CONSTRAINT FK_TASKS_WU_ID FOREIGN KEY (WORKUNITID) REFERENCES WORKUNIT (WORKUNITID)
+    );
+COMMENT ON TABLE TASKS
+IS
+    'Tasks (Insight)'

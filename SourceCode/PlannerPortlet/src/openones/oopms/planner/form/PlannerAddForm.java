@@ -31,7 +31,7 @@ public class PlannerAddForm {
     private Tasks editTask;
     private Tasks task;
     private String startDate;
-    private String endDate;
+    private String actualDate;
     private String projectId;
 
     private String action_str;
@@ -111,18 +111,18 @@ public class PlannerAddForm {
         this.startDate = startDate;
     }
     /**
-     * Get value of endDate.
-     * @return the endDate
+     * Get value of actualDate.
+     * @return the actualDate
      */
-    public String getEndDate() {
-        return endDate;
+    public String getactualDate() {
+        return actualDate;
     }
     /**
-     * Set the value for endDate.
-     * @param endDate the endDate to set
+     * Set the value for actualDate.
+     * @param actualDate the actualDate to set
      */
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setactualDate(String actualDate) {
+        this.actualDate = actualDate;
     }
 
     /**

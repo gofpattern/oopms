@@ -130,7 +130,7 @@ public class PlannerAddController {
             task.setProjectid(new BigDecimal(PlannerController.projectDefault));
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
-            task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
+            task.setPlanDate(dateFormat.parse(formBeanAdd.getactualDate()));
 
             taskDAO.addTask(task);
         } catch (ParseException ex) {
@@ -167,12 +167,12 @@ public class PlannerAddController {
         // set value for statusMap
         // get name and set to the top
         for (int i = 0; i < statusList.size(); i++) {
-            if (task.getStatusId().equals(statusList.get(i).getProjectStatusId())) {
+            if (task.getStatusid().equals(statusList.get(i).getProjectStatusId())) {
                 task.setStatus_str(statusList.get(i).getProjectStatusName());
                 break;
             }
         }
-        statusMap.put(task.getStatusId().toString(), task.getStatus_str());
+        statusMap.put(task.getStatusid().toString(), task.getStatus_str());
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
         }
@@ -191,12 +191,12 @@ public class PlannerAddController {
 
         // Set value for developerMap
         for (int i = 0; i < developerList.size(); i++) {
-            if (task.getDeveloperid().equals(developerList.get(i).getDeveloperId())) {
+            if (task.getAssignedto().equals(developerList.get(i).getDeveloperId())) {
                 task.setDeveloper_str(developerList.get(i).getName());
                 break;
             }
         }
-        developerMap.put(task.getDeveloperid().toString(), task.getDeveloper_str());
+        developerMap.put(task.getAssignedto().toString(), task.getDeveloper_str());
         for (int i = 0; i < developerList.size(); i++) {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
@@ -215,12 +215,12 @@ public class PlannerAddController {
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
-            if (task.getProcessId().equals(processList.get(i).getProcessId())) {
+            if (task.getProcess().equals(processList.get(i).getProcessId())) {
                 task.setProcess_str(processList.get(i).getName());
                 break;
             }
         }
-        processMap.put(task.getProcessId().toString(), task.getProcess_str());
+        processMap.put(task.getProcess().toString(), task.getProcess_str());
         for (int i = 0; i < processList.size(); i++) {
             processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
@@ -228,7 +228,7 @@ public class PlannerAddController {
         // Convert date
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         task.setStartdate_str(dateFormat.format(task.getStartdate()));
-        task.setPlannedenddate_str(dateFormat.format(task.getPlannedenddate()));
+        task.setplanDate_str(dateFormat.format(task.getPlanDate()));
 
         formBeanAdd.setStatusMap(statusMap);
         formBeanAdd.setProcessMap(processMap);
@@ -261,18 +261,18 @@ public class PlannerAddController {
             task = formBeanAdd.getTask();
             task.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
             log.debug(formBeanAdd.getStartDate().toString());
-            log.debug(formBeanAdd.getEndDate().toString());
+            log.debug(formBeanAdd.getactualDate().toString());
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
-            task.setPlannedenddate(dateFormat.parse(formBeanAdd.getEndDate()));
+            task.setPlanDate(dateFormat.parse(formBeanAdd.getactualDate()));
             
 
             log.debug(task.getStartdate().toString());
-            log.debug(task.getPlannedenddate().toString());
+            log.debug(task.getPlanDate().toString());
             log.debug(task.getCurrenteffort().toString());
             log.debug(task.getDescription());
             log.debug(task.getProductsize());
-            log.debug(task.getCompletenessstatus());
+            log.debug(task.getCompletedsize());
             
             
             taskDAO.updateTask(task);
