@@ -134,13 +134,13 @@ public class PlannerController {
                 }
                 // Convert processId to name
                 for (int j = 0; j < processList.size(); j++) {
-                    if (taskList.get(i).getProcessId().equals(processList.get(j).getProcessId())) {
+                    if (taskList.get(i).getProcess().equals(processList.get(j).getProcessId())) {
                         taskList.get(i).setProcess_str(processList.get(j).getName());
                     }
                 }
                 // Convert developerId to name
                 for (int j = 0; j < developerList.size(); j++) {
-                    if (taskList.get(i).getDeveloperid().equals(developerList.get(j).getDeveloperId())) {
+                    if (taskList.get(i).getAssignedto().equals(developerList.get(j).getDeveloperId())) {
                         taskList.get(i).setDeveloper_str(developerList.get(j).getName());
                     }
                 }
@@ -154,7 +154,7 @@ public class PlannerController {
                 // Convert date
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
-                taskList.get(i).setPlannedenddate_str(dateFormat.format(taskList.get(i).getPlannedenddate()));
+                taskList.get(i).setplanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
             }
 
         } catch (Exception ex) {

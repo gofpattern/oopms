@@ -1,9 +1,7 @@
 package openones.oopms.planner.model;
-// Generated Jul 12, 2012 4:48:19 PM by Hibernate Tools 3.2.1.GA
+// Generated Jul 29, 2012 4:42:23 PM by Hibernate Tools 3.2.1.GA
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,23 +10,29 @@ import java.util.Date;
 public class Tasks implements java.io.Serializable {
 
     private BigDecimal taskid;
+    private Workunit workunit;
+    private String description;
+    private BigDecimal assignedto;
+    private BigDecimal effort;
+    private Date planDate;
+    private Date actualDate;
+    private boolean status;
+    private byte type;
+    private String note;
+    private BigDecimal process; 
+    private Date replanDate;
+    private Boolean feasible;
+    private String code;
     private String taskname;
-    private BigDecimal statusId;
-    private BigDecimal developerid;
     private BigDecimal stageid;
     private BigDecimal product;
     private BigDecimal productsize;
-    private BigDecimal completenessstatus;
+    private BigDecimal completedsize;
     private Date startdate;
-    private Date plannedenddate;
-    private Date enddate;
     private BigDecimal plannedeffort;
     private BigDecimal currenteffort;
-    private BigDecimal actualeffort;
-    private String description;
     private BigDecimal projectid;
-    private Boolean active;
-    private BigDecimal processId;
+    private BigDecimal statusid;
 
     private String status_str;
     private String product_str;
@@ -37,60 +41,54 @@ public class Tasks implements java.io.Serializable {
     private String developer_str;
     private String project_str;
     private String startdate_str;
-    private String plannedenddate_str;
-    
-
-    /**
-     * Get value of developer_str.
-     * @return the developer_str
-     */
-    public String getDeveloper_str() {
-        return developer_str;
-    }
-
-    /**
-     * Set the value for developer_str.
-     * @param developer_str the developer_str to set
-     */
-    public void setDeveloper_str(String developer_str) {
-        this.developer_str = developer_str;
-    }
+    private String planDate_str;
 
     public Tasks() {
-        // taskid = new BigDecimal("0");
-        // plannedeffort = new BigDecimal("0");
-        // currenteffort = new BigDecimal("0");
-        // actualeffort = new BigDecimal("0");
-        // description = "no thing";
-        // productsize = new BigDecimal("0");
-        // completenessstatus = new BigDecimal("0");
-        active = true;
+        
     }
 
-    public Tasks(BigDecimal taskid) {
+    public Tasks(BigDecimal taskid, String description, BigDecimal assignedto, Date planDate, boolean status,
+            BigDecimal process, String taskname, BigDecimal stageid, BigDecimal projectid, BigDecimal statusid) {
         this.taskid = taskid;
-    }
-    public Tasks(BigDecimal taskid, String taskname, BigDecimal statusId, BigDecimal developerid, BigDecimal stageid,
-            BigDecimal product, BigDecimal productsize, BigDecimal completenessstatus, Date startdate,
-            Date plannedenddate, Date enddate, BigDecimal plannedeffort, BigDecimal actualeffort, String description,
-            BigDecimal projectid, Boolean active, BigDecimal processId) {
-        this.taskid = taskid;
+        this.description = description;
+        this.assignedto = assignedto;
+        this.planDate = planDate;
+        this.status = status;   
+        this.process = process;
         this.taskname = taskname;
-        this.statusId = statusId;
-        this.developerid = developerid;
+        this.stageid = stageid;
+        this.projectid = projectid;
+        this.statusid = statusid;
+    }
+    public Tasks(BigDecimal taskid, Workunit workunit, String description, BigDecimal assignedto, BigDecimal effort,
+            Date planDate, Date actualDate, boolean status, byte type, String note, BigDecimal process, Date replanDate,
+            Boolean feasible, String code, String taskname, BigDecimal stageid, BigDecimal product,
+            BigDecimal productsize, BigDecimal completedsize, Date startdate, BigDecimal plannedeffort,
+            BigDecimal currenteffort, BigDecimal projectid, BigDecimal statusid) {
+        this.taskid = taskid;
+        this.workunit = workunit;
+        this.description = description;
+        this.assignedto = assignedto;
+        this.effort = effort;
+        this.planDate = planDate;
+        this.actualDate = actualDate;
+        this.status = status;
+        this.type = type;
+        this.note = note;
+        this.process = process;
+        this.replanDate = replanDate;
+        this.feasible = feasible;
+        this.code = code;
+        this.taskname = taskname;
         this.stageid = stageid;
         this.product = product;
         this.productsize = productsize;
-        this.completenessstatus = completenessstatus;
+        this.completedsize = completedsize;
         this.startdate = startdate;
-        this.plannedenddate = plannedenddate;
-        this.enddate = enddate;
         this.plannedeffort = plannedeffort;
-        this.actualeffort = actualeffort;
-        this.description = description;
+        this.currenteffort = currenteffort;
         this.projectid = projectid;
-        this.active = active;
-        this.processId = processId;
+        this.statusid = statusid;
     }
 
     public BigDecimal getTaskid() {
@@ -100,27 +98,103 @@ public class Tasks implements java.io.Serializable {
     public void setTaskid(BigDecimal taskid) {
         this.taskid = taskid;
     }
+    public Workunit getWorkunit() {
+        return this.workunit;
+    }
 
+    public void setWorkunit(Workunit workunit) {
+        this.workunit = workunit;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public BigDecimal getAssignedto() {
+        return this.assignedto;
+    }
+
+    public void setAssignedto(BigDecimal assignedto) {
+        this.assignedto = assignedto;
+    }
+    public BigDecimal getEffort() {
+        return this.effort;
+    }
+
+    public void setEffort(BigDecimal effort) {
+        this.effort = effort;
+    }
+    public Date getPlanDate() {
+        return this.planDate;
+    }
+
+    public void setPlanDate(Date planDate) {
+        this.planDate = planDate;
+    }
+    public Date getActualDate() {
+        return this.actualDate;
+    }
+
+    public void setActualDate(Date actualDate) {
+        this.actualDate = actualDate;
+    }
+    public boolean isStatus() {
+        return this.status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public byte getType() {
+        return this.type;
+    }
+
+    public void setType(byte type) {
+        this.type = type;
+    }
+    public String getNote() {
+        return this.note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+    public BigDecimal getProcess() {
+        return this.process;
+    }
+
+    public void setProcess(BigDecimal process) {
+        this.process = process;
+    }
+    public Date getReplanDate() {
+        return this.replanDate;
+    }
+
+    public void setReplanDate(Date replanDate) {
+        this.replanDate = replanDate;
+    }
+    public Boolean getFeasible() {
+        return this.feasible;
+    }
+
+    public void setFeasible(Boolean feasible) {
+        this.feasible = feasible;
+    }
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
     public String getTaskname() {
         return this.taskname;
     }
 
     public void setTaskname(String taskname) {
         this.taskname = taskname;
-    }
-    public BigDecimal getStatusId() {
-        return this.statusId;
-    }
-
-    public void setStatusId(BigDecimal statusId) {
-        this.statusId = statusId;
-    }
-    public BigDecimal getDeveloperid() {
-        return this.developerid;
-    }
-
-    public void setDeveloperid(BigDecimal developerid) {
-        this.developerid = developerid;
     }
     public BigDecimal getStageid() {
         return this.stageid;
@@ -143,12 +217,12 @@ public class Tasks implements java.io.Serializable {
     public void setProductsize(BigDecimal productsize) {
         this.productsize = productsize;
     }
-    public BigDecimal getCompletenessstatus() {
-        return this.completenessstatus;
+    public BigDecimal getCompletedsize() {
+        return this.completedsize;
     }
 
-    public void setCompletenessstatus(BigDecimal completenessstatus) {
-        this.completenessstatus = completenessstatus;
+    public void setCompletedsize(BigDecimal completedsize) {
+        this.completedsize = completedsize;
     }
     public Date getStartdate() {
         return this.startdate;
@@ -157,20 +231,6 @@ public class Tasks implements java.io.Serializable {
     public void setStartdate(Date startdate) {
         this.startdate = startdate;
     }
-    public Date getPlannedenddate() {
-        return this.plannedenddate;
-    }
-
-    public void setPlannedenddate(Date plannedenddate) {
-        this.plannedenddate = plannedenddate;
-    }
-    public Date getEnddate() {
-        return this.enddate;
-    }
-
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
-    }
     public BigDecimal getPlannedeffort() {
         return this.plannedeffort;
     }
@@ -178,19 +238,12 @@ public class Tasks implements java.io.Serializable {
     public void setPlannedeffort(BigDecimal plannedeffort) {
         this.plannedeffort = plannedeffort;
     }
-    public BigDecimal getActualeffort() {
-        return this.actualeffort;
+    public BigDecimal getCurrenteffort() {
+        return this.currenteffort;
     }
 
-    public void setActualeffort(BigDecimal actualeffort) {
-        this.actualeffort = actualeffort;
-    }
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCurrenteffort(BigDecimal currenteffort) {
+        this.currenteffort = currenteffort;
     }
     public BigDecimal getProjectid() {
         return this.projectid;
@@ -199,19 +252,12 @@ public class Tasks implements java.io.Serializable {
     public void setProjectid(BigDecimal projectid) {
         this.projectid = projectid;
     }
-    public Boolean getActive() {
-        return this.active;
+    public BigDecimal getStatusid() {
+        return this.statusid;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-    public BigDecimal getProcessId() {
-        return this.processId;
-    }
-
-    public void setProcessId(BigDecimal processId) {
-        this.processId = processId;
+    public void setStatusid(BigDecimal statusid) {
+        this.statusid = statusid;
     }
 
     /**
@@ -279,6 +325,22 @@ public class Tasks implements java.io.Serializable {
     }
 
     /**
+     * Get value of developer_str.
+     * @return the developer_str
+     */
+    public String getDeveloper_str() {
+        return developer_str;
+    }
+
+    /**
+     * Set the value for developer_str.
+     * @param developer_str the developer_str to set
+     */
+    public void setDeveloper_str(String developer_str) {
+        this.developer_str = developer_str;
+    }
+
+    /**
      * Get value of project_str.
      * @return the project_str
      */
@@ -292,22 +354,6 @@ public class Tasks implements java.io.Serializable {
      */
     public void setProject_str(String project_str) {
         this.project_str = project_str;
-    }
-
-    /**
-     * Get value of currenteffort.
-     * @return the currenteffort
-     */
-    public BigDecimal getCurrenteffort() {
-        return currenteffort;
-    }
-
-    /**
-     * Set the value for currenteffort.
-     * @param currenteffort the currenteffort to set
-     */
-    public void setCurrenteffort(BigDecimal currenteffort) {
-        this.currenteffort = currenteffort;
     }
 
     /**
@@ -327,19 +373,19 @@ public class Tasks implements java.io.Serializable {
     }
 
     /**
-     * Get value of plannedenddate_str.
-     * @return the plannedenddate_str
+     * Get value of planDate_str.
+     * @return the planDate_str
      */
-    public String getPlannedenddate_str() {
-        return plannedenddate_str;
+    public String getplanDate_str() {
+        return planDate_str;
     }
 
     /**
-     * Set the value for plannedenddate_str.
-     * @param plannedenddate_str the plannedenddate_str to set
+     * Set the value for planDate_str.
+     * @param planDate_str the planDate_str to set
      */
-    public void setPlannedenddate_str(String plannedenddate_str) {
-        this.plannedenddate_str = plannedenddate_str;
-    }    
-    
+    public void setplanDate_str(String planDate_str) {
+        this.planDate_str = planDate_str;
+    }
+
 }

@@ -80,7 +80,6 @@ public class TaskDAO {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public Tasks getTaskById(BigDecimal taskId) {
         log.debug("getTaskById.START");
         try {
@@ -218,7 +217,7 @@ public class TaskDAO {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            e.printStackTrace();
+            log.error("Add Task Error", e);
         }
     }
 
@@ -236,7 +235,7 @@ public class TaskDAO {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            e.printStackTrace();
+            log.error("Delete Task Error", e);
         }
     }
 
@@ -250,8 +249,8 @@ public class TaskDAO {
         try {
             session.getTransaction().begin();
             // Tasks task = (Tasks) session.get(Tasks.class, id);
-            if(editTask.getStatusId().equals(new BigDecimal(2))){
-                editTask.setEnddate(editTask.getPlannedenddate());
+            if(editTask.getStatusid().equals(new BigDecimal(2))){
+                editTask.setActualDate(editTask.getPlanDate());
             }
             session.update(editTask);
             session.flush();
@@ -260,7 +259,7 @@ public class TaskDAO {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            e.printStackTrace();
+            log.error("Update Task Error", e);
         }
     }
 
