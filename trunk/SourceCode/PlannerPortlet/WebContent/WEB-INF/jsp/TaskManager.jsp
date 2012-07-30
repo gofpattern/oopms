@@ -327,10 +327,8 @@
                 </form:select></td>
               <td width="10%"><select class="styled" onchange="showAlert()">
                   <option selected="selected" value="0">Status</option>
-                  <option value="1">Task Name</option>
-                  <option value="2">Remaining Time</option>
-                  <option value="2">Stage</option>
-                  <option value="2">Product</option>
+                  <option value="1">Remaining&nbsp;Time</option>
+                  <option value="2">Completeness&nbsp;Rate</option>
               </select></td>
               <td width="56%"></td>
             </tr>
@@ -342,20 +340,31 @@
             <thead>
               <tr>
                 <!-- TABLE HEADER -->
-                <th><b><font><span>No.</span></font></b>
-                <th><b><font><span>Project Code</span></font></b>
-                <th><b><font><span>Task Name</span></font></b>
-                <th><b><font><span>Stage</span></font></b>
-                <th><b><font><span>Process</span></font></b>
-                <th><b><font><span>Assigned To</span></font></b>
-                <th><b><font><span>Remaining Time</span></font></b>
-                <th><b><font><span>Completeness Rate</span></font></b>
-                <th><b><font><span>Start Date</span></font></b>
-                <th><b><font><span>Finish Date</span></font></b>
-                <th><b><font><span>Planned Effort</span></font></b>
-                <th><b><font><span>Actual Effort</span></font></b>
-                <th><b><font><span>Update</span></font></b>
-                <th><b><font><span>Delete</span></font></b>
+                <th><b>No.</b></th>
+                <th><b>Project Code</b></th>
+                <th><b>Task Name</b></th>
+                <th><b>Stage</b></th>
+                <th><b>Process</b></th>
+                <th><b>Assigned To</b></th>
+                <th><b>Remaining Time</b></th>
+                <th><b>Completeness Rate</b></th>
+                <th><b>Start Date</b></th>
+                <c:choose>
+                  <c:when test="${taskStatus == 2 }">
+                    <th><b>Finish Date</b></th>
+                  </c:when>
+                  <c:when test="${taskStatus == 'All' }">
+                    <th><b>Planned Finish Date</b></th>
+                    <th><b>Finish Date</b></th>
+                  </c:when>
+                  <c:otherwise>
+                    <th><b>Planned Finish Date</b></th>
+                  </c:otherwise>
+                </c:choose>
+                <th><b>Planned Effort</b></th>
+                <th><b>Actual Effort</b></th>
+                <th><b>Update</b></th>
+                <th><b>Delete</b></th>
               </tr>
             </thead>
             <tbody>
@@ -385,7 +394,25 @@
                           </c:otherwise>
                         </c:choose>
                         <td>${task.startdate_str}</td>
-                        <td>${task.planDate_str}</td>
+                        <c:choose>
+                          <c:when test="${taskStatus == 2 }">
+                            <td>${task.actualDate_str}</td>
+                          </c:when>
+                          <c:when test="${taskStatus == 'All' }">
+                            <td>${task.planDate_str}</td>
+                            <c:choose>
+                              <c:when test="${not empty task.actualDate_str}">
+                                <td>${task.actualDate_str}</td>
+                              </c:when>
+                              <c:otherwise>
+                                <td>N/A</td>
+                              </c:otherwise>
+                            </c:choose>
+                          </c:when>
+                          <c:otherwise>
+                            <td>${task.planDate_str}</td>
+                          </c:otherwise>
+                        </c:choose>
                         <td>${task.plannedeffort}&nbsp;Hour</td>
                         <c:choose>
                           <c:when test="${task.statusid =='2'}">
@@ -413,8 +440,7 @@
         </c:if>
       </div>
       <div align="right">
-        <input type="button" name="" value="Import"/> 
-        <input type="button" name="input" value="Report"/>
+        <input type="button" name="" value="Import" /> <input type="button" name="input" value="Report" />
       </div>
 
     </div>

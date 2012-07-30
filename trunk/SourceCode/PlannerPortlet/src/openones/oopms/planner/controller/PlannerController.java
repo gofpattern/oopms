@@ -161,6 +161,8 @@ public class PlannerController {
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
                 taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
+                if(taskList.get(i).getStatusid().equals(new BigDecimal(2)))
+                    taskList.get(i).setActualDate_str(dateFormat.format(taskList.get(i).getActualDate()));
             }
 
         } catch (Exception ex) {
@@ -187,6 +189,7 @@ public class PlannerController {
         mav.addObject("stageMap", formBean.getStageMap());
         mav.addObject("developerMap", formBean.getDeveloperMap());
         mav.addObject("projectMap", formBean.getProjectMap());
+        mav.addObject("taskStatus", formBean.getStatusDefault());
 
         // Object form PlannerAddForm
         mav.addObject("edTask", formBeanAdd.getEditTask());
