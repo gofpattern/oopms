@@ -129,9 +129,9 @@
 	rules[12] = 'task.productsize:Product Size|numeric';
 	rules[13] = 'task.assignedto: Assigned To|required';
 	rules[14] = 'task.statusid:Status|required';
-    rules[15]='alphabetic|mask|alphabetic';
-    rules[16]='startDate|mask|mydate';
-    rules[17]='actualDate|mask|mydate';
+	rules[15] = 'alphabetic|mask|alphabetic';
+	rules[16] = 'startDate|mask|mydate';
+	rules[17] = 'actualDate|mask|mydate';
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('actualDate', 'Provide your Finish Date');
@@ -233,51 +233,43 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-startDate">Start Date*</label></td>
                 <td class="CellBGR3"><form:input path="startDate" value="${edTask.startdate_str}"
-                    id="add-form-startDate"></form:input> (MM-DD-YYYY)<br />
-                <span id=errorsDiv_startDate></span></td>
+                    id="add-form-startDate"></form:input> (MM-DD-YYYY)<br /> <span id=errorsDiv_startDate></span></td>
                 <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
                 <td><form:select class="styled" path="task.stageid" value="${edTask.stageid}" multiple="single"
                     id="add-form-stage">
                     <form:options items="${stageMapAdd}" />
-                  </form:select><br />
-                <span id=errorsDiv_task.stageid></span></td>
+                  </form:select><br /> <span id=errorsDiv_task.stageid></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date*</label></td>
                 <td class="CellBGR3"><form:input path="actualDate" value="${edTask.planDate_str}"
-                    id="add-form-finishDate" /> (MM-DD-YYYY)<br />
-                <span id=errorsDiv_actualDate></span></td>
+                    id="add-form-finishDate" /> (MM-DD-YYYY)<br /> <span id=errorsDiv_actualDate></span></td>
                 <td class="ColumnLabel"><label for="add-form-process">Process*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td><form:select class="styled" path="task.process" value="${edTask.process}" multiple="single"
                     id="add-form-process">
                     <form:options items="${processMapAdd}" />
-                  </form:select><br />
-                <span id=errorsDiv_task.process></span></td>
+                  </form:select><br /> <span id=errorsDiv_task.process></span></td>
                 <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
                 <td><form:select class="styled" path="task.assignedto" value="${edTask.assignedto}"
                     multiple="single" id="add-form-assignedTo">
                     <form:options items="${developerMapAdd}" />
-                  </form:select><br />
-                <span id=errorsDiv_task.assignedto></span></td>
+                  </form:select><br /> <span id=errorsDiv_task.assignedto></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.plannedeffort" value="${edTask.plannedeffort}"
-                    id="add-form-plannedEffort" /> (Hours)<br />
-                <span id=errorsDiv_task.plannedeffort></span></td>
+                    id="add-form-plannedEffort" /> (Hours)<br /> <span id=errorsDiv_task.plannedeffort></span></td>
                 <td class="ColumnLabel"><label for="add-form-product">Product*</label></td>
                 <td><form:select class="styled" path="task.product" value="${edTask.product}" multiple="single"
                     id="add-form-process">
                     <form:options items="${productMapAdd}" />
-                  </form:select><br />
-                <span id=errorsDiv_task.product></span></td>
+                  </form:select><br /> <span id=errorsDiv_task.product></span></td>
 
                 <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
                 <td><form:select class="styled" path="task.statusid" value="${edTask.statusid}" multiple="single"
                     id="add-form-status">
                     <form:options items="${statusMapAdd}" />
-                  </form:select><br />
-                <span id=errorsDiv_task.statusid></span></td>
+                  </form:select><br /> <span id=errorsDiv_task.statusid></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort</label></td>
@@ -285,16 +277,15 @@
                     id="add-form-currentEffort" /> (Hours)</td>
                 <td class="ColumnLabel"><label for="add-form-productSize">Product Size*</label></td>
                 <td class="CellBGR3"><form:input path="task.productsize" value="${edTask.productsize}"
-                    id="add-form-productSize" /><br />
-                <span id=errorsDiv_task.productsize></span></td>
+                    id="add-form-productSize" /><br /> <span id=errorsDiv_task.productsize></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-effort">Actual Effort</label></td>
-                <td class="CellBGR3"><form:input path="task.effort" id="add-form-effort"
-                    value="${edTask.effort}" /> (Hours)</td>
+                <td class="CellBGR3"><form:input path="task.effort" id="add-form-effort" value="${edTask.effort}" />
+                  (Hours)</td>
                 <td class="ColumnLabel"><label for="add-form-completedSize">Completed Size</label></td>
-                <td class="CellBGR3"><form:input path="task.completedsize"
-                    value="${edTask.completedsize}" id="add-form-completedSize" /></td>
+                <td class="CellBGR3"><form:input path="task.completedsize" value="${edTask.completedsize}"
+                    id="add-form-completedSize" /></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
@@ -316,23 +307,23 @@
           <table>
             <tr>
               <td><b>&nbsp;&nbsp;Project&nbsp;&nbsp;</b></td>
-              <td><b>&nbsp;&nbsp;Status&nbsp;&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Stage&nbsp;&nbsp;</b></td>
-              <td><b>&nbsp;&nbsp;Assigned To&nbsp;</b></td>
+              <td><b>&nbsp;&nbsp;Assigned&nbsp;To&nbsp;&nbsp;</b></td>
+              <td><b>&nbsp;&nbsp;Status&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
             </tr>
             <tr>
-              <td><form:select class="styled" path="projectId" multiple="single">
+              <td><form:select path="projectId" multiple="single">
                   <form:options items="${projectMap}" />
                 </form:select></td>
-              <td><form:select class="styled" path="statusDefault" multiple="single" onchange="showAlert()">
-                  <form:options items="${statusMap}" />
-                </form:select></td>
-              <td><form:select class="styled" path="stageDefault" multiple="single">
+              <td><form:select path="stageDefault" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${stageMap}" />
                 </form:select></td>
-              <td><form:select class="styled" path="developerDefault" multiple="single">
+              <td><form:select path="developerDefault" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${developerMap}" />
+                </form:select></td>
+              <td><form:select path="statusDefault" multiple="single" onchange='this.form.submit()'>
+                  <form:options items="${statusMap}" />
                 </form:select></td>
               <td width="10%"><select class="styled" onchange="showAlert()">
                   <option selected="selected" value="0">Status</option>
@@ -341,7 +332,7 @@
                   <option value="2">Stage</option>
                   <option value="2">Product</option>
               </select></td>
-              <td width="56%"><input type="button" name="input2" value="Search" /></td>
+              <td width="56%"></td>
             </tr>
           </table>
         </form:form>
@@ -352,7 +343,7 @@
               <tr>
                 <!-- TABLE HEADER -->
                 <th><b><font><span>No.</span></font></b>
-                <th><b><font><span>Task Code</span></font></b>
+                <th><b><font><span>Project Code</span></font></b>
                 <th><b><font><span>Task Name</span></font></b>
                 <th><b><font><span>Stage</span></font></b>
                 <th><b><font><span>Process</span></font></b>
@@ -370,55 +361,60 @@
             <tbody>
               <c:set var="count" value="0" />
               <c:forEach items="${taskList}" var="task">
-                <tr>
-                  <form:form name="${task.taskid}modTask" commandName="PlannerForm" method="post" action="#">
-                    <c:set var="count" value="${count + 1}" />
-                    <fmt:parseNumber var="i" type="number" value="${task.completedsize}" />
-                    <fmt:parseNumber var="j" type="number" value="${task.productsize}" />
-                    <fmt:formatNumber var="completeRate" value="${(i/j)}" minFractionDigits="2" type="percent" />
-                    <td>${count}</td>
-                    <td>${task.project_str}</td>
-                    <td>${task.taskname}</td>
-                    <td>${task.stage_str}</td>
-                    <td>${task.process_str}</td>
-                    <td>${task.developer_str}</td>
-                    <td>${task.plannedeffort - task.currenteffort}&nbsp;Hour</td>
-                    <c:choose>
-                      <c:when test="${not empty completeRate}">
-                        <td>${completeRate}</td>
-                      </c:when>
-                      <c:otherwise>
-                        <td>N/A</td>
-                      </c:otherwise>
-                    </c:choose>
-                    <td>${task.startdate_str}</td>
-                    <td>${task.planDate_str}</td>
-                    <td>${task.plannedeffort}&nbsp;Hour</td>
-                    <c:choose>
-                      <c:when test="${task.statusid =='2'}">
-                        <td>${task.effort}</td>
-                      </c:when>
-                      <c:otherwise>
-                        <td>N/A</td>
-                      </c:otherwise>
-                    </c:choose>
-                    <td><input type="image" alt="Submit"
-                      src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png"
-                      width="24" height="24" onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
-                    <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
-                      alt="Submit"
-                      src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png"
-                      width="24" height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
-                  </form:form>
-                </tr>
+                <c:choose>
+                  <c:when test="${task.visible == true }">
+                    <tr>
+                      <form:form name="${task.taskid}modTask" commandName="PlannerForm" method="post" action="#">
+                        <c:set var="count" value="${count + 1}" />
+                        <fmt:parseNumber var="i" type="number" value="${task.completedsize}" />
+                        <fmt:parseNumber var="j" type="number" value="${task.productsize}" />
+                        <fmt:formatNumber var="completeRate" value="${(i/j)}" minFractionDigits="2" type="percent" />
+                        <td>${count}</td>
+                        <td>${task.project_str}</td>
+                        <td>${task.taskname}</td>
+                        <td>${task.stage_str}</td>
+                        <td>${task.process_str}</td>
+                        <td>${task.developer_str}</td>
+                        <td>${task.plannedeffort - task.currenteffort}&nbsp;Hour</td>
+                        <c:choose>
+                          <c:when test="${not empty completeRate}">
+                            <td>${completeRate}</td>
+                          </c:when>
+                          <c:otherwise>
+                            <td>N/A</td>
+                          </c:otherwise>
+                        </c:choose>
+                        <td>${task.startdate_str}</td>
+                        <td>${task.planDate_str}</td>
+                        <td>${task.plannedeffort}&nbsp;Hour</td>
+                        <c:choose>
+                          <c:when test="${task.statusid =='2'}">
+                            <td>${task.effort}</td>
+                          </c:when>
+                          <c:otherwise>
+                            <td>N/A</td>
+                          </c:otherwise>
+                        </c:choose>
+                        <td><input type="image" alt="Submit"
+                          src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png"
+                          width="24" height="24"
+                          onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
+                        <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
+                          alt="Submit"
+                          src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png"
+                          width="24" height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
+                      </form:form>
+                    </tr>
+                  </c:when>
+                </c:choose>
               </c:forEach>
             </tbody>
           </table>
         </c:if>
       </div>
-      <div id="button">
-        <input type="button" name="" value="Add New Task" /> <input type="button" name="" value="Import" /> <input
-          type="button" name="input" value="Report" />
+      <div align="right">
+        <input type="button" name="" value="Import"/> 
+        <input type="button" name="input" value="Report"/>
       </div>
 
     </div>

@@ -228,7 +228,7 @@ public class PlannerAddController {
         // Convert date
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         task.setStartdate_str(dateFormat.format(task.getStartdate()));
-        task.setplanDate_str(dateFormat.format(task.getPlanDate()));
+        task.setPlanDate_str(dateFormat.format(task.getPlanDate()));
 
         formBeanAdd.setStatusMap(statusMap);
         formBeanAdd.setProcessMap(processMap);
@@ -254,26 +254,14 @@ public class PlannerAddController {
     public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processEditTask.START");
-        //formBeanAdd.setProjectId(PlannerController.projectDefault);
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
         try {
             task = formBeanAdd.getTask();
             task.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
-            log.debug(formBeanAdd.getStartDate().toString());
-            log.debug(formBeanAdd.getactualDate().toString());
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
-            task.setPlanDate(dateFormat.parse(formBeanAdd.getactualDate()));
-            
-
-            log.debug(task.getStartdate().toString());
-            log.debug(task.getPlanDate().toString());
-            log.debug(task.getCurrenteffort().toString());
-            log.debug(task.getDescription());
-            log.debug(task.getProductsize());
-            log.debug(task.getCompletedsize());
-            
+            task.setPlanDate(dateFormat.parse(formBeanAdd.getactualDate()));            
             
             taskDAO.updateTask(task);
 

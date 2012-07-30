@@ -19,7 +19,7 @@ public class Tasks implements java.io.Serializable {
     private boolean status;
     private byte type;
     private String note;
-    private BigDecimal process; 
+    private BigDecimal process;
     private Date replanDate;
     private Boolean feasible;
     private String code;
@@ -42,9 +42,10 @@ public class Tasks implements java.io.Serializable {
     private String project_str;
     private String startdate_str;
     private String planDate_str;
+    private Boolean visible;// support search function
 
     public Tasks() {
-        
+        visible = true;
     }
 
     public Tasks(BigDecimal taskid, String description, BigDecimal assignedto, Date planDate, boolean status,
@@ -53,7 +54,7 @@ public class Tasks implements java.io.Serializable {
         this.description = description;
         this.assignedto = assignedto;
         this.planDate = planDate;
-        this.status = status;   
+        this.status = status;
         this.process = process;
         this.taskname = taskname;
         this.stageid = stageid;
@@ -61,8 +62,8 @@ public class Tasks implements java.io.Serializable {
         this.statusid = statusid;
     }
     public Tasks(BigDecimal taskid, Workunit workunit, String description, BigDecimal assignedto, BigDecimal effort,
-            Date planDate, Date actualDate, boolean status, byte type, String note, BigDecimal process, Date replanDate,
-            Boolean feasible, String code, String taskname, BigDecimal stageid, BigDecimal product,
+            Date planDate, Date actualDate, boolean status, byte type, String note, BigDecimal process,
+            Date replanDate, Boolean feasible, String code, String taskname, BigDecimal stageid, BigDecimal product,
             BigDecimal productsize, BigDecimal completedsize, Date startdate, BigDecimal plannedeffort,
             BigDecimal currenteffort, BigDecimal projectid, BigDecimal statusid) {
         this.taskid = taskid;
@@ -376,7 +377,7 @@ public class Tasks implements java.io.Serializable {
      * Get value of planDate_str.
      * @return the planDate_str
      */
-    public String getplanDate_str() {
+    public String getPlanDate_str() {
         return planDate_str;
     }
 
@@ -384,8 +385,24 @@ public class Tasks implements java.io.Serializable {
      * Set the value for planDate_str.
      * @param planDate_str the planDate_str to set
      */
-    public void setplanDate_str(String planDate_str) {
+    public void setPlanDate_str(String planDate_str) {
         this.planDate_str = planDate_str;
+    }
+
+    /**
+     * Get value of visible.
+     * @return the visible
+     */
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    /**
+     * Set the value for visible.
+     * @param visible the visible to set
+     */
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
 }

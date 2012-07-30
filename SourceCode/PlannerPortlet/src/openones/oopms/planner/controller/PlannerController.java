@@ -43,7 +43,7 @@ public class PlannerController {
     private List<Developer> developerList;
     private List<Project> projectList;
     static String projectDefault;
-    static String statusDefault;
+    private String statusDefault;
 
     /**
      * Create bean for form.
@@ -77,9 +77,11 @@ public class PlannerController {
 
         // formBean.setProjectId("118385");
 
-        formBean.setStatusDefault("All");
-        formBean.setStageDefault("All");
-        formBean.setDeveloperDefault("All");
+        if (formBean.getInit()) {
+            formBean.setStatusDefault("All");
+            formBean.setStageDefault("All");
+            formBean.setDeveloperDefault("All");
+        }
 
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
@@ -87,33 +89,37 @@ public class PlannerController {
         Map<String, String> projectMap = new LinkedHashMap<String, String>();
 
         statusList = taskDAO.getAllStatus();
-        
-        if(formBean.getInit())
-        taskList = taskDAO.getAllTask();
-        else
-        taskList = formBean.getSearchResult();        
-        
+
+        if (formBean.getInit())
+            taskList = taskDAO.getAllTask();
+
         stageList = taskDAO.getAllStage();
         projectList = taskDAO.getAllProject();
         processList = taskDAO.getAllProcess();
+
         // get developer form first project
         projectDefault = projectList.get(0).getProjectId().toString();
         developerList = taskDAO.getDeveloper(projectDefault);
 
         // set value for statusMap
-        statusMap.put("All", "All");
+        statusMap.put(formBean.getStatusDefault(), "All");
+        if (!formBean.getInit())
+            statusMap.put("All", "All");
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
         }
-
         // Set value for stageMap
-        stageMap.put("All", "All");
+        stageMap.put(formBean.getStageDefault(), "All");
+        if (!formBean.getInit())
+            stageMap.put("All", "All");
         for (int i = 0; i < stageList.size(); i++) {
             stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
 
         // Set value for developerMap
-        developerMap.put("All", "All");
+        developerMap.put(formBean.getDeveloperDefault(), "All");
+        if (!formBean.getInit())
+            developerMap.put("All", "All");
         for (int i = 0; i < developerList.size(); i++) {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
@@ -154,7 +160,7 @@ public class PlannerController {
                 // Convert date
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
-                taskList.get(i).setplanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
+                taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
             }
 
         } catch (Exception ex) {
@@ -215,18 +221,38 @@ public class PlannerController {
             SessionStatus status, ActionResponse response) {
         log.debug("postDeleteTask.START");
     }
-    
-    @ActionMapping(params = "action=searchByStatus")
+
+    @ActionMapping(params = "action=search")
     public void processSearchByStatus(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processSearchByStatus.START");
-        
+        for (int i = 0; i < taskList.size(); i++) {
+            taskList.get(i).setVisible(true);
+            if (!formBean.getStageDefault().equals("All"))
+                if (!taskList.get(i).getStageid().equals(new BigDecimal(formBean.getStageDefault()))) {
+                    taskList.get(i).setVisible(false);
+                }
+            if (!formBean.getDeveloperDefault().equals("All"))
+                if (!taskList.get(i).getAssignedto().equals(new BigDecimal(formBean.getDeveloperDefault()))) {
+                    taskList.get(i).setVisible(false);
+                }
+            if (!formBean.getStatusDefault().equals("All"))
+                if (!taskList.get(i).getStatusid().equals(new BigDecimal(formBean.getStatusDefault()))) {
+                    taskList.get(i).setVisible(false);
+                }
+
+            // else taskList.get(i).setVisible(true);
+        }
+
         formBean.setInit(false);
 
+        log.debug("formBean.getStatusDefault()= " + formBean.getStatusDefault());
+        statusDefault = formBean.getStatusDefault();
+        log.debug("statusDefault= " + statusDefault);
         response.setRenderParameter("action", "taskmanager");
     }
 
-    @RenderMapping(params = "action=searchByStatus")
+    @RenderMapping(params = "action=search")
     public void postSearchByStatus(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("postSearchByStatus.START");
