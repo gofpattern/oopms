@@ -42,6 +42,7 @@ public class Tasks implements java.io.Serializable {
     private String project_str;
     private String startdate_str;
     private String planDate_str;
+    private String actualDate_str;
     private Boolean visible;// support search function
 
     public Tasks() {
@@ -403,6 +404,22 @@ public class Tasks implements java.io.Serializable {
      */
     public void setVisible(Boolean visible) {
         this.visible = visible;
+    }
+
+    /**
+     * Get value of actualDate_str.
+     * @return the actualDate_str
+     */
+    public String getActualDate_str() {
+        return actualDate_str;
+    }
+
+    /**
+     * Set the value for actualDate_str.
+     * @param actualDate_str the actualDate_str to set
+     */
+    public void setActualDate_str(String actualDate_str) {
+        this.actualDate_str = actualDate_str;
     }
 
 }
