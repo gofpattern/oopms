@@ -19,7 +19,6 @@
  */
 package openones.oopms.planner.form;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +33,7 @@ public class PlannerForm {
     private String currentTaskIndex;
     private String projectId;
 
+    // present Id: key of combo box
     private String statusDefault;
     private String stageDefault;
     private String developerDefault;
@@ -49,15 +49,6 @@ public class PlannerForm {
     Map<String, String> projectMap;
 
     public PlannerForm() {
-        statusMap = new LinkedHashMap<String, String>();
-        stageMap = new LinkedHashMap<String, String>();
-        developerMap = new LinkedHashMap<String, String>();
-        projectMap = new LinkedHashMap<String, String>();
-
-        statusMap.put(" ", " ");
-        stageMap.put(" ", " ");
-        developerMap.put(" ", " ");
-        projectMap.put(" ", " ");
 
         flag = 0;
         init = true;
@@ -318,7 +309,5 @@ public class PlannerForm {
     public void setSearchResult(List<Tasks> searchResult) {
         this.searchResult = searchResult;
     }
-    
-    
 
 }
