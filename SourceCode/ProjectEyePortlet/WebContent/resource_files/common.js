@@ -25,8 +25,9 @@
  */
 function submitAction(formName, actionUrl) {
 	var frm = document.forms[formName];
-
-	frm.action = actionUrl;
-	
-	frm.submit();
+	var flag = yav.performCheck(formName, rules, 'inline');
+	if(flag==true) {
+		frm.action = actionUrl;
+		frm.submit();
+	}
 }
