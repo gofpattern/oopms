@@ -65,7 +65,9 @@
 	rules[6] = 'customer:Direct Customer|maxlength|150';
 	rules[7] = 'endCustomer:End Customer|maxlength|150';
 	rules[8] = 'scopeObjective:Scope and Objective|maxlength|600';
-
+	rules[9] = 'planStartDate|date_le|$planEndDate';
+	rules[10] = 'planStartDate:Planned Start Date|date';
+	rules[11] = 'planEndDate:Planned End Date|date';
 
 </SCRIPT>
 
@@ -87,11 +89,11 @@
   <portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
 </portlet:renderURL>
 <form:form name="${portletNamespace}CreateProject" commandName="CreateProjectForm" method="post" action="${formAction}" onsubmit="return yav.performCheck('${portletNamespace}CreateProject', rules, 'inline');">
+
+<div id=errorsDiv style="color: red">
 <c:if test="${not empty errorList }">
 	<font color="red">${errorList}</font>
 </c:if>
-<div id=errorsDiv style="color: red">
-
 </div>
     <table class="portlet-table">
   <tr>
@@ -100,11 +102,11 @@
   </tr>
   <tr>
     <th scope="row">Project Code* </th>
-    <td><input name="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/></td>
+    <td><form:input path="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/></td>
   </tr>
   <tr>
     <th scope="row">Project Name* </th>
-    <td><input name="projectName" value="" maxlength="150" size="50" type="text" id="projectName"/></td>
+    <td><form:input path="projectName" value="" maxlength="150" size="50" type="text" id="projectName"/></td>
   </tr>
   <tr>
     <th scope="row">Project Status</th>
@@ -116,11 +118,11 @@
   </tr>
   <tr>
    <th scope="row">Direct Customer</th>
-        <td><input name="customer" value="" maxlength="150" size="50" type="text" id="customer"/></td>
+        <td><form:input path="customer" value="" maxlength="150" size="50" type="text" id="customer"/></td>
       </tr>
       <tr>
         <th scope="row">End Customer</th>
-        <td><input name="endCustomer" value="" maxlength="150" size="50" type="text" id="endCustomer"/></td>
+        <td><form:input path="endCustomer" value="" maxlength="150" size="50" type="text" id="endCustomer"/></td>
       </tr>
       <tr>
    <th scope="row">Business Domain</th>
@@ -128,12 +130,12 @@
   </tr>
       <tr>
         <th scope="row">Planned Start Date* </th>
-        <td><input maxlength="9" name="planStartDate" size="9" value="" type="text" id="datepicker1" readonly="true"/>
+        <td><form:input maxlength="9" path="planStartDate" size="9" value="" type="text" id="datepicker1"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Planned End Date* </th>
-        <td><input maxlength="9" name="planEndDate" size="9" value="" type="text" id="datepicker2" readonly="true"/>
+        <td><form:input maxlength="9" path="planEndDate" size="9" value="" type="text" id="datepicker2"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
@@ -141,9 +143,9 @@
         <td><textarea rows="10" cols="70" name="scopeObjective" id="scopeObjective"></textarea></td>
       </tr>
 </table>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>
 	
 </form:form>
 

@@ -68,11 +68,11 @@
   	  </tr>
   	  <tr>
     	<th width="186" scope="row">Planned size*</th>
-        <td><input name="plannedSize" value="" maxlength="50" size="50" type="text" /></td>
+        <td><form:input path="plannedSize" value="" maxlength="50" size="50" type="text" /></td>
   	  </tr>
   	  <tr>
     	<th width="186" scope="row">Re-planned size</th>
-        <td><input name="rePlannedSize" value="" maxlength="50" size="50" type="text" /></td>
+        <td><form:input path="rePlannedSize" value="" maxlength="50" size="50" type="text" /></td>
   	  </tr>
   	  <tr>      
    		<th scope="row">Actual size unit</th>
@@ -80,7 +80,7 @@
   	  </tr>
   	  <tr>
     	<th width="186" scope="row">Actual size</th>
-        <td><input name="actualSize" value="" maxlength="50" size="50" type="text" /></td>
+        <td><form:input path="actualSize" value="" maxlength="50" size="50" type="text" /></td>
   	  </tr>
   	  <tr>
         <th scope="row">Description</th>

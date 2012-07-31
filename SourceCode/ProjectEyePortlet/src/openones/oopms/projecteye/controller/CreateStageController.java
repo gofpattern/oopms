@@ -19,6 +19,7 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
@@ -28,6 +29,7 @@ import openones.oopms.projecteye.form.CreateStageForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Stage;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -59,11 +61,11 @@ public class CreateStageController {
 		projectId = formBean.getProjectId();
 		project.setProjectId(new BigDecimal(projectId));
 		Milestone stage = new Milestone();
-
 		// set value for Product
 		stage.setProject(project);
 		stage.setComplete(new BigDecimal("0"));
-		stage.setName(formBean.getStage());
+		stage.setName(woDao.getStandardStageName(new BigDecimal(formBean
+				.getStandarStage_SelectedValue())));
 		stage.setStandardstage(new BigDecimal(formBean
 				.getStandarStage_SelectedValue()));
 		stage.setPlanStartDate(formBean.getPlannedStartDate());

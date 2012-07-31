@@ -136,6 +136,22 @@ public class WorkOrderDao {
 		return null;
 	}
 
+	public String getStandardStageName(BigDecimal stageId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Select name From Stage where stageId = :stageId";
+			Query query = session.createQuery(hql);
+			query.setParameter("stageId", stageId);
+			String stageName = (String)query.uniqueResult();
+			return stageName;
+
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
 	
 
 }

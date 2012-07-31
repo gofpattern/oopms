@@ -25,7 +25,6 @@ import java.util.Map;
  * @author HaiTCT
  */
 public class CreateStageForm {
-	private String stage;
 	private Map<String, String> standarStage;
 	private Date plannedStartDate;
 	private Date rePlannedStartDate;
@@ -38,20 +37,7 @@ public class CreateStageForm {
 	private String standarStage_SelectedValue;
 	private String projectId;
 
-	/**
-	 * @return the stage
-	 */
-	public String getStage() {
-		return stage;
-	}
 
-	/**
-	 * @param stage
-	 *            the stage to set
-	 */
-	public void setStage(String stage) {
-		this.stage = stage;
-	}
 
 	/**
 	 * @return the standarStage
