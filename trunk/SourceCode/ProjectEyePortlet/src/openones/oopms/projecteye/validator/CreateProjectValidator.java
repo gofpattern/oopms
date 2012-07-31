@@ -34,32 +34,43 @@ public class CreateProjectValidator {
 		// validate Date
 		DateFormat formatter;
 		formatter = new SimpleDateFormat("MM/dd/yyyy");
-		Date temp;
+		Date temp1 = new Date();
+		Date temp2 = new Date();
+		int flag = 0;
 		if (bean.getPlanStartDate().equals("")
 				|| bean.getPlanStartDate() == null) {
 			error = error + "Planned Start Date is required is required"
 					+ "<br/>";
+			flag = 1;
 		} else {
 			try {
-				temp = (Date) formatter.parse(bean.getPlanStartDate());
+				temp1 = (Date) formatter.parse(bean.getPlanStartDate());
 			} catch (ParseException e) {
 				error = error + "Planned Start Date much has format mm/dd/yyyy"
 						+ "<br/>";
+				flag = 1;
 			}
 		}
 
 		if (bean.getPlanEndDate().equals("") || bean.getPlanEndDate() == null) {
 			error = error + "Planned End Date is required is required"
 					+ "<br/>";
+			flag = 1;
 		} else {
 			try {
-				temp = (Date) formatter.parse(bean.getPlanEndDate());
+				temp2 = (Date) formatter.parse(bean.getPlanEndDate());
 			} catch (ParseException e) {
 				error = error + "Planned End Date much has format mm/dd/yyyy"
 						+ "<br/>";
+				flag = 1;
 			}
 		}
-
+		if (flag == 0) {
+			if(temp1.after(temp2)) {
+				error = error + "Planned End Date cannot before Planned Start Date"
+						+ "<br/>";
+			}
+		}
 		if (bean.getCustomer().length() > 150) {
 			error = error + "Max length of Direct Customer: 150 characters"
 					+ "<br/>";
@@ -70,6 +81,10 @@ public class CreateProjectValidator {
 					+ "<br/>";
 		}
 
+		if (bean.getScopeObjective().length() > 600) {
+			error = error + "Max length of Scope and Objective: 600 characters"
+					+ "<br/>";
+		}
 		return error;
 
 	}

@@ -97,10 +97,6 @@
   	</portlet:renderURL>
 <form:form name="${portletNamespace}CreateStage" commandName="CreateStageForm" method="post" action="${formAction}"> 
 	<table class="portlet-table">
-	 <tr>
-        <th scope="row">Stage*</th>
-        <td><input name="stage" value="" maxlength="50" size="50" type="text" /></td>
-      </tr>
       <tr>      
    		<th scope="row">Standard stage*</th>
     	<td><form:select  class="styled" path="standarStage_SelectedValue" items="${standarStage}"/></td>

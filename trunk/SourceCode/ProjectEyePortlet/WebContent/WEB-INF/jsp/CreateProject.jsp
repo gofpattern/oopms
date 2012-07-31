@@ -22,11 +22,14 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
-<script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
+<script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>.
+
 <script type="text/javascript">
     $(document).ready(function() {
 	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
@@ -47,10 +50,24 @@
 	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
-	        $( "#selectable" ).selectable();
+	        
 	});
     
     </script>
+<SCRIPT type="text/javascript">
+	var rules = new Array();
+	rules[0] = 'projectCode:Project Code|required';
+	rules[1] = 'projectName:Project Name|required';
+	rules[2] = 'planStartDate:Planned Start Date|required';
+	rules[3] = 'planEndDate:Planned End Date|required';
+	rules[4] = 'projectCode:Project Code|fixlength|3';
+	rules[5] = 'projectName:Project Name|maxlength|150';
+	rules[6] = 'customer:Direct Customer|maxlength|150';
+	rules[7] = 'endCustomer:End Customer|maxlength|150';
+	rules[8] = 'scopeObjective:Scope and Objective|maxlength|600';
+
+
+</SCRIPT>
 
 <title>Create Project</title>
 </head>
@@ -69,11 +86,13 @@
 <portlet:renderURL var="renderAction">
   <portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
 </portlet:renderURL>
-<form:form name="${portletNamespace}CreateProject" commandName="CreateProjectForm" method="post" action="${formAction}">
+<form:form name="${portletNamespace}CreateProject" commandName="CreateProjectForm" method="post" action="${formAction}" onsubmit="return yav.performCheck('${portletNamespace}CreateProject', rules, 'inline');">
 <c:if test="${not empty errorList }">
 	<font color="red">${errorList}</font>
 </c:if>
-                       
+<div id=errorsDiv style="color: red">
+
+</div>
     <table class="portlet-table">
   <tr>
     <th width="186" scope="row">Project Manager</th>
@@ -81,13 +100,11 @@
   </tr>
   <tr>
     <th scope="row">Project Code* </th>
-    <td><input name="projectCode" value="" maxlength="50" size="50" type="text" /></td>
-    <font color="red"><form:errors path="projectCode"></form:errors></font>
+    <td><input name="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/></td>
   </tr>
   <tr>
     <th scope="row">Project Name* </th>
-    <td><input name="projectName" value="" maxlength="50" size="50" type="text" /></td>
-    <font color="red"><form:errors path="projectName"></form:errors></font>
+    <td><input name="projectName" value="" maxlength="150" size="50" type="text" id="projectName"/></td>
   </tr>
   <tr>
     <th scope="row">Project Status</th>
@@ -99,11 +116,11 @@
   </tr>
   <tr>
    <th scope="row">Direct Customer</th>
-        <td><input name="customer" value="" maxlength="50" size="50" type="text" /></td>
+        <td><input name="customer" value="" maxlength="150" size="50" type="text" id="customer"/></td>
       </tr>
       <tr>
         <th scope="row">End Customer</th>
-        <td><input name="endCustomer" value="" maxlength="50" size="50" type="text" /></td>
+        <td><input name="endCustomer" value="" maxlength="150" size="50" type="text" id="endCustomer"/></td>
       </tr>
       <tr>
    <th scope="row">Business Domain</th>
@@ -121,7 +138,7 @@
       </tr>
       <tr>
         <th scope="row">Scope and Objective</th>
-        <td><textarea rows="10" cols="70" name="scopeObjective"></textarea></td>
+        <td><textarea rows="10" cols="70" name="scopeObjective" id="scopeObjective"></textarea></td>
       </tr>
 </table>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
