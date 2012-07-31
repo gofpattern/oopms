@@ -9,6 +9,9 @@
 
   <bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
   <bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+  <bean class="org.springframework.web.portlet.handler.SimpleMappingExceptionResolver">    
+     <property name="defaultErrorView" value="SystemError" />    
+  </bean> 
 
   <!-- Common -->
   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
