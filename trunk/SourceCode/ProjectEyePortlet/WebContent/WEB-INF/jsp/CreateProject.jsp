@@ -69,7 +69,11 @@
 <portlet:renderURL var="renderAction">
   <portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
 </portlet:renderURL>
-<form:form name="${portletNamespace}CreateProject" commandName="CreateProjectForm" method="post" action="${formAction}">                       
+<form:form name="${portletNamespace}CreateProject" commandName="CreateProjectForm" method="post" action="${formAction}">
+<c:if test="${not empty errorList }">
+	<font color="red">${errorList}</font>
+</c:if>
+                       
     <table class="portlet-table">
   <tr>
     <th width="186" scope="row">Project Manager</th>
@@ -123,7 +127,7 @@
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>
-	<font color="red"><form:errors path="*"></form:errors></font>
+	
 </form:form>
 
   <!-- end .content --></div>
