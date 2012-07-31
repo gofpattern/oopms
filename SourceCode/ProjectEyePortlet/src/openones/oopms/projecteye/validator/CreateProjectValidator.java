@@ -4,66 +4,74 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
 
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
+public class CreateProjectValidator {
 
-
-public class CreateProjectValidator implements Validator{
-
-	@Override
-    public boolean supports(Class<?> arg0) {
-       return CreateProjectForm.class.isAssignableFrom(arg0);
-    }
-    
-	@Override
-    public void validate(Object target, Errors errors) {
-    	CreateProjectForm bean = (CreateProjectForm) target;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectCode", "CreateProject.projectCode.NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "projectName", "CreateProject.projectName.NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "planStartDate", "CreateProject.planStartDate.NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "planEndDate", "CreateProject.planEndDate.NotEmpty");
-        
-        if (bean.getProjectCode().length() != 3) {
-            errors.rejectValue("projectCode", "CreateProject.projectCode.FieldLenght","ProjectCode much have 3 character");
-        } else {
-        	ProjectDao pDao = new ProjectDao();
-        	if(pDao.checkDuplicateProjectCode(bean.getProjectCode())) {
-        		errors.rejectValue("projectCode", "CreateProject.projectCode.Duplicate");
-        	}
-        }
-        if (bean.getScopeObjective().length() > 600) {
-            errors.rejectValue("scopeObjective", "CreateProject.scopeObjective.FieldMaxLenght");
-        }
-        if (bean.getProjectName().length() > 150) {
-            errors.rejectValue("projectName", "CreateProject.projectName.FieldMaxLenght");
-        }
-        if (bean.getCustomer().length() > 150) {
-            errors.rejectValue("customer", "CreateProject.customer.FieldMaxLenght");
-        }
-        if (bean.getEndCustomer().length() > 150) {
-            errors.rejectValue("endCustomer", "CreateProject.endCustomer.FieldMaxLenght");
-        }
-        DateFormat formatter;
+	public String validate(Object target) {
+		String error = "";
+		CreateProjectForm bean = (CreateProjectForm) target;
+		// validate Project Code
+		if (bean.getProjectCode().equals("") || bean.getProjectCode() == null) {
+			error = error + "Project Code is required" + "<br/>";
+		} else if (bean.getProjectCode().length() != 3) {
+			error = error + "ProjectCode much have 3 characters" + "<br/>";
+		} else {
+			ProjectDao pDao = new ProjectDao();
+			if (pDao.checkDuplicateProjectCode(bean.getProjectCode())) {
+				error = error + "Project Code has already in used" + "<br/>";
+			}
+		}
+		// validate Project Name
+		if (bean.getProjectName().equals("") || bean.getProjectName() == null) {
+			error = error + "Project Name is required" + "<br/>";
+		} else if (bean.getProjectName().length() > 150) {
+			error = error + "Max length of Project Name: 150 characters"
+					+ "<br/>";
+		}
+		// validate Date
+		DateFormat formatter;
 		formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date temp;
-        try {
-        	temp = (Date) formatter.parse(bean.getPlanStartDate());
-        } catch (ParseException e) {
-        	errors.rejectValue("planStartDate", "CreateProject.planStartDate.WrongDateFormat");
-        }
-        try {
-        	temp = (Date) formatter.parse(bean.getPlanEndDate());
-        } catch (ParseException e) {
-        	errors.rejectValue("planEndDate", "CreateProject.planEndDate.WrongDateFormat");
-        }
+		if (bean.getPlanStartDate().equals("")
+				|| bean.getPlanStartDate() == null) {
+			error = error + "Planned Start Date is required is required"
+					+ "<br/>";
+		} else {
+			try {
+				temp = (Date) formatter.parse(bean.getPlanStartDate());
+			} catch (ParseException e) {
+				error = error + "Planned Start Date much has format mm/dd/yyyy"
+						+ "<br/>";
+			}
+		}
 
-		
-    }
+		if (bean.getPlanEndDate().equals("") || bean.getPlanEndDate() == null) {
+			error = error + "Planned End Date is required is required"
+					+ "<br/>";
+		} else {
+			try {
+				temp = (Date) formatter.parse(bean.getPlanEndDate());
+			} catch (ParseException e) {
+				error = error + "Planned End Date much has format mm/dd/yyyy"
+						+ "<br/>";
+			}
+		}
+
+		if (bean.getCustomer().length() > 150) {
+			error = error + "Max length of Direct Customer: 150 characters"
+					+ "<br/>";
+		}
+
+		if (bean.getEndCustomer().length() > 150) {
+			error = error + "Max length of End Customer: 150 characters"
+					+ "<br/>";
+		}
+
+		return error;
+
+	}
 
 }

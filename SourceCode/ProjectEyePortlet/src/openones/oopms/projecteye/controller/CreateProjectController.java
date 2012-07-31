@@ -51,6 +51,7 @@ import org.apache.log4j.Logger;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
@@ -67,6 +68,7 @@ public class CreateProjectController {
 	Developer user = new Developer();
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(CreateProjectController.class);
+	String error;
 
 	/**
 	 * Process submitted form by clicking "Login" button.
@@ -86,8 +88,10 @@ public class CreateProjectController {
 		log.debug("process CreateProject.START");
 		try {
 			CreateProjectValidator validator = new CreateProjectValidator();
-			validator.validate(formBean, result);
-			if (!result.hasErrors()) {
+			error = "";
+			error = validator.validate(formBean);
+			System.out.println("error msg : " + error);
+			if (error.equals("")) {
 				DeveloperDao dDao = new DeveloperDao();
 				Developer dev = dDao
 						.getDeveloper(ProjectEyeHomeController.username);
@@ -140,8 +144,10 @@ public class CreateProjectController {
 					log.error("Cannot Insert");
 				}
 			} else {
+				log.error("Errors " + error);
 				response.setRenderParameter("action", "GoCreateProject2");
-				log.error("Error in binding result:" + result.getErrorCount());
+				
+				
 			}
 		} catch (ParseException e) {
 			log.error(e.getMessage());
@@ -210,6 +216,7 @@ public class CreateProjectController {
 		mav.addObject("projectCategory", projectCategoryMap);
 		mav.addObject("businessDomain", projectBussinessDomainMap);
 		mav.addObject("username", ProjectEyeHomeController.username);
+		mav.addObject("errorList",error);
 		log.error("luu dan");
 		return mav;
 	}
