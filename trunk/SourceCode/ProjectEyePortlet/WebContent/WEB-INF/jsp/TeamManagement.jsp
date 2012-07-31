@@ -106,7 +106,7 @@
 					
 				</td>
             </tr>
-            <input name="projectTeamList[${count.index}].developerId" value="${user.developerId}" type="hidden" />
+            <form:input path="projectTeamList[${count.index}].developerId" value="${user.developerId}" type="hidden" />
         </c:forEach>
    </tbody>
 	</c:if>
@@ -115,7 +115,7 @@
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${updateRoleAction}")'>Save</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${renderAction}")'>Back</button>
 	<br/>
-	Search User <input name="searchString" value="" maxlength="50" size="50" type="text" /> 	
+	Search User <form:input path="searchString" value="" maxlength="50" size="50" type="text" /> 	
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${searchAction}")'>Search</button><br/>
 	<form:radiobutton path="searchType" value="name"/> By Name 
 	<form:radiobutton path="searchType" value="account"/> by Account 

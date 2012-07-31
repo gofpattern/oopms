@@ -56,7 +56,7 @@
 	 <table class="portlet-table">
 	 <tr>
     <th scope="row">Name*</th>
-    <td><input name="name" value="" maxlength="50" size="50" type="text" /></td>
+    <td><form:input path="name" value="" maxlength="50" size="50" type="text" /></td>
   </tr>
 	 <tr>
         <th scope="row">Description*</th>

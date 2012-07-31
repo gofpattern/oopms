@@ -69,6 +69,7 @@ public class CreateProjectController {
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(CreateProjectController.class);
 	String error;
+	CreateProjectForm bean;
 
 	/**
 	 * Process submitted form by clicking "Login" button.
@@ -90,7 +91,7 @@ public class CreateProjectController {
 			CreateProjectValidator validator = new CreateProjectValidator();
 			error = "";
 			error = validator.validate(formBean);
-			System.out.println("error msg : " + error);
+			bean = formBean;
 			if (error.equals("")) {
 				DeveloperDao dDao = new DeveloperDao();
 				Developer dev = dDao
@@ -100,6 +101,7 @@ public class CreateProjectController {
 				Project project = new Project();
 
 				// set value for project
+				project.setType(Constant.WorkUnitProjectType);
 				project.setCode(formBean.getProjectCode());
 				project.setName(formBean.getProjectName());
 				project.setCustomer(formBean.getCustomer());
@@ -115,7 +117,7 @@ public class CreateProjectController {
 				project.setDescription(formBean.getScopeObjective());
 				project.setProjectCategoryCode(formBean
 						.getProjectCategory_SelectedValue());
-				project.setType(formBean.getBusinessDomain_SelectedValue());
+				project.setProjectTypeCode(formBean.getBusinessDomain_SelectedValue());
 				project.setProjectStatusCode(formBean
 						.getProjectStatus_SelectedValue());
 
@@ -146,8 +148,7 @@ public class CreateProjectController {
 			} else {
 				log.error("Errors " + error);
 				response.setRenderParameter("action", "GoCreateProject2");
-				
-				
+
 			}
 		} catch (ParseException e) {
 			log.error(e.getMessage());
@@ -173,7 +174,7 @@ public class CreateProjectController {
 		mav.addObject("projectList", projectList);
 		return mav;
 	}
-	
+
 	/**
 	 * Process after the action "Create New Project"
 	 * 
@@ -181,14 +182,15 @@ public class CreateProjectController {
 	 *         displayed
 	 */
 	@RenderMapping(params = "action=GoCreateProject2")
-	public ModelAndView postGoCreateProject(
-			RenderRequest request ,PortletSession session) {
+	public ModelAndView postGoCreateProject(RenderRequest request,
+			PortletSession session) {
 		log.debug("post GoCreateProject.START");
 		ProjectDao pDao = new ProjectDao();
 		// get category List
 		List<GeneralReference> projectCategoryList = pDao
 				.getProjectCategoryList();
 		Map<String, String> projectCategoryMap = new LinkedHashMap<String, String>();
+		projectCategoryMap.put(null, " ");
 		for (int i = 0; i < projectCategoryList.size(); i++) {
 			projectCategoryMap.put(projectCategoryList.get(i).getGeneralRefId()
 					.toString(), projectCategoryList.get(i).getDescription());
@@ -196,6 +198,7 @@ public class CreateProjectController {
 		// get Status list
 		List<GeneralReference> projectStatusList = pDao.getProjectStatusList();
 		Map<String, String> projectStatusMap = new LinkedHashMap<String, String>();
+		projectStatusMap.put(null, " ");
 		for (int i = 0; i < projectStatusList.size(); i++) {
 			projectStatusMap.put(projectStatusList.get(i).getGeneralRefId()
 					.toString(), projectStatusList.get(i).getDescription());
@@ -205,19 +208,18 @@ public class CreateProjectController {
 		List<BusinessDomain> projectBussinessDomainList = pDao
 				.getProjectBussinessDomainList();
 		Map<String, String> projectBussinessDomainMap = new LinkedHashMap<String, String>();
+		projectBussinessDomainMap.put(null, " ");
 		for (int i = 0; i < projectBussinessDomainList.size(); i++) {
 			projectBussinessDomainMap.put(projectBussinessDomainList.get(i)
 					.getDomainId().toString(), projectBussinessDomainList
 					.get(i).getDomainName());
 		}
-		request.setAttribute("CreateProjectForm", new CreateProjectForm());
-		ModelAndView mav = new ModelAndView("CreateProject");
+		ModelAndView mav = new ModelAndView("CreateProject",
+				"CreateProjectForm", bean);
 		mav.addObject("projectStatus", projectStatusMap);
 		mav.addObject("projectCategory", projectCategoryMap);
 		mav.addObject("businessDomain", projectBussinessDomainMap);
 		mav.addObject("username", ProjectEyeHomeController.username);
-		mav.addObject("errorList",error);
-		log.error("luu dan");
 		return mav;
 	}
 }

@@ -106,6 +106,7 @@ public class ProjectEyeHomeController {
 		List<GeneralReference> projectCategoryList = pDao
 				.getProjectCategoryList();
 		Map<String, String> projectCategoryMap = new LinkedHashMap<String, String>();
+		projectCategoryMap.put(null, " ");
 		for (int i = 0; i < projectCategoryList.size(); i++) {
 			projectCategoryMap.put(projectCategoryList.get(i).getGeneralRefId()
 					.toString(), projectCategoryList.get(i).getDescription());
@@ -113,6 +114,7 @@ public class ProjectEyeHomeController {
 		// get Status list
 		List<GeneralReference> projectStatusList = pDao.getProjectStatusList();
 		Map<String, String> projectStatusMap = new LinkedHashMap<String, String>();
+		projectStatusMap.put(null, " ");
 		for (int i = 0; i < projectStatusList.size(); i++) {
 			projectStatusMap.put(projectStatusList.get(i).getGeneralRefId()
 					.toString(), projectStatusList.get(i).getDescription());
@@ -122,6 +124,7 @@ public class ProjectEyeHomeController {
 		List<BusinessDomain> projectBussinessDomainList = pDao
 				.getProjectBussinessDomainList();
 		Map<String, String> projectBussinessDomainMap = new LinkedHashMap<String, String>();
+		projectBussinessDomainMap.put(null, " ");
 		for (int i = 0; i < projectBussinessDomainList.size(); i++) {
 			projectBussinessDomainMap.put(projectBussinessDomainList.get(i)
 					.getDomainId().toString(), projectBussinessDomainList
@@ -167,9 +170,9 @@ public class ProjectEyeHomeController {
 		}
 		mav.addObject("directCustomer", project.getCustomer());
 		mav.addObject("endCustomer", project.getCustomer2nd());
-		if (project.getType() != null) {
+		if (project.getProjectTypeCode() != null) {
 			mav.addObject("businessDomain",
-					pDao.getProjectBussinessDomain(project.getType())
+					pDao.getProjectBussinessDomain(project.getProjectTypeCode())
 							.getDomainName());
 		}
 		mav.addObject("plannedStartDate", project.getPlanStartDate());
@@ -178,7 +181,7 @@ public class ProjectEyeHomeController {
 		mav.addObject("projectSize", projectTeam.size());
 		mav.addObject("riskIssue", projectRiskList.size());
 		mav.addObject("changeRequest", projectChangeRequestList.size());
-		
+
 		AssignmentDao aDao = new AssignmentDao();
 		Developer dev = dDao.getDeveloper(username);
 		Assignment role = aDao.getUserRole(project, dev.getDeveloperId());

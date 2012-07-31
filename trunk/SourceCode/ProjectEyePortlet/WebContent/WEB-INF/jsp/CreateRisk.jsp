@@ -70,7 +70,7 @@
   </tr>
   <tr>
     <th scope="row">Probability*</th>
-    <td><input name="probability" value="" maxlength="50" size="50" type="text" /></td>
+    <td><form:input path="probability" value="" maxlength="50" size="50" type="text" /></td>
   </tr>
   <tr>
     <th scope="row" rowspan="3">Estimated Impact*</th>
@@ -80,15 +80,15 @@
     <td><form:select  class="styled" path="estimatedImpactUnit_SelectedValue" items="${estimatedImpactUnit}"/></td>
   </tr>
   <tr>
-    <td><input name="estimatedImpact" value="" maxlength="50" size="50" type="text" /></td>
+    <td><form:input path="estimatedImpact" value="" maxlength="50" size="50" type="text" /></td>
   </tr>
   <tr>
     <th scope="row">Total Impact</th>
-    <td><input name="totalImpact" value="" maxlength="50" size="50" type="text" /></td>
+    <td><form:input path="totalImpact" value="" maxlength="50" size="50" type="text" /></td>
   </tr>
   <tr>
    <th scope="row">Risk Priority*</th>
-        <td><input name="riskPriority" value="" maxlength="50" size="50" type="text" /></td>
+        <td><form:input path="riskPriority" value="" maxlength="50" size="50" type="text" /></td>
       </tr>
   <tr>
    <th scope="row">Trigger</th>
