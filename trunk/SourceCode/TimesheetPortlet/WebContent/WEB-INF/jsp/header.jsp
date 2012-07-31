@@ -19,6 +19,7 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/custom.js"></script>
+
 	<meta name="robots" content="noindex, nofollow">
 			
 	<link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/manage.css" media="all">

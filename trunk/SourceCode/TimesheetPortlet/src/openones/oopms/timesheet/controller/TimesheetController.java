@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import openones.oopms.timesheet.model.Developer;
 import openones.oopms.timesheet.model.Project;
 import openones.oopms.timesheet.model.Timesheet;
 import openones.oopms.timesheet.model.Typeofwork;
-import openones.oopms.timesheet.model.Workproduct;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
