@@ -1,3 +1,10 @@
+function validateTimesheet() {
+    alert("validate timesheet");
+    var  fromDate = document.getElementById("datepicker1").value;
+    var toDate = document.getElementById("datepicker2").value;
+    alert (fromDate);
+}
+
 function isDate(txtDate) {
     var bInvalid;
     var c1, c2, n1, n2;

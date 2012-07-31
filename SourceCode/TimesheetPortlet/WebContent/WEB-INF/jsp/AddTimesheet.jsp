@@ -17,6 +17,10 @@
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
+function showAlert() {
+    alert("aaa");
+}
+
             function fnFeaturesInit ()
             {
                 /* Not particularly modular this - but does nicely :-) */
@@ -106,7 +110,7 @@
       <c:forEach var="timesheet" varStatus="status" items="${timesheetList}">
         <tr>        
           <td><p style="display: block; margin: 0px;padding: 0px;"><input style="width: 80px;" id="${status.index}datepicker" name="timesheetList[${status.index}].occurDateString" value="${timesheet.occurDateString}"/></p></td>
-          <td><form:select cssClass="validate" 
+          <td><form:select onchange="showAlert();" cssClass="validate" 
           path="timesheetList[${status.index}].projectName" multiple="single">
           <form:options items="${projectMap}" />
          </form:select></td>

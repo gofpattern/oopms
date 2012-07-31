@@ -12,11 +12,22 @@
 <%@ page import="javax.portlet.PortletSession"%>
 <portlet2:defineObjects />
 <portlet:defineObjects />
-
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/validation.js"></script>
 <title>Timesheet System</title>
 <jsp:include page="header.jsp" />
 
 <script type="text/javascript">
+function validateTimesheet() {
+    var  fromDate = document.getElementById("datepicker1").value;
+    var toDate = document.getElementById("datepicker2").value;  
+    if( !checkValidDate(fromDate,"formatFromDate") || ! checkValidDate(toDate,"formatToDate")) {
+	 $('#errorDiv').css('display','inline');
+	 $('#errorDiv').css('text-align','center');
+    }
+  
+}
+
+
 function submitAction(formName, actionUrl) {
     
     var frm = document.forms[formName];
@@ -75,7 +86,7 @@ function submitAction(formName, actionUrl) {
         	    } else { 
         		 $(":checkbox").each(function() { this.checked = false; }); 
         		 }
-        	});
+        	});        	  
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
                         if (event.target.type !== 'checkbox') {
@@ -126,8 +137,7 @@ function submitAction(formName, actionUrl) {
   var="timesheetFormAction">
   <portlet:param name="action" value="searchTimesheet" />
 </portlet:actionURL> <form:form name="timesheet" method="post" commandName="timesheetForm"
-  action="${timesheetFormAction}">
-  <form:errors path="*" cssStyle="color:red;" />
+  action="${timesheetFormAction}">  
   <table border="0">
     <tbody>
       <tr>
@@ -213,6 +223,10 @@ function submitAction(formName, actionUrl) {
   action="${timesheetFormAction2}">
   <p><input type="submit" id="Search" class="button green small"
     name="Add" value="Add" /></p>
+    <div id="errorDiv" align="center" style=" display: none; ">         
+           <label id="formatFromDate" style="display: none; color: red;">Please input correct format from date.  </label><br>
+              <label id="formatToDate" style="display: none; color: red;">Please input correct format to date.  </label>
+    </div><br>
 </form:form> <portlet:actionURL var="goUpdateTimesheetAction">
   <portlet:param name="action" value="goUpdateTimesheet" />
 </portlet:actionURL> <portlet:actionURL var="deleteTimesheetAction">
@@ -267,17 +281,21 @@ function submitAction(formName, actionUrl) {
     </tbody>
   </table>
 
-  <p><input type="button" class="button blue small" name="Update"
+  <p>
+   <input type="button" class="button blue small" name="Reject"
+    onclick='validateTimesheet();'
+    value="Validate" class="button blue small" />
+  <input type="button" class="button blue small" name="Update" id="btnUpdate"
     onclick='submitAction("Timesheet", "${goUpdateTimesheetAction}")'
     value="Update" class="button blue small" /> <input type="button"
-    class="button blue small" name="Delete"
+    class="button blue small" name="Delete" id="btnUpdate"
     onclick='submitActionConfirm("Timesheet", "${deleteTimesheetAction}");'
     value="Delete" class="button red small" />
     <c:if test="${ROLE=='Project Manager' }">
-    <input type="button" class="button blue small" name="Approve"
+    <input type="button" class="button blue small" name="Approve" id="btnUpdate"
     onclick='submitAction("Timesheet", "${approveTimesheetAction}")'
     value="Approve" class="button blue small" />
-    <input type="button" class="button blue small" name="Reject"
+    <input type="button" class="button blue small" name="Reject" id="btnUpdate"
     onclick='submitAction("Timesheet", "${goRejectTimesheetAction}")'
     value="Reject" class="button blue small" />
     </c:if>
