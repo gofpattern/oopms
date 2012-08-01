@@ -23,8 +23,9 @@ function validateTimesheet() {
     if( !checkValidDate(fromDate,"formatFromDate") || ! checkValidDate(toDate,"formatToDate")) {
 	 $('#errorDiv').css('display','inline');
 	 $('#errorDiv').css('text-align','center');
+	 return false;
     }
-  
+  return true;
 }
 
 
@@ -86,7 +87,15 @@ function submitAction(formName, actionUrl) {
         	    } else { 
         		 $(":checkbox").each(function() { this.checked = false; }); 
         		 }
-        	});        	  
+        	});   
+        	$('#Update').click(function(event) {   
+        	    if($(':checkbox').checked) {                 
+                       return true;
+                    } else { 
+                   alert("Please select at least 1 record.");
+                   return false;
+                     }
+                });   
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
                         if (event.target.type !== 'checkbox') {
@@ -136,7 +145,7 @@ function submitAction(formName, actionUrl) {
 <div class="container "><portlet:actionURL
   var="timesheetFormAction">
   <portlet:param name="action" value="searchTimesheet" />
-</portlet:actionURL> <form:form name="timesheet" method="post" commandName="timesheetForm"
+</portlet:actionURL> <form:form name="timesheet" method="post" onsubmit=" return validateTimesheet();" commandName="timesheetForm"
   action="${timesheetFormAction}">  
   <table border="0">
     <tbody>
@@ -281,10 +290,7 @@ function submitAction(formName, actionUrl) {
     </tbody>
   </table>
 
-  <p>
-   <input type="button" class="button blue small" name="Reject"
-    onclick='validateTimesheet();'
-    value="Validate" class="button blue small" />
+  <p>  
   <input type="button" class="button blue small" name="Update" id="btnUpdate"
     onclick='submitAction("Timesheet", "${goUpdateTimesheetAction}")'
     value="Update" class="button blue small" /> <input type="button"

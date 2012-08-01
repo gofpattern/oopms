@@ -25,6 +25,7 @@ import openones.oopms.timesheet.model.Developer;
 import openones.oopms.timesheet.model.Project;
 import openones.oopms.timesheet.model.Timesheet;
 import openones.oopms.timesheet.model.Typeofwork;
+import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -91,13 +92,79 @@ public class TimesheetController {
     private boolean error = false;
 
     @RequestMapping
-    public String initScreen(RenderRequest request) {
-        System.out.println("initScreen.START");
-        // Get logon user
-       
-            return "login";
+    public ModelAndView initScreen(RenderRequest request, PortletSession session) {
+        log.debug("initScreen.START");
+        ModelAndView mav;
+        PortletSupport portletSupport = new PortletSupport(request);
+        String logonUser = portletSupport.getLogonUser();
+        
+        System.out.println("logonUser=" + logonUser);
 
+        if ((logonUser == null) || ("guest".equals(logonUser))) {
+            mav = new ModelAndView("login"); // Display login.jsp
+        } else {
+            mav = new ModelAndView("Timesheet"); // display Timesheet.jsp            
+            TimesheetDao timesheetDao = new TimesheetDao();
+            projectMap = new LinkedHashMap<String, String>();
+
+            // Get project List from database
+            projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
+            role = timesheetDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+           System.out.println("ROLE : " + role);
+            //projectMap.put("All", "All");
+            for (int i = 0; i < projectList.size(); i++) {
+                projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+            }
+         
+            
+            // Set information of user to session           
+            session.setAttribute("USERID", user.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
+            session.setAttribute("USER", user.getAccount(), PortletSession.APPLICATION_SCOPE);
+            session.setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);
+          
+            mav.addObject("ROLE",role);
+            // Search all timesheet record from database
+            TimesheetDao timeDao = new TimesheetDao();
+            List<Timesheet> timesheetList = timeDao.getTimesheetList(String.valueOf(user.getDeveloperId()), "All", "", "",
+                    "All");
+
+            // Get dropdown list from database
+            processList = timeDao.getProcessList();
+            towList = timeDao.getTOWList();
+
+            timesheetList = prepareTimesheetList(timesheetList);
+
+           
+            // Set default value for timesheet.jsp
+            mav.addObject("projectMap", projectMap);
+            if(!"".equals(projectDefault)) {
+                mav.addObject("projectDefault", projectDefault);
+            }
+            else {
+                mav.addObject("projectDefault", projectDefault);
+            }
+            
+            mav.addObject("timesheetList", timesheetList);
+            mav.addObject("projectStatus", projectStatus);
+            mav.addObject("fromDate", fromDate);
+            mav.addObject("toDate", toDate);
+            // Add object timesheetList to request
+            mav.addObject("timesheetList", timesheetList);
+            // Return to jsp
+            return mav;
+        }
+
+        return mav;
     }
+    
+//    @RequestMapping
+//    public String initScreen(RenderRequest request) {
+//        System.out.println("initScreen.START");
+//        // Get logon user
+//       
+//            return "login";
+//
+//    }
 
     /**
      * Create bean for login form.
