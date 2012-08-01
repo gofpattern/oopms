@@ -37,7 +37,6 @@ public class PlannerForm {
     private String statusDefault;
     private String stageDefault;
     private String developerDefault;
-    private String projectDefault;
 
     private List<Tasks> taskList;
     private List<Tasks> searchResult;
@@ -228,22 +227,6 @@ public class PlannerForm {
      */
     public void setStatusMap(Map<String, String> statusMap) {
         this.statusMap = statusMap;
-    }
-
-    /**
-     * Get value of projectDefault.
-     * @return the projectDefault
-     */
-    public String getProjectDefault() {
-        return projectDefault;
-    }
-
-    /**
-     * Set the value for projectDefault.
-     * @param projectDefault the projectDefault to set
-     */
-    public void setProjectDefault(String projectDefault) {
-        this.projectDefault = projectDefault;
     }
 
     /**

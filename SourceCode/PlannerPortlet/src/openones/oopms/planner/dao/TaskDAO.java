@@ -3,6 +3,7 @@ package openones.oopms.planner.dao;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 
 import openones.oopms.planner.model.Developer;
@@ -36,8 +37,7 @@ public class TaskDAO {
             String sql = "from ProjectStatus";
             Query query = session.createQuery(sql);
             List<ProjectStatus> statusList = query.list();
-            // session.flush();
-            // session.getTransaction().commit();
+            session.flush();
             System.out.println("getAllStatus.end");
             return statusList;
 
@@ -55,12 +55,11 @@ public class TaskDAO {
     public List<Tasks> getAllTask() {
         log.debug("getAllTask.START");
         try {
-            // session.getTransaction().begin();
+            session.getTransaction().begin();
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
             List<Tasks> taskList = query.list();
-            // session.flush();
-            // session.getTransaction().commit();
+            session.flush();
             System.out.println("getAllTask.end");
             return taskList;
         } catch (Exception e) {
@@ -79,17 +78,37 @@ public class TaskDAO {
         }
         return null;
     }
+    
+    public List<Tasks> getTasksByProjectId(String projectId) {
+        log.debug("getTaskByProjectId.START");
+        try {
+            session.getTransaction().begin();
+            String sql = "from Tasks where projectid = :projectId";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            @SuppressWarnings("unchecked")
+            List<Tasks> taskList = query.list();
+            session.flush();
+            System.out.println("getTaskByProjectId.end");
+            return taskList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.debug("getTaskByProjectId.Error", e);
+        }
+        return null;
+    }
 
     public Tasks getTaskById(BigDecimal taskId) {
         log.debug("getTaskById.START");
         try {
-            // session.getTransaction().begin();
+            session.getTransaction().begin();
             String sql = "from Tasks where taskid = :taskId";
             Query query = session.createQuery(sql);
             query.setParameter("taskId", taskId);
             Tasks task = (Tasks) query.uniqueResult();
-            // session.flush();
-            // session.getTransaction().commit();
+            session.flush();            
             System.out.println("getTaskById.end");
             return task;
         } catch (Exception e) {
@@ -101,13 +120,11 @@ public class TaskDAO {
     public List<Stage> getAllStage() {
         log.debug("getAllStage.START");
         try {
-            // session.getTransaction().begin();
+            session.getTransaction().begin();
             String sql = "from Stage";
             Query query = session.createQuery(sql);
             List<Stage> stageList = query.list();
-
-            // session.flush();
-            // session.getTransaction().commit();
+            session.flush();            
             System.out.println("getAllStage.end");
             return stageList;
         } catch (Exception e) {
@@ -123,9 +140,11 @@ public class TaskDAO {
     public List<Project> getAllProject() {
         log.debug("getAllProject.START");
         try {
+            session.getTransaction().begin();
             String sql = "from Project";
             Query query = session.createQuery(sql);
             List<Project> projectList = query.list();
+            session.flush();
             return projectList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -140,11 +159,11 @@ public class TaskDAO {
     public List<Workproduct> getAllProduct() {
         log.debug("getAllProduct.START");
         try {
-
+            session.getTransaction().begin();
             String sql = "from Workproduct";
             Query query = session.createQuery(sql);
             List<Workproduct> productList = query.list();
-
+            session.flush();
             return productList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -159,11 +178,11 @@ public class TaskDAO {
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
         try {
-
+            session.getTransaction().begin();
             String sql = "from Process";
             Query query = session.createQuery(sql);
             List<Process> processList = query.list();
-
+            session.flush();
             System.out.println("getAllProcess.end");
             return processList;
         } catch (Exception e) {
@@ -182,23 +201,21 @@ public class TaskDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Developer> getDeveloper(String projectId) {
-        log.debug("getAssignment.START");
+        log.debug("getDeveloper.START");
         try {
-            // session.getTransaction().begin();
+            session.getTransaction().begin();
             String sql = "select developer from Assignment ass where ass.project.projectId = :projectId";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             List<Developer> developerList = query.list();
             session.flush();
-            session.getTransaction().commit();
-
             System.out.println("getAssignment.end");
             return developerList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            log.error("getAllProcess.Exception", e);
+            log.error("getDeveloper.Exception", e);
         }
         return null;
     }
@@ -249,8 +266,11 @@ public class TaskDAO {
         try {
             session.getTransaction().begin();
             // Tasks task = (Tasks) session.get(Tasks.class, id);
-            if(editTask.getStatusid().equals(new BigDecimal(2))){
-                editTask.setActualDate(editTask.getPlanDate());
+            if (editTask.getStatusid().equals(new BigDecimal(2))) {
+                // not sure
+                Calendar cal = Calendar.getInstance();
+                editTask.setActualDate(cal.getTime());
+                editTask.setEffort(editTask.getCurrenteffort());
             }
             session.update(editTask);
             session.flush();

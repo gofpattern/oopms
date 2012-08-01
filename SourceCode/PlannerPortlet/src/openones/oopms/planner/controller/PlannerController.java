@@ -44,6 +44,7 @@ public class PlannerController {
     private List<Project> projectList;
     static String projectDefault;
     private String statusDefault;
+    private boolean check = true;
 
     /**
      * Create bean for form.
@@ -74,32 +75,31 @@ public class PlannerController {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
         ModelAndView mav = new ModelAndView("TaskManager");
-
-        // formBean.setProjectId("118385");
-
-        if (formBean.getInit()) {
-            formBean.setStatusDefault("All");
-            formBean.setStageDefault("All");
-            formBean.setDeveloperDefault("All");
+        log.debug("request.getParameter.projectId" + request.getParameter("projectId"));
+        
+        // for getting from PlannerHome
+        if(check){
+            projectDefault = request.getParameter("projectId");
+            check = false;
         }
-
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
         Map<String, String> projectMap = new LinkedHashMap<String, String>();
-
-        statusList = taskDAO.getAllStatus();
-
-        if (formBean.getInit())
-            taskList = taskDAO.getAllTask();
-
-        stageList = taskDAO.getAllStage();
-        projectList = taskDAO.getAllProject();
-        processList = taskDAO.getAllProcess();
-
-        // get developer form first project
-        projectDefault = projectList.get(0).getProjectId().toString();
-        developerList = taskDAO.getDeveloper(projectDefault);
+        
+        if (formBean.getInit()) {
+            
+            formBean.setStatusDefault("All");
+            formBean.setStageDefault("All");
+            formBean.setDeveloperDefault("All");
+            
+            statusList = taskDAO.getAllStatus();
+            taskList = taskDAO.getTasksByProjectId(projectDefault);
+            stageList = taskDAO.getAllStage();
+            projectList = taskDAO.getAllProject();
+            processList = taskDAO.getAllProcess();
+            developerList = taskDAO.getDeveloper(projectDefault);
+        }
 
         // set value for statusMap
         statusMap.put(formBean.getStatusDefault(), "All");
@@ -125,6 +125,7 @@ public class PlannerController {
         }
 
         // Set value for projectMap
+        projectMap.put(projectDefault," ");
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
@@ -161,7 +162,7 @@ public class PlannerController {
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
                 taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
-                if(taskList.get(i).getStatusid().equals(new BigDecimal(2)))
+                if (taskList.get(i).getStatusid().equals(new BigDecimal(2)))
                     taskList.get(i).setActualDate_str(dateFormat.format(taskList.get(i).getActualDate()));
             }
 
@@ -226,8 +227,8 @@ public class PlannerController {
     }
 
     @ActionMapping(params = "action=search")
-    public void processSearchByStatus(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
-            SessionStatus status, ActionResponse response) {
+    public void processSearchByStatus(PlannerForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
         log.debug("processSearchByStatus.START");
         for (int i = 0; i < taskList.size(); i++) {
             taskList.get(i).setVisible(true);
@@ -256,9 +257,25 @@ public class PlannerController {
     }
 
     @RenderMapping(params = "action=search")
-    public void postSearchByStatus(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
-            SessionStatus status, ActionResponse response) {
+    public void postSearchByStatus(PlannerForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
         log.debug("postSearchByStatus.START");
+    }
+
+    @ActionMapping(params = "action=changeProject")
+    public void processChangeProject(PlannerForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
+        log.debug("processChangeProject.START");
+        projectDefault = formBean.getProjectId();
+        log.debug("projectDefault = " + projectDefault);
+        formBean.setInit(true);
+        response.setRenderParameter("action", "taskmanager");
+    }
+
+    @RenderMapping(params = "action=changeProject")
+    public void postChangeProject(PlannerForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
+        log.debug("postChangeProject.START");
     }
 
 }
