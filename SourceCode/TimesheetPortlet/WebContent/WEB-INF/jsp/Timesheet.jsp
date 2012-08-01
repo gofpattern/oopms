@@ -224,7 +224,9 @@ function submitAction(formName, actionUrl) {
   action="${timesheetFormAction2}">
   <p><input type="submit" id="Search" class="button green small"
     name="Add" value="Add" /></p>
-    <div id="errorDiv" align="center" style=" display: none; ">         
+     <c:if test="${not empty timesheetError}"> <label id="noSelect" style="display: inline; color: red;">${timesheetError}</label><br></c:if>    
+    <div id="errorDiv" align="center" style=" display: none; ">    
+       
            <label id="formatFromDate" style="display: none; color: red;">Please input correct format from date.  </label><br>
               <label id="formatToDate" style="display: none; color: red;">Please input correct format to date.  </label>
     </div><br>
