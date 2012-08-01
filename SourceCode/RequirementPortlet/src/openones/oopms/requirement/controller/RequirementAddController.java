@@ -116,13 +116,12 @@ public class RequirementAddController {
         
         if (!result.hasErrors()) {
             // Prepare parameter to render phase
-            log.debug("ValidationError");
+            log.debug("ValidationOk");
             response.setRenderParameter("action", "Save");
         } else {
-            log.error("Error in binding result:" + result.getErrorCount());
-            
-            // Re-display the Add Defect screen with errors
-            log.debug("ValidationOk");
+            log.error("Error in binding result:" + result.getErrorCount());            
+            // Re-display the Add Defect screen with errors            
+            log.debug("ValidationError: "+result.toString());
             response.setRenderParameter("action", "Save");
         }        
     }

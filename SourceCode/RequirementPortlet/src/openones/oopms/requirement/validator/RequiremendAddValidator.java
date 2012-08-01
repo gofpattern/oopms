@@ -51,8 +51,9 @@ public class RequiremendAddValidator extends BaseValidator implements Validator 
     public void validate(Object target, Errors errors) {
         log.debug("validate.START");
 
-        RequirementAddForm bean = (RequirementAddForm) target;
-
+        //RequirementAddForm bean = (RequirementAddForm) target;
+        
+        log.debug("requirementNameValidator");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "requirementName", "NotEmpty.req.name");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "reqSize", "NotEmpty.req.size");
 

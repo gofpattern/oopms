@@ -68,6 +68,71 @@
 		}
 		return;
 	}
+	
+	function fnFeaturesInit ()
+    {
+        /* Not particularly modular this - but does nicely :-) */
+        $('ul.limit_length>li').each( function(i) {
+            if ( i > 10 ) {
+                this.style.display = 'none';
+            }
+        } );
+        
+        $('ul.limit_length').append( '<li class="css_link">Show more<\/li>' );
+        $('ul.limit_length li.css_link').click( function () {
+            $('ul.limit_length li').each( function(i) {
+                if ( i > 5 ) {
+                    this.style.display = 'list-item';
+                }
+            } );
+            $('ul.limit_length li.css_link').css( 'display', 'none' );
+        } );
+    }
+	
+	$(document).ready( function() {
+        // Listen for click on toggle checkbox
+        $('#select-all').click(function(event) {   
+            if(this.checked) {
+                // Iterate each checkbox
+                $(':checkbox').each(function() {
+                    this.checked = true;                        
+                });
+            } else { 
+             $(":checkbox").each(function() { this.checked = false; }); 
+             }
+        });             
+              $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
+                    $(this).toggleClass('selected');
+                    if (event.target.type !== 'checkbox') {
+                      $(':checkbox', this).attr('checked', function() {
+                        return !this.checked;
+                      });
+                    }
+                  });
+                  $( "#datepicker1" ).datepicker({
+                            showOn: "button",
+                            buttonImage: "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
+                            buttonImageOnly: true
+                        });
+                        $( "#datepicker2" ).datepicker({
+                            showOn: "button",
+                            buttonImage: "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
+                            buttonImageOnly: true
+                        });
+                        $( "#selectable" ).selectable();
+            fnFeaturesInit();
+            $('#mainTable2').dataTable( {
+                "bFilter": true,
+                "bSort": true,
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers"
+            } );
+            
+            SyntaxHighlighter.config.clipboardSwf = 'media/javascript/syntax/clipboard.swf';
+            SyntaxHighlighter.all();
+            
+        } );
+	
 </script>
 
 <style type="text/css">
@@ -138,7 +203,7 @@
           <td width="697" height="92">&nbsp;</td>
           <td width="251" valign="top">
             <p>
-              Hello Duy , <a href="HomePage.html">Log Out</a>
+              Hello, <a href="HomePage.html">Log Out</a>
             </p>
             <p>
               <a href="UserDetail.html">Change your Information</a></br> <a href="Create Project.html">Create new Project</a>
@@ -156,33 +221,10 @@
       <portlet:param name="action" value="goAddNewRequirement" />
     </portlet:renderURL>
     
-    
-    
-
+       
 
     <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
-      <div class="content">
-
-<!-- Module link -->
-<!--   
-<div id="tabs28">      
-<ul>
-  <h5>
-<li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
-<li><a><span>Time Sheet</span></a></li>
-<li><a><span>Project Planner</span></a></li>
-<li><a><span>DMS</span></a></li>
-<li><a><span>Report</span></a></li>
-<li><a href="RiskIssue.html"><span>Risk, Issue</span></a></li>
-<li><a href="ChangeRequest.html"><span>Change Request</span></a></li>
-<li><a href="Cost.html"><span>Cost</span></a></li>
-<li><a><span>Requirement</span></a></li>
-<li><a href="Product.html"><span>Product</span></a></li>
-<li><a href="WorkOrder.html"><span>Work Order</span></a></li>
-  </h5>
-</ul>
-</div>
--->
+      <table >
 
         <h1>Requirement Management</h1>
 
@@ -190,10 +232,10 @@
         <!-- Search drop down list -->
         <table>
           <tr>
-            <td><b>&nbsp;&nbsp;Type&nbsp;&nbsp;</b></td>
-            <td><b>&nbsp;&nbsp;Project Name &nbsp;&nbsp;</b></td>
-            <td><b>&nbsp;&nbsp;Size&nbsp;</b></td>
-            <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
+            <td><b>&nbsp;Type&nbsp;</b></td>
+            <td><b>&nbsp;Project Name &nbsp;</b></td>
+            <td><b>&nbsp;Size&nbsp;</b></td>
+            <td><b>&nbsp;Sort&nbsp;by&nbsp;</b></td>
           </tr>
           <tr>
             <td><select class="styled" class="SmallCombo">
@@ -223,45 +265,33 @@
                 <option value="4">Tested Date</option>
                 <option value="5">Deployed Date</option>
             </select></td>
-            <!-- 
-            <td><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${sortRequirement}")' value="Sort"
-              type="button"></td>         
-               -->    
+            
           </tr>
         </table>
 
         <c:set var="list" value="${requirementList}" />
         <c:if test="${not empty list}">
-          <table width="800" border="1">
-
+      <table id="mainTable2" class="display dataTable" cellpadding="0"
+    cellspacing="0" border="0">
             <!-- TABLE HEADER -->
+            <thead>
             <tr>
               <th scope="col">No</th>
               <th scope="col">Requirement Name</th>
               <th scope="col">Project Name</th>
               <th scope="col">Type</th>
               <th scope="col">Size</th>
-              <th scope="col"><table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td></td>
-                    <td>Effort</td>
-                  </tr>
-                </table></th>
+              <th scope="col">Effort</th>
               <th scope="col">SRS</th>
-              <th scope="col"><table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td></td>
-                    <td nowrap="nowrap">Created Date</td>
-                  </tr>
-                </table></th>
+              <th scope="col">Created Date</th>
               <th scope="col">Response Date</th>
               <th scope="col">Action</th>
-            </tr>
-
+             </tr>
+             </thead>
+             <tbody>
             <tr>
-              <td>0</td>
-              <td><a href="RequirementUpdate.html">Requirement A</a></td>
+              <td>-1</td>
+              <td>Requirement A</td>
               <td>Test</td>
               <td>3</td>
               <td>2</td>
@@ -274,7 +304,7 @@
 
             <tr>
               <td>0</td>
-              <td><a href="RequirementUpdate.html">Requirement B</a></td>
+              <td>Requirement B</td>
               <td>Test_Demo</td>
               <td>4</td>
               <td>4</td>
@@ -303,13 +333,13 @@
                 </form>
               </tr>
             </c:forEach>
-
+            </tbody>
           </table>
         </c:if>
 
 
         <!-- end .content -->
-      </div>
+      </table>
 
       <br>
 
