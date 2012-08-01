@@ -33,6 +33,7 @@ public class Tasks implements java.io.Serializable {
     private BigDecimal currenteffort;
     private BigDecimal projectid;
     private BigDecimal statusid;
+    private boolean active;
 
     private String status_str;
     private String product_str;
@@ -422,4 +423,21 @@ public class Tasks implements java.io.Serializable {
         this.actualDate_str = actualDate_str;
     }
 
+    /**
+     * Get value of active.
+     * @return the active
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * Set the value for active.
+     * @param active the active to set
+     */
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    
 }

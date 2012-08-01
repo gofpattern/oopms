@@ -83,7 +83,7 @@ public class TaskDAO {
         log.debug("getTaskByProjectId.START");
         try {
             session.getTransaction().begin();
-            String sql = "from Tasks where projectid = :projectId";
+            String sql = "from Tasks where projectid = :projectId and active = true";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             @SuppressWarnings("unchecked")
@@ -245,7 +245,10 @@ public class TaskDAO {
     public void deleteTask(BigDecimal id) {
         try {
             session.getTransaction().begin();
-            session.delete(session.get(Tasks.class, id));
+            Tasks task = (Tasks) session.get(Tasks.class, id);
+            task.setActive(false);
+            // session.delete(session.get(Tasks.class, id));
+            session.update(task);
             session.flush();
             session.getTransaction().commit();
         } catch (Exception e) {
