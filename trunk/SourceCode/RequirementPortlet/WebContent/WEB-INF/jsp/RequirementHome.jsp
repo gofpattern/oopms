@@ -21,6 +21,7 @@
 <link rel="StyleSheet" href="resource_files/pcal.css" type="text/css">
 
 <title>Requirement Home</title>
+<jsp:include page="header.jsp" />
 
 <script language="javascript">
 	function doRefresh() {
@@ -127,7 +128,7 @@
 </head>
 <body>
 
-  <script type="text/javascript" src='/RequirementModule/scripts/common.js'></script>
+  <script type="text/javascript" src='/RequirementPortlet/scripts/common.js'></script>
 
   <div class="container">
 
@@ -149,23 +150,14 @@
 
     <portlet:actionURL var="formAction">
       <portlet:param name="action" value="search" />
-    </portlet:actionURL>
-    
-    <portlet:renderURL var="goAddNewRequirement">
-      <portlet:param name="action" value="goAddNewRequirement" />
-    </portlet:renderURL>
+    </portlet:actionURL>        
     
     <portlet:renderURL var="goAddNewRequirementAction">
       <portlet:param name="action" value="goAddNewRequirement" />
     </portlet:renderURL>
     
     
-    <portlet:renderURL var="sortRequirement">
-      <portlet:param name="action" value="sort" />
-    </portlet:renderURL>
-    <portlet:actionURL var="sortRequirementAction">
-      <portlet:param name="action" value="sortAction" />
-    </portlet:actionURL>
+    
 
 
     <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
@@ -231,18 +223,11 @@
                 <option value="4">Tested Date</option>
                 <option value="5">Deployed Date</option>
             </select></td>
+            <!-- 
             <td><input name="RequirementAdd" class="Button"
               onclick='submitAction("${portletNamespace}RequirementHome", "${sortRequirement}")' value="Sort"
-              type="button"></td>
-              <td><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${sortRequirementAction}")' value="Sort Action"
-              type="button"></td>              
-            <td><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")' value="Add New Action"
-              type="button"></td>
-              <td><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirement}")' value="Add New"
-              type="button"></td>
+              type="button"></td>         
+               -->    
           </tr>
         </table>
 
@@ -339,18 +324,7 @@
               type="button"> <input name="Refresh" class="Button" onclick="javascript:doRefresh()"
               value="Refresh" type="button"> <input name="ExportDefect" class="Button"
               onclick="javascript:doExport()" value="Export" type="button"></td>
-          </tr>
-          <tr>
-            <td></td>
-          </tr>
-          <tr>
-            <td align="left" width="50%">Move Requirement(s) to project&nbsp; <form:select cssClass="styled"
-                path="projectDefault" multiple="single">
-                <c:set var="projectMap" value="${projectMap}" />
-                <form:options items="${projectMap}" />
-              </form:select>&nbsp;<input name="MoveDefect" class="Button" onclick="javascript:doMoveDefect()" value="Move Requirement"
-              type="button"></td>
-          </tr>
+          </tr>                  
 
         </tbody>
       </table>
