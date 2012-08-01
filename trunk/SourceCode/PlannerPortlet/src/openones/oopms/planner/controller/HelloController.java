@@ -18,6 +18,16 @@
  */
 package openones.oopms.planner.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.portlet.RenderRequest;
+
+import openones.oopms.planner.dao.AssignmentDAO;
+import openones.oopms.planner.dao.DeveloperDAO;
+import openones.oopms.planner.model.Project;
+import openones.portlet.PortletSupport;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,19 +35,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author PNTG
  */
- @Controller
- @RequestMapping("VIEW")
+@Controller
+@RequestMapping("VIEW")
 public class HelloController {
     private static Logger log = Logger.getLogger(PlannerController.class);
+    public static String username;
+
     /**
      * Default screen.
      * @return name of view which is the name of the JSP page.
      */
-     @RequestMapping
-     public String initScreen() {
-     log.debug("initScreen.START");
-     // Display hello.jsp
-     return "hello";
-     }
+    @RequestMapping
+    public String initScreen(RenderRequest request) {
+        log.debug("initScreen.START");
+        PortletSupport portletSupport = new PortletSupport(request);
+        username = portletSupport.getLogonUser();
+        AssignmentDAO assignmentDAO = new AssignmentDAO();
+        DeveloperDAO developerDAO = new DeveloperDAO();
+        BigDecimal developerId = developerDAO.getDeveloperId(username);
+        List<Project> projectList = assignmentDAO.getProject(developerId);
+        request.setAttribute("projectList", projectList);
+
+        // Display PlannerHome.jsp
+        return "PlannerHome";
+    }
 
 }
