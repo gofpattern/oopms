@@ -7,21 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link type="text/css"
-  href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css"
-  rel="Stylesheet" />
-<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />
-<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />
-<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript"
-  src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/common.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
-
-
+<jsp:include page="header.jsp" />
 <script type="text/javascript">
 	$(function() {
 		$("#add-form-startDate")
@@ -133,7 +119,7 @@
 						});
 
 						fnFeaturesInit();
-						$('#taskTable').dataTable({
+						$('#mainTable2').dataTable({
 							"bFilter" : true,
 							"bSort" : true,
 							"bJQueryUI" : true,
@@ -163,7 +149,6 @@
 	rules[18] = 'task.currenteffort:Current Effort|required';
 	rules[19] = 'task.currenteffort:Current Effort|numeric';
 	rules[20] = 'task.description:Description|required';
-	rules[21] = 'task.taskname:Title|minlength|10';
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('actualDate', 'Provide your Finish Date');
@@ -176,40 +161,6 @@
 	yav.addHelp('task.statusid', 'Provide your Task Status');
 	yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
-<style type="text/css">
-#portal #portalPageBodyInner .content #content_planner .portlet-table {
-  font-size: 12px;
-}
-
-#portal #portalPageBodyInner .content #content_planner table {
-  font-size: 12px;
-}
-
-.hidden-add-form {
-  webkit-box-shadow: rgb(170, 170, 170) 0px 0px 5px 0px;
-  background-attachment: scroll;
-  background-color: #EFEFEF;
-  background-origin: padding-box;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: rgb(170, 170, 170) 0px 0px 5px 0px;
-  color: #505050;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  height: auto;
-  margin-bottom: 20px;
-  margin-left: 50px;
-  margin-right: 0px;
-  margin-top: 0px;
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-top: 25px;
-  width: 900px;
-}
-</style>
 </head>
 <body id="portal" class="up fl-theme-mist"">
   <div class="container" id="portalPageBodyInner">
@@ -335,7 +286,6 @@
               <td><b>&nbsp;&nbsp;Stage&nbsp;&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Assigned&nbsp;To&nbsp;&nbsp;</b></td>
               <td><b>&nbsp;&nbsp;Status&nbsp;</b></td>
-              <td><b>&nbsp;&nbsp;Sort&nbsp;by&nbsp;&nbsp;</b></td>
             </tr>
             <tr>
               <td><form:select path="projectId" multiple="single" onchange='submitAction("searchTask", "${changeProjectAction}")'>
@@ -350,16 +300,12 @@
               <td><form:select path="statusDefault" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${statusMap}" />
                 </form:select></td>
-              <td width="10%"><select class="styled" onchange="showAlert()">
-                  <option selected="selected" value="0">Status</option>
-                  <option value="1">Remaining&nbsp;Time</option>
-                  <option value="2">Completeness&nbsp;Rate</option>
-              </select></td>
               <td width="56%"></td>
             </tr>
           </table>
         </form:form>
-        <table class="portlet-table" id="taskTable">
+        <table id="mainTable2" class="display dataTable" cellpadding="0"
+    cellspacing="0" border="0">
           <thead>
             <tr>
               <!-- TABLE HEADER -->
