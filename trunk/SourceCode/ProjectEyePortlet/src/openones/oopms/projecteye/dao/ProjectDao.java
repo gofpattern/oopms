@@ -28,7 +28,7 @@ public class ProjectDao {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
-			String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId)";
+			String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId and endDate is null )";
 			Query query = session.createQuery(hql);
 			query.setParameter("devId", developerId);
 			List<Project> projectList = query.list();
@@ -62,11 +62,50 @@ public class ProjectDao {
 			tx.commit();
 			sessfac.close();
 		} catch (Exception e) {
-			log.error("Insert deo duoc");
+			log.error("Insert fail");
 			log.error(e.getMessage());
 			return false;
 		}
-		log.error("Insert ngon");
+		log.error("Insert succeed");
+		return true;
+	}
+	
+	public boolean updateProject(Project project) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.merge(project);
+			session.flush();
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Update fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert succeed");
+		return true;
+	}
+	
+	public boolean deleteProject(String projectId) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			String hql = "delete From Project where projectId = :projectId)";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			query.executeUpdate();
+			session.flush();
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Delete fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Delete succeed");
 		return true;
 	}
 

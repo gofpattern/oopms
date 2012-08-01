@@ -18,6 +18,8 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
+import openones.oopms.projecteye.utils.Constant;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -72,8 +75,34 @@ public class ProjectEyeHomeController {
 		ProjectDao pDao = new ProjectDao();
 		DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(username);
+		AssignmentDao aDao = new AssignmentDao();
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
-		request.setAttribute("projectList", projectList);
+		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
+		for(int i=0;i<projectList.size();i++) {
+			ProjectEyeHomeForm temp = new ProjectEyeHomeForm();
+			temp.setProjectId(projectList.get(i).getProjectId().toString());
+			temp.setCode(projectList.get(i).getCode());
+			temp.setName(projectList.get(i).getName());
+			Assignment role = aDao.getUserRole(projectList.get(i), dev.getDeveloperId());
+			temp.setRole(String.valueOf(role.getType()));
+			if(Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Customer");
+			} else if(Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Developer");
+			} else if(Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Manager");
+			}else if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner and Project Manager");
+			}else if(Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner");
+			}else if(Constant.QAType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("QA");
+			} else if(Constant.TesterType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Tester");
+			}
+			projectRoleList.add(temp);
+		}
+		request.setAttribute("projectList", projectRoleList);
 		return "ProjectEyeHome";
 
 	}
@@ -195,6 +224,90 @@ public class ProjectEyeHomeController {
 
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=DeleteProject")
+	public ModelAndView postDeleteProject(RenderRequest request) {
+		String projectId = request.getParameter("projectId");
+		ProjectDao pDao = new ProjectDao();
+//		pDao.deleteProject(projectId);
+		// return to homepage
+		DeveloperDao dDao = new DeveloperDao();
+		Developer dev = dDao.getDeveloper(username);
+		AssignmentDao aDao = new AssignmentDao();
+		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
+		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
+		for(int i=0;i<projectList.size();i++) {
+			ProjectEyeHomeForm temp = new ProjectEyeHomeForm();
+			temp.setProjectId(projectList.get(i).getProjectId().toString());
+			temp.setCode(projectList.get(i).getCode());
+			temp.setName(projectList.get(i).getName());
+			Assignment role = aDao.getUserRole(projectList.get(i), dev.getDeveloperId());
+			temp.setRole(String.valueOf(role.getType()));
+			if(Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Customer");
+			} else if(Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Developer");
+			} else if(Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Manager");
+			}else if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner and Project Manager");
+			}else if(Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner");
+			}else if(Constant.QAType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("QA");
+			} else if(Constant.TesterType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Tester");
+			}
+			projectRoleList.add(temp);
+		}
+		//
+		ModelAndView mav = new ModelAndView("ProjectEyeHome");
+		mav.addObject("projectList", projectRoleList);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=LeaveProject")
+	public ModelAndView postLeaveProject(RenderRequest request) {
+		String projectId = request.getParameter("projectId");
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		ProjectDao pDao = new ProjectDao();
+		DeveloperDao dDao = new DeveloperDao();
+		Developer dev = dDao.getDeveloper(username);
+		AssignmentDao aDao = new AssignmentDao();
+		aDao.removeTeamMember(project, dev.getDeveloperId());
+		//return to homepage
+		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
+		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
+		for(int i=0;i<projectList.size();i++) {
+			ProjectEyeHomeForm temp = new ProjectEyeHomeForm();
+			temp.setProjectId(projectList.get(i).getProjectId().toString());
+			temp.setCode(projectList.get(i).getCode());
+			temp.setName(projectList.get(i).getName());
+			Assignment role = aDao.getUserRole(projectList.get(i), dev.getDeveloperId());
+			temp.setRole(String.valueOf(role.getType()));
+			if(Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Customer");
+			} else if(Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Developer");
+			} else if(Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Manager");
+			}else if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner and Project Manager");
+			}else if(Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner");
+			}else if(Constant.QAType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("QA");
+			} else if(Constant.TesterType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Tester");
+			}
+			projectRoleList.add(temp);
+		}
+		//
+		ModelAndView mav = new ModelAndView("ProjectEyeHome");
+		mav.addObject("projectList", projectRoleList);
 		return mav;
 	}
 }

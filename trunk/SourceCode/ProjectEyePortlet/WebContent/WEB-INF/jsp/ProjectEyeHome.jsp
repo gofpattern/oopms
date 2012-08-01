@@ -35,25 +35,56 @@
 <portlet:renderURL var="formAction">
   <portlet:param name="action" value="GoCreateProject" />
 </portlet:renderURL>
-<a href="${formAction} "><button type="submit" class="button blue small" name="Submit" value="Submit">Create New Project</button></a>
+<form:form name="${portletNamespace}ProjectEyeHome" method="post" action="${formAction}" >
+</form:form>
+  <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${formAction}")'>Create New Project</button>
 <br/>
 <table class="portlet-table">
 
 	<c:if test="${not empty projectList}">
    <tbody><tr >
-        <th width="70%" scope="row">Project Name</th>    
-        <th width="30%" scope="row">Project Code</th>    
+   		<th width="5%" scope="row">No</th>
+        <th width="30%" scope="row">Project Name</th>    
+        <th width="10%" scope="row">Project Code</th> 
+        <th width="30%" scope="row">Your role in project</th>
+        <th width="25%" scope="row">Action</th>   
     </tr>
     
   
-        <c:forEach var="project" items="${projectList}">
+        <c:forEach var="project" items="${projectList}" varStatus="count">
             <tr>
             <portlet:renderURL var="renderAction">
             	<portlet:param name="action" value="GoProjectDetail" />
             	<portlet:param name="projectId" value="${project.projectId}" />
             </portlet:renderURL>
+            <portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="DeleteProject" />
+            	<portlet:param name="projectId" value="${project.projectId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="LeaveProject" />
+            	<portlet:param name="projectId" value="${project.projectId}" />
+            </portlet:renderURL>
+               <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction}">${project.name}</a></td>
-               <td scope="row"><a href="${renderAction}">${project.code}</a></td>                                    
+               <td scope="row"><a href="${renderAction}">${project.code}</a></td>
+               <td scope="row">${project.roleString}</td>
+               <td scope="row">
+               <c:if test="${project.role != 0 }">
+               	<c:if test="${project.role != 1 }">
+               	 <c:if test="${project.role != 6 }">
+               	 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${renderAction3}")'>Leave this project</button>
+               	 </c:if>
+               	</c:if>
+               </c:if>
+               <c:if test="${project.role == 0 }">
+               		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${renderAction2}")'>Delete this project</button>
+               </c:if>
+               <c:if test="${project.role == 6 }">
+               		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${renderAction2}")'>Delete this project</button>
+               </c:if>
+               
+               </td>                                      
             </tr>
         </c:forEach>
    </tbody>

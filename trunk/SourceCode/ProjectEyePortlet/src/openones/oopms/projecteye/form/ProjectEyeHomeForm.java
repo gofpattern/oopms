@@ -23,6 +23,70 @@ package openones.oopms.projecteye.form;
  * @author HaiTCT
  */
 public class ProjectEyeHomeForm {
-
-
+	private String projectId;
+    private String name;
+    private String code;
+    private String roleString;
+    private String role;
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	/**
+	 * @return the roleString
+	 */
+	public String getRoleString() {
+		return roleString;
+	}
+	/**
+	 * @param roleString the roleString to set
+	 */
+	public void setRoleString(String roleString) {
+		this.roleString = roleString;
+	}
+	/**
+	 * @return the role
+	 */
+	public String getRole() {
+		return role;
+	}
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(String role) {
+		this.role = role;
+	}
+    
 }
