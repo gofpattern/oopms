@@ -21,7 +21,7 @@ public class CreateProjectValidator {
 		} else {
 			ProjectDao pDao = new ProjectDao();
 			if (pDao.checkDuplicateProjectCode(bean.getProjectCode())) {
-				error = error + "Project Code has already in used" + "<br/>";
+				error = error + "This project Code has already in used, please choose another one" + "<br/>";
 			}
 		}
 		// validate Project Name
