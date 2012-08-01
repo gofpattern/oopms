@@ -19,6 +19,7 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,11 +30,15 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.AssignmentDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
+import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.form.AssignProjectManagerForm;
 import openones.oopms.projecteye.form.TeamManagement;
 import openones.oopms.projecteye.form.TeamManagementForm;
+import openones.oopms.projecteye.form.UpdateProjectForm;
 import openones.oopms.projecteye.model.Assignment;
+import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.Constant;
 
@@ -56,18 +61,64 @@ public class ProjectDetailController {
 	Developer user = new Developer();
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(ProjectDetailController.class);
-
-	@ActionMapping(params = "action=goUpdateProject")
-    public void processGoUpdateProject(BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("process goUpdateProject.START");
-        response.setRenderParameter("action", "goUpdateProject");    
-    }
     
     @RenderMapping(params = "action=goUpdateProject")
     public ModelAndView postGoUpdateProject(RenderRequest request) {
-        log.debug("post goUpdateProject.START");
-        ModelAndView mav = new ModelAndView("UpdateProject");
-        String projectId = request.getParameter("projectId");
+    	log.debug("post GoCreateProject.START");
+    	String projectId = request.getParameter("projectId");
+		ProjectDao pDao = new ProjectDao();
+		Project project = pDao.getProject(projectId);
+    	DeveloperDao dDao = new DeveloperDao();
+		Developer developer = dDao.getProjectManager(project);
+		// get category List
+		List<GeneralReference> projectCategoryList = pDao
+				.getProjectCategoryList();
+		Map<String, String> projectCategoryMap = new LinkedHashMap<String, String>();
+		projectCategoryMap.put(null, " ");
+		for (int i = 0; i < projectCategoryList.size(); i++) {
+			projectCategoryMap.put(projectCategoryList.get(i).getGeneralRefId()
+					.toString(), projectCategoryList.get(i).getDescription());
+		}
+		// get Status list
+		List<GeneralReference> projectStatusList = pDao.getProjectStatusList();
+		Map<String, String> projectStatusMap = new LinkedHashMap<String, String>();
+		projectStatusMap.put(null, " ");
+		for (int i = 0; i < projectStatusList.size(); i++) {
+			projectStatusMap.put(projectStatusList.get(i).getGeneralRefId()
+					.toString(), projectStatusList.get(i).getDescription());
+		}
+
+		// get Bussiness domain list
+		List<BusinessDomain> projectBussinessDomainList = pDao
+				.getProjectBussinessDomainList();
+		Map<String, String> projectBussinessDomainMap = new LinkedHashMap<String, String>();
+		projectBussinessDomainMap.put(null, " ");
+		for (int i = 0; i < projectBussinessDomainList.size(); i++) {
+			projectBussinessDomainMap.put(projectBussinessDomainList.get(i)
+					.getDomainId().toString(), projectBussinessDomainList
+					.get(i).getDomainName());
+		}
+		// set value for form
+		UpdateProjectForm formBean= new UpdateProjectForm();
+		formBean.setProjectName(project.getName());
+		DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
+   		String formattedDate = df.format(project.getPlanStartDate());
+		formBean.setPlanStartDate(formattedDate);
+		formattedDate = df.format(project.getPlanFinishDate());
+		formBean.setPlanEndDate(formattedDate);
+		formBean.setScopeObjective(project.getDescription());
+		formBean.setProjectCode(project.getCode());
+		formBean.setBusinessDomain_SelectedValue(project.getProjectTypeCode());
+		formBean.setCustomer(project.getCustomer());
+		formBean.setEndCustomer(project.getCustomer2nd());
+		formBean.setProjectCategory_SelectedValue(project.getProjectCategoryCode());
+		formBean.setProjectStatus_SelectedValue(project.getProjectStatusCode());
+		formBean.setManager(developer.getName());
+		
+		ModelAndView mav = new ModelAndView("UpdateProject","UpdateProjectForm",formBean);
+		mav.addObject("projectStatus", projectStatusMap);
+		mav.addObject("projectCategory", projectCategoryMap);
+		mav.addObject("businessDomain", projectBussinessDomainMap);
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
