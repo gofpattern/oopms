@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
@@ -36,6 +37,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+
+import rocky.common.PropertiesManager;
 
 /**
  * Controller for handling all action related to Timesheet System
@@ -81,6 +84,8 @@ public class TimesheetController {
     String projectDefault ="";
     // Project status
     String projectStatus ="";
+    // Timesheet Error
+    String timesheetError="";
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(TimesheetController.class);
 
@@ -89,7 +94,7 @@ public class TimesheetController {
      * timesheet page
      * @return name of view which is the name of the JSP page.
      */
-    private boolean error = false;
+   
 
     @RequestMapping
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
@@ -240,7 +245,7 @@ public class TimesheetController {
         session.setAttribute("USERID", user.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("USER", user.getAccount(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);
-      
+        mav.addObject("timesheetError",timesheetError);
         mav.addObject("ROLE",role);
         // Search all timesheet record from database
         TimesheetDao timeDao = new TimesheetDao();
@@ -285,6 +290,7 @@ public class TimesheetController {
 
         for (int i = 0; i < timesheetList.size(); i++) {
             processCode = Integer.parseInt(timesheetList.get(i).getProcessId().toString());
+            System.out.println("process code : " +processCode);
             towCode = Integer.parseInt(timesheetList.get(i).getTowId().toString());
             timesheetList.get(i).setProcessName(processList.get(processCode - 1).getName());
             timesheetList.get(i).setTowName(towList.get(towCode - 1).getName());
@@ -496,7 +502,7 @@ public class TimesheetController {
     public void processAddTimesheetToDB(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws IOException, ParseException {
         Timesheet timesheet;
-        error = false;
+       
         List<Timesheet> timesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = formBean.getTimesheetList();
         for (int i = 0; i < tempList.size(); i++) {
@@ -526,20 +532,32 @@ public class TimesheetController {
      * @param result
      * @param status
      * @param response
+     * @throws IOException 
      */
     
     @ActionMapping(params = "action=goUpdateTimesheet")
     public void processGoUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) {
+            ActionResponse response) throws IOException {
         updateTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        for (int i = 0; i < tempList.size(); i++) {
-            if (tempList.get(i).getTimesheetId() != null) {
-                updateTimesheetList.add(tempList.get(i));
-            }
+        if(tempList == null) {
+            Properties props = PropertiesManager.newInstanceFromProps("/messages.properties");
+            
+            timesheetError = props.getProperty("timesheet.error.noselect");
+           
+            response.setRenderParameter("action", "init");
         }
-        response.setRenderParameter("action", "goUpdateTimesheet");
+        else {
+            timesheetError = "";
+            for (int i = 0; i < tempList.size(); i++) {
+                if (tempList.get(i).getTimesheetId() != null) {
+                    updateTimesheetList.add(tempList.get(i));
+                }            
+            }
+            response.setRenderParameter("action", "goUpdateTimesheet"); 
+        }
+       
 
     }
     
@@ -549,20 +567,32 @@ public class TimesheetController {
      * @param result
      * @param status
      * @param response
+     * @throws IOException 
      */
     
     @ActionMapping(params = "action=goRejectTimesheet")
     public void processGoRejectTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) {
+            ActionResponse response) throws IOException {
         rejectTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        for (int i = 0; i < tempList.size(); i++) {
-            if (tempList.get(i).getTimesheetId() != null) {
-                rejectTimesheetList.add(tempList.get(i));
-            }
+        if(tempList == null) {
+            Properties props = PropertiesManager.newInstanceFromProps("/messages.properties");
+            
+            timesheetError = props.getProperty("timesheet.error.noselect");
+           
+            response.setRenderParameter("action", "init");
         }
-        response.setRenderParameter("action", "goRejectTimesheet");
+        else {
+            timesheetError = "";
+            for (int i = 0; i < tempList.size(); i++) {
+                if (tempList.get(i).getTimesheetId() != null) {
+                    rejectTimesheetList.add(tempList.get(i));
+                }
+            }
+            response.setRenderParameter("action", "goRejectTimesheet");
+        }
+       
 
     }
     
@@ -646,7 +676,12 @@ public class TimesheetController {
             ActionResponse response) throws ParseException {
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        for (int i = 0; i < tempList.size(); i++) {          
+        Timesheet timesheet ;
+        boolean errFlag = false;
+        for (int i = 0; i < tempList.size(); i++) {   
+            timesheet = new Timesheet();
+            timesheet = tempList.get(i);
+            //errFlag =  validateTimesheet(Timesheet timesheet);
             updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
             updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
             updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
@@ -669,14 +704,24 @@ public class TimesheetController {
      * @param result
      * @param status
      * @param response
+     * @throws IOException 
      */
     
     @ActionMapping(params = "action=deleteTimesheet")   
     public void processdeleteTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) throws ParseException {
+            ActionResponse response) throws ParseException, IOException {
         deleteTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
+        if(tempList == null) {
+            Properties props = PropertiesManager.newInstanceFromProps("/messages.properties");
+            
+            timesheetError = props.getProperty("timesheet.error.noselect");
+           
+            response.setRenderParameter("action", "init");
+        }
+        else {
+            timesheetError = "";
         for (int i = 0; i < tempList.size(); i++) {
             if (tempList.get(i).getTimesheetId() != null) {
                 deleteTimesheetList.add(tempList.get(i));
@@ -685,6 +730,9 @@ public class TimesheetController {
         TimesheetDao timeDao = new TimesheetDao();
         timeDao.deleteTimesheet(deleteTimesheetList, user.getDeveloperId());
         response.setRenderParameter("action", "init");
+        }
+        
+       
 
     }
     
@@ -694,21 +742,33 @@ public class TimesheetController {
      * @param result
      * @param status
      * @param response
+     * @throws IOException 
      */
     
     @ActionMapping(params = "action=approveTimesheet")   
     public void processApproveTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) throws ParseException {
+            ActionResponse response) throws ParseException, IOException {
         approveTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        for (int i = 0; i < tempList.size(); i++) {
-            if (tempList.get(i).getTimesheetId() != null) {
-                approveTimesheetList.add(tempList.get(i));
+        if(tempList == null) {
+            Properties props = PropertiesManager.newInstanceFromProps("/messages.properties");
+            
+            timesheetError = props.getProperty("timesheet.error.noselect");
+               
+              
             }
+            else {
+                timesheetError = "";
+            for (int i = 0; i < tempList.size(); i++) {
+                if (tempList.get(i).getTimesheetId() != null) {
+                    approveTimesheetList.add(tempList.get(i));
+                }
+            }
+            TimesheetDao timeDao = new TimesheetDao();
+            timeDao.approveRejectTimesheet(approveTimesheetList, user.getDeveloperId(), true);
+           
         }
-        TimesheetDao timeDao = new TimesheetDao();
-        timeDao.approveRejectTimesheet(approveTimesheetList, user.getDeveloperId(), true);
         response.setRenderParameter("action", "init");
 
     }
