@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 25, 2012 8:03:06 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.oopms.requirement.model.Requirements" table="REQUIREMENTS" schema="FMSUSER">
+    <class name="openones.oopms.model.requirement.controller" table="REQUIREMENTS" schema="FMSUSER">
         <comment>Requirement, using with the whole FMS packages</comment>
 		
         <id name="requirementID" type="big_decimal">
