@@ -103,14 +103,14 @@ public class RequirementController {
         
         Map<String,String> projectMap = new LinkedHashMap<String,String>();
         log.debug("projectmap before:" +projectMap.size());
-        projectMap.put("All", "All");
+        //projectMap.put("All", "All");
         for (int i=0; i<projectList.size();i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
         log.debug("projectmap after:" +projectMap.size());
         
         formBean.setProjectMap(projectMap);
-        formBean.setProjectDefault("All"); 
+        formBean.setProjectDefault(""); 
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
         

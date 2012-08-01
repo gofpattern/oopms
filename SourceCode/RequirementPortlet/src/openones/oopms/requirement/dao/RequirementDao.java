@@ -14,9 +14,11 @@ import openones.oopms.requirement.utils.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class RequirementDAO {
     private Session session;    
+    private Transaction tx = null;
     private static Logger log = Logger.getLogger(RequirementDAO.class);
     
     public RequirementDAO() {
@@ -25,6 +27,32 @@ public class RequirementDAO {
         log.debug("Get hibernate Session");
         this.session = factory.getCurrentSession();
         log.debug("Get current Session");
+    }
+    
+    
+    /**
+     * Use to create a new project
+     * 
+     * @param project
+     * @return
+     */
+    public boolean insertReq(Requirements req) {
+        log.debug("insertReqDAO");
+        try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
+            tx = session.beginTransaction();
+            session.save(req);
+            session.flush();                        
+            tx.commit();
+            sessfac.close();
+        } catch (Exception e) {
+            log.error("Insert not Ok");
+            log.error(e.getMessage());
+            return false;
+        }
+        log.error("Insert Ok");
+        return true;
     }
     
     @SuppressWarnings("unchecked")
