@@ -119,7 +119,7 @@
 						});
 
 						fnFeaturesInit();
-						$('#mainTable2').dataTable({
+						$('#taskTable').dataTable({
 							"bFilter" : true,
 							"bSort" : true,
 							"bJQueryUI" : true,
@@ -304,7 +304,7 @@
             </tr>
           </table>
         </form:form>
-        <table id="mainTable2" class="display dataTable" cellpadding="0"
+        <table id="taskTable" class="display dataTable" cellpadding="0"
     cellspacing="0" border="0">
           <thead>
             <tr>
@@ -408,7 +408,8 @@
             </tbody>
           </c:if>
         </table>
-
+          </p>
+          <p>
       </div>
       <div align="right">
         <input type="button" name="" value="Import" /> <input type="button" name="input" value="Report" />
