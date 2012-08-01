@@ -45,8 +45,7 @@
             <div id="logo" class="">
             
                             
-                    <a href="https://oopms.googlcode.com/"><img src="./css/logo.png" alt="Project Bubble" id="fDI2MDc" class="pic"></a>
-                    
+                                     
                                 
             </div>
             <%-- Define actionURL --%>
@@ -61,8 +60,7 @@
     
                     <div class="callus">
                         <span>Contact us: <strong>oopms@googlegroup.com</strong></span>
-                        <span><a href="https://oopms.googlcode.com/help">Help</a></span>
-                        <span><img src="./css/padlock.png" alt="Login"> <a href="./css/Project Bubble.htm">Login</a></span>
+                        <span><a href="https://oopms.googlcode.com/help">Help</a></span>                      
                     </div>
                     
                     <ul class="bigger">
@@ -150,8 +148,7 @@
                     <a href="https://oopms.googlcode.com/help">Help</a>
                 </p>
                 
-                <p class="copyright">
-                    <a href="http://projectbubble.com/"><img src="./css/marque.png" class="marque" alt="Project Bubble"></a>
+                <p class="copyright">                   
                     © 2012 Project Bubble LLC
                 </p>
                                 
