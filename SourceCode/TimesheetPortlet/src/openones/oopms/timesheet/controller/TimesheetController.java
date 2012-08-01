@@ -86,7 +86,7 @@ public class TimesheetController {
 
     /**
      * Default screen. If user is "guest" (or null), display Login form. Otherwise (authenticated), display the
-     * 
+     * timesheet page
      * @return name of view which is the name of the JSP page.
      */
     private boolean error = false;
@@ -272,7 +272,12 @@ public class TimesheetController {
         // Return to jsp
         return mav;
     }
-
+    
+    /**
+     * prepare data for timesheet list
+     * @param timesheetList
+     * @return
+     */
     private List<Timesheet> prepareTimesheetList(List<Timesheet> timesheetList) {
         // Set value of dropdownlist to table timesheet
         int processCode = 0;
@@ -303,6 +308,14 @@ public class TimesheetController {
 
         return formBean;
     }
+    
+    /**
+     * Action mapping for search action
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
 
     @ActionMapping(params = "action=searchTimesheet")
     public void processSearchTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
@@ -379,7 +392,15 @@ public class TimesheetController {
 
         return formBean;
     }
-
+    
+    /**
+     * Action mapping for forward to Add time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
+    
     @ActionMapping(params = "action=goAddTimesheet")
     public void processAddTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
@@ -392,7 +413,13 @@ public class TimesheetController {
         }
 
     }
-
+    
+    /**
+     * Process after the action "goAddTimesheet" (method "processGoAddTimesheet") is executed.
+     * 
+     * @return view "AddTimesheet.jsp" which next page "AddTimesheet.jsp" will displayed
+     */
+    
     @RenderMapping(params = "action=goAddTimesheet")
     public ModelAndView postAddTimesheet(TimesheetForm formBean, RenderRequest request) {
         List<Timesheet> timesheetList = new ArrayList<Timesheet>();
@@ -435,7 +462,10 @@ public class TimesheetController {
         // Return to jsp
         return mav;
     }
-
+    
+    /**
+     * This action prepare all of combo box maps on jsp
+     */
     private void prepareMaps() {
         // Create towMap, processMap, workProductMap
         towMap = new LinkedHashMap<String, String>();
@@ -453,7 +483,15 @@ public class TimesheetController {
         projectMap.remove("All");
 
     }
-
+    
+    /**
+     * Action mapping for forward to Add time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
+    
     @ActionMapping(params = "action=addTimesheet")
     public void processAddTimesheetToDB(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws IOException, ParseException {
@@ -481,7 +519,15 @@ public class TimesheetController {
         response.setRenderParameter("action", "init");
 
     }
-
+    
+    /**
+     * Action mapping for forward to Update time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
+    
     @ActionMapping(params = "action=goUpdateTimesheet")
     public void processGoUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
@@ -496,6 +542,14 @@ public class TimesheetController {
         response.setRenderParameter("action", "goUpdateTimesheet");
 
     }
+    
+    /**
+     * Action mapping for forward to Reject time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
     
     @ActionMapping(params = "action=goRejectTimesheet")
     public void processGoRejectTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
@@ -579,7 +633,13 @@ public class TimesheetController {
 
     }
     
-       
+    /**
+     * Action mapping for forward to Update time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */   
     
     @ActionMapping(params = "action=updateTimesheet")
     public void processUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
@@ -603,6 +663,14 @@ public class TimesheetController {
 
     }
     
+    /**
+     * Action mapping for forward to Delete time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
+    
     @ActionMapping(params = "action=deleteTimesheet")   
     public void processdeleteTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws ParseException {
@@ -619,6 +687,14 @@ public class TimesheetController {
         response.setRenderParameter("action", "init");
 
     }
+    
+    /**
+     * Action mapping for forward to Approve time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
     
     @ActionMapping(params = "action=approveTimesheet")   
     public void processApproveTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
@@ -638,6 +714,14 @@ public class TimesheetController {
     }
     
 
+    /**
+     * Action mapping for forward to Reject time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
+    
     @ActionMapping(params = "action=rejectTimesheet")
     public void processRejectTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws ParseException {

@@ -87,15 +87,7 @@ function submitAction(formName, actionUrl) {
         	    } else { 
         		 $(":checkbox").each(function() { this.checked = false; }); 
         		 }
-        	});   
-        	$('#Update').click(function(event) {   
-        	    if($(':checkbox').checked) {                 
-                       return true;
-                    } else { 
-                   alert("Please select at least 1 record.");
-                   return false;
-                     }
-                });   
+        	});           	
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
                         if (event.target.type !== 'checkbox') {
