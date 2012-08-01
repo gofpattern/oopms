@@ -13,13 +13,7 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
-    <mapping resource="openones/oopms/requirement/model/Developer.hbm.xml"/>
-     <mapping resource="openones/oopms/requirement/model/Assignment.hbm.xml"/>
-       <mapping resource="openones/oopms/requirement/model/Project.hbm.xml"/>
-         <mapping resource="openones/oopms/requirement/model/Timesheet.hbm.xml"/>
-          <mapping resource="openones/oopms/requirement/model/Process.hbm.xml"/>
-           <mapping resource="openones/oopms/requirement/model/Typeofwork.hbm.xml"/>
-            <mapping resource="openones/oopms/requirement/model/Workproduct.hbm.xml"/>
-			<mapping resource="openones/oopms/requirement/model/Requirements.hbm.xml"/>
+    <mapping resource="openones/oopms/requirement/model/Requirements.hbm.xml"/>
+	<mapping resource="openones/oopms/requirement/model/Project.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

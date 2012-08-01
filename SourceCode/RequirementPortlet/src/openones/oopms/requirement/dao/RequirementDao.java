@@ -7,19 +7,19 @@ import org.apache.log4j.Logger;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import openones.oopms.requirement.model.Requirements;
 import openones.oopms.requirement.model.Project;
+import openones.oopms.requirement.model.Requirements;
 import openones.oopms.requirement.utils.HibernateUtil;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class RequirementDao {
+public class RequirementDAO {
     private Session session;    
-    private static Logger log = Logger.getLogger(RequirementDao.class);
+    private static Logger log = Logger.getLogger(RequirementDAO.class);
     
-    public RequirementDao() {
+    public RequirementDAO() {
         log.debug("New RequirementDao");
         SessionFactory factory = HibernateUtil.getSessionFactory();
         log.debug("Get hibernate Session");

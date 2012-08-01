@@ -155,9 +155,9 @@
       <portlet:param name="action" value="goAddNewRequirement" />
     </portlet:renderURL>
     
-    <portlet:actionURL var="goAddNewRequirementAction">
-      <portlet:param name="action" value="goAddNewRequirementAction" />
-    </portlet:actionURL>
+    <portlet:renderURL var="goAddNewRequirementAction">
+      <portlet:param name="action" value="goAddNewRequirement" />
+    </portlet:renderURL>
     
     
     <portlet:renderURL var="sortRequirement">
@@ -334,27 +334,11 @@
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
         <tbody>
           <tr>
-            <td align="left" width="50%">
-              <input name="RequirementAdd" class="Button"
+            <td align="left" width="50%"><input name="RequirementAdd" class="Button"
               onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")' value="Add New"
-              type="button"> 
-              <input name="Refresh" class="Button" onclick="javascript:doRefresh()"
-              value="Refresh" type="button"> 
-              <input name="ExportDefect" class="Button"
-              onclick="javascript:doExport()" value="Export" type="button">
-              
-              <portlet:actionURL var="goAddNewRequirementAction2">
-                <portlet:param name="action" value="goAddNewRequirementAction2Value" />
-              </portlet:actionURL> 
-
-
-              <form:form name="requirementFormName" method="post" commandName="RequirementForm"
-                action="${goAddNewRequirementAction2}">
-                <p><input type="submit" id="Search" class="button green small"
-                name="Add" value="Add New Requirement" /></p>
-              </form:form> 
-                            
-            </td>
+              type="button"> <input name="Refresh" class="Button" onclick="javascript:doRefresh()"
+              value="Refresh" type="button"> <input name="ExportDefect" class="Button"
+              onclick="javascript:doExport()" value="Export" type="button"></td>
           </tr>
           <tr>
             <td></td>

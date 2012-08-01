@@ -165,11 +165,13 @@ border-radius: .6em;
  </div>
         
     <%--Submit action --%>
-    <portlet:actionURL var="formAction"><portlet:param name="action" value="Save"/></portlet:actionURL>
+    <portlet:actionURL var="formAction">
+    <portlet:param name="action" value="Save"/>
+    </portlet:actionURL>
     <%-- Back to Requirement List --%>
     <portlet:renderURL var="requirementmanager"><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>
 
-<form:form name="${portletNamespace}RequirementAdd" commandName="RequirementForm" method="post" action="${formAction}">
+<form:form name="${portletNamespace}RequirementAdd" commandName="RequirementAddForm" method="post" action="${formAction}">
     
     
     <table width="95%" cellspacing="1">    
@@ -281,13 +283,13 @@ border-radius: .6em;
     
   </table>  
   
-  <input name="RequirementAdd" class="Button" value="Save" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;
+  <input name="RequirementAdd" class="Button" value="Save" type="button" onclick='submitAction("${portletNamespace}RequirementAdd", "${formAction}")'>&nbsp;&nbsp;&nbsp;&nbsp;
   <input name="Back" class="Button" onclick='submitAction("${portletNamespace}RequirementAdd", "${requirementmanager}")' value="Requirement List" type="button">&nbsp;&nbsp;&nbsp;&nbsp;  
           
   </form:form>
        
   <div class="footer">
-    <p>OODMS Group</p>    
+    <p>DMS Group</p>    
   </div> <!-- end .footer -->
   
   </div> <!-- end .content -->
