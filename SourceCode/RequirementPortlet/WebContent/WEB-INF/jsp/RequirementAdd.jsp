@@ -185,23 +185,57 @@ textarea {
 																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
 																	buttonImageOnly : true
 																});
+												$("#datepicker3")
+                                                .datepicker(
+                                                        {
+                                                            showOn : "button",
+                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
+                                                            buttonImageOnly : true
+                                                        });
+												$("#datepicker4")
+                                                .datepicker(
+                                                        {
+                                                            showOn : "button",
+                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
+                                                            buttonImageOnly : true
+                                                        });
+												$("#datepicker5")
+                                                .datepicker(
+                                                        {
+                                                            showOn : "button",
+                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
+                                                            buttonImageOnly : true
+                                                        });
+												$("#datepicker6")
+                                                .datepicker(
+                                                        {
+                                                            showOn : "button",
+                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
+                                                            buttonImageOnly : true
+                                                        });
+												$("#datepicker7")
+                                                .datepicker(
+                                                        {
+                                                            showOn : "button",
+                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
+                                                            buttonImageOnly : true
+                                                        });
 											});
 						</script>
       <script type="text/javascript" src='/RequirementPortlet/scripts/common.js'></script>
       <SCRIPT type="text/javascript">
 							var rules = new Array();
 							rules[0] = 'requirementName:Requirement Name|required';
-							rules[1] = 'projectName:Project Name|required';
-							rules[2] = 'planStartDate:Planned Start Date|required';
-							rules[3] = 'planEndDate:Planned End Date|required';
-							rules[4] = 'projectCode:Project Code|fixlength|3';
-							rules[5] = 'projectName:Project Name|maxlength|150';
-							rules[6] = 'customer:Direct Customer|maxlength|150';
-							rules[7] = 'endCustomer:End Customer|maxlength|150';
-							rules[8] = 'scopeObjective:Scope and Objective|maxlength|600';
-							rules[9] = 'planStartDate|date_le|$planEndDate';
-							rules[10] = 'planStartDate:Planned Start Date|date';
-							rules[11] = 'planEndDate:Planned End Date|date';
+							rules[1] = 'srs:SRS Document|required';
+							rules[2] = 'releaseNote:Release Notes|required';																				
+							rules[3] = 'document:Design Document|maxlength|150';
+							rules[4] = 'effort:Effort|maxlength|2';													
+							rules[5] = 'createdDate|date_le|$designedDate';
+							rules[5] = 'designedDate|date_le|$codedDate';
+							rules[5] = 'codedDate|date_le|$testedDate';
+							rules[5] = 'testedDate|date_le|$deployedDate';
+							rules[5] = 'deployedDate|date_le|$acceptedDate';
+							
 						</SCRIPT>
 </head>
 
@@ -307,26 +341,26 @@ textarea {
 
               <tr>
                 <!-- srs -->
-                <td align="left" valign="middle"><b><font color="black">SRS </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="srs" maxlength="150" /></td>
+                <td align="left" valign="middle"><b><font color="black">SRS Document* </font></b><font color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><form:input path="srs" maxlength="150" id="srs" /></td>
               </tr>
 
               <tr>
                 <!-- releaseNote -->
-                <td align="left" valign="middle"><b><font color="black">Release Note </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150" /></td>
+                <td align="left" valign="middle"><b><font color="black">Release Note* </font></b><font color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150" id="releaseNote" /></td>
               </tr>
 
               <tr>
                 <!-- document -->
-                <td align="left" valign="middle"><b><font color="black">Document </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="document" maxlength="150" /></td>
+                <td align="left" valign="middle"><b><font color="black">Design Document </font></b><font color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><form:input path="document" maxlength="150" id="document" /></td>
               </tr>
 
               <tr>
                 <!-- effort -->
-                <td align="left" valign="middle"><b><font color="black">Effort </font></b><font color="red">&nbsp;đồn</font></td>
-                <td align="left" valign="middle"><form:input path="effort" maxlength="150" /></td>
+                <td align="left" valign="middle"><b><font color="black">Effort </font></b><font color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><form:input path="effort" maxlength="150" id="effort"/></td>
               </tr>
 
               <tr>
@@ -336,27 +370,27 @@ textarea {
               </tr>
               <tr>
                 <td>Designed Date</td>
-                <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="" /> (mm-dd-yyyy)</td>
+                <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="datepicker2" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
                 <td>Coded Date</td>
-                <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="" /> (mm-dd-yyyy)</td>
+                <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="datepicker3" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
                 <td>Tested Date</td>
-                <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="" /> (mm-dd-yyyy)</td>
+                <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="datepicker4" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
                 <td>Deployed Date</td>
-                <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="" /> (mm-dd-yyyy)</td>
+                <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="datepicker5" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
                 <td>Accepted Date</td>
-                <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="" /> (mm-dd-yyyy)</td>
+                <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="datepicker6" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
                 <td>Cancelled Date</td>
-                <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="" /> (mm-dd-yyyy)</td>
+                <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="datepicker7" /> (mm-dd-yyyy)</td>
               </tr>
 
 
