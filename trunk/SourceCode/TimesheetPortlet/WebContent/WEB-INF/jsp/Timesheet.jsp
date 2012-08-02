@@ -224,7 +224,8 @@ function submitAction(formName, actionUrl) {
   action="${timesheetFormAction2}">
   <p><input type="submit" id="Search" class="button green small"
     name="Add" value="Add" /></p>
-     <c:if test="${not empty timesheetError}"> <label id="noSelect" style="display: inline; color: red;">${timesheetError}</label><br></c:if>    
+     <c:if test="${not empty timesheetError}"> <label id="noSelect" style="display: inline; color: red;">${timesheetError}</label><br></c:if>   
+      
     <div id="errorDiv" align="center" style=" display: none; ">    
        
            <label id="formatFromDate" style="display: none; color: red;">Please input correct format from date.  </label><br>
@@ -260,8 +261,8 @@ function submitAction(formName, actionUrl) {
     <tbody align="center">
       <c:if test="${not empty timesheetList}">
 
-        <c:forEach var="timesheet" varStatus="status"
-          items="${timesheetList}">
+        <c:forEach var="timesheet" varStatus="status" items="${timesheetList}">
+          
           <tr>
             <td class="cb"><input id="checkbox" type="checkbox"
               name="timesheetList[${status.index}].timesheetId"
@@ -283,7 +284,7 @@ function submitAction(formName, actionUrl) {
 
     </tbody>
   </table>
-
+<br>
   <p>  
   <input type="button" class="button blue small" name="Update" id="btnUpdate"
     onclick='submitAction("Timesheet", "${goUpdateTimesheetAction}")'

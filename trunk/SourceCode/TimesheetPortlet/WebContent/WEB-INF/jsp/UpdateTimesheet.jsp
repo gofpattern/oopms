@@ -146,6 +146,7 @@
 
   </tbody>
 </table>
+<br>
 <p>
  <c:if test="${rejectFlag=='true' }">
   <input onclick='submitAction("UpdateTimesheet", "${rejectTimesheeetAction}")' name="Submit" value="Reject" class="button blue small" type="button"/>
