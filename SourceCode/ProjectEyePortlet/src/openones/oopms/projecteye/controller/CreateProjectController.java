@@ -219,6 +219,7 @@ public class CreateProjectController {
 		mav.addObject("projectStatus", projectStatusMap);
 		mav.addObject("projectCategory", projectCategoryMap);
 		mav.addObject("businessDomain", projectBussinessDomainMap);
+		mav.addObject("errorList", error);
 		mav.addObject("username", ProjectEyeHomeController.username);
 		return mav;
 	}

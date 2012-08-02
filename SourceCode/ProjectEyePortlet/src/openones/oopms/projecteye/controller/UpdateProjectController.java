@@ -166,6 +166,7 @@ public class UpdateProjectController {
 		mav.addObject("projectStatus", projectStatusMap);
 		mav.addObject("projectCategory", projectCategoryMap);
 		mav.addObject("businessDomain", projectBussinessDomainMap);
+		mav.addObject("errorList", error);
         log.debug("project ID la "+ projectId);
         mav.addObject("projectId", projectId);
         return mav;
