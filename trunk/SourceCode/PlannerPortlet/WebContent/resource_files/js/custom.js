@@ -32,11 +32,7 @@ var frm = document.forms[formName];
 	frm.submit();
     
 	
-}
-
-
-    
-   
+}    
 
 function validate(checkedClass){
     alert("validate");

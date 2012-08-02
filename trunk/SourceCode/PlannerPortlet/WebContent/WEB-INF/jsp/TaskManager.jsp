@@ -288,16 +288,16 @@
               <td><b>&nbsp;&nbsp;Status&nbsp;</b></td>
             </tr>
             <tr>
-              <td><form:select path="projectId" multiple="single" onchange='submitAction("searchTask", "${changeProjectAction}")'>
+              <td><form:select path="projectId" class="styled_2" multiple="single" onchange='submitAction("searchTask", "${changeProjectAction}")'>
                   <form:options items="${projectMap}" />
                 </form:select></td>
-              <td><form:select path="stageDefault" multiple="single" onchange='this.form.submit()'>
+              <td><form:select path="stageDefault" class="styled_2" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${stageMap}" />
                 </form:select></td>
-              <td><form:select path="developerDefault" multiple="single" onchange='this.form.submit()'>
+              <td><form:select path="developerDefault" class="styled_2" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${developerMap}" />
                 </form:select></td>
-              <td><form:select path="statusDefault" multiple="single" onchange='this.form.submit()'>
+              <td><form:select path="statusDefault" class="styled_2" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${statusMap}" />
                 </form:select></td>
               <td width="56%"></td>
