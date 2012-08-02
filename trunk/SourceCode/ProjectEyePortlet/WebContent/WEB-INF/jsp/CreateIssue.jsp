@@ -113,12 +113,12 @@
   	  </tr>
   	  <tr>
         <th scope="row">Due Date*</th>
-        <td><form:input maxlength="9" path="planStartDate" size="9" value="" type="text" id="datepicker1"/>
+        <td><form:input maxlength="10" path="planStartDate" size="9" value="" type="text" id="datepicker1"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Closed Date</th>
-        <td><form:input maxlength="9" path="planEndDate" size="9" value="" type="text" id="datepicker2"/>
+        <td><form:input maxlength="10" path="planEndDate" size="9" value="" type="text" id="datepicker2"/>
           (mm/dd/yyyy)</td>
       </tr>
   	  <tr>
