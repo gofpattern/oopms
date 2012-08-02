@@ -20,6 +20,7 @@ package openones.oopms.planner.dao;
 
 import java.math.BigDecimal;
 
+import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -55,6 +56,26 @@ public class DeveloperDAO {
                 session.getTransaction().rollback();
             }
             log.error("getDeveloperId.Exception", e);
+        }
+        return null;
+    }
+    
+    public Developer getDeveloperByAccount(String account) {
+        log.debug("getDeveloperByAccount.START");
+        try {
+            session.getTransaction().begin();
+            String sql = "from Developer where account = :account";
+            Query query = session.createQuery(sql);
+            query.setParameter("account", account);
+            Developer developer = (Developer) query.uniqueResult();
+            session.flush();
+            System.out.println("getDeveloperByAccount.end");
+            return developer;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getDeveloperByAccount.Exception", e);
         }
         return null;
     }
