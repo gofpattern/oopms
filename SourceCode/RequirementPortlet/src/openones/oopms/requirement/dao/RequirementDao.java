@@ -30,6 +30,34 @@ public class RequirementDAO {
         log.debug("Get current Session");
     }
     
+    public Requirements getReq(String reqID) throws ParseException {
+
+        try {
+            Requirements req;
+            session.getTransaction().begin();
+            String sql = "from Requirements WHERE requirement_ID =:reqId";           
+            Query query = session.createQuery(sql);                        
+            query.setParameter("reqId", reqID);            
+            log.debug("createGetRequirementbyIDQuery: "+ query.toString() );
+            req = (Requirements) query.uniqueResult();            
+            log.debug("dcminracoi: "+req.getRequirement());
+            return req;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+
+            // Convert e.printStackTrace() to string.
+
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            e.printStackTrace(printWriter);
+            log.debug("errorgetAllRequirement." + "exception");
+            log.debug(e.getMessage());
+            log.debug(stringWriter.toString());
+        }
+        return null;
+    }
     
     public void deleteReq(List<Requirements> requirementList) throws ParseException {
 
