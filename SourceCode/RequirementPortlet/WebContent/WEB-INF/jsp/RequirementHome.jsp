@@ -11,7 +11,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <portlet:defineObjects />
-<c:set var="portletNamespace" scope="request"><portlet:namespace/></c:set>
+<c:set var="portletNamespace" scope="request">
+  <portlet:namespace />
+</c:set>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -215,16 +217,22 @@
 
     <portlet:actionURL var="formAction">
       <portlet:param name="action" value="search" />
-    </portlet:actionURL>        
-    
+    </portlet:actionURL>
+
     <portlet:renderURL var="goAddNewRequirementAction">
       <portlet:param name="action" value="goAddNewRequirement" />
     </portlet:renderURL>
-    
-       
+
+    <portlet:renderURL var="goUpdateRequirementAction">
+      <portlet:param name="action" value="goUpdateRequirement" />
+    </portlet:renderURL> 
+
+    <portlet:renderURL var="deleteRequirementAction">
+      <portlet:param name="action" value="deleteRequirement" />
+    </portlet:renderURL> 
 
     <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
-      <table >
+      <table>
 
         <h1>Requirement Management</h1>
 
@@ -265,74 +273,49 @@
                 <option value="4">Tested Date</option>
                 <option value="5">Deployed Date</option>
             </select></td>
-            
+
           </tr>
         </table>
 
-        <c:set var="list" value="${requirementList}" />
+        <!--<c:set var="list" value="${requirementList}" /> -->
         <c:if test="${not empty list}">
-      <table id="mainTable2" class="display dataTable" cellpadding="0"
-    cellspacing="0" border="0">
+          <table id="mainTable2" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
             <!-- TABLE HEADER -->
             <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Requirement Name</th>
-              <th scope="col">Project Name</th>
-              <th scope="col">Type</th>
-              <th scope="col">Size</th>
-              <th scope="col">Effort</th>
-              <th scope="col">SRS</th>
-              <th scope="col">Created Date</th>
-              <th scope="col">Response Date</th>
-              <th scope="col">Action</th>
-             </tr>
-             </thead>
-             <tbody>
-            <tr>
-              <td>-1</td>
-              <td>Requirement A</td>
-              <td>Test</td>
-              <td>3</td>
-              <td>2</td>
-              <td>5</td>
-              <td>trunk\document\design\SRS...</td>
-              <td>30/5/2012</td>
-              <td>Tested</td>
-              <td><input type="button" value="Remove" name="OK" /></td>
-            </tr>
-
-            <tr>
-              <td>0</td>
-              <td>Requirement B</td>
-              <td>Test_Demo</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>trunk\document\design\SRS...</td>
-              <td>30/5/2012</td>
-              <td>Designed</td>
-              <td><input type="button" value="Remove" name="OK" /></td>
-            </tr>
-
-            <c:set var="count" value="0" />
-            <c:forEach items="${list}" var="requirement">
               <tr>
-                <form action="Controller">
-                  <c:set var="count" value="${count + 1}" />
-                  <td>${count}</td>
-                  <td>${requirement.requirement}</td>
-                  <td>${requirement.projectName}</td>
-                  <td>${requirement.type}</td>
-                  <td>${requirement.reqSize}</td>
-                  <td>${requirement.effort}</td>
-                  <td>${requirement.srs}</td>
-                  <td>${requirement.createDate}</td>
-                  <td>${requirement.responseDate}</td>
-                  <td><input type="button" value="Remove" name="OK" /></td>
-                </form>
+                <th width="5%"><input id="select-all" type="checkbox"
+                name="allbox" value="checkAll"></th>
+                <th scope="col">No</th>
+                <th scope="col">Requirement Name</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Size</th>
+                <th scope="col">Effort</th>
+                <th scope="col">SRS</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Designed Date</th>                
               </tr>
-            </c:forEach>
+            </thead>
+            <tbody>
+             
+              <c:set var="count" value="0" />
+              <c:forEach items="${requirementList}" var="requirement" varStatus="status">
+                <tr>                  
+                    <c:set var="count" value="${count + 1}" />
+                    <td class="cb"><input id="checkbox" type="checkbox"
+                    name="requirementList[${status.index}].requirementID"
+                    value="${requirement.requirementID}"></td>
+                    <td>${count}</td>
+                    <td>${requirement.requirement}</td>
+                    <td>${requirement.projectName}</td>
+                    <td>${requirement.type}</td>
+                    <td>${requirement.reqSize}</td>
+                    <td>${requirement.effort}</td>
+                    <td>${requirement.srs}</td>
+                    <td>${requirement.createDate}</td>
+                    <td>${requirement.designedDate}</td>                                      
+                </tr>
+              </c:forEach>
             </tbody>
           </table>
         </c:if>
@@ -349,15 +332,26 @@
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
         <tbody>
           <tr>
-            <td align="left" width="50%"><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")' value="Add New"
-              type="button"> <input name="Refresh" class="Button" onclick="javascript:doRefresh()"
-              value="Refresh" type="button"> <input name="ExportDefect" class="Button"
-              onclick="javascript:doExport()" value="Export" type="button"></td>
-          </tr>                  
+            <td align="left" width="50%">
+              <input name="RequirementAdd" class="Button"
+                onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")'
+                value="Add New" type="button"> 
+              <input name="Refresh" class="Button"
+                onclick="javascript:doRefresh()" value="Refresh" type="button"> 
+              <input name="ExportDefect"
+                class="Button" onclick="javascript:doExport()" value="Export" type="button">
+              <input name="RequirementAdd" class="Button"
+                onclick='submitAction("${portletNamespace}RequirementHome", "${goUpdateRequirementAction}")'
+                value="Update" type="button">
+              <input name="RequirementAdd" class="Button"
+                onclick='submitAction("${portletNamespace}RequirementHome", "${deleteRequirementAction}")'
+                value="Remove" type="button">
+            </td>
+          </tr>
 
         </tbody>
       </table>
+      
 
     </form:form>
 

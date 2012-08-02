@@ -1,20 +1,18 @@
 package openones.oopms.requirement.controller;
 
-import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.requirement.dao.RequirementDAO;
 import openones.oopms.requirement.form.RequirementForm;
 import openones.oopms.requirement.model.Project;
 import openones.oopms.requirement.model.Requirements;
-import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,25 +24,20 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
+
 @Controller
 @RequestMapping("VIEW")
 public class RequirementController {
     /** Logger for logging. */  
     private static Logger log = Logger.getLogger(RequirementController.class);  
+    //requirementList to add into render object 
     private List<Requirements> requirementList;
-    private List<Project> projectList;
-    /** 
-     * Default screen. 
-     * @return name of view which is the name of the JSP page. 
-     */  
-    @RequestMapping 
-    public String initScreen(RenderRequest request) {  
-        log.debug("initScreen.START"); 
-        // Display RequirementHome.jsp  
-        PortletSupport portletSupport = new PortletSupport(request);
-        return "RequirementHome";  
-    } 
-    
+    //deleteRequirementList to delete more than one requirement once
+    private List<Requirements> deleteRequirementList;
+    //projectList to load into combobox
+    private List<Project> projectList;   
+    // RequirementController ErrorString requirementError
+    String requirementError="";
     
     /**
      * Create bean for form.
@@ -52,14 +45,13 @@ public class RequirementController {
      */
     @ModelAttribute("RequirementForm")
     public RequirementForm getCommandObject(RenderRequest request) {
-        log.debug("getCommandObject.START");                       
-               
+        log.debug("getCommandObject.START");                                      
         RequirementForm formBean = new RequirementForm();
         formBean.setTitle("Requirement Form");                                          
         return formBean;
     }
     
-    
+    //not in use
     @ActionMapping(params = "action=requirementmanager")
     public void processRequirement(RequirementForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("processRequirement.START");        
@@ -67,13 +59,10 @@ public class RequirementController {
     
     @RenderMapping(params = "action=requirementmanager")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request) {
-        log.debug("postRequirementSTART");
-        // request.setAttribute("user2", formBean);
-        //set portlet session                    
+        log.debug("postRequirementSTART");                           
         
         ModelAndView mav = new ModelAndView("RequirementHome");
-        RequirementDAO requirementDAO = new RequirementDAO();
-        
+        RequirementDAO requirementDAO = new RequirementDAO();        
         requirementList = requirementDAO.getAllRequirement();
         projectList = requirementDAO.getAllProject();            
         
@@ -96,11 +85,12 @@ public class RequirementController {
             log.error("Convert ProcessID to string", ex);
         }
         
+        // thieu buo'c set req id vao req list de hien thi len man hinh 
+        
         formBean.setRequirementList(requirementList);                
         mav.addObject("requirementList", formBean.getRequirementList());
         
-      //set projectMap
-        
+      //set projectMap        
         Map<String,String> projectMap = new LinkedHashMap<String,String>();
         log.debug("projectmap before:" +projectMap.size());
         //projectMap.put("All", "All");
@@ -117,6 +107,43 @@ public class RequirementController {
         return mav;
     }
               
-    
+    @RenderMapping(params = "action=deleteRequirement")   
+    public ModelAndView postDeleteRequirement(RequirementForm formBean, RenderRequest request) {
+        log.debug("deleteRequirementHere");
+        ModelAndView mav = new ModelAndView("hello");
+                  
+        List<Requirements> tempList;
+        tempList = formBean.getRequirementList();
+        if(tempList == null) {
+            log.debug("ListdeleteRequirementHereNULL");
+        }
+        else {
+            log.debug("ListdeleteRequirementHere: "+tempList.size());
+//            for (int i = 0; i < tempList.size(); i++) {
+//                    log.debug("ListdeleteRequirementHereContentgetRequirementName" +tempList.get(i).getRequirement());
+//                    log.debug("ListdeleteRequirementHereContentgetRequirementID" +tempList.get(i).getRequirementID());                    
+//                }
+            deleteRequirementList = new ArrayList<Requirements>(tempList.size());             
+            requirementError = "";
+            
+        for (int i = 0; i < tempList.size(); i++) {
+            if (tempList.get(i).getRequirementID() != null) {
+                deleteRequirementList.add(tempList.get(i));
+            }
+        }        
+        log.debug("tobedeletedList.deleteRequirementList: "+deleteRequirementList.size());
+        RequirementDAO reqDao = new RequirementDAO();
+        try {
+            reqDao.deleteReq(deleteRequirementList);
+        } catch (ParseException ex) {
+            // TODO Auto-generated catch block
+            ex.printStackTrace();
+        }        
+        }
+        
+        return mav;
+
+    }
+      
 
 }
