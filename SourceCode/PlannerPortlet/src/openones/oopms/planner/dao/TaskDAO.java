@@ -227,6 +227,7 @@ public class TaskDAO {
     public void addTask(Tasks task) {
         try {
             session.getTransaction().begin();
+            task.setActive(true);
             session.save(task);
             session.flush();
             session.getTransaction().commit();

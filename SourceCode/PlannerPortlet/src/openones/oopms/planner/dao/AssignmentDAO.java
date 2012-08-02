@@ -23,6 +23,7 @@ import java.util.List;
 
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.utils.HibernateUtil;
+import openones.oopms.planner.model.Assignment;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -59,6 +60,33 @@ public class AssignmentDAO {
                 session.getTransaction().rollback();
             }
             log.error("getProject.Exception", e);
+        }
+        return null;
+    }
+    
+    public String getRole(String developerId, String projectId) {
+        try {
+            System.out.println("getRole : " + developerId + " " + projectId);
+            session.getTransaction().begin();
+            String hql = "from Assignment where developerId= ? and project.projectId = ?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, developerId);
+            query.setString(1, projectId);
+            Assignment assi = (Assignment) query.uniqueResult();
+            session.flush();
+            if (assi.getType() == 1) {
+                return "Project Manager";
+            } else if (assi.getType() == 2) {
+                return "Developer";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            session.close();
+
         }
         return null;
     }

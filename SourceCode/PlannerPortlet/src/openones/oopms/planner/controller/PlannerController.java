@@ -1,4 +1,4 @@
-package openones.oopms.planner.controller;
+    package openones.oopms.planner.controller;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -75,7 +75,8 @@ public class PlannerController {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
         ModelAndView mav = new ModelAndView("TaskManager");
-        log.debug("request.getParameter.projectId" + request.getParameter("projectId"));
+        log.debug("request.getParameter.projectId = " + request.getParameter("projectId"));
+        log.debug("ProjectDefaul = " + projectDefault);
         
         // for getting from PlannerHome
         if(check){
@@ -279,3 +280,4 @@ public class PlannerController {
     }
 
 }
+

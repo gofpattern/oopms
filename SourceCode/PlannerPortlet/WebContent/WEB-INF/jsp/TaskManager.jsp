@@ -162,7 +162,7 @@
 	yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
 </head>
-<body id="portal" class="up fl-theme-mist"">
+<body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
       <portlet:actionURL var="DoPlannerAddAction">
@@ -258,7 +258,7 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.currenteffort" value="${edTask.currenteffort}"
-                    id="add-form-currentEffort" /> (Hours)</td>
+                    id="add-form-currentEffort" /> (Hours)<br /><span id=errorsDiv_task.currenteffort></span></td>
                 <td class="ColumnLabel"><label for="add-form-completedSize">Completed Size</label></td>
                 <td class="CellBGR3"><form:input path="task.completedsize" value="${edTask.completedsize}"
                     id="add-form-completedSize" /></td>
@@ -266,7 +266,7 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td class="CellBGR3"><form:textarea path="task.description" rows="4" cols="40"
-                    id="add-form-description"></form:textarea></td>
+                    id="add-form-description"></form:textarea><br /><span id=errorsDiv_task.description></td>
               </tr>
             </tbody>
           </table>

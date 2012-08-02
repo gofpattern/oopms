@@ -21,10 +21,12 @@ package openones.oopms.planner.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.AssignmentDAO;
 import openones.oopms.planner.dao.DeveloperDAO;
+import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Project;
 import openones.portlet.PortletSupport;
 
@@ -39,21 +41,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("VIEW")
 public class HelloController {
     private static Logger log = Logger.getLogger(PlannerController.class);
-    public static String username;
+    private String username;
+    Developer developer = new Developer();
 
     /**
      * Default screen.
      * @return name of view which is the name of the JSP page.
      */
     @RequestMapping
-    public String initScreen(RenderRequest request) {
+    public String initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
+        // Get log on user
         PortletSupport portletSupport = new PortletSupport(request);
         username = portletSupport.getLogonUser();
+        
+        // Get developer and related projects from account log on
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         DeveloperDAO developerDAO = new DeveloperDAO();
-        BigDecimal developerId = developerDAO.getDeveloperId(username);
-        List<Project> projectList = assignmentDAO.getProject(developerId);
+        developer = developerDAO.getDeveloperByAccount(username);
+        List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
+        
+        
+        // Set information of user to session           
+        // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        
+        // sent projectList to jsp
         request.setAttribute("projectList", projectList);
 
         // Display PlannerHome.jsp
