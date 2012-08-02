@@ -26,6 +26,7 @@ import openones.oopms.timesheet.model.Developer;
 import openones.oopms.timesheet.model.Project;
 import openones.oopms.timesheet.model.Timesheet;
 import openones.oopms.timesheet.model.Typeofwork;
+import openones.oopms.timesheet.utils.CommonUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -39,6 +40,7 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import rocky.common.PropertiesManager;
+import sun.misc.Regexp;
 
 /**
  * Controller for handling all action related to Timesheet System
@@ -68,6 +70,8 @@ public class TimesheetController {
     Map<String, String> workProductMap;
     // List update timesheet
     List<Timesheet> updateTimesheetList;
+ // List erro  timesheet
+    List<Timesheet> errorTimesheetList;
     // List approve timesheet
     List<Timesheet> approveTimesheetList;
     // List reject timesheet
@@ -86,6 +90,10 @@ public class TimesheetController {
     String projectStatus ="";
     // Timesheet Error
     String timesheetError="";
+     // Timesheet Error
+    List <String> timesheetErrorList;
+    // Properties
+    Properties props;
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(TimesheetController.class);
 
@@ -246,6 +254,7 @@ public class TimesheetController {
         session.setAttribute("USER", user.getAccount(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);
         mav.addObject("timesheetError",timesheetError);
+       
         mav.addObject("ROLE",role);
         // Search all timesheet record from database
         TimesheetDao timeDao = new TimesheetDao();
@@ -410,15 +419,11 @@ public class TimesheetController {
     @ActionMapping(params = "action=goAddTimesheet")
     public void processAddTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
-        System.out.println("processSearchTimesheet.START");
-        if (result.hasErrors()) {
-            System.out.println("search timesheet error");
-        } else {
-            System.out.println("Timesheet Form value :" + formBean.getProjectDefault() + " status:" + formBean.getStatus());
+          
             response.setRenderParameter("action", "goAddTimesheet");
         }
 
-    }
+    
     
     /**
      * Process after the action "goAddTimesheet" (method "processGoAddTimesheet") is executed.
@@ -459,12 +464,19 @@ public class TimesheetController {
         formBean.setProjectMap(projectMap);
 
         // Set default value for timesheet.jsp
+        mav.addObject("timesheetErrorList",timesheetErrorList);
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("processMap", processMap);
         mav.addObject("towMap", towMap);
-
-        // Add object timesheetList to request
-        mav.addObject("timesheetList", formBean.getTimesheetList());
+        
+        if(timesheetErrorList == null || timesheetErrorList.size()==0) {
+            mav.addObject("timesheetList", formBean.getTimesheetList());
+        }
+        else {
+            // Add object timesheetList to request
+            mav.addObject("timesheetList", errorTimesheetList);
+        }
+       
         // Return to jsp
         return mav;
     }
@@ -502,28 +514,38 @@ public class TimesheetController {
     public void processAddTimesheetToDB(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws IOException, ParseException {
         Timesheet timesheet;
-       
+       boolean isError = false;
+       errorTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> timesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = formBean.getTimesheetList();
         for (int i = 0; i < tempList.size(); i++) {
             timesheet = new Timesheet();
             timesheet = tempList.get(i);
-
-            if (!"".equals(timesheet.getOccurDateString()) && !"".equals(timesheet.getProjectName())
-                    && !"".equals(timesheet.getProcessName()) && !"".equals(timesheet.getTowName())
-                    && !"".equals(timesheet.getDurationString()) && !"".equals(timesheet.getDescription())
-                    && !timesheet.getDescription().isEmpty()) {
-
-                timesheetList.add(timesheet);
-
+            if(!(timesheet.getTowName().isEmpty() && timesheet.getProcessName().isEmpty() 
+                   && timesheet.getDurationString().isEmpty() && timesheet.getDescription().isEmpty())) {
+                if(validateTimesheet(timesheet, false)) {
+                    timesheetList.add(timesheet);
+                    isError = false;
+                }
+                else {
+                    isError = true;
+                } 
             }
+            
+                 
+          
         }
+        if(isError) {
+            errorTimesheetList = tempList;
+            response.setRenderParameter("action", "goAddTimesheet");
+        }
+        else {
+            TimesheetDao timesheetDao = new TimesheetDao();
+            timesheetDao.insertTimesheet(timesheetList, user.getDeveloperId());
 
-        TimesheetDao timesheetDao = new TimesheetDao();
-        timesheetDao.insertTimesheet(timesheetList, user.getDeveloperId());
-
-        response.setRenderParameter("action", "init");
-
+            response.setRenderParameter("action", "init");
+        }
+       
     }
     
     /**
@@ -542,8 +564,8 @@ public class TimesheetController {
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
         if(tempList == null) {
-            Properties props = PropertiesManager.newInstanceFromProps("/messages.properties");
-            
+           
+            props = PropertiesManager.newInstanceFromProps("/messages.properties");
             timesheetError = props.getProperty("timesheet.error.noselect");
            
             response.setRenderParameter("action", "init");
@@ -681,7 +703,7 @@ public class TimesheetController {
         for (int i = 0; i < tempList.size(); i++) {   
             timesheet = new Timesheet();
             timesheet = tempList.get(i);
-            //errFlag =  validateTimesheet(Timesheet timesheet);
+            // errFlag =  validateTimesheet(Timesheet timesheet);
             updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
             updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
             updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
@@ -798,5 +820,61 @@ public class TimesheetController {
         }
         response.setRenderParameter("action", "init");
 
+    }
+    
+    private boolean validateTimesheet(Timesheet timesheet, boolean commentFlag) throws IOException {
+        timesheetErrorList = new ArrayList<String>();
+        boolean errorFlag = true;
+        props = PropertiesManager.newInstanceFromProps("/messages.properties");
+        if("".equals(timesheet.getOccurDateString())) {
+            timesheetErrorList.add(props.getProperty("timesheet.occurDate.required"));
+            errorFlag = false;
+         }
+        
+        if("".equals(timesheet.getProjectName())) {
+            timesheetErrorList.add(props.getProperty("timesheet.project.required"));
+            errorFlag = false;
+         }
+        
+        if("".equals(timesheet.getTowName())) {
+            timesheetErrorList.add(props.getProperty("timesheet.work.required"));
+            errorFlag = false;
+         }
+        
+        if("".equals(timesheet.getProcessName())) {
+            timesheetErrorList.add(props.getProperty("timesheet.process.required"));
+            errorFlag = false;
+         }
+        
+        if("".equals(timesheet.getDurationString())) {
+            timesheetErrorList.add(props.getProperty("timesheet.duration.required"));
+        errorFlag = false;
+        }
+        else if (CommonUtil.isNumber(timesheet.getDurationString()) ){
+            timesheetErrorList.add(props.getProperty("timesheet.duration.number"));
+            errorFlag = false;
+        }
+         if("".equals(timesheet.getOccurDateString())) {
+            timesheetErrorList.add(props.getProperty("timesheet.occurDate.required"));
+            errorFlag = false;
+         }
+         else if(!CommonUtil.isValidDate(timesheet.getOccurDateString())) {
+             timesheetErrorList.add(props.getProperty("timesheet.occurDate.format"));
+             errorFlag = false;
+         }
+         if("".equals(timesheet.getDescription())) {
+            timesheetErrorList.add(props.getProperty("timesheet.description.required"));
+            errorFlag = false;
+         }
+         if(commentFlag) {
+             if("".equals(timesheet.getRcomment())) {
+                 timesheetErrorList.add(props.getProperty("timesheet.comment.required"));
+                 errorFlag = false;
+              }  
+         }
+        
+                  
+
+        return errorFlag;
     }
 }
