@@ -103,32 +103,32 @@
   	  </tr>
   	  <tr>
         <th scope="row">Planned start date*</th>
-        <td><form:input maxlength="9" path="plannedStartDate" size="9" value="" type="text" id="datepicker1"/>
+        <td><form:input maxlength="10" path="plannedStartDate" size="9" value="" type="text" id="datepicker1"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Re-planned start date</th>
-        <td><form:input maxlength="9" path="rePlannedStartDate" size="9" value="" type="text" id="datepicker2"/>
+        <td><form:input maxlength="10" path="rePlannedStartDate" size="9" value="" type="text" id="datepicker2"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Actual start date</th>
-        <td><form:input maxlength="9" path="actualStartDate" size="9" value="" type="text" id="datepicker3"/>
+        <td><form:input maxlength="10" path="actualStartDate" size="9" value="" type="text" id="datepicker3"/>
           (mm/dd/yyyy)</td>
       </tr>
   	  <tr>
         <th scope="row">Planned end date*</th>
-        <td><form:input maxlength="9" path="plannedEndDate" size="9" value="" type="text" id="datepicker4"/>
+        <td><form:input maxlength="10" path="plannedEndDate" size="9" value="" type="text" id="datepicker4"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Re-planned end date</th>
-        <td><form:input maxlength="9" path="rePlannedEndDate" size="9" value="" type="text" id="datepicker5"/>
+        <td><form:input maxlength="10" path="rePlannedEndDate" size="9" value="" type="text" id="datepicker5"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Actual end date</th>
-        <td><form:input maxlength="9" path="actualEndDate" size="9" value="" type="text" id="datepicker6"/>
+        <td><form:input maxlength="10" path="actualEndDate" size="9" value="" type="text" id="datepicker6"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>

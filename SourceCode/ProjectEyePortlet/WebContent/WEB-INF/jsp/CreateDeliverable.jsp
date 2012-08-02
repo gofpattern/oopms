@@ -89,17 +89,17 @@
   	  </tr>
   	  <tr>
         <th scope="row">Planned committed date*</th>
-        <td><form:input maxlength="9" path="plannedCommittedDate" size="9" value="" type="text" id="datepicker1"/>
+        <td><form:input maxlength="10" path="plannedCommittedDate" size="9" value="" type="text" id="datepicker1"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Re-planned committed date</th>
-        <td><form:input maxlength="9" path="rePlannedCommittedDate" size="9" value="" type="text" id="datepicker2"/>
+        <td><form:input maxlength="10" path="rePlannedCommittedDate" size="9" value="" type="text" id="datepicker2"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
         <th scope="row">Actual committed date</th>
-        <td><form:input maxlength="9" path="actualCommittedDate" size="9" value="" type="text" id="datepicker3"/>
+        <td><form:input maxlength="10" path="actualCommittedDate" size="9" value="" type="text" id="datepicker3"/>
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
