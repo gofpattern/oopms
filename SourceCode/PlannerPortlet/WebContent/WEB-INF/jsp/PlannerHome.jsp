@@ -99,9 +99,11 @@
     <div class="content">
       <table border="0">
         <tr>
-          <td><strong>User: </strong></td>
+          <th><strong>User: </strong></th>
           <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
-          <td><strong>Joined Project: </strong></td>
+          </tr>
+          <tr>
+          <th><strong>Joined Projects: </strong></th>          
           <td><strong><font color="#1490E3">${projectList.size()}</font></strong></td>
         </tr>
       </table>
