@@ -33,6 +33,7 @@ public class HelloController {
      * Default screen.
      * @return name of view which is the name of the JSP page.
      */
+    
     @RequestMapping
     public String initScreen() {
         log.debug("initScreen.START");

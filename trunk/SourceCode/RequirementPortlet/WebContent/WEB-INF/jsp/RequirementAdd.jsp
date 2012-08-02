@@ -230,11 +230,26 @@ textarea {
 							rules[2] = 'releaseNote:Release Notes|required';																				
 							rules[3] = 'document:Design Document|maxlength|150';
 							rules[4] = 'effort:Effort|maxlength|2';													
+							
 							rules[5] = 'createdDate|date_le|$designedDate';
-							rules[5] = 'designedDate|date_le|$codedDate';
-							rules[5] = 'codedDate|date_le|$testedDate';
-							rules[5] = 'testedDate|date_le|$deployedDate';
-							rules[5] = 'deployedDate|date_le|$acceptedDate';
+							rules[6] = 'designedDate|date_le|$codedDate';
+							rules[7] = 'codedDate|date_le|$testedDate';
+							rules[8] = 'testedDate|date_le|$deployedDate';
+							rules[9] = 'deployedDate|date_le|$acceptedDate';
+							
+							rules[10] = 'createdDate|date_le|$codedDate';
+							rules[11] = 'createdDate|date_le|$testedDate';
+							rules[12] = 'createdDate|date_le|$deployedDate';
+							rules[13] = 'createdDate|date_le|$acceptedDate';
+							
+							rules[14] = 'designedDate|date_le|$testedDate';
+							rules[15] = 'designedDate|date_le|$deployedDate';
+							rules[16] = 'designedDate|date_le|$acceptedDate';
+							
+							rules[17] = 'codedDate|date_le|$deployedDate';
+                            rules[18] = 'testedDate|date_le|$acceptedDate';
+                            
+                            rules[18] = 'testedDate|date_le|$acceptedDate';
 							
 						</SCRIPT>
 </head>
@@ -302,7 +317,8 @@ textarea {
           <div>
             <tbody>
               <tr>
-                <td>Project Name*</td>
+                <td align="left" valign="middle"><b><font color="black">Project Name*</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td width="26%"><form:select cssClass="styled" path="projectDefault" multiple="single">
                     <c:set var="projectMap" value="${projectMap}" />
                     <form:options items="${projectMap}" />
@@ -311,14 +327,15 @@ textarea {
 
               <tr>
                 <!-- Requirement Name -->
-                <td align="left" valign="middle"><b><font color="black">Requirement Name* </font></b><font
+                <td align="left" valign="middle"><b><font color="black">Requirement Name*</font></b><font
                   color="red">&nbsp;</font></td>
                 <td align="left" valign="middle"><form:input path="requirementName" maxlength="150"
                     id="requirementName" /></td>
               </tr>
 
               <tr>
-                <td>Requirement Size</td>
+                <td align="left" valign="middle"><b><font color="black">Requirement Size</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><form:select path="reqSize">
                     <option value="1" selected="selected">1</option>
                     <option value="2">2</option>
@@ -329,7 +346,8 @@ textarea {
               </tr>
 
               <tr>
-                <td>Requirement Type</td>
+                <td align="left" valign="middle"><b><font color="black">Requirement Type</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><form:select path="reqType">
                     <option value="1" selected="selected">1</option>
                     <option value="2">2</option>
@@ -364,39 +382,40 @@ textarea {
               </tr>
 
               <tr>
-                <td>Created Date</td>
+                <td align="left" valign="middle"><b><font color="black">Created Date</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="createdDate" size="9" value="" type="text" id="datepicker1" />
                   (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td>Designed Date</td>
+                <td align="left" valign="middle"><b><font color="black">Designed Date</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="datepicker2" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td>Coded Date</td>
+                <td align="left" valign="middle"><b><font color="black">Coded Date</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="datepicker3" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td>Tested Date</td>
+                <td align="left" valign="middle"><b><font color="black">Tested Date</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="datepicker4" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td>Deployed Date</td>
+                <td align="left" valign="middle"><b><font color="black">Deployed Date</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="datepicker5" /> (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td>Accepted Date</td>
+                <td align="left" valign="middle"><b><font color="black">Accepted Date</font></b><font
+                  color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="datepicker6" /> (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td>Cancelled Date</td>
-                <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="datepicker7" /> (mm-dd-yyyy)</td>
-              </tr>
+              </tr>              
 
 
             </tbody>
           </div>
-
 
         </table>
 

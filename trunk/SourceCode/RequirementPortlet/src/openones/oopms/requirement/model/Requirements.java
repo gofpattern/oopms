@@ -18,7 +18,7 @@ public class Requirements  implements java.io.Serializable {
      private BigDecimal reqSize;
      private String srs;
      private String dd;
-     private BigDecimal testcase;
+     private String testcase;
      private String releaseNote;
      private BigDecimal effort;
      private BigDecimal elapsedDay;
@@ -181,7 +181,7 @@ public class Requirements  implements java.io.Serializable {
      * Get value of testcase.
      * @return the testcase
      */
-    public BigDecimal getTestcase() {
+    public String getTestcase() {
         return testcase;
     }
 
@@ -189,7 +189,7 @@ public class Requirements  implements java.io.Serializable {
      * Set the value for testcase.
      * @param testcase the testcase to set
      */
-    public void setTestcase(BigDecimal testcase) {
+    public void setTestcase(String testcase) {
         this.testcase = testcase;
     }
 

@@ -29,11 +29,11 @@
         <property name="dd" type="string">
             <column name="DD" length="100" />
         </property>
-        <property name="testcase" type="big_decimal">
-            <column name="TESTCASE" precision="22" scale="0" />
+        <property name="testcase" type="string">
+            <column name="TESTCASE" length="150" />
         </property>
         <property name="releaseNote" type="string">
-            <column name="RELEASE_NOTE" length="100" />                            
+            <column name="RELEASE_NOTE" length="600" />                            
         </property>
         <property name="effort" type="big_decimal">
             <column name="EFFORT" precision="22" scale="0" />

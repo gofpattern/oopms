@@ -1,6 +1,7 @@
 package openones.oopms.requirement.dao;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -29,6 +30,35 @@ public class RequirementDAO {
         log.debug("Get current Session");
     }
     
+    
+    public void deleteReq(List<Requirements> requirementList) throws ParseException {
+
+        try {
+
+            session.getTransaction().begin();
+            String hql = "DELETE Requirements WHERE requirement_ID =:reqId";
+
+            for (int i = 0; i < requirementList.size(); i++) {
+                Query query = session.createQuery(hql);
+                query.setParameter("reqId", requirementList.get(i).getRequirementID());
+
+                int rowCount = query.executeUpdate();
+
+                System.out.println("Rows affected: " + rowCount);
+                log.debug("Rows affected: " + rowCount);
+                log.debug("DeleteReqOk");
+            }
+            session.flush();
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.debug("DeleteReqError");
+            // session.getTransaction().rollback();
+            // session.close();
+
+        }
+    }
     
     /**
      * Use to create a new project
