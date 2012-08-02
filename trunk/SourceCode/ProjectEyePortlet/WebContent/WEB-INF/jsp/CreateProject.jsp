@@ -145,7 +145,7 @@
 </table>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
-	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>
 	
 </form:form>
 
