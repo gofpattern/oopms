@@ -313,7 +313,7 @@ textarea {
                 <!-- Requirement Name -->
                 <td align="left" valign="middle"><b><font color="black">Requirement Name*</font></b><font
                   color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="requirementName" maxlength="150"
+                <td align="left" valign="middle"><form:input value="${currentRequirement.requirement}" path="requirementName" maxlength="150"
                     id="requirementName" /></td>
               </tr>
 
@@ -344,43 +344,43 @@ textarea {
               <tr>
                 <!-- srs -->
                 <td align="left" valign="middle"><b><font color="black">SRS Document* </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="srs" maxlength="150" id="srs" /></td>
+                <td align="left" valign="middle"><form:input path="srs" maxlength="150" value="${currentRequirement.srs}" id="srs" /></td>
               </tr>
 
               <tr>
                 <!-- releaseNote -->
                 <td align="left" valign="middle"><b><font color="black">Release Note* </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150" id="releaseNote" /></td>
+                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150" value="${currentRequirement.releaseNote}" id="releaseNote" /></td>
               </tr>
 
               <tr>
                 <!-- document -->
                 <td align="left" valign="middle"><b><font color="black">Design Document </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="document" maxlength="150" id="document" /></td>
+                <td align="left" valign="middle"><form:input path="document" maxlength="150" value="${currentRequirement.dd}" id="document" /></td>
               </tr>
 
               <tr>
                 <!-- effort -->
                 <td align="left" valign="middle"><b><font color="black">Effort </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="effort" maxlength="150" id="effort"/></td>
+                <td align="left" valign="middle"><form:input path="effort" maxlength="150" value="${currentRequirement.effort}" id="effort"/></td>
               </tr>
               
               <tr>
-                <!-- effort -->
+                <!-- Elapsed Day -->
                 <td align="left" valign="middle"><b><font color="black">Elapsed Day </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="elapsedDay" maxlength="150" /></td>
+                <td align="left" valign="middle"><form:input path="elapsedDay" maxlength="150" value="${currentRequirement.elapsedDay}"/></td>
               </tr>
               
               <tr>
-                <!-- effort -->
+                <!-- Test Case -->
                 <td align="left" valign="middle"><b><font color="black">Test Case </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="testCase" maxlength="150" /></td>
+                <td align="left" valign="middle"><form:input path="testCase" maxlength="150" value="${currentRequirement.testcase}" /></td>
               </tr>
               
               <tr>
-                <!-- effort -->
+                <!-- Code Module -->
                 <td align="left" valign="middle"><b><font color="black">Code Module </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="codeModule" maxlength="150" /></td>
+                <td align="left" valign="middle"><form:input path="codeModule" maxlength="150" value="${currentRequirement.codeModule}"/></td>
               </tr>                            
               
 
