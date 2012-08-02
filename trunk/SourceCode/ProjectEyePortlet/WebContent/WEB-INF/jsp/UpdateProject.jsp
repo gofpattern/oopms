@@ -149,7 +149,7 @@
 	<input name = "projectId" type="hidden" value="${projectId}"/>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateProject", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
-	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateProject", "${renderAction}")'>Cancel</button>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateProject", "${renderAction}")'>Cancel</button>
 	
 </form:form>
 
