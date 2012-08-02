@@ -231,11 +231,17 @@ public class ProjectEyeHomeController {
 	public ModelAndView postDeleteProject(RenderRequest request) {
 		String projectId = request.getParameter("projectId");
 		ProjectDao pDao = new ProjectDao();
-//		pDao.deleteProject(projectId);
-		// return to homepage
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		// remove all member of project
 		DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(username);
 		AssignmentDao aDao = new AssignmentDao();
+		List<Developer> developerTeam = dDao.getDeveloperTeamOfProject(project);
+		for(int i=0;i<developerTeam.size();i++) {
+			aDao.removeTeamMember(project, developerTeam.get(i).getDeveloperId());
+		}
+		//return to homepage
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
 		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
 		for(int i=0;i<projectList.size();i++) {
