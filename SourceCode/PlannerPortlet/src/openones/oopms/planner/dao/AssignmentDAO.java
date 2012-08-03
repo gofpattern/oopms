@@ -68,7 +68,7 @@ public class AssignmentDAO {
         try {
             System.out.println("getRole : " + developerId + " " + projectId);
             session.getTransaction().begin();
-            String hql = "from Assignment where developerId= ? and project.projectId = ?";
+            String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
 
             // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
             Query query = session.createQuery(hql);
@@ -83,10 +83,10 @@ public class AssignmentDAO {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            session.getTransaction().rollback();
-            session.close();
-
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getRole.Exception", e);
         }
         return null;
     }

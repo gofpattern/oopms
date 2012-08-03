@@ -1,5 +1,14 @@
 Minh su dung lai table TASKS cu nhug co them va thay doi thuoc tinh cua 1 so feild, 
-Các ban xoa table TASKS hien tai va tao lai TASKS moi theo script nay cho nhanh nhe.
+Các ban xoa table TASKS hien tai va tao lai TASKS moi (theo script bên dưới cho nhanh nhe).
+Sau đó tạo thêm table PROJECT_STATUS(script bên dưới)là ok.
+
+DROP TABLE PROJECT_STATUS;
+CREATE TABLE PROJECT_STATUS ( PROJECT_STATUS_ID NUMBER NOT NULL, PROJECT_STATUS_NAME VARCHAR2(100) NOT NULL, PRIMARY KEY (PROJECT_STATUS_ID) );
+insert into PROJECT_STATUS (PROJECT_STATUS_ID, PROJECT_STATUS_NAME) values (1, 'On-going');
+insert into PROJECT_STATUS (PROJECT_STATUS_ID, PROJECT_STATUS_NAME) values (2, 'Completed');
+insert into PROJECT_STATUS (PROJECT_STATUS_ID, PROJECT_STATUS_NAME) values (3, 'Cancelled');
+insert into PROJECT_STATUS (PROJECT_STATUS_ID, PROJECT_STATUS_NAME) values (4, 'Tentative');
+
 CREATE TABLE
     TASKS
     (

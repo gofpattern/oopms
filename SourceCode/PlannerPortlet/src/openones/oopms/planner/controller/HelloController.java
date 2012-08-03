@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
     private static Logger log = Logger.getLogger(PlannerController.class);
     private String username;
-    Developer developer = new Developer();
+    static Developer developer = new Developer();
 
     /**
      * Default screen.
@@ -59,6 +59,7 @@ public class HelloController {
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         DeveloperDAO developerDAO = new DeveloperDAO();
         developer = developerDAO.getDeveloperByAccount(username);
+        log.debug("developer"+developer);
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
         
         

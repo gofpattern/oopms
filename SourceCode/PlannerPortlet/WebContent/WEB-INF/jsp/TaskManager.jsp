@@ -1,13 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
+<%@ taglib prefix="portlet2" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="javax.portlet.PortletSession"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <jsp:include page="header.jsp" />
+<portlet2:defineObjects />
+<portlet:defineObjects />
 <script type="text/javascript">
 	$(function() {
 		$("#add-form-startDate")
@@ -189,9 +193,20 @@
         <portlet:param name="action" value="deleteTask" />
       </portlet:actionURL>
 
+      <table border="0">
+        <tr>
+          <td><strong>User</strong></td>
+          <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+        </tr>
+        <tr>
+          <td><strong>Role</strong></td>
+          <td><strong><font color="#1490E3">${role}</font></strong></td>
+        </tr>
+      </table>
+      <c:if test="${role == 'Project Manager' }">
       <form:form commandName="PlannerAddForm" method="post" action="${DoPlannerAddAction}">
         <input id="add-button" type="submit" name="ok" value=" Add " />
-      </form:form>
+      </form:form></c:if>
 
       <%-- <a id="add-button" href='<portlet:actionURL><portlet:param name="action" value="plannerAdd"/></portlet:actionURL>'>AddTask</a> --%>
 
@@ -324,7 +339,7 @@
                 <c:when test="${taskStatus == 2 }">
                   <th><b>Finish Date</b></th>
                 </c:when>
-                <c:when test="${taskStatus == 'All' }">
+                <c:when test="${taskStatus == 'All'}">
                   <th><b>Planned Finish Date</b></th>
                   <th><b>Finish Date</b></th>
                 </c:when>
@@ -333,9 +348,11 @@
                 </c:otherwise>
               </c:choose>
               <th><b>Planned Effort</b></th>
-              <th><b>Actual Effort</b></th>
+              <c:if test="${taskStatus == 2 ||taskStatus == 'All'}">
+              <th><b>Actual Effort</b></th></c:if>
               <th><b>Update</b></th>
-              <th><b>Delete</b></th>
+              <c:if test="${role == 'Project Manager' }">
+              <th><b>Delete</b></th></c:if>
             </tr>
           </thead>
           <c:if test="${not empty taskList}">
@@ -350,6 +367,7 @@
                         <fmt:parseNumber var="i" type="number" value="${task.completedsize}" />
                         <fmt:parseNumber var="j" type="number" value="${task.productsize}" />
                         <fmt:formatNumber var="completeRate" value="${(i/j)}" minFractionDigits="2" type="percent" />
+                        <form:input path="taskId" value="${task.taskid}" type="hidden" />
                         <td>${count}</td>
                         <td>${task.project_str}</td>
                         <td>${task.taskname}</td>
@@ -387,21 +405,20 @@
                         </c:choose>
                         <td>${task.plannedeffort}H</td>
                         <c:choose>
-                          <c:when test="${task.statusid =='2'}">
+                          <c:when test="${taskStatus =='2' ||taskStatus =='All' }">
                             <td>${task.effort}H</td>
                           </c:when>
-                          <c:otherwise>
-                            <td>N/A</td>
-                          </c:otherwise>
                         </c:choose>
                         <td><input type="image" alt="Submit"
                           src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png"
                           width="24" height="24"
                           onclick='submitAction("${task.taskid}modTask", "${DoPlannerEditAction}")'></input></td>
-                        <td><form:input path="taskId" value="${task.taskid}" type="hidden" /> <input type="image"
-                          alt="Submit"
-                          src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png"
-                          width="24" height="24" onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' />
+                        <c:if test="${role == 'Project Manager' }">
+                          <td><input type="image" alt="Submit"
+                            src="/<spring:message code="app.context"/>/resource_files/icons/Actions-delete-icon.png"
+                            width="24" height="24"
+                            onclick='submitAction("${task.taskid}modTask", "${deleteTaskAction}")' /></td>
+                        </c:if>
                       </form:form>
                     </tr>
                   </c:when>
@@ -413,9 +430,9 @@
         </p>
         <p>
       </div>
-      <div align="right">
+<!--       <div align="right">
         <input type="button" name="" value="Import" /> <input type="button" name="input" value="Report" />
-      </div>
+      </div> -->
 
     </div>
 

@@ -11,6 +11,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.planner.dao.AssignmentDAO;
 import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
@@ -20,6 +21,7 @@ import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
+import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,8 @@ public class PlannerController {
     private List<Project> projectList;
     static String projectDefault;
     private String statusDefault;
+    // role of user, depend on project
+    private String role;
     private boolean check = true;
 
     /**
@@ -71,12 +75,16 @@ public class PlannerController {
 
     }
     @RenderMapping(params = "action=taskmanager")
-    public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request) {
+    public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request,PortletSession session) {
         log.debug("postPlanner.START");
         TaskDAO taskDAO = new TaskDAO();
+        AssignmentDAO assignmentDAO = new AssignmentDAO();
         ModelAndView mav = new ModelAndView("TaskManager");
-        log.debug("request.getParameter.projectId = " + request.getParameter("projectId"));
-        log.debug("ProjectDefaul = " + projectDefault);
+        // log.debug("request.getParameter.projectId = " + request.getParameter("projectId"));
+        // log.debug("ProjectDefaul = " + projectDefault);
+        
+        
+        
         
         // for getting from PlannerHome
         if(check){
@@ -93,7 +101,9 @@ public class PlannerController {
             formBean.setStatusDefault("All");
             formBean.setStageDefault("All");
             formBean.setDeveloperDefault("All");
-            
+//            log.debug("role = " + HelloController.developer.getDeveloperId().toString());
+            role = assignmentDAO.getRole(HelloController.developer.getDeveloperId().toString(), projectDefault);
+//            log.debug("role = " + role);
             statusList = taskDAO.getAllStatus();
             taskList = taskDAO.getTasksByProjectId(projectDefault);
             stageList = taskDAO.getAllStage();
@@ -173,8 +183,7 @@ public class PlannerController {
         }
 
         //
-        PortletSession portletSession = request.getPortletSession();
-        portletSession.setAttribute("PROJECTID", projectDefault, PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USER", HelloController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
 
         // Value for PlannerForm
         formBean.setProjectId(projectDefault);
@@ -192,6 +201,7 @@ public class PlannerController {
         mav.addObject("developerMap", formBean.getDeveloperMap());
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("taskStatus", formBean.getStatusDefault());
+        mav.addObject("role", role);
 
         // Object form PlannerAddForm
         mav.addObject("edTask", formBeanAdd.getEditTask());

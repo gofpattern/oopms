@@ -269,6 +269,7 @@ public class PlannerAddController {
             log.error("error when update task", ex);
         }
         // formBean.setFlag(true);
+        formBean.setInit(true);
         response.setRenderParameter("action", "taskmanager");
     }
 }

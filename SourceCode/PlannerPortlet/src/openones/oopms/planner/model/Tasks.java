@@ -48,6 +48,7 @@ public class Tasks implements java.io.Serializable {
 
     public Tasks() {
         visible = true;
+        active = true;
     }
 
     public Tasks(BigDecimal taskid, String description, BigDecimal assignedto, Date planDate, boolean status,
