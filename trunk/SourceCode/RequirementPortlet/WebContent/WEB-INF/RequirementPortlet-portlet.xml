@@ -19,11 +19,7 @@
   
   <!-- Message source for this context, loaded from localized "messages_xx" files -->
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-    <property name="basenames">
-      <list>
-        <value>messages</value>
-      </list>
-    </property>
+    <property name="basename"><value>messages</value></property>
   </bean>
   
 </beans>
