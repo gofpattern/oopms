@@ -201,6 +201,7 @@ textarea {
 										});
 					});
 </script>
+
 <SCRIPT type="text/javascript">
 	var rules = new Array();
 	rules[0] = 'requirementName:Requirement Name|required';

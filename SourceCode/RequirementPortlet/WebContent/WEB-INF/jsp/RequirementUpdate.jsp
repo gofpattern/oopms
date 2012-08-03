@@ -216,6 +216,34 @@ textarea {
 					});
 </script>
 
+<SCRIPT type="text/javascript">
+    var rules = new Array();
+    rules[0] = 'requirementName:Requirement Name|required';
+    rules[1] = 'srs:SRS Document|required';
+    rules[2] = 'releaseNote:Release Notes|required';
+    rules[3] = 'document:Design Document|maxlength|150';
+    rules[4] = 'effort:Effort|maxlength|2';
+
+    rules[5] = 'createdDate|date_le|$designedDate';
+    rules[6] = 'designedDate|date_le|$codedDate';
+    rules[7] = 'codedDate|date_le|$testedDate';
+    rules[8] = 'testedDate|date_le|$deployedDate';
+    rules[9] = 'deployedDate|date_le|$acceptedDate';
+
+    rules[10] = 'createdDate|date_le|$codedDate';
+    rules[11] = 'createdDate|date_le|$testedDate';
+    rules[12] = 'createdDate|date_le|$deployedDate';
+    rules[13] = 'createdDate|date_le|$acceptedDate';
+
+    rules[14] = 'designedDate|date_le|$testedDate';
+    rules[15] = 'designedDate|date_le|$deployedDate';
+    rules[16] = 'designedDate|date_le|$acceptedDate';
+
+    rules[17] = 'codedDate|date_le|$deployedDate';
+    rules[18] = 'testedDate|date_le|$acceptedDate';
+
+    rules[18] = 'testedDate|date_le|$acceptedDate';
+</SCRIPT>
 </head>
 
 <body>
