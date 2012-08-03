@@ -14,7 +14,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.requirement.validator.RequiremendAddValidator;
-import openones.oopms.requirement.dao.RequirementDAO;
+import openones.oopms.requirement.dao.RequirementDao;
 import openones.oopms.requirement.form.RequirementAddForm;
 import openones.oopms.requirement.form.RequirementForm;
 import openones.oopms.requirement.model.Project;
@@ -52,7 +52,7 @@ public class RequirementAddController {
         ModelAndView mav = new ModelAndView("RequirementAdd","RequirementAddForm",new RequirementAddForm());  
         
         //Get project name list
-        RequirementDAO requirementDAO = new RequirementDAO();           
+        RequirementDao requirementDAO = new RequirementDao();           
         projectList = requirementDAO.getAllProject();  
         log.debug("projectlist after:" +projectList.size());
         
@@ -103,7 +103,7 @@ public class RequirementAddController {
     public ModelAndView postSave(RequirementAddForm formBean, RenderRequest request) {
         log.debug("SaveAddRequirementActionRender");                         
         
-        RequirementDAO requirementDao = new RequirementDAO();
+        RequirementDao requirementDao = new RequirementDao();
         Requirements requirement = new Requirements();
 
         // set value for project

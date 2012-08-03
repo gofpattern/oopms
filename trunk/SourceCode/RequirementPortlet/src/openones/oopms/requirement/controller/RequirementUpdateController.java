@@ -15,7 +15,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.requirement.validator.RequiremendAddValidator;
-import openones.oopms.requirement.dao.RequirementDAO;
+import openones.oopms.requirement.dao.RequirementDao;
 import openones.oopms.requirement.form.RequirementForm;
 import openones.oopms.requirement.form.RequirementUpdateForm;
 import openones.oopms.requirement.model.Project;
@@ -51,7 +51,7 @@ public class RequirementUpdateController {
     public ModelAndView postRequirementAdd(RequirementForm formBean, RenderRequest request) {
         log.debug("goUpdateRequirementRender");                         
         
-        RequirementDAO requirementDAO = new RequirementDAO();        
+        RequirementDao requirementDAO = new RequirementDao();        
         ModelAndView mav = new ModelAndView("RequirementUpdate","RequirementUpdateForm",new RequirementUpdateForm());  
                
         List<Requirements> toBeUpdatedReq = new ArrayList<Requirements>(1);
@@ -162,7 +162,7 @@ public class RequirementUpdateController {
     public ModelAndView postSave(RequirementUpdateForm formBean, RenderRequest request) {
         log.debug("SaveUpdateRequirementActionRender");                         
         
-        RequirementDAO requirementDao = new RequirementDAO();
+        RequirementDao requirementDao = new RequirementDao();
         Requirements requirement = new Requirements();
 
         // set value for project

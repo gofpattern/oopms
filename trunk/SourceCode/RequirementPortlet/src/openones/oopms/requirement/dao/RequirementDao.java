@@ -16,12 +16,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class RequirementDAO {
+public class RequirementDao {
     private Session session;    
     private Transaction tx = null;
-    private static Logger log = Logger.getLogger(RequirementDAO.class);
+    private static Logger log = Logger.getLogger(RequirementDao.class);
     
-    public RequirementDAO() {
+    public RequirementDao() {
         log.debug("New RequirementDao");
         SessionFactory factory = HibernateUtil.getSessionFactory();
         log.debug("Get hibernate Session");

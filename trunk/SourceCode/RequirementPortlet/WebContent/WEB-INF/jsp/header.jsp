@@ -21,7 +21,7 @@
 
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jav.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jav-config.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/common.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/scripts/common.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
