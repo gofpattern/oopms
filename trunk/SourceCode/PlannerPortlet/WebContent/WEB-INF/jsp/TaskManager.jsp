@@ -258,7 +258,7 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.currenteffort" value="${edTask.currenteffort}"
-                    id="add-form-currentEffort" /> (Hours)<br /><span id=errorsDiv_task.currenteffort></span></td>
+                    id="add-form-currentEffort" /> (Hours)<br /> <span id=errorsDiv_task.currenteffort></span></td>
                 <td class="ColumnLabel"><label for="add-form-completedSize">Completed Size</label></td>
                 <td class="CellBGR3"><form:input path="task.completedsize" value="${edTask.completedsize}"
                     id="add-form-completedSize" /></td>
@@ -266,7 +266,7 @@
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td class="CellBGR3"><form:textarea path="task.description" rows="4" cols="40"
-                    id="add-form-description"></form:textarea><br /><span id=errorsDiv_task.description></td>
+                    id="add-form-description"></form:textarea><br /> <span id=errorsDiv_task.description></td>
               </tr>
             </tbody>
           </table>
@@ -288,24 +288,26 @@
               <td><b>&nbsp;&nbsp;Status&nbsp;</b></td>
             </tr>
             <tr>
-              <td><form:select path="projectId" class="styled_2" multiple="single" onchange='submitAction("searchTask", "${changeProjectAction}")'>
+              <td><form:select path="projectId" class="styled_2" multiple="single"
+                  onchange='submitAction("searchTask", "${changeProjectAction}")'>
                   <form:options items="${projectMap}" />
                 </form:select></td>
               <td><form:select path="stageDefault" class="styled_2" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${stageMap}" />
                 </form:select></td>
-              <td><form:select path="developerDefault" class="styled_2" multiple="single" onchange='this.form.submit()'>
+              <td><form:select path="developerDefault" class="styled_2" multiple="single"
+                  onchange='this.form.submit()'>
                   <form:options items="${developerMap}" />
                 </form:select></td>
-              <td><form:select path="statusDefault" class="styled_2" multiple="single" onchange='this.form.submit()'>
+              <td><form:select path="statusDefault" class="styled_2" multiple="single"
+                  onchange='this.form.submit()'>
                   <form:options items="${statusMap}" />
                 </form:select></td>
               <td width="56%"></td>
             </tr>
           </table>
         </form:form>
-        <table id="taskTable" class="display dataTable" cellpadding="0"
-    cellspacing="0" border="0">
+        <table id="taskTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
           <thead>
             <tr>
               <!-- TABLE HEADER -->
@@ -354,7 +356,7 @@
                         <td>${task.stage_str}</td>
                         <td>${task.process_str}</td>
                         <td>${task.developer_str}</td>
-                        <td>${task.plannedeffort - task.currenteffort}&nbsp;Hour</td>
+                        <td>${task.plannedeffort - task.currenteffort}H</td>
                         <c:choose>
                           <c:when test="${not empty completeRate}">
                             <td>${completeRate}</td>
@@ -383,10 +385,10 @@
                             <td>${task.planDate_str}</td>
                           </c:otherwise>
                         </c:choose>
-                        <td>${task.plannedeffort}&nbsp;Hour</td>
+                        <td>${task.plannedeffort}H</td>
                         <c:choose>
                           <c:when test="${task.statusid =='2'}">
-                            <td>${task.effort}&nbsp;Hour</td>
+                            <td>${task.effort}H</td>
                           </c:when>
                           <c:otherwise>
                             <td>N/A</td>
@@ -408,8 +410,8 @@
             </tbody>
           </c:if>
         </table>
-          </p>
-          <p>
+        </p>
+        <p>
       </div>
       <div align="right">
         <input type="button" name="" value="Import" /> <input type="button" name="input" value="Report" />

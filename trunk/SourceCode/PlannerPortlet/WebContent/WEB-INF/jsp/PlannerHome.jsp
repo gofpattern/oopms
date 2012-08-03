@@ -127,8 +127,8 @@
               </portlet:renderURL>
               <tr>
                 <td>${count}</td>
-                <td scope="row"><a href="${renderAction}">${project.code}</a></td>
-                <td scope="row"><a href="${renderAction}">${project.name}</a></td>
+                <td><a href="${renderAction}">${project.code}</a></td>
+                <td>${project.name}</td>
               </tr>
             </c:forEach>
           </tbody>
