@@ -117,16 +117,21 @@ public class DeveloperDao extends BaseDao {
      * @return
      */
     public final Developer getDeveloperByAccount(String account) {
-        SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
-        sess = sessionfactory.openSession();
-        sess.beginTransaction();
+        try {
+            SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+            sess = sessionfactory.openSession();
+            sess.beginTransaction();
 
-        String hql = "From Developer WHERE account = :username";
-        Query query = sess.createQuery(hql);
-        query.setParameter("username", account.toUpperCase());
-        Developer dev = (Developer) query.uniqueResult();
+            String hql = "From Developer WHERE account = :username";
+            Query query = sess.createQuery(hql);
+            query.setParameter("username", account.toUpperCase());
+            Developer dev = (Developer) query.uniqueResult();
+            return dev;
+        } catch (RuntimeException rEx) {
+            log.error("Get information of account '" + account + "'", rEx);
+        }
 
-        return dev;
+        return null;
     }
 
     /**
