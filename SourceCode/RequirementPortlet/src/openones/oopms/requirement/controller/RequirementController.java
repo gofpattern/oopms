@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
-import openones.oopms.requirement.dao.RequirementDAO;
+import openones.oopms.requirement.dao.RequirementDao;
 import openones.oopms.requirement.form.RequirementForm;
 import openones.oopms.requirement.model.Project;
 import openones.oopms.requirement.model.Requirements;
@@ -62,7 +62,7 @@ public class RequirementController {
         log.debug("postRequirementSTART");                           
         
         ModelAndView mav = new ModelAndView("RequirementHome");
-        RequirementDAO requirementDAO = new RequirementDAO();        
+        RequirementDao requirementDAO = new RequirementDao();        
         requirementList = requirementDAO.getAllRequirement();
         projectList = requirementDAO.getAllProject();            
         
@@ -132,7 +132,7 @@ public class RequirementController {
             }
         }        
         log.debug("tobedeletedList.deleteRequirementList: "+deleteRequirementList.size());
-        RequirementDAO reqDao = new RequirementDAO();
+        RequirementDao reqDao = new RequirementDao();
         try {
             reqDao.deleteReq(deleteRequirementList);
         } catch (ParseException ex) {
