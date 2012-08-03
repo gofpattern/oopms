@@ -50,7 +50,7 @@
 	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
-	        
+	        document.getElementById('scopeObjective').innerHTML = "${CreateProjectForm.scopeObjective}";
 	});
     
     </script>
@@ -68,6 +68,7 @@
 	rules[9] = 'planStartDate|date_le|$planEndDate';
 	rules[10] = 'planStartDate:Planned Start Date|date';
 	rules[11] = 'planEndDate:Planned End Date|date';
+
 
 </SCRIPT>
 

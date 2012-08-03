@@ -78,6 +78,10 @@ public class UpdateProjectController {
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process UpdateProject.START");
 		try {
+			formBean.setScopeObjective(formBean.getScopeObjective().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setProjectName(formBean.getProjectName().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setCustomer(formBean.getCustomer().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setEndCustomer(formBean.getEndCustomer().replaceAll("[^a-zA-Z0-9]+",""));
 			projectId = formBean.getProjectId();
 			UpdateProjectValidator validator = new UpdateProjectValidator();
 			error = "";
