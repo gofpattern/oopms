@@ -78,7 +78,7 @@ public class TaskDAO {
         }
         return null;
     }
-    
+
     public List<Tasks> getTasksByProjectId(String projectId) {
         log.debug("getTaskByProjectId.START");
         try {
@@ -108,7 +108,7 @@ public class TaskDAO {
             Query query = session.createQuery(sql);
             query.setParameter("taskId", taskId);
             Tasks task = (Tasks) query.uniqueResult();
-            session.flush();            
+            session.flush();
             System.out.println("getTaskById.end");
             return task;
         } catch (Exception e) {
@@ -124,7 +124,7 @@ public class TaskDAO {
             String sql = "from Stage";
             Query query = session.createQuery(sql);
             List<Stage> stageList = query.list();
-            session.flush();            
+            session.flush();
             System.out.println("getAllStage.end");
             return stageList;
         } catch (Exception e) {
@@ -227,7 +227,6 @@ public class TaskDAO {
     public void addTask(Tasks task) {
         try {
             session.getTransaction().begin();
-            task.setActive(true);
             session.save(task);
             session.flush();
             session.getTransaction().commit();
@@ -269,14 +268,15 @@ public class TaskDAO {
         log.debug("updateTask.START");
         try {
             session.getTransaction().begin();
-            // Tasks task = (Tasks) session.get(Tasks.class, id);
+            // Tasks task = (Tasks) session.get(Tasks.class, editTask.getTaskid());
             if (editTask.getStatusid().equals(new BigDecimal(2))) {
                 // not sure
                 Calendar cal = Calendar.getInstance();
                 editTask.setActualDate(cal.getTime());
                 editTask.setEffort(editTask.getCurrenteffort());
             }
-            session.update(editTask);
+            session.merge(editTask);
+            // session.update(editTask);
             session.flush();
             session.getTransaction().commit();
         } catch (Exception e) {
