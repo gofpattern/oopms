@@ -8,7 +8,7 @@
 <script type="text/javascript">
 var arrowimages={down:['downarrowclass', 'arrow-down.gif', 25], right:['rightarrowclass', 'arrow-right.gif']}
 
-jquerycssmenu.buildmenu("myjquerymenu", arrowimages, "/ResourceServingWebapp/resource-menu//");
+jquerycssmenu.buildmenu("myjquerymenu", arrowimages, "/ResourceServingWebapp/resource-menu/");
 
 </script>
 

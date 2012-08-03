@@ -6,8 +6,8 @@
 <script type="text/javascript" src="resource_files/popcalendar.js"></script></head><body topmargin="0" leftmargin="0" bgcolor="#FFFFFF"><div onclick="bShow=true" id="calendar" style="z-index:+999;position:absolute;visibility:hidden;"><table class="pcalTbl" width="250"><tbody><tr bgcolor="#000066"><td><table width="248"><tbody><tr><td class="pcalCaption"><font color="#ffffff"><b><span id="caption"><span id="spanLeft" class="pcalSelBtn" onmouseover="swapImage('changeLeft','pcalleft2.gif');this.style.borderColor='#8af';window.status='Click to scroll to previous month. Hold mouse button to scroll automatically.'" onclick="decMonth()" onmouseout="clearInterval(intervalID1);swapImage('changeLeft','pcalleft1.gif');this.style.borderColor='#36f';window.status=''" onmousedown="clearTimeout(timeoutID1);timeoutID1=setTimeout('StartDecMonth()',500)" onmouseup="clearTimeout(timeoutID1);clearInterval(intervalID1)">&nbsp;<img id="changeLeft" src="resource_files/pcalleft1.gif" height="11" border="0" width="10"></span>&nbsp;<span id="spanRight" class="pcalSelBtn" onmouseover="swapImage('changeRight','pcalright2.gif');this.style.borderColor='#8af';window.status='Click to scroll to next month. Hold mouse button to scroll automatically.'" onmouseout="clearInterval(intervalID1);swapImage('changeRight','pcalright1.gif');this.style.borderColor='#36f';window.status=''" onclick="incMonth()" onmousedown="clearTimeout(timeoutID1);timeoutID1=setTimeout('StartIncMonth()',500)" onmouseup="clearTimeout(timeoutID1);clearInterval(intervalID1)">&nbsp;<img id="changeRight" src="resource_files/pcalright1.gif" height="11" border="0" width="10"></span>&nbsp;<span id="spanMonth" class="pcalSelBtn" onmouseover="swapImage('changeMonth','pcaldrop2.gif');this.style.borderColor='#8af';window.status='Click to select a month.'" onmouseout="swapImage('changeMonth','pcaldrop1.gif');this.style.borderColor='#36f';window.status=''" onclick="popUpMonth()"></span>&nbsp;<span id="spanYear" class="pcalSelBtn" onmouseover="swapImage('changeYear','pcaldrop2.gif');this.style.borderColor='#8af';window.status='Click to select a year.'" onmouseout="swapImage('changeYear','pcaldrop1.gif');this.style.borderColor='#36f';window.status=''" onclick="popUpYear()"></span>&nbsp;</span></b></font></td><td align="right"><a href="javascript:hideCalendar()"><img src="resource_files/pcalclose.gif" height="13" border="0" width="15"></a></td></tr></tbody></table></td></tr><tr><td style="padding: 5px;" bgcolor="#ffffff"><span id="content"></span></td></tr><tr bgcolor="#f0f0f0"><td style="padding: 5px;" align="center"><span id="lblToday"><font color="#000066">Today is <a onmousemove="window.status='Go To Current Month'" onmouseout="window.status=''" title="Go To Current Month" style="text-decoration: none; color: black;" href="javascript:monthSelected=monthNow;yearSelected=yearNow;constructCalendar();">Tue, 5 Jun 2012</a></font></span></td></tr></tbody></table></div><div id="selectMonth" style="z-index:+999;position:absolute;visibility:hidden;"></div><div id="selectYear" style="z-index:+999;position:absolute;visibility:hidden;"></div>
 <title>Add New Defect</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="StyleSheet" href="resource_files/DMSStyleSheet.css" type="text/css">
-<link rel="StyleSheet" href="resource_files/pcal.css" type="text/css">
+<link rel="StyleSheet" href="/<spring:message code="app.context"/>/resource_files/DMSStyleSheet.css" type="text/css">
+<link rel="StyleSheet" href="/<spring:message code="app.context"/>/resource_files/pcal.css" type="text/css">
 <script language="javascript">
 function doSave() {
     var form = document.frmDefectAdd;
@@ -251,7 +251,7 @@ function selectWorkProduct(){
 <portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="goViewDefectList2"/></portlet:renderURL>
 
 <form:form name="${portletNamespace}AddDefect" commandName="defectForm" method="post" action="${formAction}">
-<div><img src="resource_files/DefectAddnew.gif" height="28" border="0" width="411"></div>
+<div><img src="/<spring:message code="app.context"/>/resource_files/DefectAddnew.gif" height="28" border="0" width="411"></div>
 <input name="hidActionDetail" value="" type="hidden">
 <input name="hidAction" value="" type="hidden">
 <input name="CheckRole" value="1110000000" type="hidden">
@@ -299,7 +299,7 @@ function selectWorkProduct(){
         <td id="idCreatedDate" align="left" nowrap="nowrap" valign="middle"><b><font color="black">Created date</font></b><font color="red">&nbsp;*</font></td>
         <td align="left" valign="middle">
             <input style="font-family: Arial; font-size: 8pt; width: 45pt;" name="CreateDate" value="06/05/12" maxlength="8" type="text">
-            <img src="resource_files/cal.gif" style="" onclick='showCalendar(document.getElementById("idCreatedDate"), document.forms[0].CreateDate, "mm/dd/yy",null,1,-1,-1,true)'>
+            <img src="/<spring:message code="app.context"/>/resource_files/cal.gif" style="" onclick='showCalendar(document.getElementById("idCreatedDate"), document.forms[0].CreateDate, "mm/dd/yy",null,1,-1,-1,true)'>
             <font color="blue">&nbsp;(mm/dd/yy)</font>
         </td>
     </tr>
@@ -409,7 +409,7 @@ function selectWorkProduct(){
         <td id="idDueDate" align="left" valign="middle"><b><font color="black">Due date</font></b></td>
         <td align="left" valign="middle">
             <input style="font-family: Arial; font-size: 8pt; width: 45pt;" name="DueDate" value="06/06/12" maxlength="8" type="text">
-            <img src="resource_files/cal.gif" style="" onclick='showCalendar(document.getElementById("idDueDate"), document.forms[0].DueDate, "mm/dd/yy",null,1,-1,-1,true)'>
+            <img src="/<spring:message code="app.context"/>/resource_files/cal.gif" style="" onclick='showCalendar(document.getElementById("idDueDate"), document.forms[0].DueDate, "mm/dd/yy",null,1,-1,-1,true)'>
             <font color="blue">&nbsp;(mm/dd/yy)</font></td>
     </tr>
     <tr>
