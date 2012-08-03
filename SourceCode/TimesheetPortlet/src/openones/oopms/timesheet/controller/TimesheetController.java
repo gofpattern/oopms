@@ -642,7 +642,7 @@ public class TimesheetController {
         mav.addObject("projectMap", projectMap);
         mav.addObject("processMap", processMap);
         mav.addObject("towMap", towMap);
-       
+        mav.addObject("timesheetErrorList",timesheetErrorList);
         // Add object timesheetList to request
         mav.addObject("timesheetList", timesheetList);
         updateTimesheetList = timesheetList;
@@ -691,32 +691,42 @@ public class TimesheetController {
      * @param result
      * @param status
      * @param response
+     * @throws IOException 
      */   
     
     @ActionMapping(params = "action=updateTimesheet")
     public void processUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) throws ParseException {
+            ActionResponse response) throws ParseException, IOException {
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
-        Timesheet timesheet ;
+        Timesheet timesheet;
         boolean errFlag = false;
-        for (int i = 0; i < tempList.size(); i++) {   
+        timesheetErrorList = new ArrayList<String>();
+        for (int i = 0; i < tempList.size(); i++) {
             timesheet = new Timesheet();
             timesheet = tempList.get(i);
-            // errFlag =  validateTimesheet(Timesheet timesheet);
-            updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
-            updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
-            updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
-            updateTimesheetList.get(i).setTowId(new BigDecimal(tempList.get(i).getTowId().toString()));
-            updateTimesheetList.get(i).setDuration(new BigDecimal(tempList.get(i).getDuration().toString()));
-            updateTimesheetList.get(i).setDescription(tempList.get(i).getDescription());
-            
-           TimesheetDao timeDao = new TimesheetDao();
-           timeDao.updateTimesheet(updateTimesheetList, user.getDeveloperId());
-           
-           
+
+          //  errFlag = validateTimesheet(timesheet, false);
+            if (!errFlag) {
+                updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
+                updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
+                updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
+                updateTimesheetList.get(i).setTowId(new BigDecimal(tempList.get(i).getTowId().toString()));
+                updateTimesheetList.get(i).setDuration(new BigDecimal(tempList.get(i).getDuration().toString()));
+                updateTimesheetList.get(i).setDescription(tempList.get(i).getDescription());
+
+                TimesheetDao timeDao = new TimesheetDao();
+                timeDao.updateTimesheet(updateTimesheetList, user.getDeveloperId());
+
+            }
         }
-        response.setRenderParameter("action", "init");
+        if(errFlag) {
+            response.setRenderParameter("action", "goUpdateTimesheet");
+        }
+        else {
+            response.setRenderParameter("action", "init");
+        }
+       
 
     }
     

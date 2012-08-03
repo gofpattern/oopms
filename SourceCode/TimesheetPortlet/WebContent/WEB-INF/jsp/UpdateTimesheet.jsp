@@ -92,7 +92,11 @@
 <form:form onsubmit='return validate("validate");' name="UpdateTimesheet" method="post" commandName="timesheetForm"
   action="${timesheetFormAction}"> 
   
-  <form:errors path="*" cssStyle="color:red;" />
+ <c:if test="${not empty timesheetErrorList}">
+        <c:forEach var="timesheet" varStatus="status" items="${timesheetErrorList}">
+            <label id="noSelect" style="display: inline; color: red;">${timesheet}</label>
+        </c:forEach>
+      </c:if> 
 <table id="mainTable2" class="display dataTable"  cellpadding="0" cellspacing="0"  border="0" >
  <form:errors path="*" cssStyle="color:red;" />
   <thead>
