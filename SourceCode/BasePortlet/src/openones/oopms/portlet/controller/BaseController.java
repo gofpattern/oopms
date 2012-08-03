@@ -18,12 +18,15 @@
  */
 package openones.oopms.portlet.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.daocommon.DeveloperDao;
+import openones.oopms.entity.Developer;
 import openones.oopms.form.CommonInfo;
 import openones.oopms.form.SubMenu;
 import openones.oopms.form.UserInfo;
@@ -31,10 +34,11 @@ import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.portlet.ModelAndView;
 
 /**
- * @author Thach.Le
+ * @author Open-Ones team
  */
 public class BaseController {
     private static final String SK_USER_INFO = "UserInfo";
@@ -46,6 +50,15 @@ public class BaseController {
     // Get information of authenticated user: position
     // UserInfo userInfo = new UserInfo();
 
+    /**
+     * Initial render.
+     * Get logon user from the portal or from the configuration if the portlet runs on the GlassFish + OpenPortlet Container.
+     * If the portlet runs within the portal (ex: uPortal) and the authenticated user is not exist in the database of OOPMS,
+     * then user will be created.
+     * @param request
+     * @param session
+     * @return
+     */
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
         PortletSupport portletSupport = new PortletSupport(request);
@@ -54,12 +67,29 @@ public class BaseController {
         log.debug("logonUser=" + logonUser);
 
         if (logonUser != null) {
-            // TODO: get Role, Group from the database
-            // Set roles for user
-            UserInfo userInfo = new UserInfo(logonUser);
-            userInfo.addRole("Developer");
-            userInfo.setGroup("Development");
-            userInfo.setLoginDate(BaseUtil.getCurrentDate());
+            UserInfo userInfo = null;
+            DeveloperDao devDao = new DeveloperDao();
+            Developer dev = devDao.getDeveloperByAccount(logonUser);
+
+            if (dev != null) {
+                // Set roles for user
+                userInfo = new UserInfo(logonUser);
+                userInfo.addRole(dev.getRole());
+                userInfo.setGroup(dev.getGroupName());
+                userInfo.setLoginDate(BaseUtil.getCurrentDate());
+            } else {
+                dev = new Developer();
+                dev.setName(logonUser);
+                dev.setAccount(logonUser);
+                dev.setStatus(BigDecimal.ONE);
+                dev.setRole(BaseUtil.getProperies().getProperty("DefRole"));
+                dev.setGroupName(BaseUtil.getProperies().getProperty("DefGroup"));
+                if (devDao.insertDeveloper(dev)) {
+                    log.info("Created user: " + dev.getAccount());
+                } else {
+                    log.warn("Could not create user: " + dev.getAccount());
+                }
+            }
             // Update userInfo into the session
             updateUserInfo(session, userInfo);
         }
@@ -120,4 +150,11 @@ public class BaseController {
     public void updateMenuBar(PortletSession session, List<SubMenu> subMenuList) {
         session.setAttribute("MenuBar", subMenuList);
     }
+    
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception ex, RenderRequest request) {
+        log.debug("Handling exception", ex);
+        return "GeneralError";
+    }
+
 }

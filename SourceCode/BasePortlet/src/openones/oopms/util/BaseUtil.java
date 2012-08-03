@@ -18,20 +18,33 @@
  */
 package openones.oopms.util;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import rocky.common.PropertiesManager;
+
 /**
- * @author Thach.Le
+ * @author Open-Ones team
  */
 public class BaseUtil {
     /** Logger for logging. */
-    private final Logger log = Logger.getLogger("AppUtil");
+    private final static Logger log = Logger.getLogger("AppUtil");
+
+    private static Properties props; 
+    static {
+        try {
+            props = PropertiesManager.newInstanceFromProps("/oopms.properties");
+        } catch (IOException ex) {
+            log.error("Loading configuration resource '/oopms.properties'", ex);
+        }
+    }
 
     /** . */
-    final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+    final static SimpleDateFormat sdf = new SimpleDateFormat(props.getProperty("DateFMT"));
 
     /**
      * [Give the description for method].
@@ -39,5 +52,9 @@ public class BaseUtil {
      */
     public static String getCurrentDate() {
         return sdf.format(new Date());
+    }
+    
+    public static Properties getProperies() {
+        return props;
     }
 }
