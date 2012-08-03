@@ -31,9 +31,8 @@
 
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript"
-  src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
+  src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script> 
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements2.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/custom.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
