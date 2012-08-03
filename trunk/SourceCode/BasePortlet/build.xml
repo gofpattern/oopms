@@ -1,4 +1,4 @@
-<project name="BasePortlet" default="dist" basedir=".">
+<project name="BasePortlet" default="lib" basedir=".">
     <description>
       Build file for the project
   </description>
