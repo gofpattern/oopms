@@ -4,28 +4,16 @@
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
-<script type="text/javascript" src="/RequirementPortlet/Resource_files/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="/RequirementPortlet/Resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script type="text/javascript" src="/RequirementPortlet/Resource_files/js/form-elements.js"></script>
-<script type="text/javascript" src="/RequirementPortlet/Resource_files/js/yav.js"></script>
-<script type="text/javascript" src="/RequirementPortlet/Resource_files/js/yav-config.js"></script>
 
 <title>Update Requirement</title>
 <jsp:include page="header.jsp" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet">
-    <link type="text/css" href="css/common.css" rel="Stylesheet">
-
-
-
-      <style type="text/css">
+<style type="text/css">
 #tabs28 {
   float: left;
   width: 100%;
@@ -90,152 +78,144 @@ textarea {
 }
 </style>
 
-      <script language="javascript">
-							$(function() {
-								$("#radio").buttonset();
-								$("#format").buttonset();
-								$("input:submit, a, button", ".demo").button();
-								$("a", ".demo").click(function() {
-									return false;
-								});
+<script language="javascript">
+	$(function() {
+		$("#radio").buttonset();
+		$("#format").buttonset();
+		$("input:submit, a, button", ".demo").button();
+		$("a", ".demo").click(function() {
+			return false;
+		});
 
-								// run the currently selected effect
-								function runEffect() {
-									// get effect type from 
-									var selectedEffect = $("#effectTypes")
-											.val();
+		// run the currently selected effect
+		function runEffect() {
+			// get effect type from 
+			var selectedEffect = $("#effectTypes").val();
 
-									// most effect types need no options passed by default
-									var options = {};
-									// some effects have required parameters
-									if (selectedEffect === "scale") {
-										options = {
-											percent : 100
-										};
-									} else if (selectedEffect === "size") {
-										options = {
-											to : {
-												width : 280,
-												height : 185
+			// most effect types need no options passed by default
+			var options = {};
+			// some effects have required parameters
+			if (selectedEffect === "scale") {
+				options = {
+					percent : 100
+				};
+			} else if (selectedEffect === "size") {
+				options = {
+					to : {
+						width : 280,
+						height : 185
+					}
+				};
+			}
+
+			// run the effect
+			$("#effect").show(selectedEffect, options, 500, callback);
+		}
+		;
+
+		//callback function to bring a hidden box back
+		function callback() {
+			setTimeout(function() {
+				$("#effect:visible").removeAttr("style").fadeOut();
+			}, 1000);
+		}
+		;
+
+		// set effect from select menu value
+		$("#button").click(function() {
+			runEffect();
+			return false;
+		});
+
+		$("#effect").hide();
+	});
+
+	$(document)
+			.ready(
+					function() {
+						$('#mainTable tr')
+								.filter(':has(:checkbox:checked)')
+								.addClass('selected')
+								.end()
+								.click(
+										function(event) {
+											$(this).toggleClass('selected');
+											if (event.target.type !== 'checkbox') {
+												$(':checkbox', this)
+														.attr(
+																'checked',
+																function() {
+																	return !this.checked;
+																});
 											}
-										};
-									}
+										});
 
-									// run the effect
-									$("#effect").show(selectedEffect, options,
-											500, callback);
-								}
-								;
+						$("#datepicker1")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker2")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker3")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker4")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker5")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker6")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker7")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker8")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+						$("#datepicker9")
+								.datepicker(
+										{
+											showOn : "button",
+											buttonImage : "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+											buttonImageOnly : true
+										});
+					});
+</script>
 
-								//callback function to bring a hidden box back
-								function callback() {
-									setTimeout(function() {
-										$("#effect:visible")
-												.removeAttr("style").fadeOut();
-									}, 1000);
-								}
-								;
-
-								// set effect from select menu value
-								$("#button").click(function() {
-									runEffect();
-									return false;
-								});
-
-								$("#effect").hide();
-							});
-
-							$(document)
-									.ready(
-											function() {
-												$('#mainTable tr')
-														.filter(
-																':has(:checkbox:checked)')
-														.addClass('selected')
-														.end()
-														.click(
-																function(event) {
-																	$(this)
-																			.toggleClass(
-																					'selected');
-																	if (event.target.type !== 'checkbox') {
-																		$(
-																				':checkbox',
-																				this)
-																				.attr(
-																						'checked',
-																						function() {
-																							return !this.checked;
-																						});
-																	}
-																});
-
-												$("#datepicker1")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker2")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker3")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker4")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker5")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker6")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker7")
-														.datepicker(
-																{
-																	showOn : "button",
-																	buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-																	buttonImageOnly : true
-																});
-												$("#datepicker8")
-                                                .datepicker(
-                                                        {
-                                                            showOn : "button",
-                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-                                                            buttonImageOnly : true
-                                                        });
-												$("#datepicker9")
-                                                .datepicker(
-                                                        {
-                                                            showOn : "button",
-                                                            buttonImage : '/RequirementPortlet/Resource_files/images/calendar.gif',
-                                                            buttonImageOnly : true
-                                                        });
-											});
-						</script>
-      <script type="text/javascript" src='/RequirementPortlet/scripts/common.js'></script>
 </head>
 
 <body>
@@ -301,8 +281,7 @@ textarea {
           <div>
             <tbody>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Project Name*</font></b><font
-                  color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><b><font color="black">Project Name*</font></b><font color="red">&nbsp;</font></td>
                 <td width="26%"><form:select cssClass="styled" path="projectDefault" multiple="single">
                     <c:set var="projectMap" value="${projectMap}" />
                     <form:options items="${projectMap}" />
@@ -313,8 +292,8 @@ textarea {
                 <!-- Requirement Name -->
                 <td align="left" valign="middle"><b><font color="black">Requirement Name*</font></b><font
                   color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input value="${currentRequirement.requirement}" path="requirementName" maxlength="150"
-                    id="requirementName" /></td>
+                <td align="left" valign="middle"><form:input value="${currentRequirement.requirement}"
+                    path="requirementName" maxlength="150" id="requirementName" /></td>
               </tr>
 
               <tr>
@@ -344,91 +323,98 @@ textarea {
               <tr>
                 <!-- srs -->
                 <td align="left" valign="middle"><b><font color="black">SRS Document* </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="srs" maxlength="150" value="${currentRequirement.srs}" id="srs" /></td>
+                <td align="left" valign="middle"><form:input path="srs" maxlength="150"
+                    value="${currentRequirement.srs}" id="srs" /></td>
               </tr>
 
               <tr>
                 <!-- releaseNote -->
                 <td align="left" valign="middle"><b><font color="black">Release Note* </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150" value="${currentRequirement.releaseNote}" id="releaseNote" /></td>
+                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150"
+                    value="${currentRequirement.releaseNote}" id="releaseNote" /></td>
               </tr>
 
               <tr>
                 <!-- document -->
-                <td align="left" valign="middle"><b><font color="black">Design Document </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="document" maxlength="150" value="${currentRequirement.dd}" id="document" /></td>
+                <td align="left" valign="middle"><b><font color="black">Design Document </font></b><font
+                  color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><form:input path="document" maxlength="150"
+                    value="${currentRequirement.dd}" id="document" /></td>
               </tr>
 
               <tr>
                 <!-- effort -->
                 <td align="left" valign="middle"><b><font color="black">Effort </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="effort" maxlength="150" value="${currentRequirement.effort}" id="effort"/></td>
+                <td align="left" valign="middle"><form:input path="effort" maxlength="150"
+                    value="${currentRequirement.effort}" id="effort" /></td>
               </tr>
-              
+
               <tr>
                 <!-- Elapsed Day -->
                 <td align="left" valign="middle"><b><font color="black">Elapsed Day </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="elapsedDay" maxlength="150" value="${currentRequirement.elapsedDay}"/></td>
+                <td align="left" valign="middle"><form:input path="elapsedDay" maxlength="150"
+                    value="${currentRequirement.elapsedDay}" /></td>
               </tr>
-              
+
               <tr>
                 <!-- Test Case -->
                 <td align="left" valign="middle"><b><font color="black">Test Case </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="testCase" maxlength="150" value="${currentRequirement.testcase}" /></td>
+                <td align="left" valign="middle"><form:input path="testCase" maxlength="150"
+                    value="${currentRequirement.testcase}" /></td>
               </tr>
-              
+
               <tr>
                 <!-- Code Module -->
                 <td align="left" valign="middle"><b><font color="black">Code Module </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="codeModule" maxlength="150" value="${currentRequirement.codeModule}"/></td>
-              </tr>                            
-              
+                <td align="left" valign="middle"><form:input path="codeModule" maxlength="150"
+                    value="${currentRequirement.codeModule}" /></td>
+              </tr>
+
 
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Created Date</font></b><font
-                  color="red">&nbsp;</font></td>
+                <td align="left" valign="middle"><b><font color="black">Created Date</font></b><font color="red">&nbsp;</font></td>
                 <td><input maxlength="9" name="createdDate" size="9" value="" type="text" id="datepicker1" />
                   (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Designed Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="datepicker2" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Designed Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="datepicker2" />
+                  (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Coded Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="datepicker3" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Coded Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="datepicker3" />
+                  (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Tested Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="datepicker4" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Tested Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="datepicker4" />
+                  (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Deployed Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="datepicker5" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Deployed Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="datepicker5" />
+                  (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Accepted Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="datepicker6" /> (mm-dd-yyyy)</td>
-              </tr>              
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Response Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="responseDate" size="9" value="" type="text" id="datepicker7" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Accepted Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="datepicker6" />
+                  (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Committed Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="committedDate" size="9" value="" type="text" id="datepicker8" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Response Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="responseDate" size="9" value="" type="text" id="datepicker7" />
+                  (mm-dd-yyyy)</td>
               </tr>
               <tr>
-                <td align="left" valign="middle"><b><font color="black">Cancelled Date</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="datepicker9" /> (mm-dd-yyyy)</td>
+                <td align="left" valign="middle"><b><font color="black">Committed Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="committedDate" size="9" value="" type="text" id="datepicker8" />
+                  (mm-dd-yyyy)</td>
+              </tr>
+              <tr>
+                <td align="left" valign="middle"><b><font color="black">Cancelled Date</font></b><font color="red">&nbsp;</font></td>
+                <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="datepicker9" />
+                  (mm-dd-yyyy)</td>
               </tr>
 
 
@@ -441,13 +427,13 @@ textarea {
         <input name="RequirementUpdate" class="Button" value="Save" type="button"
           onclick='submitAction("${portletNamespace}RequirementUpdate", "${formAction}")'>&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="Back" class="Button"
-          onclick='submitAction("${portletNamespace}RequirementUpdate", "${requirementmanager}")' value="Requirement List"
-          type="button">&nbsp;&nbsp;&nbsp;&nbsp; 
+          onclick='submitAction("${portletNamespace}RequirementUpdate", "${requirementmanager}")'
+          value="Requirement List" type="button">&nbsp;&nbsp;&nbsp;&nbsp; 
       </form:form>
 
       <div class="footer">
-      <br>
-        <p>DMS Group</p>
+        <br>
+          <p>DMS Group</p>
       </div>
       <!-- end .footer -->
 
