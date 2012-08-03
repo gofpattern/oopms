@@ -9,4 +9,5 @@ public class Constant {
 	public static String CustomerType = "5";
 	public static String ProjectOwnerType = "6";
 	public static String WorkUnitProjectType = "2";
+	public static String MilestoneUncomplete = "0";
 }

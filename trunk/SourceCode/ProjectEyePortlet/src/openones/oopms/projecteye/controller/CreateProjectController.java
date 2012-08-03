@@ -88,6 +88,11 @@ public class CreateProjectController {
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process CreateProject.START");
 		try {
+			formBean.setScopeObjective(formBean.getScopeObjective().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setProjectCode(formBean.getProjectCode().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setProjectName(formBean.getProjectName().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setCustomer(formBean.getCustomer().replaceAll("[^a-zA-Z0-9]+",""));
+			formBean.setEndCustomer(formBean.getEndCustomer().replaceAll("[^a-zA-Z0-9]+",""));
 			CreateProjectValidator validator = new CreateProjectValidator();
 			error = "";
 			error = validator.validate(formBean);
@@ -130,11 +135,12 @@ public class CreateProjectController {
 						.getPlanStartDate()));
 				// Call dao to insert project to database
 				if (pDao.insertProject(project, assignment)) {
+					//insert work unit of project
 					Workunit workunit = new Workunit();
 					workunit.setType(Integer
 							.parseInt(Constant.WorkUnitProjectType));
 					workunit.setWorkunitname(project.getCode());
-					WorkUnitDao wuDao = new WorkUnitDao();
+					WorkUnitDao wuDao = new WorkUnitDao();					
 					if (wuDao.insertWorkUnit(workunit)) {
 						response.setRenderParameter("action", "CreateProject");
 						log.error("Insert success");

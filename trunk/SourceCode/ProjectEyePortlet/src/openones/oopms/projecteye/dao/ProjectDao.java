@@ -8,7 +8,9 @@ import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.LanguageCode;
+import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Stage;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
@@ -57,8 +59,20 @@ public class ProjectDao {
 			tx = session.beginTransaction();
 			session.save(project);
 			session.flush();
+			//insert assigment for project owner
 			assignment.setProject(project);
 			session.save(assignment);
+			//insert Project Stage
+			WorkOrderDao woDao = new WorkOrderDao();
+			List<Stage> stageList = woDao.getStandardStageList();			
+			for(int i =0; i<stageList.size();i++) {
+				Milestone stage = new Milestone();
+				stage.setProject(project);
+				stage.setComplete(new BigDecimal(Constant.MilestoneUncomplete));
+				stage.setName(stageList.get(i).getName());
+				session.save(stage);
+				session.flush();
+			}
 			tx.commit();
 			sessfac.close();
 		} catch (Exception e) {
