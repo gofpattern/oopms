@@ -25,9 +25,7 @@
  */
 function submitAction(formName, actionUrl) {
 	var frm = document.forms[formName];
-
-	frm.action = actionUrl;
-	
+	frm.action = actionUrl;	
 	frm.submit();
 }
 

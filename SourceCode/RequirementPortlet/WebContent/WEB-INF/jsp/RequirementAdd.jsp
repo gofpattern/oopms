@@ -11,8 +11,8 @@
 
 <title>Requirement Add</title>
 <jsp:include page="header.jsp" />
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <style type="text/css">
 #tabs28 {
   float: left;
@@ -79,6 +79,7 @@ textarea {
 </style>
 
 <script language="javascript">
+
 	$(function() {
 		$("#radio").buttonset();
 		$("#format").buttonset();
