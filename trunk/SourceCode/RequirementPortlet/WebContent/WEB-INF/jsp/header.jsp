@@ -19,8 +19,8 @@
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datepicker.css" media="all">
 <link rel="fluid-icon" href="https://c15027075.ssl.cf2.rackcdn.com/images/apple-touch-icon-114x114.png">  
 
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jav.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jav-config.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/scripts/yav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/scripts/yav-config.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/scripts/common.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
