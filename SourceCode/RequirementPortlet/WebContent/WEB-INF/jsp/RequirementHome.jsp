@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%-- Uncomment below lines to add portlet taglibs to jsp
-<%@ page import="javax.portlet.*"%>
-<%@ taglib uri="http://java.sun.com/portlet" prefix="portlet"%>
-<portlet:defineObjects />
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -19,8 +13,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="StyleSheet" href="resource_files/DMSStyleSheet.css" type="text/css">
-<link rel="StyleSheet" href="resource_files/pcal.css" type="text/css">
 
 <title>Requirement Home</title>
 <jsp:include page="header.jsp" />
@@ -195,8 +187,6 @@
 </head>
 <body>
 
-  <script type="text/javascript" src='/RequirementPortlet/scripts/common.js'></script>
-
   <div class="container">
 
     <div class="header">
@@ -225,11 +215,11 @@
 
     <portlet:renderURL var="goUpdateRequirementAction">
       <portlet:param name="action" value="goUpdateRequirement" />
-    </portlet:renderURL> 
+    </portlet:renderURL>
 
     <portlet:renderURL var="deleteRequirementAction">
       <portlet:param name="action" value="deleteRequirement" />
-    </portlet:renderURL> 
+    </portlet:renderURL>
 
     <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
       <table>
@@ -283,8 +273,7 @@
             <!-- TABLE HEADER -->
             <thead>
               <tr>
-                <th width="5%"><input id="select-all" type="checkbox"
-                name="allbox" value="checkAll"></th>
+                <th width="5%"><input id="select-all" type="checkbox" name="allbox" value="checkAll"></th>
                 <th scope="col">No</th>
                 <th scope="col">Requirement Name</th>
                 <th scope="col">Project Name</th>
@@ -293,27 +282,26 @@
                 <th scope="col">Effort</th>
                 <th scope="col">SRS</th>
                 <th scope="col">Created Date</th>
-                <th scope="col">Designed Date</th>                
+                <th scope="col">Designed Date</th>
               </tr>
             </thead>
             <tbody>
-             
+
               <c:set var="count" value="0" />
               <c:forEach items="${requirementList}" var="requirement" varStatus="status">
-                <tr>                  
-                    <c:set var="count" value="${count + 1}" />
-                    <td class="cb"><input id="checkbox" type="checkbox"
-                    name="requirementList[${status.index}].requirementID"
-                    value="${requirement.requirementID}"></td>
-                    <td>${count}</td>
-                    <td>${requirement.requirement}</td>
-                    <td>${requirement.projectName}</td>
-                    <td>${requirement.type}</td>
-                    <td>${requirement.reqSize}</td>
-                    <td>${requirement.effort}</td>
-                    <td>${requirement.srs}</td>
-                    <td>${requirement.createDate}</td>
-                    <td>${requirement.designedDate}</td>                                      
+                <tr>
+                  <c:set var="count" value="${count + 1}" />
+                  <td class="cb"><input id="checkbox" type="checkbox"
+                    name="requirementList[${status.index}].requirementID" value="${requirement.requirementID}"></td>
+                  <td>${count}</td>
+                  <td>${requirement.requirement}</td>
+                  <td>${requirement.projectName}</td>
+                  <td>${requirement.type}</td>
+                  <td>${requirement.reqSize}</td>
+                  <td>${requirement.effort}</td>
+                  <td>${requirement.srs}</td>
+                  <td>${requirement.createDate}</td>
+                  <td>${requirement.designedDate}</td>
                 </tr>
               </c:forEach>
             </tbody>
@@ -332,26 +320,21 @@
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
         <tbody>
           <tr>
-            <td align="left" width="50%">
-              <input name="RequirementAdd" class="Button"
-                onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")'
-                value="Add New" type="button"> 
-              <input name="Refresh" class="Button"
-                onclick="javascript:doRefresh()" value="Refresh" type="button"> 
-              <input name="ExportDefect"
-                class="Button" onclick="javascript:doExport()" value="Export" type="button">
-              <input name="RequirementAdd" class="Button"
-                onclick='submitAction("${portletNamespace}RequirementHome", "${goUpdateRequirementAction}")'
-                value="Update" type="button">
-              <input name="RequirementAdd" class="Button"
-                onclick='submitAction("${portletNamespace}RequirementHome", "${deleteRequirementAction}")'
-                value="Remove" type="button">
-            </td>
+            <td align="left" width="50%"><input name="RequirementAdd" class="Button"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")'
+              value="Add New" type="button"> <input name="Refresh" class="Button"
+              onclick="javascript:doRefresh()" value="Refresh" type="button"> <input name="ExportDefect"
+              class="Button" onclick="javascript:doExport()" value="Export" type="button"> <input
+              name="RequirementAdd" class="Button"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${goUpdateRequirementAction}")'
+              value="Update" type="button"> <input name="RequirementAdd" class="Button"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${deleteRequirementAction}")' value="Remove"
+              type="button"></td>
           </tr>
 
         </tbody>
       </table>
-      
+
 
     </form:form>
 

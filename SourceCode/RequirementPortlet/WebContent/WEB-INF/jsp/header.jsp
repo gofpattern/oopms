@@ -6,24 +6,28 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
    
+<meta name="robots" content="noindex, nofollow">
                                 
- <link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon">
-	<link type="text/css" href='/RequirementPortlet/Resource_files/css/screen.css' rel="Stylesheet" />
-	<link type="text/css" href='/RequirementPortlet/Resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css' rel="Stylesheet" />	
-<link type="text/css" href='/RequirementPortlet/Resource_files/css/common.css' rel="Stylesheet" />	
-<link type="text/css" href='/RequirementPortlet/Resource_files/css/uportal.css' rel="Stylesheet" />	
-<link type="text/css" href='/RequirementPortlet/Resource_files/css/datatable.css' rel="Stylesheet" />  
+<link rel="icon" href="https://c15027075.ssl.cf2.rackcdn.com/favicon.ico" type="image/x-icon">
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/screen.css" rel="Stylesheet" />
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />	
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />	
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" />
+<link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/print.css" media="print">
+<link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/manage.css" media="all">              
+<link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datepicker.css" media="all">
+<link rel="fluid-icon" href="https://c15027075.ssl.cf2.rackcdn.com/images/apple-touch-icon-114x114.png">  
 
-<script type="text/javascript" src='/RequirementPortlet/Resource_files/js/jquery-1.7.2.min.js'></script>
-<script type="text/javascript" src='/RequirementPortlet/Resource_files/js/jquery-ui-1.8.21.custom.min.js'></script>
-<script type="text/javascript" src='/RequirementPortlet/Resource_files/js/form-elements.js'></script>
-<script type="text/javascript" src='/RequirementPortlet/Resource_files/js/datatable.js'></script>
-<script type="text/javascript" src='/RequirementPortlet/Resource_files/js/custom.js'></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jav-config.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/common.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/custom.js"></script>
 
-	<meta name="robots" content="noindex, nofollow">
-			
-	<link rel="stylesheet" type="text/css" href='/RequirementPortlet/Resource_files/css/manage.css' media="all">
-				
-	<link rel="stylesheet" type="text/css" href='/RequirementPortlet/Resource_files/css/datepicker.css' media="all">
-	<link rel="fluid-icon" href="https://c15027075.ssl.cf2.rackcdn.com/images/apple-touch-icon-114x114.png">		
-    <link rel="stylesheet" type="text/css" href='/RequirementPortlet/Resource_files/css/print.css' media="print">	
+
+	
+		

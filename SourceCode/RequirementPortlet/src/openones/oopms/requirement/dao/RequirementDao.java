@@ -1,9 +1,6 @@
 package openones.oopms.requirement.dao;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -18,7 +15,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.RowCountProjection;
 
 public class RequirementDAO {
     private Session session;    
