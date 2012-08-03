@@ -41,7 +41,7 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 
 /**
- * @author Thach.Le
+ * @author Open-Ones team
  */
 @Controller
 @RequestMapping("VIEW")
@@ -56,6 +56,7 @@ public class LoginController extends BaseController {
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
         ModelAndView mav;
+
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
 
@@ -65,6 +66,7 @@ public class LoginController extends BaseController {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
             // Update User Information
+            // call super initScreen to get information of user, create user in OOPMS if it has not existed.
             super.initScreen(request, session);
             UserInfo userInfo = new UserInfo(logonUser);
             mav = new ModelAndView("ViewDefectMode"); // Display ViewDefectMode.jsp

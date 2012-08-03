@@ -5,6 +5,7 @@
 <link rel="StyleSheet" href="/<spring:message code="app.context"/>/resource_files/DMSStyleSheet.css" type="text/css">
 <script src="/<spring:message code="app.context"/>/resource_files/CommonScript.js"></script>
 <script src="/<spring:message code="app.context"/>/resource_files/utils.js"></script>
+
 <script language="JavaScript">
 function doAllDefects() {
     var form = document.frmViewDefectListing;
