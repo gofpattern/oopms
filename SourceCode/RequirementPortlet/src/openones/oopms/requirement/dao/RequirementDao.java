@@ -2,6 +2,8 @@ package openones.oopms.requirement.dao;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -16,6 +18,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.RowCountProjection;
 
 public class RequirementDAO {
     private Session session;    
@@ -28,6 +31,65 @@ public class RequirementDAO {
         log.debug("Get hibernate Session");
         this.session = factory.getCurrentSession();
         log.debug("Get current Session");
+    }            
+    
+    public boolean updateReq(Requirements req) {
+        log.debug("updateReqDAO");
+        int rowCount = 0;
+        try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
+            tx = session.beginTransaction();      
+            
+            log.error("UpdateContent: "+req.getRequirementID()+", "+req.getRequirement()+", "+req.getProjectID()+", "+req.getReleaseNote());
+            session.update(req);            
+            
+//            String hql = "UPDATE Requirements requirement SET requirement.project_ID =:project_ID, requirement.type =:type,"
+//                    + "requirement.srs =:srs, requirement.dd=:dd, requirement.testcase= :testcase, requirement.release_note =:release_note, requirement.requirement =:requirement,"
+//                    + "requirement.code_module =:code_module, requirement.effort =:effort, requirement.elapsed_day =:elapsed_day, requirement.req_size =:req_size,"
+//                    + "requirement.response_date =:response_date, requirement.create_date =:create_date, requirement.committed_date =:committed_date, requirement.designed_date =:designed_date,"
+//                    + "requirement.coded_date =:coded_date, requirement.tested_date =:tested_date, requirement.cancelled_date =:cancelled_date, requirement.accepted_date =:accepted_date, requirement.deployed_date =:deployed_date"
+//                    + "WHERE requirement.requirement_ID =:requirement_ID";
+//
+//            //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+//            
+//                Query query = session.createQuery(hql);
+//                query.setParameter("requirement_ID", req.getRequirementID());
+//                query.setParameter("project_ID", req.getProjectID());                
+//                query.setParameter("type", req.getType());
+//                query.setParameter("srs", req.getSrs());                
+//                query.setParameter("dd", req.getDd());
+//                query.setParameter("testcase", req.getTestcase());                
+//                query.setParameter("release_note", req.getReleaseNote());
+//                query.setParameter("requirement", req.getRequirement());                
+//                query.setParameter("code_module", req.getCodeModule());
+//                query.setParameter("effort", req.getEffort());                
+//                query.setParameter("elapsed_day", req.getElapsedDay());
+//                query.setParameter("response_date", req.getResponseDate());                
+//                query.setParameter("create_date", req.getCreateDate());
+//                query.setParameter("committed_date", req.getCommmitedDate());                
+//                query.setParameter("designed_date", req.getDesignedDate());
+//                query.setParameter("coded_date", req.getCodedDate());                
+//                query.setParameter("tested_date", req.getTestedDate());
+//                query.setParameter("cancelled_date", req.getCancelledDate());                
+//                query.setParameter("accepted_date", req.getAcceptedDate());
+//                query.setParameter("deployed_date", req.getDeployedDate());                
+//                query.setParameter("req_size", req.getReqSize());                
+                //query.setParameter("occurDate", sdf.parse(timesheetList.get(i).getOccurDateString()));                
+
+//                rowCount = query.executeUpdate();                           
+                       
+            session.flush();                        
+            tx.commit();
+            sessfac.close();
+            log.error("UpdateOk: "+rowCount);
+        } catch (Exception e) {
+            log.error("UpdateNOTOk: "+rowCount);
+            log.error(e.getMessage());
+            return false;
+        }   
+        log.error("UpdateOk: "+rowCount);
+        return true;                                        
     }
     
     public Requirements getReq(String reqID) throws ParseException {
@@ -46,9 +108,7 @@ public class RequirementDAO {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-
             // Convert e.printStackTrace() to string.
-
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
             e.printStackTrace(printWriter);
@@ -69,9 +129,7 @@ public class RequirementDAO {
             for (int i = 0; i < requirementList.size(); i++) {
                 Query query = session.createQuery(hql);
                 query.setParameter("reqId", requirementList.get(i).getRequirementID());
-
                 int rowCount = query.executeUpdate();
-
                 System.out.println("Rows affected: " + rowCount);
                 log.debug("Rows affected: " + rowCount);
                 log.debug("DeleteReqOk");
@@ -133,9 +191,7 @@ public class RequirementDAO {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-
             // Convert e.printStackTrace() to string.
-
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
             e.printStackTrace(printWriter);
@@ -165,9 +221,7 @@ public class RequirementDAO {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-
             // Convert e.printStackTrace() to string.
-
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
             e.printStackTrace(printWriter);
@@ -176,42 +230,7 @@ public class RequirementDAO {
             log.debug(stringWriter.toString());
         }
         return null;
-    }
-    
-    public void save (Requirements requirement){
-        try {
-        session.getTransaction().begin();
-        session.save(requirement);
-        session.flush();
-        session.getTransaction().commit();
-        } catch (Exception e) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        }
-    }
-
-    public Requirements authenticate (String username, String password){
-        try {
-            session.getTransaction().begin();
-            String sql = "from Requirements where username = ? and password = ?";
-            Query query = session.createQuery(sql);
-            query.setString(0, username);
-            query.setString(1, password);
-
-            Requirements result = (Requirements)query.uniqueResult();
-            session.flush();
-            session.getTransaction().commit();
-            return result;
-        } catch (Exception e) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        }
-        return null;
-    }
+    }         
 
     public Requirements[] findByLastName (String lastname){
         try {
@@ -220,7 +239,6 @@ public class RequirementDAO {
             Query query = session.createQuery(sql);
             query.setString(0, "%" + lastname + "%");
             List resultList = query.list();
-
             Requirements[] taskArray = new Requirements[resultList.size()];
             resultList.toArray(taskArray);
             session.flush();
@@ -233,39 +251,6 @@ public class RequirementDAO {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void update (Requirements newTask, BigDecimal id){
-        try {
-            session.getTransaction().begin();
-            
-            Requirements requirement = (Requirements)session.get(Requirements.class, id);
-            //requirement.setTaskid(newTask.getTaskid());
-            
-            
-            session.update(requirement);
-            session.flush();
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        }
-    }
-
-    public void delete (int id){
-        try {
-            session.getTransaction().begin();
-            session.delete(session.get(Requirements.class, id));
-            session.flush();
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        }
-    }
+    }        
 
 }
