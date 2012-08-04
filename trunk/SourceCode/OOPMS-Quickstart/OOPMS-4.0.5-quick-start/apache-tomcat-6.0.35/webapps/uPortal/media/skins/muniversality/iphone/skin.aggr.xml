@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resources xmlns="http://www.jasig.org/uportal/web/skin">
+    <parameter name="fss-theme">fl-theme-iphone</parameter>
+    <css resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jqueryui/1.8.13/theme/smoothness/jquery-ui-1.8.13-smoothness.min.css</css>
+    <css compressed="true">../common/jquerymobile/72rC4pP96oAy9xZZyavpHA.aggr.min.css</css>
+    <css compressed="true">../common/2ujzxziYX5hKvxT4iFaOoA.aggr.min.css</css>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jquery/1.6.1/jquery-1.6.1.min.js</js>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jqueryui/1.8.13/jquery-ui-1.8.13.min.js</js>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/fluid/1.4.0/js/fluid-all-1.4.0.min.js</js>
+    <js compressed="true">../common/javascript/Dti5baFjO6AE4DQ6x4IprQ.aggr.min.js</js>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jquery-mobile/1.0b1/jquery.mobile-1.0b1.min.js</js>
+    <js compressed="true">../common/javascript/xIqu67t7QkfM1yMwrr_uvw.aggr.min.js</js>
+</resources>

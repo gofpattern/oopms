@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+
+<portlet-app
+    xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+    version="2.0">
+ 
+    <portlet>
+        <portlet-name>cms</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/cms.xml</value>
+        </init-param>
+        
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>config</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Content Management</title>
+        </portlet-info>
+
+        <portlet-preferences>
+            <!-- 
+                Set includeJQuery to true to explicitly import jQuery and
+                jQuery UI javascript libraries within the portlet.  When true,
+                this setting will also cause the portlet to use jQuery's 
+                noConflict feature in extreme mode.
+                
+                This setting should be set to "true" for uPortal 3.2 and above.
+            -->
+            <preference>
+                <name>includeJQuery</name>
+                <value>true</value>
+            </preference>
+            
+            <preference>
+                <name>cleanContent</name>
+                <value>true</value>
+            </preference>
+
+            <preference>
+                <name>supportedLocales</name>
+                <value>en_US</value>
+                <value>ja_JP</value>
+                <value>sv_SE</value>
+                <value>de_DE</value>
+            </preference>
+        </portlet-preferences>
+        
+        <supported-processing-event>
+            <qname xmlns:x="https://source.jasig.org/schemas/uportal/search">x:SearchRequest</qname>
+        </supported-processing-event>
+        <supported-publishing-event>
+            <qname xmlns:x="https://source.jasig.org/schemas/uportal/search">x:SearchResults</qname>
+        </supported-publishing-event>
+    </portlet>
+
+
+    <!--
+        Sample configuration allowing JavaScript
+        
+        The following configuration provides an example of using the Simple
+        Content Portlet with no HTML validation or sanitization.  While the 
+        following demonstrates how to configure the portlet to allow javascript,
+        adopters should think carefully about their use cases and review their
+        portlet management permissions before enabling the configuration below.
+        
+        This portlet configuration, once enabled, will allow portal administrators
+        to create arbitrary content in the portal, including content potentially
+        vulnerable to XSS attacks.  Please enable this only if you trust all
+        users who have administrative access to your portal.
+        
+        Don't let Little Bobby Tables edit your portal. http://xkcd.com/327/
+    -->
+    <!-- 
+    <portlet>
+        <portlet-name>advanced-cms</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/cms.xml</value>
+        </init-param>
+        
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>config</portlet-mode>
+        </supports>
+        
+        <portlet-info>
+            <title>Advanced Content Management</title>
+        </portlet-info>
+
+        <portlet-preferences>
+            <preference>
+                <name>includeJQuery</name>
+                <value>true</value>
+            </preference>
+            
+            <preference>
+                <name>cleanContent</name>
+                <value>false</value>
+            </preference>
+
+            <preference>
+                <name>supportedLocales</name>
+                <value>en_US,ja_JP,sv_SE,de_DE</value>
+            </preference>
+        </portlet-preferences>
+        
+        <supported-processing-event>
+            <qname xmlns:x="https://source.jasig.org/schemas/uportal/search">x:SearchRequest</qname>
+        </supported-processing-event>
+        <supported-publishing-event>
+            <qname xmlns:x="https://source.jasig.org/schemas/uportal/search">x:SearchResults</qname>
+        </supported-publishing-event>
+    </portlet>
+    -->
+
+    <event-definition>
+        <qname xmlns:x="https://source.jasig.org/schemas/uportal/search">x:SearchRequest</qname>
+        <value-type>org.jasig.portal.search.SearchRequest</value-type>
+    </event-definition>
+    <event-definition>
+        <qname xmlns:x="https://source.jasig.org/schemas/uportal/search">x:SearchResults</qname>
+        <value-type>org.jasig.portal.search.SearchResults</value-type>
+    </event-definition>
+</portlet-app>

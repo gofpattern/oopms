@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resources xmlns="http://www.jasig.org/uportal/web/skin">
+    <js resource="true" included="aggregated">/rs/jquery/1.6.1/jquery-1.6.1.min.js</js>
+    <js resource="true" included="aggregated">/rs/jqueryui/1.8.13/jquery-ui-1.8.13.min.js</js>
+    <js resource="true" included="aggregated">/rs/fluid/1.4.0/js/fluid-all-1.4.0.min.js</js>
+    <js compressed="true">scripts/Km74oxBzg6KVpS8W5N7pKw.aggr.min.js</js>
+</resources>
