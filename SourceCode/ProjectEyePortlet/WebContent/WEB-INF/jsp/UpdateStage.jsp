@@ -91,8 +91,6 @@
 <div style="border-style:ridge" class="up-portlet-content-wrapper-inner">	
 <portlet:actionURL var="formAction">
   <portlet:param name="action" value="UpdateStage" />
-  <portlet:param name="projectId" value="${projectId}" />
-  <portlet:param name="stageId" value="${stageId}" />
 </portlet:actionURL>
 <portlet:renderURL var="renderAction">
     		<portlet:param name="action" value="GoWorkOrder" />
@@ -145,7 +143,9 @@
         <td><textarea rows="10" cols="70" name="milestone" id="milestone"></textarea></td>
       </tr>
      </table>
-	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateStage", "${formAction}")'>Create</button>
+     <input name = "projectId" type="hidden" value="${projectId}"/>
+     <input name = "stageId" type="hidden" value="${stageId}"/>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateStage", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateStage", "${renderAction}")'>Cancel</button>	
 </form:form>	

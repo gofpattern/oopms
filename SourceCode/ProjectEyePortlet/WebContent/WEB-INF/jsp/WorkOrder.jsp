@@ -78,6 +78,29 @@
         </c:forEach>
     </tbody>
     </c:if>
+    </table>
+    
+    <table class="portlet-table">
+
+	<c:if test="${not empty deliverableList}">
+   <tbody><tr >
+   		<th width="5%" scope="row">No</th>
+        <th width="15%" scope="row">Stage</th>    
+        <th width="10%" scope="row">First committed date</th> 
+        <th width="10%" scope="row">Last committed date</th>
+        <th width="10%" scope="row">Actual committed date</th>
+        <th width="25%" scope="row">Status</th>
+        <th width="25%" scope="row">Note</th>   
+    </tr>
+      <c:if test="${not empty deliverableList[0]}">conme1</c:if>
+      <c:if test="${not empty deliverableList[1]}">conme2</c:if>
+      <c:if test="${not empty deliverableList[2]}">conme3</c:if>
+      <c:if test="${not empty deliverableList[3]}">conme4</c:if>
+      <c:if test="${not empty deliverableList[4]}">conme5</c:if>
+      <c:if test="${not empty deliverableList[5]}">conme6</c:if>
+        
+    </tbody>
+    </c:if>
     </table> 	
     	<portlet:renderURL var="renderAction2">
     		<portlet:param name="action" value="GoCreateDeliverable" />

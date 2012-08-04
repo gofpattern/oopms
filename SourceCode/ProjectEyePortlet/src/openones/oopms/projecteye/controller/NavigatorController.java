@@ -28,14 +28,17 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.ProductDao;
+import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.ProductForm;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Language;
+import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.dao.MilestoneDao;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -139,8 +142,20 @@ public class NavigatorController {
 	public ModelAndView postGoWorkOrder(RenderRequest request) {
 		log.debug("post GoWorkOrder.START");
 		ModelAndView mav = new ModelAndView("WorkOrder");
+		//set value for Stage
 		String projectId = request.getParameter("projectId");
+		MilestoneDao mDao = new MilestoneDao();
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		List<Milestone> projectStages = mDao.getProjectStage(project);
 		log.debug("project ID la " + projectId);
+		log.debug("List Stage Size : " + projectStages.size());
+		mav.addObject("stageList", projectStages);
+		//set value for deliverable
+		WorkOrderDao woDao = new WorkOrderDao();
+		List<Module> productList = woDao
+				.getSetDeliverableProductList(project);
+
 		mav.addObject("projectId", projectId);
 		return mav;
 	}

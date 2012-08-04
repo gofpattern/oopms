@@ -85,7 +85,7 @@
    </tbody>
 	</c:if>
 	<c:if test="${empty projectChangeRequestList}">
-		There is no change request.
+		There is no product
 	</c:if>
     </table>
 		<portlet:renderURL var="renderAction">

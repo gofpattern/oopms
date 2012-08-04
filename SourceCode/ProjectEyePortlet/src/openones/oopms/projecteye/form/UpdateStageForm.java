@@ -33,7 +33,16 @@ public class UpdateStageForm {
 	private String description;
 	private String milestone;
 	private String projectId;
+	private String stageId;
 	private String stage;
+
+	public String getStageId() {
+		return stageId;
+	}
+
+	public void setStageId(String stageId) {
+		this.stageId = stageId;
+	}
 
 	/**
 	 * @return the stage
@@ -43,7 +52,8 @@ public class UpdateStageForm {
 	}
 
 	/**
-	 * @param stage the stage to set
+	 * @param stage
+	 *            the stage to set
 	 */
 	public void setStage(String stage) {
 		this.stage = stage;

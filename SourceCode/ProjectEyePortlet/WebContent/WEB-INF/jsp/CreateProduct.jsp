@@ -61,27 +61,7 @@
   	  <tr>
         <th scope="row">Name*</th>
         <td><textarea rows="10" cols="70" name="name"></textarea></td>
-      </tr>
-      <tr>      
-   		<th scope="row">Planned size unit*</th>
-    	<td><form:select  class="styled" path="plannedSizeUnit_SelectedValue" items="${plannedSizeUnit}"/></td>
-  	  </tr>
-  	  <tr>
-    	<th width="186" scope="row">Planned size*</th>
-        <td><form:input path="plannedSize" value="" maxlength="50" size="50" type="text" /></td>
-  	  </tr>
-  	  <tr>
-    	<th width="186" scope="row">Re-planned size</th>
-        <td><form:input path="rePlannedSize" value="" maxlength="50" size="50" type="text" /></td>
-  	  </tr>
-  	  <tr>      
-   		<th scope="row">Actual size unit</th>
-    	<td><form:select  class="styled" path="actualSizeUnit_SelectedValue" items="${actualSizeUnit}"/></td>
-  	  </tr>
-  	  <tr>
-    	<th width="186" scope="row">Actual size</th>
-        <td><form:input path="actualSize" value="" maxlength="50" size="50" type="text" /></td>
-  	  </tr>
+      </tr>      
   	  <tr>
         <th scope="row">Description</th>
         <td><textarea rows="10" cols="70" name="description"></textarea></td>

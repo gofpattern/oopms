@@ -21,9 +21,8 @@ package openones.oopms.projecteye.controller;
 import java.math.BigDecimal;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.RenderRequest;
 
-import openones.oopms.projecteye.dao.WorkOrderDao;
+import openones.oopms.projecteye.dao.MilestoneDao;
 import openones.oopms.projecteye.form.UpdateStageForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Milestone;
@@ -34,9 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
-import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author HaiTCT
@@ -54,38 +51,27 @@ public class UpdateStageController {
 	public void processUpdateStage(UpdateStageForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process CreateStage.START");
-		WorkOrderDao woDao = new WorkOrderDao();
+		MilestoneDao mDao = new MilestoneDao();
 		Project project = new Project();
 		projectId = formBean.getProjectId();
 		project.setProjectId(new BigDecimal(projectId));
-		Milestone stage = new Milestone();
+		Milestone stage = mDao.getStage(formBean.getStageId());
 		// set value for Product
-		stage.setProject(project);
-		stage.setComplete(new BigDecimal("0"));
-		stage.setBaseStartDate(formBean.getPlannedStartDate());
-		stage.setPlanStartDate(formBean.getRePlannedStartDate());
-		stage.setActualStartDate(formBean.getActualStartDate());
+
 		stage.setBaseFinishDate(formBean.getPlannedEndDate());
 		stage.setPlanFinishDate(formBean.getRePlannedEndDate());
 		stage.setActualFinishDate(formBean.getActualEndDate());
 		stage.setDescription(formBean.getDescription());
 		stage.setMilestone(formBean.getMilestone());
 		// Call dao to insert project to database
-		if (woDao.insertStage(stage)) {
-			response.setRenderParameter("action", "CreateStage");
-			log.error("Insert success");
+		if (mDao.updateStage(stage)) {
+			response.setRenderParameter("action", "GoWorkOrder");
+			response.setRenderParameter("projectId", projectId);
+			log.error("Update success");
 		} else {
-			log.error("Cannot Insert");
+			log.error("Cannot Update");
 		}
 
 	}
 
-	@RenderMapping(params = "action=UpdateStage")
-	public ModelAndView postUpdateStage(RenderRequest request) {
-		log.debug("post CreateStage.START");
-		ModelAndView mav = new ModelAndView("WorkOrder");
-		log.debug("project ID la " + projectId);
-		mav.addObject("projectId", projectId);
-		return mav;
-	}
 }

@@ -99,6 +99,27 @@ public class WorkOrderDao {
 		}
 		return null;
 	}
+	
+	public List<Module> getSetDeliverableProductList(Project project) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From Module where isDeliverable = :isDe and project= :projectid";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectid", project);
+			query.setParameter("isDe", new BigDecimal("1"));
+			List<Module> moduleList = query.list();
+			session.flush();
+			session.getTransaction().commit();
+			log.error("Module Count : " + moduleList.size());
+			return moduleList;
+
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
 
 	public boolean insertDeliverable(Module module) {
 		try {
