@@ -7,9 +7,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import openones.oopms.planner.model.Developer;
+import openones.oopms.planner.model.GeneralReference;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
-import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
@@ -30,15 +30,15 @@ public class TaskDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ProjectStatus> getAllStatus() {
-        log.debug("getAllStatus.START");
+    public List<GeneralReference> getProjectStatusEn() {
+        log.debug("getProjectStatusEn.START");
         try {
             session.getTransaction().begin();
-            String sql = "from ProjectStatus";
+            String sql = "from GeneralReference where groupCode = 'PROJECT_STATUS' and languageCode.langCode  = 'en'";
             Query query = session.createQuery(sql);
-            List<ProjectStatus> statusList = query.list();
+            List<GeneralReference> statusList = query.list();
             session.flush();
-            System.out.println("getAllStatus.end");
+            System.out.println("getProjectStatusEn.end");
             return statusList;
 
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class TaskDAO {
                 session.getTransaction().rollback();
             }
 
-            log.error("getAllStatus.ERROR", e);
+            log.error("getProjectStatusEn.ERROR", e);
         }
         return null;
     }
@@ -269,7 +269,7 @@ public class TaskDAO {
         try {
             session.getTransaction().begin();
             // Tasks task = (Tasks) session.get(Tasks.class, editTask.getTaskid());
-            if (editTask.getStatusid().equals(new BigDecimal(2))) {
+            if (editTask.getStatusid().equals(new BigDecimal(174))) {
                 // not sure
                 Calendar cal = Calendar.getInstance();
                 editTask.setActualDate(cal.getTime());

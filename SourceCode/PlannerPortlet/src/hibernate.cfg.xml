@@ -15,7 +15,6 @@
     <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
     <mapping resource="openones/oopms/planner/model/Tasks.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Stage.hbm.xml" />
-    <mapping resource="openones/oopms/planner/model/ProjectStatus.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Project.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Process.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Developer.hbm.xml" />
@@ -24,5 +23,7 @@
     <mapping resource="openones/oopms/planner/model/Team.hbm.xml" />    
     <mapping resource="openones/oopms/planner/model/Workproduct.hbm.xml" />        
     <mapping resource="openones/oopms/planner/model/Workunit.hbm.xml" />
+        <mapping resource="openones/oopms/planner/model/GeneralReference.hbm.xml" />        
+    <mapping resource="openones/oopms/planner/model/LanguageCode.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
