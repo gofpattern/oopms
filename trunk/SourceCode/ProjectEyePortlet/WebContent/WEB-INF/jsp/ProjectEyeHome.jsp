@@ -27,6 +27,53 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
+
+
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
+
+<script type="text/javascript">
+
+
+
+
+
+            function fnFeaturesInit ()
+            {
+                /* Not particularly modular this - but does nicely :-) */
+                $('ul.limit_length>li').each( function(i) {
+                    if ( i > 10 ) {
+                        this.style.display = 'none';
+                    }
+                } );
+                
+                $('ul.limit_length').append( '<li class="css_link">Show more<\/li>' );
+                $('ul.limit_length li.css_link').click( function () {
+                    $('ul.limit_length li').each( function(i) {
+                        if ( i > 5 ) {
+                            this.style.display = 'list-item';
+                        }
+                    } );
+                    $('ul.limit_length li.css_link').css( 'display', 'none' );
+                } );
+            }
+
+            $(document).ready( function() {
+        	
+
+                     
+                fnFeaturesInit();
+                $('#mainTable2').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+
+            } );
+        </script>
+
+
 
 <title>ProjectEye Home</title>
 </head>
@@ -39,17 +86,19 @@
 </form:form>
   <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${formAction}")'>Create New Project</button>
 <br/>
-<table class="portlet-table">
+<table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">
 
 	<c:if test="${not empty projectList}">
-   <tbody><tr >
+	<thead>
+   <tr >
    		<th width="5%" scope="row">No</th>
         <th width="30%" scope="row">Project Name</th>    
         <th width="10%" scope="row">Project Code</th> 
         <th width="30%" scope="row">Your role in project</th>
         <th width="25%" scope="row">Action</th>   
     </tr>
-    
+    </thead>
+   <tbody> 
   
         <c:forEach var="project" items="${projectList}" varStatus="count">
             <tr>

@@ -29,14 +29,12 @@ import javax.portlet.RenderRequest;
 import openones.oopms.projecteye.dao.MilestoneDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CreateDeliverableForm;
-import openones.oopms.projecteye.form.CreateStageForm;
 import openones.oopms.projecteye.form.UpdateStageForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.Stage;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -73,16 +71,17 @@ public class WorkOrderController {
 		String stageId = request.getParameter("stageId");
 		Milestone stage = mDao.getStage(stageId);
 		UpdateStageForm formBean = new UpdateStageForm();
-//		formBean.setPlannedStartDate(stage.getBaseStartDate());
-//		formBean.setRePlannedStartDate(stage.getPlanStartDate());
-//		formBean.setActualStartDate(stage.getActualStartDate());
+		// formBean.setPlannedStartDate(stage.getBaseStartDate());
+		// formBean.setRePlannedStartDate(stage.getPlanStartDate());
+		// formBean.setActualStartDate(stage.getActualStartDate());
 		formBean.setPlannedEndDate(stage.getBaseFinishDate());
 		formBean.setRePlannedEndDate(stage.getPlanFinishDate());
 		formBean.setActualEndDate(stage.getActualFinishDate());
 		formBean.setDescription(stage.getDescription());
 		formBean.setMilestone(stage.getMilestone());
 		formBean.setStage(stage.getName());
-		ModelAndView mav = new ModelAndView("UpdateStage","UpdateStageForm",formBean);
+		ModelAndView mav = new ModelAndView("UpdateStage", "UpdateStageForm",
+				formBean);
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
@@ -103,13 +102,6 @@ public class WorkOrderController {
 		String projectId = request.getParameter("projectId");
 		// get status list
 		WorkOrderDao woDao = new WorkOrderDao();
-		List<Ncconstant> statusList = woDao.getStatusList();
-		Map<String, String> statusMap = new LinkedHashMap<String, String>();
-		for (int i = 0; i < statusList.size(); i++) {
-			statusMap.put(statusList.get(i).getConstantid().toString(),
-					statusList.get(i).getDescription());
-		}
-
 		Project project = new Project();
 		project.setProjectId(new BigDecimal(projectId));
 		List<Module> productList = woDao
@@ -127,7 +119,6 @@ public class WorkOrderController {
 		CreateDeliverableForm projectFormBean = new CreateDeliverableForm();
 		request.setAttribute("CreateDeliverableForm", projectFormBean);
 		ModelAndView mav = new ModelAndView("CreateDeliverable");
-		mav.addObject("status", statusMap);
 		mav.addObject("deliverable", productMap);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);

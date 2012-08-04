@@ -76,27 +76,27 @@ public class CreateProductController {
 		//isDeliverable 0 is not added to any deliverable, 1 is added to deliverable plan
 		product.setName(formBean.getName());
 		product.setWorkproduct(workProduct);
-		product.setPlannedSizeUnitId(new BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
-		
-		if(formBean.getPlannedSize().equals("") || formBean.getPlannedSize()==null) {
-			product.setPlannedSize(null);
-		} else {
-			product.setPlannedSize(new BigDecimal(formBean.getPlannedSize()));
-		}
-		
-		if(formBean.getRePlannedSize().equals("") || formBean.getRePlannedSize()==null) {
-			product.setReplannedSize(null);
-		} else {
-			product.setReplannedSize(new BigDecimal(formBean.getRePlannedSize()));
-		}
-		
-		if(formBean.getActualSize().equals("") || formBean.getActualSize()==null) {
-			product.setActualSize(null);
-		} else {
-			product.setActualSize(new BigDecimal(formBean.getActualSize()));
-		}
-		
-		product.setActualSizeUnitId(new BigDecimal(formBean.getActualSizeUnit_SelectedValue()));
+//		product.setPlannedSizeUnitId(new BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
+//		
+//		if(formBean.getPlannedSize().equals("") || formBean.getPlannedSize()==null) {
+//			product.setPlannedSize(null);
+//		} else {
+//			product.setPlannedSize(new BigDecimal(formBean.getPlannedSize()));
+//		}
+//		
+//		if(formBean.getRePlannedSize().equals("") || formBean.getRePlannedSize()==null) {
+//			product.setReplannedSize(null);
+//		} else {
+//			product.setReplannedSize(new BigDecimal(formBean.getRePlannedSize()));
+//		}
+//		
+//		if(formBean.getActualSize().equals("") || formBean.getActualSize()==null) {
+//			product.setActualSize(null);
+//		} else {
+//			product.setActualSize(new BigDecimal(formBean.getActualSize()));
+//		}
+//		
+//		product.setActualSizeUnitId(new BigDecimal(formBean.getActualSizeUnit_SelectedValue()));
 		
 		product.setNote(formBean.getDescription());
 		// Call dao to insert project to database

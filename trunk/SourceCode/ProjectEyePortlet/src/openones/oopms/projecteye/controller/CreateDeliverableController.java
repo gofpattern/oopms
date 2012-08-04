@@ -21,7 +21,6 @@ package openones.oopms.projecteye.controller;
 import java.math.BigDecimal;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ProductDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
@@ -34,9 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
-import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author HaiTCT
@@ -58,7 +55,7 @@ public class CreateDeliverableController {
 		projectId = formBean.getProjectId();
 		WorkOrderDao woDao = new WorkOrderDao();
 		ProductDao pDao = new ProductDao();
-		
+
 		Module deliverable = woDao.getProduct(formBean
 				.getDeliverable_SelectedValue());
 
@@ -68,26 +65,16 @@ public class CreateDeliverableController {
 		deliverable.setReplannedReleaseDate(formBean
 				.getRePlannedCommittedDate());
 		deliverable.setActualDeliveryDate(formBean.getActualCommittedDate());
-		deliverable
-				.setStatus(new BigDecimal(formBean.getStatus_SelectedValue()));
 		deliverable.setBaselineNote(formBean.getNote());
-		
+
 		// Call dao to insert Deliverable to database
 		if (woDao.insertDeliverable(deliverable)) {
-			response.setRenderParameter("action", "CreateDeliverable");
+			response.setRenderParameter("action", "GoWorkOrder");
+			response.setRenderParameter("projectId", projectId);
 			log.error("Insert success");
 		} else {
 			log.error("Cannot Insert");
 		}
 
-	}
-
-	@RenderMapping(params = "action=CreateDeliverable")
-	public ModelAndView postCreateDeliverable(RenderRequest request) {
-		log.debug("post CreateDeliverable.START");
-		ModelAndView mav = new ModelAndView("WorkOrder");
-		log.debug("project ID la " + projectId);
-		mav.addObject("projectId", projectId);
-		return mav;
 	}
 }

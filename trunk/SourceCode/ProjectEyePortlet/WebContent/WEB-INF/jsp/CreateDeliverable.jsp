@@ -103,10 +103,6 @@
           (mm/dd/yyyy)</td>
       </tr>
       <tr>
-        <th scope="row">Status</th>
-        <td><form:select  class="styled" path="status_SelectedValue" items="${status}"/></td>
-      </tr>
-      <tr>
         <th scope="row">Note</th>
         <td><textarea rows="10" cols="70" name="note"></textarea></td>
       </tr>
