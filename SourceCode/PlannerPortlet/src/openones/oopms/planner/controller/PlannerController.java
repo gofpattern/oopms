@@ -102,7 +102,7 @@ public class PlannerController {
             projectList = taskDAO.getAllProject();
             processList = taskDAO.getAllProcess();
             developerList = taskDAO.getDeveloper(projectDefault);
-        }
+        }            
 
         // set value for statusMap
         statusMap.put(formBean.getStatusDefault(), "All");
@@ -165,7 +165,7 @@ public class PlannerController {
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
                 taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
-                if (taskList.get(i).getStatusid().equals(new BigDecimal(2)))
+                if (taskList.get(i).getStatusid().equals(new BigDecimal(174)))
                     taskList.get(i).setActualDate_str(dateFormat.format(taskList.get(i).getActualDate()));
             }
 

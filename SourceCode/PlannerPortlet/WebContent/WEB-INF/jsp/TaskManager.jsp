@@ -332,22 +332,10 @@
               <th><b>Stage</b></th>
               <th><b>Process</b></th>
               <th><b>Assigned To</b></th>
-              <th><b>Remaining Time</b></th>
+              <th><b>Remaining Effort</b></th>
               <th><b>Completeness Rate</b></th>
-              <th><b>Start Date</b></th>
-              <c:choose>
-                <c:when test="${taskStatus == 174 }">
-                  <th><b>Finish Date</b></th>
-                </c:when>
-                <c:when test="${taskStatus == 'All'}">
-                  <th><b>Planned Finish Date</b></th>
-                  <th><b>Finish Date</b></th>
-                </c:when>
-                <c:otherwise>
-                  <th><b>Planned Finish Date</b></th>
-                </c:otherwise>
-              </c:choose>
-              <th><b>Planned Effort</b></th>
+              <th><b>Start Date</b></th>              
+              <th><b>Finish Date</b></th>
               <c:if test="${taskStatus == 174 ||taskStatus == 'All'}">
               <th><b>Actual Effort</b></th></c:if>
               <th><b>Update</b></th>
@@ -385,30 +373,23 @@
                         </c:choose>
                         <td>${task.startdate_str}</td>
                         <c:choose>
-                          <c:when test="${taskStatus == 174 }">
+                          <c:when test="${task.statusid == 174 }">
                             <td>${task.actualDate_str}</td>
-                          </c:when>
-                          <c:when test="${taskStatus == 'All' }">
-                            <td>${task.planDate_str}</td>
-                            <c:choose>
-                              <c:when test="${not empty task.actualDate_str}">
-                                <td>${task.actualDate_str}</td>
-                              </c:when>
-                              <c:otherwise>
-                                <td>N/A</td>
-                              </c:otherwise>
-                            </c:choose>
                           </c:when>
                           <c:otherwise>
                             <td>${task.planDate_str}</td>
                           </c:otherwise>
                         </c:choose>
-                        <td>${task.plannedeffort}H</td>
-                        <c:choose>
-                          <c:when test="${taskStatus =='174' ||taskStatus =='All' }">
+                        <c:if test="${taskStatus =='174' ||taskStatus =='All'}">
+                        <c:choose>                             
+                          <c:when test="${not empty task.effort}">
                             <td>${task.effort}H</td>
                           </c:when>
+                          <c:otherwise>
+                          <td></td>
+                          </c:otherwise>
                         </c:choose>
+                        </c:if>
                         <td><input type="image" alt="Submit"
                           src="/<spring:message code="app.context"/>/resource_files/icons/Actions-document-edit-icon.png"
                           width="24" height="24"
