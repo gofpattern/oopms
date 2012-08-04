@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0"%>
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
+<%@ taglib prefix="portlet2" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<portlet:defineObjects />
+<%@ page import="javax.portlet.PortletSession"%>
+
 <c:set var="portletNamespace" scope="request">
   <portlet:namespace />
 </c:set>
@@ -15,6 +17,8 @@
 
 <title>Requirement Home</title>
 <jsp:include page="header.jsp" />
+<portlet2:defineObjects />
+<portlet:defineObjects />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script language="javascript">
@@ -189,21 +193,21 @@
 
   <div class="container">
 
-    <div class="header">
-      <table width="960">
-        <tr>
-          <td width="697" height="92">&nbsp;</td>
-          <td width="251" valign="top">
-            <p>
-              Hello, <a href="HomePage.html">Log Out</a>
-            </p>
-            <p>
-              <a href="UserDetail.html">Change your Information</a></br> <a href="Create Project.html">Create new Project</a>
-            </p>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <table border="0">
+      <tr>
+        <th><strong>User: </strong></th>
+        <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+      </tr>
+      <tr>
+        <th><strong>Joined Projects: </strong></th>
+        <td><strong><font color="#1490E3">${projectList.size()}</font></strong></td>
+      </tr>
+      <tr>
+        <th><strong>Requirements: </strong></th>
+        <td><strong><font color="#1490E3"><a
+              href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
+      </tr>
+    </table>
 
     <portlet:actionURL var="formAction">
       <portlet:param name="action" value="search" />
@@ -337,7 +341,7 @@
 
 
     </form:form>
-
+    <br>
     <div class="footer">
       <p>DMS Group</p>
       <!-- end .footer -->

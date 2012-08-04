@@ -15,5 +15,6 @@
     <property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
     <mapping resource="openones/oopms/requirement/model/Requirements.hbm.xml"/>
 	<mapping resource="openones/oopms/requirement/model/Project.hbm.xml"/>
+	<mapping resource="openones/oopms/requirement/model/Developer.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

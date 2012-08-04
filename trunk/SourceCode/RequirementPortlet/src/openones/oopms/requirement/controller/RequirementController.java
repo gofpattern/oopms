@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.requirement.dao.DeveloperDao;
 import openones.oopms.requirement.dao.RequirementDao;
 import openones.oopms.requirement.form.RequirementForm;
+import openones.oopms.requirement.model.Developer;
 import openones.oopms.requirement.model.Project;
 import openones.oopms.requirement.model.Requirements;
+import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -39,6 +43,9 @@ public class RequirementController {
     // RequirementController ErrorString requirementError
     String requirementError="";
     
+    Developer developer = new Developer();
+    private String username;
+    
     /**
      * Create bean for form.
      * @return Form bean for UI.
@@ -58,7 +65,7 @@ public class RequirementController {
     }
     
     @RenderMapping(params = "action=requirementmanager")
-    public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request) {
+    public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("postRequirementSTART");                           
         
         ModelAndView mav = new ModelAndView("RequirementHome");
@@ -103,6 +110,15 @@ public class RequirementController {
         formBean.setProjectDefault(""); 
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
+        
+     // sent projectList to jsp
+        request.setAttribute("projectList", projectList);
+        
+        PortletSupport portletSupport = new PortletSupport(request);
+        DeveloperDao developerDAO = new DeveloperDao();
+        username = portletSupport.getLogonUser();
+        developer = developerDAO.getDeveloperByAccount(username);
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
         return mav;
     }
