@@ -94,8 +94,8 @@
    		<th width="5%" scope="row">No</th>
         <th width="30%" scope="row">Project Name</th>    
         <th width="10%" scope="row">Project Code</th> 
-        <th width="30%" scope="row">Your role in project</th>
-        <th width="25%" scope="row">Action</th>   
+        <th width="25%" scope="row">Your role in project</th>
+        <th width="30%" scope="row">Action</th>   
     </tr>
     </thead>
    <tbody> 

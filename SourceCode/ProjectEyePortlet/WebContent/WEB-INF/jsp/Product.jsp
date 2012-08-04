@@ -84,7 +84,7 @@
         </c:forEach>
    </tbody>
 	</c:if>
-	<c:if test="${empty projectChangeRequestList}">
+	<c:if test="${empty projectProductList}">
 		There is no product
 	</c:if>
     </table>
@@ -92,7 +92,7 @@
     		<portlet:param name="action" value="GoCreateProduct" />
         	<portlet:param name="projectId" value="${projectId}" />
     	</portlet:renderURL>
-    	<a href="${renderAction}">Add New Product</a>
+    	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${renderAction}")'>Add New Product</button> 
 	</div>
 
   <!-- end .content --></div>
