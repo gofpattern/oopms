@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resources xmlns="http://www.jasig.org/uportal/web/skin">
+    <parameter name="fss-theme">fl-theme-coal</parameter>
+    <css included="aggregated">/ResourceServingWebapp/rs/fluid/1.4.0/fss/css/fss-framework-1.4.0.min.css</css>
+    <css included="aggregated">/ResourceServingWebapp/rs/fluid/1.4.0/fss/css/fss-theme-coal.min.css</css>
+    <css included="aggregated">/ResourceServingWebapp/rs/jqueryui/1.8.13/theme/ui-darkness/jquery-ui-1.8.13-ui-darkness.min.css</css>
+    <css compressed="true">../common/css/93j2R2JSTuJdQIKy-Cz07A.aggr.min.css</css>
+    <css compressed="true">JlBX9DOFQvO-FJ-9InQJrw.aggr.min.css</css>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jquery/1.6.1/jquery-1.6.1.min.js</js>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jquery-plugins/cookie/1.0/jquery.cookie-1.0.min.js</js>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/jqueryui/1.8.13/jquery-ui-1.8.13.min.js</js>
+    <js resource="false" import="false" included="aggregated" compressed="false">/ResourceServingWebapp/rs/fluid/1.4.0/js/fluid-all-1.4.0.min.js</js>
+    <js compressed="true">../common/javascript/vNm74_dca_97AzYc5Qz-mA.aggr.min.js</js>
+</resources>

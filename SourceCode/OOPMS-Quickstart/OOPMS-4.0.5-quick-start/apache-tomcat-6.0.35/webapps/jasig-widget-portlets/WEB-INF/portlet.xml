@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" version="1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd
+                        http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+
+    <portlet>
+        <portlet-name>emergency-alerts</portlet-name>
+        <display-name>Emergency Alert Portlet</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/alertPortletContext.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Emergency Alert Portlet</title>
+        </portlet-info>
+        <portlet-preferences>
+            <preference>
+                <name>AbstractXmlAlertService.enabledByDefault</name>
+                <value>true</value>
+            </preference>
+            <preference>
+                <name>HttpXmlAlertService.feedUrl</name>
+                <value>USE WITH HttpXmlAlertService (e.g. 'http://www.my.edu/alertFeed')</value>
+            </preference>
+            <preference>
+                <name>ClasspathXmlAlertService.feedLocation</name>
+                <value>USE WITH ClasspathXmlAlertService (e.g. 'classpath:/alerts-demo.xml')</value>
+            </preference>
+        </portlet-preferences>
+    </portlet>
+    
+    <portlet>
+        <portlet-name>emergency-alerts-admin</portlet-name>
+        <display-name>Emergency Alert Admin Portlet</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/alertAdminPortletContext.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Emergency Alert Admin Portlet</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>google-search</portlet-name>
+        <display-name xml:lang="en">Google Search</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/googleSearchPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>CONFIG</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Google Search Portlet</title>
+            <short-title>Search</short-title>
+            <keywords>Google Search</keywords>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>google-maps</portlet-name>
+        <display-name xml:lang="en">Google Maps</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/googleMapsPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Google Maps</title>
+            <short-title>Map</short-title>
+            <keywords>Google Maps</keywords>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>google-translate</portlet-name>
+        <display-name xml:lang="en">Translate</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/googleTranslatePortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>CONFIG</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Language Translation</title>
+            <short-title>Translate</short-title>
+            <keywords>Google Language Translate</keywords>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>dictionary</portlet-name>
+        <display-name xml:lang="en">Dictionary</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/dictionaryPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Dictionary</title>
+            <short-title>Dictionary</short-title>
+            <keywords>Dictionary</keywords>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>calendar</portlet-name>
+        <display-name xml:lang="en">Calendar</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/calendarPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Calendar</title>
+            <short-title>Calendar</short-title>
+            <keywords>Calendar</keywords>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>gadget</portlet-name>
+        <display-name xml:lang="en">Google Gadget</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/googleGadgetPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>CONFIG</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Gadget</title>
+            <short-title>Gadget</short-title>
+            <keywords>Gadget</keywords>
+        </portlet-info>
+    </portlet>
+    
+    <portlet>
+        <portlet-name>tips</portlet-name>
+        <display-name>Tips Portlet</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/tipsPortletContext.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Tips Portlet</title>
+        </portlet-info>
+        <portlet-preferences>
+            <preference>
+                <name>viewName</name>
+                <value>tips-display</value>
+            </preference>
+        </portlet-preferences>
+    </portlet>
+
+    <portlet>
+        <portlet-name>youtube</portlet-name>
+        <display-name xml:lang="en">YouTube</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/youtubePortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>YouTube</title>
+            <short-title>YouTube</short-title>
+            <keywords>YouTube</keywords>
+        </portlet-info>
+    </portlet>
+
+    <!--portlet>
+        <portlet-name>stocks</portlet-name>
+        <display-name xml:lang="en">Stocks</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/stocksPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Stocks</title>
+            <short-title>Stocks</short-title>
+            <keywords>Yahoo Yahoo! Stocks Finance</keywords>
+        </portlet-info>
+    </portlet-->
+
+    <custom-portlet-mode>
+        <description>Allows the portlet to render a preferences edit UI during publishing</description>
+        <portlet-mode>config</portlet-mode>
+    </custom-portlet-mode>    
+    
+</portlet-app>

@@ -1,0 +1,21 @@
+JarIndex-Version: 1.0
+
+cas-proxy-test-portlet.war
+META-INF
+META-INF/maven
+META-INF/maven/org.jasig.portal.portlets-overlay
+META-INF/maven/org.jasig.portal.portlets-overlay/cas-proxy-test-portlet
+WEB-INF
+WEB-INF/classes
+WEB-INF/classes/org
+WEB-INF/classes/org/jasig
+WEB-INF/classes/org/jasig/portlet
+WEB-INF/classes/org/jasig/portlet/cas
+WEB-INF/classes/org/jasig/portlet/cas/test
+WEB-INF/classes/org/jasig/portlet/cas/test/mvc
+WEB-INF/context
+WEB-INF/context/portlet
+WEB-INF/jsp
+WEB-INF/lib
+content
+
