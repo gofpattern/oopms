@@ -13,7 +13,9 @@ a img { border: none; }
 /* container */
 
 div.bg { display: inline; float: left; width: 100%; background: #e8e8e8; margin: 0; padding: 0; }
-div.container { width: 998px; margin: 0 auto; padding: 0; clear: both; }
+div.container { 
+  /* width: 998px; */
+margin: 0 auto; padding: 0; clear: both; }
 
 
 /* --------- LAYOUT --------- */
