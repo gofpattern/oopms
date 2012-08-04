@@ -33,8 +33,8 @@ import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
+import openones.oopms.planner.model.GeneralReference;
 import openones.oopms.planner.model.Process;
-import openones.oopms.planner.model.ProjectStatus;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
@@ -58,7 +58,7 @@ public class PlannerAddController {
     private static Logger log = Logger.getLogger(PlannerAddController.class);
     private List<Stage> stageList;
     private List<Process> processList;
-    private List<ProjectStatus> statusList;
+    private List<GeneralReference> statusList;
     private List<Developer> developerList;
     private List<Workproduct> productList;
 
@@ -71,7 +71,7 @@ public class PlannerAddController {
         // get project default to init developer list
         formBeanAdd.setProjectId(PlannerController.projectDefault);
 
-        statusList = taskDAO.getAllStatus();
+        statusList = taskDAO.getProjectStatusEn();
         stageList = taskDAO.getAllStage();
         productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
@@ -79,8 +79,8 @@ public class PlannerAddController {
 
         // set value for statusMap
         for (int i = 0; i < statusList.size(); i++) {
-            formBeanAdd.getStatusMap().put(statusList.get(i).getProjectStatusId().toString(),
-                    statusList.get(i).getProjectStatusName());
+            formBeanAdd.getStatusMap().put(statusList.get(i).getGeneralRefId().toString(),
+                    statusList.get(i).getDescription());
         }
 
         // Set value for stageMap
@@ -137,6 +137,7 @@ public class PlannerAddController {
             log.error("error when add new task", ex);
         }
         // formBean.setFlag(true);
+        formBean.setInit(true);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -146,6 +147,7 @@ public class PlannerAddController {
         log.debug("processEditTask.ACTION.START");
         TaskDAO taskDAO = new TaskDAO();
         Tasks task = new Tasks();
+        task = taskDAO.getTaskById(new BigDecimal(formBean.getTaskId()));
 
         formBean.setProjectId(PlannerController.projectDefault);
 
@@ -155,10 +157,7 @@ public class PlannerAddController {
         Map<String, String> processMap = new LinkedHashMap<String, String>();
         Map<String, String> productMap = new LinkedHashMap<String, String>();
 
-        statusList = taskDAO.getAllStatus();
-        task = taskDAO.getTaskById(new BigDecimal(formBean.getTaskId())); // Put here to avoid
-                                                                          // org.hibernate.SessionException: Session is
-                                                                          // closed!
+        statusList = taskDAO.getProjectStatusEn();
         stageList = taskDAO.getAllStage();
         productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
@@ -167,14 +166,14 @@ public class PlannerAddController {
         // set value for statusMap
         // get name and set to the top
         for (int i = 0; i < statusList.size(); i++) {
-            if (task.getStatusid().equals(statusList.get(i).getProjectStatusId())) {
-                task.setStatus_str(statusList.get(i).getProjectStatusName());
+            if (task.getStatusid().equals(statusList.get(i).getGeneralRefId())) {
+                task.setStatus_str(statusList.get(i).getDescription());
                 break;
             }
         }
         statusMap.put(task.getStatusid().toString(), task.getStatus_str());
         for (int i = 0; i < statusList.size(); i++) {
-            statusMap.put(statusList.get(i).getProjectStatusId().toString(), statusList.get(i).getProjectStatusName());
+            statusMap.put(statusList.get(i).getGeneralRefId().toString(), statusList.get(i).getDescription());
         }
 
         // Set value for stageMap

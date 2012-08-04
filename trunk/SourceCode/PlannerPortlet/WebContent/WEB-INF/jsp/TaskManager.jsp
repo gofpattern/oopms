@@ -147,12 +147,12 @@
 	rules[12] = 'task.productsize:Product Size|numeric';
 	rules[13] = 'task.assignedto: Assigned To|required';
 	rules[14] = 'task.statusid:Status|required';
-	rules[15] = 'alphabetic|mask|alphabetic';
-	rules[16] = 'startDate|mask|mydate';
-	rules[17] = 'actualDate|mask|mydate';
-	rules[18] = 'task.currenteffort:Current Effort|required';
-	rules[19] = 'task.currenteffort:Current Effort|numeric';
-	rules[20] = 'task.description:Description|required';
+	rules[15] = 'startDate|mask|mydate';
+	rules[16] = 'actualDate|mask|mydate';
+	rules[17] = 'task.currenteffort:Current Effort|required';
+	rules[18] = 'task.currenteffort:Current Effort|numeric';
+	rules[19] = 'task.description:Description|required';
+	rules[20] = 'task.completedsize:Completed Size|numeric';
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('actualDate', 'Provide your Finish Date');
@@ -276,7 +276,7 @@
                     id="add-form-currentEffort" /> (Hours)<br /> <span id=errorsDiv_task.currenteffort></span></td>
                 <td class="ColumnLabel"><label for="add-form-completedSize">Completed Size</label></td>
                 <td class="CellBGR3"><form:input path="task.completedsize" value="${edTask.completedsize}"
-                    id="add-form-completedSize" /></td>
+                    id="add-form-completedSize" /><span id=errorsDiv_task.completedsize></span></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-description">Description*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
@@ -336,7 +336,7 @@
               <th><b>Completeness Rate</b></th>
               <th><b>Start Date</b></th>
               <c:choose>
-                <c:when test="${taskStatus == 2 }">
+                <c:when test="${taskStatus == 174 }">
                   <th><b>Finish Date</b></th>
                 </c:when>
                 <c:when test="${taskStatus == 'All'}">
@@ -348,7 +348,7 @@
                 </c:otherwise>
               </c:choose>
               <th><b>Planned Effort</b></th>
-              <c:if test="${taskStatus == 2 ||taskStatus == 'All'}">
+              <c:if test="${taskStatus == 174 ||taskStatus == 'All'}">
               <th><b>Actual Effort</b></th></c:if>
               <th><b>Update</b></th>
               <c:if test="${role == 'Project Manager' }">
@@ -385,7 +385,7 @@
                         </c:choose>
                         <td>${task.startdate_str}</td>
                         <c:choose>
-                          <c:when test="${taskStatus == 2 }">
+                          <c:when test="${taskStatus == 174 }">
                             <td>${task.actualDate_str}</td>
                           </c:when>
                           <c:when test="${taskStatus == 'All' }">
@@ -405,7 +405,7 @@
                         </c:choose>
                         <td>${task.plannedeffort}H</td>
                         <c:choose>
-                          <c:when test="${taskStatus =='2' ||taskStatus =='All' }">
+                          <c:when test="${taskStatus =='174' ||taskStatus =='All' }">
                             <td>${task.effort}H</td>
                           </c:when>
                         </c:choose>
