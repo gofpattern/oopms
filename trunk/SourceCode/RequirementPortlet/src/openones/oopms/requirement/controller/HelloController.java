@@ -18,13 +18,15 @@
  */
 package openones.oopms.requirement.controller;
 
+
 import java.util.List;
 
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.requirement.dao.AssignmentDao;
 import openones.oopms.requirement.dao.DeveloperDao;
-import openones.oopms.requirement.dao.RequirementDao;
+import openones.oopms.requirement.form.RequirementForm;
 import openones.oopms.requirement.model.Developer;
 import openones.oopms.requirement.model.Project;
 import openones.portlet.PortletSupport;
@@ -32,9 +34,11 @@ import openones.portlet.PortletSupport;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
- * @author PNTG
+ * @author Kenda
  */
 @Controller
 @RequestMapping("VIEW")
@@ -56,9 +60,11 @@ public class HelloController {
         
         // Get developer and related projects from account log on        
         DeveloperDao developerDAO = new DeveloperDao();
-        RequirementDao requirementDao = new RequirementDao();
+        AssignmentDao assignmentDAO = new AssignmentDao();
+        //RequirementDao requirementDao = new RequirementDao();
         developer = developerDAO.getDeveloperByAccount(username);
-        List<Project> projectList = requirementDao.getAllProject();
+        //List<Project> projectList = requirementDao.getAllProject();
+        List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
         
         
         // Set information of user to session           
@@ -70,6 +76,35 @@ public class HelloController {
 
         // Display PlannerHome.jsp
         return "RequirementWelcome";
+    }
+    
+    @RenderMapping(params = "action=requirementmanager")
+    public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
+        log.debug("postRequirementSTART");                           
+        
+        ModelAndView mav = new ModelAndView("RequirementWelcome");
+        
+     // Get log on user
+        PortletSupport portletSupport = new PortletSupport(request);
+        username = portletSupport.getLogonUser();
+        
+        // Get developer and related projects from account log on        
+        DeveloperDao developerDAO = new DeveloperDao();
+        //RequirementDao requirementDao = new RequirementDao();
+        AssignmentDao assignmentDAO = new AssignmentDao();
+        developer = developerDAO.getDeveloperByAccount(username);
+        //List<Project> projectList = requirementDao.getAllProject();
+        List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
+        
+        
+        // Set information of user to session           
+        // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        
+        // sent projectList to jsp
+        request.setAttribute("projectList", projectList);
+        
+        return mav;
     }
 
 }

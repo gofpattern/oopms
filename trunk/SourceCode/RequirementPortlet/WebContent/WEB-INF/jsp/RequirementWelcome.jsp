@@ -133,10 +133,14 @@
           <tbody>
             <c:set var="count" value="0" />
             <c:forEach var="project" items="${projectList}">
-              <c:set var="count" value="${count + 1}" />              
+              <c:set var="count" value="${count + 1}" />  
+              <portlet:renderURL var="renderAction">
+                <portlet:param name="action" value="requirementmanager" />
+                <portlet:param name="projectId" value="${project.projectId}" />
+              </portlet:renderURL>            
               <tr>
-                <td>${count}</td>
-                <td align="center">${project.code}</td>
+                <td>${count}</td>                
+                <td align="center"><a href="${renderAction}">${project.code}</a></td>
                 <td align="center">${project.name}</td>
               </tr>
             </c:forEach>
