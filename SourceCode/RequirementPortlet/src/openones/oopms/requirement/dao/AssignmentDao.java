@@ -19,9 +19,11 @@
 package openones.oopms.requirement.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import openones.oopms.requirement.model.Developer;
+import openones.oopms.requirement.model.Project;
 import openones.oopms.requirement.utils.HibernateUtil;
+import openones.oopms.requirement.model.Assignment;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -31,51 +33,59 @@ import org.hibernate.SessionFactory;
 /**
  * @author Kenda
  */
-public class DeveloperDao {
+public class AssignmentDao {
     private Session session;
-    private static Logger log = Logger.getLogger(DeveloperDao.class);
+    private static Logger log = Logger.getLogger(AssignmentDao.class);
 
-    public DeveloperDao() {
+    public AssignmentDao() {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         this.session = factory.getCurrentSession();
     }
-
-    public BigDecimal getDeveloperId(String account) {
-        log.debug("getDeveloperId.START");
+    
+    @SuppressWarnings("unchecked")
+    public List<Project> getProject(BigDecimal developerId) {
+        log.debug("getProject.START");
         try {
             session.getTransaction().begin();
-            String sql = "select developerId from Developer where account = :account";
+            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account);
-            BigDecimal developerId = (BigDecimal) query.uniqueResult();
+            query.setParameter("developerId", developerId);
+            List<Project> projectList = query.list();
             session.flush();
-            System.out.println("getDeveloperId.end");
-            return developerId;
+            System.out.println("getProject.end");
+            return projectList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            log.error("getDeveloperId.Exception", e);
+            log.error("getProject.Exception", e);
         }
         return null;
     }
     
-    public Developer getDeveloperByAccount(String account) {
-        log.debug("getDeveloperByAccount.START");
+    public String getRole(String developerId, String projectId) {
         try {
+            System.out.println("getRole : " + developerId + " " + projectId);
             session.getTransaction().begin();
-            String sql = "from Developer where account = :account";
-            Query query = session.createQuery(sql);
-            query.setParameter("account", account);
-            Developer developer = (Developer) query.uniqueResult();
+            String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, developerId);
+            query.setString(1, projectId);
+            Assignment assi = (Assignment) query.uniqueResult();
             session.flush();
-            System.out.println("getDeveloperByAccount.end");
-            return developer;
+            if (assi.getType() == 1) {
+                return "Project Manager";
+            } else if (assi.getType() == 2) {
+                return "Developer";
+            }
+
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            log.error("getDeveloperByAccount.Exception", e);
+            log.error("getRole.Exception", e);
         }
         return null;
     }

@@ -28,8 +28,7 @@ import java.util.List;
 
 
 /**
- * @author KenDa
- *
+ * @author Kenda
  */
 public class RequirementForm {
     Map<String,String> projectMap;

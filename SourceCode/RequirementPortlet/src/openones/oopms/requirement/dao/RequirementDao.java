@@ -16,6 +16,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+/**
+ * @author Kenda
+ */
 public class RequirementDao {
     private Session session;    
     private Transaction tx = null;

@@ -19,8 +19,7 @@
 package openones.oopms.requirement.form;
 
 /**
- * @author PNTG
- *
+ * @author Kenda
  */
 public class HelloForm {
 

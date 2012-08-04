@@ -27,7 +27,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * @author Thach.Le
+ * @author Kenda
  */
 @Component("AddDefectValidator")
 public class RequiremendAddValidator extends BaseValidator implements Validator {

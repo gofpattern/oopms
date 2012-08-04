@@ -16,5 +16,6 @@
     <mapping resource="openones/oopms/requirement/model/Requirements.hbm.xml"/>
 	<mapping resource="openones/oopms/requirement/model/Project.hbm.xml"/>
 	<mapping resource="openones/oopms/requirement/model/Developer.hbm.xml"/>
+	<mapping resource="openones/oopms/requirement/model/Assignment.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

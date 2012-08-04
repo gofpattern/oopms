@@ -287,6 +287,11 @@ textarea {
         <td><strong><font color="#1490E3"><a
               href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
       </tr>
+      <tr>
+        <th><strong>Projects: </strong></th>
+        <td><strong><font color="#1490E3"><a
+              href='<portlet:renderURL><portlet:param name="action" value="projectlist"/></portlet:renderURL>'>Lists</a></font></strong></td>
+      </tr>
     </table>
 
 

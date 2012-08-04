@@ -28,7 +28,9 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
-
+/**
+ * @author Kenda
+ */
 @Controller
 @RequestMapping("VIEW")
 public class RequirementController {

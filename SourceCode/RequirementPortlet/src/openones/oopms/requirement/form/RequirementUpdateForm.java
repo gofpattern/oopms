@@ -29,8 +29,7 @@ import java.util.List;
 
 
 /**
- * @author KenDa
- *
+ * @author Kenda
  */
 public class RequirementUpdateForm {
     Map<String,String> projectMap;
