@@ -115,10 +115,13 @@ public class ProductController {
 			for(int i=0; i<productList.size();i++) {
 				ProductForm temp = new ProductForm();
 				temp.setName(productList.get(i).getName());
-				//Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
+//				Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
+				Language unitSize = new Language();
 				temp.setWorkProduct(productList.get(i).getWorkproduct().getName());
-				Language unitSize = pDao.getProductSizeUnit(productList.get(i).getPlannedSizeUnitId());
-				temp.setPlannedSize(productList.get(i).getPlannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				if(productList.get(i).getPlannedSizeUnitId()!=null) {
+					unitSize = pDao.getProductSizeUnit(productList.get(i).getPlannedSizeUnitId());
+					temp.setPlannedSize(productList.get(i).getPlannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				}
 				if(productList.get(i).getReplannedSize()!=null) {
 					temp.setRePlannedSize(productList.get(i).getReplannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
 				}
@@ -126,7 +129,7 @@ public class ProductController {
 					unitSize = pDao.getProductSizeUnit(productList.get(i).getActualSizeUnitId());
 					temp.setRePlannedSize(productList.get(i).getActualSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
 				}
-				//temp.setCreatedSize(createdSize)
+//				temp.setCreatedSize(createdSize)
 				temp.setDescription(productList.get(i).getNote());
 				projectProductList.add(temp);
 			}
