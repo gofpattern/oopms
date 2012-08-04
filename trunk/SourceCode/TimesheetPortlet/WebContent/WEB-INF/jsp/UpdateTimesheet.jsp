@@ -106,8 +106,12 @@
       <th >Work</th>
       <th >Process</th>
       <th >Time</th>
-      <th >Description</th>           
+      <th >Description</th>   
+       <c:if test="${updateFlag!='true' }"> 
+           <c:if test="${ROLE=='Project Manager' }">       
       <th >Comment</th>
+      </c:if>
+      </c:if>
        
     </tr>
   </thead>
@@ -130,12 +134,15 @@
         </form:select></td>
          <td><input style="width: 30px;" name="timesheetList[${status.index}].duration" value="${timesheet.durationString}"/></td>
           <td><input style="width: 200px;" name="timesheetList[${status.index}].description" value="${timesheet.description}"/></td>
+          <c:if test="${updateFlag!='true'} ">          
+          
              <c:if test="${ROLE=='Project Manager' }">
               <td><input style="width: 100px;" name="timesheetList[${status.index}].rcomment" value="${timesheet.rcomment}"/></td>
              </c:if>
               <c:if test="${ROLE!='Project Manager' }">
               <td><input disabled="disabled" style="width: 300px;" name="timesheetList[${status.index}].rcomment" value="${timesheet.rcomment}"/></td>
              </c:if>
+           </c:if>
          <!--
          
           <td><input name="timesheetList[${status.index}].towName" value="${timesheet.towName}"/></td>

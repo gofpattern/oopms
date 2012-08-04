@@ -94,6 +94,8 @@ public class TimesheetController {
     List <String> timesheetErrorList;
     // Properties
     Properties props;
+    // User Dao
+    UserDao userDao;
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(TimesheetController.class);
 
@@ -210,7 +212,7 @@ public class TimesheetController {
         System.out.println("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
         
-        UserDao userDao = new UserDao();
+        userDao = new UserDao();
 
         user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
 
@@ -257,13 +259,14 @@ public class TimesheetController {
        
         mav.addObject("ROLE",role);
         // Search all timesheet record from database
-        TimesheetDao timeDao = new TimesheetDao();
-        List<Timesheet> timesheetList = timeDao.getTimesheetList(String.valueOf(user.getDeveloperId()), "All", "", "",
+      
+        List<Timesheet> timesheetList = new ArrayList<Timesheet>();
+        timesheetList = timesheetDao.getTimesheetList(String.valueOf(user.getDeveloperId()), "All", "", "",
                 "All");
 
         // Get dropdown list from database
-        processList = timeDao.getProcessList();
-        towList = timeDao.getTOWList();
+        processList = timesheetDao.getProcessList();
+        towList = timesheetDao.getTOWList();
 
         timesheetList = prepareTimesheetList(timesheetList);
 
@@ -276,8 +279,7 @@ public class TimesheetController {
         else {
             mav.addObject("projectDefault", projectDefault);
         }
-        
-        mav.addObject("timesheetList", timesheetList);
+               
         mav.addObject("projectStatus", projectStatus);
         mav.addObject("fromDate", fromDate);
         mav.addObject("toDate", toDate);
@@ -357,7 +359,7 @@ public class TimesheetController {
     @RenderMapping(params = "action=searchTimesheet")
     public ModelAndView postTimesheet(TimesheetForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
-        TimesheetDao timesheetDao = new TimesheetDao();
+     
         // projectMap = new LinkedHashMap<String, String>();
         //
         // // Get project List from database
@@ -560,6 +562,7 @@ public class TimesheetController {
     @ActionMapping(params = "action=goUpdateTimesheet")
     public void processGoUpdateTimesheet(TimesheetForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws IOException {
+       
         updateTimesheetList = new ArrayList<Timesheet>();
         List<Timesheet> tempList = new ArrayList<Timesheet>();
         tempList = formBean.getTimesheetList();
@@ -644,7 +647,11 @@ public class TimesheetController {
         mav.addObject("towMap", towMap);
         mav.addObject("timesheetErrorList",timesheetErrorList);
         // Add object timesheetList to request
-        mav.addObject("timesheetList", timesheetList);
+        if(timesheetErrorList == null || timesheetErrorList.size()==0) {
+            mav.addObject("timesheetList", timesheetList);
+        }
+        mav.addObject("timesheetList", updateTimesheetList);
+        mav.addObject("updateFlag","true");
         updateTimesheetList = timesheetList;
         // Return to jsp
         return mav;
@@ -705,9 +712,14 @@ public class TimesheetController {
         for (int i = 0; i < tempList.size(); i++) {
             timesheet = new Timesheet();
             timesheet = tempList.get(i);
-
-          //  errFlag = validateTimesheet(timesheet, false);
-            if (!errFlag) {
+            timesheet.setDurationString(String.valueOf(timesheet.getDuration()));
+            errFlag = validateTimesheet(timesheet, false);
+            System.out.println("errFlag : " +errFlag);
+            if (errFlag) {
+                System.out.println("occur date : " +tempList.get(i).getOccurDateString());
+                System.out.println("prj id : " +tempList.get(i).getProject().getProjectId().toString());
+                System.out.println("ProcessId : " +tempList.get(i).getProcessId().toString());
+                System.out.println("Duration : " +tempList.get(i).getDuration().toString());
                 updateTimesheetList.get(i).setOccurDateString(tempList.get(i).getOccurDateString());
                 updateTimesheetList.get(i).setProjectName(tempList.get(i).getProject().getProjectId().toString());
                 updateTimesheetList.get(i).setProcessId(new BigDecimal(tempList.get(i).getProcessId().toString()));
@@ -717,10 +729,11 @@ public class TimesheetController {
 
                 TimesheetDao timeDao = new TimesheetDao();
                 timeDao.updateTimesheet(updateTimesheetList, user.getDeveloperId());
-
+                       
             }
+           
         }
-        if(errFlag) {
+        if(!errFlag) {
             response.setRenderParameter("action", "goUpdateTimesheet");
         }
         else {
@@ -856,10 +869,14 @@ public class TimesheetController {
             errorFlag = false;
          }
         
-        if("".equals(timesheet.getDurationString())) {
+        if(timesheet.getDurationString() == null || "".equals(timesheet.getDurationString()) ) {
             timesheetErrorList.add(props.getProperty("timesheet.duration.required"));
         errorFlag = false;
         }
+        else if("".equals(timesheet.getDurationString())) {
+            timesheetErrorList.add(props.getProperty("timesheet.duration.required"));
+            errorFlag = false;
+            }
         else if (CommonUtil.isNumber(timesheet.getDurationString()) ){
             timesheetErrorList.add(props.getProperty("timesheet.duration.number"));
             errorFlag = false;
