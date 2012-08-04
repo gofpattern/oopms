@@ -73,9 +73,8 @@
 	rules[10] = 'planStartDate:Planned Start Date|date';
 	rules[11] = 'planEndDate:Planned End Date|date';
 	
-    rules[12] = 'alphabetic|mask|alphabetic';
-    rules[13] = 'planStartDate|mask|mydate';
-    rules[14] = 'planEndDate|mask|mydate';
+    rules[12] = 'planStartDate|mask|mydate';
+    rules[13] = 'planEndDate|mask|mydate';
 	yav.addHelp('projectCode', 'Provide your Project Code');
 	yav.addMask('mydate', '  /  /    ', '1234567890');
 
@@ -112,11 +111,13 @@
   </tr>
   <tr>
     <th scope="row">Project Code* </th>
-    <td><form:input path="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/><br/><span id=errorsDiv_projectCode></span></td>
+    <td><form:input path="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/>
+    <br/><span id=errorsDiv_projectCode></span>&nbsp;</td>
   </tr>
   <tr>
     <th scope="row">Project Name* </th>
-    <td><form:input path="projectName" value="" maxlength="150" size="50" type="text" id="projectName"/></td>
+    <td><form:input path="projectName" value="" maxlength="150" size="50" type="text" id="projectName"/>
+    <br/><span id=errorsDiv_projectName>&nbsp;</span></td>
   </tr>
   <tr>
     <th scope="row">Project Status</th>
@@ -141,12 +142,12 @@
       <tr>
         <th scope="row">Planned Start Date* </th>
         <td><form:input maxlength="10" path="planStartDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)</td>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_planStartDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Planned End Date* </th>
         <td><form:input maxlength="10" path="planEndDate" size="9" value="" type="text" id="datepicker2"/>
-          (mm/dd/yyyy)</td>
+          (mm/dd/yyyy)<br><span id=errorsDiv_planEndDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Scope and Objective</th>
