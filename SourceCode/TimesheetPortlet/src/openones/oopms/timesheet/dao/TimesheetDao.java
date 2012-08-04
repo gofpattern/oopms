@@ -223,9 +223,10 @@ public class TimesheetDao {
 
         try {
             Project project;
-
+            session.getTransaction().begin();
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
             for (int i = 0; i < timesheetList.size(); i++) {
+                
                 project = getProject(timesheetList.get(i).getProjectName());
 
                 timesheetList.get(i).setProject(project);
@@ -239,6 +240,7 @@ public class TimesheetDao {
                 timesheetList.get(i).setOccurDate(sdf.parse(timesheetList.get(i).getOccurDateString()));
                 timesheetList.get(i).setDuration(new BigDecimal(timesheetList.get(i).getDurationString()));
                 session.save(timesheetList.get(i));
+                
             }
 
             session.flush();
@@ -255,13 +257,14 @@ public class TimesheetDao {
 
         try {
 
-            session.getTransaction().begin();
+        
             String hql = "UPDATE Timesheet ts SET ts.project =:project, ts.developerId =:developerId,"
                     + "ts.wpId =:wpId, ts.kpaId=:kpaId, ts.towId= :towId, ts.createDate =:createDate, ts.status =:status,"
-                    + "ts.processId =:processId, ts.occurDate =:occurDate WHERE ts.timesheetId =:tsId";
+                    + "ts.processId =:processId, ts.duration =:duration, ts.occurDate =:occurDate WHERE ts.timesheetId =:tsId";
 
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
             for (int i = 0; i < timesheetList.size(); i++) {
+                session.getTransaction().begin();
                 Query query = session.createQuery(hql);
                 query.setParameter("project", getProject(timesheetList.get(i).getProjectName()));
                 query.setParameter("wpId", new BigDecimal(1));
@@ -273,9 +276,11 @@ public class TimesheetDao {
                 query.setParameter("createDate", new Date());
                 query.setParameter("tsId", timesheetList.get(i).getTimesheetId());
                 query.setParameter("status", new BigDecimal(0));
+                query.setParameter("developerId", devId);
 
                 int rowCount = query.executeUpdate();
-
+                session.flush();
+                session.getTransaction().commit();
                 System.out.println("Rows affected: " + rowCount);
             }
             session.flush();
