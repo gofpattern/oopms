@@ -19,17 +19,15 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.WorkOrderDao;
-import openones.oopms.projecteye.form.CreateStageForm;
+import openones.oopms.projecteye.form.UpdateStageForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.Stage;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -45,15 +43,15 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateStageController {
+public class UpdateStageController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(CreateStageController.class);
+	private static Logger log = Logger.getLogger(UpdateStageController.class);
 	String projectId;
 
-	@ActionMapping(params = "action=CreateStage")
-	public void processCreateStage(CreateStageForm formBean,
+	@ActionMapping(params = "action=UpdateStage")
+	public void processUpdateStage(UpdateStageForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process CreateStage.START");
 		WorkOrderDao woDao = new WorkOrderDao();
@@ -64,15 +62,11 @@ public class CreateStageController {
 		// set value for Product
 		stage.setProject(project);
 		stage.setComplete(new BigDecimal("0"));
-		stage.setName(woDao.getStandardStageName(new BigDecimal(formBean
-				.getStandarStage_SelectedValue())));
-		stage.setStandardstage(new BigDecimal(formBean
-				.getStandarStage_SelectedValue()));
-		stage.setPlanStartDate(formBean.getPlannedStartDate());
-		stage.setBaseStartDate(formBean.getRePlannedStartDate());
+		stage.setBaseStartDate(formBean.getPlannedStartDate());
+		stage.setPlanStartDate(formBean.getRePlannedStartDate());
 		stage.setActualStartDate(formBean.getActualStartDate());
-		stage.setPlanFinishDate(formBean.getPlannedEndDate());
-		stage.setBaseFinishDate(formBean.getRePlannedEndDate());
+		stage.setBaseFinishDate(formBean.getPlannedEndDate());
+		stage.setPlanFinishDate(formBean.getRePlannedEndDate());
 		stage.setActualFinishDate(formBean.getActualEndDate());
 		stage.setDescription(formBean.getDescription());
 		stage.setMilestone(formBean.getMilestone());
@@ -86,8 +80,8 @@ public class CreateStageController {
 
 	}
 
-	@RenderMapping(params = "action=CreateStage")
-	public ModelAndView postCreateStage(RenderRequest request) {
+	@RenderMapping(params = "action=UpdateStage")
+	public ModelAndView postUpdateStage(RenderRequest request) {
 		log.debug("post CreateStage.START");
 		ModelAndView mav = new ModelAndView("WorkOrder");
 		log.debug("project ID la " + projectId);

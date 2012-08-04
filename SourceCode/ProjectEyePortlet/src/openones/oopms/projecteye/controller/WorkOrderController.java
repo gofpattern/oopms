@@ -26,10 +26,13 @@ import java.util.Map;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.MilestoneDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CreateDeliverableForm;
 import openones.oopms.projecteye.form.CreateStageForm;
+import openones.oopms.projecteye.form.UpdateStageForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Project;
@@ -55,31 +58,35 @@ public class WorkOrderController {
 	/** Logger for logging. */
 	private static Logger log = Logger.getLogger(WorkOrderController.class);
 
-	@ActionMapping(params = "action=GoCreateStage")
-	public void processGoCreateStage(BindingResult result,
+	@ActionMapping(params = "action=GoUpdateStage")
+	public void processGoUpdateStage(BindingResult result,
 			SessionStatus status, ActionResponse response) {
-		log.debug("process GoCreateStage.START");
-		response.setRenderParameter("action", "GoCreateStage");
+		log.debug("process GoUpdateStage.START");
+		response.setRenderParameter("action", "GoUpdateStage");
 	}
 
-	@RenderMapping(params = "action=GoCreateStage")
-	public ModelAndView postGoCreateStage(RenderRequest request) {
+	@RenderMapping(params = "action=GoUpdateStage")
+	public ModelAndView postGoUpdateStage(RenderRequest request) {
 		log.debug("post GoCreateIssue.START");
 		// get stage list
-		WorkOrderDao woDao = new WorkOrderDao();
-		List<Stage> stageList = woDao.getStandardStageList();
-		Map<String, String> stageMap = new LinkedHashMap<String, String>();
-		for (int i = 0; i < stageList.size(); i++) {
-			stageMap.put(stageList.get(i).getStageId().toString(), stageList
-					.get(i).getName());
-		}
-		CreateStageForm projectFormBean = new CreateStageForm();
-		request.setAttribute("CreateStageForm", projectFormBean);
-		ModelAndView mav = new ModelAndView("CreateStage");
-		mav.addObject("standarStage", stageMap);
+		MilestoneDao mDao = new MilestoneDao();
+		String stageId = request.getParameter("stageId");
+		Milestone stage = mDao.getStage(stageId);
+		UpdateStageForm formBean = new UpdateStageForm();
+//		formBean.setPlannedStartDate(stage.getBaseStartDate());
+//		formBean.setRePlannedStartDate(stage.getPlanStartDate());
+//		formBean.setActualStartDate(stage.getActualStartDate());
+		formBean.setPlannedEndDate(stage.getBaseFinishDate());
+		formBean.setRePlannedEndDate(stage.getPlanFinishDate());
+		formBean.setActualEndDate(stage.getActualFinishDate());
+		formBean.setDescription(stage.getDescription());
+		formBean.setMilestone(stage.getMilestone());
+		formBean.setStage(stage.getName());
+		ModelAndView mav = new ModelAndView("UpdateStage","UpdateStageForm",formBean);
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		mav.addObject("stageId", stageId);
 		return mav;
 	}
 
