@@ -305,8 +305,7 @@ textarea {
       </portlet:renderURL>
 
       <form:form name="${portletNamespace}RequirementAdd" commandName="RequirementAddForm" method="post"
-        action="${formAction}">
-        <h1>Create Requirement</h1>
+        action="${formAction}">        
 
         <div id=errorsDiv style="color: red">
           <c:if test="${not empty errorList }">
@@ -314,7 +313,7 @@ textarea {
           </c:if>
         </div>
 
-        <table width="95%" cellspacing="1" class="portlet-table">
+        <table width="70%" cellspacing="1" class="portlet-table">
 
 
           <tr>

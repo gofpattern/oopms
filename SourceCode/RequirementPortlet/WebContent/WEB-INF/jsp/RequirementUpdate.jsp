@@ -324,9 +324,7 @@ textarea {
       </portlet:renderURL>
 
       <form:form name="${portletNamespace}RequirementUpdate" commandName="RequirementUpdateForm" method="post"
-        action="${formAction}">
-
-        <h1>Update Requirement</h1>
+        action="${formAction}">        
 
         <div id=errorsDiv style="color: red">
           <c:if test="${not empty errorList }">
@@ -334,7 +332,7 @@ textarea {
           </c:if>
         </div>
 
-        <table width="95%" cellspacing="1" class="portlet-table">
+        <table width="70%" cellspacing="1" class="portlet-table">
 
           <tr>
             <th><b><font color="black">Project Name*</font></b><font color="red">&nbsp;</font></th>
@@ -347,7 +345,7 @@ textarea {
           <tr>
             <!-- Requirement Name -->
             <th><b><font color="black">Requirement Name*</font></b><font color="red">&nbsp;</font></th>
-            <th><form:input value="${currentRequirement.requirement}"
+            <td><form:input value="${currentRequirement.requirement}"
                 path="requirementName" maxlength="150" id="requirementName" /><br>
             <span id=errorsDiv_requirementName></span></td>
           </tr>
@@ -377,7 +375,7 @@ textarea {
           <tr>
             <!-- srs -->
             <th><b><font color="black">SRS Document* </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="srs" maxlength="150"
+            <td><form:input path="srs" maxlength="150"
                 value="${currentRequirement.srs}" id="srs" /><br>
             <span id=errorsDiv_srs></span></td>
           </tr>
@@ -385,7 +383,7 @@ textarea {
           <tr>
             <!-- releaseNote -->
             <th><b><font color="black">Release Note* </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="releaseNote" maxlength="150"
+            <td><form:input path="releaseNote" maxlength="150"
                 value="${currentRequirement.releaseNote}" id="releaseNote" /><br>
             <span id=errorsDiv_releaseNote></span></td>
           </tr>
@@ -393,7 +391,7 @@ textarea {
           <tr>
             <!-- document -->
             <th><b><font color="black">Design Document </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="document" maxlength="150"
+            <td><form:input path="document" maxlength="150"
                 value="${currentRequirement.dd}" id="document" /><br>
             <span id=errorsDiv_document></span></td>
           </tr>
@@ -401,7 +399,7 @@ textarea {
           <tr>
             <!-- effort -->
             <th><b><font color="black">Effort </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="effort" maxlength="150"
+            <td><form:input path="effort" maxlength="150"
                 value="${currentRequirement.effort}" id="effort" /><br>
             <span id=errorsDiv_effort></span></td>
           </tr>
@@ -409,7 +407,7 @@ textarea {
           <tr>
             <!-- Elapsed Day -->
             <th><b><font color="black">Elapsed Day </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="elapsedDay" maxlength="150"
+            <td><form:input path="elapsedDay" maxlength="150"
                 value="${currentRequirement.elapsedDay}" /><br>
             <span id=errorsDiv_elapsedDay></span></td>
           </tr>
@@ -417,15 +415,15 @@ textarea {
           <tr>
             <!-- Test Case -->
             <th><b><font color="black">Test Case </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="testCase" maxlength="150"
-                value="${currentRequirement.testcase}" /><span id=errorsDiv_testCase></span></td>
+            <td><form:input path="testCase" maxlength="150"
+                value="${currentRequirement.testcase}" /><br><span id=errorsDiv_testCase></span></td>
           </tr>
 
           <tr>
             <!-- Code Module -->
             <th><b><font color="black">Code Module </font></b><font color="red">&nbsp;</font></th>
-            <th><form:input path="codeModule" maxlength="150"
-                value="${currentRequirement.codeModule}" /><span id=errorsDiv_codeModule></span></td>
+            <td><form:input path="codeModule" maxlength="150"
+                value="${currentRequirement.codeModule}" /><br><span id=errorsDiv_codeModule></span></td>
           </tr>
 
 

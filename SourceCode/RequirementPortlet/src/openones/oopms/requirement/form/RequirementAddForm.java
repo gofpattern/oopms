@@ -36,6 +36,7 @@ public class RequirementAddForm {
     Map<String,String> projectMap;
     private String projectDefault;
     private String title;        
+    private List<Requirements> requirementList;
     
     private String requirementName;
     private BigDecimal reqSize;
@@ -62,6 +63,28 @@ public class RequirementAddForm {
     
     
     
+    /**
+     * Get value of requirementList.
+     * @return the requirementList
+     */
+    public List<Requirements> getRequirementList() {
+        return requirementList;
+    }
+
+
+
+
+    /**
+     * Set the value for requirementList.
+     * @param requirementList the requirementList to set
+     */
+    public void setRequirementList(List<Requirements> requirementList) {
+        this.requirementList = requirementList;
+    }
+
+
+
+
     /**
      * Get value of srs.
      * @return the srs

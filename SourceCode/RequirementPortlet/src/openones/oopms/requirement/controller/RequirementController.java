@@ -90,9 +90,7 @@ public class RequirementController {
             log.debug(projectList.get(0).getName());
             log.debug(requirementList.get(0).getProjectName());
             log.error("Convert ProcessID to string", ex);
-        }
-        
-        // thieu buo'c set req id vao req list de hien thi len man hinh 
+        }               
         
         formBean.setRequirementList(requirementList);                
         mav.addObject("requirementList", formBean.getRequirementList());
@@ -124,10 +122,11 @@ public class RequirementController {
     }
               
     @RenderMapping(params = "action=deleteRequirement")   
-    public ModelAndView postDeleteRequirement(RequirementForm formBean, RenderRequest request) {
+    public ModelAndView postDeleteRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("deleteRequirementHere");
-        ModelAndView mav = new ModelAndView("hello");
+        ModelAndView mav = new ModelAndView("RequirementHome");
                   
+        RequirementDao reqDao = new RequirementDao();
         List<Requirements> tempList;
         tempList = formBean.getRequirementList();
         if(tempList == null) {
@@ -147,8 +146,7 @@ public class RequirementController {
                 deleteRequirementList.add(tempList.get(i));
             }
         }        
-        log.debug("tobedeletedList.deleteRequirementList: "+deleteRequirementList.size());
-        RequirementDao reqDao = new RequirementDao();
+        log.debug("tobedeletedList.deleteRequirementList: "+deleteRequirementList.size());        
         try {
             reqDao.deleteReq(deleteRequirementList);
         } catch (ParseException ex) {
@@ -156,6 +154,55 @@ public class RequirementController {
             ex.printStackTrace();
         }        
         }
+        
+               
+        requirementList = reqDao.getAllRequirement();
+        projectList = reqDao.getAllProject();            
+        
+        //get projectName
+        log.debug("projectNameSTART");
+        try {
+            for (int i = 0; i < requirementList.size(); i++) {
+                for (int j = 0; j < projectList.size(); j++) {
+                    if (requirementList.get(i).getProjectID().equals(projectList.get(j).getProjectId())) {
+                        requirementList.get(i).setProjectName(projectList.get(j).getName());
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            // TODO: handle exception
+            log.debug(requirementList.get(0).getProjectID());
+            log.debug(projectList.get(0).getProjectId());
+            log.debug(projectList.get(0).getName());
+            log.debug(requirementList.get(0).getProjectName());
+            log.error("Convert ProcessID to string", ex);
+        }               
+        
+        formBean.setRequirementList(requirementList);                
+        mav.addObject("requirementList", formBean.getRequirementList());
+        
+      //set projectMap        
+        Map<String,String> projectMap = new LinkedHashMap<String,String>();
+        log.debug("projectmap before:" +projectMap.size());
+        //projectMap.put("All", "All");
+        for (int i=0; i<projectList.size();i++) {
+            projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+        }
+        log.debug("projectmap after:" +projectMap.size());
+        
+        formBean.setProjectMap(projectMap);
+        formBean.setProjectDefault(""); 
+        mav.addObject("projectDefault", formBean.getProjectDefault());
+        mav.addObject("projectMap", formBean.getProjectMap());
+        
+     // sent projectList to jsp
+        request.setAttribute("projectList", projectList);
+        
+        PortletSupport portletSupport = new PortletSupport(request);
+        DeveloperDao developerDAO = new DeveloperDao();
+        username = portletSupport.getLogonUser();
+        developer = developerDAO.getDeveloperByAccount(username);
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
         return mav;
 
