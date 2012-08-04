@@ -2,15 +2,23 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="portlet" uri="http://java.sun.com/portlet"%>
+<%@ taglib prefix="portlet2" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="javax.portlet.PortletSession"%>
 
+<c:set var="portletNamespace" scope="request">
+  <portlet:namespace />
+</c:set>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 <title>Update Requirement</title>
 <jsp:include page="header.jsp" />
+<portlet2:defineObjects />
+<portlet:defineObjects />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <style type="text/css">
@@ -133,6 +141,7 @@ textarea {
 	$(document)
 			.ready(
 					function() {
+						yav.init("${portletNamespace}RequirementUpdate", rules);
 						$('#mainTable tr')
 								.filter(':has(:checkbox:checked)')
 								.addClass('selected')
@@ -217,32 +226,65 @@ textarea {
 </script>
 
 <SCRIPT type="text/javascript">
-    var rules = new Array();
-    rules[0] = 'requirementName:Requirement Name|required';
-    rules[1] = 'srs:SRS Document|required';
-    rules[2] = 'releaseNote:Release Notes|required';
-    rules[3] = 'document:Design Document|maxlength|150';
-    rules[4] = 'effort:Effort|maxlength|2';
+	var rules = new Array();
+	rules[0] = 'requirementName:Requirement Name|required';
+	rules[1] = 'srs:SRS Document|required';
+	rules[2] = 'releaseNote:Release Notes|required';
+	rules[3] = 'document:Design Document|maxlength|150';
+	rules[4] = 'effort:Effort|maxlength|2';
 
-    rules[5] = 'createdDate|date_le|$designedDate';
-    rules[6] = 'designedDate|date_le|$codedDate';
-    rules[7] = 'codedDate|date_le|$testedDate';
-    rules[8] = 'testedDate|date_le|$deployedDate';
-    rules[9] = 'deployedDate|date_le|$acceptedDate';
+	rules[5] = 'designedDate|date_lt|$createdDate';
+	rules[6] = 'designedDate|date_le|$codedDate';
+	rules[7] = 'codedDate|date_le|$testedDate';
+	rules[8] = 'testedDate|date_le|$deployedDate';
+	rules[9] = 'deployedDate|date_le|$acceptedDate';
 
-    rules[10] = 'createdDate|date_le|$codedDate';
-    rules[11] = 'createdDate|date_le|$testedDate';
-    rules[12] = 'createdDate|date_le|$deployedDate';
-    rules[13] = 'createdDate|date_le|$acceptedDate';
+	rules[10] = 'createdDate|date_le|$codedDate';
+	rules[11] = 'createdDate|date_le|$testedDate';
+	rules[12] = 'createdDate|date_le|$deployedDate';
+	rules[13] = 'createdDate|date_le|$acceptedDate';
 
-    rules[14] = 'designedDate|date_le|$testedDate';
-    rules[15] = 'designedDate|date_le|$deployedDate';
-    rules[16] = 'designedDate|date_le|$acceptedDate';
+	rules[14] = 'designedDate|date_le|$testedDate';
+	rules[15] = 'designedDate|date_le|$deployedDate';
+	rules[16] = 'designedDate|date_le|$acceptedDate';
 
-    rules[17] = 'codedDate|date_le|$deployedDate';
-    rules[18] = 'testedDate|date_le|$acceptedDate';
+	rules[17] = 'codedDate|date_le|$deployedDate';
+	rules[18] = 'testedDate|date_le|$acceptedDate';
 
-    rules[18] = 'testedDate|date_le|$acceptedDate';
+	rules[19] = 'deployedDate|date_le|$acceptedDate';
+
+	rules[20] = 'effort:Effort|numeric';
+
+	rules[21] = 'createdDate|mask|mydate';
+	rules[22] = 'designedDate|mask|mydate';
+	rules[23] = 'codedDate|mask|mydate';
+	rules[24] = 'testedDate|mask|mydate';
+	rules[25] = 'deployedDate|mask|mydate';
+	rules[26] = 'acceptedDate|mask|mydate';
+	rules[27] = 'responseDate|mask|mydate';
+	rules[28] = 'committedDate|mask|mydate';
+	rules[29] = 'cancelledDate|mask|mydate';
+
+	yav.addHelp('requirementName', 'Provide your Requirement Name');
+	yav.addHelp('srs', 'Provide your SRS Directory');
+	yav.addHelp('releaseNote', 'Provide your Requirement Realease Note');
+	yav.addHelp('document', 'Provide your Design Doc Directory');
+	yav.addHelp('effort', 'Provide your Effort with maxlength 2');
+	yav.addHelp('elapsedDay', 'Provide your Elapsed Day');
+	yav.addHelp('testCase', 'Provide your Test Case');
+	yav.addHelp('codeModule', 'Provide your Code Module');
+
+	yav.addHelp('createdDate', 'Provide your created Date');
+	yav
+			.addHelp('designedDate',
+					'Provide your designed Date after created Date');
+	yav.addHelp('codedDate', 'Provide your coded Date after designed Date');
+	yav.addHelp('testedDate', 'Provide your tested Date after coded Date');
+	yav.addHelp('deployedDate', 'Provide your deployed Date after tested Date');
+	yav.addHelp('acceptedDate',
+			'Provide your accepted Date after deployed Date');
+
+	yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
 </head>
 
@@ -250,38 +292,24 @@ textarea {
 
   <div class="container">
 
-    <!-- Header -->
-    <div class="header">
-      <table width="960">
-        <tr>
-          <td width="697" height="92">&nbsp;</td>
-          <td width="251" valign="top">
-            <p>
-              Hello Duy , <a href="HomePage.html">Log Out</a>
-            </p>
-            <p>
-              <a href="UserDetail.html">Change your Information</a>
-            </p>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <table border="0">
+      <tr>
+        <th><strong>User: </strong></th>
+        <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+      </tr>
+      <tr>
+        <th><strong>Joined Projects: </strong></th>
+        <td><strong><font color="#1490E3">${projectList.size()}</font></strong></td>
+      </tr>
+      <tr>
+        <th><strong>Requirements: </strong></th>
+        <td><strong><font color="#1490E3"><a
+              href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
+      </tr>
+    </table>
 
 
     <div class="content">
-
-
-      <div id="tabs28">
-        <ul>
-          <h5>
-            <li><a href="ManagerHomePage.html"><span>Dash Board</span></a></li>
-          </h5>
-        </ul>
-      </div>
-
-      <div class="demo" style="font-size: 20px" align="right">
-        <a href="Create Project-Admin ver.html">Update Requirement</a>
-      </div>
 
       <%--Display errors --%>
       <font color="red"><form:errors path="*"></form:errors></font>
@@ -298,170 +326,177 @@ textarea {
       <form:form name="${portletNamespace}RequirementUpdate" commandName="RequirementUpdateForm" method="post"
         action="${formAction}">
 
+        <h1>Update Requirement</h1>
+
         <div id=errorsDiv style="color: red">
           <c:if test="${not empty errorList }">
             <font color="red">${errorList}</font>
           </c:if>
         </div>
 
-        <table width="95%" cellspacing="1">
+        <table width="95%" cellspacing="1" class="portlet-table">
 
-          <div>
-            <tbody>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Project Name*</font></b><font color="red">&nbsp;</font></td>
-                <td width="26%"><form:select cssClass="styled" path="projectDefault" multiple="single">
-                    <c:set var="projectMap" value="${projectMap}" />
-                    <form:options items="${projectMap}" />
-                  </form:select></td>
-              </tr>
+          <tr>
+            <th><b><font color="black">Project Name*</font></b><font color="red">&nbsp;</font></th>
+            <td><form:select cssClass="styled" path="projectDefault" multiple="single">
+                <c:set var="projectMap" value="${projectMap}" />
+                <form:options items="${projectMap}" />
+              </form:select></td>
+          </tr>
 
-              <tr>
-                <!-- Requirement Name -->
-                <td align="left" valign="middle"><b><font color="black">Requirement Name*</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input value="${currentRequirement.requirement}"
-                    path="requirementName" maxlength="150" id="requirementName" /></td>
-              </tr>
+          <tr>
+            <!-- Requirement Name -->
+            <th><b><font color="black">Requirement Name*</font></b><font color="red">&nbsp;</font></th>
+            <th><form:input value="${currentRequirement.requirement}"
+                path="requirementName" maxlength="150" id="requirementName" /><br>
+            <span id=errorsDiv_requirementName></span></td>
+          </tr>
 
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Requirement Size</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><form:select path="reqSize">
-                    <option value="1" selected="selected">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </form:select></td>
-              </tr>
+          <tr>
+            <th><b><font color="black">Requirement Size</font></b><font color="red">&nbsp;</font></th>
+            <td><form:select path="reqSize">
+                <option value="1" selected="selected">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </form:select></td>
+          </tr>
 
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Requirement Type</font></b><font
-                  color="red">&nbsp;</font></td>
-                <td><form:select path="reqType">
-                    <option value="1" selected="selected">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </form:select></td>
-              </tr>
+          <tr>
+            <th><b><font color="black">Requirement Type</font></b><font color="red">&nbsp;</font></th>
+            <td><form:select path="reqType">
+                <option value="1" selected="selected">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </form:select></td>
+          </tr>
 
-              <tr>
-                <!-- srs -->
-                <td align="left" valign="middle"><b><font color="black">SRS Document* </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="srs" maxlength="150"
-                    value="${currentRequirement.srs}" id="srs" /></td>
-              </tr>
+          <tr>
+            <!-- srs -->
+            <th><b><font color="black">SRS Document* </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="srs" maxlength="150"
+                value="${currentRequirement.srs}" id="srs" /><br>
+            <span id=errorsDiv_srs></span></td>
+          </tr>
 
-              <tr>
-                <!-- releaseNote -->
-                <td align="left" valign="middle"><b><font color="black">Release Note* </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="releaseNote" maxlength="150"
-                    value="${currentRequirement.releaseNote}" id="releaseNote" /></td>
-              </tr>
+          <tr>
+            <!-- releaseNote -->
+            <th><b><font color="black">Release Note* </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="releaseNote" maxlength="150"
+                value="${currentRequirement.releaseNote}" id="releaseNote" /><br>
+            <span id=errorsDiv_releaseNote></span></td>
+          </tr>
 
-              <tr>
-                <!-- document -->
-                <td align="left" valign="middle"><b><font color="black">Design Document </font></b><font
-                  color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="document" maxlength="150"
-                    value="${currentRequirement.dd}" id="document" /></td>
-              </tr>
+          <tr>
+            <!-- document -->
+            <th><b><font color="black">Design Document </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="document" maxlength="150"
+                value="${currentRequirement.dd}" id="document" /><br>
+            <span id=errorsDiv_document></span></td>
+          </tr>
 
-              <tr>
-                <!-- effort -->
-                <td align="left" valign="middle"><b><font color="black">Effort </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="effort" maxlength="150"
-                    value="${currentRequirement.effort}" id="effort" /></td>
-              </tr>
+          <tr>
+            <!-- effort -->
+            <th><b><font color="black">Effort </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="effort" maxlength="150"
+                value="${currentRequirement.effort}" id="effort" /><br>
+            <span id=errorsDiv_effort></span></td>
+          </tr>
 
-              <tr>
-                <!-- Elapsed Day -->
-                <td align="left" valign="middle"><b><font color="black">Elapsed Day </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="elapsedDay" maxlength="150"
-                    value="${currentRequirement.elapsedDay}" /></td>
-              </tr>
+          <tr>
+            <!-- Elapsed Day -->
+            <th><b><font color="black">Elapsed Day </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="elapsedDay" maxlength="150"
+                value="${currentRequirement.elapsedDay}" /><br>
+            <span id=errorsDiv_elapsedDay></span></td>
+          </tr>
 
-              <tr>
-                <!-- Test Case -->
-                <td align="left" valign="middle"><b><font color="black">Test Case </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="testCase" maxlength="150"
-                    value="${currentRequirement.testcase}" /></td>
-              </tr>
+          <tr>
+            <!-- Test Case -->
+            <th><b><font color="black">Test Case </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="testCase" maxlength="150"
+                value="${currentRequirement.testcase}" /><span id=errorsDiv_testCase></span></td>
+          </tr>
 
-              <tr>
-                <!-- Code Module -->
-                <td align="left" valign="middle"><b><font color="black">Code Module </font></b><font color="red">&nbsp;</font></td>
-                <td align="left" valign="middle"><form:input path="codeModule" maxlength="150"
-                    value="${currentRequirement.codeModule}" /></td>
-              </tr>
-
-
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Created Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="createdDate" size="9" value="" type="text" id="datepicker1" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Designed Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="datepicker2" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Coded Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="datepicker3" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Tested Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="datepicker4" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Deployed Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="datepicker5" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Accepted Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="datepicker6" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Response Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="responseDate" size="9" value="" type="text" id="datepicker7" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Committed Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="committedDate" size="9" value="" type="text" id="datepicker8" />
-                  (mm-dd-yyyy)</td>
-              </tr>
-              <tr>
-                <td align="left" valign="middle"><b><font color="black">Cancelled Date</font></b><font color="red">&nbsp;</font></td>
-                <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="datepicker9" />
-                  (mm-dd-yyyy)</td>
-              </tr>
+          <tr>
+            <!-- Code Module -->
+            <th><b><font color="black">Code Module </font></b><font color="red">&nbsp;</font></th>
+            <th><form:input path="codeModule" maxlength="150"
+                value="${currentRequirement.codeModule}" /><span id=errorsDiv_codeModule></span></td>
+          </tr>
 
 
-            </tbody>
-          </div>
+          <tr>
+            <th><b><font color="black">Created Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="createdDate" size="9" value="" type="text" id="datepicker1" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_createdDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Designed Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="designedDate" size="9" value="" type="text" id="datepicker2" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_designedDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Coded Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="codedDate" size="9" value="" type="text" id="datepicker3" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_codedDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Tested Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="testedDate" size="9" value="" type="text" id="datepicker4" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_testedDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Deployed Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="deployedDate" size="9" value="" type="text" id="datepicker5" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_deployedDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Accepted Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="acceptedDate" size="9" value="" type="text" id="datepicker6" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_acceptedDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Response Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="responseDate" size="9" value="" type="text" id="datepicker7" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_responseDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Committed Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="committedDate" size="9" value="" type="text" id="datepicker8" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_committedDate></span></td>
+          </tr>
+          <tr>
+            <th><b><font color="black">Cancelled Date</font></b><font color="red">&nbsp;</font></th>
+            <td><input maxlength="9" name="cancelledDate" size="9" value="" type="text" id="datepicker9" />
+              (mm-dd-yyyy)<br>
+            <span id=errorsDiv_cancelledDate></span></td>
+          </tr>
 
 
         </table>
-
+        <br>
         <input name="RequirementUpdate" class="Button" value="Save" type="button"
-          onclick='submitAction("${portletNamespace}RequirementUpdate", "${formAction}")'>&nbsp;&nbsp;&nbsp;&nbsp;
+          onclick='submitAction2("${portletNamespace}RequirementUpdate", "${formAction}")'>&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="Back" class="Button"
           onclick='submitAction("${portletNamespace}RequirementUpdate", "${requirementmanager}")'
           value="Requirement List" type="button">&nbsp;&nbsp;&nbsp;&nbsp; 
       </form:form>
 
+      <br>
       <div class="footer">
-        <br>
-          <p>DMS Group</p>
+        <p>DMS Group</p>
       </div>
       <!-- end .footer -->
 

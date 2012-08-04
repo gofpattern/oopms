@@ -22,4 +22,8 @@
     <property name="basename"><value>messages</value></property>
   </bean>
   
+	<bean class="org.springframework.web.portlet.handler.SimpleMappingExceptionResolver">    
+     <property name="defaultErrorView" value="SystemError" />    
+	</bean> 
+  
 </beans>

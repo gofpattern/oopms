@@ -18,6 +18,17 @@
  */
 package openones.oopms.requirement.controller;
 
+import java.util.List;
+
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+
+import openones.oopms.requirement.dao.DeveloperDao;
+import openones.oopms.requirement.dao.RequirementDao;
+import openones.oopms.requirement.model.Developer;
+import openones.oopms.requirement.model.Project;
+import openones.portlet.PortletSupport;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +38,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class HelloController {
+public class HelloController {    
+    private String username;
+    Developer developer = new Developer();
     private static Logger log = Logger.getLogger(RequirementController.class);
     /**
      * Default screen.
@@ -35,10 +48,28 @@ public class HelloController {
      */
     
     @RequestMapping
-    public String initScreen() {
+    public String initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
-        // Display hello.jsp
-        return "hello";
+        // Get log on user
+        PortletSupport portletSupport = new PortletSupport(request);
+        username = portletSupport.getLogonUser();
+        
+        // Get developer and related projects from account log on        
+        DeveloperDao developerDAO = new DeveloperDao();
+        RequirementDao requirementDao = new RequirementDao();
+        developer = developerDAO.getDeveloperByAccount(username);
+        List<Project> projectList = requirementDao.getAllProject();
+        
+        
+        // Set information of user to session           
+        // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        
+        // sent projectList to jsp
+        request.setAttribute("projectList", projectList);
+
+        // Display PlannerHome.jsp
+        return "RequirementWelcome";
     }
 
 }
