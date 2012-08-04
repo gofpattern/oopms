@@ -130,8 +130,10 @@ public class RequirementDao {
                 log.debug("Rows affected: " + rowCount);
                 log.debug("DeleteReqOk");
             }
-            session.flush();
-            session.getTransaction().commit();
+            
+            //Not flush, commit to display new list
+            //session.flush();
+            //session.getTransaction().commit();
 
         } catch (Exception e) {
             e.printStackTrace();

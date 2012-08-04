@@ -189,10 +189,12 @@
 </style>
 
 </head>
+
 <body>
 
   <div class="container">
 
+<!-- User infor -->
     <table border="0">
       <tr>
         <th><strong>User: </strong></th>
@@ -226,54 +228,14 @@
     </portlet:renderURL>
 
     <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
-      <table>
+      <table width="70%" cellspacing="1"><!-- content -->
 
-        <h1>Requirement Management</h1>
-
-
-        <!-- Search drop down list -->
-        <table>
-          <tr>
-            <td><b>&nbsp;Type&nbsp;</b></td>
-            <td><b>&nbsp;Project Name &nbsp;</b></td>
-            <td><b>&nbsp;Size&nbsp;</b></td>
-            <td><b>&nbsp;Sort&nbsp;by&nbsp;</b></td>
-          </tr>
-          <tr>
-            <td><select class="styled" class="SmallCombo">
-                <option selected="selected" value="-1">All Types</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select></td>
-            <td width="26%"><form:select cssClass="styled" path="projectDefault" multiple="single">
-                <c:set var="projectMap" value="${projectMap}" />
-                <form:options items="${projectMap}" />
-              </form:select></td>
-            <td><select class="styled" class="SmallCombo">
-                <option selected="selected" value="-1">All Size</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select></td>
-            <td width="10%"><select class="styled" class="SmallCombo">
-                <option selected="selected" value="0">Created Date</option>
-                <option value="1">Response Date</option>
-                <option value="3">Coded Date</option>
-                <option value="4">Tested Date</option>
-                <option value="5">Deployed Date</option>
-            </select></td>
-
-          </tr>
-        </table>
+        <h1>Requirement Management</h1>      
 
         <!--<c:set var="list" value="${requirementList}" /> -->
         <c:if test="${not empty list}">
           <table id="mainTable2" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
+          
             <!-- TABLE HEADER -->
             <thead>
               <tr>
@@ -289,8 +251,8 @@
                 <th scope="col">Designed Date</th>
               </tr>
             </thead>
+            
             <tbody>
-
               <c:set var="count" value="0" />
               <c:forEach items="${requirementList}" var="requirement" varStatus="status">
                 <tr>
@@ -309,18 +271,16 @@
                 </tr>
               </c:forEach>
             </tbody>
+            
           </table>
         </c:if>
-
-
-        <!-- end .content -->
+        
       </table>
+      <!-- end .content -->
 
-      <br>
+      <br> 
 
-
-
-
+      <!-- Button -->
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
         <tbody>
           <tr>
@@ -335,12 +295,12 @@
               onclick='submitAction("${portletNamespace}RequirementHome", "${deleteRequirementAction}")' value="Remove"
               type="button"></td>
           </tr>
-
         </tbody>
       </table>
-
+      <!-- Button -->
 
     </form:form>
+    
     <br>
     <div class="footer">
       <p>DMS Group</p>

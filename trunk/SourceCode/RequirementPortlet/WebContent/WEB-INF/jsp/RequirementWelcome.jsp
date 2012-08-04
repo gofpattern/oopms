@@ -13,6 +13,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 <portlet2:defineObjects />
 <portlet:defineObjects />
+
 <script type="text/javascript">
 	$(function() {
 		$("#radio").buttonset();
@@ -81,25 +82,28 @@
 				}
 			});
 			$('ul.limit_length li.css_link').css('display', 'none');
-		});
+		});				
 	}
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		fnFeaturesInit();
-		$('#projectTable').dataTable({
-			"bFilter" : true,
-			"bSort" : true,
-			"bJQueryUI" : true,
-			"sPaginationType" : "full_numbers"
-		});
+	$(document).ready(function() {		        
+		
+		fnFeaturesInit();		
+		$('#mainTable2').dataTable( {
+            "bFilter": true,
+            "bSort": true,
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers"
+        } );
 	});
 </SCRIPT>
 </head>
-<body id="portal" class="up fl-theme-mist">
-  <div class="container" id="portalPageBodyInner">
+
+<body>
+  <div class="container">
     <div class="content">
-      <table border="0">
+    
+      <table border="0"> <!-- User infor -->
         <tr>
           <th><strong>User: </strong></th>
           <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
@@ -114,28 +118,26 @@
                 href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
         </tr>
       </table>
+      
       <p></p>
+      
       <c:if test="${not empty projectList}">
-        <table id="projectTable" class="display dataTable" ellpadding="0" cellspacing="0" border="0" align="center">
+        <table id="mainTable2" class="display dataTable" ellpadding="0" cellspacing="0" border="0" align="center">        
           <thead>
             <tr>
               <th width="5%">No.</th>
-              <th width="15%">Project Code</th>
-              <th width="80%">Project Name</th>
+              <th width="20%">Project Code</th>
+              <th width="75%">Project Name</th>
             </tr>
           </thead>
           <tbody>
             <c:set var="count" value="0" />
             <c:forEach var="project" items="${projectList}">
-              <c:set var="count" value="${count + 1}" />
-              <portlet:renderURL var="renderAction">
-                <portlet:param name="action" value="taskmanager" />
-                <portlet:param name="projectId" value="${project.projectId}" />
-              </portlet:renderURL>
+              <c:set var="count" value="${count + 1}" />              
               <tr>
                 <td>${count}</td>
-                <td><a href="${renderAction}">${project.code}</a></td>
-                <td>${project.name}</td>
+                <td align="center">${project.code}</td>
+                <td align="center">${project.name}</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -145,8 +147,9 @@
         You haven't jointed any projects.
     </c:if>
 
-    </div>
+    </div><!-- end .content -->
   </div>
+  
   <br>
   <div class="footer">
     <p>DMS Group</p>
