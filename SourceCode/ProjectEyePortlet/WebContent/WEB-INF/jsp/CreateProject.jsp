@@ -30,6 +30,9 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
+
+
 <script type="text/javascript">
     $(document).ready(function() {
 	  $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
@@ -51,6 +54,7 @@
 	            buttonImageOnly: true
 	        });
 	        document.getElementById('scopeObjective').innerHTML = "${CreateProjectForm.scopeObjective}";
+	        yav.init('${portletNamespace}CreateProject', rules);
 	});
     
     </script>
@@ -68,7 +72,12 @@
 	rules[9] = 'planStartDate|date_le|$planEndDate';
 	rules[10] = 'planStartDate:Planned Start Date|date';
 	rules[11] = 'planEndDate:Planned End Date|date';
-
+	
+    rules[12] = 'alphabetic|mask|alphabetic';
+    rules[13] = 'planStartDate|mask|mydate';
+    rules[14] = 'planEndDate|mask|mydate';
+	yav.addHelp('projectCode', 'Provide your Project Code');
+	yav.addMask('mydate', '  /  /    ', '1234567890');
 
 </SCRIPT>
 
@@ -103,7 +112,7 @@
   </tr>
   <tr>
     <th scope="row">Project Code* </th>
-    <td><form:input path="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/></td>
+    <td><form:input path="projectCode" value="" maxlength="3" size="50" type="text" id="projectCode"/><br/><span id=errorsDiv_projectCode></span></td>
   </tr>
   <tr>
     <th scope="row">Project Name* </th>
