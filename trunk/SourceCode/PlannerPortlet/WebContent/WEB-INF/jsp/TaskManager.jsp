@@ -147,12 +147,12 @@
 	rules[12] = 'task.productsize:Product Size|numeric';
 	rules[13] = 'task.assignedto: Assigned To|required';
 	rules[14] = 'task.statusid:Status|required';
-	rules[15] = 'startDate|mask|mydate';
-	rules[16] = 'actualDate|mask|mydate';
-	rules[17] = 'task.currenteffort:Current Effort|required';
-	rules[18] = 'task.currenteffort:Current Effort|numeric';
-	rules[19] = 'task.description:Description|required';
-	rules[20] = 'task.completedsize:Completed Size|numeric';
+/* 	rules[15] = 'startDate|mask|mydate';
+	rules[16] = 'actualDate|mask|mydate'; */
+	rules[15] = 'task.currenteffort:Current Effort|required';
+	rules[16] = 'task.currenteffort:Current Effort|numeric';
+	rules[17] = 'task.description:Description|required';
+	rules[18] = 'task.completedsize:Completed Size|numeric';
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('actualDate', 'Provide your Finish Date');
