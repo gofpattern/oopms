@@ -80,7 +80,10 @@
 
     <properties>
         <!-- The final name of the uPortal web-application -->
+	<!-- Open-Ones
         <uportal.docbase>uPortal</uportal.docbase>
+	-->
+	<uportal.docbase>oopms</uportal.docbase>
         <project-site-path>/uportal/${project.version}</project-site-path>
         
         <!-- The JDBC Driver used by uPortal -->
