@@ -47,7 +47,7 @@ public class PlannerController {
     private String statusDefault;
     // role of user, depend on project
     private String role;
-    private boolean check = true;
+    private Boolean check = true;
 
     /**
      * Create bean for form.
@@ -97,6 +97,7 @@ public class PlannerController {
             formBean.setDeveloperDefault("All");
             role = assignmentDAO.getRole(HelloController.developer.getDeveloperId().toString(), projectDefault);
             statusList = taskDAO.getProjectStatusEn();
+
             taskList = taskDAO.getTasksByProjectId(projectDefault);
             stageList = taskDAO.getAllStage();
             projectList = taskDAO.getAllProject();
@@ -176,7 +177,11 @@ public class PlannerController {
 
         //
         session.setAttribute("USER", HelloController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-
+        
+        
+        
+        removeHtmlTag(taskList);
+        
         // Value for PlannerForm
         formBean.setProjectId(projectDefault);
         formBean.setTaskList(taskList);
@@ -248,14 +253,9 @@ public class PlannerController {
                     taskList.get(i).setVisible(false);
                 }
 
-            // else taskList.get(i).setVisible(true);
         }
-
-        formBean.setInit(false);
-
-        log.debug("formBean.getStatusDefault()= " + formBean.getStatusDefault());
         statusDefault = formBean.getStatusDefault();
-        log.debug("statusDefault= " + statusDefault);
+        formBean.setInit(false);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -279,6 +279,15 @@ public class PlannerController {
     public void postChangeProject(PlannerForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
         log.debug("postChangeProject.START");
+    }
+    
+    public static void removeHtmlTag(List<Tasks> taskList){
+        for (int i = 0; i< taskList.size();i++){
+            taskList.get(i).setTaskname(taskList.get(i).getTaskname().replaceAll(">", "&gt;"));
+            taskList.get(i).setTaskname(taskList.get(i).getTaskname().replaceAll("<", "&lt;"));
+            taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll(">", "&gt;"));
+            taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll("<", "&lt;"));
+        }
     }
 
 }
