@@ -83,6 +83,8 @@ public class TaskDAO {
         log.debug("getTaskByProjectId.START");
         try {
             session.getTransaction().begin();
+            // clear cache to get new
+            session.clear();
             String sql = "from Tasks where projectid = :projectId and active = true";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
@@ -104,10 +106,8 @@ public class TaskDAO {
         log.debug("getTaskById.START");
         try {
             session.getTransaction().begin();
-            String sql = "from Tasks where taskid = :taskId";
-            Query query = session.createQuery(sql);
-            query.setParameter("taskId", taskId);
-            Tasks task = (Tasks) query.uniqueResult();
+            session.clear();
+            Tasks task = (Tasks)session.get(Tasks.class, taskId);
             session.flush();
             System.out.println("getTaskById.end");
             return task;
@@ -199,7 +199,6 @@ public class TaskDAO {
      * @param projectId
      * @return
      */
-    @SuppressWarnings("unchecked")
     public List<Developer> getDeveloper(String projectId) {
         log.debug("getDeveloper.START");
         try {
@@ -207,6 +206,7 @@ public class TaskDAO {
             String sql = "select developer from Assignment ass where ass.project.projectId = :projectId";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
+            @SuppressWarnings("unchecked")
             List<Developer> developerList = query.list();
             session.flush();
             System.out.println("getAssignment.end");
@@ -268,9 +268,7 @@ public class TaskDAO {
         log.debug("updateTask.START");
         try {
             session.getTransaction().begin();
-            // Tasks task = (Tasks) session.get(Tasks.class, editTask.getTaskid());
             if (editTask.getStatusid().equals(new BigDecimal(174))) {
-                // not sure
                 Calendar cal = Calendar.getInstance();
                 editTask.setActualDate(cal.getTime());
                 editTask.setEffort(editTask.getCurrenteffort());

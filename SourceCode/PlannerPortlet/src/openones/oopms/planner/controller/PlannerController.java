@@ -43,8 +43,8 @@ public class PlannerController {
     private List<Developer> developerList;
     private List<Project> projectList;
     private List<GeneralReference> statusList;
+    // Current projectId of planner
     static String projectDefault;
-    private String statusDefault;
     // role of user, depend on project
     private String role;
     private Boolean check = true;
@@ -192,7 +192,6 @@ public class PlannerController {
 
         // Object form PlannerForm
         mav.addObject("taskList", formBean.getTaskList());
-        mav.addObject("statusDefault", formBean.getStatusDefault());
         mav.addObject("statusMap", formBean.getStatusMap());
         mav.addObject("stageMap", formBean.getStageMap());
         mav.addObject("developerMap", formBean.getDeveloperMap());
@@ -254,7 +253,6 @@ public class PlannerController {
                 }
 
         }
-        statusDefault = formBean.getStatusDefault();
         formBean.setInit(false);
         response.setRenderParameter("action", "taskmanager");
     }
