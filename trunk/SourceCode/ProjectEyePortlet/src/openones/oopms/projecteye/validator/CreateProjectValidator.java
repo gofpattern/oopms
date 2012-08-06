@@ -16,8 +16,8 @@ public class CreateProjectValidator {
 		// validate Project Code
 		if (bean.getProjectCode().equals("") || bean.getProjectCode() == null) {
 			error = error + "Project Code is required" + "<br/>";
-		} else if (bean.getProjectCode().length() != 3) {
-			error = error + "ProjectCode much have 3 characters" + "<br/>";
+		} else if (bean.getProjectCode().length() > 60) {
+			error = error + "Max length of Project Code: 60 characters";
 		} else {
 			ProjectDao pDao = new ProjectDao();
 			if (pDao.checkDuplicateProjectCode(bean.getProjectCode())) {
