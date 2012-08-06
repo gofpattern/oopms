@@ -1,5 +1,6 @@
 package openones.oopms.requirement.controller;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -34,48 +35,53 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @Controller
 @RequestMapping("VIEW")
 public class RequirementController {
-    /** Logger for logging. */  
-    private static Logger log = Logger.getLogger(RequirementController.class);  
-    //requirementList to add into render object 
+    /** Logger for logging. */
+    private static Logger log = Logger.getLogger(RequirementController.class);
+    // requirementList to add into render object
     private List<Requirements> requirementList;
-    //deleteRequirementList to delete more than one requirement once
+    // deleteRequirementList to delete more than one requirement once
     private List<Requirements> deleteRequirementList;
-    //projectList to load into combobox
-    private List<Project> projectList;   
+    // projectList to load into combo box
+    private List<Project> projectList;
     // RequirementController ErrorString requirementError
-    String requirementError="";
-    
+    String requirementError = "";
+    // Role
+    String role = "";
+    // project ID
+    String projectId = "";    
+
     Developer developer = new Developer();
     private String username;
-    
+
     /**
      * Create bean for form.
      * @return Form bean for UI.
      */
     @ModelAttribute("RequirementForm")
     public RequirementForm getCommandObject(RenderRequest request) {
-        log.debug("getCommandObject.START");                                      
+        log.debug("getCommandObject.START");
         RequirementForm formBean = new RequirementForm();
-        formBean.setTitle("Requirement Form");                                          
+        formBean.setTitle("Requirement Form");
         return formBean;
     }
-    
-    //not in use
+
+    // not in use
     @ActionMapping(params = "action=requirementmanager")
-    public void processRequirement(RequirementForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
-        log.debug("processRequirement.START");        
+    public void processRequirement(RequirementForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) {
+        log.debug("processRequirement.START");
     }
-    
+
     @RenderMapping(params = "action=requirementmanager")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
-        log.debug("postRequirementSTART");                           
-        
+        log.debug("postRequirementSTART");
+
         ModelAndView mav = new ModelAndView("RequirementHome");
-        RequirementDao requirementDAO = new RequirementDao();        
+        RequirementDao requirementDAO = new RequirementDao();
         requirementList = requirementDAO.getAllRequirement();
-        projectList = requirementDAO.getAllProject();            
-        
-        //get projectName
+        projectList = requirementDAO.getAllProject();
+
+        // get projectName
         log.debug("projectNameSTART");
         try {
             for (int i = 0; i < requirementList.size(); i++) {
@@ -87,81 +93,158 @@ public class RequirementController {
             }
         } catch (Exception ex) {
             // TODO: handle exception
-            log.debug(requirementList.get(0).getProjectID());
-            log.debug(projectList.get(0).getProjectId());
-            log.debug(projectList.get(0).getName());
-            log.debug(requirementList.get(0).getProjectName());
+            // log.debug(requirementList.get(0).getProjectID());
+            // log.debug(projectList.get(0).getProjectId());
+            // log.debug(projectList.get(0).getName());
+            // log.debug(requirementList.get(0).getProjectName());
             log.error("Convert ProcessID to string", ex);
-        }               
-        
-        formBean.setRequirementList(requirementList);                
+        }
+
+        formBean.setRequirementList(requirementList);
         mav.addObject("requirementList", formBean.getRequirementList());
-        
-      //set projectMap        
-        Map<String,String> projectMap = new LinkedHashMap<String,String>();
-        log.debug("projectmap before:" +projectMap.size());
-        //projectMap.put("All", "All");
-        for (int i=0; i<projectList.size();i++) {
+
+        // set projectMap
+        Map<String, String> projectMap = new LinkedHashMap<String, String>();
+        log.debug("projectmap before:" + projectMap.size());
+        // projectMap.put("All", "All");
+        for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
-        log.debug("projectmap after:" +projectMap.size());
-        
+        log.debug("projectmap after:" + projectMap.size());
+
         formBean.setProjectMap(projectMap);
-        formBean.setProjectDefault(""); 
+        formBean.setProjectDefault("");
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
-        
-     // sent projectList to jsp
+
+        // sent projectList to jsp
         request.setAttribute("projectList", projectList);
-        
+
         PortletSupport portletSupport = new PortletSupport(request);
         DeveloperDao developerDAO = new DeveloperDao();
         username = portletSupport.getLogonUser();
         developer = developerDAO.getDeveloperByAccount(username);
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-        
+         
+        mav.addObject("ROLE","");
+
         return mav;
     }
-              
-    @RenderMapping(params = "action=deleteRequirement")   
+
+    @RenderMapping(params = "action=requirementmanager1project")
+    public ModelAndView postRequirement1Project(RequirementForm formBean, RenderRequest request, PortletSession session) {
+        log.debug("postRequirement1Project");
+
+        // for getting from PlannerHome
+
+        projectId = request.getParameter("projectId");
+        log.debug("postRequirement1Project+projectId: " + projectId);
+
+        ModelAndView mav = new ModelAndView("RequirementHome");
+        RequirementDao requirementDAO = new RequirementDao();
+        requirementList = requirementDAO.getRequirementsByProjectId(projectId);
+        projectList = requirementDAO.getAllProject();
+
+        // get projectName
+        log.debug("projectNameSTART");
+        try {
+            for (int i = 0; i < requirementList.size(); i++) {
+                for (int j = 0; j < projectList.size(); j++) {
+                    if (requirementList.get(i).getProjectID().equals(projectList.get(j).getProjectId())) {
+                        requirementList.get(i).setProjectName(projectList.get(j).getName());
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            // TODO: handle exception
+            // log.debug(requirementList.get(0).getProjectID());
+            // log.debug(projectList.get(0).getProjectId());
+            // log.debug(projectList.get(0).getName());
+            // log.debug(requirementList.get(0).getProjectName());
+            // log.error("Convert ProcessID to string", ex);
+        }
+
+        formBean.setRequirementList(requirementList);
+        mav.addObject("requirementList", formBean.getRequirementList());
+
+        // set projectMap
+        Map<String, String> projectMap = new LinkedHashMap<String, String>();
+        log.debug("projectmap before:" + projectMap.size());
+        // projectMap.put("All", "All");
+        for (int i = 0; i < projectList.size(); i++) {
+            projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+        }
+        log.debug("projectmap after:" + projectMap.size());
+
+        formBean.setProjectMap(projectMap);
+        formBean.setProjectDefault("");
+        mav.addObject("projectDefault", formBean.getProjectDefault());
+        mav.addObject("projectMap", formBean.getProjectMap());
+
+        // sent projectList to jsp
+        request.setAttribute("projectList", projectList);
+
+        PortletSupport portletSupport = new PortletSupport(request);
+        DeveloperDao developerDAO = new DeveloperDao();
+        username = portletSupport.getLogonUser();
+        developer = developerDAO.getDeveloperByAccount(username);
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+
+        String tempDevId = developer.getDeveloperId().toString() ;
+        log.debug("postRequirementSTARTROLEBParam : " + tempDevId +", "+ projectId);
+        log.debug("postRequirementSTARTROLEBEFORE : " + role);  
+        
+        role = requirementDAO.getRole(tempDevId, projectId);
+        log.debug("postRequirementSTARTROLE : " + role);
+        
+//        role = requirementDAO.getRoleTr(tempDevId, projectId);
+//        log.debug("postRequirementSTARTROLE222 : " + role);
+//        
+//        role = requirementDAO.getUserRoleHa(projectId, new BigDecimal(tempDevId));
+//        log.debug("postRequirementSTARTROLE333 : " + role);
+        
+        mav.addObject("ROLE",role);
+
+        return mav;
+    }
+
+    @RenderMapping(params = "action=deleteRequirement")
     public ModelAndView postDeleteRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("deleteRequirementHere");
         ModelAndView mav = new ModelAndView("RequirementHome");
-                  
+
         RequirementDao reqDao = new RequirementDao();
         List<Requirements> tempList;
         tempList = formBean.getRequirementList();
-        if(tempList == null) {
+        if (tempList == null) {
             log.debug("ListdeleteRequirementHereNULL");
-        }
-        else {
-            log.debug("ListdeleteRequirementHere: "+tempList.size());
-//            for (int i = 0; i < tempList.size(); i++) {
-//                    log.debug("ListdeleteRequirementHereContentgetRequirementName" +tempList.get(i).getRequirement());
-//                    log.debug("ListdeleteRequirementHereContentgetRequirementID" +tempList.get(i).getRequirementID());                    
-//                }
-            deleteRequirementList = new ArrayList<Requirements>(tempList.size());             
+        } else {
+            log.debug("ListdeleteRequirementHere: " + tempList.size());
+            // for (int i = 0; i < tempList.size(); i++) {
+            // log.debug("ListdeleteRequirementHereContentgetRequirementName" +tempList.get(i).getRequirement());
+            // log.debug("ListdeleteRequirementHereContentgetRequirementID" +tempList.get(i).getRequirementID());
+            // }
+            deleteRequirementList = new ArrayList<Requirements>(tempList.size());
             requirementError = "";
-            
-        for (int i = 0; i < tempList.size(); i++) {
-            if (tempList.get(i).getRequirementID() != null) {
-                deleteRequirementList.add(tempList.get(i));
+
+            for (int i = 0; i < tempList.size(); i++) {
+                if (tempList.get(i).getRequirementID() != null) {
+                    deleteRequirementList.add(tempList.get(i));
+                }
             }
-        }        
-        log.debug("tobedeletedList.deleteRequirementList: "+deleteRequirementList.size());        
-        try {
-            reqDao.deleteReq(deleteRequirementList);
-        } catch (ParseException ex) {
-            // TODO Auto-generated catch block
-            ex.printStackTrace();
-        }        
+            log.debug("tobedeletedList.deleteRequirementList: " + deleteRequirementList.size());
+            try {
+                reqDao.deleteReq(deleteRequirementList);
+            } catch (ParseException ex) {
+                // TODO Auto-generated catch block
+                ex.printStackTrace();
+            }
         }
-        
-               
+
         requirementList = reqDao.getAllRequirement();
-        projectList = reqDao.getAllProject();            
-        
-        //get projectName
+        projectList = reqDao.getAllProject();
+
+        // get projectName
         log.debug("projectNameSTART");
         try {
             for (int i = 0; i < requirementList.size(); i++) {
@@ -178,37 +261,36 @@ public class RequirementController {
             log.debug(projectList.get(0).getName());
             log.debug(requirementList.get(0).getProjectName());
             log.error("Convert ProcessID to string", ex);
-        }               
-        
-        formBean.setRequirementList(requirementList);                
+        }
+
+        formBean.setRequirementList(requirementList);
         mav.addObject("requirementList", formBean.getRequirementList());
-        
-      //set projectMap        
-        Map<String,String> projectMap = new LinkedHashMap<String,String>();
-        log.debug("projectmap before:" +projectMap.size());
-        //projectMap.put("All", "All");
-        for (int i=0; i<projectList.size();i++) {
+
+        // set projectMap
+        Map<String, String> projectMap = new LinkedHashMap<String, String>();
+        log.debug("projectmap before:" + projectMap.size());
+        // projectMap.put("All", "All");
+        for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
-        log.debug("projectmap after:" +projectMap.size());
-        
+        log.debug("projectmap after:" + projectMap.size());
+
         formBean.setProjectMap(projectMap);
-        formBean.setProjectDefault(""); 
+        formBean.setProjectDefault("");
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
-        
-     // sent projectList to jsp
+
+        // sent projectList to jsp
         request.setAttribute("projectList", projectList);
-        
+
         PortletSupport portletSupport = new PortletSupport(request);
         DeveloperDao developerDAO = new DeveloperDao();
         username = portletSupport.getLogonUser();
         developer = developerDAO.getDeveloperByAccount(username);
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-        
+
         return mav;
 
     }
-      
 
 }

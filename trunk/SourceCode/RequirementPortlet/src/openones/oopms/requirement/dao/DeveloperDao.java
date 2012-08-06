@@ -68,7 +68,7 @@ public class DeveloperDao {
             Query query = session.createQuery(sql);
             query.setParameter("account", account);
             Developer developer = (Developer) query.uniqueResult();
-            session.flush();
+            //session.flush();
             System.out.println("getDeveloperByAccount.end");
             return developer;
         } catch (Exception e) {

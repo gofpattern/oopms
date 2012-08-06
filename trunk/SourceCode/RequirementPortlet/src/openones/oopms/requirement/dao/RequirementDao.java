@@ -6,10 +6,12 @@ import org.apache.log4j.Logger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 
 import openones.oopms.requirement.model.Project;
 import openones.oopms.requirement.model.Requirements;
 import openones.oopms.requirement.utils.HibernateUtil;
+import openones.oopms.requirement.model.Assignment;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -30,7 +32,84 @@ public class RequirementDao {
         log.debug("Get hibernate Session");
         this.session = factory.getCurrentSession();
         log.debug("Get current Session");
-    }            
+    }       
+    
+    public String getUserRoleHa(String project, BigDecimal developerId) {
+        try {
+              SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+              session = sessionfactory.openSession();
+              session.beginTransaction();
+              String hql = "From Assignment where developerId = :developerId and project= :projectId and endDate is null ";
+              Query query = session.createQuery(hql);
+              query.setParameter("developerId", developerId);
+              query.setParameter("projectId", project);
+              Assignment role = (Assignment)query.uniqueResult();            
+              session.getTransaction().commit();
+              log.debug("getRoleType: "+role.getType());
+              if (role.getType() == 1) {
+                  return "Project Manager";
+              } else if (role.getType() == 2) {
+                  return "Developer";
+              }              
+          } catch (Exception e) {
+              log.error(e.getMessage());
+              log.debug("getRoleProblem");
+          }
+          return null;
+   }
+    
+    public String getRoleTr(String developerId, String projectId) {
+        try {
+            log.debug("getRole : " + developerId + " " + projectId);
+            SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+            session = sessionfactory.openSession();
+            session.getTransaction().begin();
+            String hql = "from Assignment where developer_Id= ? and project.project_Id = ?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, developerId);
+            query.setString(1, projectId);
+            Assignment assi = (Assignment) query.uniqueResult();
+            log.debug("getRoleType: "+assi.getType());
+            if (assi.getType() == 1) {
+                return "Project Manager";
+            } else if (assi.getType() == 2) {
+                return "Developer";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();                  
+            log.debug("getRoleProblem");
+
+        }
+        return null;
+    }
+    
+    public String getRole(String developerId, String projectId) {
+        try {
+            log.debug("getRole : " + developerId + " " + projectId);
+            SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+            session = sessionfactory.openSession();
+            session.getTransaction().begin();
+            String hql = "from Assignment where developer_Id =:devID and project_Id =:proID";
+            Query query = session.createQuery(hql);
+            query.setParameter("devID", developerId);          
+            query.setParameter("proID", projectId);
+            Assignment assi = (Assignment) query.uniqueResult();
+            log.debug("getRoleType: "+assi.getType());
+            if (assi.getType() == 1) {
+                return "Project Manager";
+            } else if (assi.getType() == 2) {
+                return "Developer";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.debug("getRoleProblem");
+        }
+        return null;
+    }
     
     public boolean updateReq(Requirements req) {
         log.debug("updateReqDAO");
@@ -170,6 +249,29 @@ public class RequirementDao {
         }
         log.error("Insert Ok");
         return true;
+    }
+    
+    public List<Requirements> getRequirementsByProjectId(String projectId) {
+        log.debug("getRequirementsByProjectId.START");
+        try {
+            session.getTransaction().begin();
+            // clear cache to get new
+            session.clear();
+            String sql = "from Requirements where project_id = :projectId";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            @SuppressWarnings("unchecked")
+            List<Requirements> requirementList = query.list();
+            session.flush();
+            System.out.println("getRequirementsByProjectId.end");
+            return requirementList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.debug("getRequirementsByProjectId.Error", e);
+        }
+        return null;
     }
     
     @SuppressWarnings("unchecked")
