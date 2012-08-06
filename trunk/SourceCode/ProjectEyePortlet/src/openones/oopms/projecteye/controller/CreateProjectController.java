@@ -45,6 +45,7 @@ import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workunit;
 import openones.oopms.projecteye.utils.Constant;
+import openones.oopms.projecteye.utils.HTMLTag;
 import openones.oopms.projecteye.validator.CreateProjectValidator;
 
 import org.apache.log4j.Logger;
@@ -88,15 +89,15 @@ public class CreateProjectController {
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process CreateProject.START");
 		try {
-			formBean.setScopeObjective(formBean.getScopeObjective().replaceAll("[^a-zA-Z0-9]+",""));
-			formBean.setProjectCode(formBean.getProjectCode().replaceAll("[^a-zA-Z0-9]+",""));
-			formBean.setProjectName(formBean.getProjectName().replaceAll("[^a-zA-Z0-9]+",""));
-			formBean.setCustomer(formBean.getCustomer().replaceAll("[^a-zA-Z0-9]+",""));
-			formBean.setEndCustomer(formBean.getEndCustomer().replaceAll("[^a-zA-Z0-9]+",""));
 			CreateProjectValidator validator = new CreateProjectValidator();
 			error = "";
 			error = validator.validate(formBean);
 			bean = formBean;
+//			bean.setScopeObjective(HTMLTag.replaceHTMLTag(formBean.getScopeObjective()));
+//			bean.setProjectCode(HTMLTag.replaceHTMLTag(formBean.getProjectCode()));
+//			bean.setCustomer(HTMLTag.replaceHTMLTag(formBean.getCustomer()));
+//			bean.setEndCustomer(HTMLTag.replaceHTMLTag(formBean.getEndCustomer()));
+//			bean.setProjectName(HTMLTag.replaceHTMLTag(formBean.getProjectName()));		
 			if (error.equals("")) {
 				DeveloperDao dDao = new DeveloperDao();
 				Developer dev = dDao
