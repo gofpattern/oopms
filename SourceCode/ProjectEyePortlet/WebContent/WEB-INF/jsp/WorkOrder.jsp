@@ -29,7 +29,48 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
-	
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
+<script type="text/javascript">
+
+
+
+
+
+            function fnFeaturesInit ()
+            {
+                /* Not particularly modular this - but does nicely :-) */
+                $('ul.limit_length>li').each( function(i) {
+                    if ( i > 10 ) {
+                        this.style.display = 'none';
+                    }
+                } );
+                
+                $('ul.limit_length').append( '<li class="css_link">Show more<\/li>' );
+                $('ul.limit_length li.css_link').click( function () {
+                    $('ul.limit_length li').each( function(i) {
+                        if ( i > 5 ) {
+                            this.style.display = 'list-item';
+                        }
+                    } );
+                    $('ul.limit_length li.css_link').css( 'display', 'none' );
+                } );
+            }
+
+            $(document).ready( function() {
+        	
+
+                     
+                fnFeaturesInit();
+                $('#mainTable2').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+
+            } );
+        </script>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -46,6 +87,7 @@
     </div>
 	
 <form:form name="${portletNamespace}WorkOrder" method="post" action="${formAction}">
+<h2>Stage</h2>
    	<table class="portlet-table">
 
 	<c:if test="${not empty stageList}">
@@ -79,29 +121,213 @@
     </tbody>
     </c:if>
     </table>
-    
-    <table class="portlet-table">
+<br/>    
+<h2>Deliverables</h2>
 
-	<c:if test="${not empty deliverableList}">
-   <tbody><tr >
+ <c:if test="${not empty deliverableListStage1}">
+<h3>Initiation</h3>    
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+   <thead>
+   	<tr>
    		<th width="5%" scope="row">No</th>
-        <th width="15%" scope="row">Stage</th>    
-        <th width="10%" scope="row">First committed date</th> 
-        <th width="10%" scope="row">Last committed date</th>
+        <th width="20%" scope="row">Product Name</th>    
+        <th width="10%" scope="row">Planned committed date</th> 
+        <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
-        <th width="25%" scope="row">Status</th>
-        <th width="25%" scope="row">Note</th>   
+        <th width="10%" scope="row">Status</th>
+        <th width="35%" scope="row">Note</th>   
     </tr>
-      <c:if test="${not empty deliverableList[0]}">conme1</c:if>
-      <c:if test="${not empty deliverableList[1]}">conme2</c:if>
-      <c:if test="${not empty deliverableList[2]}">conme3</c:if>
-      <c:if test="${not empty deliverableList[3]}">conme4</c:if>
-      <c:if test="${not empty deliverableList[4]}">conme5</c:if>
-      <c:if test="${not empty deliverableList[5]}">conme6</c:if>
-        
+   </thead>
+   <tbody>
+   <c:forEach var="deliverable" items="${deliverableListStage1}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               <td scope="row">${deliverable.plannedReleaseDate}</td>
+               <td scope="row">${deliverable.replannedReleaseDate}</td>
+               <td scope="row">${deliverable.actualReleaseDate}</td>
+               <td scope="row">${deliverable.status}</td>
+               <td scope="row">${deliverable.baselineNote}</td>
+     </tr>
+    </c:forEach>
     </tbody>
-    </c:if>
     </table> 	
+    </c:if><br/>
+    
+    <c:if test="${not empty deliverableListStage2}">
+<h3>Definition</h3>    
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="20%" scope="row">Product Name</th>    
+        <th width="10%" scope="row">Planned committed date</th> 
+        <th width="10%" scope="row">Re-planned committed date</th>
+        <th width="10%" scope="row">Actual committed date</th>
+        <th width="10%" scope="row">Status</th>
+        <th width="35%" scope="row">Note</th>   
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="deliverable" items="${deliverableListStage2}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               <td scope="row">${deliverable.plannedReleaseDate}</td>
+               <td scope="row">${deliverable.replannedReleaseDate}</td>
+               <td scope="row">${deliverable.actualReleaseDate}</td>
+               <td scope="row">${deliverable.status}</td>
+               <td scope="row">${deliverable.baselineNote}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </table> 	
+    </c:if><br/>
+    
+    <c:if test="${not empty deliverableListStage3}">
+<h3>Solution</h3>    
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="20%" scope="row">Product Name</th>    
+        <th width="10%" scope="row">Planned committed date</th> 
+        <th width="10%" scope="row">Re-planned committed date</th>
+        <th width="10%" scope="row">Actual committed date</th>
+        <th width="10%" scope="row">Status</th>
+        <th width="35%" scope="row">Note</th>   
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="deliverable" items="${deliverableListStage3}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               <td scope="row">${deliverable.plannedReleaseDate}</td>
+               <td scope="row">${deliverable.replannedReleaseDate}</td>
+               <td scope="row">${deliverable.actualReleaseDate}</td>
+               <td scope="row">${deliverable.status}</td>
+               <td scope="row">${deliverable.baselineNote}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </table> 	
+    </c:if><br/>
+    
+    <c:if test="${not empty deliverableListStage4}">
+<h3>Construction</h3>    
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="20%" scope="row">Product Name</th>    
+        <th width="10%" scope="row">Planned committed date</th> 
+        <th width="10%" scope="row">Re-planned committed date</th>
+        <th width="10%" scope="row">Actual committed date</th>
+        <th width="10%" scope="row">Status</th>
+        <th width="35%" scope="row">Note</th>   
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="deliverable" items="${deliverableListStage4}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               <td scope="row">${deliverable.plannedReleaseDate}</td>
+               <td scope="row">${deliverable.replannedReleaseDate}</td>
+               <td scope="row">${deliverable.actualReleaseDate}</td>
+               <td scope="row">${deliverable.status}</td>
+               <td scope="row">${deliverable.baselineNote}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </table> 	
+    </c:if><br/>
+    
+    <c:if test="${not empty deliverableListStage5}">
+<h3>Transition</h3>    
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="20%" scope="row">Product Name</th>    
+        <th width="10%" scope="row">Planned committed date</th> 
+        <th width="10%" scope="row">Re-planned committed date</th>
+        <th width="10%" scope="row">Actual committed date</th>
+        <th width="10%" scope="row">Status</th>
+        <th width="35%" scope="row">Note</th>   
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="deliverable" items="${deliverableListStage5}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               <td scope="row">${deliverable.plannedReleaseDate}</td>
+               <td scope="row">${deliverable.replannedReleaseDate}</td>
+               <td scope="row">${deliverable.actualReleaseDate}</td>
+               <td scope="row">${deliverable.status}</td>
+               <td scope="row">${deliverable.baselineNote}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </table> 	
+    </c:if><br/>
+    
+    <c:if test="${not empty deliverableListStage6}">
+<h3>Termination</h3>    
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="20%" scope="row">Product Name</th>    
+        <th width="10%" scope="row">Planned committed date</th> 
+        <th width="10%" scope="row">Re-planned committed date</th>
+        <th width="10%" scope="row">Actual committed date</th>
+        <th width="10%" scope="row">Status</th>
+        <th width="35%" scope="row">Note</th>   
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="deliverable" items="${deliverableListStage6}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               <td scope="row">${deliverable.plannedReleaseDate}</td>
+               <td scope="row">${deliverable.replannedReleaseDate}</td>
+               <td scope="row">${deliverable.actualReleaseDate}</td>
+               <td scope="row">${deliverable.status}</td>
+               <td scope="row">${deliverable.baselineNote}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </table> 	
+    </c:if><br/>
+    
     	<portlet:renderURL var="renderAction2">
     		<portlet:param name="action" value="GoCreateDeliverable" />
         	<portlet:param name="projectId" value="${projectId}" />

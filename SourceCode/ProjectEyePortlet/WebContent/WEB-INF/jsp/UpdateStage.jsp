@@ -69,7 +69,8 @@
 	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
-	        $( "#selectable" ).selectable();
+	        document.getElementById('description').innerHTML = "${UpdateStageForm.description}";
+	        document.getElementById('milestone').innerHTML = "${UpdateStageForm.milestone}";
 	});
     
     </script>	

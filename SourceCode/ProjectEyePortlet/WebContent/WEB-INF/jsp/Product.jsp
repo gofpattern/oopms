@@ -13,6 +13,7 @@
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />	
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/print.css" media="print"/>
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/manage.css" media="all"/>				
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datepicker.css" media="all"/>
@@ -21,12 +22,53 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>
+<script type="text/javascript">
+
+
+
+
+
+            function fnFeaturesInit ()
+            {
+                /* Not particularly modular this - but does nicely :-) */
+                $('ul.limit_length>li').each( function(i) {
+                    if ( i > 10 ) {
+                        this.style.display = 'none';
+                    }
+                } );
+                
+                $('ul.limit_length').append( '<li class="css_link">Show more<\/li>' );
+                $('ul.limit_length li.css_link').click( function () {
+                    $('ul.limit_length li').each( function(i) {
+                        if ( i > 5 ) {
+                            this.style.display = 'list-item';
+                        }
+                    } );
+                    $('ul.limit_length li.css_link').css( 'display', 'none' );
+                } );
+            }
+
+            $(document).ready( function() {
+        	
+
+                     
+                fnFeaturesInit();
+                $('#mainTable2').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+
+            } );
+        </script>
 
 <title>Product</title>	
 </head>
@@ -54,9 +96,9 @@
     Product List <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/>
     <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button> 
 </form:form>
-    <table class="portlet-table">
+    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectProductList}">
-   <tbody><tr >
+   <thead><tr >
         <th width="6%" scope="row">No</th>    
         <th width="10%" scope="row">Name</th>
         <th width="10%" scope="row">Work product</th>
@@ -65,7 +107,9 @@
         <th width="6%" scope="row">Actual size (UCP)</th>
         <th width="6%" scope="row">Created size (UCP) </th>
         <th width="50%" scope="row">Description</th>  
-    </tr>  
+    </tr> 
+    </thead>
+    <tbody> 
         <c:forEach var="product" items="${projectProductList}" varStatus="count">
             <tr>
             <portlet:renderURL var="renderAction">

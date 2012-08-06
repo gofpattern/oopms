@@ -41,6 +41,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.Constant;
+import openones.oopms.projecteye.utils.HTMLTag;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -100,14 +101,14 @@ public class ProjectDetailController {
 		}
 		// set value for form
 		UpdateProjectForm formBean= new UpdateProjectForm();
-		formBean.setProjectName(project.getName());
 		DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
    		String formattedDate = df.format(project.getPlanStartDate());
 		formBean.setPlanStartDate(formattedDate);
 		formattedDate = df.format(project.getPlanFinishDate());
 		formBean.setPlanEndDate(formattedDate);
-		formBean.setScopeObjective(project.getDescription());
+		formBean.setScopeObjective(HTMLTag.replaceHTMLTag(project.getDescription()));
 		formBean.setProjectCode(project.getCode());
+		formBean.setProjectName(project.getName());
 		formBean.setBusinessDomain_SelectedValue(project.getProjectTypeCode());
 		formBean.setCustomer(project.getCustomer());
 		formBean.setEndCustomer(project.getCustomer2nd());

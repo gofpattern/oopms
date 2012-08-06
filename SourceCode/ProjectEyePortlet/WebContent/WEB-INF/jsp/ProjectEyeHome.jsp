@@ -28,10 +28,7 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
-
-
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
-
 <script type="text/javascript">
 
 
