@@ -33,8 +33,10 @@ public class Assignment  implements java.io.Serializable {
         this.type = type;
     }
     public Assignment(BigDecimal assignmentId, Developer developer, Project project, byte type, Date beginDate, Date endDate, BigDecimal usage, Short response, String note, String qualification) {
-       this.assignmentId = assignmentId;       
-       this.developer = developer;       
+       this.assignmentId = assignmentId;
+       
+       this.developer = developer;
+       
        this.project = project;
        this.type = type;
        this.beginDate = beginDate;
@@ -52,7 +54,7 @@ public class Assignment  implements java.io.Serializable {
     public void setAssignmentId(BigDecimal assignmentId) {
         this.assignmentId = assignmentId;
     }
-    
+   
     public Developer getDeveloper() {
         return this.developer;
     }

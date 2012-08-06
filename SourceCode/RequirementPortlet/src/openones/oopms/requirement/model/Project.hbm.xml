@@ -235,6 +235,12 @@
         </property>
         <property name="typeCustomer2nd" type="big_decimal">
             <column name="TYPE_CUSTOMER_2ND" precision="22" scale="0" />
-        </property>        
+        </property>    
+<set name="assignments" inverse="true">
+            <key>
+                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="openones.oopms.requirement.model.Assignment" />
+        </set>		
     </class>
 </hibernate-mapping>

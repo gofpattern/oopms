@@ -82,19 +82,19 @@
 				}
 			});
 			$('ul.limit_length li.css_link').css('display', 'none');
-		});				
+		});
 	}
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {		        
-		
-		fnFeaturesInit();		
-		$('#mainTable2').dataTable( {
-            "bFilter": true,
-            "bSort": true,
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers"
-        } );
+	$(document).ready(function() {
+
+		fnFeaturesInit();
+		$('#mainTable2').dataTable({
+			"bFilter" : true,
+			"bSort" : true,
+			"bJQueryUI" : true,
+			"sPaginationType" : "full_numbers"
+		});
 	});
 </SCRIPT>
 </head>
@@ -102,8 +102,9 @@
 <body>
   <div class="container">
     <div class="content">
-    
-      <table border="0"> <!-- User infor -->
+
+      <table border="0">
+        <!-- User infor -->
         <tr>
           <th><strong>User: </strong></th>
           <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
@@ -117,12 +118,17 @@
           <td><strong><font color="#1490E3"><a
                 href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
         </tr>
+        <tr>
+          <th><strong>Projects: </strong></th>
+          <td><strong><font color="#1490E3"><a
+                href='<portlet:renderURL><portlet:param name="action" value="requirementwelcome"/></portlet:renderURL>'>Lists</a></font></strong></td>
+        </tr>
       </table>
-      
+
       <p></p>
-      
+
       <c:if test="${not empty projectList}">
-        <table id="mainTable2" class="display dataTable" ellpadding="0" cellspacing="0" border="0" align="center">        
+        <table id="mainTable2" class="display dataTable" ellpadding="0" cellspacing="0" border="0" align="center">
           <thead>
             <tr>
               <th width="5%">No.</th>
@@ -131,29 +137,30 @@
             </tr>
           </thead>
           <tbody>
-            <c:set var="count" value="0" />
-            <c:forEach var="project" items="${projectList}">
-              <c:set var="count" value="${count + 1}" />  
-              <portlet:renderURL var="renderAction">
-                <portlet:param name="action" value="requirementmanager" />
-                <portlet:param name="projectId" value="${project.projectId}" />
-              </portlet:renderURL>            
+
+            <c:forEach var="project" items="${projectList}" varStatus="count">
               <tr>
-                <td>${count}</td>                
-                <td align="center"><a href="${renderAction}">${project.code}</a></td>
-                <td align="center">${project.name}</td>
+                <portlet:renderURL var="renderAction">
+                  <portlet:param name="action" value="requirementmanager1project" />
+                  <portlet:param name="projectId" value="${project.projectId}" />
+                </portlet:renderURL>
+                <td scope="row">${count.count}</td>
+                <td align="center" scope="row"><a href="${renderAction}">${project.code}</a></td>
+                <td align="center" scope="row"><a href="${renderAction}">${project.name}</a></td>
               </tr>
             </c:forEach>
+
           </tbody>
         </table>
       </c:if>
       <c:if test="${empty projectList}">
-        You haven't jointed any projects.
+        You haven't joined any projects.
     </c:if>
 
-    </div><!-- end .content -->
+    </div>
+    <!-- end .content -->
   </div>
-  
+
   <br>
   <div class="footer">
     <p>DMS Group</p>

@@ -87,6 +87,12 @@
         </property>
         <property name="staffId" type="string">
             <column name="STAFF_ID" length="60" />
-        </property>        
+        </property>     
+<set name="assignments" inverse="true">
+            <key>
+                <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="openones.oopms.requirement.model.Assignment" />
+        </set>		
     </class>
 </hibernate-mapping>

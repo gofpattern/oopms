@@ -57,12 +57,13 @@ public class HelloController {
         // Get log on user
         PortletSupport portletSupport = new PortletSupport(request);
         username = portletSupport.getLogonUser();
-        
+        log.debug("initScreenUser.START: "+username);
         // Get developer and related projects from account log on        
         DeveloperDao developerDAO = new DeveloperDao();
         AssignmentDao assignmentDAO = new AssignmentDao();
         //RequirementDao requirementDao = new RequirementDao();
         developer = developerDAO.getDeveloperByAccount(username);
+        log.debug("initScreenUserID.START: "+developer.getDeveloperId());
         //List<Project> projectList = requirementDao.getAllProject();
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
         
@@ -78,7 +79,7 @@ public class HelloController {
         return "RequirementWelcome";
     }
     
-    @RenderMapping(params = "action=requirementmanager")
+    @RenderMapping(params = "action=requirementwelcome")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("postRequirementSTART");                           
         

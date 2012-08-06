@@ -194,7 +194,7 @@
 
   <div class="container">
 
-<!-- User infor -->
+    <!-- User infor -->
     <table border="0">
       <tr>
         <th><strong>User: </strong></th>
@@ -212,7 +212,7 @@
       <tr>
         <th><strong>Projects: </strong></th>
         <td><strong><font color="#1490E3"><a
-              href='<portlet:renderURL><portlet:param name="action" value="projectlist"/></portlet:renderURL>'>Lists</a></font></strong></td>
+              href='<portlet:renderURL><portlet:param name="action" value="requirementwelcome"/></portlet:renderURL>'>Lists</a></font></strong></td>
       </tr>
     </table>
 
@@ -228,19 +228,26 @@
       <portlet:param name="action" value="goUpdateRequirement" />
     </portlet:renderURL>
 
+    <portlet:renderURL var="back">
+      <portlet:param name="action" value="requirementwelcome" />
+    </portlet:renderURL>
+
     <portlet:renderURL var="deleteRequirementAction">
       <portlet:param name="action" value="deleteRequirement" />
     </portlet:renderURL>
 
     <form:form name="${portletNamespace}RequirementHome" commandName="RequirementForm" method="post">
-      <table width="70%" cellspacing="1"><!-- content -->
+      <table width="70%" cellspacing="1">
+        <!-- content -->
 
-        <h1>Requirement Management</h1>      
-
-        <!--<c:set var="list" value="${requirementList}" /> -->
-        <c:if test="${not empty list}">
+        <h1>Requirement Management</h1>
+        
+        <c:if test="${empty requirementList}">
+          <h3>There is not requirement added for this project yet.</h3>
+        </c:if>
+        <c:if test="${not empty requirementList}">
           <table id="mainTable2" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
-          
+
             <!-- TABLE HEADER -->
             <thead>
               <tr>
@@ -256,7 +263,7 @@
                 <th scope="col">Designed Date</th>
               </tr>
             </thead>
-            
+
             <tbody>
               <c:set var="count" value="0" />
               <c:forEach items="${requirementList}" var="requirement" varStatus="status">
@@ -276,36 +283,40 @@
                 </tr>
               </c:forEach>
             </tbody>
-            
+
           </table>
         </c:if>
-        
+
       </table>
       <!-- end .content -->
 
-      <br> 
+      <br>
 
       <!-- Button -->
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
         <tbody>
           <tr>
-            <td align="left" width="50%"><input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")'
-              value="Add New" type="button"> <input name="Refresh" class="Button"
-              onclick="javascript:doRefresh()" value="Refresh" type="button"> <input name="ExportDefect"
-              class="Button" onclick="javascript:doExport()" value="Export" type="button"> <input
-              name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${goUpdateRequirementAction}")'
-              value="Update" type="button"> <input name="RequirementAdd" class="Button"
-              onclick='submitAction("${portletNamespace}RequirementHome", "${deleteRequirementAction}")' value="Remove"
-              type="button"></td>
+            <td align="left" width="50%"><c:if test="${ROLE=='Project Manager' }">
+                <input name="RequirementAdd" class="Button"
+                  onclick='submitAction("${portletNamespace}RequirementHome", "${goAddNewRequirementAction}")'
+                  value="Add New" type="button">
+                <input name="RequirementAdd" class="Button"
+                  onclick='submitAction("${portletNamespace}RequirementHome", "${goUpdateRequirementAction}")'
+                  value="Update" type="button">
+                <input name="RequirementAdd" class="Button"
+                  onclick='submitAction("${portletNamespace}RequirementHome", "${deleteRequirementAction}")'
+                  value="Remove" type="button">
+              </c:if> <input name="RequirementAdd" class="Button"
+              onclick='submitAction("${portletNamespace}RequirementHome", "${back}")' value="Back" type="button">
+              <input name="ExportDefect" class="Button" onclick="javascript:doExport()" value="Export" type="button">
+            </td>
           </tr>
         </tbody>
       </table>
       <!-- Button -->
 
     </form:form>
-    
+
     <br>
     <div class="footer">
       <p>DMS Group</p>
