@@ -59,17 +59,20 @@ public class ProjectDao {
 			tx = session.beginTransaction();
 			session.save(project);
 			session.flush();
-			//insert assigment for project owner
+			// insert assigment for project owner
 			assignment.setProject(project);
 			session.save(assignment);
-			//insert Project Stage
+			// insert Project Stage
 			WorkOrderDao woDao = new WorkOrderDao();
-			List<Stage> stageList = woDao.getStandardStageList();			
-			for(int i =0; i<stageList.size();i++) {
+			List<Stage> stageList = woDao.getStandardStageList();
+			for (int i = 0; i < stageList.size(); i++) {
 				Milestone stage = new Milestone();
 				stage.setProject(project);
 				stage.setComplete(new BigDecimal(Constant.MilestoneUncomplete));
 				stage.setName(stageList.get(i).getName());
+				if (i == (stageList.size() - 1)) {
+					stage.setPlanFinishDate(project.getPlanFinishDate());
+				}
 				session.save(stage);
 				session.flush();
 			}
@@ -83,7 +86,7 @@ public class ProjectDao {
 		log.error("Insert succeed");
 		return true;
 	}
-	
+
 	public boolean updateProject(Project project) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -101,7 +104,7 @@ public class ProjectDao {
 		log.error("Insert succeed");
 		return true;
 	}
-	
+
 	public boolean deleteProject(String projectId) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
