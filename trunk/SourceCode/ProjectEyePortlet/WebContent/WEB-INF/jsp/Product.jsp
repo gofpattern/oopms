@@ -113,11 +113,12 @@
         <c:forEach var="product" items="${projectProductList}" varStatus="count">
             <tr>
             <portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="GoProjectDetail" />
-            	<portlet:param name="projectId" value="${project.projectId}" />
+            	<portlet:param name="action" value="GoUpdateProduct" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="productId" value="${product.productId}" />
             </portlet:renderURL>
                <td scope="row">${count.count}</td>
-               <td scope="row">${product.name}</td>
+               <td scope="row"><a href="${renderAction}">${product.name}</a></td>
                <td scope="row">${product.workProduct}</td>
                <td scope="row">${product.plannedSize}</td>
                <td scope="row">${product.rePlannedSize}</td>

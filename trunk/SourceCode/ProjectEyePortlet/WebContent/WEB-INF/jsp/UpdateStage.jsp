@@ -24,6 +24,7 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
@@ -71,9 +72,26 @@
 	        });
 	        document.getElementById('description').innerHTML = "${UpdateStageForm.description}";
 	        document.getElementById('milestone').innerHTML = "${UpdateStageForm.milestone}";
+	        yav.init('${portletNamespace}UpdateStage', rules);
 	});
     
-    </script>	
+    </script>
+<SCRIPT type="text/javascript">
+	var rules = new Array();
+	rules[0] = 'plannedEndDate:Planned end date|required';
+	rules[1] = 'description:Description|required';
+	rules[2] = 'milestone:Milestone|required';
+	rules[3] = 'plannedEndDate:Planned end date|date';
+	rules[4] = 'rePlannedEndDate:Re-planned end date|date';
+	rules[5] = 'actualEndDate:Actual end date|date';
+	rules[6] = 'description:Description|maxlength|1200';
+	rules[7] = 'milestone:Milestone|maxlength|600';
+	rules[8] = 'plannedEndDate:Planned end date of this stage|date_le|$plannedEndDateOfNextStage:Planned end date of next stage';
+	yav.addHelp('plannedEndDate', 'Provide your Planned end date');
+	yav.addHelp('description', 'Provide your Description');
+	yav.addHelp('milestone', 'Provide your Milestone');
+
+</SCRIPT>	
     <title>Create Stage</title>
 </head>
 
@@ -123,7 +141,7 @@
   	  <tr>
         <th scope="row">Planned end date*</th>
         <td><form:input maxlength="10" path="plannedEndDate" size="9" value="" type="text" id="datepicker4"/>
-          (mm/dd/yyyy)</td>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_plannedEndDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Re-planned end date</th>
@@ -137,16 +155,19 @@
       </tr>
       <tr>
         <th scope="row">Description*</th>
-        <td><textarea rows="10" cols="70" name="description" id="description"></textarea></td>
+        <td><textarea rows="10" cols="70" name="description" id="description"></textarea>
+        <br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Milestone*</th>
-        <td><textarea rows="10" cols="70" name="milestone" id="milestone"></textarea></td>
+        <td><textarea rows="10" cols="70" name="milestone" id="milestone"></textarea>
+        <br/><span id=errorsDiv_milestone>&nbsp;</span></td></td>
       </tr>
      </table>
      <input name = "projectId" type="hidden" value="${projectId}"/>
      <input name = "stageId" type="hidden" value="${stageId}"/>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateStage", "${formAction}")'>Update</button>
+     <input name = "plannedEndDateOfNextStage" type="hidden" value="${UpdateStageForm.plannedEndDateOfNextStage}"/>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateStage", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateStage", "${renderAction}")'>Cancel</button>	
 </form:form>	

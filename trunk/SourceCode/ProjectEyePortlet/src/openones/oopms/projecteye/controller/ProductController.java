@@ -30,11 +30,13 @@ import javax.portlet.RenderRequest;
 import openones.oopms.projecteye.dao.ProductDao;
 import openones.oopms.projecteye.form.CreateProductForm;
 import openones.oopms.projecteye.form.ProductForm;
+import openones.oopms.projecteye.form.UpdateProductForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.utils.HTMLTag;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -71,21 +73,10 @@ public class ProductController {
 			workProductMap.put(workProductList.get(i).getCode(),
 					workProductList.get(i).getName());
 		}
-
-		// get size Unit List
-		List<Language> productSizeUnitList = pDao.getProductSizeUnitList();
-		Map<String, String> productSizeUnitMap = new LinkedHashMap<String, String>();
-		for (int i = 0; i < productSizeUnitList.size(); i++) {
-			productSizeUnitMap.put(productSizeUnitList.get(i).getLanguageId()
-					.toString(), productSizeUnitList.get(i).getName() + " "
-					+ productSizeUnitList.get(i).getSizeUnit());
-		}
 		CreateProductForm projectFormBean = new CreateProductForm();
 		request.setAttribute("CreateProductForm", projectFormBean);
 		ModelAndView mav = new ModelAndView("CreateProduct");
 		mav.addObject("workProduct", workProductMap);
-		mav.addObject("plannedSizeUnit", productSizeUnitMap);
-		mav.addObject("actualSizeUnit", productSizeUnitMap);
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
@@ -146,6 +137,32 @@ public class ProductController {
 		mav.addObject("projectProductList", projectProductList);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=GoUpdateProduct")
+	public ModelAndView postGoUpdateProduct(RenderRequest request) {
+		log.debug("post GoUpdateProduct.START");
+		ProductDao pDao = new ProductDao();
+		// get work Product List
+		List<Workproduct> workProductList = pDao.getWorkProductList();
+		Map<String, String> workProductMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < workProductList.size(); i++) {
+			workProductMap.put(workProductList.get(i).getCode(),
+					workProductList.get(i).getName());
+		}
+		String productId = request.getParameter("productId");
+		String projectId = request.getParameter("projectId");
+		Module product = pDao.getProduct(new BigDecimal(productId));
+		UpdateProductForm bean = new UpdateProductForm();
+		bean.setDescription(HTMLTag.replaceHTMLTag(product.getNote()));
+		bean.setName(HTMLTag.replaceHTMLTag(product.getName()));
+		bean.setWorkProduct_SelectedValue(product.getWorkproduct().getCode());
+		ModelAndView mav = new ModelAndView("UpdateProduct","UpdateProductForm",bean);
+		mav.addObject("workProduct", workProductMap);
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		mav.addObject("productId", productId);
 		return mav;
 	}
 }

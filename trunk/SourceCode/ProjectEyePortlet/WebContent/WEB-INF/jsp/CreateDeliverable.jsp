@@ -21,6 +21,9 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
@@ -52,10 +55,22 @@
 	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
-	        $( "#selectable" ).selectable();
+	        yav.init('${portletNamespace}CreateDeliverable', rules);
 	});
     
     </script>
+    <SCRIPT type="text/javascript">
+	var rules = new Array();
+	rules[0] = 'plannedCommittedDate:Planned committed date|required';
+	rules[1] = 'plannedCommittedDate:Planned committed date|date';
+	rules[2] = 'rePlannedCommittedDate:Re-planned committed date|date';
+	rules[3] = 'actualCommittedDate:Actual committed date|date';
+	rules[4] = 'Note:note|maxlength|600';
+	rules[5] = 'plannedCommittedDate:Planned committed date|date_le|$plannedEndDateOfProject:Planned end date of project';
+	rules[6] = 'rePlannedCommittedDate:Re-planned committed date|date_le|$plannedEndDateOfProject:Planned end date of project';
+	yav.addHelp('plannedCommittedDate', 'Please input Planned committed date');
+
+</SCRIPT>
     
     <title>Create Deliverable</title>	
 </head>
@@ -81,7 +96,18 @@
     		<portlet:param name="action" value="GoWorkOrder" />
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
+  	<portlet:renderURL var="renderAction2">
+    		<portlet:param name="action" value="GoCreateProduct" />
+        	<portlet:param name="projectId" value="${projectId}" />
+    	</portlet:renderURL>
+<c:if test="${ empty deliverable}">
+	There is no product to deliver. Please create new Product.<br/>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateDeliverable", "${renderAction2}")'>Add New Product</button>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateDeliverable", "${renderAction}")'>Cancel</button>
+</c:if>
+
 <form:form name="${portletNamespace}CreateDeliverable" commandName="CreateDeliverableForm" method="post" action="${formAction}"> 
+<c:if test="${not empty deliverable }">
 <table class="portlet-table">
       <tr>      
    		<th scope="row">Deliverable</th>
@@ -90,28 +116,31 @@
   	  <tr>
         <th scope="row">Planned committed date*</th>
         <td><form:input maxlength="10" path="plannedCommittedDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)</td>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_plannedCommittedDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Re-planned committed date</th>
         <td><form:input maxlength="10" path="rePlannedCommittedDate" size="9" value="" type="text" id="datepicker2"/>
-          (mm/dd/yyyy)</td>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_rePlannedCommittedDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Actual committed date</th>
         <td><form:input maxlength="10" path="actualCommittedDate" size="9" value="" type="text" id="datepicker3"/>
-          (mm/dd/yyyy)</td>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_actualCommittedDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Note</th>
-        <td><textarea rows="10" cols="70" name="note"></textarea></td>
+        <td><textarea rows="10" cols="70" name="note"></textarea>
+		<br/><span id=errorsDiv_note>&nbsp;</span></td>
       </tr>
-     </table>   
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateDeliverable", "${formAction}")'>Create</button>
+     </table>
+    <input name = "plannedEndDateOfProject" type="hidden" value="${CreateDeliverableForm.plannedEndDateOfProject}"/>   
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateDeliverable", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateDeliverable", "${renderAction}")'>Cancel</button>	
-	</a>	
-</form:form>	
+	</c:if>		
+</form:form>
+
 </div>
 
   <!-- end .content --></div>

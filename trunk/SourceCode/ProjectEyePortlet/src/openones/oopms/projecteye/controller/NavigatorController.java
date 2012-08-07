@@ -111,12 +111,14 @@ public class NavigatorController {
 				new ProductForm());
 
 		Project project = new Project();
+		log.debug("project ID la " + projectId);
 		project.setProjectId(new BigDecimal(projectId));
 		List<Module> productList = pDao.getProjectProductList(project, "All");
 		List<ProductForm> projectProductList = new ArrayList<ProductForm>();
 		if (productList.size() > 0) {
 			for (int i = 0; i < productList.size(); i++) {
 				ProductForm temp = new ProductForm();
+				temp.setProductId(String.valueOf(productList.get(i).getModuleId()));
 				temp.setName(productList.get(i).getName());
 				// Workproduct temp2 =
 				// pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());

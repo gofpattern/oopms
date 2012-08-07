@@ -108,6 +108,7 @@
             	<portlet:param name="action" value="GoUpdateStage" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="stageId" value="${stage.milestoneId}" />
+            	<portlet:param name="stageNumber" value="${count.count}" />
             </portlet:renderURL>
                <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction}">${stage.name}</a></td>
@@ -143,6 +144,7 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
@@ -150,7 +152,12 @@
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
-               <td scope="row">${deliverable.status}</td>
+               <td scope="row">
+               	<c:if test="${deliverable.status == 173 }">On-going</c:if>
+               	<c:if test="${deliverable.status == 174 }">Finish</c:if>
+               	<c:if test="${deliverable.status == 175 }">Cancelled</c:if>
+               	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
+               </td>
                <td scope="row">${deliverable.baselineNote}</td>
      </tr>
     </c:forEach>
@@ -177,6 +184,7 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
@@ -184,7 +192,12 @@
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
-               <td scope="row">${deliverable.status}</td>
+               <td scope="row">
+               	<c:if test="${deliverable.status == 173 }">On-going</c:if>
+               	<c:if test="${deliverable.status == 174 }">Finish</c:if>
+               	<c:if test="${deliverable.status == 175 }">Cancelled</c:if>
+               	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
+               </td>
                <td scope="row">${deliverable.baselineNote}</td>
      </tr>
     </c:forEach>
@@ -211,6 +224,7 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
@@ -218,7 +232,12 @@
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
-               <td scope="row">${deliverable.status}</td>
+               <td scope="row">
+               	<c:if test="${deliverable.status == 173 }">On-going</c:if>
+               	<c:if test="${deliverable.status == 174 }">Finish</c:if>
+               	<c:if test="${deliverable.status == 175 }">Cancelled</c:if>
+               	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
+               </td>
                <td scope="row">${deliverable.baselineNote}</td>
      </tr>
     </c:forEach>
@@ -245,6 +264,7 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
@@ -252,7 +272,12 @@
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
-               <td scope="row">${deliverable.status}</td>
+               <td scope="row">
+               	<c:if test="${deliverable.status == 173 }">On-going</c:if>
+               	<c:if test="${deliverable.status == 174 }">Finish</c:if>
+               	<c:if test="${deliverable.status == 175 }">Cancelled</c:if>
+               	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
+               </td>
                <td scope="row">${deliverable.baselineNote}</td>
      </tr>
     </c:forEach>
@@ -279,6 +304,7 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
@@ -286,7 +312,12 @@
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
-               <td scope="row">${deliverable.status}</td>
+               <td scope="row">
+               	<c:if test="${deliverable.status == 173 }">On-going</c:if>
+               	<c:if test="${deliverable.status == 174 }">Finish</c:if>
+               	<c:if test="${deliverable.status == 175 }">Cancelled</c:if>
+               	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
+               </td>
                <td scope="row">${deliverable.baselineNote}</td>
      </tr>
     </c:forEach>
@@ -313,6 +344,7 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
@@ -320,7 +352,12 @@
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
-               <td scope="row">${deliverable.status}</td>
+               <td scope="row">
+               	<c:if test="${deliverable.status == 173 }">On-going</c:if>
+               	<c:if test="${deliverable.status == 174 }">Finish</c:if>
+               	<c:if test="${deliverable.status == 175 }">Cancelled</c:if>
+               	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
+               </td>
                <td scope="row">${deliverable.baselineNote}</td>
      </tr>
     </c:forEach>
