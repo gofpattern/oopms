@@ -1,6 +1,7 @@
 package openones.oopms.projecteye.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
@@ -30,9 +31,10 @@ public class ProjectDao {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
-			String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId and endDate is null )";
+			String hql = "From Project where projectId IN (Select project from Assignment WHERE developerId = :devId and ((endDate > :currentDate) or (endDate is null)) )";
 			Query query = session.createQuery(hql);
 			query.setParameter("devId", developerId);
+			query.setParameter("currentDate", new Date());
 			List<Project> projectList = query.list();
 			session.flush();
 			session.getTransaction().commit();
