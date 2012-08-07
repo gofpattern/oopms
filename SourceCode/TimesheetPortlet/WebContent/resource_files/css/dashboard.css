@@ -169,4 +169,3 @@ zoom: 1;
 #tabs28 a span {   float:left;   display:block;   background:url(side-right.gif) no-repeat right top;   padding:5px 15px 4px 6px;   color:#FFF;   } 
 #tabs28 a span {float:none;}  #tabsI a:hover span {   color:#FFF;   } #tabs28 a:hover {   background-position:0% -42px;   } 
 #tabs28 a:hover span {   background-position:100% -42px;   }
-
