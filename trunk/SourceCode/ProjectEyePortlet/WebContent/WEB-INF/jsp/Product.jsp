@@ -68,7 +68,10 @@
                     "bJQueryUI": true,
                     "sPaginationType": "full_numbers"
                 } );
-
+			if(document.getElementById("deleteFlag").value==1) {
+				document.getElementById("deleteFlag").value = 0;
+				alert('This product has tasks assigned for it. Please remove task before remove this product');
+			}
             } );
         </script>
 
@@ -108,7 +111,8 @@
         <th width="6%" scope="row">Re-planned size (UCP)</th>
         <th width="6%" scope="row">Actual size (UCP)</th>
         <th width="6%" scope="row">Created size (UCP) </th>
-        <th width="50%" scope="row">Description</th>  
+        <th width="33%" scope="row">Description</th>
+        <th width="17%" scope="row">Action</th>    
     </tr> 
     </thead>
     <tbody> 
@@ -119,6 +123,11 @@
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="productId" value="${product.productId}" />
             </portlet:renderURL>
+            <portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="RemoveProduct" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="productId" value="${product.productId}" />
+            </portlet:renderURL>
                <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction}">${product.name}</a></td>
                <td scope="row">${product.workProduct}</td>
@@ -126,7 +135,10 @@
                <td scope="row">${product.rePlannedSize}</td>
                <td scope="row">${product.actualSize}</td>
                <td scope="row">${product.createdSize}</td>
-               <td scope="row">${product.description}</td>                                 
+               <td scope="row">${product.description}</td>
+               <td scope="row">
+					<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}SearchProduct", "${renderAction2}", "Do you sure you want to delete this product?");'>Remove This Product</button>
+			   </td>                                 
             </tr>
         </c:forEach>
    </tbody>
@@ -141,7 +153,7 @@
     	</portlet:renderURL>
     	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${renderAction}")'>Add New Product</button> 
 	</div>
-
+	<input name="deleteFlag" type="hidden" value="${deleteFlag}" id="deleteFlag"/> 
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

@@ -119,15 +119,15 @@
                <c:if test="${project.role != 0 }">
                	<c:if test="${project.role != 1 }">
                	 <c:if test="${project.role != 6 }">
-               	 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${renderAction3}")'>Leave this project</button>
+               	 	<button type="button" class="button blue small" onclick='submitAction3("${portletNamespace}ProjectEyeHome", "${renderAction3}", "Do you sure you want to leave this project?")'>Leave this project</button>
                	 </c:if>
                	</c:if>
                </c:if>
                <c:if test="${project.role == 0 }">
-               		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${renderAction2}")'>Delete this project</button>
+               		<button type="button" class="button blue small" onclick='submitAction3("${portletNamespace}ProjectEyeHome", "${renderAction2}", "Do you sure you want to delete this project?")'>Delete this project</button>
                </c:if>
                <c:if test="${project.role == 6 }">
-               		<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${renderAction2}")'>Delete this project</button>
+               		<button type="button" class="button blue small" onclick='submitAction3("${portletNamespace}ProjectEyeHome", "${renderAction2}", "Do you sure you want to delete this project?")'>Delete this project</button>
                </c:if>
                
                </td>                                      
