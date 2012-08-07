@@ -27,6 +27,7 @@ import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CreateDeliverableForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Module;
+import openones.oopms.projecteye.utils.Constant;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -60,7 +61,7 @@ public class CreateDeliverableController {
 				.getDeliverable_SelectedValue());
 
 		// set value for Deliverable
-		deliverable.setIsDeliverable(new BigDecimal("1"));
+		deliverable.setIsDeliverable(new BigDecimal(Constant.SettedDeliverable));
 		deliverable.setPlannedReleaseDate(formBean.getPlannedCommittedDate());
 		deliverable.setReplannedReleaseDate(formBean
 				.getRePlannedCommittedDate());
