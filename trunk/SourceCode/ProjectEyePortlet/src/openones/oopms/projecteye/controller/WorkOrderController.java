@@ -20,6 +20,7 @@ package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.HTMLTag;
 
 import org.apache.log4j.Logger;
@@ -177,6 +179,432 @@ public class WorkOrderController {
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		mav.addObject("delivarableId", delivarableId);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=RemoveDeliverable")
+	public ModelAndView postRemoveDeliverable(RenderRequest request) {
+		log.debug("post RemoveDeliverable.START");
+		ModelAndView mav = new ModelAndView("WorkOrder");
+		//Remove diliverable
+		String delivarableId = request.getParameter("delivarableId");
+		ProductDao productDao = new ProductDao();
+		Module deliverable = productDao.getProduct(new BigDecimal(delivarableId));
+		deliverable.setIsDeliverable(new BigDecimal(Constant.UnsettedDeliverable));
+		deliverable.setPlannedReleaseDate(null);
+		deliverable.setReplannedReleaseDate(null);
+		deliverable.setActualReleaseDate(null);
+		productDao.updateProduct(deliverable);
+		// set value for Stage
+		String projectId = request.getParameter("projectId");
+		MilestoneDao mDao = new MilestoneDao();
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		List<Milestone> projectStages = mDao.getProjectStage(project);
+		log.debug("project ID la " + projectId);
+		log.debug("List Stage Size : " + projectStages.size());
+		mav.addObject("stageList", projectStages);
+		// set value for deliverable
+		WorkOrderDao woDao = new WorkOrderDao();
+		List<Module> productList = woDao.getSetDeliverableProductList(project);
+		List<Module> productListStage1 = new ArrayList<Module>();
+		List<Module> productListStage2 = new ArrayList<Module>();
+		List<Module> productListStage3 = new ArrayList<Module>();
+		List<Module> productListStage4 = new ArrayList<Module>();
+		List<Module> productListStage5 = new ArrayList<Module>();
+		List<Module> productListStage6 = new ArrayList<Module>();
+		for (int i = 0; i < productList.size(); i++) {
+			// priority of actual date > re-planned > planned
+			if (productList.get(i).getActualDeliveryDate() != null) {
+				if (projectStages.get(0).getActualFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(0).getActualFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(0).getPlanFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(0).getPlanFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(0).getBaseFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(0).getBaseFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getActualFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(1).getActualFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getPlanFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(1).getPlanFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getBaseFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(1).getBaseFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getActualFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(2).getActualFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getPlanFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(2).getPlanFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getBaseFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(2).getBaseFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getActualFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(3).getActualFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getPlanFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(3).getPlanFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getBaseFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(3).getBaseFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getActualFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(4).getActualFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getPlanFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(4).getPlanFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getBaseFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(4).getBaseFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getActualFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(5).getActualFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getPlanFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(5).getPlanFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getBaseFinishDate() != null) {
+					if (!productList.get(i).getActualDeliveryDate()
+							.after(projectStages.get(5).getBaseFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+			} else if (productList.get(i).getReplannedReleaseDate() != null) {
+				if (projectStages.get(0).getActualFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(0).getActualFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(0).getPlanFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(0).getPlanFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(0).getBaseFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(0).getBaseFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getActualFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(1).getActualFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getPlanFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(1).getPlanFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getBaseFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(1).getBaseFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getActualFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(2).getActualFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getPlanFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(2).getPlanFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getBaseFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(2).getBaseFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getActualFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(3).getActualFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getPlanFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(3).getPlanFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getBaseFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(3).getBaseFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getActualFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(4).getActualFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getPlanFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(4).getPlanFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getBaseFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(4).getBaseFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getActualFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(5).getActualFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getPlanFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(5).getPlanFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getBaseFinishDate() != null) {
+					if (!productList.get(i).getReplannedReleaseDate()
+							.after(projectStages.get(5).getBaseFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+			} else {
+				if (projectStages.get(0).getActualFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(0).getActualFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(0).getPlanFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(0).getPlanFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(0).getBaseFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(0).getBaseFinishDate())) {
+						productListStage1.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getActualFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(1).getActualFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getPlanFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(1).getPlanFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(1).getBaseFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(1).getBaseFinishDate())) {
+						productListStage2.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getActualFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(2).getActualFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getPlanFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(2).getPlanFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(2).getBaseFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(2).getBaseFinishDate())) {
+						productListStage3.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getActualFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(3).getActualFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getPlanFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(3).getPlanFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(3).getBaseFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(3).getBaseFinishDate())) {
+						productListStage4.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getActualFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(4).getActualFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getPlanFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(4).getPlanFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(4).getBaseFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(4).getBaseFinishDate())) {
+						productListStage5.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getActualFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(5).getActualFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getPlanFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(5).getPlanFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+				if (projectStages.get(5).getBaseFinishDate() != null) {
+					if (!productList.get(i).getPlannedReleaseDate()
+							.after(projectStages.get(5).getBaseFinishDate())) {
+						productListStage6.add(productList.get(i));
+						continue;
+					}
+				}
+			}
+		}
+		mav.addObject("deliverableListStage1", productListStage1);
+		mav.addObject("deliverableListStage2", productListStage2);
+		mav.addObject("deliverableListStage3", productListStage3);
+		mav.addObject("deliverableListStage4", productListStage4);
+		mav.addObject("deliverableListStage5", productListStage5);
+		mav.addObject("deliverableListStage6", productListStage6);
+		mav.addObject("projectId", projectId);
 		return mav;
 	}
 

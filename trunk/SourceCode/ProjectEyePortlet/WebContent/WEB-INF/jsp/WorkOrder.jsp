@@ -166,7 +166,8 @@
         <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
-        <th width="35%" scope="row">Note</th>   
+        <th width="25%" scope="row">Note</th>
+        <th width="10%" scope="row">Action</th>   
     </tr>
    </thead>
    <tbody>
@@ -174,6 +175,11 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDeliverable" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
@@ -189,6 +195,9 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
+               </td>
      </tr>
     </c:forEach>
     </tbody>
@@ -206,7 +215,8 @@
         <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
-        <th width="35%" scope="row">Note</th>   
+        <th width="25%" scope="row">Note</th>
+        <th width="10%" scope="row">Action</th>   
     </tr>
    </thead>
    <tbody>
@@ -214,6 +224,11 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDeliverable" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
@@ -229,6 +244,9 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
+               </td>
      </tr>
     </c:forEach>
     </tbody>
@@ -246,7 +264,8 @@
         <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
-        <th width="35%" scope="row">Note</th>   
+        <th width="25%" scope="row">Note</th>
+        <th width="10%" scope="row">Action</th>   
     </tr>
    </thead>
    <tbody>
@@ -254,6 +273,11 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDeliverable" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
@@ -269,6 +293,9 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
+               </td>
      </tr>
     </c:forEach>
     </tbody>
@@ -286,7 +313,8 @@
         <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
-        <th width="35%" scope="row">Note</th>   
+        <th width="25%" scope="row">Note</th>
+        <th width="10%" scope="row">Action</th>   
     </tr>
    </thead>
    <tbody>
@@ -294,6 +322,11 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDeliverable" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
@@ -309,6 +342,9 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
+               </td>
      </tr>
     </c:forEach>
     </tbody>
@@ -326,7 +362,8 @@
         <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
-        <th width="35%" scope="row">Note</th>   
+        <th width="25%" scope="row">Note</th>
+        <th width="10%" scope="row">Action</th>   
     </tr>
    </thead>
    <tbody>
@@ -334,6 +371,11 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDeliverable" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
@@ -349,6 +391,9 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
+               </td>
      </tr>
     </c:forEach>
     </tbody>
@@ -366,7 +411,8 @@
         <th width="10%" scope="row">Re-planned committed date</th>
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
-        <th width="35%" scope="row">Note</th>   
+        <th width="25%" scope="row">Note</th>
+        <th width="10%" scope="row">Action</th>   
     </tr>
    </thead>
    <tbody>
@@ -374,6 +420,11 @@
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateDeliverable" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
+            </portlet:renderURL>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDeliverable" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
@@ -389,6 +440,9 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
+               </td>
      </tr>
     </c:forEach>
     </tbody>

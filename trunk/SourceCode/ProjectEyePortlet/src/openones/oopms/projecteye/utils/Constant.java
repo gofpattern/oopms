@@ -10,4 +10,6 @@ public class Constant {
 	public static String ProjectOwnerType = "6";
 	public static String WorkUnitProjectType = "2";
 	public static String MilestoneUncomplete = "0";
+	public static String UnsettedDeliverable = "0";
+	public static String SettedDeliverable = "1";
 }

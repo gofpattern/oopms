@@ -35,6 +35,7 @@ import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.utils.Constant;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -72,7 +73,7 @@ public class CreateProductController {
 
 		// set value for Product
 		product.setProject(project);
-		product.setIsDeliverable(new BigDecimal("0"));
+		product.setIsDeliverable(new BigDecimal(Constant.UnsettedDeliverable));
 		//isDeliverable 0 is not added to any deliverable, 1 is added to deliverable plan
 		product.setName(formBean.getName());
 		product.setWorkproduct(workProduct);
