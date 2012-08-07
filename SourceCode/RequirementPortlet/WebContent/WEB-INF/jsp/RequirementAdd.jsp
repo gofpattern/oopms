@@ -6,6 +6,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page import="javax.portlet.PortletSession"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="portletNamespace" scope="request">
   <portlet:namespace />
@@ -280,7 +281,7 @@ textarea {
       </tr>
       <tr>
         <th><strong>Joined Projects: </strong></th>
-        <td><strong><font color="#1490E3">${projectList.size()}</font></strong></td>
+        <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
       </tr>
       <tr>
         <th><strong>Requirements: </strong></th>
