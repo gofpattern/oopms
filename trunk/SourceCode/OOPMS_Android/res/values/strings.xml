@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="app_name">Project Manager</string>
+    
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Dashboard</string>
+    <string name="title_showinfo">Project Detail Status</string>
+    <string name="project">Project</string>
+    <string name="time">Time</string>
+    <string name="cost">Cost</string>
+    <string name="resource">Resource</string>
+    <string name="efficiency">Efficiency</string>
+    <string name="progress">Progress</string>
+
+</resources>

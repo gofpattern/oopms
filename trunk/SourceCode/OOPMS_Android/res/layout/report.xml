@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView                
+                android:layout_width="wrap_content"
+                android:text="Name:"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectName"
+                android:layout_width="wrap_content"
+                android:text="Project1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Customer:"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectCustomer"
+                android:layout_width="wrap_content"
+                android:text="Customer1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Project Manager:"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectManager"
+                android:layout_width="wrap_content"
+                android:text="Project Manager1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Budget:"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectBudget"
+                android:layout_width="wrap_content"
+                android:text="Budget1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Planted Start Day:"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectStartDay"
+                android:layout_width="wrap_content"
+                android:text="Planted Start Day1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Planted End Day:"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectEndDay"
+                android:layout_width="wrap_content"
+                android:text="Planted End Day1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Cost"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectCost"
+                android:layout_width="wrap_content"
+                android:text="Cost1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Schedule"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectSchedule"
+                android:layout_width="wrap_content"
+                android:text="Schedule1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Resource"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectResource"
+                android:layout_width="wrap_content"
+                android:text="Resource1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Open Issues"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectIssues"
+                android:layout_width="wrap_content"
+                android:text="Open Issues1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Open Risks"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectRisks"
+                android:layout_width="wrap_content"
+                android:text="Open Risks1"
+                android:width="220dp" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="#BDCAD2" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Open Changes"
+                android:width="100dp" />
+
+            <TextView
+                android:id="@+id/projectChanges"
+                android:layout_width="wrap_content"
+                android:text="Open Changes1"
+                android:width="220dp" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
