@@ -24,8 +24,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.form.SubMenu;
 import openones.oopms.projecteye.dao.AssignmentDao;
 import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
@@ -40,6 +42,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
+import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
 import openones.portlet.PortletSupport;
 
@@ -68,7 +71,7 @@ public class ProjectEyeHomeController {
 	 * @return name of view which is the name of the JSP page.
 	 */
 	@RequestMapping
-	public String initScreen(RenderRequest request) {
+	public String initScreen(RenderRequest request, PortletSession session) {
 		log.debug("initScreen.START conme");
 		PortletSupport portletSupport = new PortletSupport(request);
 		username = portletSupport.getLogonUser();
@@ -103,6 +106,10 @@ public class ProjectEyeHomeController {
 			projectRoleList.add(temp);
 		}
 		request.setAttribute("projectList", projectRoleList);
+//		request.setAttribute("MenuBar", getMenuBar());
+//		updateMenuBar(session, getMenuBar());
+//		session.setAttribute("MenuBar", getMenuBar(),PortletSession.PORTLET_SCOPE);
+		session.setAttribute("MenuBar", getMenuBar(),PortletSession.APPLICATION_SCOPE);
 		return "ProjectEyeHome";
 
 	}
@@ -316,4 +323,15 @@ public class ProjectEyeHomeController {
 		mav.addObject("projectList", projectRoleList);
 		return mav;
 	}
+	
+	public List<SubMenu> getMenuBar() {
+		log.error("menu list create: ");
+        List<SubMenu> subMenuList = AppUtil.loadMenuBar();
+        log.error("menu list : " + subMenuList.size());
+        return subMenuList;
+    }
+	
+	public void updateMenuBar(PortletSession session, List<SubMenu> subMenuList) {
+        session.setAttribute("MenuBar", subMenuList);
+    }
 }

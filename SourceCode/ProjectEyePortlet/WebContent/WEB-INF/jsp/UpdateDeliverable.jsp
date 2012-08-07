@@ -78,11 +78,11 @@
 
 <body id="portal" class="up fl-theme-mist">
 
-<div id="portalPageBodyInner" class="container">
+<div id="portalPageBodyInner" class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
 
   <div class="content">
   <!-- begin .navigator -->
-	<jsp:include page="Nagivator.jsp" />
+	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
     	<h2 class="title" >Create Deliverable</h2>

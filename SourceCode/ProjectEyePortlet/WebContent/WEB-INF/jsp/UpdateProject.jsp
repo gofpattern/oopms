@@ -30,6 +30,7 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 <script language="javascript" type="text/javascript"
   src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript"
@@ -88,7 +89,7 @@
 
 <body id="portal" class="up fl-theme-mist">
 
-  <div id="portalPageBodyInner" class="container">
+  <div id="portalPageBodyInner" class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
 
     <div class="content">
       <div class="fl-widget-titlebar titlebar portlet-titlebar">

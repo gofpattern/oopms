@@ -29,9 +29,9 @@ public class DeveloperDao {
     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
     	   session = sessionfactory.openSession();
     	   session.beginTransaction();
-           String hql = "From Developer WHERE account = :username";
+           String hql = "From Developer WHERE UPPER(account) = :username";
            Query query = session.createQuery(hql);
-           query.setParameter("username", username);
+           query.setParameter("username", username.toUpperCase());
            Developer developer = (Developer) query.uniqueResult();               
            session.flush();
            session.getTransaction().commit();
