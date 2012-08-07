@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class HelloController {
+public class PlannerHomeController {
     private static Logger log = Logger.getLogger(PlannerController.class);
     private String username;
     static Developer developer = new Developer();
@@ -64,7 +64,6 @@ public class HelloController {
         
         
         // Set information of user to session           
-        // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp

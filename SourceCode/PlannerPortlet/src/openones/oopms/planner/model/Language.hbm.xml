@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 5, 2012 2:58:21 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.planner.model.Language" table="LANGUAGE" schema="FMSUSER" lazy="false">
+        <comment>languages used to estimate products size(Insight)</comment>
+        <id name="languageId" type="big_decimal">
+            <column name="LANGUAGE_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" length="50" unique="true" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="600" />
+        </property>
+        <property name="convLastUpdate" type="date">
+            <column name="CONV_LAST_UPDATE" length="7" />
+        </property>
+        <property name="sizeUnit" type="string">
+            <column name="SIZE_UNIT" length="10" not-null="true">
+                <comment>used for quantifying the language</comment>
+            </column>
+        </property>
+        <property name="isrelevant" type="big_decimal">
+            <column name="ISRELEVANT" precision="22" scale="0">
+                <comment>most used languages</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

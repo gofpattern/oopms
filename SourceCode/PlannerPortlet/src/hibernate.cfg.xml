@@ -20,10 +20,12 @@
     <mapping resource="openones/oopms/planner/model/Developer.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Assignment.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Responsibility.hbm.xml" />
-    <mapping resource="openones/oopms/planner/model/Team.hbm.xml" />    
-    <mapping resource="openones/oopms/planner/model/Workproduct.hbm.xml" />        
+    <mapping resource="openones/oopms/planner/model/Team.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Workproduct.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/Workunit.hbm.xml" />
-        <mapping resource="openones/oopms/planner/model/GeneralReference.hbm.xml" />        
+    <mapping resource="openones/oopms/planner/model/GeneralReference.hbm.xml" />
     <mapping resource="openones/oopms/planner/model/LanguageCode.hbm.xml" />
+        <mapping resource="openones/oopms/planner/model/Module.hbm.xml" />
+    <mapping resource="openones/oopms/planner/model/Language.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
