@@ -81,6 +81,7 @@
                 <%final String queryString = request.getQueryString() == null ? "" : request.getQueryString().replaceAll("&locale=([A-Za-z][A-Za-z]_)?[A-Za-z][A-Za-z]|^locale=([A-Za-z][A-Za-z]_)?[A-Za-z][A-Za-z]", "");%>
 					<c:set var='query' value='<%=queryString%>' />
                     <c:set var="xquery" value="${fn:escapeXml(query)}" />
+                  <%-- Open-Ones
                   <h3>Languages:</h3>
                   <c:choose>
                      <c:when test="${not empty requestScope['isMobile'] and not empty mobileCss}">
@@ -130,6 +131,7 @@
 						></ul>
                      </c:otherwise>
                    </c:choose>
+                   --%>
                 </div>
             </div>
 <jsp:directive.include file="includes/bottom.jsp" />

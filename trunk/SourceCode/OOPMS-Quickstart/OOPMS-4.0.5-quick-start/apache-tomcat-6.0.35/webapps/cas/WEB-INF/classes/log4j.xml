@@ -22,7 +22,7 @@
 
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
-<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
     <!--
       This default ConsoleAppender is used to log all NON perf4j messages
       to System.out
@@ -38,7 +38,7 @@
       upstream loggers.
     -->
     <logger name="org.perf4j.TimingLogger" additivity="false">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="null"/>
     </logger>
 
@@ -49,11 +49,11 @@
         apply DEBUG level logging on a an org.springframework.* package level (i.e. org.springframework.dao)
     -->
     <logger name="org.springframework">
-        <level value="WARN" />
+        <level value="DEBUG" />
     </logger>
 
     <logger name="org.springframework.webflow">
-        <level value="WARN" />
+        <level value="DEBUG" />
     </logger>
 
     <logger name="org.jasig" additivity="true">
@@ -67,7 +67,7 @@
         cleartext authentication credentials
     -->
     <logger name="org.jasig.cas.web.flow" additivity="true">
-        <level value="INFO" />
+        <level value="DEBUG" />
         <appender-ref ref="null" />
     </logger>
 
