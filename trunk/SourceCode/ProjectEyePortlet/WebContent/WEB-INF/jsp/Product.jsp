@@ -13,7 +13,7 @@
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/common.css" rel="Stylesheet" />	
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/uportal.css" rel="Stylesheet" />
-<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
+
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/print.css" media="print"/>
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/manage.css" media="all"/>				
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datepicker.css" media="all"/>
@@ -22,13 +22,15 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
-<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
+
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
 <script type="text/javascript">
 
 
@@ -60,7 +62,7 @@
 
                      
                 fnFeaturesInit();
-                $('#mainTable2').dataTable( {
+                $('#mainTable1').dataTable( {
                     "bFilter": true,
                     "bSort": true,
                     "bJQueryUI": true,
@@ -96,7 +98,7 @@
     Product List <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/>
     <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button> 
 </form:form>
-    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">
+    <table id="mainTable1" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectProductList}">
    <thead><tr >
         <th width="6%" scope="row">No</th>    

@@ -62,7 +62,37 @@
 
                      
                 fnFeaturesInit();
+                $('#mainTable1').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
                 $('#mainTable2').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable3').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable4').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable5').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable6').dataTable( {
                     "bFilter": true,
                     "bSort": true,
                     "bJQueryUI": true,
@@ -127,7 +157,7 @@
 
  <c:if test="${not empty deliverableListStage1}">
 <h3>Initiation</h3>    
-    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+    <table class="display dataTable" id="mainTable1" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
@@ -207,7 +237,7 @@
     
     <c:if test="${not empty deliverableListStage3}">
 <h3>Solution</h3>    
-    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+    <table class="display dataTable" id="mainTable3" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
@@ -247,7 +277,7 @@
     
     <c:if test="${not empty deliverableListStage4}">
 <h3>Construction</h3>    
-    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+    <table class="display dataTable" id="mainTable4" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
@@ -287,7 +317,7 @@
     
     <c:if test="${not empty deliverableListStage5}">
 <h3>Transition</h3>    
-    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+    <table class="display dataTable" id="mainTable5" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
@@ -327,7 +357,7 @@
     
     <c:if test="${not empty deliverableListStage6}">
 <h3>Termination</h3>    
-    <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
+    <table class="display dataTable" id="mainTable6" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
