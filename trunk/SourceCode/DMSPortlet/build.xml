@@ -88,9 +88,9 @@
             <fileset dir="resource" excludes=".svn/**,*.svn-base, **/*.java" />
         </copy>
 
-        <!-- Copy templates -->
+        <!-- Copy resource from folder "src" -->
         <copy todir="${build.home}/WEB-INF/classes" preservelastmodified="true">
-            <fileset dir="resource" excludes=".svn/**,*.svn-base, **/*.java" />
+            <fileset dir="src" excludes=".svn/**,*.svn-base, **/*.java" />
         </copy>
 
         <jar jarfile="${dist.home}/${app.name}.war" basedir="${build.home}/" />
