@@ -32,7 +32,6 @@ import org.hibernate.SessionFactory;
 
 /**
  * @author PNTG
- *
  */
 public class AssignmentDAO {
     private Session session;
@@ -42,7 +41,7 @@ public class AssignmentDAO {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         this.session = factory.getCurrentSession();
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<Project> getProject(BigDecimal developerId) {
         log.debug("getProject.START");
@@ -63,14 +62,12 @@ public class AssignmentDAO {
         }
         return null;
     }
-    
+
     public String getRole(String developerId, String projectId) {
         try {
             System.out.println("getRole : " + developerId + " " + projectId);
             session.getTransaction().begin();
             String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
-
-            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
             Query query = session.createQuery(hql);
             query.setString(0, developerId);
             query.setString(1, projectId);

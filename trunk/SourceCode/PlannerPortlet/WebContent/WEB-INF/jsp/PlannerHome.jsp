@@ -91,6 +91,11 @@
 			"bJQueryUI" : true,
 			"sPaginationType" : "full_numbers"
 		});
+		// Check module of project
+		  $(function() {
+			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
+		        alert ("I don't see any products on selected project.\nPlease create some products before assigning task.");
+		        });
 	});
 </SCRIPT>
 </head>
@@ -121,10 +126,10 @@
             <c:set var="count" value="0" />
             <c:forEach var="project" items="${projectList}">
               <c:set var="count" value="${count + 1}" />
-              <portlet:renderURL var="renderAction">
+              <portlet:actionURL var="renderAction">
                 <portlet:param name="action" value="taskmanager" />
                 <portlet:param name="projectId" value="${project.projectId}" />
-              </portlet:renderURL>
+              </portlet:actionURL>
               <tr>
                 <td>${count}</td>
                 <td><a href="${renderAction}">${project.code}</a></td>

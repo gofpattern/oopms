@@ -7,16 +7,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.AssignmentDAO;
+import openones.oopms.planner.dao.ModuleDAO;
 import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.GeneralReference;
+import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Stage;
@@ -69,13 +72,29 @@ public class PlannerController {
 
     @ActionMapping(params = "action=taskmanager")
     public void processPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
-            SessionStatus status, ActionResponse response) {
+            SessionStatus status, ActionResponse response, ActionRequest request,PortletSession session) {
         log.debug("processPlanner.START");
+        ModuleDAO moduleDAO = new ModuleDAO();
+        List<Module> moduleList = moduleDAO.getModuleByProject(new BigDecimal(request.getParameter("projectId")));
+        
+
+        if (moduleList.size() != 0) {
+            // Prepare parameter to render phase
+            response.setRenderParameter("projectId", request.getParameter("projectId"));
+            response.setRenderParameter("action", "taskmanager");
+        } else {
+//            result.rejectValue("", "error");
+//            log.error("Error in binding result:" + result.getErrorCount());
+            log.debug("processPlanner.START + setError");
+            session.setAttribute("ERROR", true, PortletSession.APPLICATION_SCOPE);            
+        }
+        
 
     }
     @RenderMapping(params = "action=taskmanager")
     public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request,PortletSession session) {
         log.debug("postPlanner.START");
+        log.debug("postPlanner.START"+request.getParameter("projectId"));
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         ModelAndView mav = new ModelAndView("TaskManager");           
@@ -95,12 +114,12 @@ public class PlannerController {
             formBean.setStatusDefault("All");
             formBean.setStageDefault("All");
             formBean.setDeveloperDefault("All");
-            role = assignmentDAO.getRole(HelloController.developer.getDeveloperId().toString(), projectDefault);
+            role = assignmentDAO.getRole(PlannerHomeController.developer.getDeveloperId().toString(), projectDefault);
             statusList = taskDAO.getProjectStatusEn();
 
             taskList = taskDAO.getTasksByProjectId(projectDefault);
             stageList = taskDAO.getAllStage();
-            projectList = taskDAO.getAllProject();
+            projectList = assignmentDAO.getProject(PlannerHomeController.developer.getDeveloperId());
             processList = taskDAO.getAllProcess();
             developerList = taskDAO.getDeveloper(projectDefault);
         }            
@@ -176,7 +195,7 @@ public class PlannerController {
         }
 
         //
-        session.setAttribute("USER", HelloController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USER", PlannerHomeController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
         
         
@@ -207,6 +226,8 @@ public class PlannerController {
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
         mav.addObject("productMapAdd", formBeanAdd.getProductMap());
+        mav.addObject("moduleMapAdd", formBeanAdd.getModuleMap());
+        mav.addObject("sizeUnitMapAdd", formBeanAdd.getSizeUnitMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
 
         // flag to hide and show Add-Edit window

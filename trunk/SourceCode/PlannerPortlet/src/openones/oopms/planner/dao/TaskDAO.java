@@ -8,6 +8,8 @@ import java.util.List;
 
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.GeneralReference;
+import openones.oopms.planner.model.Language;
+import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Stage;
@@ -274,7 +276,6 @@ public class TaskDAO {
                 editTask.setEffort(editTask.getCurrenteffort());
             }
             session.merge(editTask);
-            // session.update(editTask);
             session.flush();
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -284,5 +285,24 @@ public class TaskDAO {
             log.error("Update Task Error", e);
         }
     }
-
+    
+    public List<Language> getSizeUnit() {
+        log.debug("getSizeUnit.START");
+        try {
+            session.getTransaction().begin();
+            String sql = "from Language";
+            Query query = session.createQuery(sql);
+            @SuppressWarnings("unchecked")
+            List<Language> sizeUnitList = query.list();
+            session.flush();
+            System.out.println("getSizeUnit.end");
+            return sizeUnitList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getSizeUnit.Exception", e);
+        }
+        return null;
+    }
 }

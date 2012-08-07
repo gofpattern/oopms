@@ -72,6 +72,7 @@ public class Project  implements java.io.Serializable {
      private BigDecimal typeCustomer;
      private BigDecimal typeCustomer2nd;
      private Set assignments = new HashSet(0);
+     private Set modules = new HashSet(0);
 
     public Project() {
     }
@@ -83,7 +84,7 @@ public class Project  implements java.io.Serializable {
         this.code = code;
         this.name = name;
     }
-    public Project(BigDecimal projectId, String type, String code, String name, String groupName, Date startDate, BigDecimal perComplete, String leader, Date baseFinishDate, Date planFinishDate, Date actualFinishDate, BigDecimal baseEffort, BigDecimal planEffort, BigDecimal actualEffort, String description, BigDecimal totalbug, BigDecimal totalweightedbug, BigDecimal totalrequirement, BigDecimal committedrequirement, BigDecimal designedrequirement, BigDecimal codedrequirement, BigDecimal testedrequirement, BigDecimal deployedrequirement, BigDecimal acceptedrequirement, BigDecimal totaldefect, BigDecimal totalweighteddefect, BigDecimal fatalpendingdefect, BigDecimal seriouspendingdefect, BigDecimal mediumpendingdefect, BigDecimal cosmeticpendingdefect, BigDecimal totalfataldefect, BigDecimal totalseriousdefect, BigDecimal totalmediumdefect, BigDecimal totalcosmeticdefect, String status, BigDecimal scheduleStatus, BigDecimal effortStatus, Date lastUpdate, String category, String customer, Date planStartDate, Boolean applyPpm, String reason, BigDecimal baseBillableEffort, BigDecimal planBillableEffort, BigDecimal actualBillableEffort, String rank, String customer2nd, String projectLevel, String divisionName, BigDecimal archiveStatus, BigDecimal parentId, BigDecimal unitId, String projectStatusCode, String projectCategoryCode, String projectTypeCode, BigDecimal typeCustomer, BigDecimal typeCustomer2nd, Set assignments) {
+    public Project(BigDecimal projectId, String type, String code, String name, String groupName, Date startDate, BigDecimal perComplete, String leader, Date baseFinishDate, Date planFinishDate, Date actualFinishDate, BigDecimal baseEffort, BigDecimal planEffort, BigDecimal actualEffort, String description, BigDecimal totalbug, BigDecimal totalweightedbug, BigDecimal totalrequirement, BigDecimal committedrequirement, BigDecimal designedrequirement, BigDecimal codedrequirement, BigDecimal testedrequirement, BigDecimal deployedrequirement, BigDecimal acceptedrequirement, BigDecimal totaldefect, BigDecimal totalweighteddefect, BigDecimal fatalpendingdefect, BigDecimal seriouspendingdefect, BigDecimal mediumpendingdefect, BigDecimal cosmeticpendingdefect, BigDecimal totalfataldefect, BigDecimal totalseriousdefect, BigDecimal totalmediumdefect, BigDecimal totalcosmeticdefect, String status, BigDecimal scheduleStatus, BigDecimal effortStatus, Date lastUpdate, String category, String customer, Date planStartDate, Boolean applyPpm, String reason, BigDecimal baseBillableEffort, BigDecimal planBillableEffort, BigDecimal actualBillableEffort, String rank, String customer2nd, String projectLevel, String divisionName, BigDecimal archiveStatus, BigDecimal parentId, BigDecimal unitId, String projectStatusCode, String projectCategoryCode, String projectTypeCode, BigDecimal typeCustomer, BigDecimal typeCustomer2nd, Set assignments, Set modules) {
        this.projectId = projectId;
        this.type = type;
        this.code = code;
@@ -143,6 +144,7 @@ public class Project  implements java.io.Serializable {
        this.typeCustomer = typeCustomer;
        this.typeCustomer2nd = typeCustomer2nd;
        this.assignments = assignments;
+       this.modules = modules;
     }
    
     public BigDecimal getProjectId() {
@@ -559,7 +561,13 @@ public class Project  implements java.io.Serializable {
         this.assignments = assignments;
     }
 
-
+    public Set getModules() {
+        return this.modules;
+    }
+    
+    public void setModules(Set modules) {
+        this.modules = modules;
+    }
 
 
 }

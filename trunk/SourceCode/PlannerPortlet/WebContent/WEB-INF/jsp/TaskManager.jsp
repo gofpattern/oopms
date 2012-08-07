@@ -99,8 +99,7 @@
 			$('ul.limit_length li.css_link').css('display', 'none');
 		});
 	}
-</script>
-<script type="text/javascript">
+
 	$(document)
 			.ready(
 					function() {
@@ -147,12 +146,14 @@
 	rules[12] = 'task.productsize:Product Size|numeric';
 	rules[13] = 'task.assignedto: Assigned To|required';
 	rules[14] = 'task.statusid:Status|required';
-/* 	rules[15] = 'startDate|mask|mydate';
-	rules[16] = 'actualDate|mask|mydate'; */
+	/* 	rules[15] = 'startDate|mask|mydate';
+	 rules[16] = 'actualDate|mask|mydate'; */
 	rules[15] = 'task.currenteffort:Current Effort|required';
 	rules[16] = 'task.currenteffort:Current Effort|numeric';
 	rules[17] = 'task.description:Description|required';
 	rules[18] = 'task.completedsize:Completed Size|numeric';
+	rules[19] = 'task.sizeunit:Product Size Unit|required';
+	rules[20] = 'task.sizeunit:Product Size Unit|numeric';
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('actualDate', 'Provide your Finish Date');
@@ -163,6 +164,9 @@
 	yav.addHelp('task.productsize', 'Provide your Product Size');
 	yav.addHelp('task.assignedto', 'Provide your assigned member');
 	yav.addHelp('task.statusid', 'Provide your Task Status');
+	yav.addHelp('task.sizeunit', 'Provide your product size unit');
+    yav.addHelp('task.completedsize', 'Provide completed size');
+    yav.addHelp('task.description', 'Provide your Task Description');
 	yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
 </head>
@@ -223,25 +227,71 @@
             </caption>
             <tbody>
               <tr>
-                <td width="139" class="ColumnLabel"><label for="add-form-title">Title*</label></td>
-                <td width="412" class="CellBGR3"><form:input path="task.taskname" id="add-form-title"
+                <td width="10%" class="ColumnLabel"><label for="add-form-title">Title*</label></td>
+                <td width="30%" class="CellBGR3"><form:input path="task.taskname" id="add-form-title"
                     value="${edTask.taskname}" /> <form:input path="task.taskid" value="${edTask.taskid}" type="hidden" /><br />
                   <span id=errorsDiv_task.taskname></span>&nbsp;</td>
-                <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
-                <td><form:select class="styled" path="task.stageid" value="${edTask.stageid}" multiple="single"
-                    id="add-form-stage">
-                    <form:options items="${stageMapAdd}" />
-                  </form:select><br /> <span id=errorsDiv_task.stageid></span>&nbsp;</td>
+                <td width="10%"></td>
+                <td width="20%"></td>
+                <td width="10%"></td>
+                <td width="20%"></td>
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-startDate">Start Date*</label></td>
                 <td class="CellBGR3"><form:input path="startDate" value="${edTask.startdate_str}"
                     id="add-form-startDate"></form:input> (MM-DD-YYYY)<br /> <span id=errorsDiv_startDate></span>&nbsp;</td>
+
+
+                <td class="ColumnLabel"><label for="add-form-stage">Stage*</label></td>
+                <td><form:select class="styled" path="task.stageid" value="${edTask.stageid}" multiple="single"
+                    id="add-form-stage">
+                    <form:options items="${stageMapAdd}" />
+                  </form:select><br /> <span id=errorsDiv_task.stageid></span>&nbsp;</td>
+
+                <td class="ColumnLabel"><label for="add-form-module">Product*</label></td>
+                <td><form:select class="styled" path="task.module.moduleId" multiple="single" id="add-form-module"
+                    value="${edTask.module.moduleId}">
+                    <form:options items="${moduleMapAdd}" />
+                  </form:select><br /> <span id=errorsDiv_task.module.moduleId></span>&nbsp;</td>
+              </tr>
+              <tr>
+
+                <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date*</label></td>
+                <td class="CellBGR3"><form:input path="actualDate" value="${edTask.planDate_str}"
+                    id="add-form-finishDate" /> (MM-DD-YYYY)<br /> <span id=errorsDiv_actualDate></span>&nbsp;</td>
                 <td class="ColumnLabel"><label for="add-form-process">Process*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td><form:select class="styled" path="task.process" value="${edTask.process}" multiple="single"
                     id="add-form-process">
                     <form:options items="${processMapAdd}" />
                   </form:select><br /> <span id=errorsDiv_task.process></span>&nbsp;</td>
+
+
+
+
+
+                <td class="ColumnLabel"><label for="add-form-product">Product Size Unit*</label></td>
+                <td><form:select class="styled" path="task.sizeunit" multiple="single" id="add-form-process"
+                    value="${task.sizeunit}">
+                    <form:options items="${sizeUnitMapAdd}" />
+
+                  </form:select><br /> <span id=errorsDiv_task.sizeunit></span>&nbsp;</td>
+
+
+
+
+
+
+
+
+
+
+
+
+              </tr>
+              <tr>
+                <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort*</label></td>
+                <td class="CellBGR3"><form:input path="task.plannedeffort" value="${edTask.plannedeffort}"
+                    id="add-form-plannedEffort" /> (Hours)<br /> <span id=errorsDiv_task.plannedeffort></span>&nbsp;</td>
                 <c:if test="${role == 'Project Manager' }">
                   <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
                   <td><form:select class="styled" path="task.assignedto" value="${edTask.assignedto}"
@@ -249,26 +299,6 @@
                       <form:options items="${developerMapAdd}" />
                     </form:select><br /> <span id=errorsDiv_task.assignedto></span>&nbsp;</td>
                 </c:if>
-              </tr>
-              <tr>
-                <td class="ColumnLabel"><label for="add-form-finishDate">Finish Date*</label></td>
-                <td class="CellBGR3"><form:input path="actualDate" value="${edTask.planDate_str}"
-                    id="add-form-finishDate" /> (MM-DD-YYYY)<br /> <span id=errorsDiv_actualDate></span>&nbsp;</td>
-                <td class="ColumnLabel"><label for="add-form-product">Product Type*</label></td>
-                <td><form:select class="styled" path="task.product" value="${edTask.product}" multiple="single"
-                    id="add-form-process">
-                    <form:options items="${productMapAdd}" />
-                  </form:select><br /> <span id=errorsDiv_task.product></span>&nbsp;</td>
-                <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
-                <td><form:select class="styled" path="task.statusid" value="${edTask.statusid}" multiple="single"
-                    id="add-form-status">
-                    <form:options items="${statusMapAdd}" />
-                  </form:select><br /> <span id=errorsDiv_task.statusid></span>&nbsp;</td>
-              </tr>
-              <tr>
-                <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort*</label></td>
-                <td class="CellBGR3"><form:input path="task.plannedeffort" value="${edTask.plannedeffort}"
-                    id="add-form-plannedEffort" /> (Hours)<br /> <span id=errorsDiv_task.plannedeffort></span>&nbsp;</td>
                 <td class="ColumnLabel"><label for="add-form-productSize">Product Size*</label></td>
                 <td class="CellBGR3"><form:input path="task.productsize" value="${edTask.productsize}"
                     id="add-form-productSize" /><br /> <span id=errorsDiv_task.productsize></span>&nbsp;</td>
@@ -277,6 +307,11 @@
                 <td class="ColumnLabel"><label for="add-form-currentEffort">Current Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.currenteffort" value="${edTask.currenteffort}"
                     id="add-form-currentEffort" /> (Hours)<br /> <span id=errorsDiv_task.currenteffort></span>&nbsp;</td>
+                <td class="ColumnLabel"><label for="add-form-status">Status*</label></td>
+                <td><form:select class="styled" path="task.statusid" value="${edTask.statusid}" multiple="single"
+                    id="add-form-status">
+                    <form:options items="${statusMapAdd}" />
+                  </form:select><br /> <span id=errorsDiv_task.statusid></span>&nbsp;</td>
                 <td class="ColumnLabel"><label for="add-form-completedSize">Completed Size</label></td>
                 <td class="CellBGR3"><form:input path="task.completedsize" value="${edTask.completedsize}"
                     id="add-form-completedSize" /><span id=errorsDiv_task.completedsize></span>&nbsp;</td>
@@ -285,6 +320,9 @@
                 <td class="ColumnLabel"><label for="add-form-description">Description*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                 <td class="CellBGR3"><form:textarea path="task.description" rows="4" cols="40"
                     id="add-form-description"></form:textarea><br /> <span id=errorsDiv_task.description></span>&nbsp;</td>
+              </tr>
+              <tr>
+
               </tr>
             </tbody>
           </table>

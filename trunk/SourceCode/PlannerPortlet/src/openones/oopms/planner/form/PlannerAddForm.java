@@ -41,6 +41,8 @@ public class PlannerAddForm {
     Map<String, String> developerMap;
     Map<String, String> processMap;
     Map<String, String> productMap;
+    Map<String, String> moduleMap;
+    Map<String, String> sizeUnitMap;
 
     public PlannerAddForm() {
 
@@ -52,13 +54,16 @@ public class PlannerAddForm {
         developerMap = new LinkedHashMap<String, String>();
         processMap = new LinkedHashMap<String, String>();
         productMap = new LinkedHashMap<String, String>();
+        moduleMap = new LinkedHashMap<String, String>();
+        sizeUnitMap = new LinkedHashMap<String, String>();
 
         statusMap.put("", " ");
         stageMap.put("", " ");
         developerMap.put("", " ");
         processMap.put("", " ");
         productMap.put("", " ");
-
+        moduleMap.put("", " ");
+        sizeUnitMap.put("", " ");
         projectId = " ";
 
         action_str = "none";
@@ -110,18 +115,20 @@ public class PlannerAddForm {
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
+   
     /**
      * Get value of actualDate.
      * @return the actualDate
      */
-    public String getactualDate() {
+    public String getActualDate() {
         return actualDate;
     }
+
     /**
      * Set the value for actualDate.
      * @param actualDate the actualDate to set
      */
-    public void setactualDate(String actualDate) {
+    public void setActualDate(String actualDate) {
         this.actualDate = actualDate;
     }
 
@@ -226,4 +233,37 @@ public class PlannerAddForm {
         this.task = task;
     }
 
+    /**
+     * Get value of moduleMap.
+     * @return the moduleMap
+     */
+    public Map<String, String> getModuleMap() {
+        return moduleMap;
+    }
+
+    /**
+     * Set the value for moduleMap.
+     * @param moduleMap the moduleMap to set
+     */
+    public void setModuleMap(Map<String, String> moduleMap) {
+        this.moduleMap = moduleMap;
+    }
+
+    /**
+     * Get value of sizeUnitMap.
+     * @return the sizeUnitMap
+     */
+    public Map<String, String> getSizeUnitMap() {
+        return sizeUnitMap;
+    }
+
+    /**
+     * Set the value for sizeUnitMap.
+     * @param sizeUnitMap the sizeUnitMap to set
+     */
+    public void setSizeUnitMap(Map<String, String> sizeUnitMap) {
+        this.sizeUnitMap = sizeUnitMap;
+    }
+    
+    
 }

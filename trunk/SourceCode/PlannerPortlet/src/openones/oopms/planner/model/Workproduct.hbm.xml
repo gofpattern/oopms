@@ -29,5 +29,11 @@
         <property name="appName" type="string">
             <column name="APP_NAME" />
         </property>
+                <set name="modules" inverse="true">
+            <key>
+                <column name="WORKPRODUCT_CODE" length="100" />
+            </key>
+            <one-to-many class="openones.oopms.planner.model.Module" />
+        </set>
     </class>
 </hibernate-mapping>

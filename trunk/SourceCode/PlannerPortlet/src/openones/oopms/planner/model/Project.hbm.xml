@@ -242,5 +242,11 @@
             </key>
             <one-to-many class="openones.oopms.planner.model.Assignment" />
         </set>
+         <set name="modules" inverse="true">
+            <key>
+                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="openones.oopms.planner.model.Module" />
+        </set>
     </class>
 </hibernate-mapping>

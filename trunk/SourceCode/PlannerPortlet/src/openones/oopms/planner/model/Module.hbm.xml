@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 5, 2012 2:58:21 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.planner.model.Module" table="MODULE" schema="FMSUSER" lazy="false">
+        <comment>Project products (Insight)</comment>
+        <id name="moduleId" type="big_decimal">
+            <column name="MODULE_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="project" class="openones.oopms.planner.model.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="workproduct" class="openones.oopms.planner.model.Workproduct" fetch="select">
+            <column name="WORKPRODUCT_CODE" length="100" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" length="500" not-null="true" />
+        </property>
+        <property name="wpId" type="big_decimal">
+            <column name="WP_ID" precision="22" scale="0" />
+        </property>
+        <property name="plannedDefect" type="big_decimal">
+            <column name="PLANNED_DEFECT" precision="22" scale="0" />
+        </property>
+        <property name="replannedDefect" type="big_decimal">
+            <column name="REPLANNED_DEFECT" precision="22" scale="0" />
+        </property>
+        <property name="plannedReviewDate" type="date">
+            <column name="PLANNED_REVIEW_DATE" length="7" />
+        </property>
+        <property name="plannedReleaseDate" type="date">
+            <column name="PLANNED_RELEASE_DATE" length="7" />
+        </property>
+        <property name="plannedTestEndDate" type="date">
+            <column name="PLANNED_TEST_END_DATE" length="7" />
+        </property>
+        <property name="plannedSize" type="big_decimal">
+            <column name="PLANNED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="replannedSize" type="big_decimal">
+            <column name="REPLANNED_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="actualReviewDate" type="date">
+            <column name="ACTUAL_REVIEW_DATE" length="7" />
+        </property>
+        <property name="actualReleaseDate" type="date">
+            <column name="ACTUAL_RELEASE_DATE" length="7" />
+        </property>
+        <property name="actualTestEndDate" type="date">
+            <column name="ACTUAL_TEST_END_DATE" length="7" />
+        </property>
+        <property name="actualSize" type="big_decimal">
+            <column name="ACTUAL_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="reuse" type="big_decimal">
+            <column name="REUSE" precision="22" scale="0" />
+        </property>
+        <property name="isDeliverable" type="big_decimal">
+            <column name="IS_DELIVERABLE" precision="22" scale="0" />
+        </property>
+        <property name="deliveryLocation" type="string">
+            <column name="DELIVERY_LOCATION" length="150" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="1800" />
+        </property>
+        <property name="status" type="big_decimal">
+            <column name="STATUS" precision="22" scale="0">
+                <comment>1 Pending, 2 Accepted, 3 Rejected, 4 Cancelled</comment>
+            </column>
+        </property>
+        <property name="commitedDeliveryDate" type="date">
+            <column name="COMMITED_DELIVERY_DATE" length="7" />
+        </property>
+        <property name="actualDeliveryDate" type="date">
+            <column name="ACTUAL_DELIVERY_DATE" length="7" />
+        </property>
+        <property name="conductor" type="string">
+            <column name="CONDUCTOR" length="150" />
+        </property>
+        <property name="reviewers" type="string">
+            <column name="REVIEWERS" length="600" />
+        </property>
+        <property name="approvers" type="string">
+            <column name="APPROVERS" length="600" />
+        </property>
+        <property name="plannedSizeUnitId" type="big_decimal">
+            <column name="PLANNED_SIZE_UNIT_ID" precision="22" scale="0">
+                <comment>links to table Estimation mothod or table language depending on size type</comment>
+            </column>
+        </property>
+        <property name="actualSizeUnitId" type="big_decimal">
+            <column name="ACTUAL_SIZE_UNIT_ID" precision="22" scale="0">
+                <comment>links to table Estimation mothod or table language depending on size type</comment>
+            </column>
+        </property>
+        <property name="plannedSizeType" type="big_decimal">
+            <column name="PLANNED_SIZE_TYPE" precision="22" scale="0">
+                <comment>1-estimation method, 0-language</comment>
+            </column>
+        </property>
+        <property name="actualSizeType" type="big_decimal">
+            <column name="ACTUAL_SIZE_TYPE" precision="22" scale="0">
+                <comment>1-estimation method, 0-language</comment>
+            </column>
+        </property>
+        <property name="replannedReleaseDate" type="date">
+            <column name="REPLANNED_RELEASE_DATE" length="7" />
+        </property>
+        <property name="baseline" type="string">
+            <column name="BASELINE" length="150" />
+        </property>
+        <property name="baselineStatus" type="java.lang.Boolean">
+            <column name="BASELINE_STATUS" precision="1" scale="0" />
+        </property>
+        <property name="baselineNote" type="string">
+            <column name="BASELINE_NOTE" length="600" />
+        </property>
+        <property name="replanDefectRate" type="big_decimal">
+            <column name="REPLAN_DEFECT_RATE" precision="22" scale="0" />
+        </property>
+        <property name="noteDefectRate" type="string">
+            <column name="NOTE_DEFECT_RATE" length="300" />
+        </property>
+        <property name="reasion" type="string">
+            <column name="REASION" length="600" />
+        </property>
+        <property name="action" type="string">
+            <column name="ACTION" length="600" />
+        </property>
+        <property name="newPlanSizeTest" type="big_decimal">
+            <column name="NEW_PLAN_SIZE_TEST" precision="22" scale="0" />
+        </property>
+        <property name="newPlanSizeRev" type="big_decimal">
+            <column name="NEW_PLAN_SIZE_REV" precision="22" scale="0" />
+        </property>
+        <property name="isDefectReview" type="big_decimal">
+            <column name="IS_DEFECT_REVIEW" precision="22" scale="0" />
+        </property>
+        <property name="isDefectTest" type="big_decimal">
+            <column name="IS_DEFECT_TEST" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>
