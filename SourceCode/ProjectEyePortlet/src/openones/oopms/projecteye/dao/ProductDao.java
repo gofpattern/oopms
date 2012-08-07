@@ -94,6 +94,24 @@ public class ProductDao {
 		return true;
 	}
 	
+	public boolean deteleProduct(String productId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From Module where moduleId = :moduleId";
+			Query query = session.createQuery(hql);
+			query.setParameter("moduleId", new BigDecimal(productId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
 	public List<Module> getProjectProductList(Project project, String searchType) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();

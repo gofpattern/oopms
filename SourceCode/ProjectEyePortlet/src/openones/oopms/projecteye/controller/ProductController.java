@@ -165,4 +165,80 @@ public class ProductController {
 		mav.addObject("productId", productId);
 		return mav;
 	}
+	
+	@RenderMapping(params = "action=RemoveProduct")
+	public ModelAndView postRemoveProduct(RenderRequest request) {
+		log.debug("post RemoveProduct.START");
+		String projectId = request.getParameter("projectId");
+		String productId = request.getParameter("productId");
+		ProductDao productDao = new ProductDao();
+		ModelAndView mav = new ModelAndView("Product", "ProductForm",
+				new ProductForm());
+		if(!productDao.deteleProduct(productId)) {
+			mav.addObject("deleteFlag","1");
+		}
+		ProductDao pDao = new ProductDao();
+		// get work Product List
+		List<Workproduct> workProductList = pDao.getWorkProductList();
+		Map<String, String> workProductMap = new LinkedHashMap<String, String>();
+		workProductMap.put("All", "All");
+		for (int i = 0; i < workProductList.size(); i++) {
+			workProductMap.put(workProductList.get(i).getCode(),
+					workProductList.get(i).getName());
+		}
+		Project project = new Project();
+		log.debug("project ID la " + projectId);
+		project.setProjectId(new BigDecimal(projectId));
+		List<Module> productList = pDao.getProjectProductList(project, "All");
+		List<ProductForm> projectProductList = new ArrayList<ProductForm>();
+		if (productList.size() > 0) {
+			for (int i = 0; i < productList.size(); i++) {
+				ProductForm temp = new ProductForm();
+				temp.setProductId(String.valueOf(productList.get(i).getModuleId()));
+				temp.setName(productList.get(i).getName());
+				// Workproduct temp2 =
+				// pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
+				Language unitSize = new Language();
+				temp.setWorkProduct(productList.get(i).getWorkproduct()
+						.getName());
+				if (productList.get(i).getPlannedSizeUnitId() != null) {
+					unitSize = pDao.getProductSizeUnit(productList.get(i)
+							.getPlannedSizeUnitId());
+					temp.setPlannedSize(productList.get(i).getPlannedSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
+				}
+				if (productList.get(i).getReplannedSize() != null) {
+					temp.setRePlannedSize(productList.get(i).getReplannedSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
+				}
+				if ((productList.get(i).getActualSize() != null)
+						&& (productList.get(i).getActualSizeUnitId() != null)) {
+					unitSize = pDao.getProductSizeUnit(productList.get(i)
+							.getActualSizeUnitId());
+					temp.setRePlannedSize(productList.get(i).getActualSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
+				}
+				// temp.setCreatedSize(createdSize)
+				temp.setDescription(productList.get(i).getNote());
+				projectProductList.add(temp);
+			}
+		}
+		mav.addObject("workProduct", workProductMap);
+		mav.addObject("projectProductList", projectProductList);
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
 }

@@ -19,14 +19,18 @@
 
 /**
  * Submit the form.
- * @param formName Identifier of the form. It combines the namespace of portlet and logical name of form.
- * @param eventId Code of event.
+ * 
+ * @param formName
+ *            Identifier of the form. It combines the namespace of portlet and
+ *            logical name of form.
+ * @param eventId
+ *            Code of event.
  * @return
  */
 function submitAction2(formName, actionUrl) {
 	var frm = document.forms[formName];
 	var flag = yav.performCheck(formName, rules, 'inline');
-	if(flag==true) {
+	if (flag == true) {
 		frm.action = actionUrl;
 		frm.submit();
 	}
@@ -34,6 +38,16 @@ function submitAction2(formName, actionUrl) {
 
 function submitAction(formName, actionUrl) {
 	var frm = document.forms[formName];
+	frm.action = actionUrl;
+	frm.submit();
+}
+
+function submitAction3(formName, actionUrl, notice) {
+	if (confirm(notice)) {
+		var frm = document.forms[formName];
 		frm.action = actionUrl;
 		frm.submit();
+	} else {
+		return false;
+	}
 }
