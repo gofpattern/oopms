@@ -805,14 +805,20 @@ table#mainTable {
     cursor: pointer;
 }
 #mainTable tbody {
- border-left: 1px solid #ddd; border-right: 1px solid #ddd; 
+ 
+ display: table-row-group;
+vertical-align: middle;
+
  }
- #mainTable2 {
- width: 100%; margin: 0 0 20px; border-collapse: collapse; 
+ /*#mainTable2 {
+ width: 100%;  border-collapse: collapse; 
  }
  #mainTable2 tbody { border-left: 1px solid #ddd; border-right: 1px solid #ddd; background: white;}
 #mainTable2 th { background: #5f5f5f url(../images/button_bg.png) repeat-x 0 -1px; padding: 8px; text-align: center; color: #fff; }
 #mainTable2 th.icons { width: 86px; }
+*/
+
+
 #mainTable2 td { line-height: 14px; }
 #mainTable2 th a { color: #fff; }
 #mainTable2 strong { color: #444; }
@@ -823,10 +829,10 @@ table#mainTable {
     cursor: pointer;
 }
 #mainTable2 tr:hover {
-    background: #30B7F3; color: white;
+    background: #157DEC; color: white;
 }
 .selected td {
-       background: #30B7F3; color: white;
+       background: #157DEC; color: white;
 }
 
 input[type="text"] {
