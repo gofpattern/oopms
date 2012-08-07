@@ -23,6 +23,71 @@ package openones.oopms.projecteye.form;
  * @author HaiTCT
  */
 public class UpdateProductForm {
-
+	private String workProduct_SelectedValue;
+	private String name;
+	private String description;
+	private String projectId;
+	private String productId;
+	/**
+	 * @return the workProduct_SelectedValue
+	 */
+	public String getWorkProduct_SelectedValue() {
+		return workProduct_SelectedValue;
+	}
+	/**
+	 * @param workProduct_SelectedValue the workProduct_SelectedValue to set
+	 */
+	public void setWorkProduct_SelectedValue(String workProduct_SelectedValue) {
+		this.workProduct_SelectedValue = workProduct_SelectedValue;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+	/**
+	 * @return the productId
+	 */
+	public String getProductId() {
+		return productId;
+	}
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+	
 
 }

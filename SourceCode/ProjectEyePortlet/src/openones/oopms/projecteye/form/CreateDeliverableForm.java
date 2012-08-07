@@ -34,6 +34,19 @@ public class CreateDeliverableForm {
 	private String deliverable_SelectedValue;
 	private String status_SelectedValue;
 	private String projectId;
+	private String plannedEndDateOfProject;
+	/**
+	 * @return the plannedEndDateOfProject
+	 */
+	public String getPlannedEndDateOfProject() {
+		return plannedEndDateOfProject;
+	}
+	/**
+	 * @param plannedEndDateOfProject the plannedEndDateOfProject to set
+	 */
+	public void setPlannedEndDateOfProject(String plannedEndDateOfProject) {
+		this.plannedEndDateOfProject = plannedEndDateOfProject;
+	}
 	/**
 	 * @return the deliverable
 	 */

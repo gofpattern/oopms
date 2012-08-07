@@ -19,61 +19,68 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.portlet.ActionResponse;
+import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ProductDao;
-import openones.oopms.projecteye.dao.WorkOrderDao;
-import openones.oopms.projecteye.form.CreateDeliverableForm;
+import openones.oopms.projecteye.form.CreateProductForm;
+import openones.oopms.projecteye.form.ProductForm;
+import openones.oopms.projecteye.form.UpdateProductForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Module;
+import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Workproduct;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author HaiTCT
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateDeliverableController {
+public class UpdateProductController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
 	private static Logger log = Logger
-			.getLogger(CreateDeliverableController.class);
+			.getLogger(UpdateProductController.class);
 	String projectId;
 
-	@ActionMapping(params = "action=CreateDeliverable")
-	public void processCreateDeliverable(CreateDeliverableForm formBean,
+	@ActionMapping(params = "action=UpdateProduct")
+	public void processUpdateProduct(UpdateProductForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
-		log.debug("process CreateDeliverable.START");
+		log.debug("process UpdateProduct.START");
 		projectId = formBean.getProjectId();
-		WorkOrderDao woDao = new WorkOrderDao();
 		ProductDao pDao = new ProductDao();
-
-		Module deliverable = woDao.getProduct(formBean
-				.getDeliverable_SelectedValue());
-
-		// set value for Deliverable
-		deliverable.setIsDeliverable(new BigDecimal("1"));
-		deliverable.setPlannedReleaseDate(formBean.getPlannedCommittedDate());
-		deliverable.setReplannedReleaseDate(formBean
-				.getRePlannedCommittedDate());
-		deliverable.setActualReleaseDate(formBean.getActualCommittedDate());
-		deliverable.setBaselineNote(formBean.getNote());
-
-		// Call dao to insert Deliverable to database
-		if (woDao.insertDeliverable(deliverable)) {
-			response.setRenderParameter("action", "GoWorkOrder");
+		Module product = pDao.getProduct(new BigDecimal(formBean.getProductId()));
+		Workproduct workProduct = new Workproduct();
+		workProduct.setCode(formBean.getWorkProduct_SelectedValue());
+		// set value for Product
+		product.setName(formBean.getName());
+		product.setWorkproduct(workProduct);		
+		product.setNote(formBean.getDescription());
+		// Call dao to insert project to database
+		if (pDao.updateProduct(product)) {
+			log.error("projectId : " + projectId);
+			response.setRenderParameter("action", "GoProduct");
 			response.setRenderParameter("projectId", projectId);
-			log.error("Insert success");
+			log.error("Update success");
 		} else {
-			log.error("Cannot Insert");
+			log.error("Cannot Update");
 		}
 
 	}

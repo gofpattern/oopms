@@ -80,11 +80,7 @@
 	rules[9] = 'planStartDate|date_le|$planEndDate';
 	rules[10] = 'planStartDate:Planned Start Date|date';
 	rules[11] = 'planEndDate:Planned End Date|date';
-    
-	 rules[12] = 'planStartDate|mask|mydate';
-	    rules[13] = 'planEndDate|mask|mydate';
 	    yav.addHelp('projectCode', 'Provide your Project Code');
-	    yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
 
 <title>Update Project</title>

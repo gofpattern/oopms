@@ -18,11 +18,158 @@
  */
 package openones.oopms.projecteye.form;
 
+import java.util.Date;
+import java.util.Map;
 
 /**
  * @author HaiTCT
  */
 public class UpdateDeliverableForm {
+	private String plannedCommittedDate;
+	private String rePlannedCommittedDate;
+	private String actualCommittedDate;
+	private String note;
+	private String deliverable_SelectedValue;
+	private String projectId;
+	private String plannedEndDateOfProject;
+	private String delivarableId;
+	private String delivarableName;
+
+	/**
+	 * @return the delivarableId
+	 */
+	public String getDelivarableId() {
+		return delivarableId;
+	}
+
+	/**
+	 * @param delivarableId
+	 *            the delivarableId to set
+	 */
+	public void setDelivarableId(String delivarableId) {
+		this.delivarableId = delivarableId;
+	}
+
+	/**
+	 * @return the delivarableName
+	 */
+	public String getDelivarableName() {
+		return delivarableName;
+	}
+
+	/**
+	 * @param delivarableName
+	 *            the delivarableName to set
+	 */
+	public void setDelivarableName(String delivarableName) {
+		this.delivarableName = delivarableName;
+	}
+
+	/**
+	 * @return the plannedCommittedDate
+	 */
+	public String getPlannedCommittedDate() {
+		return plannedCommittedDate;
+	}
+
+	/**
+	 * @param plannedCommittedDate
+	 *            the plannedCommittedDate to set
+	 */
+	public void setPlannedCommittedDate(String plannedCommittedDate) {
+		this.plannedCommittedDate = plannedCommittedDate;
+	}
+
+	/**
+	 * @return the rePlannedCommittedDate
+	 */
+	public String getRePlannedCommittedDate() {
+		return rePlannedCommittedDate;
+	}
+
+	/**
+	 * @param rePlannedCommittedDate
+	 *            the rePlannedCommittedDate to set
+	 */
+	public void setRePlannedCommittedDate(String rePlannedCommittedDate) {
+		this.rePlannedCommittedDate = rePlannedCommittedDate;
+	}
+
+	/**
+	 * @return the actualCommittedDate
+	 */
+	public String getActualCommittedDate() {
+		return actualCommittedDate;
+	}
+
+	/**
+	 * @param actualCommittedDate
+	 *            the actualCommittedDate to set
+	 */
+	public void setActualCommittedDate(String actualCommittedDate) {
+		this.actualCommittedDate = actualCommittedDate;
+	}
+
+	/**
+	 * @return the note
+	 */
+	public String getNote() {
+		return note;
+	}
+
+	/**
+	 * @param note
+	 *            the note to set
+	 */
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	/**
+	 * @return the deliverable_SelectedValue
+	 */
+	public String getDeliverable_SelectedValue() {
+		return deliverable_SelectedValue;
+	}
+
+	/**
+	 * @param deliverable_SelectedValue
+	 *            the deliverable_SelectedValue to set
+	 */
+	public void setDeliverable_SelectedValue(String deliverable_SelectedValue) {
+		this.deliverable_SelectedValue = deliverable_SelectedValue;
+	}
+
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+
+	/**
+	 * @param projectId
+	 *            the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	/**
+	 * @return the plannedEndDateOfProject
+	 */
+	public String getPlannedEndDateOfProject() {
+		return plannedEndDateOfProject;
+	}
+
+	/**
+	 * @param plannedEndDateOfProject
+	 *            the plannedEndDateOfProject to set
+	 */
+	public void setPlannedEndDateOfProject(String plannedEndDateOfProject) {
+		this.plannedEndDateOfProject = plannedEndDateOfProject;
+	}
+
 
 
 }

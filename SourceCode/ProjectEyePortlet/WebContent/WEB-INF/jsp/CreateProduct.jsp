@@ -21,13 +21,28 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>
+<script type="text/javascript">
+$(document).ready(function() {
+	  yav.init('${portletNamespace}CreateProduct', rules);      
+	});
+</script>
+<SCRIPT type="text/javascript">
+	var rules = new Array();
+	rules[0] = 'name:Name|required';
+	rules[1] = 'name:Name|maxlength|500';
+	rules[2] = 'description:Description|maxlength|1800';
+	yav.addHelp('name', 'Please input Name for product');
 
+</SCRIPT>
 <title>Create Product</title>	
 </head>
 
@@ -60,14 +75,16 @@
   	  </tr>
   	  <tr>
         <th scope="row">Name*</th>
-        <td><textarea rows="10" cols="70" name="name"></textarea></td>
+        <td><textarea rows="10" cols="70" name="name"></textarea>
+		<br/><span id=errorsDiv_name>&nbsp;</span></td>
       </tr>      
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description"></textarea></td>
+        <td><textarea rows="10" cols="70" name="description"></textarea>
+		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
   </table>                       
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProduct", "${formAction}")'>Create</button>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProduct", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProduct", "${renderAction}")'>Cancel</button>
 </form:form>

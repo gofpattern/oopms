@@ -28,6 +28,7 @@ public class UpdateStageForm {
 	private Date rePlannedStartDate;
 	private Date actualStartDate;
 	private Date plannedEndDate;
+	private String plannedEndDateOfNextStage;
 	private Date rePlannedEndDate;
 	private Date actualEndDate;
 	private String description;
@@ -35,6 +36,21 @@ public class UpdateStageForm {
 	private String projectId;
 	private String stageId;
 	private String stage;
+
+	/**
+	 * @return the plannedEndDateOfNextStage
+	 */
+	public String getPlannedEndDateOfNextStage() {
+		return plannedEndDateOfNextStage;
+	}
+
+	/**
+	 * @param plannedEndDateOfNextStage
+	 *            the plannedEndDateOfNextStage to set
+	 */
+	public void setPlannedEndDateOfNextStage(String plannedEndDateOfNextStage) {
+		this.plannedEndDateOfNextStage = plannedEndDateOfNextStage;
+	}
 
 	public String getStageId() {
 		return stageId;

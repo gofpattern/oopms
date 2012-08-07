@@ -29,7 +29,6 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
-
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 
 
@@ -72,11 +71,7 @@
 	rules[9] = 'planStartDate|date_le|$planEndDate';
 	rules[10] = 'planStartDate:Planned Start Date|date';
 	rules[11] = 'planEndDate:Planned End Date|date';
-	
-    rules[12] = 'planStartDate|mask|mydate';
-    rules[13] = 'planEndDate|mask|mydate';
 	yav.addHelp('projectCode', 'Provide your Project Code');
-	yav.addMask('mydate', '  /  /    ', '1234567890');
 
 </SCRIPT>
 
