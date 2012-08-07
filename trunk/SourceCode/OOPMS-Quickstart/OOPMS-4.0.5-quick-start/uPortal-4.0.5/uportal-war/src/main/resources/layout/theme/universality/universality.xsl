@@ -433,8 +433,9 @@
     <xsl:call-template name="logo"/>
     
     <!-- Web Search -->
+   <!-- Open-Ones
     <xsl:call-template name="web.search"/>
-    
+     -->
     <!-- Quicklinks
     <xsl:call-template name="quicklinks"/> -->
     
@@ -505,7 +506,8 @@
    | Template contents can be any valid XSL or XHTML.
   -->
   <xsl:template name="logo.block">
-  	<img src="{$SKIN_PATH}/images/portal_logo.png" alt="{upMsg:getMessage('portal.page.title', $USER_LANG)}"/>
+    <!-- Open-Ones: add style="float:left" -->
+  	<img src="{$SKIN_PATH}/images/portal_logo.png" alt="{upMsg:getMessage('portal.page.title', $USER_LANG)}" style="float:left"/>
     <!-- Text only: 
     <span><xsl:value-of select="upMsg:getMessage('portal.page.title', $USER_LANG)"/></span> -->
   </xsl:template>
@@ -643,9 +645,11 @@
     </div>
     -->
     <!-- Tips -->
+    <!-- Open-Ones 
     <div id="portalContentTopBlock">
         <xsl:copy-of select="//channel/parameter[@name = 'role' and @value = 'tips']/parent::*"/>
     </div>
+     -->
   </xsl:template>
   <!-- ================================================= -->
   
@@ -867,6 +871,11 @@
    | This template renders custom content into the page footer.
    | Template contents can be any valid XSL or XHTML.
   -->
+  <xsl:template name="footer.block.openones">
+    Customized by <a href="http://open-ones.com" target="_blank" title="Open-Ones Group">Open-Ones</a>.
+    <a href="http://www.jasig.org/uportal" target="_blank">Powered by uPortal</a>
+  </xsl:template>
+
   <xsl:template name="footer.block">
 
     <!-- Site Map -->

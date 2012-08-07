@@ -462,7 +462,10 @@
     	<div id="portalPageFooterInner">
       
         <!-- ****** FOOTER BLOCK ****** -->
-        <xsl:call-template name="footer.block"/> <!-- Calls a template of institution custom content from universality.xsl. -->
+        <!-- Open-Ones
+        <xsl:call-template name="footer.block"/>
+         --> <!-- Calls a template of institution custom content from universality.xsl. -->
+        <xsl:call-template name="footer.block.openones"/>
         <!-- ****** FOOTER BLOCK ****** -->
       
       </div>

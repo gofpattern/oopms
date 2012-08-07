@@ -237,7 +237,12 @@
   -->
   <xsl:template name="portal.page.bar.link.help">
   	<li class="link-help">
+     <!-- Open-Ones 
       <a href="{$HELP_URL}" title="{upMsg:getMessage('view.help.for.portal', $USER_LANG)}" target="_blank">
+        <span><xsl:value-of select="upMsg:getMessage('help', $USER_LANG)"/></span>
+      </a>
+      -->
+      <a href="http://open-ones.com/ishare" title="{upMsg:getMessage('view.help.for.portal', $USER_LANG)}" target="_blank">
         <span><xsl:value-of select="upMsg:getMessage('help', $USER_LANG)"/></span>
       </a>
     </li>
@@ -287,6 +292,7 @@
         </xsl:choose>
       </a>
     </div>
+    <xsl:call-template name="header.slogan"/>
   </xsl:template>
   <!-- ==================================== -->
   
@@ -342,11 +348,13 @@
       <a id="portalCASLoginLink" class="button" href="{$EXTERNAL_LOGIN_URL}" title="{upMsg:getMessage('sign.in.via.cas', $USER_LANG)}">
         <span><xsl:value-of select="upMsg:getMessage('sign.in', $USER_LANG)"/><!--&#160;<span class="via-cas"><xsl:value-of select="upMsg:getMessage('with.cas', $USER_LANG)"/></span>--></span>
       </a>
+      <!-- Open-Ones 
       <p><xsl:value-of select="upMsg:getMessage('new.user.question', $USER_LANG)"/>&#160; 
         <a id="portalCASLoginNewLink" href="{$CAS_NEW_USER_URL}" title="{upMsg:getMessage('create.new.portal.account', $USER_LANG)}">
           <xsl:value-of select="upMsg:getMessage('new.user', $USER_LANG)"/>
         </a>.
       </p>
+      -->
     </div>
   </xsl:template>
   <!-- ========================================= -->
@@ -601,5 +609,15 @@
       <p><xsl:value-of select="upMsg:getMessage('customize.this.page.description', $USER_LANG)"/></p>
   </xsl:template>
   <!-- ========================================== -->
+  <!-- Open-Ones -->
+  <xsl:template name="header.slogan">
+    <div class="header-slogan">
+    <marquee direction="up" scrollamount="1">
+    The perfect is the enemy of the good - Voltaire.<br/>
+    A verbal contract isn't worth the paper it's written on - Unknow author.<br/>
+    If an IT project works the first time, it is wrong - Unknow author.
+    </marquee>
+    </div>
+  </xsl:template>
   
 </xsl:stylesheet>
