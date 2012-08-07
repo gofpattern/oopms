@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuBar>
+  <SubMenu name="Project Detail" action="GoProjectDetail"></SubMenu>
+  <SubMenu name="Risk, Issue" action="GoRiskIssue"></SubMenu>
+  <SubMenu name="Change Request" action="GoChangeRequest"></SubMenu>
+  <SubMenu name="Product" action="GoProduct"></SubMenu>
+  <SubMenu name="Work Order" action="GoWorkOrder"></SubMenu>
+  <SubMenu name="Cost Management" action="GoCostManagement"></SubMenu>
+</MenuBar>

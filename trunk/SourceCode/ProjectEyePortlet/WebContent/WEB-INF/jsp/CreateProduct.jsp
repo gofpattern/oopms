@@ -29,7 +29,6 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
-<meta name="robots" content="noindex, nofollow"/>
 <script type="text/javascript">
 $(document).ready(function() {
 	  yav.init('${portletNamespace}CreateProduct', rules);      
@@ -48,17 +47,17 @@ $(document).ready(function() {
 
 <body id="portal" class="up fl-theme-mist">
 
-<div id="portalPageBodyInner" class="container">
+<div id="portalPageBodyInner" class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
 
   <div class="content">
   <!-- begin .navigator -->
-	<jsp:include page="Nagivator.jsp" />
+	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
     	<h2 class="title" >Create Product</h2>
     </div>
 
-<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
+
 	<portlet:actionURL var="formAction">
   		<portlet:param name="action" value="CreateProduct" />
   		<portlet:param name="projectId" value="${projectId}" />
@@ -89,7 +88,7 @@ $(document).ready(function() {
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProduct", "${renderAction}")'>Cancel</button>
 </form:form>
 
-</div>
+
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
