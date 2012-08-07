@@ -27,4 +27,7 @@
 			<p><spring:message code="screen.logout.success" /></p>
 			<p><spring:message code="screen.logout.security" /></p>
 		</div>
+		<div>
+		<a href="/">Go Home</a>
+		</div>
 <jsp:directive.include file="includes/bottom.jsp" />
