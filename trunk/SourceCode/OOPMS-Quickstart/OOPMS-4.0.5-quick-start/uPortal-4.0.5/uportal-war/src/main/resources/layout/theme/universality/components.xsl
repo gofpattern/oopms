@@ -612,8 +612,8 @@
   <!-- Open-Ones -->
   <xsl:template name="header.slogan">
     <div class="header-slogan">
-    <marquee direction="up" scrollamount="1" height="64" width="400">
-    The perfect is the enemy of the good - Voltaire.<br/>
+    <marquee direction="up" scrollamount="1" height="64" width="450">
+    The perfect is the enemy of the good. - Voltaire.<br/>
     A verbal contract isn't worth the paper it's written on - Unknow author.<br/>
     If an IT project works the first time, it is wrong - Unknow author.
     </marquee>
