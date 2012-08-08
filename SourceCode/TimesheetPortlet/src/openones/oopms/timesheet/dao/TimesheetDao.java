@@ -51,8 +51,7 @@ public class TimesheetDao {
             return projectList;
 
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
+
 
         }
         return null;

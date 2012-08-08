@@ -18,6 +18,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.portlet.controller.BaseController;
 import openones.oopms.timesheet.dao.TimesheetDao;
 import openones.oopms.timesheet.dao.UserDao;
 import openones.oopms.timesheet.form.LoginForm;
@@ -109,15 +110,22 @@ public class TimesheetController {
     @RequestMapping
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
+      
         ModelAndView mav;
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
         
         System.out.println("logonUser=" + logonUser);
-
+        //super.initScreen(request, session);
         if ((logonUser == null) || ("guest".equals(logonUser))) {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
+            try {
+                
+            
+            userDao = new UserDao();
+
+            user = userDao.authenticate(logonUser, "");
             mav = new ModelAndView("Timesheet"); // display Timesheet.jsp            
             TimesheetDao timesheetDao = new TimesheetDao();
             projectMap = new LinkedHashMap<String, String>();
@@ -168,6 +176,11 @@ public class TimesheetController {
             // Return to jsp
             return mav;
         }
+            catch (Exception e) {
+                mav = new ModelAndView("login");
+            }
+        }
+        
 
         return mav;
     }
