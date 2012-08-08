@@ -3,6 +3,7 @@
     <wb-module deploy-name="TimesheetPortlet">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resource"/>
         <property name="context-root" value="portletdriver/dt"/>
         <property name="java-output-path" value="/TimesheetPortlet/build/classes"/>
     </wb-module>
