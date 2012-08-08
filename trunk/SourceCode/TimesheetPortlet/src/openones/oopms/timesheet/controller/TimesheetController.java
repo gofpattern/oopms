@@ -19,14 +19,15 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.portlet.controller.BaseController;
-import openones.oopms.timesheet.dao.TimesheetDao;
-import openones.oopms.timesheet.dao.UserDao;
+import openones.oopms.daocommon.DeveloperDao;
+import openones.oopms.daocommon.TimesheetDao;
+import openones.oopms.daocommon.UserDao;
 import openones.oopms.timesheet.form.LoginForm;
 import openones.oopms.timesheet.form.TimesheetForm;
-import openones.oopms.timesheet.model.Developer;
-import openones.oopms.timesheet.model.Project;
-import openones.oopms.timesheet.model.Timesheet;
-import openones.oopms.timesheet.model.Typeofwork;
+import openones.oopms.entity.Developer;
+import openones.oopms.entity.Project;
+import openones.oopms.entity.Timesheet;
+import openones.oopms.entity.Typeofwork;
 import openones.oopms.timesheet.utils.CommonUtil;
 import openones.portlet.PortletSupport;
 
@@ -54,7 +55,7 @@ import rocky.common.PropertiesManager;
 public class TimesheetController {
     // Declare static variables
     // List process of timesheet
-    private static List<openones.oopms.timesheet.model.Process> processList = new ArrayList<openones.oopms.timesheet.model.Process>();
+    private static List<openones.oopms.entity.Process> processList = new ArrayList<openones.oopms.entity.Process>();
     // List work types of timesheet
     private static List<Typeofwork> towList = new ArrayList<Typeofwork>();
     // List work product of timesheet
@@ -123,9 +124,9 @@ public class TimesheetController {
             try {
                 
             
-            userDao = new UserDao();
+           DeveloperDao devDao = new DeveloperDao();
 
-            user = userDao.authenticate(logonUser, "");
+            user = devDao.getDeveloperByAccount(logonUser);
             mav = new ModelAndView("Timesheet"); // display Timesheet.jsp            
             TimesheetDao timesheetDao = new TimesheetDao();
             projectMap = new LinkedHashMap<String, String>();
@@ -224,10 +225,10 @@ public class TimesheetController {
         System.out.println("processLogin.START");
         System.out.println("username=" + formBean.getUsername());
         // session.setAttribute("user", formBean);
-        
+        DeveloperDao devDao = new DeveloperDao();
         userDao = new UserDao();
 
-        user = userDao.authenticate(formBean.getUsername(), formBean.getPassword());
+        user = devDao.getDeveloperByAccount(formBean.getUsername());
 
         if (user != null) {
             // Prepare parameter to render phase

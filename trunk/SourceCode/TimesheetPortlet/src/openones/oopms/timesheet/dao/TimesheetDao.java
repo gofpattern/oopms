@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import openones.oopms.timesheet.model.Assignment;
-import openones.oopms.timesheet.model.Project;
-import openones.oopms.timesheet.model.Timesheet;
-import openones.oopms.timesheet.model.Typeofwork;
-import openones.oopms.timesheet.model.Workproduct;
+import openones.oopms.entity.Assignment;
+import openones.oopms.entity.Project;
+import openones.oopms.entity.Timesheet;
+import openones.oopms.entity.Typeofwork;
+import openones.oopms.entity.Workproduct;
 import openones.oopms.timesheet.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -166,11 +166,11 @@ public class TimesheetDao {
         return null;
     }
 
-    public List<openones.oopms.timesheet.model.Process> getProcessList() {
+    public List<openones.oopms.entity.Process> getProcessList() {
         // session.getTransaction().begin();
         String hql = "from Process order by processId";
         Query query = session.createQuery(hql);
-        List<openones.oopms.timesheet.model.Process> processList = query.list();
+        List<openones.oopms.entity.Process> processList = query.list();
 
         // session.flush();
         // session.getTransaction().commit();

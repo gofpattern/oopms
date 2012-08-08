@@ -1,7 +1,7 @@
 package openones.oopms.timesheet.dao;
 
-import openones.oopms.timesheet.model.Developer;
-import openones.oopms.timesheet.model.Users;
+import openones.oopms.entity.Developer;
+import openones.oopms.entity.Users;
 import openones.oopms.timesheet.utils.HibernateUtil;
 
 import org.hibernate.Query;
@@ -27,9 +27,7 @@ public class UserDao {
            Query query = session.createQuery(hql);
            query.setString(0, username);
           Developer result = (Developer) query.uniqueResult();
-        //   Users result =  (Users) session.createSQLQuery(sql).addEntity(Users.class).uniqueResult();
-           session.flush();
-           session.getTransaction().commit();
+      
            System.out.println("system.out.println"+result.getAccount());
            return result;
            
