@@ -2,7 +2,7 @@ package openones.oopms.timesheet.form;
 
 import java.util.List;
 import java.util.Map;
-import openones.oopms.timesheet.model.Timesheet;
+import openones.oopms.entity.Timesheet;
 
 public class TimesheetForm {
     Map<String,String> projectMap;
