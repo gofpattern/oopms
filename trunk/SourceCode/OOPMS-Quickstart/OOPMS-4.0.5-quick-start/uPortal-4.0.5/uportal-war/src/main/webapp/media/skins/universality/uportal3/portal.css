@@ -1555,10 +1555,12 @@
 .up #portalHeaderBlock {
     background: #294D6B;
 }
+
+/* Open-Ones */
 .header-slogan {
   width: 100%;
-  height: 100%
-  margin: 0 auto;
+  height: 64px;
+  margin-left: 140em;
   color: white;
 }
 .header-slogan:after {
