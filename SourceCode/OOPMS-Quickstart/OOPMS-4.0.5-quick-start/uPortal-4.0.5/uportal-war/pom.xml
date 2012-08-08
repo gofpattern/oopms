@@ -550,6 +550,8 @@
                     <include>properties/rdbm.properties</include>
                     <include>properties/security.properties</include>
                     <include>properties/contexts/userContext.xml</include>
+                    <!-- Open-Ones -->
+                    <include>properties/contexts/datasourceContext.xml</include>
                 </includes>
             </resource>
             <!-- 
@@ -563,6 +565,8 @@
                     <exclude>properties/rdbm.properties</exclude>
                     <exclude>properties/security.properties</exclude>
                     <exclude>properties/contexts/userContext.xml</exclude>
+                    <!-- Open-Ones -->
+                    <exclude>properties/contexts/datasourceContext.xml</exclude>
                 </excludes>
             </resource>
         </resources>
