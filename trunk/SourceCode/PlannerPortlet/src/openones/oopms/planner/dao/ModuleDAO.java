@@ -31,31 +31,30 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  * @author PNTG
- *
  */
 public class ModuleDAO {
     private Session session;
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public ModuleDAO() {
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        this.session = factory.getCurrentSession();
+
     }
-    
+
     public List<Module> getModuleByProject(BigDecimal projectId) {
         log.debug("getModuleByProject.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Module where project.projectId = :projectId";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", projectId);
             @SuppressWarnings("unchecked")
             List<Module> moduleList = query.list();
-            session.flush();
-            System.out.println("getModuleByProject.end");
             return moduleList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -65,18 +64,18 @@ public class ModuleDAO {
         }
         return null;
     }
-    
+
     public List<Workproduct> getWorkproductByProject(BigDecimal projectId) {
         log.debug("getWorkproductByProject.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "select workproduct from Module md where md.project.projectId = :projectId";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", projectId);
             @SuppressWarnings("unchecked")
             List<Workproduct> wproductList = query.list();
-            session.flush();
-            System.out.println("getWorkproductByProject.end");
             return wproductList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -86,18 +85,18 @@ public class ModuleDAO {
         }
         return null;
     }
-    
+
     public List<Tasks> getTaskByModule(BigDecimal moduleId) {
         log.debug("getTaskByModule.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Tasks t where t.module.moduleId = :moduleId";
             Query query = session.createQuery(sql);
             query.setParameter("moduleId", moduleId);
             @SuppressWarnings("unchecked")
             List<Tasks> taskList = query.list();
-            session.flush();
-            System.out.println("getTaskByModule.end");
             return taskList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -107,38 +106,43 @@ public class ModuleDAO {
         }
         return null;
     }
-    
+
     public void updateModuleByTask(Tasks task) {
         log.debug("updateModuleByTask.START");
         try {
-            session.getTransaction().begin();
-            Module module = (Module) session.get(Module.class, task.getModule());
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            Module module = (Module) session.get(Module.class, task.getModule().getModuleId());
             module.setPlannedSize(module.getPlannedSize().add(task.getProductsize()));
             module.setActualSize(module.getActualSize().add(task.getCompletedsize()));
             module.setPlannedSizeUnitId(task.getSizeunit());
             module.setActualSizeUnitId(task.getSizeunit());
             List<Tasks> taskList = getTaskByModule(module.getModuleId());
-            for(int i= 0;i<taskList.size();i++){
-                if (taskList.get(i).getStatusid().equals(new BigDecimal(175))){
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).getStatusid().equals(new BigDecimal(175))) {
                     taskList.remove(taskList.get(i));
                 }
             }
-            if(taskList.size() == 0) module.setStatus(new BigDecimal(175));// 175: CANCEL
+            if (taskList.size() == 0)
+                module.setStatus(new BigDecimal(175));// 175: CANCEL
             else {
                 Boolean flag = true;
-                for(int i = 0;i<taskList.size();i++)
-                {
-                    if (taskList.get(0).getStatusid()!= taskList.get(i).getStatusid())
-                    flag = false;
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(0).getStatusid() != taskList.get(i).getStatusid())
+                        flag = false;
                 }
-                if(flag.equals(true)) module.setStatus(taskList.get(0).getStatusid());
-                else module.setStatus(new BigDecimal(173));// 173: ON-GOING
-                
-            }               
-            
+                if (flag.equals(true))
+                    module.setStatus(taskList.get(0).getStatusid());
+                else
+                    module.setStatus(new BigDecimal(173));// 173: ON-GOING
+
+            }
+
             session.merge(module);
-            session.flush();
-      
+            tx.commit();
+            factory.close();
+
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -146,5 +150,5 @@ public class ModuleDAO {
             log.error("updateModuleByTask.Exception", e);
         }
     }
-    
+
 }

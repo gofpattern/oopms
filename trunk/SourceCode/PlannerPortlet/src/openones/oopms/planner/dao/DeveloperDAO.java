@@ -36,20 +36,19 @@ public class DeveloperDAO {
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public DeveloperDAO() {
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        this.session = factory.getCurrentSession();
+
     }
 
     public BigDecimal getDeveloperId(String account) {
         log.debug("getDeveloperId.START");
         try {
-            session.getTransaction().begin();
-            String sql = "select developerId from Developer where account = :account";
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
+            String sql = "select developerId from Developer where UPPER(account) = :account";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account);
+            query.setParameter("account", account.toUpperCase());
             BigDecimal developerId = (BigDecimal) query.uniqueResult();
-            session.flush();
-            System.out.println("getDeveloperId.end");
             return developerId;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -63,13 +62,13 @@ public class DeveloperDAO {
     public Developer getDeveloperByAccount(String account) {
         log.debug("getDeveloperByAccount.START");
         try {
-            session.getTransaction().begin();
-            String sql = "from Developer where account = :account";
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
+            String sql = "from Developer where UPPER(account) = :account";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account);
+            query.setParameter("account", account.toUpperCase());
             Developer developer = (Developer) query.uniqueResult();
-            session.flush();
-            System.out.println("getDeveloperByAccount.end");
             return developer;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {

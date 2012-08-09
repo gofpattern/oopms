@@ -38,21 +38,20 @@ public class AssignmentDAO {
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public AssignmentDAO() {
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        this.session = factory.getCurrentSession();
+
     }
 
     @SuppressWarnings("unchecked")
     public List<Project> getProject(BigDecimal developerId) {
         log.debug("getProject.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
             List<Project> projectList = query.list();
-            session.flush();
-            System.out.println("getProject.end");
             return projectList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -65,14 +64,14 @@ public class AssignmentDAO {
 
     public String getRole(String developerId, String projectId) {
         try {
-            System.out.println("getRole : " + developerId + " " + projectId);
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
             Query query = session.createQuery(hql);
             query.setString(0, developerId);
             query.setString(1, projectId);
             Assignment assi = (Assignment) query.uniqueResult();
-            session.flush();
             if (assi.getType() == 1) {
                 return "Project Manager";
             } else if (assi.getType() == 2) {

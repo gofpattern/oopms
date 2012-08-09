@@ -9,7 +9,6 @@ import java.util.List;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.GeneralReference;
 import openones.oopms.planner.model.Language;
-import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Stage;
@@ -21,25 +20,26 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class TaskDAO {
     private Session session;
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public TaskDAO() {
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        this.session = factory.getCurrentSession();
+
     }
 
     @SuppressWarnings("unchecked")
     public List<GeneralReference> getProjectStatusEn() {
         log.debug("getProjectStatusEn.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from GeneralReference where groupCode = 'PROJECT_STATUS' and languageCode.langCode  = 'en'";
             Query query = session.createQuery(sql);
             List<GeneralReference> statusList = query.list();
-            session.flush();
             System.out.println("getProjectStatusEn.end");
             return statusList;
 
@@ -57,11 +57,12 @@ public class TaskDAO {
     public List<Tasks> getAllTask() {
         log.debug("getAllTask.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
             List<Tasks> taskList = query.list();
-            session.flush();
             System.out.println("getAllTask.end");
             return taskList;
         } catch (Exception e) {
@@ -84,15 +85,15 @@ public class TaskDAO {
     public List<Tasks> getTasksByProjectId(String projectId) {
         log.debug("getTaskByProjectId.START");
         try {
-            session.getTransaction().begin();
-            // clear cache to get new
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             session.clear();
             String sql = "from Tasks where projectid = :projectId and active = true";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             @SuppressWarnings("unchecked")
             List<Tasks> taskList = query.list();
-            session.flush();
             System.out.println("getTaskByProjectId.end");
             return taskList;
         } catch (Exception e) {
@@ -107,10 +108,11 @@ public class TaskDAO {
     public Tasks getTaskById(BigDecimal taskId) {
         log.debug("getTaskById.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             session.clear();
             Tasks task = (Tasks)session.get(Tasks.class, taskId);
-            session.flush();
             System.out.println("getTaskById.end");
             return task;
         } catch (Exception e) {
@@ -122,11 +124,12 @@ public class TaskDAO {
     public List<Stage> getAllStage() {
         log.debug("getAllStage.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Stage";
             Query query = session.createQuery(sql);
             List<Stage> stageList = query.list();
-            session.flush();
             System.out.println("getAllStage.end");
             return stageList;
         } catch (Exception e) {
@@ -142,11 +145,12 @@ public class TaskDAO {
     public List<Project> getAllProject() {
         log.debug("getAllProject.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Project";
             Query query = session.createQuery(sql);
             List<Project> projectList = query.list();
-            session.flush();
             return projectList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -161,11 +165,12 @@ public class TaskDAO {
     public List<Workproduct> getAllProduct() {
         log.debug("getAllProduct.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Workproduct";
             Query query = session.createQuery(sql);
             List<Workproduct> productList = query.list();
-            session.flush();
             return productList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -180,11 +185,12 @@ public class TaskDAO {
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Process";
             Query query = session.createQuery(sql);
             List<Process> processList = query.list();
-            session.flush();
             System.out.println("getAllProcess.end");
             return processList;
         } catch (Exception e) {
@@ -204,14 +210,14 @@ public class TaskDAO {
     public List<Developer> getDeveloper(String projectId) {
         log.debug("getDeveloper.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "select developer from Assignment ass where ass.project.projectId = :projectId";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             @SuppressWarnings("unchecked")
             List<Developer> developerList = query.list();
-            session.flush();
-            System.out.println("getAssignment.end");
             return developerList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -228,10 +234,12 @@ public class TaskDAO {
      */
     public void addTask(Tasks task) {
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             session.save(task);
-            session.flush();
             session.getTransaction().commit();
+            factory.close();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -246,13 +254,14 @@ public class TaskDAO {
      */
     public void deleteTask(BigDecimal id) {
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            Transaction tx = session.beginTransaction();
             Tasks task = (Tasks) session.get(Tasks.class, id);
             task.setActive(false);
-            // session.delete(session.get(Tasks.class, id));
             session.update(task);
-            session.flush();
-            session.getTransaction().commit();
+            tx.commit();
+            factory.close();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -269,15 +278,17 @@ public class TaskDAO {
     public void updateTask(Tasks editTask) {
         log.debug("updateTask.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            Transaction tx = session.beginTransaction();
             if (editTask.getStatusid().equals(new BigDecimal(174))) {
                 Calendar cal = Calendar.getInstance();
                 editTask.setActualDate(cal.getTime());
                 editTask.setEffort(editTask.getCurrenteffort());
             }
             session.merge(editTask);
-            session.flush();
-            session.getTransaction().commit();
+            tx.commit();
+            factory.close();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -289,13 +300,13 @@ public class TaskDAO {
     public List<Language> getSizeUnit() {
         log.debug("getSizeUnit.START");
         try {
-            session.getTransaction().begin();
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
             String sql = "from Language";
             Query query = session.createQuery(sql);
             @SuppressWarnings("unchecked")
             List<Language> sizeUnitList = query.list();
-            session.flush();
-            System.out.println("getSizeUnit.end");
             return sizeUnitList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
