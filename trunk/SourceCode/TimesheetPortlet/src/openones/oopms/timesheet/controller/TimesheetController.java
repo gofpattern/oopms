@@ -137,7 +137,7 @@ public class TimesheetController {
            System.out.println("ROLE : " + role);
             //projectMap.put("All", "All");
             for (int i = 0; i < projectList.size(); i++) {
-                projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+                projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getCode());
             }
          
             
@@ -259,7 +259,7 @@ public class TimesheetController {
        System.out.println("ROLE : " + role);
         //projectMap.put("All", "All");
         for (int i = 0; i < projectList.size(); i++) {
-            projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+            projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getCode());
         }
         // Set project list to form
         formBean.setProjectMap(projectMap);
@@ -513,9 +513,7 @@ public class TimesheetController {
             processMap.put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
 
-        // Set project list to form
-        projectMap.remove("All");
-
+     
     }
     
     /**
