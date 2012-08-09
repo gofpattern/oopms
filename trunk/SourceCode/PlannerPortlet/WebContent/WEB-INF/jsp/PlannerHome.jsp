@@ -95,7 +95,7 @@
 		// Check module of project
 		  $(function() {
 			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
-								alert("Product of your selected project has not created.\nPlease create some products for your project before assigning task.");	
+								alert("Product of your selected project has not been created.\nPlease create some products for your project at Project Eye Portlet before assigning task.");	
 		  });
 		
 					});
