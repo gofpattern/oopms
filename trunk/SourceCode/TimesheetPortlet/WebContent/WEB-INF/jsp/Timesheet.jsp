@@ -115,8 +115,7 @@ function submitAction(formName, actionUrl) {
                     "sPaginationType": "full_numbers"
                 } );
                 
-                SyntaxHighlighter.config.clipboardSwf = 'media/javascript/syntax/clipboard.swf';
-                SyntaxHighlighter.all();
+             
                 
             } );
         </script>
@@ -150,7 +149,7 @@ function submitAction(formName, actionUrl) {
           <form:options items="${projectMap}" />
         </form:select></td>
         <td><strong>From Date</strong></td>
-        <td class="vAlignMid"><form:input cssStyle="width:80px;"
+        <td><form:input cssStyle="width:80px;"
           path="fromDate" id="datepicker1" /></td>
 
 
@@ -207,23 +206,23 @@ function submitAction(formName, actionUrl) {
         </select>
         </c:if>
         </td>
-        <td width="17%" align="left"><strong>To Date</strong></td>
-        <td colspan="2" class="vAlignMid"><form:input
+        <td  align="left"><strong>To Date</strong></td>
+        <td ><form:input
           cssStyle="width:80px;" path="toDate" id="datepicker2" /></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-
-  <p><input type="submit" id="Search" class="button blue small"
-    name="Search" value="Search" /></p>
-
-</form:form> <portlet:actionURL var="timesheetFormAction2">
+<portlet:actionURL var="timesheetFormAction2">
   <portlet:param name="action" value="goAddTimesheet" />
-</portlet:actionURL> <form:form name="timesheet" method="post" commandName="timesheetForm"
-  action="${timesheetFormAction2}">
-  <p><input type="submit" id="Search" class="button green small"
+</portlet:actionURL>
+  <p><input type="submit" id="Search" class="button blue small"
+    name="Search" value="Search" /> 
+<input type="button"  onclick='submitAction("Timesheet", "${timesheetFormAction2}")' id="Add" class="button green small"
     name="Add" value="Add" /></p>
+</form:form>  <form:form name="timesheet" method="post" commandName="timesheetForm"
+  action="${timesheetFormAction2}">
+ 
      <c:if test="${not empty timesheetError}"> <label id="noSelect" style="display: inline; color: red;">${timesheetError}</label><br></c:if>   
       
     <div id="errorDiv" align="center" style=" display: none; ">    
@@ -243,7 +242,7 @@ function submitAction(formName, actionUrl) {
   <portlet:param name="action" value="goRejectTimesheet" />
 </portlet:actionURL><form:form name="Timesheet" method="post" commandName="timesheetForm"
   action="${goUpdateTimesheetAction}">
-  <table id="mainTable2" class="display dataTable" cellpadding="0"
+  <table id="mainTable2" style="width: 1024px;" class="display dataTable" cellpadding="0"
     cellspacing="0" border="0">
     <thead>
       <tr>
@@ -254,7 +253,7 @@ function submitAction(formName, actionUrl) {
         <th width="5%">Work</th>
         <th width="5%">Process</th>
         <th width="5%">Time</th>
-        <th width="48%">Description</th>
+        <th width="55%">Description</th>
         <th width="7%">Status</th>
       </tr>
     </thead>
@@ -272,7 +271,7 @@ function submitAction(formName, actionUrl) {
             <td><font color="">${timesheet.towName}</font></td>
             <td><font color="">${timesheet.processName}</font></td>
             <td><font color="">${timesheet.duration}</font></td>
-            <td><font color="">${timesheet.description}</font></td>
+            <td style="text-align: left;"><font color="">${timesheet.description}</font></td>
             <td><c:if test="${timesheet.status==0}">UnApproved</c:if>
             <c:if test="${timesheet.status==1}">Approved</c:if>
              <c:if test="${timesheet.status==2}"><font color="red">Rejected</font></c:if></td>
