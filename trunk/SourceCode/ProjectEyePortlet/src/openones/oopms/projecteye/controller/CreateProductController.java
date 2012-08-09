@@ -77,6 +77,8 @@ public class CreateProductController {
 		//isDeliverable 0 is not added to any deliverable, 1 is added to deliverable plan
 		product.setName(formBean.getName());
 		product.setWorkproduct(workProduct);
+		product.setActualSize(new BigDecimal("0"));
+		product.setPlannedSize(new BigDecimal("0"));
 //		product.setPlannedSizeUnitId(new BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
 //		
 //		if(formBean.getPlannedSize().equals("") || formBean.getPlannedSize()==null) {
