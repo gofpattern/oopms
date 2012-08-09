@@ -45,9 +45,9 @@ public class DeveloperDAO {
         try {
 
             session.getTransaction().begin();
-            String sql = "select developerId from Developer where account = :account";
+            String sql = "select developerId from Developer where UPPER(account) = :account";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account);
+            query.setParameter("account", account.toUpperCase());
             BigDecimal developerId = (BigDecimal) query.uniqueResult();
             return developerId;
         } catch (Exception e) {
@@ -64,9 +64,9 @@ public class DeveloperDAO {
         try {
 
             session.getTransaction().begin();
-            String sql = "from Developer where account = :account";
+            String sql = "from Developer where UPPER(account) = :account";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account);
+            query.setParameter("account", account.toUpperCase());
             Developer developer = (Developer) query.uniqueResult();
             log.debug("developer="+developer.getName());
             return developer;
