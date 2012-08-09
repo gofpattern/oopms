@@ -274,6 +274,7 @@
   -->
   <xsl:template name="logo">  
     <div id="portalLogo">
+      <div class="header-logo">
       <xsl:variable name="homeUrl">
         <xsl:call-template name="portalUrl"/>
       </xsl:variable>
@@ -291,6 +292,7 @@
           </xsl:otherwise>
         </xsl:choose>
       </a>
+      </div>
       <xsl:call-template name="header.slogan"/>
     </div>
   </xsl:template>
