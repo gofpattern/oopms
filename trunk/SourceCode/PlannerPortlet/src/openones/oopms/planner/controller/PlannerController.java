@@ -293,12 +293,22 @@ public class PlannerController {
 
     @ActionMapping(params = "action=changeProject")
     public void processChangeProject(PlannerForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) {
-        log.debug("processChangeProject.START");
-        projectDefault = formBean.getProjectId();
-        log.debug("projectDefault = " + projectDefault);
-        formBean.setInit(true);
-        response.setRenderParameter("action", "taskmanager");
+            ActionResponse response, PortletSession session) {
+        log.debug("processChangeProject.START");       
+        
+        ModuleDAO moduleDAO = new ModuleDAO();
+        List<Module> moduleList = moduleDAO.getModuleByProject(new BigDecimal(formBean.getProjectId()));      
+
+        if (moduleList.size() != 0) {
+            projectDefault = formBean.getProjectId();
+//          log.debug("projectDefault = " + projectDefault);
+          formBean.setInit(true);          
+          response.setRenderParameter("action", "taskmanager");
+        } else {
+            log.debug("CHANGEPROJECT_ERROR");
+            session.setAttribute("CHANGEPROJECT_ERROR", true, PortletSession.APPLICATION_SCOPE); 
+            response.setRenderParameter("action", "taskmanager");
+        }      
     }
 
     @RenderMapping(params = "action=changeProject")

@@ -104,6 +104,11 @@
 	$(document)
 			.ready(
 					function() {
+						// Check module of project
+				          $(function() {
+				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
+				                                alert("Product of your selected project has not created.\nPlease create some products for your project before assigning task.");    
+				          });
 
 						// set description when update a task
 						document.getElementById('add-form-description').innerHTML = "${edTask.description}";
@@ -293,13 +298,16 @@
                 <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.plannedeffort" value="${edTask.plannedeffort}"
                     id="add-form-plannedEffort" /> (Hours)<br /> <span id=errorsDiv_task.plannedeffort></span>&nbsp;</td>
-                <c:if test="${role == 'Project Manager' }">
-                  <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
+                <c:choose>
+                    <c:when test="${role == 'Project Manager'}">
+                    <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
                   <td><form:select class="styled" path="task.assignedto" value="${edTask.assignedto}"
                       multiple="single" id="add-form-assignedTo">
                       <form:options items="${developerMapAdd}" />
                     </form:select><br /> <span id=errorsDiv_task.assignedto></span>&nbsp;</td>
-                </c:if>
+                    </c:when>
+                    <c:otherwise><td></td><td></td></c:otherwise>
+                </c:choose>
                 <td class="ColumnLabel"><label for="add-form-productSize">Product Size*</label></td>
                 <td class="CellBGR3"><form:input path="task.productsize" value="${edTask.productsize}"
                     id="add-form-productSize" /><br /> <span id=errorsDiv_task.productsize></span>&nbsp;</td>
