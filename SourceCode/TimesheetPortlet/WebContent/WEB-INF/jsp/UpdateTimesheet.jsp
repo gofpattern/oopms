@@ -61,10 +61,7 @@
                     "bJQueryUI": true,
                     "sPaginationType": "full_numbers"
                 } );
-                
-                SyntaxHighlighter.config.clipboardSwf = 'media/javascript/syntax/clipboard.swf';
-                SyntaxHighlighter.all();
-                
+              
             } );
         </script>
 </head>
