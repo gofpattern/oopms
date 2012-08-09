@@ -95,8 +95,7 @@
 		// Check module of project
 		  $(function() {
 			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
-								alert("I don't see any products on selected project.\nPlease create some products before assigning task.");
-			  alert('<%=portletSession.getAttribute("USERID", PortletSession.APPLICATION_SCOPE)%>');	
+								alert("Product of your selected project has not created.\nPlease create some products for your project before assigning task.");	
 		  });
 		
 					});

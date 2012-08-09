@@ -28,6 +28,9 @@ public class TaskDAO {
 
     public TaskDAO() {
 
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        this.session = factory.openSession();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +43,7 @@ public class TaskDAO {
             String sql = "from GeneralReference where groupCode = 'PROJECT_STATUS' and languageCode.langCode  = 'en'";
             Query query = session.createQuery(sql);
             List<GeneralReference> statusList = query.list();
-            System.out.println("getProjectStatusEn.end");
+
             return statusList;
 
         } catch (Exception e) {
@@ -63,7 +66,7 @@ public class TaskDAO {
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
             List<Tasks> taskList = query.list();
-            System.out.println("getAllTask.end");
+
             return taskList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -94,7 +97,7 @@ public class TaskDAO {
             query.setParameter("projectId", new BigDecimal(projectId));
             @SuppressWarnings("unchecked")
             List<Tasks> taskList = query.list();
-            System.out.println("getTaskByProjectId.end");
+
             return taskList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -112,8 +115,8 @@ public class TaskDAO {
             this.session = factory.openSession();
             session.beginTransaction();
             session.clear();
-            Tasks task = (Tasks)session.get(Tasks.class, taskId);
-            System.out.println("getTaskById.end");
+            Tasks task = (Tasks) session.get(Tasks.class, taskId);
+
             return task;
         } catch (Exception e) {
             log.error("getTaskById.Exception", e);
@@ -130,7 +133,7 @@ public class TaskDAO {
             String sql = "from Stage";
             Query query = session.createQuery(sql);
             List<Stage> stageList = query.list();
-            System.out.println("getAllStage.end");
+
             return stageList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -191,7 +194,7 @@ public class TaskDAO {
             String sql = "from Process";
             Query query = session.createQuery(sql);
             List<Process> processList = query.list();
-            System.out.println("getAllProcess.end");
+
             return processList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -296,7 +299,7 @@ public class TaskDAO {
             log.error("Update Task Error", e);
         }
     }
-    
+
     public List<Language> getSizeUnit() {
         log.debug("getSizeUnit.START");
         try {

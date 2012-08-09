@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import openones.oopms.planner.model.Module;
-import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
 import openones.oopms.planner.utils.HibernateUtil;
@@ -31,7 +30,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 /**
  * @author PNTG
@@ -41,6 +39,9 @@ public class ModuleDAO {
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public ModuleDAO() {
+
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        this.session = factory.openSession();
 
     }
 
@@ -110,12 +111,14 @@ public class ModuleDAO {
     public void updateModuleByTask(Tasks task) {
         log.debug("updateModuleByTask.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            Transaction tx = session.beginTransaction();
-            Module module = (Module) session.get(Module.class, task.getModule().getModuleId());
+
+            session.getTransaction().begin();
+
+            Module module = (Module) session.get(Module.class, task.getModule());
+
             module.setPlannedSize(module.getPlannedSize().add(task.getProductsize()));
             module.setActualSize(module.getActualSize().add(task.getCompletedsize()));
+
             module.setPlannedSizeUnitId(task.getSizeunit());
             module.setActualSizeUnitId(task.getSizeunit());
             List<Tasks> taskList = getTaskByModule(module.getModuleId());
@@ -140,8 +143,7 @@ public class ModuleDAO {
             }
 
             session.merge(module);
-            tx.commit();
-            factory.close();
+            session.flush();
 
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {

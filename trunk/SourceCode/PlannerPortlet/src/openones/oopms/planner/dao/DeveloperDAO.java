@@ -36,18 +36,18 @@ public class DeveloperDAO {
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public DeveloperDAO() {
-
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        this.session = factory.openSession();
     }
 
     public BigDecimal getDeveloperId(String account) {
         log.debug("getDeveloperId.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
-            String sql = "select developerId from Developer where UPPER(account) = :account";
+
+            session.getTransaction().begin();
+            String sql = "select developerId from Developer where account = :account";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account.toUpperCase());
+            query.setParameter("account", account);
             BigDecimal developerId = (BigDecimal) query.uniqueResult();
             return developerId;
         } catch (Exception e) {
@@ -58,17 +58,17 @@ public class DeveloperDAO {
         }
         return null;
     }
-    
+
     public Developer getDeveloperByAccount(String account) {
         log.debug("getDeveloperByAccount.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
-            String sql = "from Developer where UPPER(account) = :account";
+
+            session.getTransaction().begin();
+            String sql = "from Developer where account = :account";
             Query query = session.createQuery(sql);
-            query.setParameter("account", account.toUpperCase());
+            query.setParameter("account", account);
             Developer developer = (Developer) query.uniqueResult();
+            log.debug("developer="+developer.getName());
             return developer;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
