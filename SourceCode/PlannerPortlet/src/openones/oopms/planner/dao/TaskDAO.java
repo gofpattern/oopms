@@ -37,9 +37,7 @@ public class TaskDAO {
     public List<GeneralReference> getProjectStatusEn() {
         log.debug("getProjectStatusEn.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from GeneralReference where groupCode = 'PROJECT_STATUS' and languageCode.langCode  = 'en'";
             Query query = session.createQuery(sql);
             List<GeneralReference> statusList = query.list();
@@ -60,9 +58,7 @@ public class TaskDAO {
     public List<Tasks> getAllTask() {
         log.debug("getAllTask.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
             List<Tasks> taskList = query.list();
@@ -88,9 +84,7 @@ public class TaskDAO {
     public List<Tasks> getTasksByProjectId(String projectId) {
         log.debug("getTaskByProjectId.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             session.clear();
             String sql = "from Tasks where projectid = :projectId and active = true";
             Query query = session.createQuery(sql);
@@ -111,12 +105,9 @@ public class TaskDAO {
     public Tasks getTaskById(BigDecimal taskId) {
         log.debug("getTaskById.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             session.clear();
             Tasks task = (Tasks) session.get(Tasks.class, taskId);
-
             return task;
         } catch (Exception e) {
             log.error("getTaskById.Exception", e);
@@ -127,9 +118,7 @@ public class TaskDAO {
     public List<Stage> getAllStage() {
         log.debug("getAllStage.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from Stage";
             Query query = session.createQuery(sql);
             List<Stage> stageList = query.list();
@@ -148,9 +137,7 @@ public class TaskDAO {
     public List<Project> getAllProject() {
         log.debug("getAllProject.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from Project";
             Query query = session.createQuery(sql);
             List<Project> projectList = query.list();
@@ -168,9 +155,7 @@ public class TaskDAO {
     public List<Workproduct> getAllProduct() {
         log.debug("getAllProduct.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from Workproduct";
             Query query = session.createQuery(sql);
             List<Workproduct> productList = query.list();
@@ -188,9 +173,7 @@ public class TaskDAO {
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from Process";
             Query query = session.createQuery(sql);
             List<Process> processList = query.list();
@@ -213,9 +196,7 @@ public class TaskDAO {
     public List<Developer> getDeveloper(String projectId) {
         log.debug("getDeveloper.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "select developer from Assignment ass where ass.project.projectId = :projectId";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
@@ -237,12 +218,9 @@ public class TaskDAO {
      */
     public void addTask(Tasks task) {
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             session.save(task);
             session.getTransaction().commit();
-            factory.close();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -257,14 +235,11 @@ public class TaskDAO {
      */
     public void deleteTask(BigDecimal id) {
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            Transaction tx = session.beginTransaction();
+            session.getTransaction().begin();
             Tasks task = (Tasks) session.get(Tasks.class, id);
             task.setActive(false);
             session.update(task);
-            tx.commit();
-            factory.close();
+            session.getTransaction().commit();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -281,17 +256,14 @@ public class TaskDAO {
     public void updateTask(Tasks editTask) {
         log.debug("updateTask.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            Transaction tx = session.beginTransaction();
+            session.getTransaction().begin();
             if (editTask.getStatusid().equals(new BigDecimal(174))) {
                 Calendar cal = Calendar.getInstance();
                 editTask.setActualDate(cal.getTime());
                 editTask.setEffort(editTask.getCurrenteffort());
             }
             session.merge(editTask);
-            tx.commit();
-            factory.close();
+            session.getTransaction().commit();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
@@ -303,9 +275,7 @@ public class TaskDAO {
     public List<Language> getSizeUnit() {
         log.debug("getSizeUnit.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "from Language";
             Query query = session.createQuery(sql);
             @SuppressWarnings("unchecked")

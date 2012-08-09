@@ -114,7 +114,7 @@ public class ModuleDAO {
 
             session.getTransaction().begin();
 
-            Module module = (Module) session.get(Module.class, task.getModule());
+            Module module = (Module) session.get(Module.class, task.getModule().getModuleId());
 
             module.setPlannedSize(module.getPlannedSize().add(task.getProductsize()));
             module.setActualSize(module.getActualSize().add(task.getCompletedsize()));
@@ -150,6 +150,57 @@ public class ModuleDAO {
                 session.getTransaction().rollback();
             }
             log.error("updateModuleByTask.Exception", e);
+        }
+    }
+
+    public void updateModuleByEditedTask(Tasks task, Tasks editedTask) {
+        log.debug("updateModuleByEditedTask.START");
+        try {
+
+            session.getTransaction().begin();
+
+            Module module = (Module) session.get(Module.class, editedTask.getModule().getModuleId());
+
+            if (!task.getProductsize().equals(editedTask.getProductsize())) {
+                module.setPlannedSize(module.getPlannedSize().add(
+                        editedTask.getProductsize().subtract(task.getProductsize())));
+            }
+            if (!task.getCompletedsize().equals(editedTask.getCompletedsize())) {
+                module.setActualSize(module.getActualSize().add(
+                        editedTask.getCompletedsize().subtract(task.getCompletedsize())));
+            }
+
+            module.setPlannedSizeUnitId(editedTask.getSizeunit());
+            module.setActualSizeUnitId(editedTask.getSizeunit());
+            List<Tasks> taskList = getTaskByModule(module.getModuleId());
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).getStatusid().equals(new BigDecimal(175))) {
+                    taskList.remove(taskList.get(i));
+                }
+            }
+            if (taskList.size() == 0)
+                module.setStatus(new BigDecimal(175));// 175: CANCEL
+            else {
+                Boolean flag = true;
+                for (int i = 0; i < taskList.size(); i++) {
+                    if (taskList.get(0).getStatusid() != taskList.get(i).getStatusid())
+                        flag = false;
+                }
+                if (flag.equals(true))
+                    module.setStatus(taskList.get(0).getStatusid());
+                else
+                    module.setStatus(new BigDecimal(173));// 173: ON-GOING
+
+            }
+
+            session.merge(module);
+            session.flush();
+
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("updateModuleByEditedTask.Exception", e);
         }
     }
 

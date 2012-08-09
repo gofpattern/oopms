@@ -54,6 +54,7 @@ public class Tasks implements java.io.Serializable {
         plannedeffort = new BigDecimal(0);
         currenteffort = new BigDecimal(0);
         productsize = new BigDecimal(0);
+        completedsize = new BigDecimal(0);
        
     }
 
