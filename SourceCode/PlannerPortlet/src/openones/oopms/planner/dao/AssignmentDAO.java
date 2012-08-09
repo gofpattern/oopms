@@ -38,16 +38,15 @@ public class AssignmentDAO {
     private static Logger log = Logger.getLogger(TaskDAO.class);
 
     public AssignmentDAO() {
-
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        this.session = factory.openSession();
     }
 
     @SuppressWarnings("unchecked")
     public List<Project> getProject(BigDecimal developerId) {
         log.debug("getProject.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            session.getTransaction().begin();
             String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
@@ -64,9 +63,8 @@ public class AssignmentDAO {
 
     public String getRole(String developerId, String projectId) {
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
-            session.beginTransaction();
+            System.out.println("getRole : " + developerId + " " + projectId);
+            session.getTransaction().begin();
             String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
             Query query = session.createQuery(hql);
             query.setString(0, developerId);

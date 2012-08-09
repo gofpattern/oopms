@@ -18,7 +18,6 @@
  */
 package openones.oopms.planner.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.portlet.PortletSession;
@@ -55,20 +54,21 @@ public class PlannerHomeController {
         PortletSupport portletSupport = new PortletSupport(request);
         username = portletSupport.getLogonUser();
         
+        log.debug("username = " +username);
+
         // Get developer and related projects from account log on
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         DeveloperDAO developerDAO = new DeveloperDAO();
         developer = developerDAO.getDeveloperByAccount(username);
-        
+
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
-        
-        // Set information of user to session           
+
+        // Set information of user to session
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         session.setAttribute("USERID", developer.getDeveloperId().toString(), PortletSession.APPLICATION_SCOPE);
-        
+
         // sent projectList to jsp
         request.setAttribute("projectList", projectList);
-        
 
         // Display PlannerHome.jsp
         return "PlannerHome";
