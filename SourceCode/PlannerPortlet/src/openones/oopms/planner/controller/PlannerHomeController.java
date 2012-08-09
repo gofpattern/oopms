@@ -40,9 +40,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("VIEW")
 public class PlannerHomeController {
-    private static Logger log = Logger.getLogger(PlannerController.class);
+    private static Logger log = Logger.getLogger(PlannerHomeController.class);
     private String username;
-    static Developer developer = new Developer();
+    private Developer developer;
 
     /**
      * Default screen.
@@ -59,15 +59,16 @@ public class PlannerHomeController {
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         DeveloperDAO developerDAO = new DeveloperDAO();
         developer = developerDAO.getDeveloperByAccount(username);
-        log.debug("developer"+developer);
-        List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
         
+        List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
         
         // Set information of user to session           
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USERID", developer.getDeveloperId().toString(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp
         request.setAttribute("projectList", projectList);
+        
 
         // Display PlannerHome.jsp
         return "PlannerHome";

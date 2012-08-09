@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jul 29, 2012 4:42:24 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.oopms.planner.model.Workunit" table="WORKUNIT" schema="FMSUSER">
+    <class name="openones.oopms.planner.model.Workunit" table="WORKUNIT" schema="FMSUSER" lazy="false">
         <comment>Abstraction of tables : project,group,organization(Insight)</comment>
         <id name="workunitid" type="big_decimal">
             <column name="WORKUNITID" precision="22" scale="0" />

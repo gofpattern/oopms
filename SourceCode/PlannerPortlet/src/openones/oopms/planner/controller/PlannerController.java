@@ -48,6 +48,7 @@ public class PlannerController {
     private List<GeneralReference> statusList;
     // Current projectId of planner
     static String projectDefault;
+    private String developerId;
     // role of user, depend on project
     private String role;
     private Boolean check = true;
@@ -81,6 +82,7 @@ public class PlannerController {
         if (moduleList.size() != 0) {
             // Prepare parameter to render phase
             response.setRenderParameter("projectId", request.getParameter("projectId"));
+            response.setRenderParameter("developerId", request.getParameter("developerId"));
             response.setRenderParameter("action", "taskmanager");
         } else {
 //            result.rejectValue("", "error");
@@ -95,6 +97,10 @@ public class PlannerController {
     public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request,PortletSession session) {
         log.debug("postPlanner.START");
         log.debug("postPlanner.START"+request.getParameter("projectId"));
+        log.debug("postPlanner.START"+projectDefault);
+
+        log.debug("postPlanner.START"+session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE));
+        
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         ModelAndView mav = new ModelAndView("TaskManager");           
@@ -102,6 +108,7 @@ public class PlannerController {
         // for getting from PlannerHome
         if(check){
             projectDefault = request.getParameter("projectId");
+            developerId = (String)session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE);
             check = false;
         }
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
@@ -114,12 +121,12 @@ public class PlannerController {
             formBean.setStatusDefault("All");
             formBean.setStageDefault("All");
             formBean.setDeveloperDefault("All");
-            role = assignmentDAO.getRole(PlannerHomeController.developer.getDeveloperId().toString(), projectDefault);
+            role = assignmentDAO.getRole(developerId, projectDefault);
             statusList = taskDAO.getProjectStatusEn();
 
             taskList = taskDAO.getTasksByProjectId(projectDefault);
             stageList = taskDAO.getAllStage();
-            projectList = assignmentDAO.getProject(PlannerHomeController.developer.getDeveloperId());
+            projectList = assignmentDAO.getProject(new BigDecimal(developerId));
             processList = taskDAO.getAllProcess();
             developerList = taskDAO.getDeveloper(projectDefault);
         }            
@@ -195,7 +202,7 @@ public class PlannerController {
         }
 
         //
-        session.setAttribute("USER", PlannerHomeController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        //session.setAttribute("USER", PlannerHomeController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
         
         
@@ -225,7 +232,7 @@ public class PlannerController {
         mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
-        mav.addObject("productMapAdd", formBeanAdd.getProductMap());
+//        mav.addObject("productMapAdd", formBeanAdd.getProductMap());
         mav.addObject("moduleMapAdd", formBeanAdd.getModuleMap());
         mav.addObject("sizeUnitMapAdd", formBeanAdd.getSizeUnitMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());

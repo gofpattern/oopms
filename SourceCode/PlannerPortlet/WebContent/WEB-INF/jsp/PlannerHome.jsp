@@ -4,6 +4,7 @@
 <%@ taglib prefix="portlet2" uri="http://java.sun.com/portlet_2_0"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="javax.portlet.PortletSession"%>
 <html>
 <head>
@@ -94,9 +95,11 @@
 		// Check module of project
 		  $(function() {
 			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
-		        alert ("I don't see any products on selected project.\nPlease create some products before assigning task.");
-		        });
-	});
+								alert("I don't see any products on selected project.\nPlease create some products before assigning task.");
+			  alert('<%=portletSession.getAttribute("USERID", PortletSession.APPLICATION_SCOPE)%>');	
+		  });
+		
+					});
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
@@ -106,10 +109,10 @@
         <tr>
           <th><strong>User: </strong></th>
           <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
-          </tr>
-          <tr>
-          <th><strong>Joined Projects: </strong></th>          
-          <td><strong><font color="#1490E3">${projectList.size()}</font></strong></td>
+        </tr>
+        <tr>
+          <th><strong>Joined Projects: </strong></th>
+          <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
         </tr>
       </table>
       <p></p>
@@ -129,6 +132,7 @@
               <portlet:actionURL var="renderAction">
                 <portlet:param name="action" value="taskmanager" />
                 <portlet:param name="projectId" value="${project.projectId}" />
+                <portlet:param name="developerId" value="${developerId}" />
               </portlet:actionURL>
               <tr>
                 <td>${count}</td>
