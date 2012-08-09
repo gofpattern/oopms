@@ -43,7 +43,6 @@ public class DeveloperDAO {
     public BigDecimal getDeveloperId(String account) {
         log.debug("getDeveloperId.START");
         try {
-
             session.getTransaction().begin();
             String sql = "select developerId from Developer where UPPER(account) = :account";
             Query query = session.createQuery(sql);

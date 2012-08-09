@@ -127,7 +127,7 @@ public class PlannerAddController {
         formBeanAdd.setAction_str("addTask");
         // to show hidden-add-form
         formBean.setFlag(1);
-        formBean.setInit(true);
+        formBean.setInit(false);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -246,7 +246,7 @@ public class PlannerAddController {
         // To show hidden-add-form
         formBean.setFlag(1);
         // Reload taskList
-        formBean.setInit(true);
+        formBean.setInit(false);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -260,16 +260,17 @@ public class PlannerAddController {
     public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processEditTask.START");
-        Tasks task = new Tasks();
+        Tasks editedTask = new Tasks();
+        Tasks task = taskDAO.getTaskById(formBeanAdd.getTask().getTaskid());
         try {
-            task = formBeanAdd.getTask();
-            task.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
+            editedTask = formBeanAdd.getTask();
+            editedTask.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-            task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
-            task.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
+            editedTask.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
+            editedTask.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
 
-            moduleDAO.updateModuleByTask(task);
-            taskDAO.updateTask(task);            
+            moduleDAO.updateModuleByEditedTask(task, editedTask);
+            taskDAO.updateTask(editedTask);            
 
         } catch (Exception ex) {
             log.error("error when update task", ex);
