@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.oopms.entity.Project" table="PROJECT">
+    <class name="openones.oopms.entity.Project" table="PROJECT" lazy="false">
         <comment>Main project information, effect to all FMS tools</comment>
         <id name="projectId" type="big_decimal">
             <column name="PROJECT_ID" precision="22" scale="0" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="type" type="string">
             <column name="TYPE" length="2" not-null="true" />
@@ -236,145 +236,17 @@
         <property name="typeCustomer2nd" type="big_decimal">
             <column name="TYPE_CUSTOMER_2ND" precision="22" scale="0" />
         </property>
-        <set name="timesheetOldDatas" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.TimesheetOldData" />
-        </set>
-        <set name="productLocPlans" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.ProductLocPlan" />
-        </set>
-        <set name="productLocActuals" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.ProductLocActual" />
-        </set>
-        <set name="projectPlans" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.ProjectPlan" />
-        </set>
-        <set name="timesheets" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Timesheet" />
-        </set>
-        <set name="modules" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Module" />
-        </set>
-        <set name="pcbs" inverse="true" table="PCBPROJECT">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <many-to-many entity-name="openones.oopms.entity.Pcb">
-                <column name="PCB_ID" precision="22" scale="0" not-null="true" />
-            </many-to-many>
-        </set>
-        <set name="furtherWorks" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.FurtherWork" />
-        </set>
-        <set name="milestones" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Milestone" />
-        </set>
-        <set name="openissues" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Openissue" />
-        </set>
-        <set name="practiceses" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Practices" />
-        </set>
-        <set name="weeklyEfforts" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.WeeklyEffort" />
-        </set>
         <set name="assignments" inverse="true">
             <key>
                 <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="openones.oopms.entity.Assignment" />
         </set>
-        <set name="timesheetArchives" inverse="true">
+        <set name="timesheets" inverse="true">
             <key>
                 <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="openones.oopms.entity.TimesheetArchive" />
-        </set>
-        <set name="subcontracts" inverse="true">
-            <key>
-                <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Subcontract" />
-        </set>
-        <set name="toolses" inverse="true">
-            <key>
-                <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Tools" />
-        </set>
-        <set name="defectQueries" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.DefectQuery" />
-        </set>
-        <set name="trainingPlans" inverse="true">
-            <key>
-                <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.TrainingPlan" />
-        </set>
-        <set name="changesOfProjectPlans" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.ChangesOfProjectPlan" />
-        </set>
-        <set name="reportcommentses" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Reportcomments" />
-        </set>
-        <set name="requirementses" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Requirements" />
-        </set>
-        <set name="risks" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.Risk" />
-        </set>
-        <set name="darPlans" inverse="true">
-            <key>
-                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="openones.oopms.entity.DarPlan" />
+            <one-to-many class="openones.oopms.entity.Timesheet" />
         </set>
     </class>
 </hibernate-mapping>

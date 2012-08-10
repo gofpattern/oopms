@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.oopms.entity.Timesheet" table="TIMESHEET">
+    <class name="openones.oopms.entity.Timesheet" table="TIMESHEET" lazy="false">
         <comment>(Timesheet) effort tracking</comment>
         <id name="timesheetId" type="big_decimal">
             <column name="TIMESHEET_ID" precision="22" scale="0" />
-            <generator class="native" />
+           <generator class="increment"/>
         </id>
-        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
-            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
+        <property name="developerId" type="big_decimal">
+            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+        </property>
         <property name="createDate" type="date">
             <column name="CREATE_DATE" length="7" not-null="true" />
         </property>

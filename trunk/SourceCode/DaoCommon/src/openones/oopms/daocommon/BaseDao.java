@@ -19,6 +19,12 @@
 package openones.oopms.daocommon;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import openones.oopms.daocommon.HibernateUtil;
+import openones.oopms.entity.Assignment;
+import openones.oopms.entity.Developer;
+import openones.oopms.entity.Project;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -34,7 +40,7 @@ public class BaseDao {
     public final Logger log = Logger.getLogger(this.getClass());
 
     /** . */
-    Session sess = null;
+    Session session = null;
 
     /**
      * Get next sequence in Oracle.
@@ -43,12 +49,96 @@ public class BaseDao {
      */
     public final BigDecimal getNextSeq(String seqName) {
         SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
-        sess = sessionfactory.openSession();
-        sess.beginTransaction();
+        session = sessionfactory.openSession();
+        session.beginTransaction();
         String sql = "SELECT DEVELOPER_SEQ.NEXTVAL as nextValue FROM dual";
-        Query query = sess.createSQLQuery(sql).addScalar("nextValue", Hibernate.BIG_DECIMAL);
+        Query query = session.createSQLQuery(sql).addScalar("nextValue", Hibernate.BIG_DECIMAL);
         BigDecimal nextId = (BigDecimal) query.list().get(0);
 
         return nextId;
+    }
+
+    public List<Project> getProjectList(String developerId) {
+        try {
+            log.debug("getProjectList-developerId :" + developerId);
+            session.getTransaction().begin();
+            String hql = "from Assignment where developerId= ?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, developerId);
+            List<Assignment> assiList = query.list();
+            List<Project> projectList = new ArrayList<Project>();
+            for (int i = 0; i < assiList.size(); i++) {
+                projectList.add(assiList.get(i).getProject());
+            }
+            //
+            // session.flush();
+            // session.getTransaction().commit();
+            System.out.println("Project Name Count : " + projectList.size());
+            return projectList;
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+
+        }
+        return null;
+    }
+
+    public List<Developer> getMemberList(String projectId) {
+        try {
+            
+            session.getTransaction().begin();
+            String hql = "from Assignment where project.projectId=?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, projectId);
+            List<Assignment> assiList = query.list();
+            List<BigDecimal> memberListBD = new ArrayList<BigDecimal>();
+            for (int i = 0; i < assiList.size(); i++) {
+                memberListBD.add(assiList.get(i).getDeveloperId());
+            }
+            List<Developer> devList = new ArrayList<Developer>();
+            DeveloperDao devDao = new DeveloperDao();
+            for(int i=0; i < memberListBD.size(); i++) {
+                devList.add( devDao.getDeveloperById(memberListBD.get(i)));
+            }
+            
+            return devList;
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+
+        }
+        return null;
+    }
+    
+    public String getRole(String developerId, String projectId) {
+        try {
+            System.out.println("getRole : " + developerId + " " + projectId);
+            session.getTransaction().begin();
+            String hql = "from Assignment where developerId= ? and project.projectId = ?";
+
+            // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
+            Query query = session.createQuery(hql);
+            query.setString(0, developerId);
+            query.setString(1, projectId);
+            Assignment assi = (Assignment) query.uniqueResult();
+            if (assi.getType() == 1) {
+                return "Project Manager";
+            } else if (assi.getType() == 2) {
+                return "Developer";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            session.close();
+
+        }
+        return null;
     }
 }

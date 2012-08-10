@@ -26,6 +26,7 @@ import openones.oopms.entity.Developer;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
@@ -33,6 +34,9 @@ import org.hibernate.Transaction;
  * @author Open-Ones team
  */
 public class DeveloperDao extends BaseDao {
+    
+    /** . */
+    private Session sess = null;
 
     /** Select max value of Developer Id. */
     private static final String SQL_MAX_DEV_ID = "Select MAX(dev.developerId) FROM Developer dev";
