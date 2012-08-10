@@ -1,5 +1,5 @@
 package openones.oopms.entity;
-// Generated 12:18:17 01-03-2012 by Hibernate Tools 3.2.1.GA
+// Generated Jul 6, 2012 7:55:26 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -12,40 +12,40 @@ public class Assignment  implements java.io.Serializable {
 
 
      private BigDecimal assignmentId;
-     private Responsibility responsibility;
-     private Developer developer;
-     private Team team;
      private Project project;
+     private BigDecimal developerId;
      private byte type;
      private Date beginDate;
      private Date endDate;
      private BigDecimal usage;
      private Short response;
      private String note;
+     private String projectPositionCode;
+     private BigDecimal teamId;
      private String qualification;
 
     public Assignment() {
     }
 
 	
-    public Assignment(BigDecimal assignmentId, Developer developer, Project project, byte type) {
+    public Assignment(BigDecimal assignmentId, Project project, BigDecimal developerId, byte type) {
         this.assignmentId = assignmentId;
-        this.developer = developer;
         this.project = project;
+        this.developerId = developerId;
         this.type = type;
     }
-    public Assignment(BigDecimal assignmentId, Responsibility responsibility, Developer developer, Team team, Project project, byte type, Date beginDate, Date endDate, BigDecimal usage, Short response, String note, String qualification) {
+    public Assignment(BigDecimal assignmentId, Project project, BigDecimal developerId, byte type, Date beginDate, Date endDate, BigDecimal usage, Short response, String note, String projectPositionCode, BigDecimal teamId, String qualification) {
        this.assignmentId = assignmentId;
-       this.responsibility = responsibility;
-       this.developer = developer;
-       this.team = team;
        this.project = project;
+       this.developerId = developerId;
        this.type = type;
        this.beginDate = beginDate;
        this.endDate = endDate;
        this.usage = usage;
        this.response = response;
        this.note = note;
+       this.projectPositionCode = projectPositionCode;
+       this.teamId = teamId;
        this.qualification = qualification;
     }
    
@@ -56,33 +56,19 @@ public class Assignment  implements java.io.Serializable {
     public void setAssignmentId(BigDecimal assignmentId) {
         this.assignmentId = assignmentId;
     }
-    public Responsibility getResponsibility() {
-        return this.responsibility;
-    }
-    
-    public void setResponsibility(Responsibility responsibility) {
-        this.responsibility = responsibility;
-    }
-    public Developer getDeveloper() {
-        return this.developer;
-    }
-    
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
-    }
-    public Team getTeam() {
-        return this.team;
-    }
-    
-    public void setTeam(Team team) {
-        this.team = team;
-    }
     public Project getProject() {
         return this.project;
     }
     
     public void setProject(Project project) {
         this.project = project;
+    }
+    public BigDecimal getDeveloperId() {
+        return this.developerId;
+    }
+    
+    public void setDeveloperId(BigDecimal developerId) {
+        this.developerId = developerId;
     }
     public byte getType() {
         return this.type;
@@ -125,6 +111,20 @@ public class Assignment  implements java.io.Serializable {
     
     public void setNote(String note) {
         this.note = note;
+    }
+    public String getProjectPositionCode() {
+        return this.projectPositionCode;
+    }
+    
+    public void setProjectPositionCode(String projectPositionCode) {
+        this.projectPositionCode = projectPositionCode;
+    }
+    public BigDecimal getTeamId() {
+        return this.teamId;
+    }
+    
+    public void setTeamId(BigDecimal teamId) {
+        this.teamId = teamId;
     }
     public String getQualification() {
         return this.qualification;

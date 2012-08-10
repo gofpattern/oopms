@@ -1,5 +1,5 @@
 package openones.oopms.entity;
-// Generated 12:18:17 01-03-2012 by Hibernate Tools 3.2.1.GA
+// Generated Jul 9, 2012 10:09:15 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;

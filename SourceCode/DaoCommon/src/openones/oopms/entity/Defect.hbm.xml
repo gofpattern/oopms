@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="openones.oopms.entity.Defect" table="DEFECT">
         <comment>DMS: Defect tracking</comment>
-        <id name="defectId" type="long">
+        <id name="defectId" type="big_decimal">
             <column name="DEFECT_ID" precision="22" scale="0" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
-        <property name="projectId" type="long">
+        <property name="projectId" type="big_decimal">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </property>
         <property name="createdBy" type="string">
@@ -29,53 +29,53 @@
         <property name="assignedTo" type="string">
             <column name="ASSIGNED_TO" length="60" />
         </property>
-        <property name="dsId" type="long">
+        <property name="dsId" type="big_decimal">
             <column name="DS_ID" precision="22" scale="0">
                 <comment>Defect status</comment>
             </column>
         </property>
-        <property name="wpId" type="long">
+        <property name="wpId" type="big_decimal">
             <column name="WP_ID" precision="22" scale="0">
                 <comment>Work product</comment>
             </column>
         </property>
-        <property name="defsId" type="long">
+        <property name="defsId" type="big_decimal">
             <column name="DEFS_ID" precision="22" scale="0">
                 <comment>Defect severity</comment>
             </column>
         </property>
-        <property name="moduleId" type="long">
+        <property name="moduleId" type="big_decimal">
             <column name="MODULE_ID" precision="22" scale="0" />
         </property>
-        <property name="atId" type="long">
+        <property name="atId" type="big_decimal">
             <column name="AT_ID" precision="22" scale="0">
                 <comment>Activity type</comment>
             </column>
         </property>
-        <property name="dpId" type="long">
+        <property name="dpId" type="big_decimal">
             <column name="DP_ID" precision="22" scale="0">
                 <comment>Defect priotity</comment>
             </column>
         </property>
-        <property name="dtId" type="long">
+        <property name="dtId" type="big_decimal">
             <column name="DT_ID" precision="22" scale="0">
                 <comment>Defect type</comment>
             </column>
         </property>
-        <property name="qaId" type="long">
+        <property name="qaId" type="big_decimal">
             <column name="QA_ID" precision="22" scale="0">
                 <comment>QC Activity</comment>
             </column>
         </property>
-        <property name="processId" type="long">
+        <property name="processId" type="big_decimal">
             <column name="PROCESS_ID" precision="22" scale="0" />
         </property>
-        <property name="sdId" type="long">
+        <property name="sdId" type="big_decimal">
             <column name="SD_ID" precision="22" scale="0">
                 <comment>Stage Detected</comment>
             </column>
         </property>
-        <property name="siId" type="long">
+        <property name="siId" type="big_decimal">
             <column name="SI_ID" precision="22" scale="0">
                 <comment>Stage injected</comment>
             </column>
@@ -115,11 +115,5 @@
         <property name="defectOwner" type="string">
             <column name="DEFECT_OWNER" length="60" />
         </property>
-        <set name="defectAttachments" inverse="true">
-            <key>
-                <column name="DEFECT_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="openones.oopms.entity.DefectAttachment" />
-        </set>
     </class>
 </hibernate-mapping>

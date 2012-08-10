@@ -1,5 +1,5 @@
 package openones.oopms.entity;
-// Generated 12:18:17 01-03-2012 by Hibernate Tools 3.2.1.GA
+// Generated Jul 6, 2012 7:55:26 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -12,10 +12,15 @@ public class Timesheet  implements java.io.Serializable {
 
 
      private BigDecimal timesheetId;
-     private Developer developer;
      private Project project;
+     private String processName;
+     private String towName;
+     private String workProductName;
+     private BigDecimal developerId;
      private Date createDate;
      private Date occurDate;
+     private String occurDateString;
+     private String durationString;
      private BigDecimal duration;
      private BigDecimal status;
      private BigDecimal kpaId;
@@ -30,23 +35,97 @@ public class Timesheet  implements java.io.Serializable {
      private Date qaapprovedtime;
      private BigDecimal newTimesheetId;
      private String dummyField;
-
+     private String projectName;
     public Timesheet() {
     }
 
-	
-    public Timesheet(BigDecimal timesheetId, Developer developer, Project project, Date createDate, Date occurDate, BigDecimal duration) {
+    
+    
+
+    public String getDurationString() {
+        return durationString;
+    }
+
+
+
+
+    public void setDurationString(String durationString) {
+        this.durationString = durationString;
+    }
+
+
+
+
+    public String getOccurDateString() {
+        return occurDateString;
+    }
+
+
+
+
+    public void setOccurDateString(String occurDateString) {
+        this.occurDateString = occurDateString;
+    }
+
+
+
+
+    public String getTowName() {
+        return towName;
+    }
+
+    public void setTowName(String towName) {
+        this.towName = towName;
+    }
+
+
+
+    public String getWorkProductName() {
+        return workProductName;
+    }
+
+
+
+    public void setWorkProductName(String workProductName) {
+        this.workProductName = workProductName;
+    }
+
+
+
+    public String getProcessName() {
+        return processName;
+    }
+
+
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
+
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+
+    public Timesheet(BigDecimal timesheetId, Project project, BigDecimal developerId, Date createDate, Date occurDate, BigDecimal duration) {
         this.timesheetId = timesheetId;
-        this.developer = developer;
         this.project = project;
+        this.developerId = developerId;
         this.createDate = createDate;
         this.occurDate = occurDate;
         this.duration = duration;
     }
-    public Timesheet(BigDecimal timesheetId, Developer developer, Project project, Date createDate, Date occurDate, BigDecimal duration, BigDecimal status, BigDecimal kpaId, BigDecimal towId, BigDecimal processId, BigDecimal wpId, String approvedByLeader, String approvedBySepg, String description, String rcomment, Date plapprovedtime, Date qaapprovedtime, BigDecimal newTimesheetId, String dummyField) {
+    public Timesheet(BigDecimal timesheetId, Project project, BigDecimal developerId, Date createDate, Date occurDate, BigDecimal duration, BigDecimal status, BigDecimal kpaId, BigDecimal towId, BigDecimal processId, BigDecimal wpId, String approvedByLeader, String approvedBySepg, String description, String rcomment, Date plapprovedtime, Date qaapprovedtime, BigDecimal newTimesheetId, String dummyField) {
        this.timesheetId = timesheetId;
-       this.developer = developer;
        this.project = project;
+       this.developerId = developerId;
        this.createDate = createDate;
        this.occurDate = occurDate;
        this.duration = duration;
@@ -72,19 +151,19 @@ public class Timesheet  implements java.io.Serializable {
     public void setTimesheetId(BigDecimal timesheetId) {
         this.timesheetId = timesheetId;
     }
-    public Developer getDeveloper() {
-        return this.developer;
-    }
-    
-    public void setDeveloper(Developer developer) {
-        this.developer = developer;
-    }
     public Project getProject() {
         return this.project;
     }
     
     public void setProject(Project project) {
         this.project = project;
+    }
+    public BigDecimal getDeveloperId() {
+        return this.developerId;
+    }
+    
+    public void setDeveloperId(BigDecimal developerId) {
+        this.developerId = developerId;
     }
     public Date getCreateDate() {
         return this.createDate;

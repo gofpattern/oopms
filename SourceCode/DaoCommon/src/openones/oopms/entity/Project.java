@@ -1,5 +1,5 @@
 package openones.oopms.entity;
-// Generated 12:18:17 01-03-2012 by Hibernate Tools 3.2.1.GA
+// Generated Jul 6, 2012 7:55:26 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.math.BigDecimal;
@@ -71,29 +71,8 @@ public class Project  implements java.io.Serializable {
      private String projectTypeCode;
      private BigDecimal typeCustomer;
      private BigDecimal typeCustomer2nd;
-     private Set timesheetOldDatas = new HashSet(0);
-     private Set productLocPlans = new HashSet(0);
-     private Set productLocActuals = new HashSet(0);
-     private Set projectPlans = new HashSet(0);
-     private Set timesheets = new HashSet(0);
-     private Set modules = new HashSet(0);
-     private Set pcbs = new HashSet(0);
-     private Set furtherWorks = new HashSet(0);
-     private Set milestones = new HashSet(0);
-     private Set openissues = new HashSet(0);
-     private Set practiceses = new HashSet(0);
-     private Set weeklyEfforts = new HashSet(0);
      private Set assignments = new HashSet(0);
-     private Set timesheetArchives = new HashSet(0);
-     private Set subcontracts = new HashSet(0);
-     private Set toolses = new HashSet(0);
-     private Set defectQueries = new HashSet(0);
-     private Set trainingPlans = new HashSet(0);
-     private Set changesOfProjectPlans = new HashSet(0);
-     private Set reportcommentses = new HashSet(0);
-     private Set requirementses = new HashSet(0);
-     private Set risks = new HashSet(0);
-     private Set darPlans = new HashSet(0);
+     private Set timesheets = new HashSet(0);
 
     public Project() {
     }
@@ -105,7 +84,7 @@ public class Project  implements java.io.Serializable {
         this.code = code;
         this.name = name;
     }
-    public Project(BigDecimal projectId, String type, String code, String name, String groupName, Date startDate, BigDecimal perComplete, String leader, Date baseFinishDate, Date planFinishDate, Date actualFinishDate, BigDecimal baseEffort, BigDecimal planEffort, BigDecimal actualEffort, String description, BigDecimal totalbug, BigDecimal totalweightedbug, BigDecimal totalrequirement, BigDecimal committedrequirement, BigDecimal designedrequirement, BigDecimal codedrequirement, BigDecimal testedrequirement, BigDecimal deployedrequirement, BigDecimal acceptedrequirement, BigDecimal totaldefect, BigDecimal totalweighteddefect, BigDecimal fatalpendingdefect, BigDecimal seriouspendingdefect, BigDecimal mediumpendingdefect, BigDecimal cosmeticpendingdefect, BigDecimal totalfataldefect, BigDecimal totalseriousdefect, BigDecimal totalmediumdefect, BigDecimal totalcosmeticdefect, String status, BigDecimal scheduleStatus, BigDecimal effortStatus, Date lastUpdate, String category, String customer, Date planStartDate, Boolean applyPpm, String reason, BigDecimal baseBillableEffort, BigDecimal planBillableEffort, BigDecimal actualBillableEffort, String rank, String customer2nd, String projectLevel, String divisionName, BigDecimal archiveStatus, BigDecimal parentId, BigDecimal unitId, String projectStatusCode, String projectCategoryCode, String projectTypeCode, BigDecimal typeCustomer, BigDecimal typeCustomer2nd, Set timesheetOldDatas, Set productLocPlans, Set productLocActuals, Set projectPlans, Set timesheets, Set modules, Set pcbs, Set furtherWorks, Set milestones, Set openissues, Set practiceses, Set weeklyEfforts, Set assignments, Set timesheetArchives, Set subcontracts, Set toolses, Set defectQueries, Set trainingPlans, Set changesOfProjectPlans, Set reportcommentses, Set requirementses, Set risks, Set darPlans) {
+    public Project(BigDecimal projectId, String type, String code, String name, String groupName, Date startDate, BigDecimal perComplete, String leader, Date baseFinishDate, Date planFinishDate, Date actualFinishDate, BigDecimal baseEffort, BigDecimal planEffort, BigDecimal actualEffort, String description, BigDecimal totalbug, BigDecimal totalweightedbug, BigDecimal totalrequirement, BigDecimal committedrequirement, BigDecimal designedrequirement, BigDecimal codedrequirement, BigDecimal testedrequirement, BigDecimal deployedrequirement, BigDecimal acceptedrequirement, BigDecimal totaldefect, BigDecimal totalweighteddefect, BigDecimal fatalpendingdefect, BigDecimal seriouspendingdefect, BigDecimal mediumpendingdefect, BigDecimal cosmeticpendingdefect, BigDecimal totalfataldefect, BigDecimal totalseriousdefect, BigDecimal totalmediumdefect, BigDecimal totalcosmeticdefect, String status, BigDecimal scheduleStatus, BigDecimal effortStatus, Date lastUpdate, String category, String customer, Date planStartDate, Boolean applyPpm, String reason, BigDecimal baseBillableEffort, BigDecimal planBillableEffort, BigDecimal actualBillableEffort, String rank, String customer2nd, String projectLevel, String divisionName, BigDecimal archiveStatus, BigDecimal parentId, BigDecimal unitId, String projectStatusCode, String projectCategoryCode, String projectTypeCode, BigDecimal typeCustomer, BigDecimal typeCustomer2nd, Set assignments, Set timesheets) {
        this.projectId = projectId;
        this.type = type;
        this.code = code;
@@ -164,29 +143,8 @@ public class Project  implements java.io.Serializable {
        this.projectTypeCode = projectTypeCode;
        this.typeCustomer = typeCustomer;
        this.typeCustomer2nd = typeCustomer2nd;
-       this.timesheetOldDatas = timesheetOldDatas;
-       this.productLocPlans = productLocPlans;
-       this.productLocActuals = productLocActuals;
-       this.projectPlans = projectPlans;
-       this.timesheets = timesheets;
-       this.modules = modules;
-       this.pcbs = pcbs;
-       this.furtherWorks = furtherWorks;
-       this.milestones = milestones;
-       this.openissues = openissues;
-       this.practiceses = practiceses;
-       this.weeklyEfforts = weeklyEfforts;
        this.assignments = assignments;
-       this.timesheetArchives = timesheetArchives;
-       this.subcontracts = subcontracts;
-       this.toolses = toolses;
-       this.defectQueries = defectQueries;
-       this.trainingPlans = trainingPlans;
-       this.changesOfProjectPlans = changesOfProjectPlans;
-       this.reportcommentses = reportcommentses;
-       this.requirementses = requirementses;
-       this.risks = risks;
-       this.darPlans = darPlans;
+       this.timesheets = timesheets;
     }
    
     public BigDecimal getProjectId() {
@@ -595,90 +553,6 @@ public class Project  implements java.io.Serializable {
     public void setTypeCustomer2nd(BigDecimal typeCustomer2nd) {
         this.typeCustomer2nd = typeCustomer2nd;
     }
-    public Set getTimesheetOldDatas() {
-        return this.timesheetOldDatas;
-    }
-    
-    public void setTimesheetOldDatas(Set timesheetOldDatas) {
-        this.timesheetOldDatas = timesheetOldDatas;
-    }
-    public Set getProductLocPlans() {
-        return this.productLocPlans;
-    }
-    
-    public void setProductLocPlans(Set productLocPlans) {
-        this.productLocPlans = productLocPlans;
-    }
-    public Set getProductLocActuals() {
-        return this.productLocActuals;
-    }
-    
-    public void setProductLocActuals(Set productLocActuals) {
-        this.productLocActuals = productLocActuals;
-    }
-    public Set getProjectPlans() {
-        return this.projectPlans;
-    }
-    
-    public void setProjectPlans(Set projectPlans) {
-        this.projectPlans = projectPlans;
-    }
-    public Set getTimesheets() {
-        return this.timesheets;
-    }
-    
-    public void setTimesheets(Set timesheets) {
-        this.timesheets = timesheets;
-    }
-    public Set getModules() {
-        return this.modules;
-    }
-    
-    public void setModules(Set modules) {
-        this.modules = modules;
-    }
-    public Set getPcbs() {
-        return this.pcbs;
-    }
-    
-    public void setPcbs(Set pcbs) {
-        this.pcbs = pcbs;
-    }
-    public Set getFurtherWorks() {
-        return this.furtherWorks;
-    }
-    
-    public void setFurtherWorks(Set furtherWorks) {
-        this.furtherWorks = furtherWorks;
-    }
-    public Set getMilestones() {
-        return this.milestones;
-    }
-    
-    public void setMilestones(Set milestones) {
-        this.milestones = milestones;
-    }
-    public Set getOpenissues() {
-        return this.openissues;
-    }
-    
-    public void setOpenissues(Set openissues) {
-        this.openissues = openissues;
-    }
-    public Set getPracticeses() {
-        return this.practiceses;
-    }
-    
-    public void setPracticeses(Set practiceses) {
-        this.practiceses = practiceses;
-    }
-    public Set getWeeklyEfforts() {
-        return this.weeklyEfforts;
-    }
-    
-    public void setWeeklyEfforts(Set weeklyEfforts) {
-        this.weeklyEfforts = weeklyEfforts;
-    }
     public Set getAssignments() {
         return this.assignments;
     }
@@ -686,75 +560,12 @@ public class Project  implements java.io.Serializable {
     public void setAssignments(Set assignments) {
         this.assignments = assignments;
     }
-    public Set getTimesheetArchives() {
-        return this.timesheetArchives;
+    public Set getTimesheets() {
+        return this.timesheets;
     }
     
-    public void setTimesheetArchives(Set timesheetArchives) {
-        this.timesheetArchives = timesheetArchives;
-    }
-    public Set getSubcontracts() {
-        return this.subcontracts;
-    }
-    
-    public void setSubcontracts(Set subcontracts) {
-        this.subcontracts = subcontracts;
-    }
-    public Set getToolses() {
-        return this.toolses;
-    }
-    
-    public void setToolses(Set toolses) {
-        this.toolses = toolses;
-    }
-    public Set getDefectQueries() {
-        return this.defectQueries;
-    }
-    
-    public void setDefectQueries(Set defectQueries) {
-        this.defectQueries = defectQueries;
-    }
-    public Set getTrainingPlans() {
-        return this.trainingPlans;
-    }
-    
-    public void setTrainingPlans(Set trainingPlans) {
-        this.trainingPlans = trainingPlans;
-    }
-    public Set getChangesOfProjectPlans() {
-        return this.changesOfProjectPlans;
-    }
-    
-    public void setChangesOfProjectPlans(Set changesOfProjectPlans) {
-        this.changesOfProjectPlans = changesOfProjectPlans;
-    }
-    public Set getReportcommentses() {
-        return this.reportcommentses;
-    }
-    
-    public void setReportcommentses(Set reportcommentses) {
-        this.reportcommentses = reportcommentses;
-    }
-    public Set getRequirementses() {
-        return this.requirementses;
-    }
-    
-    public void setRequirementses(Set requirementses) {
-        this.requirementses = requirementses;
-    }
-    public Set getRisks() {
-        return this.risks;
-    }
-    
-    public void setRisks(Set risks) {
-        this.risks = risks;
-    }
-    public Set getDarPlans() {
-        return this.darPlans;
-    }
-    
-    public void setDarPlans(Set darPlans) {
-        this.darPlans = darPlans;
+    public void setTimesheets(Set timesheets) {
+        this.timesheets = timesheets;
     }
 
 

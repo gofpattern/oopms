@@ -1,26 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.oopms.entity.Assignment" table="ASSIGNMENT">
+    <class name="openones.oopms.entity.Assignment" table="ASSIGNMENT"  lazy="false">
         <comment>Contain importance information of project team assignments, effect to Dashboard, FI and Timesheet</comment>
         <id name="assignmentId" type="big_decimal">
             <column name="ASSIGNMENT_ID" precision="22" scale="0" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="responsibility" class="openones.oopms.entity.Responsibility" fetch="select">
-            <column name="PROJECT_POSITION_CODE" length="100" />
-        </many-to-one>
-        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
-            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
-        </many-to-one>
-        <many-to-one name="team" class="openones.oopms.entity.Team" fetch="select">
-            <column name="TEAM_ID" precision="22" scale="0" />
-        </many-to-one>
         <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
             <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
+        <property name="developerId" type="big_decimal">
+            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+        </property>
         <property name="type" type="byte">
             <column name="TYPE" precision="2" scale="0" not-null="true" />
         </property>
@@ -42,6 +36,12 @@
             <column name="NOTE" length="600">
                 <comment>For Insight comments</comment>
             </column>
+        </property>
+        <property name="projectPositionCode" type="string">
+            <column name="PROJECT_POSITION_CODE" length="100" />
+        </property>
+        <property name="teamId" type="big_decimal">
+            <column name="TEAM_ID" precision="22" scale="0" />
         </property>
         <property name="qualification" type="string">
             <column name="QUALIFICATION" length="600" />

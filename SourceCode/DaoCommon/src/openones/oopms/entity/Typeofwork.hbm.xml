@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Jul 9, 2012 10:09:18 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="openones.oopms.entity.Typeofwork" table="TYPEOFWORK">
         <comment>(Timesheet)</comment>
         <id name="towId" type="big_decimal">
             <column name="TOW_ID" precision="22" scale="0" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="name" type="string">
             <column name="NAME" length="150" not-null="true" />
