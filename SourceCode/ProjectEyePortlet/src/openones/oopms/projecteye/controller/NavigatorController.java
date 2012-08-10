@@ -19,7 +19,11 @@
 package openones.oopms.projecteye.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +31,13 @@ import java.util.Map;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.ChangeRequestDao;
+import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.dao.MilestoneDao;
 import openones.oopms.projecteye.dao.ProductDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
+import openones.oopms.projecteye.form.CostManagementForm;
+import openones.oopms.projecteye.form.DailyExpense;
+import openones.oopms.projecteye.form.ExceptionalCost;
 import openones.oopms.projecteye.form.ProductForm;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Developer;
@@ -37,8 +45,13 @@ import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Ncconstant;
+import openones.oopms.projecteye.model.OopmsCostDailyExpense;
+import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
+import openones.oopms.projecteye.model.OopmsCostType;
+import openones.oopms.projecteye.model.OopmsExceptionalCost;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.utils.CostUtil;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -586,9 +599,45 @@ public class NavigatorController {
 	@RenderMapping(params = "action=GoCostManagement")
 	public ModelAndView postGoCostManagement(RenderRequest request) {
 		log.debug("post GoCostManagement.START");
-		ModelAndView mav = new ModelAndView("CostManagement");
+		DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
+		String viewDate = request.getParameter("viewDate");
 		String projectId = request.getParameter("projectId");
-		log.debug("project ID la " + projectId);
+		String formattedDate ="";
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		BigDecimal expense = new BigDecimal("0");
+		if(viewDate!=null) {
+			try {
+				expense = CostUtil.getExpense(projectId, (Date) formatter.parse(viewDate));
+			} catch (ParseException e) {
+				log.error(e.getMessage());
+			}
+			formattedDate = viewDate;
+		} else {
+			formattedDate = df.format(new Date());
+			expense = CostUtil.getExpense(projectId, new Date());
+		}
+   		CostManagementForm form = new CostManagementForm();
+   		form.setViewDate(formattedDate);
+		ModelAndView mav = new ModelAndView("CostManagement","CostManagementForm", form);
+		
+		CostDao cDao = new CostDao();
+		List<OopmsCostOneTimeExpense> oneTimeExpenseList = cDao.getOneTimeExpenseList(projectId);
+		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
+		List<OopmsCostDailyExpense> dailyExpenseList = cDao.getDailyExpenseList(projectId);
+		List<DailyExpense> dailyExpenseListView = CostUtil.getDailyExpenseListView(dailyExpenseList);
+		List<OopmsExceptionalCost>  exceptionalExpenseList = cDao.getExceptionalExpenseList(projectId);
+		List<ExceptionalCost> exceptionalExpenseListView = CostUtil.getExceptionalListView(exceptionalExpenseList);
+		List<OopmsExceptionalCost>  exceptionalDeductList = cDao.getExceptionalDeductList(projectId);
+		List<ExceptionalCost> exceptionalDeductListView = CostUtil.getExceptionalListView(exceptionalDeductList);
+		
+		log.debug("project ID is " + projectId);
+		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
+		mav.addObject("CostTypeList", costTypeList);
+		mav.addObject("DailyExpenseList", dailyExpenseListView);
+		mav.addObject("ExceptionalExpenseList", exceptionalExpenseListView);
+		mav.addObject("ExceptionalDeductList", exceptionalDeductListView);
+		mav.addObject("expense", expense);
+		mav.addObject("viewDate", formattedDate);
 		mav.addObject("projectId", projectId);
 		return mav;
 	}

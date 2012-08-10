@@ -22,7 +22,34 @@ package openones.oopms.projecteye.form;
 /**
  * @author HaiTCT
  */
-public class CostForm {
-
+public class CostManagementForm {
+	private String viewDate;
+	private String projectId;
+	/**
+	 * @return the viewDate
+	 */
+	public String getViewDate() {
+		return viewDate;
+	}
+	/**
+	 * @param viewDate the viewDate to set
+	 */
+	public void setViewDate(String viewDate) {
+		this.viewDate = viewDate;
+	}
+	/**
+	 * @return the projectId
+	 */
+	public String getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+	
+	
 
 }
