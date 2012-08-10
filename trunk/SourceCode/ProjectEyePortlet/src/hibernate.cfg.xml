@@ -37,5 +37,9 @@
     <mapping resource="openones/oopms/projecteye/model/Milestone.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/Workunit.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/Issue.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/OopmsCostDailyExpense.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/OopmsCostOneTimeExpense.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/OopmsCostType.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/OopmsExceptionalCost.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

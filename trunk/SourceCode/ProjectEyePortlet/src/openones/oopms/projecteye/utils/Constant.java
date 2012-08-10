@@ -12,4 +12,10 @@ public class Constant {
 	public static String MilestoneUncomplete = "0";
 	public static String UnsettedDeliverable = "0";
 	public static String SettedDeliverable = "1";
+	public static String ExceptinalExpenseType = "0";
+	public static String ExceptinalDeductType = "1";
+	public static String ExceptinalRationCostEffectType = "0";
+	public static String ExceptinalFixCostEffectType = "1";
+	public static String ExceptinalCostEffectToType = "0";
+	public static String ExceptinalCostEffectToDaily = "1";
 }
