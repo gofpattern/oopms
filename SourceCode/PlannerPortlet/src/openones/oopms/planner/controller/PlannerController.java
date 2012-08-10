@@ -1,4 +1,4 @@
-    package openones.oopms.planner.controller;
+package openones.oopms.planner.controller;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -73,11 +73,10 @@ public class PlannerController {
 
     @ActionMapping(params = "action=taskmanager")
     public void processPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
-            SessionStatus status, ActionResponse response, ActionRequest request,PortletSession session) {
+            SessionStatus status, ActionResponse response, ActionRequest request, PortletSession session) {
         log.debug("processPlanner.START");
         ModuleDAO moduleDAO = new ModuleDAO();
         List<Module> moduleList = moduleDAO.getModuleByProject(new BigDecimal(request.getParameter("projectId")));
-        
 
         if (moduleList.size() != 0) {
             // Prepare parameter to render phase
@@ -85,39 +84,39 @@ public class PlannerController {
             response.setRenderParameter("developerId", request.getParameter("developerId"));
             response.setRenderParameter("action", "taskmanager");
         } else {
-//            result.rejectValue("", "error");
-//            log.error("Error in binding result:" + result.getErrorCount());
+            // result.rejectValue("", "error");
+            // log.error("Error in binding result:" + result.getErrorCount());
             log.debug("processPlanner.START + setError");
-            session.setAttribute("ERROR", true, PortletSession.APPLICATION_SCOPE);            
+            session.setAttribute("ERROR", true, PortletSession.APPLICATION_SCOPE);
         }
-        
 
     }
     @RenderMapping(params = "action=taskmanager")
-    public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request,PortletSession session) {
+    public ModelAndView postPlanner(PlannerForm formBean, PlannerAddForm formBeanAdd, RenderRequest request,
+            PortletSession session) {
         log.debug("postPlanner.START");
-        log.debug("postPlanner.START"+request.getParameter("projectId"));
-        log.debug("postPlanner.START"+projectDefault);
+        log.debug("postPlanner.START" + request.getParameter("projectId"));
+        log.debug("postPlanner.START" + projectDefault);
 
-        log.debug("postPlanner.START"+session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE));
-        
+        log.debug("postPlanner.START" + session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE));
+
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
-        ModelAndView mav = new ModelAndView("TaskManager");           
-        
+        ModelAndView mav = new ModelAndView("TaskManager");
+
         // for getting from PlannerHome
-        if(check){
+        if (check) {
             projectDefault = request.getParameter("projectId");
-            developerId = (String)session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE);
+            developerId = (String) session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE);
             check = false;
         }
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
         Map<String, String> projectMap = new LinkedHashMap<String, String>();
-        
+
         if (formBean.getInit()) {
-            
+
             formBean.setStatusDefault("All");
             formBean.setStageDefault("All");
             formBean.setDeveloperDefault("All");
@@ -129,7 +128,7 @@ public class PlannerController {
             projectList = assignmentDAO.getProject(new BigDecimal(developerId));
             processList = taskDAO.getAllProcess();
             developerList = taskDAO.getDeveloper(projectDefault);
-        }            
+        }
 
         // set value for statusMap
         statusMap.put(formBean.getStatusDefault(), "All");
@@ -155,46 +154,47 @@ public class PlannerController {
         }
 
         // Set value for projectMap
-        projectMap.put(projectDefault," ");
+        projectMap.put(projectDefault, " ");
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
 
         // Convert
         try {
-            for (int i = 0; i < taskList.size(); i++) {
-                // Convert stageId to name
-                for (int j = 0; j < stageList.size(); j++) {
-                    if (taskList.get(i).getStageid().equals(stageList.get(j).getStageId())) {
-                        taskList.get(i).setStage_str(stageList.get(j).getName());
+            if (!taskList.isEmpty())
+                for (int i = 0; i < taskList.size(); i++) {
+                    // Convert stageId to name
+                    for (int j = 0; j < stageList.size(); j++) {
+                        if (taskList.get(i).getStageid().equals(stageList.get(j).getStageId())) {
+                            taskList.get(i).setStage_str(stageList.get(j).getName());
+                        }
                     }
-                }
-                // Convert processId to name
-                for (int j = 0; j < processList.size(); j++) {
-                    if (taskList.get(i).getProcess().equals(processList.get(j).getProcessId())) {
-                        taskList.get(i).setProcess_str(processList.get(j).getName());
+                    // Convert processId to name
+                    for (int j = 0; j < processList.size(); j++) {
+                        if (taskList.get(i).getProcess().equals(processList.get(j).getProcessId())) {
+                            taskList.get(i).setProcess_str(processList.get(j).getName());
+                        }
                     }
-                }
-                // Convert developerId to name
-                for (int j = 0; j < developerList.size(); j++) {
-                    if (taskList.get(i).getAssignedto().equals(developerList.get(j).getDeveloperId())) {
-                        taskList.get(i).setDeveloper_str(developerList.get(j).getName());
+                    // Convert developerId to name
+                    for (int j = 0; j < developerList.size(); j++) {
+                        if (taskList.get(i).getAssignedto().equals(developerList.get(j).getDeveloperId())) {
+                            taskList.get(i).setDeveloper_str(developerList.get(j).getName());
+                        }
                     }
-                }
-                // Convert projectId to code
-                for (int j = 0; j < projectList.size(); j++) {
-                    if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
-                        taskList.get(i).setProject_str(projectList.get(j).getCode());
-                        log.debug("projectcode" + taskList.get(i).getProject_str());
+                    // Convert projectId to code
+                    for (int j = 0; j < projectList.size(); j++) {
+                        if (taskList.get(i).getProjectid().equals(projectList.get(j).getProjectId())) {
+                            taskList.get(i).setProject_str(projectList.get(j).getCode());
+                            log.debug("projectcode" + taskList.get(i).getProject_str());
+                        }
                     }
+                    // Convert date
+                    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                    taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
+                    taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
+                    if (taskList.get(i).getStatusid().equals(new BigDecimal(174)))
+                        taskList.get(i).setActualDate_str(dateFormat.format(taskList.get(i).getActualDate()));
                 }
-                // Convert date
-                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
-                taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
-                if (taskList.get(i).getStatusid().equals(new BigDecimal(174)))
-                    taskList.get(i).setActualDate_str(dateFormat.format(taskList.get(i).getActualDate()));
-            }
 
         } catch (Exception ex) {
 
@@ -202,12 +202,10 @@ public class PlannerController {
         }
 
         //
-        //session.setAttribute("USER", PlannerHomeController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-        
-        
-        
+        // session.setAttribute("USER", PlannerHomeController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+
         removeHtmlTag(taskList);
-        
+
         // Value for PlannerForm
         formBean.setProjectId(projectDefault);
         formBean.setTaskList(taskList);
@@ -232,7 +230,7 @@ public class PlannerController {
         mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
-//        mav.addObject("productMapAdd", formBeanAdd.getProductMap());
+        // mav.addObject("productMapAdd", formBeanAdd.getProductMap());
         mav.addObject("moduleMapAdd", formBeanAdd.getModuleMap());
         mav.addObject("sizeUnitMapAdd", formBeanAdd.getSizeUnitMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
@@ -294,21 +292,21 @@ public class PlannerController {
     @ActionMapping(params = "action=changeProject")
     public void processChangeProject(PlannerForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response, PortletSession session) {
-        log.debug("processChangeProject.START");       
-        
+        log.debug("processChangeProject.START");
+
         ModuleDAO moduleDAO = new ModuleDAO();
-        List<Module> moduleList = moduleDAO.getModuleByProject(new BigDecimal(formBean.getProjectId()));      
+        List<Module> moduleList = moduleDAO.getModuleByProject(new BigDecimal(formBean.getProjectId()));
 
         if (moduleList.size() != 0) {
             projectDefault = formBean.getProjectId();
-//          log.debug("projectDefault = " + projectDefault);
-          formBean.setInit(true);          
-          response.setRenderParameter("action", "taskmanager");
+            // log.debug("projectDefault = " + projectDefault);
+            formBean.setInit(true);
+            response.setRenderParameter("action", "taskmanager");
         } else {
             log.debug("CHANGEPROJECT_ERROR");
-            session.setAttribute("CHANGEPROJECT_ERROR", true, PortletSession.APPLICATION_SCOPE); 
+            session.setAttribute("CHANGEPROJECT_ERROR", true, PortletSession.APPLICATION_SCOPE);
             response.setRenderParameter("action", "taskmanager");
-        }      
+        }
     }
 
     @RenderMapping(params = "action=changeProject")
@@ -316,15 +314,15 @@ public class PlannerController {
             ActionResponse response) {
         log.debug("postChangeProject.START");
     }
-    
-    public static void removeHtmlTag(List<Tasks> taskList){
-        for (int i = 0; i< taskList.size();i++){
-            taskList.get(i).setTaskname(taskList.get(i).getTaskname().replaceAll(">", "&gt;"));
-            taskList.get(i).setTaskname(taskList.get(i).getTaskname().replaceAll("<", "&lt;"));
-            taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll(">", "&gt;"));
-            taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll("<", "&lt;"));
-        }
+
+    public static void removeHtmlTag(List<Tasks> taskList) {
+        if (!taskList.isEmpty())
+            for (int i = 0; i < taskList.size(); i++) {
+                taskList.get(i).setTaskname(taskList.get(i).getTaskname().replaceAll(">", "&gt;"));
+                taskList.get(i).setTaskname(taskList.get(i).getTaskname().replaceAll("<", "&lt;"));
+                taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll(">", "&gt;"));
+                taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll("<", "&lt;"));
+            }
     }
 
 }
-

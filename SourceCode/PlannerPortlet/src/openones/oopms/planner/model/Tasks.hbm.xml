@@ -7,7 +7,7 @@
         <comment>Tasks (Insight)</comment>
         <id name="taskid" type="big_decimal">
             <column name="TASKID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="workunit" class="openones.oopms.planner.model.Workunit" fetch="select">
             <column name="WORKUNITID" precision="22" scale="0" />
