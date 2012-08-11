@@ -1,0 +1,1 @@
+Please run use SQL SCRIPT to create 4 new table in FMS database before using projectEyePortlet
