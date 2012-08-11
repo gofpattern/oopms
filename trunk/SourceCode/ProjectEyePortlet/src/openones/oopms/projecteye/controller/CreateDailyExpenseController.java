@@ -63,7 +63,7 @@ public class CreateDailyExpenseController {
 		dailyExpense.setCost(new BigDecimal(formBean.getCost()));
 		dailyExpense.setDateUsed(CostUtil.getDaysUsed(formBean.getDays()));
 		dailyExpense.setDescription(formBean.getDescription());
-		dailyExpense.setType(new BigDecimal(formBean.getCostType_SelectedValue()));
+		dailyExpense.setOopmsCostTypeId(new BigDecimal(formBean.getCostType_SelectedValue()));
 		// Call dao to insert project to database
 		if (cDao.insertDailyExpense(dailyExpense)) {
 			response.setRenderParameter("action", "GoCostManagement");

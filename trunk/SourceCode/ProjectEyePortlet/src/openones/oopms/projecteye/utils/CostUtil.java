@@ -74,9 +74,9 @@ public class CostUtil {
 				temp.setEndDate(input.get(i).getEndDate());
 				temp.setName(input.get(i).getName());
 				temp.setStartDate(input.get(i).getStartDate());
-				if (input.get(i).getType() != null) {
+				if (input.get(i).getOopmsCostTypeId() != null) {
 					OopmsCostType costType = cDao.getCostType(input.get(i)
-							.getType());
+							.getOopmsCostTypeId());
 					temp.setType(costType.getName());
 				}
 				dailyExpenseListView.add(temp);
