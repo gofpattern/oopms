@@ -93,7 +93,7 @@
 
     <div class="content">
       <div class="fl-widget-titlebar titlebar portlet-titlebar">
-        <h2 class="title">Create Project</h2>
+        <h2 class="title">Update Project</h2>
       </div>
       <portlet:actionURL var="formAction">
         <portlet:param name="action" value="UpdateProject" />
