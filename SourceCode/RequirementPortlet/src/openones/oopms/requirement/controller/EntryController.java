@@ -46,7 +46,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class HelloController extends BaseController {    
+public class EntryController extends BaseController {    
     private String logonUser;
     Developer developer = new Developer();
     private static Logger log = Logger.getLogger(RequirementController.class);
@@ -117,7 +117,8 @@ public class HelloController extends BaseController {
         session.setAttribute("USER", developer.getName(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp
-        request.setAttribute("projectList", projectList);
+        //request.setAttribute("projectList", projectList);
+        mav.addObject("projectList", projectList);
 
         // Display PlannerHome.jsp
         return mav;
@@ -162,7 +163,8 @@ public class HelloController extends BaseController {
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp
-        request.setAttribute("projectList", projectList);
+        //request.setAttribute("projectList", projectList);
+        mav.addObject("projectList", projectList);
         
         return mav;
     }
