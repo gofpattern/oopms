@@ -34,7 +34,11 @@
 <meta name="robots" content="noindex, nofollow"/>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
-
+	<portlet:actionURL var="ForcedRemoveCostType">
+            <portlet:param name="action" value="ForcedRemoveCostType" />
+            <portlet:param name="projectId" value="${projectId}" />
+            <portlet:param name="oopmsCostTypeId" value="${deletingOopmsCostTypeId}" />
+    </portlet:actionURL>
 <SCRIPT type="text/javascript">
 var rules = new Array();
 rules[0] = 'viewDate:View Date|required';
@@ -109,7 +113,26 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     	            buttonImageOnly: true
     	        });
                 yav.init('${portletNamespace}CostManagement', rules);
-
+                var actionUrl = "${ForcedRemoveCostType}";
+                actionUrl = actionUrl.replace(/amp;/g, '');
+                if(document.getElementById("deleteCostTypeFlag").value==1) {
+    				document.getElementById("deleteCostTypeFlag").value = 0;
+    				if(confirm('This Type is used by another Exceptional Costs. Delete it will also delete other Exceptional Costs that using it. Do you still want to delete it?')) {
+    					submitAction("${portletNamespace}CostManagement", actionUrl);
+    				}
+    			}
+                if(document.getElementById("deleteCostTypeFlag").value==2) {
+    				document.getElementById("deleteCostTypeFlag").value = 0;
+    				if(confirm('This Type is used by another Daily Expenses. Delete it will unset those Daily Expenses Type that using it. Do you still want to delete it?')) {
+    					submitAction("${portletNamespace}CostManagement", actionUrl);
+    				}
+    			}
+                if(document.getElementById("deleteCostTypeFlag").value==3) {
+    				document.getElementById("deleteCostTypeFlag").value = 0;
+    				if(confirm('This Type is used by another Exceptional Costs and Daily Expenses. Delete it will also delete other Exceptional Costs and unset those Daily Expenses Type that using it. Do you still want to delete it?')) {
+    					submitAction("${portletNamespace}CostManagement", actionUrl);
+    				}
+    			}
             } );
         </script>	
 </head>
@@ -177,11 +200,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostOneTimeExpenseId" value="${oneTimeExpense.oopmsCostOneTimeExpenseId}" />
             </portlet:renderURL>
-            <portlet:renderURL var="renderAction3">
+            <portlet:actionURL var="renderAction3">
             	<portlet:param name="action" value="RemoveOneTimeExpense" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostOneTimeExpenseId" value="${oneTimeExpense.oopmsCostOneTimeExpenseId}" />
-            </portlet:renderURL>
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${oneTimeExpense.name}</a></td>
                <td scope="row">${oneTimeExpense.cost}</td>
@@ -214,15 +237,15 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
    <c:forEach var="dailyExpense" items="${DailyExpenseList}" varStatus="count">
    	<tr>  	
    			<portlet:renderURL var="renderAction2">
-            	<portlet:param name="action" value="GoUpdateOneTimeExpense" />
+            	<portlet:param name="action" value="GoUpdateDailyExpense" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostDailyExpenseId" value="${dailyExpense.oopmsCostDailyExpenseId}" />
             </portlet:renderURL>
-            <portlet:renderURL var="renderAction3">
-            	<portlet:param name="action" value="RemoveOneTimeExpense" />
+            <portlet:actionURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveDailyExpense" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostDailyExpenseId" value="${dailyExpense.oopmsCostDailyExpenseId}" />
-            </portlet:renderURL>
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${dailyExpense.name}</a></td>
                <td scope="row">${dailyExpense.cost}</td>
@@ -260,11 +283,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
             </portlet:renderURL>
-            <portlet:renderURL var="renderAction3">
-            	<portlet:param name="action" value="RemoveOneTimeExpense" />
+            <portlet:actionURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveExceptionalCost" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
-            </portlet:renderURL>
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${exceptionalExpense.name}</a></td>
                <td scope="row">${exceptionalExpense.affectTo}</td>
@@ -300,11 +323,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalDeduct.oopmsExceptionalCostId}" />
             </portlet:renderURL>
-            <portlet:renderURL var="renderAction3">
-            	<portlet:param name="action" value="RemoveOneTimeExpense" />
+            <portlet:actionURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveExceptionalCost" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalDeduct.oopmsExceptionalCostId}" />
-            </portlet:renderURL>
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${exceptionalDeduct.name}</a></td>
                <td scope="row">${exceptionalDeduct.affectTo}</td>
@@ -337,11 +360,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostOneTimeExpenseId" value="${costType.oopmsCostTypeId}" />
             </portlet:renderURL>
-            <portlet:renderURL var="renderAction3">
+            <portlet:actionURL var="renderAction3">
             	<portlet:param name="action" value="RemoveCostType" />
             	<portlet:param name="projectId" value="${projectId}" />
-            	<portlet:param name="oopmsCostOneTimeExpenseId" value="${costType.oopmsCostTypeId}" />
-            </portlet:renderURL>
+            	<portlet:param name="oopmsCostTypeId" value="${costType.oopmsCostTypeId}" />
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${costType.name}</a></td>
                <td scope="row">${costType.description}</td>
@@ -353,6 +376,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     </tbody>
 </table>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction5}")'>Add new Type</button>
+	<input name="deleteCostTypeFlag" type="hidden" value="${deleteCostTypeFlag}" id="deleteCostTypeFlag"/>
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

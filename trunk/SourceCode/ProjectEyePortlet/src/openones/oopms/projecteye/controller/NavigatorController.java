@@ -631,6 +631,12 @@ public class NavigatorController {
 		List<ExceptionalCost> exceptionalDeductListView = CostUtil.getExceptionalListView(exceptionalDeductList);
 		
 		log.debug("project ID is " + projectId);
+		String deleteCostTypeFlag = request.getParameter("deleteCostTypeFlag");
+		if(deleteCostTypeFlag!=null) {
+			mav.addObject("deleteCostTypeFlag", deleteCostTypeFlag);
+			String deletingOopmsCostTypeId = request.getParameter("deletingOopmsCostTypeId");
+			mav.addObject("deletingOopmsCostTypeId", deletingOopmsCostTypeId);
+		}
 		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
 		mav.addObject("DailyExpenseList", dailyExpenseListView);

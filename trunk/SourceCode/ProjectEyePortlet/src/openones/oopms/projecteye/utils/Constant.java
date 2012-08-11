@@ -18,4 +18,8 @@ public class Constant {
 	public static String ExceptinalFixCostEffectType = "1";
 	public static String ExceptinalCostEffectToType = "0";
 	public static String ExceptinalCostEffectToDaily = "1";
+	public static String CostTypeNotUsed = "0";
+	public static String CostTypeUsedByExceptionalCost = "1";
+	public static String CostTypeUsedByDailyCost = "2";
+	public static String CostTypeUsedByBothExceptionalCostAndDailyCost = "3";
 }

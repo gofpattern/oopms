@@ -277,7 +277,7 @@ public class CostUtil {
 		BigDecimal result = new BigDecimal("0");
 		if (exceptinalCost.getOopmsCostTypeId() != null) {
 			if (exceptinalCost.getEffect() != null) {
-				if (exceptinalCost.getEffectType().equals(
+				if (String.valueOf(exceptinalCost.getEffectType()).equals(
 						Constant.ExceptinalFixCostEffectType)) {
 					CostDao cDao = new CostDao();
 					List<OopmsCostDailyExpense> temp = cDao
@@ -306,7 +306,7 @@ public class CostUtil {
 			}
 		} else if (exceptinalCost.getOopmsCostDailyExpenseId() != null) {
 			if (exceptinalCost.getEffect() != null) {
-				if (exceptinalCost.getEffectType().equals(
+				if (String.valueOf(exceptinalCost.getEffectType()).equals(
 						Constant.ExceptinalFixCostEffectType)) {
 					result = result.add(exceptinalCost.getEffect());
 				} else {
