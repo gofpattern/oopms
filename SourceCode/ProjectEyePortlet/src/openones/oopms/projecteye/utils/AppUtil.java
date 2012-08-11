@@ -45,83 +45,94 @@ import rocky.common.XMLUtil;
  * @author Thach.Le
  */
 public class AppUtil {
-    /** Logger for logging. */
-    private final static Logger log = Logger.getLogger("AppUtil");
+	/** Logger for logging. */
+	private final static Logger log = Logger.getLogger("AppUtil");
 
-    /** . */
-    final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+	/** . */
+	final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 
-    /**
-     * [Give the description for method].
-     * @return
-     */
-    public static String getCurrentDate() {
-        return sdf.format(new Date());
-    }
+	/**
+	 * [Give the description for method].
+	 * 
+	 * @return
+	 */
+	public static String getCurrentDate() {
+		return sdf.format(new Date());
+	}
 
-    public static List<SubMenu> loadMenuBar() {
-        List<SubMenu> subMenuList = new ArrayList<SubMenu>();
-        try {
+	public static List<SubMenu> loadMenuBar() {
+		List<SubMenu> subMenuList = new ArrayList<SubMenu>();
+		try {
 
-            Document menuBarDoc = XMLUtil.parse(CommonUtil.loadResource("/MenuBar.xml"));
-            XPathFactory xpf = XPathFactory.newInstance();
-            XPath xp = xpf.newXPath();
-            // Nodes of rule
-            NodeList subMenuNodeList = (NodeList) xp.evaluate("//SubMenu", menuBarDoc, XPathConstants.NODESET);
+			Document menuBarDoc = XMLUtil.parse(CommonUtil
+					.loadResource("/MenuBar.xml"));
+			XPathFactory xpf = XPathFactory.newInstance();
+			XPath xp = xpf.newXPath();
+			// Nodes of rule
+			NodeList subMenuNodeList = (NodeList) xp.evaluate("//SubMenu",
+					menuBarDoc, XPathConstants.NODESET);
 
-            int len = (subMenuNodeList != null) ? subMenuNodeList.getLength() : 0;
+			int len = (subMenuNodeList != null) ? subMenuNodeList.getLength()
+					: 0;
 
-            Node subMenuNode;
-            SubMenu subMenu;
-            for (int i = 0; i < len; i++) {
-                subMenu = new SubMenu();
-                subMenuNode = subMenuNodeList.item(i);
-                subMenu.setName(xp.evaluate("@name", subMenuNode));
-                subMenu.setActionId(xp.evaluate("@action", subMenuNode));
-                subMenu.addMenuItem(parseMenuItem(subMenuNode));
+			Node subMenuNode;
+			SubMenu subMenu;
+			for (int i = 0; i < len; i++) {
+				subMenu = new SubMenu();
+				subMenuNode = subMenuNodeList.item(i);
+				subMenu.setName(xp.evaluate("@name", subMenuNode));
+				subMenu.setActionId(xp.evaluate("@action", subMenuNode));
+				subMenu.addMenuItem(parseMenuItem(subMenuNode));
 
-                subMenuList.add(subMenu);
-            }
+				subMenuList.add(subMenu);
+			}
 
-        } catch (Exception ex) {
-            log.error("Loading resource /MenuBar.xml", ex);
-        }
+		} catch (Exception ex) {
+			log.error("Loading resource /MenuBar.xml", ex);
+		}
 
-        return subMenuList;
-    }
+		return subMenuList;
+	}
 
-    private static List<MenuItem> parseMenuItem(Node subMenuNode) throws XPathExpressionException {
-        List<MenuItem> menuItemList = new ArrayList<MenuItem>();
-        XPathFactory xpf = XPathFactory.newInstance();
-        XPath xp = xpf.newXPath();
+	private static List<MenuItem> parseMenuItem(Node subMenuNode)
+			throws XPathExpressionException {
+		List<MenuItem> menuItemList = new ArrayList<MenuItem>();
+		XPathFactory xpf = XPathFactory.newInstance();
+		XPath xp = xpf.newXPath();
 
-        NodeList menuItemNodeList = (NodeList) xp.evaluate("Item", subMenuNode, XPathConstants.NODESET);
+		NodeList menuItemNodeList = (NodeList) xp.evaluate("Item", subMenuNode,
+				XPathConstants.NODESET);
 
-        int len = (menuItemNodeList != null) ? menuItemNodeList.getLength() : 0;
+		int len = (menuItemNodeList != null) ? menuItemNodeList.getLength() : 0;
 
-        MenuItem menuItem;
-        Node menuItemNode;
-        for (int i = 0; i < len; i++) {
-            menuItem = new MenuItem();
-            menuItemNode = menuItemNodeList.item(i);
-            menuItem.setName(xp.evaluate("@name", menuItemNode));
-            menuItem.setActionId(xp.evaluate("@action", menuItemNode));
+		MenuItem menuItem;
+		Node menuItemNode;
+		for (int i = 0; i < len; i++) {
+			menuItem = new MenuItem();
+			menuItemNode = menuItemNodeList.item(i);
+			menuItem.setName(xp.evaluate("@name", menuItemNode));
+			menuItem.setActionId(xp.evaluate("@action", menuItemNode));
 
-            menuItemList.add(menuItem);
-        }
+			menuItemList.add(menuItem);
+		}
 
-        return menuItemList;
-    }
-    
-    public static String getDateAsFormat(Date date, String formatString) {
-    	String result = "";
-    	DateFormat df = new java.text.SimpleDateFormat(formatString);
-   		result = df.format(date);
-    	return result;
-    }
-    
-    public static Date getDateFromFormattedDate(String formattedDate, String formatString) {
-    	DateFormat formatter = new SimpleDateFormat(formatString);
+		return menuItemList;
+	}
+
+	public static String getDateAsFormat(Date date, String formatString) {
+		if (date != null) {
+			String result = "";
+			DateFormat df = new java.text.SimpleDateFormat(formatString);
+			result = df.format(date);
+			return result;
+		} else {
+			return null;
+		}
+	}
+
+	public static Date getDateFromFormattedDate(String formattedDate,
+			String formatString) {
+		DateFormat formatter = new SimpleDateFormat(formatString);
 		Date result;
 		try {
 			result = (Date) formatter.parse(formattedDate);
@@ -129,6 +140,6 @@ public class AppUtil {
 			log.error(e.getMessage());
 			return null;
 		}
-    	return result;
-    }
+		return result;
+	}
 }
