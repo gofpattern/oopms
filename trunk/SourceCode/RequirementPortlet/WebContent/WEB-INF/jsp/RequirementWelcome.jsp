@@ -111,6 +111,10 @@
           <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         </tr>
         <tr>
+          <th><strong>Test User: </strong></th>
+          <td><strong><font color="#1490E3"><c:set var="UserInfor" value="<%=portletSession.getAttribute("UserInfo")%>"/></font></strong></td>
+        </tr>
+        <tr>
           <th><strong>Joined Projects: </strong></th>
           <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
         </tr>

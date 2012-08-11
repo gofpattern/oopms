@@ -24,11 +24,14 @@ import java.util.List;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.form.UserInfo;
+import openones.oopms.portlet.controller.BaseController;
 import openones.oopms.requirement.dao.AssignmentDao;
 import openones.oopms.requirement.dao.DeveloperDao;
 import openones.oopms.requirement.form.RequirementForm;
 import openones.oopms.requirement.model.Developer;
 import openones.oopms.requirement.model.Project;
+import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -42,7 +45,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class HelloController {    
+public class HelloController extends BaseController {    
     private String username;
     Developer developer = new Developer();
     private static Logger log = Logger.getLogger(RequirementController.class);
@@ -52,11 +55,21 @@ public class HelloController {
      */
     
     @RequestMapping
-    public String initScreen(RenderRequest request, PortletSession session) {
+    public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
-        // Get log on user
+        ModelAndView mav = new ModelAndView("RequirementWelcome");
+        
         PortletSupport portletSupport = new PortletSupport(request);
-        username = portletSupport.getLogonUser();
+        username = portletSupport.getLogonUser(); //PHAM.NGUYEN.TRUONG.GIANG
+
+        // Update User Information
+        // call super initScreen to get information of user, create user in OOPMS if it has not existed.
+        super.initScreen(request, session);
+        UserInfo userInfo = new UserInfo(username);
+        mav = new ModelAndView("Dashboard"); // Display ViewDefectMode.jsp
+        prepareCommonInfo(userInfo, mav, session);
+        
+        // Get log on user                
         log.debug("initScreenUser.START: "+username);
         // Get developer and related projects from account log on        
         DeveloperDao developerDAO = new DeveloperDao();
@@ -70,13 +83,24 @@ public class HelloController {
         
         // Set information of user to session           
         // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
-        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("USER", developer.getName(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp
         request.setAttribute("projectList", projectList);
 
         // Display PlannerHome.jsp
-        return "RequirementWelcome";
+        return mav;
+    }
+    
+    void prepareCommonInfo(UserInfo userInfo, ModelAndView mav, PortletSession session) {
+        // Sample data
+        // Set roles for user
+        userInfo.addRole("Developer");
+        userInfo.setGroup("Development");
+        userInfo.setLoginDate(BaseUtil.getCurrentDate());
+        // Update userInfo into the session
+        updateUserInfo(session, userInfo);
+
     }
     
     @RenderMapping(params = "action=requirementwelcome")
