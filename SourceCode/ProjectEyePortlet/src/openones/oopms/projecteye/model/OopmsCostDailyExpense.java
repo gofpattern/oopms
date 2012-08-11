@@ -18,7 +18,7 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
      private Date startDate;
      private Date endDate;
      private String dateUsed;
-     private BigDecimal type;
+     private BigDecimal oopmsCostTypeId;
      private String description;
 
     public OopmsCostDailyExpense() {
@@ -37,7 +37,7 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
        this.startDate = startDate;
        this.endDate = endDate;
        this.dateUsed = dateUsed;
-       this.type = type;
+       this.oopmsCostTypeId = type;
        this.description = description;
     }
    
@@ -90,12 +90,12 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
     public void setDateUsed(String dateUsed) {
         this.dateUsed = dateUsed;
     }
-    public BigDecimal getType() {
-        return this.type;
+    public BigDecimal getOopmsCostTypeId() {
+        return this.oopmsCostTypeId;
     }
     
-    public void setType(BigDecimal type) {
-        this.type = type;
+    public void setOopmsCostTypeId(BigDecimal oopmsCostTypeId) {
+        this.oopmsCostTypeId = oopmsCostTypeId;
     }
     public String getDescription() {
         return this.description;

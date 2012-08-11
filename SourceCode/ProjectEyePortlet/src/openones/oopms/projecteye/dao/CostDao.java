@@ -216,7 +216,7 @@ public class CostDao {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
-			String hql = "From OopmsCostDailyExpense where projectId = :projectId and type = :typeId";
+			String hql = "From OopmsCostDailyExpense where projectId = :projectId and oopmsCostTypeId = :typeId";
 			Query query = session.createQuery(hql);
 			query.setParameter("projectId", projectId);
 			query.setParameter("typeId", typeId);
