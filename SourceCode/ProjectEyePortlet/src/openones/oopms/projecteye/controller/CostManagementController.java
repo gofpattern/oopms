@@ -35,11 +35,15 @@ import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
+import openones.oopms.projecteye.form.UpdateOneTimeExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
+import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
+import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
+import openones.oopms.projecteye.utils.HTMLTag;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -217,5 +221,25 @@ public class CostManagementController {
 		response.setRenderParameter("deleteCostTypeFlag", Constant.CostTypeNotUsed);
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
+	}
+	
+	@RenderMapping(params = "action=GoUpdateOneTimeExpense")
+	public ModelAndView postGoUpdateOneTimeExpense(RenderRequest request) {
+		log.debug("post GoUpdateOneTimeExpense.START");
+		String oopmsCostOneTimeExpenseId = request.getParameter("oopmsCostOneTimeExpenseId");
+		CostDao cDao = new CostDao();
+		OopmsCostOneTimeExpense oneTimeExpense = cDao.getOneTimeExpense(oopmsCostOneTimeExpenseId);
+		UpdateOneTimeExpenseForm form = new UpdateOneTimeExpenseForm();
+		form.setCost(String.valueOf(oneTimeExpense.getCost()));
+		form.setName(oneTimeExpense.getName());
+		form.setDescription(HTMLTag.replaceHTMLTag(oneTimeExpense.getDescription()));
+		form.setDate(AppUtil.getDateAsFormat(oneTimeExpense.getOccurDate(), Constant.DateFormat));
+		ModelAndView mav = new ModelAndView("UpdateOneTimeExpense",
+				"UpdateOneTimeExpenseForm", form);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID : " + projectId);
+		mav.addObject("projectId", projectId);
+		mav.addObject("oopmsCostOneTimeExpenseId", oopmsCostOneTimeExpenseId);
+		return mav;
 	}
 }
