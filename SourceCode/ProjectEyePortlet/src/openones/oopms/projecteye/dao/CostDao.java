@@ -55,7 +55,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public boolean insertCostType(OopmsCostType costType) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -89,7 +89,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public OopmsCostType getCostType(BigDecimal costTypeId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -98,7 +98,7 @@ public class CostDao {
 			String hql = "From OopmsCostType where oopmsCostTypeId = :oopmsCostTypeId";
 			Query query = session.createQuery(hql);
 			query.setParameter("oopmsCostTypeId", costTypeId);
-			OopmsCostType costType = (OopmsCostType)query.uniqueResult();
+			OopmsCostType costType = (OopmsCostType) query.uniqueResult();
 			session.getTransaction().commit();
 			return costType;
 		} catch (Exception e) {
@@ -106,16 +106,19 @@ public class CostDao {
 		}
 		return null;
 	}
-	
-	public OopmsCostDailyExpense getDailyExpense(BigDecimal oopmsCostDailyExpenseId) {
+
+	public OopmsCostDailyExpense getDailyExpense(
+			BigDecimal oopmsCostDailyExpenseId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
 			String hql = "From OopmsCostDailyExpense where oopmsCostDailyExpenseId = :oopmsCostDailyExpenseId";
 			Query query = session.createQuery(hql);
-			query.setParameter("oopmsCostDailyExpenseId", oopmsCostDailyExpenseId);
-			OopmsCostDailyExpense cost = (OopmsCostDailyExpense)query.uniqueResult();
+			query.setParameter("oopmsCostDailyExpenseId",
+					oopmsCostDailyExpenseId);
+			OopmsCostDailyExpense cost = (OopmsCostDailyExpense) query
+					.uniqueResult();
 			session.getTransaction().commit();
 			return cost;
 		} catch (Exception e) {
@@ -123,7 +126,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public boolean insertDailyExpense(OopmsCostDailyExpense dailyExpense) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -157,7 +160,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public boolean insertExceptionalCost(OopmsExceptionalCost exceptionalCost) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -183,7 +186,8 @@ public class CostDao {
 			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :ExpenseType";
 			Query query = session.createQuery(hql);
 			query.setParameter("projectId", new BigDecimal(projectId));
-			query.setParameter("ExpenseType", new BigDecimal(Constant.ExceptinalExpenseType));
+			query.setParameter("ExpenseType", new BigDecimal(
+					Constant.ExceptinalExpenseType));
 			List<OopmsExceptionalCost> ExpenseList = query.list();
 			session.getTransaction().commit();
 			return ExpenseList;
@@ -192,7 +196,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public List<OopmsExceptionalCost> getExceptionalDeductList(String projectId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -201,7 +205,8 @@ public class CostDao {
 			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :DeductType";
 			Query query = session.createQuery(hql);
 			query.setParameter("projectId", new BigDecimal(projectId));
-			query.setParameter("DeductType", new BigDecimal(Constant.ExceptinalDeductType));
+			query.setParameter("DeductType", new BigDecimal(
+					Constant.ExceptinalDeductType));
 			List<OopmsExceptionalCost> ExpenseList = query.list();
 			session.getTransaction().commit();
 			return ExpenseList;
@@ -210,8 +215,9 @@ public class CostDao {
 		}
 		return null;
 	}
-	
-	public List<OopmsCostDailyExpense> getDailyExpenseListOfAType(BigDecimal projectId, BigDecimal typeId) {
+
+	public List<OopmsCostDailyExpense> getDailyExpenseListOfAType(
+			BigDecimal projectId, BigDecimal typeId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
@@ -227,6 +233,164 @@ public class CostDao {
 			log.error(e.getMessage());
 		}
 		return null;
+	}
+
+	public boolean deleteOneTimeExpense(String oopmsCostOneTimeExpenseId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From OopmsCostOneTimeExpense where oopmsCostOneTimeExpenseId = :oopmsCostOneTimeExpenseId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostOneTimeExpenseId", new BigDecimal(
+					oopmsCostOneTimeExpenseId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean deleteDailyExpense(String oopmsCostDailyExpenseId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From OopmsCostDailyExpense where oopmsCostDailyExpenseId = :oopmsCostDailyExpenseId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostDailyExpenseId", new BigDecimal(
+					oopmsCostDailyExpenseId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean deleteExceptionalCost(String oopmsExceptionalCostId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From OopmsExceptionalCost where oopmsExceptionalCostId = :oopmsExceptionalCostId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsExceptionalCostId", new BigDecimal(
+					oopmsExceptionalCostId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean deleteCostType(String oopmsCostTypeId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From OopmsCostType where oopmsCostTypeId = :oopmsCostTypeId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostTypeId", new BigDecimal(
+					oopmsCostTypeId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean forcedDeleteCostType(String oopmsCostTypeId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From OopmsCostType where oopmsCostTypeId = :oopmsCostTypeId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostTypeId", new BigDecimal(
+					oopmsCostTypeId));
+			query.executeUpdate();
+			// Delete ExceptionalCost that used this type
+			String hql2 = "Delete From OopmsExceptionalCost where oopmsCostTypeId = :oopmsCostTypeId";
+			Query query2 = session.createQuery(hql2);
+			query2.setParameter("oopmsCostTypeId", new BigDecimal(
+					oopmsCostTypeId));
+			query2.executeUpdate();
+			// Set oopmsCostTypeId to null for Daily Expense that using this
+			// type
+			String hql3 = "Update OopmsCostDailyExpense Set oopmsCostTypeId = null where oopmsCostTypeId = :oopmsCostTypeId";
+			Query query3 = session.createQuery(hql3);
+			query3.setParameter("oopmsCostTypeId", new BigDecimal(
+					oopmsCostTypeId));
+			query3.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * This function will check whether a costType Is used by another expense or
+	 * not
+	 * 
+	 * @param oopmsCostTypeId
+	 * @return
+	 */
+	public String checkCostTypeUsed(String oopmsCostTypeId) {
+		String result = Constant.CostTypeNotUsed;
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where oopmsCostTypeId = :oopmsCostTypeId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostTypeId", new BigDecimal(
+					oopmsCostTypeId));
+			List<OopmsExceptionalCost> ExceptinalCostList = query.list();
+			String hql2 = "From OopmsCostDailyExpense where oopmsCostTypeId = :oopmsCostTypeId";
+			Query query2 = session.createQuery(hql2);
+			query2.setParameter("oopmsCostTypeId", new BigDecimal(
+					oopmsCostTypeId));
+			List<OopmsCostDailyExpense> DailyExpenseList = query2.list();
+			if (ExceptinalCostList != null) {
+				if (ExceptinalCostList.size() > 0) {
+					if (DailyExpenseList != null) {
+						if (DailyExpenseList.size() > 0) {
+							result = Constant.CostTypeUsedByBothExceptionalCostAndDailyCost;
+						} else {
+							result = Constant.CostTypeUsedByExceptionalCost;
+						}
+					} else {
+						result = Constant.CostTypeUsedByExceptionalCost;
+					}
+				}
+			}
+			if ((DailyExpenseList != null) && (result.equals(Constant.CostTypeNotUsed))) {
+				if (DailyExpenseList.size() > 0) {
+					result = Constant.CostTypeUsedByDailyCost;
+				}
+			}
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error("Error in checkCostTypeUsed");
+			log.error(e.getMessage());
+			return null;
+		}
+		return result;
 	}
 
 }

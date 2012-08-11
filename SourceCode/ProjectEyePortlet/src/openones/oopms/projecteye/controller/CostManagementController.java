@@ -34,6 +34,7 @@ import openones.oopms.projecteye.form.CreateExceptionalExpenseForm;
 import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.DailyExpense;
+import openones.oopms.projecteye.form.DeleteCostForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
@@ -148,7 +149,7 @@ public class CostManagementController {
 		mav.addObject("projectId", projectId);
 		return mav;
 	}
-	
+
 	@ActionMapping(params = "action=ViewExpense")
 	public void processViewExpense(CostManagementForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
@@ -156,5 +157,65 @@ public class CostManagementController {
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 		response.setRenderParameter("viewDate", formBean.getViewDate());
+	}
+
+	@ActionMapping(params = "action=RemoveOneTimeExpense")
+	public void processRemoveOneTimeExpense(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post RemoveOneTimeExpense.START");
+		CostDao cDao = new CostDao();
+		cDao.deleteOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("projectId", formBean.getProjectId());
+	}
+
+	@ActionMapping(params = "action=RemoveDailyExpense")
+	public void processRemoveDailyExpense(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post RemoveDailyExpense.START");
+		CostDao cDao = new CostDao();
+		cDao.deleteDailyExpense(formBean.getOopmsCostDailyExpenseId());
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("projectId", formBean.getProjectId());
+	}
+
+	@ActionMapping(params = "action=RemoveExceptionalCost")
+	public void processRemoveExceptionalCost(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post RemoveExceptionalCost.START");
+		CostDao cDao = new CostDao();
+		cDao.deleteExceptionalCost(formBean.getOopmsExceptionalCostId());
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("projectId", formBean.getProjectId());
+	}
+
+	@ActionMapping(params = "action=RemoveCostType")
+	public void processRemoveCostType(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post RemoveCostType.START");
+		CostDao cDao = new CostDao();
+		String costTypeUsed = cDao.checkCostTypeUsed(formBean
+				.getOopmsCostTypeId());
+		log.debug("costTypeUsed : " + costTypeUsed);
+		if (Constant.CostTypeNotUsed.equals(costTypeUsed)) {
+			cDao.deleteCostType(formBean.getOopmsCostTypeId());
+		} else {
+			response.setRenderParameter("deleteCostTypeFlag", costTypeUsed);
+			response.setRenderParameter("deletingOopmsCostTypeId",
+					formBean.getOopmsCostTypeId());
+		}
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("projectId", formBean.getProjectId());
+	}
+
+	@ActionMapping(params = "action=ForcedRemoveCostType")
+	public void processForcedRemoveCostType(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post ForcedRemoveCostType.START");
+		CostDao cDao = new CostDao();
+		cDao.forcedDeleteCostType(formBean.getOopmsCostTypeId());
+		response.setRenderParameter("deleteCostTypeFlag", Constant.CostTypeNotUsed);
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
 }
