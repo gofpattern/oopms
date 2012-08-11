@@ -1,11 +1,13 @@
 package openones.oopms.requirement.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
@@ -29,6 +31,8 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
+import rocky.common.PropertiesManager;
+
 /**
  * @author Kenda
  */
@@ -42,13 +46,15 @@ public class RequirementController {
     // deleteRequirementList to delete more than one requirement once
     private List<Requirements> deleteRequirementList;
     // projectList to load into combo box
-    private List<Project> projectList;
-    // RequirementController ErrorString requirementError
-    String requirementError = "";
+    private List<Project> projectList;        
     // Role
     String role = "";
     // project ID
     String projectId = "";    
+ // goUpdateRequirement Error
+    String requirementError;
+    // Properties
+    Properties props;
 
     Developer developer = new Developer();
     private String username;
@@ -217,7 +223,16 @@ public class RequirementController {
         List<Requirements> tempList;
         tempList = formBean.getRequirementList();
         if (tempList == null) {
-            log.debug("ListdeleteRequirementHereNULL");
+            log.debug("ListdeleteRequirementHereNULLor>1");
+//          ModelAndView mav2 = new ModelAndView("hello");
+//          return mav2;
+          try {
+              props = PropertiesManager.newInstanceFromProps("/messages.properties");
+          } catch (IOException ex) {
+              // TODO Auto-generated catch block
+              ex.printStackTrace();
+          }
+          requirementError = props.getProperty("EmptyListRemove");
         } else {
             log.debug("ListdeleteRequirementHere: " + tempList.size());
             // for (int i = 0; i < tempList.size(); i++) {
@@ -288,7 +303,8 @@ public class RequirementController {
         username = portletSupport.getLogonUser();
         developer = developerDAO.getDeveloperByAccount(username);
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-
+        mav.addObject("ERRORMESSAGE", requirementError);
+        
         return mav;
 
     }

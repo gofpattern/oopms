@@ -1,5 +1,6 @@
 package openones.oopms.requirement.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
@@ -33,6 +35,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+
+import rocky.common.PropertiesManager;
 /**
  * @author Kenda
  */
@@ -47,6 +51,10 @@ public class RequirementUpdateController {
     private List<Requirements> requirementList;
     Developer developer = new Developer();
     private String username;
+    // goUpdateRequirement Error
+    String requirementError;
+    // Properties
+    Properties props;
 
     // not in use
     @ActionMapping(params = "action=goUpdateRequirement")
@@ -57,7 +65,7 @@ public class RequirementUpdateController {
     }
 
     @RenderMapping(params = "action=goUpdateRequirement")
-    public ModelAndView postRequirementAdd(RequirementForm formBean, RenderRequest request) {
+    public ModelAndView postRequirementAdd(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("goUpdateRequirementRender");
 
         int count = 0;
@@ -68,11 +76,73 @@ public class RequirementUpdateController {
         List<Requirements> tempList;
         tempList = formBean.getRequirementList();
         if (tempList == null) {
-            log.debug("ListdeleteRequirementHereNULLor>1");
-            ModelAndView mav2 = new ModelAndView("hello");
-            return mav2;
+            log.debug("ListUpdateRequirementHereNULLor>1");
+//            ModelAndView mav2 = new ModelAndView("hello");
+//            return mav2;
+            try {
+                props = PropertiesManager.newInstanceFromProps("/messages.properties");
+            } catch (IOException ex) {
+                // TODO Auto-generated catch block
+                ex.printStackTrace();
+            }
+            requirementError = props.getProperty("EmptyListUpdate");
+            
+            //refresh page
+            mav = new ModelAndView("RequirementHome");
+            requirementList = requirementDAO.getAllRequirement();
+            projectList = requirementDAO.getAllProject();
+
+            // get projectName
+            log.debug("projectNameSTART");
+            try {
+                for (int i = 0; i < requirementList.size(); i++) {
+                    for (int j = 0; j < projectList.size(); j++) {
+                        if (requirementList.get(i).getProjectID().equals(projectList.get(j).getProjectId())) {
+                            requirementList.get(i).setProjectName(projectList.get(j).getName());
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                // TODO: handle exception
+                log.debug(requirementList.get(0).getProjectID());
+                log.debug(projectList.get(0).getProjectId());
+                log.debug(projectList.get(0).getName());
+                log.debug(requirementList.get(0).getProjectName());
+                log.error("Convert ProcessID to string", ex);
+            }
+
+            formBean.setRequirementList(requirementList);
+            mav.addObject("requirementList", formBean.getRequirementList());
+
+            // set projectMap
+            Map<String, String> projectMap = new LinkedHashMap<String, String>();
+            log.debug("projectmap before:" + projectMap.size());
+            // projectMap.put("All", "All");
+            for (int i = 0; i < projectList.size(); i++) {
+                projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+            }
+            log.debug("projectmap after:" + projectMap.size());
+
+            formBean.setProjectMap(projectMap);
+            formBean.setProjectDefault("");
+            mav.addObject("projectDefault", formBean.getProjectDefault());
+            mav.addObject("projectMap", formBean.getProjectMap());
+
+            // sent projectList to jsp
+            request.setAttribute("projectList", projectList);
+
+            PortletSupport portletSupport = new PortletSupport(request);
+            DeveloperDao developerDAO = new DeveloperDao();
+            username = portletSupport.getLogonUser();
+            developer = developerDAO.getDeveloperByAccount(username);
+            session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+            mav.addObject("ERRORMESSAGE", requirementError);
+            
+            return mav;
+            
         } else {
             log.debug("ListdeleteRequirementHereCOUNTbefore: " + count);
+            requirementError = "";
             for (int i = 0; i < tempList.size(); i++) {
                 if (tempList.get(i).getRequirementID() != null) {
                     count++;
@@ -140,6 +210,7 @@ public class RequirementUpdateController {
         formBean.setProjectMap(projectMap);
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
+        mav.addObject("ERRORMESSAGE", requirementError);
 
         return mav;
     }
