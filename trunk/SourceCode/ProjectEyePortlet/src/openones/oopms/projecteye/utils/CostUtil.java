@@ -19,6 +19,11 @@ import openones.oopms.projecteye.model.OopmsExceptionalCost;
 public class CostUtil {
 	private final static Logger log = Logger.getLogger("CostUtil");
 
+	/**
+	 * Create String represent date used form checkbox array
+	 * @param input
+	 * @return
+	 */
 	public static String getDaysUsed(String[] input) {
 		String result = "0000000";
 		char[] temp = result.toCharArray();
@@ -28,6 +33,22 @@ public class CostUtil {
 			}
 		}
 		result = String.valueOf(temp);
+		return result;
+	}
+	
+	/**
+	 * Create checkbox array from a String represent day used
+	 * @param input
+	 * @return
+	 */
+	public static String[] getDaysUsed(String input) {
+		String temp ="";
+		for(int i=0; i<7;i++) {
+			if(input.charAt(i)=='1') {
+				temp = temp + String.valueOf(i+1) + ",";
+			}
+		}
+		String[] result = temp.split(",");
 		return result;
 	}
 

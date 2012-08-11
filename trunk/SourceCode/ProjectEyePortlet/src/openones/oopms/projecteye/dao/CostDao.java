@@ -177,6 +177,23 @@ public class CostDao {
 		log.error("Insert success");
 		return true;
 	}
+	
+	public boolean updateDailyExpense(OopmsCostDailyExpense dailyExpense) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.merge(dailyExpense);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Update fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Update success");
+		return true;
+	}
 
 	public List<OopmsCostDailyExpense> getDailyExpenseList(String projectId) {
 		try {

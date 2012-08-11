@@ -24,9 +24,12 @@ import javax.portlet.ActionResponse;
 
 import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.form.CreateDailyExpenseForm;
+import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
+import openones.oopms.projecteye.utils.AppUtil;
+import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
 
 import org.apache.log4j.Logger;
@@ -41,34 +44,36 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateDailyExpenseController {
+public class UpdateDailyExpenseController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
 	private static Logger log = Logger
-			.getLogger(CreateDailyExpenseController.class);
+			.getLogger(UpdateDailyExpenseController.class);
 	String projectId;
 
-	@ActionMapping(params = "action=CreateDailyExpense")
-	public void processCreateDailyExpense(CreateDailyExpenseForm formBean,
+	@ActionMapping(params = "action=UpdateDailyExpense")
+	public void processUpdateDailyExpense(UpdateDailyExpenseForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process CreateDailyExpense.START");
 		String projectId = formBean.getProjectId();
+		String oopmsCostDailyExpenseId = formBean.getOopmsCostDailyExpenseId();
 		CostDao cDao = new CostDao();
-		OopmsCostDailyExpense dailyExpense = new OopmsCostDailyExpense();
+		OopmsCostDailyExpense dailyExpense = cDao.getDailyExpense(new BigDecimal(oopmsCostDailyExpenseId));
 		dailyExpense.setName(formBean.getName());
-		dailyExpense.setProjectId(new BigDecimal(projectId));
-		dailyExpense.setStartDate(formBean.getStartDate());
-		dailyExpense.setEndDate(formBean.getEndDate());
+		dailyExpense.setStartDate(AppUtil.getDateFromFormattedDate(formBean.getStartDate(), Constant.DateFormat));
+		dailyExpense.setEndDate(AppUtil.getDateFromFormattedDate(formBean.getEndDate(), Constant.DateFormat));
 		dailyExpense.setCost(new BigDecimal(formBean.getCost()));
 		dailyExpense.setDateUsed(CostUtil.getDaysUsed(formBean.getDays()));
 		dailyExpense.setDescription(formBean.getDescription());
 		if (!formBean.getCostType_SelectedValue().equals("")) {
 			dailyExpense.setOopmsCostTypeId(new BigDecimal(formBean
 					.getCostType_SelectedValue()));
+		} else {
+			dailyExpense.setOopmsCostTypeId(null);
 		}
 		// Call dao to insert project to database
-		if (cDao.insertDailyExpense(dailyExpense)) {
+		if (cDao.updateDailyExpense(dailyExpense)) {
 			response.setRenderParameter("action", "GoCostManagement");
 			response.setRenderParameter("projectId", projectId);
 			log.error("Insert success");
@@ -78,4 +83,6 @@ public class CreateDailyExpenseController {
 
 	}
 
+
+	
 }

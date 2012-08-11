@@ -18,6 +18,7 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
+import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
 import openones.oopms.projecteye.form.UpdateOneTimeExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
@@ -240,6 +242,41 @@ public class CostManagementController {
 		log.debug("project ID : " + projectId);
 		mav.addObject("projectId", projectId);
 		mav.addObject("oopmsCostOneTimeExpenseId", oopmsCostOneTimeExpenseId);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=GoUpdateDailyExpense")
+	public ModelAndView postGoUpdateDailyExpense(RenderRequest request) {
+		log.debug("post GoUpdateDailyExpense.START");
+		String oopmsCostDailyExpenseId = request.getParameter("oopmsCostDailyExpenseId");
+		CostDao cDao = new CostDao();
+		OopmsCostDailyExpense dailyExpense = cDao.getDailyExpense(new BigDecimal(oopmsCostDailyExpenseId));
+		UpdateDailyExpenseForm form = new UpdateDailyExpenseForm();
+		form.setCost(String.valueOf(dailyExpense.getCost()));
+		form.setName(dailyExpense.getName());
+		form.setDescription(HTMLTag.replaceHTMLTag(dailyExpense.getDescription()));
+		form.setStartDate(AppUtil.getDateAsFormat(dailyExpense.getStartDate(), Constant.DateFormat));
+		form.setEndDate(AppUtil.getDateAsFormat(dailyExpense.getEndDate(), Constant.DateFormat));
+		if(dailyExpense.getOopmsCostTypeId()!=null) {
+			form.setCostType_SelectedValue(String.valueOf(dailyExpense.getOopmsCostTypeId()));
+		}
+		form.setDays(CostUtil.getDaysUsed(dailyExpense.getDateUsed()));
+		ModelAndView mav = new ModelAndView("UpdateDailyExpense",
+				"UpdateDailyExpenseForm", form);
+		String projectId = request.getParameter("projectId");
+		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
+		Map<String, String> costTypeMap = new LinkedHashMap<String, String>();
+		costTypeMap.put(null, " ");
+		if (costTypeList != null) {
+			for (int i = 0; i < costTypeList.size(); i++) {
+				costTypeMap.put(costTypeList.get(i).getOopmsCostTypeId()
+						.toString(), costTypeList.get(i).getName());
+			}
+		}
+		log.debug("project ID : " + projectId);
+		mav.addObject("projectId", projectId);
+		mav.addObject("oopmsCostDailyExpenseId", oopmsCostDailyExpenseId);
+		mav.addObject("costType", costTypeMap);
 		return mav;
 	}
 }
