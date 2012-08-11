@@ -18,38 +18,62 @@
  */
 package openones.oopms.dashboard.controller;
 
-import java.util.List;
-
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.form.UserInfo;
+import openones.oopms.portlet.controller.BaseController;
+import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.ModelAndView;
 
 /**
  * @author PNTG
- *
  */
 @Controller
 @RequestMapping("VIEW")
-public class DashboardController {
+public class DashboardController extends BaseController {
     private static Logger log = Logger.getLogger(DashboardController.class);
-
 
     /**
      * Default screen.
      * @return name of view which is the name of the JSP page.
      */
     @RequestMapping
-    public String initScreen(RenderRequest request, PortletSession session) {
-        log.debug("initScreen.START");        
+    public ModelAndView initScreen(RenderRequest request, PortletSession session) {
+        log.debug("initScreen.START");
+        ModelAndView mav;
+        PortletSupport portletSupport = new PortletSupport(request);
+        String logonUser = portletSupport.getLogonUser();
 
-        // Display PlannerHome.jsp
-        return "Dashboard";
+        // Update User Information
+        // call super initScreen to get information of user, create user in OOPMS if it has not existed.
+        super.initScreen(request, session);
+        UserInfo userInfo = new UserInfo(logonUser);
+        mav = new ModelAndView("Dashboard"); // Display ViewDefectMode.jsp
+        prepareCommonInfo(userInfo, mav, session);
+
+        return mav;
+
     }
+    /**
+     * Prepare data to initialize the screen ViewDefectMode. Update information of user: roles, group, loginDate
+     * @param userInfo is updated roles by username
+     * @param mav contains data ------------------------------------------- |key |value
+     *            ------------------------------------------- | |
+     */
+    void prepareCommonInfo(UserInfo userInfo, ModelAndView mav, PortletSession session) {
+        // Sample data
+        // Set roles for user
+        userInfo.addRole("Developer");
+        userInfo.setGroup("Development");
+        userInfo.setLoginDate(BaseUtil.getCurrentDate());
+        // Update userInfo into the session
+        updateUserInfo(session, userInfo);
 
+    }
 }
-
