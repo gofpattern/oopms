@@ -28,7 +28,7 @@ border-color:
 #portalPageBodyInner {
 padding: 2.5em 12px;
 background: white;
- width: 1024px;
+ width: 980px;
     height: auto;
     position: relative;
 	   margin-left: auto;
@@ -50,14 +50,14 @@ color: #444;
 .clearfix {display: block;}
 
 /* global */
-body { font-size: 76%; background: #fff; font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; margin: 0; color: #505050; }
+body {  background: #fff; font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; margin: 0; color: #505050; }
 a img { border: none; }
 
 
 /* container */
 
 div.bg { display: inline; float: left; width: 100%; background: #e8e8e8; margin: 0; padding: 0; }
-div.container { width: 1024px; margin: 0 auto; padding: 0; clear: both; }
+div.container { width: 980px; margin: 0 auto; padding: 0; clear: both; }
 
 
 /* --------- LAYOUT --------- */
