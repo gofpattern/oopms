@@ -44,6 +44,7 @@ import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
+import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -78,6 +79,18 @@ public class ProjectEyeHomeController {
 		ProjectDao pDao = new ProjectDao();
 		DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(username);
+		//
+        if (dev == null) {
+        	dev = new Developer();
+            dev.setName(username);
+            dev.setAccount(username);
+            dev.setStatus(BigDecimal.ONE);
+            dev.setRole(BaseUtil.getProperies().getProperty("DefRole"));
+            dev.setGroupName(BaseUtil.getProperies().getProperty("DefGroup"));
+            dDao.insertDeveloper(dev);
+        }
+		//
+        dev = dDao.getDeveloper(username);
 		AssignmentDao aDao = new AssignmentDao();
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
 		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
