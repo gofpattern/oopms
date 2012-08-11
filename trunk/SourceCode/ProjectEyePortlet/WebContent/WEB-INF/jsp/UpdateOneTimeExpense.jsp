@@ -44,31 +44,26 @@
 	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
-	  $( "#datepicker2" ).datepicker({
-          showOn: "button",
-          buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
-          buttonImageOnly: true
-      });
-	        yav.init('${portletNamespace}CreateDailyExpense', rules);
+	        yav.init('${portletNamespace}UpdateOneTimeExpense', rules);
+	        document.getElementById('description').innerHTML = "${UpdateOneTimeExpenseForm.description}";
 	});
     
     </script>
 <SCRIPT type="text/javascript">
-var rules = new Array();
-rules[0] = 'name:Name|required';
-rules[1] = 'cost:Cost|required';
-rules[2] = 'startDate:Start Date|required';
-rules[3] = 'name:Name|maxlength|150';
-rules[4] = 'startDate:Start Date|date';
-rules[5] = 'endDate:End Date|date';
-rules[6] = 'description:Description|maxlength|255';
-rules[7] = 'cost:Cost|double';
-yav.addHelp('name', 'Please input Name');
-yav.addHelp('cost', 'Please input Cost');
-yav.addHelp('startDate', 'Please input Start Date');
+	var rules = new Array();
+	rules[0] = 'name:Name|required';
+	rules[1] = 'cost:Cost|required';
+	rules[2] = 'date:Date|required';
+	rules[3] = 'name:Name|maxlength|150';
+	rules[4] = 'date:Date|date';
+	rules[5] = 'description:Description|maxlength|255';
+	rules[6] = 'cost:Cost|double'
+	yav.addHelp('name', 'Please input Name');
+	yav.addHelp('cost', 'Please input Cost');
+	yav.addHelp('date', 'Please input Date');
 
 </SCRIPT>
-<title>Create Daily Expense</title>	
+<title>Update One Time Expense</title>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -80,65 +75,45 @@ yav.addHelp('startDate', 'Please input Start Date');
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Create Daily Expense</h2>
+    	<h2 class="title" >Update One Time Expense</h2>
     </div>
 
 
 	<portlet:actionURL var="formAction">
-  		<portlet:param name="action" value="CreateDailyExpense" />
+  		<portlet:param name="action" value="UpdateOneTimeExpense" />
   		<portlet:param name="projectId" value="${projectId}" />
+  		<portlet:param name="oopmsCostOneTimeExpenseId" value="${oopmsCostOneTimeExpenseId}" />
 	</portlet:actionURL>
 	<portlet:renderURL var="renderAction">
     		<portlet:param name="action" value="GoCostManagement" />
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
-<form:form name="${portletNamespace}CreateDailyExpense" commandName="CreateDailyExpenseForm" method="post" action="${formAction}">
+<form:form name="${portletNamespace}UpdateOneTimeExpense" commandName="UpdateOneTimeExpenseForm" method="post" action="${formAction}">
 	<table class="portlet-table">
   	  <tr>
         <th scope="row">Name*</th>
-        <td><form:input path="name" value="" maxlength="150" size="100" type="text"/>
+        <td><form:input path="name" value="" maxlength="150" size="50" type="text"/>
 		<br/><span id=errorsDiv_name>&nbsp;</span></td>
       </tr>
       <tr>
-        <th scope="row">Cost/Day*</th>
-        <td><form:input path="cost" value="" maxlength="60" size="50" type="text"/>
+        <th scope="row">Cost*</th>
+        <td><form:input path="cost" value="" maxlength="60" size="20" type="text"/>$
 		<br/><span id=errorsDiv_cost>&nbsp;</span></td>
       </tr> 
       <tr>
-        <th scope="row">Start Date*</th>
-        <td><form:input maxlength="10" path="startDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_startDate>&nbsp;</span></td>
-      </tr>
-      <tr>
-        <th scope="row">End Date</th>
-        <td><form:input maxlength="10" path="endDate" size="9" value="" type="text" id="datepicker2"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_endDate>&nbsp;</span></td>
-      </tr>
-      <tr>
-        <th scope="row">Use on following days</th>
-        <td>
-        	<form:checkbox path="days" value="2"/>Monday
-        	<form:checkbox path="days" value="3"/>Tuedays
-        	<form:checkbox path="days" value="4"/>Wednesday
-        	<form:checkbox path="days" value="5"/>Thursday
-        	<form:checkbox path="days" value="6"/>Friday
-        	<form:checkbox path="days" value="7"/>Saturday
-        	<form:checkbox path="days" value="1"/>Sunday
-        </td>
-      </tr>
-      <tr>
-    	<th scope="row">Type</th>
-    	<td><form:select  class="styled" path="costType_SelectedValue" items="${costType}"/></td>
-  	  </tr>      
+        <th scope="row">Date*</th>
+        <td><form:input maxlength="10" path="date" size="9" value="" type="text" id="datepicker1"/>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_date>&nbsp;</span></td>
+      </tr>      
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description"></textarea>
+        <td><textarea rows="10" cols="70" name="description" id ="description"></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
   </table>
-	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateDailyExpense", "${formAction}")'>Create</button>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateOneTimeExpense", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateDailyExpense", "${renderAction}")'>Cancel</button>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateOneTimeExpense", "${renderAction}")'>Cancel</button>
 </form:form>
 
 

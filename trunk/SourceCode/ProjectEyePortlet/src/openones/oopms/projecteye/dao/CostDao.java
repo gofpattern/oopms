@@ -55,6 +55,40 @@ public class CostDao {
 		}
 		return null;
 	}
+	
+	public OopmsCostOneTimeExpense getOneTimeExpense(String oopmsCostOneTimeExpenseId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsCostOneTimeExpense where oopmsCostOneTimeExpenseId = :oopmsCostOneTimeExpenseId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostOneTimeExpenseId", new BigDecimal(oopmsCostOneTimeExpenseId));
+			OopmsCostOneTimeExpense expense = (OopmsCostOneTimeExpense)query.uniqueResult();
+			session.getTransaction().commit();
+			return expense;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	public boolean updateOneTimeExpense(OopmsCostOneTimeExpense oneTimeExpense) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.merge(oneTimeExpense);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Update fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Update success");
+		return true;
+	}
 
 	public boolean insertCostType(OopmsCostType costType) {
 		try {

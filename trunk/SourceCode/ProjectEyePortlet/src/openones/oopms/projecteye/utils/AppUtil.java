@@ -18,6 +18,8 @@
  */
 package openones.oopms.projecteye.utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,5 +111,24 @@ public class AppUtil {
         }
 
         return menuItemList;
+    }
+    
+    public static String getDateAsFormat(Date date, String formatString) {
+    	String result = "";
+    	DateFormat df = new java.text.SimpleDateFormat(formatString);
+   		result = df.format(date);
+    	return result;
+    }
+    
+    public static Date getDateFromFormattedDate(String formattedDate, String formatString) {
+    	DateFormat formatter = new SimpleDateFormat(formatString);
+		Date result;
+		try {
+			result = (Date) formatter.parse(formattedDate);
+		} catch (ParseException e) {
+			log.error(e.getMessage());
+			return null;
+		}
+    	return result;
     }
 }
