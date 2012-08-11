@@ -19,6 +19,7 @@
 package openones.oopms.requirement.controller;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.portlet.PortletSession;
@@ -46,7 +47,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @Controller
 @RequestMapping("VIEW")
 public class HelloController extends BaseController {    
-    private String username;
+    private String logonUser;
     Developer developer = new Developer();
     private static Logger log = Logger.getLogger(RequirementController.class);
     /**
@@ -60,22 +61,52 @@ public class HelloController extends BaseController {
         ModelAndView mav = new ModelAndView("RequirementWelcome");
         
         PortletSupport portletSupport = new PortletSupport(request);
-        username = portletSupport.getLogonUser(); //PHAM.NGUYEN.TRUONG.GIANG
+        logonUser = portletSupport.getLogonUser(); //PHAM.NGUYEN.TRUONG.GIANG
 
         // Update User Information
-        // call super initScreen to get information of user, create user in OOPMS if it has not existed.
-        super.initScreen(request, session);
-        UserInfo userInfo = new UserInfo(username);
-        mav = new ModelAndView("Dashboard"); // Display ViewDefectMode.jsp
+        // call super initScreen to get information of user, create user in OOPMS if it has not existed.               
+
+        log.debug("logonUser=" + logonUser);
+
+        if (logonUser != null) {
+            UserInfo userInfo = null;
+            DeveloperDao devDao = new DeveloperDao();
+            Developer dev = devDao.getDeveloperByAccount(logonUser);
+
+            if (dev != null) {
+                // Set roles for user
+                userInfo = new UserInfo(logonUser);
+                userInfo.addRole(dev.getRole());
+                userInfo.setGroup(dev.getGroupName());
+                userInfo.setLoginDate(BaseUtil.getCurrentDate());
+            } else {
+                dev = new Developer();
+                dev.setName(logonUser);
+                dev.setAccount(logonUser);
+                dev.setStatus(BigDecimal.ONE);
+                dev.setRole(BaseUtil.getProperies().getProperty("DefRole"));
+                dev.setGroupName(BaseUtil.getProperies().getProperty("DefGroup"));
+                if (devDao.insertDeveloper(dev)) {
+                    log.info("Created user: " + dev.getAccount());
+                } else {
+                    log.warn("Could not create user: " + dev.getAccount());
+                }
+            }
+            // Update userInfo into the session
+            updateUserInfo(session, userInfo);
+        }
+        
+        
+        UserInfo userInfo = new UserInfo(logonUser);        
         prepareCommonInfo(userInfo, mav, session);
         
         // Get log on user                
-        log.debug("initScreenUser.START: "+username);
+        log.debug("initScreenUser.START: "+logonUser);
         // Get developer and related projects from account log on        
         DeveloperDao developerDAO = new DeveloperDao();
         AssignmentDao assignmentDAO = new AssignmentDao();
         //RequirementDao requirementDao = new RequirementDao();
-        developer = developerDAO.getDeveloperByAccount(username);
+        developer = developerDAO.getDeveloperByAccount(logonUser);
         log.debug("initScreenUserID.START: "+developer.getDeveloperId());
         //List<Project> projectList = requirementDao.getAllProject();
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
@@ -103,6 +134,10 @@ public class HelloController extends BaseController {
 
     }
     
+    public void updateUserInfo(PortletSession session, UserInfo userInfo) {
+        session.setAttribute("UserInfo", userInfo);
+    }
+    
     @RenderMapping(params = "action=requirementwelcome")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("postRequirementSTART");                           
@@ -111,13 +146,13 @@ public class HelloController extends BaseController {
         
      // Get log on user
         PortletSupport portletSupport = new PortletSupport(request);
-        username = portletSupport.getLogonUser();
+        logonUser = portletSupport.getLogonUser();
         
         // Get developer and related projects from account log on        
         DeveloperDao developerDAO = new DeveloperDao();
         //RequirementDao requirementDao = new RequirementDao();
         AssignmentDao assignmentDAO = new AssignmentDao();
-        developer = developerDAO.getDeveloperByAccount(username);
+        developer = developerDAO.getDeveloperByAccount(logonUser);
         //List<Project> projectList = requirementDao.getAllProject();
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
         

@@ -6,7 +6,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page import="javax.portlet.PortletSession"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
 <head>
@@ -103,16 +103,12 @@
 <body>
   <div class="container">
     <div class="content">
-
+      <c:set var="UserInfor" value="<%=portletSession.getAttribute("UserInfo")%>" />
       <table border="0">
-        <!-- User infor -->
+        <!-- User infor -->        
         <tr>
           <th><strong>User: </strong></th>
-          <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
-        </tr>
-        <tr>
-          <th><strong>Test User: </strong></th>
-          <td><strong><font color="#1490E3"><c:set var="UserInfor" value="<%=portletSession.getAttribute("UserInfo")%>"/></font></strong></td>
+          <td><strong><font color="#1490E3">${UserInfor.username}</font></strong></td>
         </tr>
         <tr>
           <th><strong>Joined Projects: </strong></th>
