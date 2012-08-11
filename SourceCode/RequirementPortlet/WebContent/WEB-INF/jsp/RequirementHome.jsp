@@ -202,7 +202,7 @@
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
       </tr>
       <tr>
-        <th><strong>Joined Projects: </strong></th>
+        <th><strong>Projects: </strong></th>
         <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
       </tr>
       <tr>
@@ -242,7 +242,7 @@
         <!-- content -->
 
         <h1>Requirement Management</h1>
-        
+        <c:if test="${not empty ERRORMESSAGE}"> <label id="noSelect" style="display: inline; color: red;">${ERRORMESSAGE}</label><br></c:if>
         <c:if test="${empty requirementList}">
           <h3>There is not requirement added for this project yet.</h3>
         </c:if>

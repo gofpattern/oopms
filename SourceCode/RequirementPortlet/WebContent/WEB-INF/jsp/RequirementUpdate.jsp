@@ -299,7 +299,7 @@ textarea {
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
       </tr>
       <tr>
-        <th><strong>Joined Projects: </strong></th>
+        <th><strong>Projects: </strong></th>
         <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
       </tr>
       <tr>
