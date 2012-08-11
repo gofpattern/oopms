@@ -28,3 +28,9 @@ cd $PRJ
 ant dist
 cd ..
 cp -R $PRJ/dist/* $DEST
+
+export PRJ=DashboardPortlet
+cd $PRJ
+ant dist
+cd ..
+cp -R $PRJ/dist/* $DEST
