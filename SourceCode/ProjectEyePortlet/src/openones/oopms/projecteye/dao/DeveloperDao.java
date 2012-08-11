@@ -8,6 +8,7 @@ import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.LanguageCode;
+import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.HibernateUtil;
@@ -106,6 +107,21 @@ public class DeveloperDao {
        return null;
    }
    
-   
+   public boolean insertDeveloper(Developer developer) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.save(developer);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Insert fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert success");
+		return true;
+	}
 
 }
