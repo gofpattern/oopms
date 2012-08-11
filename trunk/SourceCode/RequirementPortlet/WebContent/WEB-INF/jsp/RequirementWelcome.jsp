@@ -103,7 +103,7 @@
 <body>
   <div class="container">
     <div class="content">
-      <c:set var="UserInfor" value="<%=portletSession.getAttribute("UserInfo")%>" />
+      <c:set var="UserInfor" value='<%=portletSession.getAttribute("UserInfo")%>' />
       <table border="0">
         <!-- User infor -->        
         <tr>
