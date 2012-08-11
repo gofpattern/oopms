@@ -358,7 +358,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
    			<portlet:renderURL var="renderAction2">
             	<portlet:param name="action" value="GoUpdateCostType" />
             	<portlet:param name="projectId" value="${projectId}" />
-            	<portlet:param name="oopmsCostOneTimeExpenseId" value="${costType.oopmsCostTypeId}" />
+            	<portlet:param name="oopmsCostTypeId" value="${costType.oopmsCostTypeId}" />
             </portlet:renderURL>
             <portlet:actionURL var="renderAction3">
             	<portlet:param name="action" value="RemoveCostType" />

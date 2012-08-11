@@ -140,6 +140,23 @@ public class CostDao {
 		}
 		return null;
 	}
+	
+	public boolean updateCostType(OopmsCostType costType) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.merge(costType);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Update fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Update success");
+		return true;
+	}
 
 	public OopmsCostDailyExpense getDailyExpense(
 			BigDecimal oopmsCostDailyExpenseId) {

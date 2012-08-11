@@ -36,6 +36,7 @@ import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
+import openones.oopms.projecteye.form.UpdateCostTypeForm;
 import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
 import openones.oopms.projecteye.form.UpdateOneTimeExpenseForm;
 import openones.oopms.projecteye.model.Developer;
@@ -277,6 +278,24 @@ public class CostManagementController {
 		mav.addObject("projectId", projectId);
 		mav.addObject("oopmsCostDailyExpenseId", oopmsCostDailyExpenseId);
 		mav.addObject("costType", costTypeMap);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=GoUpdateCostType")
+	public ModelAndView postGoUpdateCostType(RenderRequest request) {
+		log.debug("post GoUpdateCostType.START");
+		String oopmsCostTypeId = request.getParameter("oopmsCostTypeId");
+		UpdateCostTypeForm form = new UpdateCostTypeForm();
+		CostDao cDao = new CostDao();
+		OopmsCostType costType = cDao.getCostType(new BigDecimal(oopmsCostTypeId));
+		form.setName(costType.getName());
+		form.setDescription(HTMLTag.replaceHTMLTag(costType.getDescription()));
+		ModelAndView mav = new ModelAndView("UpdateCostType",
+				"UpdateCostTypeForm", form);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID : " + projectId);
+		mav.addObject("oopmsCostTypeId", oopmsCostTypeId);
+		mav.addObject("projectId", projectId);
 		return mav;
 	}
 }
