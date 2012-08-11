@@ -320,7 +320,7 @@
 
     <br>
     <div class="footer">
-      <p>DMS Group</p>
+      <p>OOPMS Group</p>
       <!-- end .footer -->
     </div>
     <!-- end .container -->

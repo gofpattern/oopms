@@ -6,3 +6,4 @@
 <p style="text-align:center;">  
   <a href="<portlet:renderURL portletMode="view"/>">- Back to home page -</a>  
 </p>
+<p>OOPMS Group</p>

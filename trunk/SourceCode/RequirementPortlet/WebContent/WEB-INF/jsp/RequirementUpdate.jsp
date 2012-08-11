@@ -499,7 +499,7 @@ textarea {
 
       <br>
       <div class="footer">
-        <p>DMS Group</p>
+        <p>OOPMS Group</p>
       </div>
       <!-- end .footer -->
 
