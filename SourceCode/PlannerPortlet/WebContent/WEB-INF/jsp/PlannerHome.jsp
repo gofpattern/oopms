@@ -104,10 +104,11 @@
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
     <div class="content">
+        <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>'/>
       <table border="0">
         <tr>
           <th><strong>User: </strong></th>
-          <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+          <td><strong><font color="#1490E3">${UserInfo.username}</font></strong></td>
         </tr>
         <tr>
           <th><strong>Joined Projects: </strong></th>

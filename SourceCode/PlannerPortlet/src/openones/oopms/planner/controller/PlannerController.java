@@ -97,8 +97,7 @@ public class PlannerController {
         log.debug("postPlanner.START");
         log.debug("postPlanner.START" + request.getParameter("projectId"));
         log.debug("postPlanner.START" + projectDefault);
-
-        log.debug("postPlanner.START" + session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE));
+        log.debug("postPlanner.START" + session.getAttribute("UserId", PortletSession.APPLICATION_SCOPE));
 
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
@@ -107,7 +106,7 @@ public class PlannerController {
         // for getting from PlannerHome
         if (check) {
             projectDefault = request.getParameter("projectId");
-            developerId = (String) session.getAttribute("USERID", PortletSession.APPLICATION_SCOPE);
+            developerId = (String) session.getAttribute("UserId", PortletSession.APPLICATION_SCOPE);
             check = false;
         }
         Map<String, String> statusMap = new LinkedHashMap<String, String>();

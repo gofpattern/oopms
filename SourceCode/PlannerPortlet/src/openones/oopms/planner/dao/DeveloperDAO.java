@@ -77,4 +77,20 @@ public class DeveloperDAO {
         }
         return null;
     }
+
+    public boolean insertDeveloper(Developer dev) {
+        try {
+            session.getTransaction().begin();
+            dev.setAccount(dev.getAccount().toUpperCase());
+            session.save(dev);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("Add Developer Error", e);
+            return false;
+        }
+        return true;
+    }
 }
