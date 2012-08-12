@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 5, 2012 10:51:17 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Tasks" table="TASKS" schema="FMSUSER" lazy="false">
+        <comment>Tasks (Insight)</comment>
+        <id name="taskid" type="big_decimal">
+            <column name="TASKID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="workunit" class="openones.oopms.entity.Workunit" fetch="select">
+            <column name="WORKUNITID" precision="22" scale="0" />
+        </many-to-one>
+        <many-to-one name="module" class="openones.oopms.entity.Module" fetch="select">
+            <column name="MODULEID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="1000" not-null="true" />
+        </property>
+        <property name="assignedto" type="big_decimal">
+            <column name="ASSIGNEDTO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="effort" type="big_decimal">
+            <column name="EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="planDate" type="date">
+            <column name="PLAN_DATE" length="7" not-null="true" />
+        </property>
+        <property name="actualDate" type="date">
+            <column name="ACTUAL_DATE" length="7" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="STATUS" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="type" type="java.lang.Byte">
+            <column name="TYPE" precision="2" scale="0" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="200" />
+        </property>
+        <property name="process" type="big_decimal">
+            <column name="PROCESS" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="replanDate" type="date">
+            <column name="REPLAN_DATE" length="7" />
+        </property>
+        <property name="feasible" type="java.lang.Boolean">
+            <column name="FEASIBLE" precision="1" scale="0" />
+        </property>
+        <property name="code" type="string">
+            <column name="CODE" length="20" />
+        </property>
+        <property name="taskname" type="string">
+            <column name="TASKNAME" length="200" not-null="true" />
+        </property>
+        <property name="stageid" type="big_decimal">
+            <column name="STAGEID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="product" type="big_decimal">
+            <column name="PRODUCT" precision="22" scale="0" />
+        </property>
+        <property name="productsize" type="big_decimal">
+            <column name="PRODUCTSIZE" precision="22" scale="0" />
+        </property>
+        <property name="completedsize" type="big_decimal">
+            <column name="COMPLETEDSIZE" precision="22" scale="0" />
+        </property>
+        <property name="startdate" type="date">
+            <column name="STARTDATE" length="7" />
+        </property>
+        <property name="plannedeffort" type="big_decimal">
+            <column name="PLANNEDEFFORT" precision="22" scale="0" />
+        </property>
+        <property name="currenteffort" type="big_decimal">
+            <column name="CURRENTEFFORT" precision="22" scale="0" />
+        </property>
+        <property name="projectid" type="big_decimal">
+            <column name="PROJECTID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="statusid" type="big_decimal">
+            <column name="STATUSID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="active" type="java.lang.Boolean">
+            <column name="ACTIVE" precision="1" scale="0" />
+        </property>
+                <property name="sizeunit" type="big_decimal">
+            <column name="SIZEUNIT" precision="22" scale="0"/>
+        </property>
+    </class>
+</hibernate-mapping>

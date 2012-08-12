@@ -31,7 +31,6 @@ import org.hibernate.SessionFactory;
 
 /**
  * @author PNTG
- *
  */
 public class AssignmentDao {
     private Session session;
@@ -51,6 +50,26 @@ public class AssignmentDao {
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
             List<Project> projectList = query.list();
+            return projectList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getProject.Exception", e);
+        }
+        return null;
+    }
+
+    public List<Project> getProject(BigDecimal developerId) {
+        log.debug("getProject.START");
+        try {
+            session.getTransaction().begin();
+            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
+            Query query = session.createQuery(sql);
+            query.setParameter("developerId", developerId);
+            List<Project> projectList = query.list();
+            session.flush();
+            System.out.println("getProject.end");
             return projectList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
