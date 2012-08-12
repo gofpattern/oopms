@@ -15,7 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/project"
-            android:textSize="10dp"
+            android:textStyle="bold"            
+            android:textSize="15dp"
             android:width="90dp" />
 
         <TextView
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/time"
+            android:textColor="#00ccff"
             android:textSize="10dp"
             android:width="46dp" />
 
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/cost"
+            android:textColor="#00ccff"
             android:textSize="10dp"
             android:width="46dp" />
 
@@ -39,6 +42,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/resource"
+            android:textColor="#00ccff"
             android:textSize="10dp"
             android:width="46dp" />
 
@@ -47,6 +51,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/progress"
+            android:textColor="#00ccff"
             android:textSize="10dp"
             android:width="46dp" />
 
@@ -55,6 +60,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/efficiency"
+            android:textColor="#00ccff"
             android:textSize="10dp"
             android:width="46dp" />
 

@@ -16,6 +16,8 @@
             <TextView                
                 android:layout_width="wrap_content"
                 android:text="Name:"
+                
+                android:textColor="#00ccff"  
                 android:width="100dp" />
 
             <TextView
@@ -37,6 +39,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:text="Customer:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -58,6 +62,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:text="Project Manager:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -79,6 +85,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:text="Budget:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -99,13 +107,15 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Planted Start Day:"
+                android:text="Planned Start Day:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
                 android:id="@+id/projectStartDay"
                 android:layout_width="wrap_content"
-                android:text="Planted Start Day1"
+                android:text="Planned Start Day1"
                 android:width="220dp" />
         </TableRow>
 
@@ -120,13 +130,15 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Planted End Day:"
+                android:text="Planned End Day:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
                 android:id="@+id/projectEndDay"
                 android:layout_width="wrap_content"
-                android:text="Planted End Day1"
+                android:text="Planned End Day1"
                 android:width="220dp" />
         </TableRow>
 
@@ -141,7 +153,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Cost"
+                android:text="Cost:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -162,7 +176,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Schedule"
+                android:text="Schedule:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -183,7 +199,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Resource"
+                android:text="Resource:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -204,7 +222,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Open Issues"
+                android:text="Open Issues:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -225,7 +245,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Open Risks"
+                android:text="Open Risks:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
@@ -246,7 +268,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Open Changes"
+                android:text="Open Changes:"
+                
+                android:textColor="#00ccff"
                 android:width="100dp" />
 
             <TextView
