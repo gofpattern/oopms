@@ -205,6 +205,7 @@
         <th><strong>Projects: </strong></th>
         <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
       </tr>
+      <c:if test="${not empty projectList}">
       <tr>
         <th><strong>Requirements: </strong></th>
         <td><strong><font color="#1490E3"><a
@@ -215,6 +216,7 @@
         <td><strong><font color="#1490E3"><a
               href='<portlet:renderURL><portlet:param name="action" value="requirementwelcome"/></portlet:renderURL>'>Lists</a></font></strong></td>
       </tr>
+      </c:if>
     </table>
 
     <portlet:actionURL var="formAction">
