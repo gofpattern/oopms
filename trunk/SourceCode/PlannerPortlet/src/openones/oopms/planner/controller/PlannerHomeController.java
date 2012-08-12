@@ -18,29 +18,32 @@
  */
 package openones.oopms.planner.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.form.UserInfo;
 import openones.oopms.planner.dao.AssignmentDAO;
 import openones.oopms.planner.dao.DeveloperDAO;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Project;
+import openones.oopms.portlet.controller.BaseController;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.ModelAndView;
 
 /**
  * @author PNTG
  */
 @Controller
 @RequestMapping("VIEW")
-public class PlannerHomeController {
+public class PlannerHomeController extends BaseController {
     private static Logger log = Logger.getLogger(PlannerHomeController.class);
-    private String username;
     private Developer developer;
 
     /**
@@ -48,30 +51,29 @@ public class PlannerHomeController {
      * @return name of view which is the name of the JSP page.
      */
     @RequestMapping
-    public String initScreen(RenderRequest request, PortletSession session) {
+    public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
+        ModelAndView mav = new ModelAndView("PlannerHome");
+        super.initScreen(request, session);
         // Get log on user
         PortletSupport portletSupport = new PortletSupport(request);
-        username = portletSupport.getLogonUser();
-        
-        log.debug("username = " +username);
-
-        // Get developer and related projects from account log on
-        AssignmentDAO assignmentDAO = new AssignmentDAO();
-        DeveloperDAO developerDAO = new DeveloperDAO();
-        developer = developerDAO.getDeveloperByAccount(username);
-
-        List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
-
-        // Set information of user to session
-        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-        session.setAttribute("USERID", developer.getDeveloperId().toString(), PortletSession.APPLICATION_SCOPE);
-
-        // sent projectList to jsp
-        request.setAttribute("projectList", projectList);
-
+        String logonUser = portletSupport.getLogonUser();
+        UserInfo userInfo = new UserInfo(logonUser);
+        prepareCommonInfo(userInfo, mav, session);
         // Display PlannerHome.jsp
-        return "PlannerHome";
+        return mav;
+    }
+    void prepareCommonInfo(UserInfo userInfo, ModelAndView mav, PortletSession session) {
+        AssignmentDAO assignmentDao = new AssignmentDAO();
+        DeveloperDAO DeveloperDAO = new DeveloperDAO();
+        // Get user info
+        Developer developer = DeveloperDAO.getDeveloperByAccount(userInfo.getUsername());
+        // Get projects belong to user
+        List<Project> projectList = assignmentDao.getProject(developer.getDeveloperId());
+        
+        updateUserInfo(session, userInfo);
+        session.setAttribute("UserId", developer.getDeveloperId().toString(), PortletSession.APPLICATION_SCOPE);
+        mav.addObject("projectList", projectList);
     }
 
 }

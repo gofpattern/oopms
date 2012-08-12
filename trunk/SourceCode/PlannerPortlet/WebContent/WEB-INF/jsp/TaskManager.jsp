@@ -29,58 +29,8 @@
 							buttonImage : "/<spring:message code="app.context"/>/resource_files/images/calendar.gif",
 							buttonImageOnly : true
 						});
-		$("#selectable").selectable();
 	});
-	$(function() {
-		$("#radio").buttonset();
-		$("#format").buttonset();
-		$("input:submit, a, button", ".demo").button();
-		$("a", ".demo").click(function() {
-			return false;
-		});
 
-		// run the currently selected effect
-		function runEffect() {
-			// get effect type from 
-			var selectedEffect = $("#effectTypes").val();
-
-			// most effect types need no options passed by default
-			var options = {};
-			// some effects have required parameters
-			if (selectedEffect === "scale") {
-				options = {
-					percent : 100
-				};
-			} else if (selectedEffect === "size") {
-				options = {
-					to : {
-						width : 280,
-						height : 185
-					}
-				};
-			}
-
-			// run the effect
-			$("#effect").show(selectedEffect, options, 500, callback);
-		}
-		;
-
-		//callback function to bring a hidden box back
-		function callback() {
-			setTimeout(function() {
-				$("#effect:visible").removeAttr("style").fadeOut();
-			}, 1000);
-		}
-		;
-
-		// set effect from select menu value
-		$("#button").click(function() {
-			runEffect();
-			return false;
-		});
-
-		$("#effect").hide();
-	});
 	// sort
 	function fnFeaturesInit() {
 		/* Not particularly modular this - but does nicely :-) */
@@ -121,10 +71,10 @@
 						}
 
 						$("#add-button").click(function() {
-							$(".hidden-add-form").show("slow");
+							$(".hidden-add-form").show('slow');
 						});
 						$("#cancel-button").click(function() {
-							$(".hidden-add-form").hide("slow");
+							$(".hidden-add-form").hide('slow');
 						});
 
 						fnFeaturesInit();
@@ -202,11 +152,11 @@
       <portlet:actionURL var="deleteTaskAction">
         <portlet:param name="action" value="deleteTask" />
       </portlet:actionURL>
-
+        <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>'/>
       <table border="0">
         <tr>
           <td><strong>User</strong></td>
-          <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+          <td><strong><font color="#1490E3">${UserInfo.username}</font></strong></td>
         </tr>
         <tr>
           <td><strong>Role</strong></td>
@@ -476,3 +426,4 @@
   </div>
 </body>
 </html>
+

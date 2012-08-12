@@ -7,7 +7,7 @@
         <comment>User profiles, using with the whole FMS packages</comment>
         <id name="developerId" type="big_decimal">
             <column name="DEVELOPER_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="name" type="string">
             <column name="NAME" not-null="true" />

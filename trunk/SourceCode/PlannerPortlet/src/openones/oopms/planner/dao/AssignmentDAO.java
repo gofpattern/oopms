@@ -35,7 +35,7 @@ import org.hibernate.SessionFactory;
  */
 public class AssignmentDAO {
     private Session session;
-    private static Logger log = Logger.getLogger(TaskDAO.class);
+    private static Logger log = Logger.getLogger(AssignmentDAO.class);
 
     public AssignmentDAO() {
         SessionFactory factory = HibernateUtil.getSessionFactory();
