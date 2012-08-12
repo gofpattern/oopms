@@ -134,6 +134,7 @@ public class CreateProductController {
 			for(int i=0; i<productList.size();i++) {
 				ProductForm temp = new ProductForm();
 				temp.setName(productList.get(i).getName());
+				temp.setProductId(String.valueOf(productList.get(i).getModuleId()));
 //				Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
 				Language unitSize = new Language();
 				temp.setWorkProduct(productList.get(i).getWorkproduct().getName());
