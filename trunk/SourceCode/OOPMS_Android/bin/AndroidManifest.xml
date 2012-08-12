@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +22,10 @@
         </activity>
          <activity
             android:name="oopms.projectmanager.ShowInfo"
+            android:label="@string/title_showinfo" >          
+        </activity>
+        <activity
+            android:name="oopms.projectmanager.MainActivity"
             android:label="@string/title_showinfo" >          
         </activity>
     </application>
