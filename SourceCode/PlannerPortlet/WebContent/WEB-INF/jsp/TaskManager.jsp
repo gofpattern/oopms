@@ -92,7 +92,7 @@
 	rules[2] = 'startDate:Start Date|date';
 	rules[3] = 'actualDate:Finish Date|required';
 	rules[4] = 'actualDate:Finish Date|date';
-	rules[5] = 'startDate|date_le|$actualDate';
+	rules[5] = 'startDate:Start Date|date_le|$actualDate:Finish Date';
 	rules[6] = 'task.plannedeffort:Planned Effort|required';
 	rules[7] = 'task.plannedeffort:Planned Effort|numeric';
 	rules[8] = 'task.stageid:Stage|required';
@@ -110,6 +110,11 @@
 	rules[18] = 'task.completedsize:Completed Size|numeric';
 	rules[19] = 'task.sizeunit:Product Size Unit|required';
 	rules[20] = 'task.sizeunit:Product Size Unit|numeric';
+	
+	rules[21] = 'task.productsize:Product Size|numrange|1-1000000000';
+	
+	
+	
 	yav.addHelp('task.taskname', 'Provide your Title');
 	yav.addHelp('startDate', 'Provide your Start Date');
 	yav.addHelp('actualDate', 'Provide your Finish Date');

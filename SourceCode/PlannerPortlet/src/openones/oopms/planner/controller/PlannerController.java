@@ -24,6 +24,7 @@ import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
+import openones.oopms.planner.utils.Constant;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -84,8 +85,6 @@ public class PlannerController {
             response.setRenderParameter("developerId", request.getParameter("developerId"));
             response.setRenderParameter("action", "taskmanager");
         } else {
-            // result.rejectValue("", "error");
-            // log.error("Error in binding result:" + result.getErrorCount());
             log.debug("processPlanner.START + setError");
             session.setAttribute("ERROR", true, PortletSession.APPLICATION_SCOPE);
         }
@@ -97,7 +96,7 @@ public class PlannerController {
         log.debug("postPlanner.START");
         log.debug("postPlanner.START" + request.getParameter("projectId"));
         log.debug("postPlanner.START" + projectDefault);
-        log.debug("postPlanner.START" + session.getAttribute("UserId", PortletSession.APPLICATION_SCOPE));
+        log.debug("postPlanner.START" + request.getParameter("developerId"));
 
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
@@ -106,7 +105,7 @@ public class PlannerController {
         // for getting from PlannerHome
         if (check) {
             projectDefault = request.getParameter("projectId");
-            developerId = (String) session.getAttribute("UserId", PortletSession.APPLICATION_SCOPE);
+            developerId = (String) request.getParameter("developerId");
             check = false;
         }
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
@@ -116,9 +115,9 @@ public class PlannerController {
 
         if (formBean.getInit()) {
 
-            formBean.setStatusDefault("All");
-            formBean.setStageDefault("All");
-            formBean.setDeveloperDefault("All");
+            formBean.setStatusDefault(Constant.ALL_VALUE);
+            formBean.setStageDefault(Constant.ALL_VALUE);
+            formBean.setDeveloperDefault(Constant.ALL_VALUE);
             role = assignmentDAO.getRole(developerId, projectDefault);
             statusList = taskDAO.getProjectStatusEn();
 
@@ -130,30 +129,30 @@ public class PlannerController {
         }
 
         // set value for statusMap
-        statusMap.put(formBean.getStatusDefault(), "All");
+        statusMap.put(formBean.getStatusDefault(), Constant.ALL_VALUE);
         if (!formBean.getInit())
-            statusMap.put("All", "All");
+            statusMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getGeneralRefId().toString(), statusList.get(i).getDescription());
         }
         // Set value for stageMap
-        stageMap.put(formBean.getStageDefault(), "All");
+        stageMap.put(formBean.getStageDefault(), Constant.ALL_VALUE);
         if (!formBean.getInit())
-            stageMap.put("All", "All");
+            stageMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
         for (int i = 0; i < stageList.size(); i++) {
             stageMap.put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
 
         // Set value for developerMap
-        developerMap.put(formBean.getDeveloperDefault(), "All");
+        developerMap.put(formBean.getDeveloperDefault(), Constant.ALL_VALUE);
         if (!formBean.getInit())
-            developerMap.put("All", "All");
+            developerMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
         for (int i = 0; i < developerList.size(); i++) {
             developerMap.put(developerList.get(i).getDeveloperId().toString(), developerList.get(i).getName());
         }
 
         // Set value for projectMap
-        projectMap.put(projectDefault, " ");
+        projectMap.put(projectDefault,Constant.BLANK_VALUE);
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
@@ -264,15 +263,15 @@ public class PlannerController {
         log.debug("processSearchByStatus.START");
         for (int i = 0; i < taskList.size(); i++) {
             taskList.get(i).setVisible(true);
-            if (!formBean.getStageDefault().equals("All"))
+            if (!formBean.getStageDefault().equals(Constant.ALL_VALUE))
                 if (!taskList.get(i).getStageid().equals(new BigDecimal(formBean.getStageDefault()))) {
                     taskList.get(i).setVisible(false);
                 }
-            if (!formBean.getDeveloperDefault().equals("All"))
+            if (!formBean.getDeveloperDefault().equals(Constant.ALL_VALUE))
                 if (!taskList.get(i).getAssignedto().equals(new BigDecimal(formBean.getDeveloperDefault()))) {
                     taskList.get(i).setVisible(false);
                 }
-            if (!formBean.getStatusDefault().equals("All"))
+            if (!formBean.getStatusDefault().equals(Constant.ALL_VALUE))
                 if (!taskList.get(i).getStatusid().equals(new BigDecimal(formBean.getStatusDefault()))) {
                     taskList.get(i).setVisible(false);
                 }

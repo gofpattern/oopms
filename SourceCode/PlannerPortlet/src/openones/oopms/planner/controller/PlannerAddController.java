@@ -41,6 +41,7 @@ import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
+import openones.oopms.planner.utils.Constant;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -86,6 +87,8 @@ public class PlannerAddController {
         sizeUnitList = taskDAO.getSizeUnit();
 
         // set value for statusMap
+        formBeanAdd.getStatusMap().clear();
+        formBeanAdd.getStatusMap().put(Constant.TENTATIVE_STATUS,Constant.BLANK_VALUE);
         for (int i = 0; i < statusList.size(); i++) {
             formBeanAdd.getStatusMap().put(statusList.get(i).getGeneralRefId().toString(),
                     statusList.get(i).getDescription());
@@ -124,7 +127,7 @@ public class PlannerAddController {
         }
 
         // Action for PlannerAddForm
-        formBeanAdd.setAction_str("addTask");
+        formBeanAdd.setAction_str(Constant.ADD_ACTION);
         // to show hidden-add-form
         formBean.setFlag(1);
         formBean.setInit(false);
@@ -241,7 +244,7 @@ public class PlannerAddController {
         formBeanAdd.setEditTask(task);
 
         // Set Action for PlannerAddForm
-        formBeanAdd.setAction_str("editTask");
+        formBeanAdd.setAction_str(Constant.EDIT_ACTION);
 
         // To show hidden-add-form
         formBean.setFlag(1);
