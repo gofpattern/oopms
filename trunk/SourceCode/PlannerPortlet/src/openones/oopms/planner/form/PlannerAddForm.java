@@ -22,12 +22,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import openones.oopms.planner.model.Tasks;
+import openones.oopms.planner.utils.Constant;
 
 /**
  * @author PNTG
  */
-public class PlannerAddForm {
-
+public class PlannerAddForm {    
     private Tasks editTask;
     private Tasks task;
     private String startDate;
@@ -56,17 +56,18 @@ public class PlannerAddForm {
         productMap = new LinkedHashMap<String, String>();
         moduleMap = new LinkedHashMap<String, String>();
         sizeUnitMap = new LinkedHashMap<String, String>();
+        
+        statusMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        stageMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        stageMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        developerMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        processMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        productMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        moduleMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        sizeUnitMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+        projectId = Constant.BLANK_VALUE;
 
-        statusMap.put("", " ");
-        stageMap.put("", " ");
-        developerMap.put("", " ");
-        processMap.put("", " ");
-        productMap.put("", " ");
-        moduleMap.put("", " ");
-        sizeUnitMap.put("", " ");
-        projectId = " ";
-
-        action_str = "none";
+        action_str = Constant.NONE_ACTION;
     }
 
     /**
