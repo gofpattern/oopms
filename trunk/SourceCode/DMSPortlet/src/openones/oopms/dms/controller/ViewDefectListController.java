@@ -437,8 +437,18 @@ public class ViewDefectListController extends BaseController {
      */
     @RenderMapping(params = "action=searchDefect")
     public ModelAndView postDefect(DefectForm formBean, RenderRequest request) {
-        ModelAndView mav = new ModelAndView("Defect"); // display Defect.jsp
-     
+        ModelAndView mav = new ModelAndView("ViewDefectList"); // display Defect.jsp
+        
+        mav.addObject("projectDis", projectDis);
+        mav.addObject("memberDisAssigned", memberDisAssigned);
+        mav.addObject("memberDisCreated", memberDisCreated);
+        mav.addObject("serverityDis", serverityDis);
+        mav.addObject("workProductDis", workProductDis);
+        mav.addObject("typeDis", typeDis);
+        mav.addObject("statusDis", statusDis);
+        mav.addObject("originDis", originDis);
+        mav.addObject("createDate", createDate);
+        mav.addObject("createDate", dueDate);
        
         mav.addObject("defect", new DefectForm());
         mav.addObject("qcActivityMap", qcActivityMap);
@@ -450,6 +460,7 @@ public class ViewDefectListController extends BaseController {
         mav.addObject("workProductMap", workProductMap);
         mav.addObject("memberMap", memberMap);
         mav.addObject("severityMap", severityMap);
+        
         DefectDao defDao = new DefectDao();
         // Get defect List from database with value from form
         List<Defect> defectList = defDao.getDefectList(memberDisCreated, memberDisAssigned, projectDis,

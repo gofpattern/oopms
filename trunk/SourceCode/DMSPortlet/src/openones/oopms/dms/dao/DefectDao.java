@@ -87,23 +87,23 @@ public class DefectDao {
             }
             
             if (!"".equals(priority)) {
-                hql += "and priority= :priority ";
+                hql += "and dpId= :priority ";
                 priorFlag = true;
             }    
             if (!"".equals(workProduct)) {
-                hql += "and workProduct= :workProduct ";
+                hql += "and wdId= :workProduct ";
                 wpFlag = true;
             }  
             if (!"".equals(severity)) {
-                hql += "and severity= :severity ";
+                hql += "and defsId= :severity ";
                 severityFlag = true;
             } 
             if (!"".equals(origin)) {
-                hql += "and origin= :origin ";
+                hql += "and processId= :origin ";
                 originFlag = true;
             } 
             if (!"".equals(type)) {
-                hql += "and type= :type ";
+                hql += "and dpId= :type ";
                 typeFlag = true;
             } 
             if (createDate != null && !createDate.isEmpty()) {
@@ -118,7 +118,7 @@ public class DefectDao {
             }
             
             if (!"".equals(status)) {
-                hql += "and status = :status";
+                hql += "and dsId = :status";
                 statusFlag = true;
             }
          
@@ -136,27 +136,27 @@ public class DefectDao {
                 query.setParameter("projectId", new BigDecimal(projectId));
             }
             if (priorFlag) {
-                query.setParameter("priority", priority);
+                query.setParameter("priority", new BigDecimal(priority));
             }
             if (typeFlag) {
-                query.setParameter("type", type);
+                query.setParameter("type", new BigDecimal(type));
             }
             if (originFlag) {
-                query.setParameter("origin", origin);
+                query.setParameter("origin", new BigDecimal(origin));
             }
             if (wpFlag) {
-                query.setParameter("workProduct", workProduct);
+                query.setParameter("workProduct", new BigDecimal(workProduct));
             }
             if (severityFlag) {
-                query.setParameter("severity", severity);
+                query.setParameter("severity", new BigDecimal(severity));
             }
             if (crFlag) {
                 Date fromDate = df.parse(createDate);
-                query.setParameter("createDate", fromDate);
+                query.setParameter("createDate", createDate);
             }
             if (duFlag) {
                 Date toDate = df.parse(dueDate);
-                query.setParameter("dueDate", toDate);
+                query.setParameter("dueDate", dueDate);
             }
             if (statusFlag) {
                 query.setParameter("status", new BigDecimal(status));
