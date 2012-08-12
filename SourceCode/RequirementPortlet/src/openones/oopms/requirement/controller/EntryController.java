@@ -60,6 +60,7 @@ public class EntryController extends BaseController {
         log.debug("initScreen.START");
         ModelAndView mav = new ModelAndView("RequirementWelcome");
         
+        UserInfo userInfo;
         PortletSupport portletSupport = new PortletSupport(request);
         logonUser = portletSupport.getLogonUser(); //PHAM.NGUYEN.TRUONG.GIANG
 
@@ -69,11 +70,15 @@ public class EntryController extends BaseController {
         log.debug("logonUser=" + logonUser);
 
         if (logonUser != null) {
-            UserInfo userInfo = null;
+            userInfo = null;
             DeveloperDao devDao = new DeveloperDao();
             Developer dev = devDao.getDeveloperByAccount(logonUser);
-
-            if (dev != null) {
+            if(logonUser.equals("sysadmin") || logonUser.equals("SYSADMIN"))
+            {
+                userInfo = new UserInfo(logonUser);                
+                prepareCommonInfo(userInfo, mav, session);
+                return mav;
+            }else if (dev != null) {
                 // Set roles for user
                 userInfo = new UserInfo(logonUser);
                 userInfo.addRole(dev.getRole());
@@ -97,7 +102,7 @@ public class EntryController extends BaseController {
         }
         
         
-        UserInfo userInfo = new UserInfo(logonUser);        
+        userInfo = new UserInfo(logonUser);        
         prepareCommonInfo(userInfo, mav, session);
         
         // Get log on user                

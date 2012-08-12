@@ -67,7 +67,6 @@ public class DeveloperDao {
             }
 
             session.save(dev);
-
             tx.commit();
             sessFact.close();
             return true;
