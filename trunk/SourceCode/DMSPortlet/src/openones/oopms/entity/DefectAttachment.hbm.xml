@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.DefectAttachment" table="DEFECT_ATTACHMENT">
+        <comment>DMS: Store attachmnents of defect in BLOB format</comment>
+        <id name="attachmentId" type="big_decimal">
+            <column name="ATTACHMENT_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="defect" class="openones.oopms.entity.Defect" fetch="select">
+            <column name="DEFECT_ID" precision="22" scale="0" />
+        </many-to-one>
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
+            <column name="DEVELOPER_ID" precision="22" scale="0">
+                <comment>Attachment owner</comment>
+            </column>
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" length="80" not-null="true">
+                <comment>File name</comment>
+            </column>
+        </property>
+        <property name="content" type="blob">
+            <column name="CONTENT">
+                <comment>Attachment file</comment>
+            </column>
+        </property>
+        <property name="contentSize" type="java.lang.Integer">
+            <column name="CONTENT_SIZE" precision="8" scale="0">
+                <comment>Attachment size in bytes</comment>
+            </column>
+        </property>
+        <property name="converted" type="java.lang.Boolean">
+            <column name="CONVERTED" precision="1" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

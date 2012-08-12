@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Milestone" table="MILESTONE">
+        <comment>Project Stages (Insight,Dashboard)</comment>
+        <id name="milestoneId" type="big_decimal">
+            <column name="MILESTONE_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
+            <column name="CONDUCTOR" precision="22" scale="0" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" length="90" not-null="true" />
+        </property>
+        <property name="complete" type="big_decimal">
+            <column name="COMPLETE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="baseStartDate" type="date">
+            <column name="BASE_START_DATE" length="7" />
+        </property>
+        <property name="planStartDate" type="date">
+            <column name="PLAN_START_DATE" length="7" />
+        </property>
+        <property name="actualStartDate" type="date">
+            <column name="ACTUAL_START_DATE" length="7" />
+        </property>
+        <property name="baseFinishDate" type="date">
+            <column name="BASE_FINISH_DATE" length="7" />
+        </property>
+        <property name="planFinishDate" type="date">
+            <column name="PLAN_FINISH_DATE" length="7" />
+        </property>
+        <property name="actualFinishDate" type="date">
+            <column name="ACTUAL_FINISH_DATE" length="7" />
+        </property>
+        <property name="baseEffort" type="big_decimal">
+            <column name="BASE_EFFORT" precision="22" scale="0">
+                <comment>deprecated, use plan_PROCESS_STAGE instead</comment>
+            </column>
+        </property>
+        <property name="planEffort" type="big_decimal">
+            <column name="PLAN_EFFORT" precision="22" scale="0">
+                <comment>deprecated, use plan_PROCESS_STAGE instead</comment>
+            </column>
+        </property>
+        <property name="actualEffort" type="big_decimal">
+            <column name="ACTUAL_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="1200" />
+        </property>
+        <property name="stageId" type="big_decimal">
+            <column name="STAGE_ID" precision="22" scale="0" />
+        </property>
+        <property name="milestone" type="string">
+            <column name="MILESTONE" length="600" />
+        </property>
+        <property name="comments" type="clob">
+            <column name="COMMENTS" />
+        </property>
+        <property name="standardstage" type="big_decimal">
+            <column name="STANDARDSTAGE" precision="22" scale="0">
+                <comment>1-I, 2-D, 3-S, 4-C, 5-T, 6-Te</comment>
+            </column>
+        </property>
+        <property name="projectsize" type="big_decimal">
+            <column name="PROJECTSIZE" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="effefectiveness" type="big_decimal">
+            <column name="EFFEFECTIVENESS" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="customersatisfaction" type="big_decimal">
+            <column name="CUSTOMERSATISFACTION" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="acceptanceofdeliverables" type="big_decimal">
+            <column name="ACCEPTANCEOFDELIVERABLES" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="requirementcompleteness" type="big_decimal">
+            <column name="REQUIREMENTCOMPLETENESS" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="timeliness" type="big_decimal">
+            <column name="TIMELINESS" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="leakage" type="big_decimal">
+            <column name="LEAKAGE" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="correctioncost" type="big_decimal">
+            <column name="CORRECTIONCOST" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="processcompliance" type="big_decimal">
+            <column name="PROCESSCOMPLIANCE" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="workorder" type="big_decimal">
+            <column name="WORKORDER" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="acceptancenote" type="big_decimal">
+            <column name="ACCEPTANCENOTE" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="projectplan" type="big_decimal">
+            <column name="PROJECTPLAN" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="projectreports" type="big_decimal">
+            <column name="PROJECTREPORTS" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="prestige" type="big_decimal">
+            <column name="PRESTIGE" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="projectpoint" type="big_decimal">
+            <column name="PROJECTPOINT" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="projecteval" type="string">
+            <column name="PROJECTEVAL" length="10">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="cuspoint" type="big_decimal">
+            <column name="CUSPOINT" precision="22" scale="0">
+                <comment>Project points</comment>
+            </column>
+        </property>
+        <property name="effortefficiency" type="big_decimal">
+            <column name="EFFORTEFFICIENCY" precision="22" scale="0" />
+        </property>
+        <property name="overduencsobs" type="big_decimal">
+            <column name="OVERDUENCSOBS" precision="22" scale="0" />
+        </property>
+        <set name="cusPoints" inverse="true">
+            <key>
+                <column name="MILESTONE_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="openones.oopms.entity.CusPoint" />
+        </set>
+        <set name="plansQcStages" inverse="true">
+            <key>
+                <column name="MILESTONEID" precision="22" scale="0" not-null="true">
+                    <comment>Milestone, project stage</comment>
+                </column>
+            </key>
+            <one-to-many class="openones.oopms.entity.PlansQcStage" />
+        </set>
+        <set name="iterations" inverse="true">
+            <key>
+                <column name="MILESTONE_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="openones.oopms.entity.Iteration" />
+        </set>
+    </class>
+</hibernate-mapping>

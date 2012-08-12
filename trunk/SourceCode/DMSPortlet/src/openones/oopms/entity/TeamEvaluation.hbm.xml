@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.TeamEvaluation" table="TEAM_EVALUATION">
+        <id name="teamEvaluationId" type="big_decimal">
+            <column name="TEAM_EVALUATION_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="projectId" type="big_decimal">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="developerId" type="big_decimal">
+            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="role" type="string">
+            <column name="ROLE" length="1200" />
+        </property>
+        <property name="effect" type="string">
+            <column name="EFFECT" length="1200" />
+        </property>
+        <property name="cost" type="big_decimal">
+            <column name="COST" precision="22" scale="0" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="1200" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Staffs" table="STAFFS">
+        <comment>?</comment>
+        <id name="code" type="long">
+            <column name="CODE" precision="10" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="fullName" type="string">
+            <column name="FULL_NAME" length="150" />
+        </property>
+        <property name="joinDate" type="date">
+            <column name="JOIN_DATE" length="7" />
+        </property>
+        <property name="leaveDate" type="date">
+            <column name="LEAVE_DATE" length="7" />
+        </property>
+        <property name="groupId" type="string">
+            <column name="GROUP_ID" length="30" />
+        </property>
+        <property name="type" type="string">
+            <column name="TYPE" length="0" />
+        </property>
+    </class>
+</hibernate-mapping>

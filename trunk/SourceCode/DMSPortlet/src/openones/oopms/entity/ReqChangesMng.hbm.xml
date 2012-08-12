@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.ReqChangesMng" table="REQ_CHANGES_MNG">
+        <id name="reqChangesId" type="big_decimal">
+            <column name="REQ_CHANGES_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="reqProjectId" type="big_decimal">
+            <column name="REQ_PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="reqChangesDesc" type="string">
+            <column name="REQ_CHANGES_DESC" length="600" />
+        </property>
+        <property name="reqCreator" type="string">
+            <column name="REQ_CREATOR" length="600" not-null="true" />
+        </property>
+        <property name="reqReviewer" type="string">
+            <column name="REQ_REVIEWER" length="600" not-null="true" />
+        </property>
+        <property name="reqAprover" type="string">
+            <column name="REQ_APROVER" length="600" not-null="true" />
+        </property>
+        <property name="reqLogLocation" type="string">
+            <column name="REQ_LOG_LOCATION" length="600" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

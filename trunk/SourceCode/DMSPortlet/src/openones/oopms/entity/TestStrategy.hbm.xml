@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.TestStrategy" table="TEST_STRATEGY">
+        <id name="testId" type="big_decimal">
+            <column name="TEST_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="testPrjId" type="big_decimal">
+            <column name="TEST_PRJ_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="testItem" type="string">
+            <column name="TEST_ITEM" length="600" not-null="true" />
+        </property>
+        <property name="testType" type="big_decimal">
+            <column name="TEST_TYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="testReviewer" type="string">
+            <column name="TEST_REVIEWER" length="600" not-null="true" />
+        </property>
+        <property name="testEntryCriteria" type="string">
+            <column name="TEST_ENTRY_CRITERIA" length="600" not-null="true" />
+        </property>
+        <property name="testCompletionCriteria" type="string">
+            <column name="TEST_COMPLETION_CRITERIA" length="600" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

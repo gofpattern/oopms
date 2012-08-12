@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.RiskSource" table="RISK_SOURCE">
+        <id name="sourceId" type="big_decimal">
+            <column name="SOURCE_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="riskCategory" class="openones.oopms.entity.RiskCategory" fetch="select">
+            <column name="CATEGORY_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="sourceName" type="string">
+            <column name="SOURCE_NAME" length="100" />
+        </property>
+        <property name="topRisk" type="big_decimal">
+            <column name="TOP_RISK" precision="22" scale="0" />
+        </property>
+        <property name="processId" type="big_decimal">
+            <column name="PROCESS_ID" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

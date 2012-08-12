@@ -27,6 +27,7 @@ import javax.portlet.RenderRequest;
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.LoginForm;
 import openones.oopms.dms.form.ViewDefectModeForm;
+import openones.oopms.dms.util.AppUtil;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
 import openones.oopms.util.BaseUtil;
@@ -41,7 +42,7 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 
 /**
- * @author Open-Ones team
+ * @author Thach.Le
  */
 @Controller
 @RequestMapping("VIEW")
@@ -56,7 +57,6 @@ public class LoginController extends BaseController {
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
         ModelAndView mav;
-
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
 
@@ -66,11 +66,11 @@ public class LoginController extends BaseController {
             mav = new ModelAndView("login"); // Display login.jsp
         } else {
             // Update User Information
-            // call super initScreen to get information of user, create user in OOPMS if it has not existed.
             super.initScreen(request, session);
             UserInfo userInfo = new UserInfo(logonUser);
-            mav = new ModelAndView("ViewDefectMode"); // Display ViewDefectMode.jsp
+            mav = new ModelAndView("login"); // Display ViewDefectMode.jsp
             prepareCommonInfo(userInfo, mav, session);
+            System.out.println("View Defect Mode");
         }
 
         return mav;
@@ -84,6 +84,7 @@ public class LoginController extends BaseController {
     public LoginForm getCommandObject() {
         log.debug("getCommandObject.START");
         LoginForm formBean = new LoginForm();
+        formBean.setUsername("TRUONGMH");
         return formBean;
     }
 
@@ -108,7 +109,7 @@ public class LoginController extends BaseController {
             userInfo.setUsername(formBean.getUsername());
             updateUserInfo(session, userInfo);
             // Prepare parameter to render phase
-            response.setRenderParameter("action", "goViewDefectMode");
+            response.setRenderParameter("action", "init");
         } else {
             log.error("Error in binding result:" + result.getErrorCount());
         }
@@ -147,4 +148,5 @@ public class LoginController extends BaseController {
         
         mav.addObject("viewDefectMode", new ViewDefectModeForm());
     }
+    
 }

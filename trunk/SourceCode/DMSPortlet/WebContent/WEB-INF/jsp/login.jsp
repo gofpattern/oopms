@@ -37,7 +37,7 @@
 
 <%-- Define actionURL --%>
 <portlet:actionURL var="formAction">
-  <portlet:param name="action" value="login" />
+  <portlet:param name="action" value="init" />
 </portlet:actionURL>
 
 <form:form method="post" commandName="loginForm" action="${formAction}">
@@ -45,7 +45,7 @@
     <tbody><tr>
         <td align="right" width="70%"><b>User name</b></td>
         <td width="5%"></td>
-        <td align="right" width="25%"><input name="username" class="SmallBox" type="text"></td>
+        <td align="right" width="25%"><input name="username" class="SmallBox" type="text" value="TRUONGMH"></td>
     </tr>
     <tr>
         <td align="right" width="70%"><b>Password</b></td>

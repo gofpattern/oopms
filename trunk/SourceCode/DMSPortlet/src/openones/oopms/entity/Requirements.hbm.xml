@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Requirements" table="REQUIREMENTS">
+        <comment>Project requirements (Insight)</comment>
+        <id name="requirementId" type="big_decimal">
+            <column name="REQUIREMENT_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="prevProjectId" type="big_decimal">
+            <column name="PREV_PROJECT_ID" precision="22" scale="0" />
+        </property>
+        <property name="moduleId" type="big_decimal">
+            <column name="MODULE_ID" precision="22" scale="0" />
+        </property>
+        <property name="type" type="big_decimal">
+            <column name="TYPE" precision="22" scale="0" />
+        </property>
+        <property name="reqSize" type="big_decimal">
+            <column name="REQ_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="srs" type="string">
+            <column name="SRS" length="600" />
+        </property>
+        <property name="dd" type="string">
+            <column name="DD" length="600" />
+        </property>
+        <property name="testcase" type="string">
+            <column name="TESTCASE" length="150" />
+        </property>
+        <property name="releaseNote" type="string">
+            <column name="RELEASE_NOTE" length="600" />
+        </property>
+        <property name="effort" type="big_decimal">
+            <column name="EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="elapsedDay" type="big_decimal">
+            <column name="ELAPSED_DAY" precision="22" scale="0" />
+        </property>
+        <property name="receivedDate" type="date">
+            <column name="RECEIVED_DATE" length="7" />
+        </property>
+        <property name="responseDate" type="date">
+            <column name="RESPONSE_DATE" length="7" />
+        </property>
+        <property name="createDate" type="date">
+            <column name="CREATE_DATE" length="7" />
+        </property>
+        <property name="committedDate" type="date">
+            <column name="COMMITTED_DATE" length="7" />
+        </property>
+        <property name="designedDate" type="date">
+            <column name="DESIGNED_DATE" length="7" />
+        </property>
+        <property name="codedDate" type="date">
+            <column name="CODED_DATE" length="7" />
+        </property>
+        <property name="testedDate" type="date">
+            <column name="TESTED_DATE" length="7" />
+        </property>
+        <property name="deployedDate" type="date">
+            <column name="DEPLOYED_DATE" length="7" />
+        </property>
+        <property name="acceptedDate" type="date">
+            <column name="ACCEPTED_DATE" length="7" />
+        </property>
+        <property name="cancelledDate" type="date">
+            <column name="CANCELLED_DATE" length="7" />
+        </property>
+        <property name="requirement" type="string">
+            <column name="REQUIREMENT" length="600" />
+        </property>
+        <property name="codeModule" type="string">
+            <column name="CODE_MODULE" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

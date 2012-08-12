@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Nchistory" table="NCHISTORY">
+        <comment>NCMS: NC history tracking, for track status changes</comment>
+        <id name="ncid" type="big_decimal">
+            <column name="NCID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="history" type="string">
+            <column name="HISTORY" length="1024" />
+        </property>
+    </class>
+</hibernate-mapping>

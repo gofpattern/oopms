@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Defect" table="DEFECT">
+        <comment>DMS: Defect tracking</comment>
+        <id name="defectId" type="big_decimal">
+            <column name="DEFECT_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="projectId" type="big_decimal">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="CREATED_BY" length="60" not-null="true" />
+        </property>
+        <property name="createDate" type="date">
+            <column name="CREATE_DATE" length="7" not-null="true" />
+        </property>
+        <property name="updatedBy" type="string">
+            <column name="UPDATED_BY" length="60">
+                <comment>Last updated user</comment>
+            </column>
+        </property>
+        <property name="title" type="string">
+            <column name="TITLE" length="450" not-null="true" />
+        </property>
+        <property name="assignedTo" type="string">
+            <column name="ASSIGNED_TO" length="60" />
+        </property>
+        <property name="dsId" type="big_decimal">
+            <column name="DS_ID" precision="22" scale="0">
+                <comment>Defect status</comment>
+            </column>
+        </property>
+        <property name="wpId" type="big_decimal">
+            <column name="WP_ID" precision="22" scale="0">
+                <comment>Work product</comment>
+            </column>
+        </property>
+        <property name="defsId" type="big_decimal">
+            <column name="DEFS_ID" precision="22" scale="0">
+                <comment>Defect severity</comment>
+            </column>
+        </property>
+        <property name="moduleId" type="big_decimal">
+            <column name="MODULE_ID" precision="22" scale="0" />
+        </property>
+        <property name="atId" type="big_decimal">
+            <column name="AT_ID" precision="22" scale="0">
+                <comment>Activity type</comment>
+            </column>
+        </property>
+        <property name="dpId" type="big_decimal">
+            <column name="DP_ID" precision="22" scale="0">
+                <comment>Defect priotity</comment>
+            </column>
+        </property>
+        <property name="dtId" type="big_decimal">
+            <column name="DT_ID" precision="22" scale="0">
+                <comment>Defect type</comment>
+            </column>
+        </property>
+        <property name="qaId" type="big_decimal">
+            <column name="QA_ID" precision="22" scale="0">
+                <comment>QC Activity</comment>
+            </column>
+        </property>
+        <property name="processId" type="big_decimal">
+            <column name="PROCESS_ID" precision="22" scale="0" />
+        </property>
+        <property name="sdId" type="big_decimal">
+            <column name="SD_ID" precision="22" scale="0">
+                <comment>Stage Detected</comment>
+            </column>
+        </property>
+        <property name="siId" type="big_decimal">
+            <column name="SI_ID" precision="22" scale="0">
+                <comment>Stage injected</comment>
+            </column>
+        </property>
+        <property name="dueDate" type="date">
+            <column name="DUE_DATE" length="7" />
+        </property>
+        <property name="closeDate" type="date">
+            <column name="CLOSE_DATE" length="7" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="3600" not-null="true" />
+        </property>
+        <property name="solution" type="string">
+            <column name="SOLUTION" length="3600" />
+        </property>
+        <property name="projectOrigin" type="string">
+            <column name="PROJECT_ORIGIN" length="150" />
+        </property>
+        <property name="image" type="string">
+            <column name="IMAGE" length="30">
+                <comment>Attach picture file name, deprecated</comment>
+            </column>
+        </property>
+        <property name="reference" type="string">
+            <column name="REFERENCE" length="90" />
+        </property>
+        <property name="fixedDate" type="date">
+            <column name="FIXED_DATE" length="7" />
+        </property>
+        <property name="causeAnalysis" type="string">
+            <column name="CAUSE_ANALYSIS" length="3600" />
+        </property>
+        <property name="testCase" type="string">
+            <column name="TEST_CASE" length="100" />
+        </property>
+        <property name="defectOwner" type="string">
+            <column name="DEFECT_OWNER" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>
