@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Stage" table="STAGE">
+        <comment>Standard stage list (Insight)</comment>
+        <id name="stageId" type="big_decimal">
+            <column name="STAGE_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" length="90" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

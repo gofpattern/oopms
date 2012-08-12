@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.ProjectPlan" table="PROJECT_PLAN">
+        <comment>Project plan information and defect planning (Insight)</comment>
+        <id name="projectPlanId" type="big_decimal">
+            <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" />
+        </many-to-one>
+        <many-to-one name="applicationType" class="openones.oopms.entity.ApplicationType" fetch="select">
+            <column name="APPLICATION_TYPE" precision="22" scale="0" />
+        </many-to-one>
+        <property name="lastUpdate" type="date">
+            <column name="LAST_UPDATE" length="7" />
+        </property>
+        <property name="managementEffort" type="big_decimal">
+            <column name="MANAGEMENT_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="qualityEffort" type="big_decimal">
+            <column name="QUALITY_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="schedule" type="string">
+            <column name="SCHEDULE" length="600" />
+        </property>
+        <property name="structure" type="clob">
+            <column name="STRUCTURE" />
+        </property>
+        <property name="projectCommunication" type="clob">
+            <column name="PROJECT_COMMUNICATION" />
+        </property>
+        <property name="managementCommunication" type="clob">
+            <column name="MANAGEMENT_COMMUNICATION" />
+        </property>
+        <property name="customerCommunication" type="clob">
+            <column name="CUSTOMER_COMMUNICATION" />
+        </property>
+        <property name="otherCommunication" type="clob">
+            <column name="OTHER_COMMUNICATION" />
+        </property>
+        <property name="qualityObjectiveStrategy" type="clob">
+            <column name="QUALITY_OBJECTIVE_STRATEGY" />
+        </property>
+        <property name="configurationManagement" type="string">
+            <column name="CONFIGURATION_MANAGEMENT" length="600" />
+        </property>
+        <property name="maxTeamSize" type="big_decimal">
+            <column name="MAX_TEAM_SIZE" precision="22" scale="0" />
+        </property>
+        <property name="timeliness" type="big_decimal">
+            <column name="TIMELINESS" precision="22" scale="0" />
+        </property>
+        <property name="customerLocation" type="string">
+            <column name="CUSTOMER_LOCATION" length="150" />
+        </property>
+        <property name="domain" type="string">
+            <column name="DOMAIN" length="150" />
+        </property>
+        <property name="director" type="string">
+            <column name="DIRECTOR" length="60" />
+        </property>
+        <property name="scopeObjective" type="clob">
+            <column name="SCOPE_OBJECTIVE" />
+        </property>
+        <property name="asset" type="clob">
+            <column name="ASSET" />
+        </property>
+        <property name="problem" type="clob">
+            <column name="PROBLEM" />
+        </property>
+        <property name="rewardPenalty" type="clob">
+            <column name="REWARD_PENALTY" />
+        </property>
+        <property name="orgStructure" type="clob">
+            <column name="ORG_STRUCTURE" />
+        </property>
+        <property name="reqplanreviewdefect" type="big_decimal">
+            <column name="REQPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="reqreplanreviewdefect" type="big_decimal">
+            <column name="REQREPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="desplanreviewdefect" type="big_decimal">
+            <column name="DESPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="desreplanreviewdefect" type="big_decimal">
+            <column name="DESREPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="codplanreviewdefect" type="big_decimal">
+            <column name="CODPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="codreplanreviewdefect" type="big_decimal">
+            <column name="CODREPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="othplanreviewdefect" type="big_decimal">
+            <column name="OTHPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="othreplanreviewdefect" type="big_decimal">
+            <column name="OTHREPLANREVIEWDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="reqplantestdefect" type="big_decimal">
+            <column name="REQPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="reqreplantestdefect" type="big_decimal">
+            <column name="REQREPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="desplantestdefect" type="big_decimal">
+            <column name="DESPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="desreplantestdefect" type="big_decimal">
+            <column name="DESREPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="codplantestdefect" type="big_decimal">
+            <column name="CODPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="codreplantestdefect" type="big_decimal">
+            <column name="CODREPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="othplantestdefect" type="big_decimal">
+            <column name="OTHPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="othreplantestdefect" type="big_decimal">
+            <column name="OTHREPLANTESTDEFECT" precision="22" scale="0" />
+        </property>
+        <property name="schedulefile" type="blob">
+            <column name="SCHEDULEFILE" />
+        </property>
+        <property name="schedulefilename" type="string">
+            <column name="SCHEDULEFILENAME" length="80" />
+        </property>
+        <property name="planCalendarEffort" type="big_decimal">
+            <column name="PLAN_CALENDAR_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="replanCalendarEffort" type="big_decimal">
+            <column name="REPLAN_CALENDAR_EFFORT" precision="22" scale="0" />
+        </property>
+        <property name="contractType" type="java.lang.Byte">
+            <column name="CONTRACT_TYPE" precision="2" scale="0" />
+        </property>
+        <property name="reqnotereviewdefect" type="string">
+            <column name="REQNOTEREVIEWDEFECT" length="600" />
+        </property>
+        <property name="desnotereviewdefect" type="string">
+            <column name="DESNOTEREVIEWDEFECT" length="600" />
+        </property>
+        <property name="codnotereviewdefect" type="string">
+            <column name="CODNOTEREVIEWDEFECT" length="600" />
+        </property>
+        <property name="reqnotetestdefect" type="string">
+            <column name="REQNOTETESTDEFECT" length="600" />
+        </property>
+        <property name="desnotetestdefect" type="string">
+            <column name="DESNOTETESTDEFECT" length="600" />
+        </property>
+        <property name="codnotetestdefect" type="string">
+            <column name="CODNOTETESTDEFECT" length="600" />
+        </property>
+        <property name="proposal" type="clob">
+            <column name="PROPOSAL" />
+        </property>
+        <set name="constraintses" inverse="true">
+            <key>
+                <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="openones.oopms.entity.Constraints" />
+        </set>
+        <set name="referenceses" inverse="true">
+            <key>
+                <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="openones.oopms.entity.References" />
+        </set>
+        <set name="interfaces" inverse="true">
+            <key>
+                <column name="PROJECT_PLAN_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="openones.oopms.entity.Interface" />
+        </set>
+    </class>
+</hibernate-mapping>

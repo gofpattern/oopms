@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Risk" table="RISK">
+        <comment>Project risks (Insight)</comment>
+        <id name="riskId" type="big_decimal">
+            <column name="RISK_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
+            <column name="DEVELOPER_ID" precision="22" scale="0" />
+        </many-to-one>
+        <many-to-one name="project" class="openones.oopms.entity.Project" fetch="select">
+            <column name="PROJECT_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="condition" type="string">
+            <column name="CONDITION" length="600" />
+        </property>
+        <property name="consequence" type="string">
+            <column name="CONSEQUENCE" length="600" />
+        </property>
+        <property name="prob" type="big_decimal">
+            <column name="PROB" precision="22" scale="0" />
+        </property>
+        <property name="impactTo" type="big_decimal">
+            <column name="IMPACT_TO" precision="22" scale="0" />
+        </property>
+        <property name="unit" type="big_decimal">
+            <column name="UNIT" precision="22" scale="0" />
+        </property>
+        <property name="estimatedImpact" type="big_decimal">
+            <column name="ESTIMATED_IMPACT" precision="22" scale="0" />
+        </property>
+        <property name="mitigation" type="string">
+            <column name="MITIGATION" length="600" />
+        </property>
+        <property name="contigencyPlan" type="string">
+            <column name="CONTIGENCY_PLAN" length="600" />
+        </property>
+        <property name="triggerName" type="string">
+            <column name="TRIGGER_NAME" length="600" />
+        </property>
+        <property name="assessmentDate" type="date">
+            <column name="ASSESSMENT_DATE" length="7" />
+        </property>
+        <property name="status" type="big_decimal">
+            <column name="STATUS" precision="22" scale="0" />
+        </property>
+        <property name="actualRiskScenarior" type="string">
+            <column name="ACTUAL_RISK_SCENARIOR" length="600" />
+        </property>
+        <property name="actualAction" type="string">
+            <column name="ACTUAL_ACTION" length="600" />
+        </property>
+        <property name="actualImpact" type="string">
+            <column name="ACTUAL_IMPACT" length="300" />
+        </property>
+        <property name="plannedImpact" type="string">
+            <column name="PLANNED_IMPACT" length="300" />
+        </property>
+        <property name="unplanned" type="big_decimal">
+            <column name="UNPLANNED" precision="22" scale="0" />
+        </property>
+        <property name="exposure" type="big_decimal">
+            <column name="EXPOSURE" precision="22" scale="0" />
+        </property>
+        <property name="developerAcc" type="string">
+            <column name="DEVELOPER_ACC" length="60" />
+        </property>
+        <property name="processId" type="java.lang.Short">
+            <column name="PROCESS_ID" precision="3" scale="0" />
+        </property>
+        <property name="baselined" type="java.lang.Boolean">
+            <column name="BASELINED" precision="1" scale="0">
+                <comment>defined as a common risk</comment>
+            </column>
+        </property>
+        <property name="sourceId" type="big_decimal">
+            <column name="SOURCE_ID" precision="22" scale="0" />
+        </property>
+        <property name="type" type="big_decimal">
+            <column name="TYPE" precision="22" scale="0" />
+        </property>
+        <property name="threshold" type="string">
+            <column name="THRESHOLD" length="600" />
+        </property>
+        <property name="mitigationBenefit" type="string">
+            <column name="MITIGATION_BENEFIT" length="600" />
+        </property>
+        <property name="actualMitigation" type="string">
+            <column name="ACTUAL_MITIGATION" length="600" />
+        </property>
+        <property name="exposureNew" type="big_decimal">
+            <column name="EXPOSURE_NEW" precision="22" scale="0" />
+        </property>
+        <property name="priority" type="java.lang.Boolean">
+            <column name="PRIORITY" precision="1" scale="0" />
+        </property>
+        <property name="lastUpdatedDate" type="date">
+            <column name="LAST_UPDATED_DATE" length="7" />
+        </property>
+        <property name="riskPriority" type="java.lang.Byte">
+            <column name="RISK_PRIORITY" precision="2" scale="0" />
+        </property>
+        <property name="impact" type="java.lang.Byte">
+            <column name="IMPACT" precision="2" scale="0" />
+        </property>
+        <set name="riskMitigations" inverse="true">
+            <key>
+                <column name="RISK_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="openones.oopms.entity.RiskMitigation" />
+        </set>
+        <set name="riskContigencies" inverse="true">
+            <key>
+                <column name="RISK_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="openones.oopms.entity.RiskContigency" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Holiday" table="HOLIDAY">
+        <id name="holidayId" type="big_decimal">
+            <column name="HOLIDAY_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="holidayType" class="openones.oopms.entity.HolidayType" fetch="select">
+            <column name="HOLIDAY_TYPE_CODE" length="30" />
+        </many-to-one>
+        <property name="holidayStartDate" type="date">
+            <column name="HOLIDAY_START_DATE" length="7" />
+        </property>
+        <property name="holidayEndDate" type="date">
+            <column name="HOLIDAY_END_DATE" length="7" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="isFulltime" type="java.lang.Byte">
+            <column name="IS_FULLTIME" precision="2" scale="0" />
+        </property>
+        <property name="disabled" type="java.lang.Byte">
+            <column name="DISABLED" precision="2" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

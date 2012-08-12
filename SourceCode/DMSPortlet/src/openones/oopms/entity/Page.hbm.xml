@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Page" table="PAGE">
+        <comment>List of Insight sections, used for security</comment>
+        <id name="pageid" type="big_decimal">
+            <column name="PAGEID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="pagename" type="string">
+            <column name="PAGENAME" length="100" unique="true" />
+        </property>
+        <property name="ordr" type="long">
+            <column name="ORDR" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="type" type="java.lang.Boolean">
+            <column name="TYPE" precision="1" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

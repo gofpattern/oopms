@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Ncview" table="NCVIEW">
+        <comment>NCMS personal list views</comment>
+        <id name="viewid" type="big_decimal">
+            <column name="VIEWID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="title" type="string">
+            <column name="TITLE" />
+        </property>
+        <property name="fields" type="string">
+            <column name="FIELDS">
+                <comment>Selected fields</comment>
+            </column>
+        </property>
+        <property name="orderby" type="string">
+            <column name="ORDERBY" length="50">
+                <comment>Order field</comment>
+            </column>
+        </property>
+        <property name="account" type="string">
+            <column name="ACCOUNT" length="20" not-null="true">
+                <comment>Owner</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

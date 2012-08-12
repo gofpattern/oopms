@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Pcb" table="PCB">
+        <comment>PCB reports of Insight</comment>
+        <id name="pcbId" type="big_decimal">
+            <column name="PCB_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="developer" class="openones.oopms.entity.Developer" fetch="select">
+            <column name="DEVELOPER_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="workunit" class="openones.oopms.entity.Workunit" fetch="select">
+            <column name="WORKUNIT" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fromdate" type="date">
+            <column name="FROMDATE" length="7" not-null="true" />
+        </property>
+        <property name="todate" type="date">
+            <column name="TODATE" length="7" not-null="true" />
+        </property>
+        <property name="reportDate" type="date">
+            <column name="REPORT_DATE" length="7" not-null="true" />
+        </property>
+        <property name="reportname" type="string">
+            <column name="REPORTNAME" length="90" />
+        </property>
+        <property name="reporttype" type="java.lang.Boolean">
+            <column name="REPORTTYPE" precision="1" scale="0">
+                <comment>from 0 to 5 maps to lifecycle ID, 6 is all,7 is custom</comment>
+            </column>
+        </property>
+        <property name="methodology" type="clob">
+            <column name="METHODOLOGY" />
+        </property>
+        <property name="generalcomm" type="clob">
+            <column name="GENERALCOMM" />
+        </property>
+        <property name="lastproblemreview" type="clob">
+            <column name="LASTPROBLEMREVIEW" />
+        </property>
+        <property name="lastsuggreview" type="clob">
+            <column name="LASTSUGGREVIEW" />
+        </property>
+        <property name="problems" type="clob">
+            <column name="PROBLEMS" />
+        </property>
+        <property name="suggestions" type="clob">
+            <column name="SUGGESTIONS" />
+        </property>
+        <property name="period" type="string">
+            <column name="PERIOD" length="2" not-null="true" />
+        </property>
+        <property name="year" type="big_decimal">
+            <column name="YEAR" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="projects" inverse="false" table="PCBPROJECT">
+            <key>
+                <column name="PCB_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <many-to-many entity-name="openones.oopms.entity.Project">
+                <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="metricgroups" inverse="false" table="PCBMGROUP">
+            <key>
+                <column name="PCB_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <many-to-many entity-name="openones.oopms.entity.Metricgroup">
+                <column name="MGROUP_ID" precision="22" scale="0" not-null="true">
+                    <comment>links to metricgroup</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

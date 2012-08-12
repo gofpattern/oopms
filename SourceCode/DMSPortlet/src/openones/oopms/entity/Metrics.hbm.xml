@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Metrics" table="METRICS">
+        <comment>Used for metric values that need to be input from user(Insight). Avoid using this table as much as possible</comment>
+        <id name="code" type="long">
+            <column name="CODE" precision="10" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="projectCode" type="string">
+            <column name="PROJECT_CODE" length="20" />
+        </property>
+        <property name="plannedValue" type="big_decimal">
+            <column name="PLANNED_VALUE" precision="10" scale="5" />
+        </property>
+        <property name="actualValue" type="big_decimal">
+            <column name="ACTUAL_VALUE" precision="10" scale="5" />
+        </property>
+        <property name="metricIndex" type="big_decimal">
+            <column name="METRIC_INDEX" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="reportDate" type="date">
+            <column name="REPORT_DATE" length="7" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="600" />
+        </property>
+        <property name="causal" type="string">
+            <column name="CAUSAL" length="600" />
+        </property>
+        <property name="usl" type="big_decimal">
+            <column name="USL" precision="10" scale="5" />
+        </property>
+        <property name="lsl" type="big_decimal">
+            <column name="LSL" precision="10" scale="5" />
+        </property>
+    </class>
+</hibernate-mapping>

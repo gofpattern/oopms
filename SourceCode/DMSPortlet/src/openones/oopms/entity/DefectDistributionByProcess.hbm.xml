@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.DefectDistributionByProcess" table="DEFECT_DISTRIBUTION_BY_PROCESS">
+        <composite-id name="id" class="openones.oopms.entity.DefectDistributionByProcessId">
+            <key-property name="processId" type="big_decimal">
+                <column name="PROCESS_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="lifecycleId" type="big_decimal">
+                <column name="LIFECYCLE_ID" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="value" type="big_decimal">
+            <column name="VALUE" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.ReviewStrategy" table="REVIEW_STRATEGY">
+        <id name="revId" type="big_decimal">
+            <column name="REV_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="revPrjId" type="big_decimal">
+            <column name="REV_PRJ_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="revType" type="string">
+            <column name="REV_TYPE" length="600" />
+        </property>
+        <property name="revItem" type="string">
+            <column name="REV_ITEM" length="600" />
+        </property>
+        <property name="revReviewer" type="string">
+            <column name="REV_REVIEWER" length="600" />
+        </property>
+        <property name="revWhen" type="string">
+            <column name="REV_WHEN" length="600" />
+        </property>
+    </class>
+</hibernate-mapping>

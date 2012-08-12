@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 12:18:18 01-03-2012 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.entity.Iteration" table="ITERATION">
+        <comment>Stages iterations (Insight)</comment>
+        <id name="iterationId" type="big_decimal">
+            <column name="ITERATION_ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="milestone" class="openones.oopms.entity.Milestone" fetch="select">
+            <column name="MILESTONE_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="1500" />
+        </property>
+        <property name="milestone_1" type="string">
+            <column name="MILESTONE" length="600" />
+        </property>
+        <property name="iteration" type="big_decimal">
+            <column name="ITERATION" precision="22" scale="0" />
+        </property>
+        <property name="planEndDate" type="date">
+            <column name="PLAN_END_DATE" length="7" />
+        </property>
+        <property name="replanEndDate" type="date">
+            <column name="REPLAN_END_DATE" length="7" />
+        </property>
+        <property name="actualEndDate" type="date">
+            <column name="ACTUAL_END_DATE" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>

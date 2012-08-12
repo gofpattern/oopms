@@ -3,6 +3,7 @@
 	<name>DMSPortlet</name>
 	<comment></comment>
 	<projects>
+		<project>DaoCommon</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

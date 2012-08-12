@@ -21,9 +21,9 @@ function validateDefect() {
     var  fromDate = document.getElementById("datepicker1").value;
     var toDate = document.getElementById("datepicker2").value;  
     if( !checkValidDate(fromDate,"formatFromDate") || ! checkValidDate(toDate,"formatToDate")) {
-	 $('#errorDiv').css('display','inline');
-	 $('#errorDiv').css('text-align','center');
-	 return false;
+     $('#errorDiv').css('display','inline');
+     $('#errorDiv').css('text-align','center');
+     return false;
     }
   return true;
 }
@@ -61,33 +61,33 @@ function submitAction(formName, actionUrl) {
                 } );
             }
             function submitActionConfirm(formName, actionUrl) {
-        	   
-        	    var r=confirm("Are you sure to delete ?");
-        	    if (r==true)
-        	      {
-        	     var frm = document.forms[formName];
-        	            
-        	            frm.action = actionUrl;
-        	            
-        	            frm.submit();
-        	      }
-        	    else
-        	      {
-        	     return;
-        	      }
+               
+                var r=confirm("Are you sure to delete ?");
+                if (r==true)
+                  {
+                 var frm = document.forms[formName];
+                        
+                        frm.action = actionUrl;
+                        
+                        frm.submit();
+                  }
+                else
+                  {
+                 return;
+                  }
             }
             $(document).ready( function() {
-        	// Listen for click on toggle checkbox
-        	$('#select-all').click(function(event) {   
-        	    if(this.checked) {
-        	        // Iterate each checkbox
-        	        $(':checkbox').each(function() {
-        	            this.checked = true;                        
-        	        });
-        	    } else { 
-        		 $(":checkbox").each(function() { this.checked = false; }); 
-        		 }
-        	});           	
+            // Listen for click on toggle checkbox
+            $('#select-all').click(function(event) {   
+                if(this.checked) {
+                    // Iterate each checkbox
+                    $(':checkbox').each(function() {
+                        this.checked = true;                        
+                    });
+                } else { 
+                 $(":checkbox").each(function() { this.checked = false; }); 
+                 }
+            });             
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
                         if (event.target.type !== 'checkbox') {
@@ -137,7 +137,7 @@ function submitAction(formName, actionUrl) {
 <div class="container "><portlet:actionURL
   var="defectFormAction">
   <portlet:param name="action" value="searchDefect" />
-</portlet:actionURL> <form:form name="defect" method="post" onsubmit=" return validateDefect();" commandName="defectForm"
+</portlet:actionURL> <form:form name="defect" method="post" onsubmit=" return validateDefect();" commandName="viewDefectList"
   action="${defectFormAction}">  
   <table border="0">
     <tbody>
@@ -145,13 +145,23 @@ function submitAction(formName, actionUrl) {
         <td><strong>User</strong></td>
         <td width="20%"><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td><strong>Project</strong></td>
-        <td width="26%"><form:select cssClass="styled"
-          path="projectDefault" multiple="single">
+        <td width="26%"><form:select 
+          path="projectDis" multiple="single">
           <form:options items="${projectMap}" />
         </form:select></td>
-        <td><strong>From Date</strong></td>
+         <td><strong>Assigned To</strong></td>
+         <td width="26%"><form:select 
+          path="memberDisAssigned" multiple="single">
+          <form:options items="${memberMap}" />
+        </form:select></td>
+        <td><strong>Created By</strong></td>
+         <td width="26%"><form:select 
+          path="memberDisCreated" multiple="single">
+          <form:options items="${memberMap}" />
+        </form:select></td>
+        <td><strong>Create Date</strong></td>
         <td class="vAlignMid"><form:input cssStyle="width:80px;"
-          path="fromDate" id="datepicker1" /></td>
+          path="createDate" id="datepicker1" /></td>
 
 
       </tr>
@@ -159,58 +169,42 @@ function submitAction(formName, actionUrl) {
         <td><strong>Role</strong></td>
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("ROLE", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td width="7%" align="left"><strong>Status</strong></td>
-        <td width="26%">
-        <c:if test="${projectStatus=='' }">
-        <select class="styled" size="1"
-          name="status" class="SmallCombo" >
-          <option value="All" selected="selected" >All</option>
-          <option value="0">Unapproved</option>
-          <option value="1">Approved</option>
-          <option value="2">Rejected</option>
-        </select>
-        </c:if>
-         <c:if test="${projectStatus=='All' }">
-        <select class="styled" size="1"
-          name="status" class="SmallCombo" >
-          <option value="All" selected="selected" >All</option>
-          <option value="0">Unapproved</option>
-          <option value="1">Approved</option>
-          <option value="2">Rejected</option>
-        </select>
-        </c:if>
-       
-         <c:if test="${projectStatus=='0' }">
-        <select class="styled" size="1"
-          name="status" class="SmallCombo" >
-          <option value="All" >All</option>
-          <option value="0" selected="selected">Unapproved</option>
-          <option value="1">Approved</option>
-          <option value="2">Rejected</option>
-        </select>
-        </c:if>
-         <c:if test="${projectStatus=='1' }">
-        <select class="styled" size="1"
-          name="status" class="SmallCombo" >
-          <option value="All" >All</option>
-          <option value="0" >Unapproved</option>
-          <option value="1" selected="selected">Approved</option>
-          <option value="2">Rejected</option>
-        </select>
-        </c:if>
-         <c:if test="${projectStatus=='2' }">
-        <select class="styled" size="1"
-          name="status" class="SmallCombo" >
-          <option value="All" >All</option>
-          <option value="0">Unapproved</option>
-          <option value="1">Approved</option>
-          <option value="2" selected="selected">Rejected</option>
-        </select>
-        </c:if>
-        </td>
-        <td width="17%" align="left"><strong>To Date</strong></td>
+       <td><form:select 
+          path="statusDis" multiple="single">
+          <form:options items="${statusMap}" />
+        </form:select></td>
+        <td width="7%" align="left"><strong>Severity</strong></td>
+       <td><form:select 
+          path="severityDis" multiple="single">
+          <form:options items="${severityMap}" />
+        </form:select></td>
+        <td width="7%" align="left"><strong>Priority</strong></td>
+       <td><form:select 
+          path="priorityDis" multiple="single">
+          <form:options items="${priorityMap}" />
+        </form:select></td>
+        <td width="17%" align="left"><strong>Due Date</strong></td>
         <td colspan="2" class="vAlignMid"><form:input
-          cssStyle="width:80px;" path="toDate" id="datepicker2" /></td>
+          cssStyle="width:80px;" path="dueDate" id="datepicker2" /></td>
         <td></td>
+      </tr>
+      <tr>       
+       <td><strong>Product</strong></td>
+        <td><form:select 
+          path="workProductDis" multiple="single">
+          <form:options items="${workProductMap}" />
+        </form:select></td>
+         <td><strong>Type</strong></td>
+        <td><form:select 
+          path="typeDis" multiple="single">
+          <form:options items="${typeMap}" />
+        </form:select></td>
+         <td><strong>Title</strong></td>
+         <td><form:input cssStyle="width:80px;"
+          path="title"  /></td>
+         <td><strong>Test Case Id</strong></td>
+          <td><form:input cssStyle="width:80px;"
+          path="testCaseId"  /></td>
       </tr>
     </tbody>
   </table>
@@ -218,9 +212,9 @@ function submitAction(formName, actionUrl) {
   <p><input type="submit" id="Search" class="button blue small"
     name="Search" value="Search" /></p>
 
-</form:form> <portlet:actionURL var="defectFormAction2">
-  <portlet:param name="action" value="goAddDefect" />
-</portlet:actionURL> <form:form name="defect" method="post" commandName="defectForm"
+</form:form> <portlet:renderURL var="defectFormAction2">
+  <portlet:param name="action" value="goAddNewDefect" />
+</portlet:renderURL> <form:form name="defect" method="post" commandName="viewDefectList"
   action="${defectFormAction2}">
   <p><input type="submit" id="Search" class="button green small"
     name="Add" value="Add" /></p>
@@ -231,6 +225,8 @@ function submitAction(formName, actionUrl) {
            <label id="formatFromDate" style="display: none; color: red;">Please input correct format from date.  </label><br>
               <label id="formatToDate" style="display: none; color: red;">Please input correct format to date.  </label>
     </div><br>
+    
+    
 </form:form> <portlet:actionURL var="goUpdateDefectAction">
   <portlet:param name="action" value="goUpdateDefect" />
 </portlet:actionURL> <portlet:actionURL var="deleteDefectAction">
@@ -241,7 +237,7 @@ function submitAction(formName, actionUrl) {
 </portlet:actionURL>
 <portlet:actionURL var="goRejectDefectAction">
   <portlet:param name="action" value="goRejectDefect" />
-</portlet:actionURL><form:form name="Defect" method="post" commandName="defectForm"
+</portlet:actionURL><form:form name="Defect" method="post" commandName="viewDefectList"
   action="${goUpdateDefectAction}">
   <table id="mainTable2" class="display dataTable" cellpadding="0"
     cellspacing="0" border="0">
@@ -250,11 +246,12 @@ function submitAction(formName, actionUrl) {
         <th width="5%"><input id="select-all" type="checkbox"
           name="allbox" value="checkAll"></th>
         <th width="10%">Defect ID</th>
-        <th width="10%">Title</th>
+          <th width="48%">Title</th> 
+        <th width="10%">Status</th>
         <th width="5%">Test Case ID</th>
         <th width="5%">Severity</th>
         <th width="5%">Priority</th>
-        <th width="48%">Status</th>       
+            
          <th width="5%">Assigned To</th>
         <th width="5%">Created By</th>
         <th width="48%">Fixed Date</th>
@@ -270,19 +267,22 @@ function submitAction(formName, actionUrl) {
             <td class="cb"><input id="checkbox" type="checkbox"
               name="defectList[${status.index}].defectId"
               value="${defect.defectId}"></td>
-            <td><font color="">${defect.title}</font></td>
+               <td><font color="">${defect.defectId}</font></td>
+                <td><font color="">${defect.title}</font></td>
+            <td><font color="">${defect.status}</font></td>
             <td><font color="">${defect.testCase}</font></td>
-            <td><font color="">${defect.defsId}</font></td>
-            <td><font color="">${defect.dpId}</font></td>
-            <td><font color="">${defect.dsId}</font></td>
-        
-            <td><c:if test="${defect.status==0}">UnApproved</c:if>
-            <c:if test="${defect.status==1}">Approved</c:if>
-             <c:if test="${defect.status==2}"><font color="red">Rejected</font></c:if></td>
+            <td><font color="">${defect.severity}</font></td>
+            <td><font color="">${defect.priority}</font></td>
+            
              <td><font color="">${defect.assignedTo}</font></td>
+            <td><font color="">${defect.createdBy}</font></td>
+            
+             <td><font color="">${defect.fixedDateString}</font></td>
+              <td><font color="">${defect.dueDateString}</font></td>
+          
           </tr>
         </c:forEach>
-
+       
       </c:if>
 
     </tbody>
