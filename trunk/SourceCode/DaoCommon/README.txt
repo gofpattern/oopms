@@ -4,7 +4,8 @@ Run "ant dist" to compile and pack the component.
 Version 0.0.4
 ===============
 - Skip hibernate configuration files, log4j configuration from generated package.
-- Add entity Tasks
+- Add entities: Tasks
+- Add RequirementDao
 
 Version 0.0.3
 ===============
