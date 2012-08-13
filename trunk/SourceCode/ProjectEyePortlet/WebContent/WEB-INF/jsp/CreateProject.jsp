@@ -80,7 +80,7 @@
 
 <body id="portal" class="up fl-theme-mist">
 
-<div id="portalPageBodyInner" class="container">
+<div  class="container">
 
   <div class="content">
    <div class="fl-widget-titlebar titlebar portlet-titlebar">

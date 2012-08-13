@@ -78,7 +78,7 @@
 <title>Product</title>	
 </head>
 <body id="portal" class="up fl-theme-mist">
-<div id="portalPageBodyInner" class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
+<div  class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
   <div class="content">
 
 	<!-- begin .navigator -->
