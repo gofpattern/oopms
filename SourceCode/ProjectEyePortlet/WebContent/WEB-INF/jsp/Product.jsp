@@ -96,7 +96,7 @@
 	</portlet:actionURL>
 <form:form name="${portletNamespace}SearchProduct" commandName="ProductForm" method="post" action="${formAction}">
     Product List <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/>
-    <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button> 
+    <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button><br>
 </form:form>
     <table id="mainTable1" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectProductList}">
