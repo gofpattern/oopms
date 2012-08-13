@@ -306,8 +306,11 @@ public class CostUtil {
 									exceptinalCost.getProjectId(),
 									exceptinalCost.getOopmsCostTypeId());
 					if (temp != null) {
-						result = result.add(exceptinalCost.getEffect()
-								.multiply(new BigDecimal(temp.size())));
+//						result = result.add(exceptinalCost.getEffect()
+//								.multiply(new BigDecimal(temp.size())));
+						for (int i = 0; i < temp.size(); i++) {
+							result = result.add(exceptinalCost.getEffect().add(temp.get(i).getCost()));
+						}
 					}
 
 				} else {
@@ -329,7 +332,11 @@ public class CostUtil {
 			if (exceptinalCost.getEffect() != null) {
 				if (String.valueOf(exceptinalCost.getEffectType()).equals(
 						Constant.ExceptinalFixCostEffectType)) {
-					result = result.add(exceptinalCost.getEffect());
+					CostDao cDao = new CostDao();
+					OopmsCostDailyExpense temp = cDao
+							.getDailyExpense(exceptinalCost
+									.getOopmsCostDailyExpenseId());
+					result = result.add(exceptinalCost.getEffect().add(temp.getCost()));
 				} else {
 					CostDao cDao = new CostDao();
 					OopmsCostDailyExpense temp = cDao
