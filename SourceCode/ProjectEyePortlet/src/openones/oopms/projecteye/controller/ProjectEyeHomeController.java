@@ -235,8 +235,8 @@ public class ProjectEyeHomeController {
 		Developer dev = dDao.getDeveloper(username);
 		Assignment role = aDao.getUserRole(project, dev.getDeveloperId());
 		mav.addObject("role", String.valueOf(role.getType()));
-		// mav.addObject("planEffort", project);
-		// mav.addObject("actualEffort", project);
+		mav.addObject("planEffort", project.getPlanEffort());
+		mav.addObject("actualEffort", project.getActualEffort());
 		// mav.addObject("progress", project);
 		// mav.addObject("cost", project);
 		// mav.addObject("projectHealth", project);
