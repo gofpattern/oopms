@@ -18,26 +18,25 @@
  */
 package openones.oopms.projecteye.controller;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.AssignmentDao;
 import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.WorkUnitDao;
 import openones.oopms.projecteye.form.CreateProjectForm;
+import openones.oopms.projecteye.form.ProjectEyeHomeForm;
 import openones.oopms.projecteye.model.Assignment;
 import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.Developer;
@@ -45,14 +44,11 @@ import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workunit;
 import openones.oopms.projecteye.utils.Constant;
-import openones.oopms.projecteye.utils.HTMLTag;
 import openones.oopms.projecteye.validator.CreateProjectValidator;
 
 import org.apache.log4j.Logger;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
@@ -177,7 +173,34 @@ public class CreateProjectController {
 		ProjectDao pDao = new ProjectDao();
 		DeveloperDao dDao = new DeveloperDao();
 		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
+		AssignmentDao aDao = new AssignmentDao();
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
+		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
+		for(int i=0;i<projectList.size();i++) {
+			ProjectEyeHomeForm temp = new ProjectEyeHomeForm();
+			temp.setProjectId(projectList.get(i).getProjectId().toString());
+			temp.setCode(projectList.get(i).getCode());
+			temp.setName(projectList.get(i).getName());
+			Assignment role = aDao.getUserRole(projectList.get(i), dev.getDeveloperId());
+			temp.setRole(String.valueOf(role.getType()));
+			if(Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Customer");
+			} else if(Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Developer");
+			} else if(Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Manager");
+			}else if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner and Project Manager");
+			}else if(Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Project Owner");
+			}else if(Constant.QAType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("QA");
+			} else if(Constant.TesterType.equals(String.valueOf(role.getType()))) {
+				temp.setRoleString("Tester");
+			}
+			projectRoleList.add(temp);
+		}
+		request.setAttribute("projectList", projectRoleList);
 		mav.addObject("projectList", projectList);
 		return mav;
 	}
