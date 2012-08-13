@@ -18,16 +18,25 @@
  */
 package openones.oopms.dashboard.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.daocommon.AssignmentDao;
+import openones.oopms.daocommon.DeveloperDao;
+import openones.oopms.dashboard.form.DashboardForm;
+import openones.oopms.dashboard.model.Dashboard;
+import openones.oopms.entity.Developer;
+import openones.oopms.entity.Project;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
-import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
 
@@ -38,6 +47,7 @@ import org.springframework.web.portlet.ModelAndView;
 @RequestMapping("VIEW")
 public class DashboardController extends BaseController {
     private static Logger log = Logger.getLogger(DashboardController.class);
+    private List<Dashboard> dashboardList;
 
     /**
      * Default screen.
@@ -46,7 +56,7 @@ public class DashboardController extends BaseController {
     @RequestMapping
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
-        ModelAndView mav;
+        ModelAndView mav = new ModelAndView("Dashboard"); // Display ViewDefectMode.jsp
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
 
@@ -54,12 +64,19 @@ public class DashboardController extends BaseController {
         // call super initScreen to get information of user, create user in OOPMS if it has not existed.
         super.initScreen(request, session);
         UserInfo userInfo = new UserInfo(logonUser);
-        mav = new ModelAndView("Dashboard"); // Display ViewDefectMode.jsp
         prepareCommonInfo(userInfo, mav, session);
 
         return mav;
 
     }
+
+    @ModelAttribute("DashboardForm")
+    public DashboardForm getCommandObject() {
+        log.debug("getCommandObject.START");
+        DashboardForm formBean = new DashboardForm();
+        return formBean;
+    }
+
     /**
      * Prepare data to initialize the screen ViewDefectMode. Update information of user: roles, group, loginDate
      * @param userInfo is updated roles by username
@@ -67,13 +84,44 @@ public class DashboardController extends BaseController {
      *            ------------------------------------------- | |
      */
     void prepareCommonInfo(UserInfo userInfo, ModelAndView mav, PortletSession session) {
-        // Sample data
-        // Set roles for user
-        userInfo.addRole("Developer");
-        userInfo.setGroup("Development");
-        userInfo.setLoginDate(BaseUtil.getCurrentDate());
-        // Update userInfo into the session
+        AssignmentDao assignmentDao = new AssignmentDao();
+        DeveloperDao developerDao = new DeveloperDao();
+        dashboardList = new ArrayList<Dashboard>();
+        Dashboard dashboard;
+        // Get user info
+        Developer developer = developerDao.getDeveloperByAccount(userInfo.getUsername());
+        // Get project user belong to
+        List<Project> projectList = assignmentDao.getProjectByDeveloperId(developer.getDeveloperId());
+
+        for (int i = 0; i < projectList.size(); i++) {
+            dashboard = new Dashboard();
+            dashboard.setProject(projectList.get(i));
+            dashboard.setProjectHealthStatus(Dashboard.GOOD_STATUS);
+            dashboard.setPercentTime(50);
+            dashboard.setPercentProgress(50);
+            dashboard.setEfficiencyStatus(Dashboard.NORMAL_STATUS);
+            dashboard.setCostStatus(Dashboard.BAD_STATUS);
+            dashboardList.add(dashboard);
+        }
+
+        mav.addObject("dashboardList", dashboardList);
         updateUserInfo(session, userInfo);
 
+    }
+
+    void calculatePercentProgress() {
+        // TODO:asas
+    }
+    void calculatePercentTime() {
+        // TODO:asas
+    }
+    void calculateProjectHealth() {
+        // TODO:asas
+    }
+    void calculateEfficiencyStatus() {
+        // TODO:asas
+    }
+    void calculateCostStatus() {
+        // TODO:asas
     }
 }

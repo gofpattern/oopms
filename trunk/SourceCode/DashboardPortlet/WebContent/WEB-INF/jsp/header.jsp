@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/progress_bar.css" rel="Stylesheet" />
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/yav/yav-style.css" rel="Stylesheet" />
 <link rel="stylesheet" type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/manage.css"
   media="all">
