@@ -142,25 +142,26 @@
         <td>${projectEvaluation}</td>
       </tr>
   </table>
+  <form:form name="${portletNamespace}ProjectDetail"></form:form>
   <c:if test="${(role == 1) || (role==0)}"> 
-	<portlet:renderURL var="renderAction">
+	<portlet:renderURL var="renderAction1">
     	<portlet:param name="action" value="goUpdateProject" />
         <portlet:param name="projectId" value="${projectId}" />
     </portlet:renderURL>
-    <a href="${renderAction}">Change Project Info</a>
+    <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectDetail", "${renderAction1}")'>Change Project Info</button>
     
-    <portlet:renderURL var="renderAction">
+    <portlet:renderURL var="renderAction2">
     	<portlet:param name="action" value="goTeamManagement" />
         <portlet:param name="projectId" value="${projectId}" />
     </portlet:renderURL>
-    <br/><a href="${renderAction}">Team Management</a>
+    <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectDetail", "${renderAction2}")'>Team Management</button>
  </c:if>
  <c:if test="${(role == 6) || (role==0)}">
- <portlet:renderURL var="renderAction">
+ <portlet:renderURL var="renderAction3">
     	<portlet:param name="action" value="GoAssignProjectManager" />
         <portlet:param name="projectId" value="${projectId}" />
     </portlet:renderURL>
-    <br/><a href="${renderAction}">Assign Project Manager</a> 
+    <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectDetail", "${renderAction3}")'>Assign Project Manager</button>
  </c:if>
 </div>
   <!-- end .content --></div>
