@@ -93,6 +93,7 @@
    </tbody>
 	</c:if>
 	</table>
+	<br>
 	<br/><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}AssignProjectManager", "${renderAction}")'>Back</button>
 </form:form>
   <!-- end .content --></div>

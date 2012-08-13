@@ -133,7 +133,7 @@
         <td><textarea rows="10" cols="70" name="note"></textarea>
 		<br/><span id=errorsDiv_note>&nbsp;</span></td>
       </tr>
-     </table>
+     </table><br>
     <input name = "plannedEndDateOfProject" type="hidden" value="${CreateDeliverableForm.plannedEndDateOfProject}"/>   
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateDeliverable", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>

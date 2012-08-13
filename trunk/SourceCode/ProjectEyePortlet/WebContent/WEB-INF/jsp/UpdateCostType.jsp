@@ -80,7 +80,7 @@
         <td><textarea rows="10" cols="70" name="description" id="description"></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table>
+  </table><br>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateCostType", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateCostType", "${renderAction}")'>Cancel</button>

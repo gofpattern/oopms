@@ -129,7 +129,7 @@
         <th scope="row">Reference</th>
         <td><textarea rows="10" cols="70" name="reference"></textarea></td>
       </tr>
-	 </table>
+	 </table><br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateIssue", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateIssue", "${renderAction}")'>Cancel</button>	

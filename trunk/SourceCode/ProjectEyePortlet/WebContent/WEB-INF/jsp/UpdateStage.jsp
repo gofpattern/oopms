@@ -163,7 +163,7 @@
         <td><textarea rows="10" cols="70" name="milestone" id="milestone"></textarea>
         <br/><span id=errorsDiv_milestone>&nbsp;</span></td></td>
       </tr>
-     </table>
+     </table><br>
      <input name = "projectId" type="hidden" value="${projectId}"/>
      <input name = "stageId" type="hidden" value="${stageId}"/>
      <input name = "plannedEndDateOfNextStage" type="hidden" value="${UpdateStageForm.plannedEndDateOfNextStage}"/>

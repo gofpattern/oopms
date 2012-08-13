@@ -94,7 +94,7 @@
    <th scope="row">Trigger</th>
     <td><textarea rows="10" cols="70" name="trigger"></textarea></td>
    </tr>
-</table>
+</table><br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateRisk", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateRisk", "${renderAction}")'>Cancel</button>		
@@ -123,7 +123,7 @@
           <td  width="331" height="23"><i><font color="#0000FF">1 to 10 (highest to lowest)</font></i></td>
           <td  align="left" width="140" height="23"><i><font color="#0000FF">&nbsp;</font></i></td>
         </tr>
-    </table>
+    </table><br>
 </div>
   <!-- end .content --></div>
   <!-- end .container --></div>

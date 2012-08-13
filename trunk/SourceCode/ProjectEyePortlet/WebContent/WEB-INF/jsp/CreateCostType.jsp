@@ -79,6 +79,7 @@
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
   </table>
+  <br>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateCostType", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateCostType", "${renderAction}")'>Cancel</button>
