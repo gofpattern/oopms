@@ -148,7 +148,7 @@
         <th scope="row">Scope and Objective</th>
         <td><textarea rows="10" cols="70" name="scopeObjective" id="scopeObjective"></textarea></td>
       </tr>
-</table>
+</table><br>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProject", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProject", "${renderAction}")'>Cancel</button>

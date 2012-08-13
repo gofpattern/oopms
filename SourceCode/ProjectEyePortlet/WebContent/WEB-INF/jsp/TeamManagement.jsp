@@ -110,11 +110,11 @@
         </c:forEach>
    </tbody>
 	</c:if>
-	</table>
+	</table><br>
 	<br/>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${updateRoleAction}")'>Save</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${renderAction}")'>Back</button>
-	<br/>
+	<br/><br>
 	Search User <form:input path="searchString" value="" maxlength="50" size="50" type="text" /> 	
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}TeamManagement", "${searchAction}")'>Search</button><br/>
 	<form:radiobutton path="searchType" value="name"/> By Name 
@@ -142,7 +142,7 @@
         </c:forEach>
    </tbody>
 	</c:if>
-	</table>
+	</table><br>
 </form:form>
   <!-- end .content --></div>
   <!-- end .container --></div>

@@ -84,7 +84,7 @@ $(document).ready(function() {
         <td><textarea rows="10" cols="70" name="description" id="description"></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table>
+  </table><br>
   <input name="projectId" type="hidden" value="${projectId}" />
   <input name="productId" type="hidden" value="${productId}" />                       
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateProduct", "${formAction}")'>Update</button>

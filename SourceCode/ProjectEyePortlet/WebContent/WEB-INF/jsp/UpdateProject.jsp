@@ -159,7 +159,7 @@
             <td><textarea rows="10" cols="70" name="scopeObjective" id="scopeObjective"></textarea></td>
           </tr>
 
-        </table>
+        </table><br>
         <input name="projectId" type="hidden" value="${projectId}" />
         <button type="button" class="button blue small"
           onclick='submitAction2("${portletNamespace}UpdateProject", "${formAction}")'>Update</button>

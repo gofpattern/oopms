@@ -123,7 +123,7 @@
         <td><textarea rows="10" cols="70" name="note" id="note"></textarea>
 		<br/><span id=errorsDiv_note>&nbsp;</span></td>
       </tr>
-     </table>
+     </table><br>
      <input name = "projectId" type="hidden" value="${projectId}"/>
      <input name = "delivarableId" type="hidden" value="${delivarableId}"/>
     <input name = "plannedEndDateOfProject" type="hidden" value="${UpdateDeliverableForm.plannedEndDateOfProject}"/>   

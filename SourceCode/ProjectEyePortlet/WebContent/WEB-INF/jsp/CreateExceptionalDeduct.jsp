@@ -148,7 +148,7 @@ yav.addHelp('occurDate', 'Please input Date');
      </tr>
     </c:forEach>
     </tbody>
-</table>
+</table><br>
         	
 			<form:radiobutton path="affectTo" value="1"/>or following
 <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
@@ -172,7 +172,7 @@ yav.addHelp('occurDate', 'Please input Date');
      </tr>
     </c:forEach>
     </tbody>
-</table>			
+</table><br>			
 		</td>
       </tr>
       <tr>
@@ -194,7 +194,7 @@ yav.addHelp('occurDate', 'Please input Date');
         <td><textarea rows="10" cols="70" name="description"></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table>
+  </table><br>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateExceptionalDeduct", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateExceptionalDeduct", "${renderAction}")'>Cancel</button>

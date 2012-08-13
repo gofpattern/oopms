@@ -67,6 +67,7 @@
     	<td><form:select  class="styled" path="status_SelectedValue" items="${status}"/></td>
   	  </tr>
       </table>   
+      <br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateChangeRequest", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateChangeRequest", "${renderAction}")'>Cancel</button>

@@ -141,7 +141,7 @@
         <th scope="row">Project evaluation</th>
         <td>${projectEvaluation}</td>
       </tr>
-  </table>
+  </table><br>
   <form:form name="${portletNamespace}ProjectDetail"></form:form>
   <c:if test="${(role == 1) || (role==0)}"> 
 	<portlet:renderURL var="renderAction1">

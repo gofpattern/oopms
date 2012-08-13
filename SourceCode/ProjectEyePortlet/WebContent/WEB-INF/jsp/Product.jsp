@@ -143,7 +143,7 @@
 	<c:if test="${empty projectProductList}">
 		There is no product
 	</c:if>
-    </table>
+    </table><br>
 		<portlet:renderURL var="renderAction">
     		<portlet:param name="action" value="GoCreateProduct" />
         	<portlet:param name="projectId" value="${projectId}" />

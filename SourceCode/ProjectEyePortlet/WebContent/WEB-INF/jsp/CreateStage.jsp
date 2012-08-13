@@ -139,7 +139,7 @@
         <th scope="row">Milestone*</th>
         <td><textarea rows="10" cols="70" name="milestone"></textarea></td>
       </tr>
-     </table>
+     </table><br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateStage", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateStage", "${renderAction}")'>Cancel</button>	

@@ -98,6 +98,12 @@
                     "bJQueryUI": true,
                     "sPaginationType": "full_numbers"
                 } );
+                $('#mainTable7').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
 
             } );
         </script>	
@@ -118,10 +124,10 @@
 	
 <form:form name="${portletNamespace}WorkOrder" method="post" action="${formAction}">
 <h2>Stage</h2>
-   	<table class="portlet-table">
+   	<table class="display dataTable" id="mainTable7" cellpadding="0" cellspacing="0" border="0">	
 
 	<c:if test="${not empty stageList}">
-   <tbody><tr >
+    <thead><tr >
    		<th width="5%" scope="row">No</th>
         <th width="15%" scope="row">Stage</th>    
         <th width="10%" scope="row">Number of iterations</th> 
@@ -130,7 +136,8 @@
         <th width="25%" scope="row">Description</th>
         <th width="25%" scope="row">Milestone</th>   
     </tr>
-    
+    </thead>
+    <tbody>
   
         <c:forEach var="stage" items="${stageList}" varStatus="count">
             <tr>
@@ -151,7 +158,7 @@
         </c:forEach>
     </tbody>
     </c:if>
-    </table>
+    </table><br>
 <br/>    
 <h2>Deliverables</h2>
 
@@ -201,7 +208,7 @@
      </tr>
     </c:forEach>
     </tbody>
-    </table> 	
+    </table><br> 	
     </c:if><br/>
     
     <c:if test="${not empty deliverableListStage2}">
@@ -250,7 +257,7 @@
      </tr>
     </c:forEach>
     </tbody>
-    </table> 	
+    </table><br> 	
     </c:if><br/>
     
     <c:if test="${not empty deliverableListStage3}">
@@ -299,7 +306,7 @@
      </tr>
     </c:forEach>
     </tbody>
-    </table> 	
+    </table><br> 	
     </c:if><br/>
     
     <c:if test="${not empty deliverableListStage4}">
@@ -348,7 +355,7 @@
      </tr>
     </c:forEach>
     </tbody>
-    </table> 	
+    </table><br> 	
     </c:if><br/>
     
     <c:if test="${not empty deliverableListStage5}">
@@ -397,7 +404,7 @@
      </tr>
     </c:forEach>
     </tbody>
-    </table> 	
+    </table><br> 	
     </c:if><br/>
     
     <c:if test="${not empty deliverableListStage6}">
@@ -446,7 +453,7 @@
      </tr>
     </c:forEach>
     </tbody>
-    </table> 	
+    </table><br> 	
     </c:if><br/>
     
     	<portlet:renderURL var="renderAction2">

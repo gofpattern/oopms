@@ -137,7 +137,7 @@ yav.addHelp('startDate', 'Please input Start Date');
         <td><textarea rows="10" cols="70" name="description" id="description"></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table>
+  </table><br>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateDailyExpense", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateDailyExpense", "${renderAction}")'>Cancel</button>

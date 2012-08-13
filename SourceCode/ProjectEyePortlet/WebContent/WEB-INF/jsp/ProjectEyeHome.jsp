@@ -81,7 +81,7 @@
 </portlet:renderURL>
 <form:form name="${portletNamespace}ProjectEyeHome" method="post" action="${formAction}" >
 </form:form>
-  <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${formAction}")'>Create New Project</button>
+  
 <br/>
 <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">
 
@@ -138,9 +138,8 @@
 	<c:if test="${empty projectList}">
 		You haven't jointed any projects.
 	</c:if>
-    
-    
-</table>
+</table><br>
+<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectEyeHome", "${formAction}")'>Create New Project</button>
 </div>
 </body>
 </html>

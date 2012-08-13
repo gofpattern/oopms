@@ -217,6 +217,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     </c:forEach>
     </tbody>
 </table> 	
+<br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction1}")'>Add new One Time Expense</button>
 <h3>&nbsp;</h3><h3>Daily Expense</h3>
 <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
@@ -261,6 +262,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     </c:forEach>
     </tbody>
 </table>
+<br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction2}")'>Add new Daily Expense</button>
 <h3>&nbsp;</h3><h3>Exceptional Expense</h3>
 <table class="display dataTable" id="mainTable3" cellpadding="0" cellspacing="0" border="0">	
@@ -301,6 +303,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     </c:forEach>
     </tbody>
 </table>
+<br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction3}")'>Add new Exceptional Expense</button>
 <h3>&nbsp;</h3><h3>Exceptional Deduct</h3>
 <table class="display dataTable" id="mainTable4" cellpadding="0" cellspacing="0" border="0">	
@@ -341,6 +344,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     </c:forEach>
     </tbody>
 </table>
+<br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction4}")'>Add new Exceptional Deduct</button>
 <h3>&nbsp;</h3><h3>Cost Types</h3>
  <table class="display dataTable" id="mainTable5" cellpadding="0" cellspacing="0" border="0">	
@@ -375,6 +379,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     </c:forEach>
     </tbody>
 </table>
+<br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction5}")'>Add new Type</button>
 	<input name="deleteCostTypeFlag" type="hidden" value="${deleteCostTypeFlag}" id="deleteCostTypeFlag"/>
   <!-- end .content --></div>
