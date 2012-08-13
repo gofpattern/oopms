@@ -19,6 +19,7 @@
 package openones.oopms.requirement.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.requirement.model.Project;
@@ -47,9 +48,14 @@ public class AssignmentDao {
         log.debug("getProject.START");
         try {
             session.getTransaction().begin();
-            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
+            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId and ((end_Date > :currentDate) or (end_Date is null))";
+            String hql = "From project where projectId IN (Select project from Assignment WHERE developerId = :devId and ((endDate > :currentDate) or (endDate is null)) )";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
+            query.setParameter("currentDate", new Date());     
+//            Query query = session.createQuery(hql);
+//            query.setParameter("devId", developerId);
+//            query.setParameter("currentDate", new Date());
             List<Project> projectList = query.list();
             session.flush();
             System.out.println("getProject.end");
