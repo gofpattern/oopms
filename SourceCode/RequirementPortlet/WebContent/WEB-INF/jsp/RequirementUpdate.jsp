@@ -234,7 +234,7 @@ textarea {
 	rules[3] = 'document:Design Document|maxlength|150';
 	rules[4] = 'effort:Effort|maxlength|2';
 
-	rules[5] = 'designedDate|date_lt|$createdDate';
+	rules[5] = 'createdDate|date_lt|$designedDate';
 	rules[6] = 'designedDate|date_le|$codedDate';
 	rules[7] = 'codedDate|date_le|$testedDate';
 	rules[8] = 'testedDate|date_le|$deployedDate';
