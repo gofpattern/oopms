@@ -68,14 +68,8 @@ public class CreateExceptionalExpenseController {
 							.setDescription(formBean.getDescription());
 					exceptionalExpense.setEffectType(new BigDecimal(formBean
 							.getAdditionEffect()));
-					if (formBean.getAdditionEffect().equals(
-							Constant.ExceptinalFixCostEffectType)) {
-						exceptionalExpense.setEffect(new BigDecimal(formBean
-								.getFixCost()));
-					} else {
-						exceptionalExpense.setEffect(new BigDecimal(formBean
-								.getRation()));
-					}
+					exceptionalExpense.setEffect(new BigDecimal(formBean
+							.getAdditionEffectInput()));
 					exceptionalExpense.setOopmsCostTypeId(new BigDecimal(
 							formBean.getCostTypes()[i]));
 					cDao.insertExceptionalCost(exceptionalExpense);
@@ -92,14 +86,8 @@ public class CreateExceptionalExpenseController {
 				exceptionalExpense.setDescription(formBean.getDescription());
 				exceptionalExpense.setEffectType(new BigDecimal(formBean
 						.getAdditionEffect()));
-				if (formBean.getAdditionEffect().equals(
-						Constant.ExceptinalFixCostEffectType)) {
-					exceptionalExpense.setEffect(new BigDecimal(formBean
-							.getFixCost()));
-				} else {
-					exceptionalExpense.setEffect(new BigDecimal(formBean
-							.getRation()));
-				}
+				exceptionalExpense.setEffect(new BigDecimal(formBean
+						.getAdditionEffectInput()));
 				exceptionalExpense.setOopmsCostDailyExpenseId(new BigDecimal(
 						formBean.getDailyExpenses()[i]));
 				cDao.insertExceptionalCost(exceptionalExpense);

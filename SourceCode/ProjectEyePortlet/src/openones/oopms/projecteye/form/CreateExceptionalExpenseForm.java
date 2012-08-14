@@ -8,8 +8,7 @@ public class CreateExceptionalExpenseForm {
 	private String[] costTypes;
 	private String[] dailyExpenses;
 	private String additionEffect;
-	private String ration;
-	private String fixCost;
+	private String additionEffectInput;
 	private Date occurDate;
 	private String description;
 	private String projectId;
@@ -90,33 +89,18 @@ public class CreateExceptionalExpenseForm {
 	}
 
 	/**
-	 * @return the ration
+	 * @return the additionEffectInput
 	 */
-	public String getRation() {
-		return ration;
+	public String getAdditionEffectInput() {
+		return additionEffectInput;
 	}
 
 	/**
-	 * @param ration
-	 *            the ration to set
+	 * @param additionEffectInput
+	 *            the additionEffectInput to set
 	 */
-	public void setRation(String ration) {
-		this.ration = ration;
-	}
-
-	/**
-	 * @return the fixCost
-	 */
-	public String getFixCost() {
-		return fixCost;
-	}
-
-	/**
-	 * @param fixCost
-	 *            the fixCost to set
-	 */
-	public void setFixCost(String fixCost) {
-		this.fixCost = fixCost;
+	public void setAdditionEffectInput(String additionEffectInput) {
+		this.additionEffectInput = additionEffectInput;
 	}
 
 	/**

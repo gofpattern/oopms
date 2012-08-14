@@ -86,13 +86,14 @@ function fnFeaturesInit ()
 <SCRIPT type="text/javascript">
 var rules = new Array();
 rules[0] = 'name:Name|required';
-rules[1] = 'occurDate:Date|required';
-rules[2] = 'name:Name|maxlength|150';
-rules[3] = 'occurDate:Date|date';
-rules[4] = 'description:Description|maxlength|255';
-rules[5] = 'ration:Cost Ration|double';
-rules[6] = 'fixCost:Fix Cost|double';
+rules[1] = 'additionEffectInput:Input|required';
+rules[2] = 'occurDate:Date|required';
+rules[3] = 'name:Name|maxlength|150';
+rules[4] = 'occurDate:Date|date';
+rules[5] = 'description:Description|maxlength|255';
+rules[6] = 'additionEffectInput:Input|double';
 yav.addHelp('name', 'Please input Name');
+yav.addHelp('additionEffectInput', 'Please type Input');
 yav.addHelp('occurDate', 'Please input Date');
 
 </SCRIPT>
@@ -178,10 +179,11 @@ yav.addHelp('occurDate', 'Please input Date');
       <tr>
         <th scope="row">Addition effect</th>
         <td>
-        <form:radiobutton path="additionEffect" value="0"/>x <form:input maxlength="10" size="5" value="" path="ration" type="text"/>Cost
-        <br/><span id=errorsDiv_ration>&nbsp;</span>
-        <br/><form:radiobutton path="additionEffect" value="1"/>Fix Cost<form:input maxlength="60" path="fixCost" size="9" value="" type="text"/>$
-        <br/><span id=errorsDiv_fixCost>&nbsp;</span>
+        <form:radiobutton path="additionEffect" value="0"/>Ration (Daily Cost x Input)
+        <form:radiobutton path="additionEffect" value="2"/>Bonus Cost (Daily Cost + Input)
+        <form:radiobutton path="additionEffect" value="1"/>Fix Cost (Input)
+        <br/>Input<form:input maxlength="60" path="additionEffectInput" size="9" value="" type="text"/>$
+        <br/><span id=errorsDiv_additionEffectInput>&nbsp;</span>
         </td>
       </tr>
       <tr>
