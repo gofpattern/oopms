@@ -50,7 +50,7 @@ color: #444;
 .clearfix {display: block;}
 
 /* global */
-body { font-size: 76%; background: #fff; font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; margin: 0; color: #505050; }
+body { font-size: 100%; background: #fff; font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; margin: 0; color: #505050; }
 a img { border: none; }
 
 
