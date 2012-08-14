@@ -83,18 +83,18 @@
         <table>
           <tbody>
             <tr>
-              <td><b>Project Type</b></td>
               <td><b>Project Category</b></td>
+              <td><b>Project Domain</b></td>
               <td><b>Project Status</b></td>
               <td><b>Project Health</b></td>
             </tr>
             <tr>
-              <td><form:select path="projectType" class="styled_2" multiple="single" onchange='this.form.submit()'>
-                  <form:options items="${typeMap}" />
-                </form:select></td>
-
               <td><form:select path="projectCategory" class="styled_2" multiple="single" onchange='this.form.submit()'>
                   <form:options items="${categoryMap}" />
+                </form:select></td>
+
+              <td><form:select path="projectDomain" class="styled_2" multiple="single" onchange='this.form.submit()'>
+                  <form:options items="${businessDomainMap}" />
                 </form:select></td>
 
               <td><form:select path="projectStatus" class="styled_2" multiple="single" onchange='this.form.submit()'>
@@ -128,6 +128,7 @@
         </thead>
         <tbody>
           <c:forEach var="dashboard" items="${dashboardList}">
+          <c:if test="${dashboard.visible == true}">
             <portlet:actionURL var="renderAction">
               <portlet:param name="action" value="taskmanager" />
               <portlet:param name="projectId" value="${project.projectId}" />
@@ -201,6 +202,7 @@
               <td>${dashboard.project.planEffort}</td>
               <td>${dashboard.project.actualEffort}</td>
             </tr>
+            </c:if>
           </c:forEach>
         </tbody>
       </table>
