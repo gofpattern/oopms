@@ -102,7 +102,7 @@
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
-  <div class="container" id="portalPageBodyInner">
+  <div class="container">
     <div class="content">
         <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>'/>
       <table border="0">
