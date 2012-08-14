@@ -19,25 +19,94 @@
 package openones.oopms.dashboard.form;
 
 import java.util.List;
-import java.util.Map;
 
 import openones.oopms.dashboard.model.Dashboard;
 
 /**
  * @author PNTG
- *
  */
 public class DashboardForm {
+    public static final String ALL_VALUE = "All";
     private List<Dashboard> dashboard;
-    Map<String, String> statusMap;
-    Map<String, String> projectCategoryMap;
-    Map<String, String> projectTypeMap;
-    Map<String, String> projectHealthMap;
-    
+    private String projectId;
+    private String projectType;
+    private String projectStatus;
+    private String projectCategory;
+    private String projectHealth;
+    private Boolean init;
+
     public DashboardForm() {
-        
+        projectType = ALL_VALUE;
+        projectStatus = ALL_VALUE;
+        projectCategory = ALL_VALUE;
+        projectHealth = ALL_VALUE;
+        init = true;
     }
-    
+
+    /**
+     * Get value of projectType.
+     * @return the projectType
+     */
+    public String getProjectType() {
+        return projectType;
+    }
+
+    /**
+     * Set the value for projectType.
+     * @param projectType the projectType to set
+     */
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+
+    /**
+     * Get value of projectStatus.
+     * @return the projectStatus
+     */
+    public String getProjectStatus() {
+        return projectStatus;
+    }
+
+    /**
+     * Set the value for projectStatus.
+     * @param projectStatus the projectStatus to set
+     */
+    public void setProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
+    /**
+     * Get value of projectCategory.
+     * @return the projectCategory
+     */
+    public String getProjectCategory() {
+        return projectCategory;
+    }
+
+    /**
+     * Set the value for projectCategory.
+     * @param projectCategory the projectCategory to set
+     */
+    public void setProjectCategory(String projectCategory) {
+        this.projectCategory = projectCategory;
+    }
+
+    /**
+     * Get value of projectHealth.
+     * @return the projectHealth
+     */
+    public String getProjectHealth() {
+        return projectHealth;
+    }
+
+    /**
+     * Set the value for projectHealth.
+     * @param projectHealth the projectHealth to set
+     */
+    public void setProjectHealth(String projectHealth) {
+        this.projectHealth = projectHealth;
+    }
+
     /**
      * Get value of dashboard.
      * @return the dashboard
@@ -52,21 +121,37 @@ public class DashboardForm {
     public void setDashboard(List<Dashboard> dashboard) {
         this.dashboard = dashboard;
     }
+
     /**
-     * Get value of statusMap.
-     * @return the statusMap
+     * Get value of projectId.
+     * @return the projectId
      */
-    public Map<String, String> getStatusMap() {
-        return statusMap;
+    public String getProjectId() {
+        return projectId;
     }
+
     /**
-     * Set the value for statusMap.
-     * @param statusMap the statusMap to set
+     * Set the value for projectId.
+     * @param projectId the projectId to set
      */
-    public void setStatusMap(Map<String, String> statusMap) {
-        this.statusMap = statusMap;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
-    
-    
-    
+
+    /**
+     * Get value of init.
+     * @return the init
+     */
+    public Boolean getInit() {
+        return init;
+    }
+
+    /**
+     * Set the value for init.
+     * @param init the init to set
+     */
+    public void setInit(Boolean init) {
+        this.init = init;
+    }
+
 }

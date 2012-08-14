@@ -35,7 +35,8 @@ public class Dashboard {
     private int percentProgress;
     private int percentTime;
 
-    public Dashboard() {
+    public Dashboard() 
+    {
         visible = true;
     }
 
