@@ -17,6 +17,7 @@ public class OopmsCostOneTimeExpense  implements java.io.Serializable {
      private BigDecimal cost;
      private Date occurDate;
      private String description;
+     private String isPay;
 
     public OopmsCostOneTimeExpense() {
     }
@@ -26,13 +27,14 @@ public class OopmsCostOneTimeExpense  implements java.io.Serializable {
         this.oopmsCostOneTimeExpenseId = oopmsCostOneTimeExpenseId;
         this.projectId = projectId;
     }
-    public OopmsCostOneTimeExpense(BigDecimal oopmsCostOneTimeExpenseId, BigDecimal projectId, String name, BigDecimal cost, Date occurDate, String description) {
+    public OopmsCostOneTimeExpense(BigDecimal oopmsCostOneTimeExpenseId, BigDecimal projectId, String name, BigDecimal cost, Date occurDate, String description, String isPay) {
        this.oopmsCostOneTimeExpenseId = oopmsCostOneTimeExpenseId;
        this.projectId = projectId;
        this.name = name;
        this.cost = cost;
        this.occurDate = occurDate;
        this.description = description;
+       this.isPay = isPay;
     }
    
     public BigDecimal getOopmsCostOneTimeExpenseId() {
@@ -79,6 +81,16 @@ public class OopmsCostOneTimeExpense  implements java.io.Serializable {
     }
 
 
+	public String getIsPay() {
+		return isPay;
+	}
+
+
+	public void setIsPay(String isPay) {
+		this.isPay = isPay;
+	}
+
+    
 
 
 }

@@ -21,6 +21,7 @@ public class CostUtil {
 
 	/**
 	 * Create String represent date used form checkbox array
+	 * 
 	 * @param input
 	 * @return
 	 */
@@ -35,17 +36,18 @@ public class CostUtil {
 		result = String.valueOf(temp);
 		return result;
 	}
-	
+
 	/**
 	 * Create checkbox array from a String represent day used
+	 * 
 	 * @param input
 	 * @return
 	 */
 	public static String[] getDaysUsed(String input) {
-		String temp ="";
-		for(int i=0; i<7;i++) {
-			if(input.charAt(i)=='1') {
-				temp = temp + String.valueOf(i+1) + ",";
+		String temp = "";
+		for (int i = 0; i < 7; i++) {
+			if (input.charAt(i) == '1') {
+				temp = temp + String.valueOf(i + 1) + ",";
 			}
 		}
 		String[] result = temp.split(",");
@@ -134,19 +136,20 @@ public class CostUtil {
 				if (String.valueOf(input.get(i).getEffectType()).equals(
 						Constant.ExceptinalFixCostEffectType)) {
 					if (input.get(i).getEffect() != null) {
-						temp.setAdditionEffect("Fixed " + input.get(i).getEffect() + " $");
+						temp.setAdditionEffect("Fixed "
+								+ input.get(i).getEffect() + " $");
 					}
 				} else if (String.valueOf(input.get(i).getEffectType()).equals(
-						Constant.ExceptinalRationCostEffectType)){
+						Constant.ExceptinalRationCostEffectType)) {
 					if (input.get(i).getEffect() != null) {
 						temp.setAdditionEffect("x" + input.get(i).getEffect()
 								+ " Payment");
 					}
 				} else if (String.valueOf(input.get(i).getEffectType()).equals(
-						Constant.ExceptinalBonusCostEffectType)){
+						Constant.ExceptinalBonusCostEffectType)) {
 					if (input.get(i).getEffect() != null) {
-						temp.setAdditionEffect("Bonus " + input.get(i).getEffect()
-								+ "  $");
+						temp.setAdditionEffect("Bonus "
+								+ input.get(i).getEffect() + "  $");
 					}
 				}
 				exceptionalListView.add(temp);
@@ -157,6 +160,7 @@ public class CostUtil {
 
 	/**
 	 * Get Expense of a project at a specific date
+	 * 
 	 * @param projectId
 	 * @param viewDate
 	 * @return
@@ -201,7 +205,9 @@ public class CostUtil {
 				for (int i = 0; i < exceptionalExpenseList.size(); i++) {
 					if (!exceptionalExpenseList.get(i).getOccurDate()
 							.after(viewDate)) {
-						result = result.add(getTotalValueOfExceptionalCost(exceptionalExpenseList.get(i)));
+						result = result
+								.add(getTotalValueOfExceptionalCost(exceptionalExpenseList
+										.get(i)));
 					}
 				}
 			}
@@ -215,7 +221,9 @@ public class CostUtil {
 				for (int i = 0; i < exceptionalDeductList.size(); i++) {
 					if (!exceptionalDeductList.get(i).getOccurDate()
 							.after(viewDate)) {
-						result = result.subtract(getTotalValueOfExceptionalCost(exceptionalDeductList.get(i)));
+						result = result
+								.subtract(getTotalValueOfExceptionalCost(exceptionalDeductList
+										.get(i)));
 					}
 				}
 			}
@@ -313,12 +321,21 @@ public class CostUtil {
 									exceptinalCost.getProjectId(),
 									exceptinalCost.getOopmsCostTypeId());
 					if (temp != null) {
-						result = result.add(exceptinalCost.getEffect()
-								.multiply(new BigDecimal(temp.size())));
+						for (int i = 0; i < temp.size(); i++) {
+							if ((!temp.get(i).getStartDate()
+									.after(exceptinalCost.getOccurDate()))
+									&& (!temp
+											.get(i)
+											.getEndDate()
+											.before(exceptinalCost
+													.getOccurDate()))) {
+								result = result.add(exceptinalCost.getEffect());
+							}
+						}
 					}
 
-				} else if (String.valueOf(exceptinalCost.getEffectType()).equals(
-						Constant.ExceptinalRationCostEffectType)){
+				} else if (String.valueOf(exceptinalCost.getEffectType())
+						.equals(Constant.ExceptinalRationCostEffectType)) {
 					CostDao cDao = new CostDao();
 					List<OopmsCostDailyExpense> temp = cDao
 							.getDailyExpenseListOfAType(
@@ -326,13 +343,21 @@ public class CostUtil {
 									exceptinalCost.getOopmsCostTypeId());
 					if (temp != null) {
 						for (int i = 0; i < temp.size(); i++) {
-							result = result.add(exceptinalCost.getEffect()
-									.multiply(temp.get(i).getCost()));
+							if ((!temp.get(i).getStartDate()
+									.after(exceptinalCost.getOccurDate()))
+									&& (!temp
+											.get(i)
+											.getEndDate()
+											.before(exceptinalCost
+													.getOccurDate()))) {
+								result = result.add(exceptinalCost.getEffect()
+										.multiply(temp.get(i).getCost()));
+							}
 						}
 					}
 
-				} else if (String.valueOf(exceptinalCost.getEffectType()).equals(
-						Constant.ExceptinalBonusCostEffectType)){
+				} else if (String.valueOf(exceptinalCost.getEffectType())
+						.equals(Constant.ExceptinalBonusCostEffectType)) {
 					CostDao cDao = new CostDao();
 					List<OopmsCostDailyExpense> temp = cDao
 							.getDailyExpenseListOfAType(
@@ -340,33 +365,42 @@ public class CostUtil {
 									exceptinalCost.getOopmsCostTypeId());
 					if (temp != null) {
 						for (int i = 0; i < temp.size(); i++) {
-							result = result.add(exceptinalCost.getEffect().add(temp.get(i).getCost()));
+							if ((!temp.get(i).getStartDate()
+									.after(exceptinalCost.getOccurDate()))
+									&& (!temp
+											.get(i)
+											.getEndDate()
+											.before(exceptinalCost
+													.getOccurDate()))) {
+								result = result.add(exceptinalCost.getEffect()
+										.add(temp.get(i).getCost()));
+							}
 						}
 					}
-					
+
 				}
 			}
 		} else if (exceptinalCost.getOopmsCostDailyExpenseId() != null) {
-			if (exceptinalCost.getEffect() != null) {
-				if (String.valueOf(exceptinalCost.getEffectType()).equals(
-						Constant.ExceptinalFixCostEffectType)) {
-					
-					result = result.add(exceptinalCost.getEffect());
-				} else if (String.valueOf(exceptinalCost.getEffectType()).equals(
-						Constant.ExceptinalRationCostEffectType)){
-					CostDao cDao = new CostDao();
-					OopmsCostDailyExpense temp = cDao
-							.getDailyExpense(exceptinalCost
-									.getOopmsCostDailyExpenseId());
-					result = result.add(exceptinalCost.getEffect().multiply(
-							temp.getCost()));
-				} else if (String.valueOf(exceptinalCost.getEffectType()).equals(
-						Constant.ExceptinalBonusCostEffectType)){
-					CostDao cDao = new CostDao();
-					OopmsCostDailyExpense temp = cDao
-							.getDailyExpense(exceptinalCost
-									.getOopmsCostDailyExpenseId());
-					result = result.add(exceptinalCost.getEffect().add(temp.getCost()));
+			CostDao cDao = new CostDao();
+			OopmsCostDailyExpense temp = cDao.getDailyExpense(exceptinalCost
+					.getOopmsCostDailyExpenseId());
+			if ((!temp.getStartDate().after(exceptinalCost.getOccurDate()))
+					&& (!temp.getEndDate()
+							.before(exceptinalCost.getOccurDate()))) {
+				if (exceptinalCost.getEffect() != null) {
+					if (String.valueOf(exceptinalCost.getEffectType()).equals(
+							Constant.ExceptinalFixCostEffectType)) {
+
+						result = result.add(exceptinalCost.getEffect());
+					} else if (String.valueOf(exceptinalCost.getEffectType())
+							.equals(Constant.ExceptinalRationCostEffectType)) {
+						result = result.add(exceptinalCost.getEffect()
+								.multiply(temp.getCost()));
+					} else if (String.valueOf(exceptinalCost.getEffectType())
+							.equals(Constant.ExceptinalBonusCostEffectType)) {
+						result = result.add(exceptinalCost.getEffect().add(
+								temp.getCost()));
+					}
 				}
 			}
 		}

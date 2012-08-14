@@ -21,6 +21,7 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
      private BigDecimal effectType;
      private BigDecimal effect;
      private String description;
+     private String isPay;
 
     public OopmsExceptionalCost() {
     }
@@ -30,7 +31,7 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
         this.oopmsExceptionalCostId = oopmsExceptionalCostId;
         this.projectId = projectId;
     }
-    public OopmsExceptionalCost(BigDecimal oopmsExceptionalCostId, BigDecimal projectId, String name, BigDecimal type, BigDecimal oopmsCostTypeId, BigDecimal oopmsCostDailyExpenseId, Date occurDate, BigDecimal effectType, BigDecimal effect, String description) {
+    public OopmsExceptionalCost(BigDecimal oopmsExceptionalCostId, BigDecimal projectId, String name, BigDecimal type, BigDecimal oopmsCostTypeId, BigDecimal oopmsCostDailyExpenseId, Date occurDate, BigDecimal effectType, BigDecimal effect, String description, String isPay) {
        this.oopmsExceptionalCostId = oopmsExceptionalCostId;
        this.projectId = projectId;
        this.name = name;
@@ -41,6 +42,7 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
        this.effectType = effectType;
        this.effect = effect;
        this.description = description;
+       this.isPay = isPay;
     }
    
     public BigDecimal getOopmsExceptionalCostId() {
@@ -115,6 +117,16 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
     }
 
 
+	public String getIsPay() {
+		return isPay;
+	}
+
+
+	public void setIsPay(String isPay) {
+		this.isPay = isPay;
+	}
+
+    
 
 
 }

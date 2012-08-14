@@ -20,6 +20,7 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
      private String dateUsed;
      private BigDecimal oopmsCostTypeId;
      private String description;
+     private String isPay;
 
     public OopmsCostDailyExpense() {
     }
@@ -29,7 +30,7 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
         this.oopmsCostDailyExpenseId = oopmsCostDailyExpenseId;
         this.projectId = projectId;
     }
-    public OopmsCostDailyExpense(BigDecimal oopmsCostDailyExpenseId, BigDecimal projectId, String name, BigDecimal cost, Date startDate, Date endDate, String dateUsed, BigDecimal type, String description) {
+    public OopmsCostDailyExpense(BigDecimal oopmsCostDailyExpenseId, BigDecimal projectId, String name, BigDecimal cost, Date startDate, Date endDate, String dateUsed, BigDecimal type, String description, String isPay) {
        this.oopmsCostDailyExpenseId = oopmsCostDailyExpenseId;
        this.projectId = projectId;
        this.name = name;
@@ -39,6 +40,7 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
        this.dateUsed = dateUsed;
        this.oopmsCostTypeId = type;
        this.description = description;
+       this.isPay = isPay;
     }
    
     public BigDecimal getOopmsCostDailyExpenseId() {
@@ -104,6 +106,16 @@ public class OopmsCostDailyExpense  implements java.io.Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+	public String getIsPay() {
+		return isPay;
+	}
+
+
+	public void setIsPay(String isPay) {
+		this.isPay = isPay;
+	}
 
 
 
