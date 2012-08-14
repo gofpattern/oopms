@@ -126,5 +126,6 @@
     <mapping resource="openones/oopms/entity/CusPoint.hbm.xml"/>
     <mapping resource="openones/oopms/entity/ChangesOfProjectPlan.hbm.xml"/>
     <mapping resource="openones/oopms/entity/WeeklyEffort.hbm.xml"/>
+    <mapping resource="openones/oopms/entity/BusinessDomain.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

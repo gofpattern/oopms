@@ -46,7 +46,7 @@ public class AssignmentDao {
         log.debug("getProject.START");
         try {
             session.getTransaction().begin();
-            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
+            String sql = "select project from Assignment ass where ass.developerId = :developerId";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
             List<Project> projectList = query.list();
@@ -89,7 +89,7 @@ public class AssignmentDao {
             query.setString(0, developerId);
             query.setString(1, projectId);
             Assignment assi = (Assignment) query.uniqueResult();
-            if (assi.getType() == 1) {
+            if (assi.getType() == 1 || assi.getType() == 0) {
                 return "Project Manager";
             } else if (assi.getType() == 2) {
                 return "Developer";
