@@ -26,7 +26,16 @@ public class Constant {
     public static final String ALL_VALUE = "All";
     public static final String BLANK_VALUE = " ";
     public static final String TENTATIVE_STATUS = "176";
+    public static final String CLOSED_STATUS = "174";
     public static final String NONE_ACTION = "none";
     public static final String ADD_ACTION = "addTask";
     public static final String EDIT_ACTION = "editTask";
+    public static String DATEFORMAT = "MM/dd/yyyy";
+    public static String PROJECT_OWNER_AND_PM = "0";
+    public static String PROJECT_MANAGER_TYPE = "1";
+    public static String DEVELOPER_TYPE = "2";
+    public static String TESTER_TYPE = "3";
+    public static String QA_TYPE = "4";
+    public static String CUSTOMER_TYPE = "5";
+    public static String PROJECT_OWNER_TYPE = "6";
 }

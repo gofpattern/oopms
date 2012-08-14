@@ -19,6 +19,7 @@
 package openones.oopms.planner.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.planner.model.Project;
@@ -47,9 +48,11 @@ public class AssignmentDAO {
         log.debug("getProject.START");
         try {
             session.getTransaction().begin();
-            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId";
+            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId " +
+            		"and ((end_Date > :currentDate) or (end_Date is null))";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
+            query.setParameter("currentDate", new Date());
             List<Project> projectList = query.list();
             return projectList;
         } catch (Exception e) {
@@ -70,10 +73,18 @@ public class AssignmentDAO {
             query.setString(0, developerId);
             query.setString(1, projectId);
             Assignment assi = (Assignment) query.uniqueResult();
-            if (assi.getType() == 1) {
+            if (assi.getType() == 1 || assi.getType() == 0) {
                 return "Project Manager";
             } else if (assi.getType() == 2) {
                 return "Developer";
+            }else if (assi.getType() == 3) {
+                return "Tester";
+            }else if (assi.getType() == 4) {
+                return "QA";
+            }else if (assi.getType() == 5) {
+                return "Customer";
+            }else if (assi.getType() == 6) {
+                return "Project Owner";
             }
 
         } catch (Exception e) {

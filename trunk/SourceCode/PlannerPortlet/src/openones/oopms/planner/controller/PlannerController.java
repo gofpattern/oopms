@@ -187,10 +187,10 @@ public class PlannerController {
                         }
                     }
                     // Convert date
-                    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                    DateFormat dateFormat = new SimpleDateFormat(Constant.DATEFORMAT);
                     taskList.get(i).setStartdate_str(dateFormat.format(taskList.get(i).getStartdate()));
                     taskList.get(i).setPlanDate_str(dateFormat.format(taskList.get(i).getPlanDate()));
-                    if (taskList.get(i).getStatusid().equals(new BigDecimal(174)))
+                    if (taskList.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS)))
                         taskList.get(i).setActualDate_str(dateFormat.format(taskList.get(i).getActualDate()));
                 }
 

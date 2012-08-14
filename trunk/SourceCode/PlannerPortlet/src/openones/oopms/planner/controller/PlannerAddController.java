@@ -64,7 +64,7 @@ public class PlannerAddController {
     private List<Process> processList;
     private List<GeneralReference> statusList;
     private List<Developer> developerList;
-//    private List<Workproduct> productList;
+    // private List<Workproduct> productList;
     private List<Module> moduleList;
     private List<Language> sizeUnitList;
     TaskDAO taskDAO = new TaskDAO();
@@ -80,7 +80,7 @@ public class PlannerAddController {
 
         statusList = taskDAO.getProjectStatusEn();
         stageList = taskDAO.getAllStage();
-//        productList = moduleDAO.getWorkproductByProject(new BigDecimal(PlannerController.projectDefault));
+        // productList = moduleDAO.getWorkproductByProject(new BigDecimal(PlannerController.projectDefault));
         processList = taskDAO.getAllProcess();
         developerList = taskDAO.getDeveloper(formBeanAdd.getProjectId());
         moduleList = moduleDAO.getModuleByProject(new BigDecimal(PlannerController.projectDefault));
@@ -88,7 +88,7 @@ public class PlannerAddController {
 
         // set value for statusMap
         formBeanAdd.getStatusMap().clear();
-        formBeanAdd.getStatusMap().put(Constant.TENTATIVE_STATUS,Constant.BLANK_VALUE);
+        formBeanAdd.getStatusMap().put(Constant.TENTATIVE_STATUS, Constant.BLANK_VALUE);
         for (int i = 0; i < statusList.size(); i++) {
             formBeanAdd.getStatusMap().put(statusList.get(i).getGeneralRefId().toString(),
                     statusList.get(i).getDescription());
@@ -105,10 +105,10 @@ public class PlannerAddController {
                     developerList.get(i).getName());
         }
 
-//        // Set value for productMap
-//        for (int i = 0; i < productList.size(); i++) {
-//            formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
-//        }
+        // // Set value for productMap
+        // for (int i = 0; i < productList.size(); i++) {
+        // formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
+        // }
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
@@ -176,7 +176,7 @@ public class PlannerAddController {
 
         statusList = taskDAO.getProjectStatusEn();
         stageList = taskDAO.getAllStage();
-//        productList = taskDAO.getAllProduct();
+        // productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
         developerList = taskDAO.getDeveloper(formBean.getProjectId());
         moduleList = moduleDAO.getModuleByProject(new BigDecimal(PlannerController.projectDefault));
@@ -205,12 +205,12 @@ public class PlannerAddController {
                     developerList.get(i).getName());
         }
 
-//        // Set value for productMap
-//        formBeanAdd.getProductMap().clear();
-//        formBeanAdd.getProductMap().put(task.getProduct().toString(), "");
-//        for (int i = 0; i < productList.size(); i++) {
-//            formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
-//        }
+        // // Set value for productMap
+        // formBeanAdd.getProductMap().clear();
+        // formBeanAdd.getProductMap().put(task.getProduct().toString(), "");
+        // for (int i = 0; i < productList.size(); i++) {
+        // formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
+        // }
 
         // Set value for processMap
         formBeanAdd.getProcessMap().clear();
@@ -263,17 +263,17 @@ public class PlannerAddController {
     public void processEditTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
         log.debug("processEditTask.START");
-        Tasks editedTask = new Tasks();
-        Tasks task = taskDAO.getTaskById(formBeanAdd.getTask().getTaskid());
+
         try {
-            editedTask = formBeanAdd.getTask();
+            Tasks task = taskDAO.getTaskById(formBeanAdd.getTask().getTaskid());
+            Tasks editedTask = formBeanAdd.getTask();
             editedTask.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             editedTask.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             editedTask.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
 
             moduleDAO.updateModuleByEditedTask(task, editedTask);
-            taskDAO.updateTask(editedTask);            
+            taskDAO.updateTask(editedTask);
 
         } catch (Exception ex) {
             log.error("error when update task", ex);
