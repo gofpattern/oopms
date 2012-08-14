@@ -65,7 +65,10 @@
 <body id="portal" class="up fl-theme-mist">
   <div id="portalPageBodyInner" class="container">
     <div class="content">
-      <c:set var="UserInfor" value="<%=portletSession.getAttribute("UserInfo")%>" />
+      <portlet:actionURL var="searchAction">
+        <portlet:param name="action" value="search" />
+      </portlet:actionURL>
+      <c:set var="UserInfor" value='<%=portletSession.getAttribute("UserInfo")%>' />
       <table border="0">
         <tr>
           <th><strong>User: </strong></th>
@@ -76,47 +79,35 @@
           <td><strong><font color="#1490E3">${fn:length(dashboardList)}</font></strong></td>
         </tr>
       </table>
+      <form:form name="searchProject" commandName="DashboardForm" method="post" action="${searchAction}">
+        <table>
+          <tbody>
+            <tr>
+              <td><b>Project Type</b></td>
+              <td><b>Project Category</b></td>
+              <td><b>Project Status</b></td>
+              <td><b>Project Health</b></td>
+            </tr>
+            <tr>
+              <td><form:select path="projectType" class="styled_2" multiple="single" onchange='this.form.submit()'>
+                  <form:options items="${typeMap}" />
+                </form:select></td>
 
-      <table>
-        <tbody>
-          <tr>
-            <td><b>Project Type</b></td>
-            <td><b>Project Category</b></td>
-            <td><b>Project Status</b></td>
-            <td><b>Project Health</b></td>
-          </tr>
-          <tr>
-            <td><select class="styled" name="cboStatus" size="1">
-                <option value="-1" selected>All status</option>
-                <option value="1">Closed</option>
-                <option value="2">Cancelled</option>
-                <option value="3">Tentative</option>
-                <option value="0">On-going</option>
-            </select></td>
+              <td><form:select path="projectCategory" class="styled_2" multiple="single" onchange='this.form.submit()'>
+                  <form:options items="${categoryMap}" />
+                </form:select></td>
 
-            <td><select class="styled" name="cboCategory" size="1">
-                <option selected="selected" value="-1">All categories</option>
-                <option value="0">Development</option>
-                <option value="1">Maintenance</option>
-                <option value="2">Others</option>
-            </select></td>
+              <td><form:select path="projectStatus" class="styled_2" multiple="single" onchange='this.form.submit()'>
+                  <form:options items="${statusMap}" />
+                </form:select></td>
 
-            <td><select class="styled" name="">
-                <option selected="selected" value="-1">All</option>
-                <option value="0">Good</option>
-                <option value="1">Normal</option>
-                <option value="2">Bad</option>
-            </select></td>
-
-            <td><select class="styled" name="">
-                <option selected="selected" value="-1">All</option>
-                <option value="0">Good</option>
-                <option value="1">Normal</option>
-                <option value="2">Bad</option>
-            </select></td>
-          </tr>
-        </tbody>
-      </table>
+              <td><form:select path="projectHealth" class="styled_2" multiple="single" onchange='this.form.submit()'>
+                  <form:options items="${projectHealthMap}" />
+                </form:select></td>
+            </tr>
+          </tbody>
+        </table>
+      </form:form>
       <table id="projectTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0" align="center">
         <thead>
           <tr>
@@ -161,28 +152,26 @@
                   <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#ffffff"
                       size="2" face="tahoma">${dashboard.percentTime}%</font></b></span>
                 </div></td>
-              <td>
-              <c:choose>
+              <td><c:choose>
                   <c:when test="${dashboard.percentProgress < 50}">
-                   <div id="percentProgress" class="progress_bar glow red stripes">
-                  <span style="width: ${dashboard.percentProgress}%" align="center"><b><font color="#ffffff"
-                      size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
-                </div>
+                    <div id="percentProgress" class="progress_bar glow red stripes">
+                      <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
+                          color="#ffffff" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                    </div>
                   </c:when>
                   <c:when test="${dashboard.percentProgress < 80}">
-                   <div id="percentProgress" class="progress_bar orange stripes">
-                  <span style="width: ${dashboard.percentProgress}%" align="center"><b><font color="#ffffff"
-                      size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
-                </div>
+                    <div id="percentProgress" class="progress_bar orange stripes">
+                      <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
+                          color="#ffffff" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                    </div>
                   </c:when>
                   <c:otherwise>
                     <div id="percentProgress" class="progress_bar green stripes">
-                  <span style="width: ${dashboard.percentProgress}%" align="center"><b><font color="#ffffff"
-                      size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
-                </div>
+                      <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
+                          color="#ffffff" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                    </div>
                   </c:otherwise>
-                </c:choose>
-              </td>
+                </c:choose></td>
               <td align="center"><c:choose>
                   <c:when test="${dashboard.efficiencyStatus == 'bad'}">
                     <div class="circle red glow stripes">
