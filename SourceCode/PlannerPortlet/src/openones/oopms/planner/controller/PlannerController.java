@@ -235,6 +235,9 @@ public class PlannerController {
 
         // flag to hide and show Add-Edit window
         mav.addObject("flag", formBean.getFlag());
+        
+        //        
+        session.removeAttribute("ERROR", PortletSession.APPLICATION_SCOPE);
 
         return mav;
     }
