@@ -81,10 +81,14 @@ public class AssignmentDao {
             query.setString(1, projectId);
             Assignment assi = (Assignment) query.uniqueResult();
             session.flush();
-            if (assi.getType() == 1) {
+			int i = assi.getType();
+            if (i == 1) {
                 return "Project Manager";
-            } else if (assi.getType() == 2) {
-                return "Developer";
+            } else if (i == 0){
+                return "Project Manager";
+            }else
+            {
+                return "Member";
             }
 
         } catch (Exception e) {

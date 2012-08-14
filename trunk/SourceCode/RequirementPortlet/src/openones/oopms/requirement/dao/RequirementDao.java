@@ -1,6 +1,7 @@
 package openones.oopms.requirement.dao;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -92,16 +93,22 @@ public class RequirementDao {
             SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
             session = sessionfactory.openSession();
             session.getTransaction().begin();
-            String hql = "from Assignment where developer_Id =:devID and project_Id =:proID";
+            String hql = "from Assignment where developer_Id =:devID and project_Id =:proID and ((end_Date > :currentDate) or (end_Date is null))";
             Query query = session.createQuery(hql);
             query.setParameter("devID", developerId);          
             query.setParameter("proID", projectId);
+            query.setParameter("currentDate", new Date());
             Assignment assi = (Assignment) query.uniqueResult();
-            log.debug("getRoleType: "+assi.getType());
-            if (assi.getType() == 1) {
+            
+            int i = assi.getType();
+            log.debug("getRoleType: "+i);
+            if (i == 1) {
                 return "Project Manager";
-            } else if (assi.getType() == 2) {
-                return "Developer";
+            } else if (i == 0){
+                return "Project Manager";
+            }else
+            {
+                return "Member";
             }
 
         } catch (Exception e) {

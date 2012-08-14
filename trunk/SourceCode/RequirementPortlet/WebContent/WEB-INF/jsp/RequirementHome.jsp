@@ -246,7 +246,7 @@
         <h1>Requirement Management</h1>
         <c:if test="${not empty ERRORMESSAGE}"> <label id="noSelect" style="display: inline; color: red;">${ERRORMESSAGE}</label><br></c:if>
         <c:if test="${empty requirementList}">
-          <h3>There is not requirement added for this project yet.</h3>
+          <h3>There is no requirement added for this project yet.</h3>
         </c:if>
         <c:if test="${not empty requirementList}">
           <table id="mainTable2" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
