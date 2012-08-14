@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2012 10:39:11 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.projecteye.model.OopmsBudget" table="OOPMS_BUDGET" schema="FMSUSER">
+        <id name="oopmsBudgetId" type="big_decimal">
+            <column name="OOPMS_BUDGET_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="projectId" type="big_decimal">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="value" type="big_decimal">
+            <column name="VALUE" precision="22" scale="0"/>
+        </property>
+        <property name="type" type="string">
+            <column name="TYPE" length="1" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" />
+        </property>
+    </class>
+</hibernate-mapping>

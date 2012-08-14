@@ -32,5 +32,8 @@
         <property name="description" type="string">
             <column name="DESCRIPTION" />
         </property>
+        <property name="isPay" type="string">
+            <column name="IS_PAY" />
+        </property>
     </class>
 </hibernate-mapping>
