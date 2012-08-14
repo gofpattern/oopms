@@ -29,34 +29,30 @@ public class DashboardForm {
     public static final String ALL_VALUE = "All";
     private List<Dashboard> dashboard;
     private String projectId;
-    private String projectType;
+    private String projectDomain;
     private String projectStatus;
     private String projectCategory;
     private String projectHealth;
     private Boolean init;
 
     public DashboardForm() {
-        projectType = ALL_VALUE;
-        projectStatus = ALL_VALUE;
-        projectCategory = ALL_VALUE;
-        projectHealth = ALL_VALUE;
         init = true;
     }
 
     /**
-     * Get value of projectType.
-     * @return the projectType
+     * Get value of projectDomain.
+     * @return the projectDomain
      */
-    public String getProjectType() {
-        return projectType;
+    public String getProjectDomain() {
+        return projectDomain;
     }
 
     /**
-     * Set the value for projectType.
-     * @param projectType the projectType to set
+     * Set the value for projectDomain.
+     * @param projectDomain the projectDomain to set
      */
-    public void setProjectType(String projectType) {
-        this.projectType = projectType;
+    public void setProjectDomain(String projectDomain) {
+        this.projectDomain = projectDomain;
     }
 
     /**

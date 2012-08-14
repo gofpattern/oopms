@@ -19,7 +19,7 @@
 package openones.oopms.dashboard.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,10 +29,12 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.daocommon.AssignmentDao;
+import openones.oopms.daocommon.BusinessDomainDao;
 import openones.oopms.daocommon.DeveloperDao;
 import openones.oopms.daocommon.GeneralReferenceDao;
 import openones.oopms.dashboard.form.DashboardForm;
 import openones.oopms.dashboard.model.Dashboard;
+import openones.oopms.entity.BusinessDomain;
 import openones.oopms.entity.Developer;
 import openones.oopms.entity.GeneralReference;
 import openones.oopms.entity.Project;
@@ -57,18 +59,19 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 @RequestMapping("VIEW")
 public class DashboardController extends BaseController {
     private static Logger log = Logger.getLogger(DashboardController.class);
+    private List<Dashboard> dashboardList;
     private List<Project> projectList;
-    private List<Dashboard> dashboardList = new ArrayList<Dashboard>();
     private List<GeneralReference> statusList;
-    private List<GeneralReference> typeList;
+    private List<BusinessDomain> businessDomainList;
     private List<GeneralReference> categoryList;
-    private Map<String, String> typeMap;
+    private Map<String, String> businessDomainMap;
     private Map<String, String> statusMap;
     private Map<String, String> categoryMap;
     private Map<String, String> projectHealthMap;
     private AssignmentDao assignmentDao;
     private DeveloperDao developerDao;
     private GeneralReferenceDao generalReferenceDao;
+    private BusinessDomainDao businessDomainDao;
     private Dashboard dashboard;
 
     @ModelAttribute("DashboardForm")
@@ -97,15 +100,18 @@ public class DashboardController extends BaseController {
         return mav;
 
     }
-    
+
     @ActionMapping(params = "action=dashboard")
-    public void processDashboard ( DashboardForm formBean,ActionResponse response, ActionRequest request, PortletSession session){
+    public void processDashboard(DashboardForm formBean, ActionResponse response, ActionRequest request,
+            PortletSession session) {
         log.debug("processDashboard.START");
-        response.setRenderParameter("action", "taskmanager");
+        response.setRenderParameter("action", "dashboard");
+        
     }
-    
-    @RenderMapping(params = "action=taskmanager")
-    public ModelAndView postPlanner( DashboardForm formBean,RenderRequest request, PortletSession session) {
+
+    @RenderMapping(params = "action=dashboard")
+    public ModelAndView postDashboard(DashboardForm formBean, RenderRequest request, PortletSession session) {
+        log.debug("postDashboard.START");
         ModelAndView mav = new ModelAndView("Dashboard");
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
@@ -113,24 +119,23 @@ public class DashboardController extends BaseController {
         prepareCommonInfo(userInfo, mav, session, formBean);
         return mav;
     }
-    
+
     @ActionMapping(params = "action=search")
     public void processSearchByStatus(DashboardForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
         log.debug("processSearchByStatus.START");
-        log.debug(dashboardList.get(1).getProject().getStatus());
         for (int i = 0; i < dashboardList.size(); i++) {
             dashboardList.get(i).setVisible(true);
-            if (!formBean.getProjectType().equals(DashboardForm.ALL_VALUE))
-                if (!dashboardList.get(i).getProject().getType().equals(formBean.getProjectType())) {
+            if (!formBean.getProjectCategory().equals(DashboardForm.ALL_VALUE))
+                if (!dashboardList.get(i).getProject().getProjectCategoryCode().equals(formBean.getProjectCategory())) {
                     dashboardList.get(i).setVisible(false);
                 }
-            if (!formBean.getProjectCategory().equals(DashboardForm.ALL_VALUE))
-                if (!dashboardList.get(i).getProject().getCategory().equals(formBean.getProjectCategory())) {
+            if (!formBean.getProjectDomain().equals(DashboardForm.ALL_VALUE))
+                if (!dashboardList.get(i).getProject().getProjectTypeCode().equals(formBean.getProjectDomain())) {
                     dashboardList.get(i).setVisible(false);
                 }
             if (!formBean.getProjectStatus().equals(DashboardForm.ALL_VALUE))
-                if (!dashboardList.get(i).getProject().getStatus().equals(formBean.getProjectStatus())) {
+                if (!dashboardList.get(i).getProject().getProjectStatusCode().equals(formBean.getProjectStatus())) {
                     dashboardList.get(i).setVisible(false);
                 }
             if (!formBean.getProjectHealth().equals(DashboardForm.ALL_VALUE))
@@ -140,7 +145,7 @@ public class DashboardController extends BaseController {
 
         }
         formBean.setInit(false);
-        response.setRenderParameter("action", "taskmanager");
+        response.setRenderParameter("action", "dashboard");
     }
 
     @RenderMapping(params = "action=search")
@@ -148,7 +153,7 @@ public class DashboardController extends BaseController {
             ActionResponse response) {
         log.debug("postSearchByStatus.START");
     }
-    
+
     /**
      * Prepare data to initialize the screen ViewDefectMode. Update information of user: roles, group, loginDate
      * @param userInfo is updated roles by username
@@ -160,73 +165,84 @@ public class DashboardController extends BaseController {
         assignmentDao = new AssignmentDao();
         developerDao = new DeveloperDao();
         generalReferenceDao = new GeneralReferenceDao();
-        
-        
-        if (formBean.getInit()){
+        businessDomainDao = new BusinessDomainDao();
+
+        if (formBean.getInit()) {
             // Get user info
             Developer developer = developerDao.getDeveloperByAccount(userInfo.getUsername());
+            dashboardList = new ArrayList<Dashboard>();
             // Get project user belong to
             projectList = assignmentDao.getProjectByDeveloperId(developer.getDeveloperId());
             statusList = generalReferenceDao.getProjectStatusEn();
-            typeList = generalReferenceDao.getProjectTypeEn();
+            businessDomainList = businessDomainDao.getBusinessDomain();
+            log.debug("BizDomainSize " +businessDomainList.size());
             categoryList = generalReferenceDao.getProjectCategoryEn();
+
+            formBean.setProjectCategory(DashboardForm.ALL_VALUE);
+            formBean.setProjectDomain(DashboardForm.ALL_VALUE);
+            formBean.setProjectStatus(DashboardForm.ALL_VALUE);
+            formBean.setProjectHealth(DashboardForm.ALL_VALUE);
+
+            // Set value for dashboard
+            for (int i = 0; i < projectList.size(); i++) {
+                dashboard = new Dashboard();
+                dashboard.setProject(projectList.get(i));
+                dashboard.setProjectHealthStatus(Dashboard.GOOD_STATUS);
+                dashboard.setPercentTime(50);
+                dashboard.setPercentProgress(50);
+                dashboard.setEfficiencyStatus(Dashboard.NORMAL_STATUS);
+                dashboard.setCostStatus(Dashboard.BAD_STATUS);
+                dashboardList.add(dashboard);
+            }
         }
         
-
+        statusMap = new LinkedHashMap<String, String>();
+        projectHealthMap = new LinkedHashMap<String, String>();
+        categoryMap = new LinkedHashMap<String, String>();
+        businessDomainMap = new LinkedHashMap<String, String>();
+        
+        
         // set value for statusMap
-        statusMap = new HashMap<String, String>();
         statusMap.put(formBean.getProjectStatus(), DashboardForm.ALL_VALUE);
-        if (!formBean.getInit())
+        if (formBean.getInit() == false)
             statusMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getGeneralRefId().toString(), statusList.get(i).getDescription());
         }
-        // set value for typeMap
-        typeMap = new HashMap<String, String>();
-        typeMap.put(formBean.getProjectType(), DashboardForm.ALL_VALUE);
-        if (!formBean.getInit())
-            typeMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
-        for (int i = 0; i < typeList.size(); i++) {
-            typeMap.put(typeList.get(i).getGeneralRefId().toString(), typeList.get(i).getDescription());
+        // set value for businessDomainMap
+        businessDomainMap.put(formBean.getProjectDomain(), DashboardForm.ALL_VALUE);
+        if (formBean.getInit() == false)
+            businessDomainMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
+        for (int i = 0; i < businessDomainList.size(); i++) {
+            businessDomainMap.put(businessDomainList.get(i).getDomainId().toString(), businessDomainList.get(i).getDomainName());
         }
         // set value for categoryMap
-        categoryMap = new HashMap<String, String>();
         categoryMap.put(formBean.getProjectCategory(), DashboardForm.ALL_VALUE);
-        if (!formBean.getInit())
+        if (formBean.getInit() == false)
             categoryMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
         for (int i = 0; i < categoryList.size(); i++) {
             categoryMap.put(categoryList.get(i).getGeneralRefId().toString(), categoryList.get(i).getDescription());
         }
         // set value for projectHealthMap
-        projectHealthMap = new HashMap<String, String>();
         projectHealthMap.put(formBean.getProjectHealth(), DashboardForm.ALL_VALUE);
-        if (!formBean.getInit())
+        if (formBean.getInit() == false)
             projectHealthMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
         projectHealthMap.put(Dashboard.GOOD_STATUS, Dashboard.GOOD_STATUS);
         projectHealthMap.put(Dashboard.NORMAL_STATUS, Dashboard.NORMAL_STATUS);
         projectHealthMap.put(Dashboard.BAD_STATUS, Dashboard.BAD_STATUS);
-        
-        
-        // Set value for dashboard
-        for (int i = 0; i < projectList.size(); i++) {
-            dashboard = new Dashboard();
-            dashboard.setProject(projectList.get(i));
-            dashboard.setProjectHealthStatus(Dashboard.GOOD_STATUS);
-            dashboard.setPercentTime(50);
-            dashboard.setPercentProgress(50);
-            dashboard.setEfficiencyStatus(Dashboard.NORMAL_STATUS);
-            dashboard.setCostStatus(Dashboard.BAD_STATUS);
-            dashboardList.add(dashboard);
-        }
 
         mav.addObject("dashboardList", dashboardList);
         mav.addObject("statusMap", statusMap);
-        mav.addObject("typeMap", typeMap);
+        mav.addObject("businessDomainMap", businessDomainMap);
         mav.addObject("categoryMap", categoryMap);
         mav.addObject("projectHealthMap", projectHealthMap);
 
         updateUserInfo(session, userInfo);
-
+        for (int i = 0; i < dashboardList.size(); i++) {
+            log.debug("checkVisible.START");
+            log.debug(dashboardList.get(i).getVisible());
+        }
+        log.debug("prepareCommonInfo.END");
     }
 
     void calculatePercentProgress() {
