@@ -56,8 +56,11 @@
 					function() {
 						// Check module of project
 				          $(function() {
-				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
-				                                alert("Product(s) of your selected project has not been created.\nPlease create some products for your project at Project Eye Portlet before assigning task.\n###For Developer: Let create some records at MODULE talbe with ProjectId is Id of your selected project.###");    
+				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true'){
+				                  alert("Product(s) of your selected project has not been created.\nPlease create some products for your project at Project Eye Portlet before assigning task.\n###For Developer: Let create some records at MODULE talbe with ProjectId is Id of your selected project.###");
+	                             
+				              }
+				                  
 				          });
 
 						// set description when update a task

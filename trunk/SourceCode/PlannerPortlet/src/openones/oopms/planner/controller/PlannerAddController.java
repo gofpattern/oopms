@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.planner.dao.ModuleDAO;
@@ -72,7 +73,7 @@ public class PlannerAddController {
 
     @ActionMapping(params = "action=plannerAdd")
     public void processPlannerAdd(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
-            SessionStatus status, ActionResponse response) {
+            SessionStatus status, ActionResponse response, PortletSession session) {
         log.debug("processPlannerAdd.START");
 
         // get project default to initial developer list
@@ -123,7 +124,7 @@ public class PlannerAddController {
         // Set value for sizeUnitMap
         for (int i = 0; i < sizeUnitList.size(); i++) {
             formBeanAdd.getSizeUnitMap().put(sizeUnitList.get(i).getLanguageId().toString(),
-                    sizeUnitList.get(i).getName().concat(" " + sizeUnitList.get(i).getSizeUnit()));
+                    sizeUnitList.get(i).getName().concat(Constant.BLANK_VALUE + sizeUnitList.get(i).getSizeUnit()));
         }
 
         // Action for PlannerAddForm
@@ -131,6 +132,7 @@ public class PlannerAddController {
         // to show hidden-add-form
         formBean.setFlag(1);
         formBean.setInit(false);
+        session.setAttribute("CHANGEPROJECT_ERROR", false, PortletSession.APPLICATION_SCOPE);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -166,7 +168,7 @@ public class PlannerAddController {
 
     @ActionMapping(params = "action=plannerEdit")
     public void processPlannerEdit(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
-            SessionStatus status, ActionResponse response) {
+            SessionStatus status, ActionResponse response, PortletSession session) {
         log.debug("processEditTask.ACTION.START");
 
         Tasks task = new Tasks();
@@ -184,7 +186,7 @@ public class PlannerAddController {
 
         // set value for statusMap
         formBeanAdd.getStatusMap().clear();
-        formBeanAdd.getStatusMap().put(task.getStatusid().toString(), "");
+        formBeanAdd.getStatusMap().put(task.getStatusid().toString(), Constant.BLANK_VALUE);
         for (int i = 0; i < statusList.size(); i++) {
             formBeanAdd.getStatusMap().put(statusList.get(i).getGeneralRefId().toString(),
                     statusList.get(i).getDescription());
@@ -192,14 +194,14 @@ public class PlannerAddController {
 
         // Set value for stageMap
         formBeanAdd.getStageMap().clear();
-        formBeanAdd.getStageMap().put(task.getStageid().toString(), "");
+        formBeanAdd.getStageMap().put(task.getStageid().toString(),  Constant.BLANK_VALUE);
         for (int i = 0; i < stageList.size(); i++) {
             formBeanAdd.getStageMap().put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
 
         // Set value for developerMap
         formBeanAdd.getDeveloperMap().clear();
-        formBeanAdd.getDeveloperMap().put(task.getAssignedto().toString(), "");
+        formBeanAdd.getDeveloperMap().put(task.getAssignedto().toString(),  Constant.BLANK_VALUE);
         for (int i = 0; i < developerList.size(); i++) {
             formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(),
                     developerList.get(i).getName());
@@ -214,7 +216,7 @@ public class PlannerAddController {
 
         // Set value for processMap
         formBeanAdd.getProcessMap().clear();
-        formBeanAdd.getProcessMap().put(task.getProcess().toString(), "");
+        formBeanAdd.getProcessMap().put(task.getProcess().toString(), Constant.BLANK_VALUE);
         for (int i = 0; i < processList.size(); i++) {
             formBeanAdd.getProcessMap().put(processList.get(i).getProcessId().toString(), processList.get(i).getName());
         }
@@ -222,21 +224,21 @@ public class PlannerAddController {
         // Set value for moduleMap
         formBeanAdd.getModuleMap().clear();
         if (!task.getModule().equals(null))
-            formBeanAdd.getModuleMap().put(task.getModule().getModuleId().toString(), "");
+            formBeanAdd.getModuleMap().put(task.getModule().getModuleId().toString(),  Constant.BLANK_VALUE);
         for (int i = 0; i < moduleList.size(); i++) {
             formBeanAdd.getModuleMap().put(moduleList.get(i).getModuleId().toString(), moduleList.get(i).getName());
         }
 
         // Set value for sizeUnitMap
         formBeanAdd.getSizeUnitMap().clear();
-        formBeanAdd.getSizeUnitMap().put(task.getSizeunit().toString(), "");
+        formBeanAdd.getSizeUnitMap().put(task.getSizeunit().toString(),  Constant.BLANK_VALUE);
         for (int i = 0; i < sizeUnitList.size(); i++) {
             formBeanAdd.getSizeUnitMap().put(sizeUnitList.get(i).getLanguageId().toString(),
-                    sizeUnitList.get(i).getName().concat(" " + sizeUnitList.get(i).getSizeUnit()));
+                    sizeUnitList.get(i).getName().concat( Constant.BLANK_VALUE + sizeUnitList.get(i).getSizeUnit()));
         }
 
         // Convert date to string
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat(Constant.DATEFORMAT);
         task.setStartdate_str(dateFormat.format(task.getStartdate()));
         task.setPlanDate_str(dateFormat.format(task.getPlanDate()));
 
@@ -250,6 +252,7 @@ public class PlannerAddController {
         formBean.setFlag(1);
         // Reload taskList
         formBean.setInit(false);
+        session.setAttribute("CHANGEPROJECT_ERROR", false, PortletSession.APPLICATION_SCOPE);
         response.setRenderParameter("action", "taskmanager");
     }
 
