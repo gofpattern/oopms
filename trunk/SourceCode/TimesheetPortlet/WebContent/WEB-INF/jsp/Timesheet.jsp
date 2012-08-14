@@ -242,7 +242,7 @@ function submitAction(formName, actionUrl) {
   <portlet:param name="action" value="goRejectTimesheet" />
 </portlet:actionURL><form:form name="Timesheet" method="post" commandName="timesheetForm"
   action="${goUpdateTimesheetAction}">
-  <table id="mainTable2" style="width: 1024px;" class="display dataTable" cellpadding="0"
+  <table id="mainTable2" class="display dataTable" cellpadding="0"
     cellspacing="0" border="0">
     <thead>
       <tr>
