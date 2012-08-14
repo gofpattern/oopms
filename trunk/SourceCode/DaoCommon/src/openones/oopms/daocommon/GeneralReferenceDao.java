@@ -32,7 +32,7 @@ import org.hibernate.SessionFactory;
  */
 public class GeneralReferenceDao {
     private Session session;
-    private static Logger log = Logger.getLogger(AssignmentDao.class);
+    private static Logger log = Logger.getLogger(BusinessDomainDao.class);
 
     public GeneralReferenceDao() {
         SessionFactory factory = HibernateUtil.getSessionFactory();
