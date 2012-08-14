@@ -16,6 +16,7 @@ public class Constant {
 	public static String ExceptinalDeductType = "1";
 	public static String ExceptinalRationCostEffectType = "0";
 	public static String ExceptinalFixCostEffectType = "1";
+	public static String ExceptinalBonusCostEffectType = "2";
 	public static String ExceptinalCostEffectToType = "0";
 	public static String ExceptinalCostEffectToDaily = "1";
 	public static String CostTypeNotUsed = "0";
