@@ -64,7 +64,7 @@
 	rules[1] = 'projectName:Project Name|required';
 	rules[2] = 'planStartDate:Planned Start Date|required';
 	rules[3] = 'planEndDate:Planned End Date|required';
-	rules[4] = 'projectCode:Project Code|maxlength|2';
+	rules[4] = 'projectCode:Project Code|maxlength|10';
 	rules[5] = 'projectName:Project Name|maxlength|150';
 	rules[6] = 'customer:Direct Customer|maxlength|150';
 	rules[7] = 'endCustomer:End Customer|maxlength|150';
