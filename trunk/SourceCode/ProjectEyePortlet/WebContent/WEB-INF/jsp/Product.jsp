@@ -102,14 +102,12 @@
 </form:form>
     <table id="mainTable1" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectProductList}">
-   <thead><tr >
+   <thead><tr>
         <th width="6%" scope="row">No</th>    
         <th width="10%" scope="row">Name</th>
         <th width="10%" scope="row">Work product</th>
-        <th width="6%" scope="row">Planned size (UCP)</th>
-        <th width="6%" scope="row">Re-planned size (UCP)</th>
-        <th width="6%" scope="row">Actual size (UCP)</th>
-        <th width="6%" scope="row">Created size (UCP) </th>
+        <th width="6%" scope="row">Planned size</th>
+        <th width="6%" scope="row">Actual size</th>
         <th width="33%" scope="row">Description</th>
         <th width="17%" scope="row">Action</th>    
     </tr> 
@@ -131,9 +129,7 @@
                <td scope="row"><a href="${renderAction}">${product.name}</a></td>
                <td scope="row">${product.workProduct}</td>
                <td scope="row">${product.plannedSize}</td>
-               <td scope="row">${product.rePlannedSize}</td>
-               <td scope="row">${product.actualSize}</td>
-               <td scope="row">${product.createdSize}</td>
+               <td scope="row">${product.actualSize}</td>>
                <td scope="row">${product.description}</td>
                <td scope="row">
 					<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}SearchProduct", "${renderAction2}", "Do you sure you want to delete this product?");'>Remove This Product</button>

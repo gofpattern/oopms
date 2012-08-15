@@ -107,18 +107,26 @@ public class ProductController {
 				ProductForm temp = new ProductForm();
 				temp.setName(productList.get(i).getName());
 //				Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
-				Language unitSize = new Language();
-				temp.setWorkProduct(productList.get(i).getWorkproduct().getName());
-				if(productList.get(i).getPlannedSizeUnitId()!=null) {
-					unitSize = pDao.getProductSizeUnit(productList.get(i).getPlannedSizeUnitId());
-					temp.setPlannedSize(productList.get(i).getPlannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				Language unitSize = pDao.getProductSizeUnit(productList.get(i)
+						.getPlannedSizeUnitId());
+				temp.setWorkProduct(productList.get(i).getWorkproduct()
+						.getName());
+				if (productList.get(i).getPlannedSizeUnitId() != null) {					
+					temp.setPlannedSize(productList.get(i).getPlannedSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
 				}
-				if(productList.get(i).getReplannedSize()!=null) {
-					temp.setRePlannedSize(productList.get(i).getReplannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
-				}
-				if((productList.get(i).getActualSize()!=null) && (productList.get(i).getActualSizeUnitId()!=null)) {
-					unitSize = pDao.getProductSizeUnit(productList.get(i).getActualSizeUnitId());
-					temp.setRePlannedSize(productList.get(i).getActualSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				if ((productList.get(i).getActualSize() != null)
+						&& (productList.get(i).getActualSizeUnitId() != null)) {
+					temp.setActualSize(productList.get(i).getActualSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
 				}
 //				temp.setCreatedSize(createdSize)
 				temp.setDescription(productList.get(i).getNote());
