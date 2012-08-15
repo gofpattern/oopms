@@ -64,6 +64,7 @@ rules[4] = 'startDate:Start Date|date';
 rules[5] = 'endDate:End Date|date';
 rules[6] = 'description:Description|maxlength|255';
 rules[7] = 'cost:Cost|double';
+rules[8] = 'startDate:Start Date|date_le|$endDate:End Date';
 yav.addHelp('name', 'Please input Name');
 yav.addHelp('cost', 'Please input Cost');
 yav.addHelp('startDate', 'Please input Start Date');
