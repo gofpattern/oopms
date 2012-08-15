@@ -83,7 +83,7 @@
 	<!-- end .navigator -->
   
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Assign Project Manager</h2>
+    	<br><p class="title" id="headerDuyND">Assign Project Manager</p>
     </div>
 	
 	<portlet:actionURL var="searchAction">

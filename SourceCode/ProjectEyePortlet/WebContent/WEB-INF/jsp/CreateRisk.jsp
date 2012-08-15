@@ -42,7 +42,7 @@
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Create Risk</h2>
+    	<br><p class="title" id="headerDuyND">Create Risk</p>
     </div>
     
     

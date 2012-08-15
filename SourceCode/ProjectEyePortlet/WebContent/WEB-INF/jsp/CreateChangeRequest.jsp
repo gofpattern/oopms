@@ -40,7 +40,7 @@
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Create Change Request</h2>
+    	<br><p class="title" id="headerDuyND">Create Change Request</p>
     </div>
 
 	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">	

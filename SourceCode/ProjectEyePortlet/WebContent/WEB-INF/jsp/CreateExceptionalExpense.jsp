@@ -97,7 +97,7 @@ yav.addHelp('additionEffectInput', 'Please type Input');
 yav.addHelp('occurDate', 'Please input Date');
 
 </SCRIPT>
-<title>Create Daily Expense</title>	
+<title>Create Exceptional Expense</title>	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -109,7 +109,7 @@ yav.addHelp('occurDate', 'Please input Date');
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Create Daily Expense</h2>
+    	<br><p class="title" id="headerDuyND">Create Exceptional Expense</p>
     </div>
 
 

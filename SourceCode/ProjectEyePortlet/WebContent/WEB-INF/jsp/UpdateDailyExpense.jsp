@@ -82,7 +82,7 @@ yav.addHelp('startDate', 'Please input Start Date');
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Update Daily Expense</h2>
+    	<br><p class="title" id="headerDuyND">Update Daily Expense</p>
     </div>
 
 

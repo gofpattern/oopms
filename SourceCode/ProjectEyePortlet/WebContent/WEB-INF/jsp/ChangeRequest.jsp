@@ -41,7 +41,7 @@
 	<!-- end .navigator -->
   	
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Change Request</h2>
+    	<br><p class="title" id="headerDuyND">Change Request</p>
     </div>
 	
 	<table class="portlet-table">
