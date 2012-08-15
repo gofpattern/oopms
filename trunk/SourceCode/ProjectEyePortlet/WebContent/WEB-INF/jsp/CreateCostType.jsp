@@ -31,17 +31,18 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-	        yav.init('${portletNamespace}CreateOneTimeExpense', rules);
+	        yav.init('${portletNamespace}CreateCostType', rules);
 	});
     
     </script>
 <SCRIPT type="text/javascript">
 	var rules = new Array();
 	rules[0] = 'name:Name|required';
-	rules[3] = 'name:Name|maxlength|150';
-	rules[5] = 'description:Description|maxlength|255';
+	rules[1] = 'name:Name|maxlength|150';
+	rules[2] = 'description:Description|maxlength|255';
 	yav.addHelp('name', 'Please input Name');
-</SCRIPT>>
+	yav.addHelp('description', 'Please input Description');
+</SCRIPT>
 <title>Create Cost Type</title>	
 </head>
 
@@ -67,19 +68,18 @@
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
 <form:form name="${portletNamespace}CreateCostType" commandName="CreateCostTypeForm" method="post" action="${formAction}">
-	<table class="portlet-table">
+	<table class="portlet-table" width="100%">
   	  <tr>
-        <th scope="row">Name*</th>
-        <td><form:input path="name" value="" maxlength="150" size="50" type="text"/>
+        <th scope="row" width="210">Name*</th>
+        <td width="690"><form:input path="name" value="" maxlength="150" size="50" type="text" style='width:300px'/>
 		<br/><span id=errorsDiv_name>&nbsp;</span></td>
       </tr>   
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description"></textarea>
+        <td><textarea rows="10" cols="70" name="description" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
   </table>
-  <br>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateCostType", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateCostType", "${renderAction}")'>Cancel</button>

@@ -174,12 +174,13 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
   	<portlet:param name="projectId" value="${projectId}" />
 </portlet:actionURL>
     <form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
-    	View Date<form:input maxlength="10" path="viewDate" size="9" value="" type="text" id="datepicker1"/>(mm/dd/yyyy)
+    	By Date<form:input maxlength="10" path="viewDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>(mm/dd/yyyy)
     	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CostManagement", "${formAction6}")'>Check</button>
     	<br/><span id=errorsDiv_viewDate>&nbsp;</span>
     	<h4 style="color: red">Expense at ${viewDate} is : ${expense}</h4>
     </form:form>
- <h2>Expense Detail</h2>
+	<br>
+ <p id="header2DuyND" style="text-align:center">--------------------------------Expense Detail--------------------------------</p>
  <h3>One Time Expense</h3>   
  <table class="display dataTable" id="mainTable1" cellpadding="0" cellspacing="0" border="0">	
    <thead>

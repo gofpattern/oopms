@@ -66,7 +66,12 @@ rules[7] = 'cost:Cost|double';
 rules[8] = 'startDate:Start Date|date_le|$endDate:End Date';
 yav.addHelp('name', 'Please input Name');
 yav.addHelp('cost', 'Please input Cost');
+yav.addHelp('description', 'Please input Description');
 yav.addHelp('startDate', 'Please input Start Date');
+yav.addHelp('endDate', 'Please input End Date');
+rules[9] = 'startDate|mask|mydate';		
+rules[10] = 'endDate|mask|mydate';		
+yav.addMask('mydate', '  /  /    ', '1234567890');
 
 </SCRIPT>
 <title>Create Daily Expense</title>	
@@ -94,26 +99,26 @@ yav.addHelp('startDate', 'Please input Start Date');
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
 <form:form name="${portletNamespace}CreateDailyExpense" commandName="CreateDailyExpenseForm" method="post" action="${formAction}">
-	<table class="portlet-table">
+	<table class="portlet-table" width="100%">
   	  <tr>
-        <th scope="row">Name*</th>
-        <td><form:input path="name" value="" maxlength="150" size="100" type="text"/>
-		<br/><span id=errorsDiv_name>&nbsp;</span></td>
+        <th scope="row" width="210">Name*</th>
+        <td width="690"><form:input path="name" value="" maxlength="150" size="100" type="text" style='width:300px'/>
+		<span id=errorsDiv_name>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Cost/Day*</th>
-        <td><form:input path="cost" value="" maxlength="60" size="50" type="text"/>
-		<br/><span id=errorsDiv_cost>&nbsp;</span></td>
+        <td><form:input path="cost" value="" maxlength="60" size="50" type="text" style='width:100px'/>
+		<span id=errorsDiv_cost>&nbsp;</span></td>
       </tr> 
       <tr>
         <th scope="row">Start Date*</th>
-        <td><form:input maxlength="10" path="startDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_startDate>&nbsp;</span></td>
+        <td><form:input maxlength="10" path="startDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>
+          <span id=errorsDiv_startDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">End Date</th>
-        <td><form:input maxlength="10" path="endDate" size="9" value="" type="text" id="datepicker2"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_endDate>&nbsp;</span></td>
+        <td><form:input maxlength="10" path="endDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/>
+          <span id=errorsDiv_endDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Use on following days</th>
@@ -133,10 +138,10 @@ yav.addHelp('startDate', 'Please input Start Date');
   	  </tr>      
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description"></textarea>
+        <td><textarea rows="10" cols="70" name="description" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table><br>
+  </table>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateDailyExpense", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateDailyExpense", "${renderAction}")'>Cancel</button>
