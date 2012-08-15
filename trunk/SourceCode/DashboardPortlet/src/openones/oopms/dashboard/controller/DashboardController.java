@@ -19,6 +19,7 @@
 package openones.oopms.dashboard.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +107,7 @@ public class DashboardController extends BaseController {
             PortletSession session) {
         log.debug("processDashboard.START");
         response.setRenderParameter("action", "dashboard");
-        
+
     }
 
     @RenderMapping(params = "action=dashboard")
@@ -175,7 +176,7 @@ public class DashboardController extends BaseController {
             projectList = assignmentDao.getProjectByDeveloperId(developer.getDeveloperId());
             statusList = generalReferenceDao.getProjectStatusEn();
             businessDomainList = businessDomainDao.getBusinessDomain();
-            log.debug("BizDomainSize " +businessDomainList.size());
+            log.debug("BizDomainSize " + businessDomainList.size());
             categoryList = generalReferenceDao.getProjectCategoryEn();
 
             formBean.setProjectCategory(DashboardForm.ALL_VALUE);
@@ -188,20 +189,21 @@ public class DashboardController extends BaseController {
                 dashboard = new Dashboard();
                 dashboard.setProject(projectList.get(i));
                 dashboard.setProjectHealthStatus(Dashboard.GOOD_STATUS);
-                dashboard.setPercentTime(50);
+                dashboard.setPercentTime((int) calculatePercentTime(projectList.get(i).getStartDate(),
+                        projectList.get(i).getPlanFinishDate()));
                 dashboard.setPercentProgress(50);
                 dashboard.setEfficiencyStatus(Dashboard.NORMAL_STATUS);
                 dashboard.setCostStatus(Dashboard.BAD_STATUS);
                 dashboardList.add(dashboard);
+                log.debug("dashboard.getPercentProgress() " + dashboard.getPercentTime());
             }
         }
-        
+
         statusMap = new LinkedHashMap<String, String>();
         projectHealthMap = new LinkedHashMap<String, String>();
         categoryMap = new LinkedHashMap<String, String>();
         businessDomainMap = new LinkedHashMap<String, String>();
-        
-        
+
         // set value for statusMap
         statusMap.put(formBean.getProjectStatus(), DashboardForm.ALL_VALUE);
         if (formBean.getInit() == false)
@@ -214,7 +216,8 @@ public class DashboardController extends BaseController {
         if (formBean.getInit() == false)
             businessDomainMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
         for (int i = 0; i < businessDomainList.size(); i++) {
-            businessDomainMap.put(businessDomainList.get(i).getDomainId().toString(), businessDomainList.get(i).getDomainName());
+            businessDomainMap.put(businessDomainList.get(i).getDomainId().toString(), businessDomainList.get(i)
+                    .getDomainName());
         }
         // set value for categoryMap
         categoryMap.put(formBean.getProjectCategory(), DashboardForm.ALL_VALUE);
@@ -238,26 +241,27 @@ public class DashboardController extends BaseController {
         mav.addObject("projectHealthMap", projectHealthMap);
 
         updateUserInfo(session, userInfo);
-        for (int i = 0; i < dashboardList.size(); i++) {
-            log.debug("checkVisible.START");
-            log.debug(dashboardList.get(i).getVisible());
-        }
+
         log.debug("prepareCommonInfo.END");
+
     }
 
-    void calculatePercentProgress() {
+    private void calculatePercentProgress() {
         // TODO:asas
     }
-    void calculatePercentTime() {
+    private double calculatePercentTime(Date startDate, Date endDate) {
+        Date currentDate = new Date();
+        Double percentTime = ((double) currentDate.getTime() - (double) startDate.getTime())
+                / ((double) endDate.getTime() - (double) startDate.getTime()) * 100;        
+        return percentTime;
+    }
+    private void calculateProjectHealth() {
         // TODO:asas
     }
-    void calculateProjectHealth() {
+    private void calculateEfficiencyStatus() {
         // TODO:asas
     }
-    void calculateEfficiencyStatus() {
-        // TODO:asas
-    }
-    void calculateCostStatus() {
+    private void calculateCostStatus() {
         // TODO:asas
     }
 }
