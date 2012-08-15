@@ -28,7 +28,9 @@ import openones.oopms.entity.Developer;
 import openones.oopms.entity.Project;
 import openones.oopms.entity.Timesheet;
 import openones.oopms.entity.Typeofwork;
+import openones.oopms.form.UserInfo;
 import openones.oopms.timesheet.utils.CommonUtil;
+import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -113,26 +115,38 @@ public class TimesheetController {
         log.debug("initScreen.START");
       
         ModelAndView mav;
+//        PortletSupport portletSupport = new PortletSupport(request);
+//        String logonUser = portletSupport.getLogonUser();
+//        
+//        System.out.println("logonUser=" + logonUser);
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
-        
-        System.out.println("logonUser=" + logonUser);
-        //super.initScreen(request, session);
-        if ((logonUser == null) || ("guest".equals(logonUser))) {
-            mav = new ModelAndView("login"); // Display login.jsp
-        } else {
-            try {
-                
-            
-           DeveloperDao devDao = new DeveloperDao();
+        mav = new ModelAndView("Forward");
+        log.debug("logonUser=" + logonUser);
 
-            user = devDao.getDeveloperByAccount(logonUser);
-            mav = new ModelAndView("Timesheet"); // display Timesheet.jsp            
+        if (logonUser != null) {
+            UserInfo userInfo = null;
+            DeveloperDao devDao = new DeveloperDao();
+            Developer dev = devDao.getDeveloperByAccount(logonUser);
+
+            if (dev != null) {
+                // Set roles for user
+                userInfo = new UserInfo(logonUser);
+                userInfo.addRole(dev.getRole());
+                userInfo.setGroup(dev.getGroupName());
+                userInfo.setLoginDate(BaseUtil.getCurrentDate());
+                         
+       
+                    
             TimesheetDao timesheetDao = new TimesheetDao();
             projectMap = new LinkedHashMap<String, String>();
 
             // Get project List from database
             projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
+            if(projectList == null || projectList.size()== 0) {
+                return mav;
+            }
+            mav = new ModelAndView("Timesheet"); // display Timesheet.jsp 
             role = timesheetDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
            System.out.println("ROLE : " + role);
             //projectMap.put("All", "All");
@@ -176,10 +190,21 @@ public class TimesheetController {
             mav.addObject("timesheetList", timesheetList);
             // Return to jsp
             return mav;
-        }
-            catch (Exception e) {
-                mav = new ModelAndView("login");
-            }
+            } else {
+                dev = new Developer();
+                dev.setName(logonUser);
+                dev.setAccount(logonUser);
+                dev.setStatus(BigDecimal.ONE);
+                dev.setRole(BaseUtil.getProperies().getProperty("DefRole"));
+                dev.setGroupName(BaseUtil.getProperies().getProperty("DefGroup"));
+                if (devDao.insertDeveloper(dev)) {
+                    log.info("Created user: " + dev.getAccount());
+                  return mav;
+                } else {
+                    log.warn("Could not create user: " + dev.getAccount());
+                }
+            }            
+          
         }
         
 
