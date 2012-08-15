@@ -147,7 +147,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
 	<!-- end .navigator -->
 	
 	   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<br><p class="title" id="headerDuyND">Cost Management</p>
+    	<br><p class="title" id="headerDuyND">Cost Management</p><br>
     </div>
 <portlet:renderURL var="formAction1">
   	<portlet:param name="action" value="GoCreateOneTimeExpense" />
