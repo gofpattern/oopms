@@ -21,6 +21,37 @@ html .jquerycssmenu{height: 1%;} /*Holly Hack for IE7 and below*/
 
 
 <body>
+
+		  <div id="nav">
+		<ul>
+			<li>
+	<portlet:renderURL var="renderAction">
+    		<portlet:param name="jspPage" value="/ProjectEyeHome.jsp" />
+    	</portlet:renderURL>
+		<a href="${renderAction}">ProjectEye Home</a>
+	</li>
+<c:forEach var="subMenu" items="${MenuBar}">
+  <li><a href='<portlet:renderURL>
+  	<portlet:param name="action" value="${subMenu.actionId}"/>
+  	<portlet:param name="projectId" value="${projectId}" />
+  		</portlet:renderURL>'>${subMenu.name}</a>
+   <c:if test="${not empty subMenu.menuItemList}">
+    <ul>
+      <c:forEach var="menuItem" items="${subMenu.menuItemList}">
+        <li>
+        	<a href='<portlet:renderURL>
+        	<portlet:param name="action" value="${menuItem.actionId}"/>
+        	<portlet:param name="projectId" value="${projectId}" />
+        	</portlet:renderURL>'>${menuItem.name}</a>
+        </li>
+      </c:forEach>
+    </ul>  
+   </c:if>
+  </li>
+</c:forEach>
+		</ul>
+	</div>
+<!--
 <div id="myjquerymenu" class="jquerycssmenu">
 <ul>
 	<li>
@@ -52,4 +83,10 @@ html .jquerycssmenu{height: 1%;} /*Holly Hack for IE7 and below*/
 
 <br style="clear: left" />
 </div>
+       -->  
+		  
+
+
+	  
+	  
 </body>
