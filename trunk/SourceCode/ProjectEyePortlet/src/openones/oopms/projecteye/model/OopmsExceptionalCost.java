@@ -17,7 +17,8 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
      private BigDecimal type;
      private BigDecimal oopmsCostTypeId;
      private BigDecimal oopmsCostDailyExpenseId;
-     private Date occurDate;
+     private Date startDate;
+     private Date endDate;
      private BigDecimal effectType;
      private BigDecimal effect;
      private String description;
@@ -31,14 +32,15 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
         this.oopmsExceptionalCostId = oopmsExceptionalCostId;
         this.projectId = projectId;
     }
-    public OopmsExceptionalCost(BigDecimal oopmsExceptionalCostId, BigDecimal projectId, String name, BigDecimal type, BigDecimal oopmsCostTypeId, BigDecimal oopmsCostDailyExpenseId, Date occurDate, BigDecimal effectType, BigDecimal effect, String description, String isPay) {
+    public OopmsExceptionalCost(BigDecimal oopmsExceptionalCostId, BigDecimal projectId, String name, BigDecimal type, BigDecimal oopmsCostTypeId, BigDecimal oopmsCostDailyExpenseId, Date startDate, Date endDate, BigDecimal effectType, BigDecimal effect, String description, String isPay) {
        this.oopmsExceptionalCostId = oopmsExceptionalCostId;
        this.projectId = projectId;
        this.name = name;
        this.type = type;
        this.oopmsCostTypeId = oopmsCostTypeId;
        this.oopmsCostDailyExpenseId = oopmsCostDailyExpenseId;
-       this.occurDate = occurDate;
+       this.startDate = startDate;
+       this.endDate = endDate;
        this.effectType = effectType;
        this.effect = effect;
        this.description = description;
@@ -87,14 +89,28 @@ public class OopmsExceptionalCost  implements java.io.Serializable {
     public void setOopmsCostDailyExpenseId(BigDecimal oopmsCostDailyExpenseId) {
         this.oopmsCostDailyExpenseId = oopmsCostDailyExpenseId;
     }
-    public Date getOccurDate() {
-        return this.occurDate;
-    }
     
-    public void setOccurDate(Date occurDate) {
-        this.occurDate = occurDate;
-    }
-    public BigDecimal getEffectType() {
+    public Date getStartDate() {
+		return startDate;
+	}
+
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+
+	public BigDecimal getEffectType() {
         return this.effectType;
     }
     

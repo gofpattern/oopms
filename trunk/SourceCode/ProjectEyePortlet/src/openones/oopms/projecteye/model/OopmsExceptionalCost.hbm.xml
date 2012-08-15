@@ -23,8 +23,11 @@
         <property name="oopmsCostDailyExpenseId" type="big_decimal">
             <column name="OOPMS_COST_DAILY_EXPENSE_ID" precision="22" scale="0" />
         </property>
-        <property name="occurDate" type="date">
-            <column name="OCCUR_DATE" length="7" />
+        <property name="startDate" type="date">
+            <column name="START_DATE" length="7" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="END_DATE" length="7" />
         </property>
         <property name="effectType" type="big_decimal">
             <column name="EFFECT_TYPE" precision="22" scale="0" />

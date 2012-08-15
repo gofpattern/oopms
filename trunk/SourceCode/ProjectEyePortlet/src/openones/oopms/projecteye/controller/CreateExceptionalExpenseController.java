@@ -63,7 +63,8 @@ public class CreateExceptionalExpenseController {
 					exceptionalExpense.setProjectId(new BigDecimal(projectId));
 					exceptionalExpense.setType(new BigDecimal(
 							Constant.ExceptinalExpenseType));
-					exceptionalExpense.setOccurDate(formBean.getOccurDate());
+					exceptionalExpense.setStartDate(formBean.getStartDate());
+					exceptionalExpense.setEndDate(formBean.getEndDate());
 					exceptionalExpense
 							.setDescription(formBean.getDescription());
 					exceptionalExpense.setEffectType(new BigDecimal(formBean
@@ -82,7 +83,8 @@ public class CreateExceptionalExpenseController {
 				exceptionalExpense.setProjectId(new BigDecimal(projectId));
 				exceptionalExpense.setType(new BigDecimal(
 						Constant.ExceptinalExpenseType));
-				exceptionalExpense.setOccurDate(formBean.getOccurDate());
+				exceptionalExpense.setStartDate(formBean.getStartDate());
+				exceptionalExpense.setEndDate(formBean.getEndDate());
 				exceptionalExpense.setDescription(formBean.getDescription());
 				exceptionalExpense.setEffectType(new BigDecimal(formBean
 						.getAdditionEffect()));

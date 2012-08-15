@@ -65,6 +65,11 @@ function fnFeaturesInit ()
 	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
 	            buttonImageOnly: true
 	        });
+	  $( "#datepicker2" ).datepicker({
+          showOn: "button",
+          buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+          buttonImageOnly: true
+      });
 	        yav.init('${portletNamespace}CreateExceptionalDeduct', rules);
 	        
 	        fnFeaturesInit();
@@ -87,14 +92,15 @@ function fnFeaturesInit ()
 var rules = new Array();
 rules[0] = 'name:Name|required';
 rules[1] = 'additionEffectInput:Input|required';
-rules[2] = 'occurDate:Date|required';
+rules[2] = 'startDate:Start Date|required';
 rules[3] = 'name:Name|maxlength|150';
-rules[4] = 'occurDate:Date|date';
-rules[5] = 'description:Description|maxlength|255';
-rules[6] = 'additionEffectInput:Input|double';
+rules[4] = 'startDate:Start Date|date';
+rules[5] = 'endDate:End Date|date';
+rules[6] = 'description:Description|maxlength|255';
+rules[7] = 'additionEffectInput:Input|double';
 yav.addHelp('name', 'Please input Name');
 yav.addHelp('additionEffectInput', 'Please type Input');
-yav.addHelp('occurDate', 'Please input Date');
+yav.addHelp('startDate', 'Please input Start Date');
 
 </SCRIPT>
 <title>Create Daily Expense</title>	
@@ -188,9 +194,14 @@ yav.addHelp('occurDate', 'Please input Date');
       </tr>
       </tr>
       <tr>
-        <th scope="row">Date*</th>
-        <td><form:input maxlength="10" path="occurDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_occurDate>&nbsp;</span></td>
+        <th scope="row">Start Date*</th>
+        <td><form:input maxlength="10" path="startDate" size="9" value="" type="text" id="datepicker1"/>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_startDate>&nbsp;</span></td>
+      </tr>
+      <tr>
+        <th scope="row">End Date</th>
+        <td><form:input maxlength="10" path="endDate" size="9" value="" type="text" id="datepicker2"/>
+          (mm/dd/yyyy)<br></br><span id=errorsDiv_endDate>&nbsp;</span></td>
       </tr>     
   	  <tr>
         <th scope="row">Description</th>
