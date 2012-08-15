@@ -41,5 +41,7 @@
     <mapping resource="openones/oopms/projecteye/model/OopmsCostOneTimeExpense.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/OopmsCostType.hbm.xml"/>
     <mapping resource="openones/oopms/projecteye/model/OopmsExceptionalCost.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/OopmsBudget.hbm.xml"/>
+    <mapping resource="openones/oopms/projecteye/model/OopmsProjectCost.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

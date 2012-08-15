@@ -9,7 +9,8 @@ public class CreateExceptionalExpenseForm {
 	private String[] dailyExpenses;
 	private String additionEffect;
 	private String additionEffectInput;
-	private Date occurDate;
+	private Date startDate;
+	private Date endDate;
 	private String description;
 	private String projectId;
 
@@ -103,19 +104,34 @@ public class CreateExceptionalExpenseForm {
 		this.additionEffectInput = additionEffectInput;
 	}
 
+
+
 	/**
-	 * @return the occurDate
+	 * @return the startDate
 	 */
-	public Date getOccurDate() {
-		return occurDate;
+	public Date getStartDate() {
+		return startDate;
 	}
 
 	/**
-	 * @param occurDate
-	 *            the occurDate to set
+	 * @param startDate the startDate to set
 	 */
-	public void setOccurDate(Date occurDate) {
-		this.occurDate = occurDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	/**
