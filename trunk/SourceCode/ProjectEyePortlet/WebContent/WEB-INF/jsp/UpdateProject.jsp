@@ -92,8 +92,8 @@
   <div  class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
 
     <div class="content">
-      <div class="fl-widget-titlebar titlebar portlet-titlebar">
-        <h2 class="title">Update Project</h2>
+      <div class="fl-widget-titlebar titlebar portlet-titlebar">        
+		<br><p class="title" id="headerDuyND">Update Project</p>
       </div>
       <portlet:actionURL var="formAction">
         <portlet:param name="action" value="UpdateProject" />
@@ -112,8 +112,8 @@
         </div>
         <table class="portlet-table">
           <tr>
-            <th width="186" scope="row">Project Manager</th>
-            <td width="433">${UpdateProjectForm.manager }</td>
+            <th width="250" scope="row">Project Manager</th>
+            <td width="650">${UpdateProjectForm.manager }</td>
           </tr>
           <tr>
             <th scope="row">Project Code*</th>
@@ -121,7 +121,7 @@
           </tr>
           <tr>
             <th scope="row">Project Name*</th>
-            <td><form:input path="projectName" value="" maxlength="150" size="50" type="text" id="projectName" />
+            <td><form:input path="projectName" value="" maxlength="150" size="50" type="text" id="projectName" style='width:635px'/>
             <br/><span id=errorsDiv_projectName>&nbsp;</span></td>
           </tr>
           <tr>
@@ -146,20 +146,20 @@
           </tr>
           <tr>
             <th scope="row">Planned Start Date*</th>
-            <td><form:input maxlength="10" path="planStartDate" size="9" value="" type="text" id="datepicker1" />
-              (mm/dd/yyyy)<br/><span id=errorsDiv_planStartDate>&nbsp;</span></td>
+            <td><form:input maxlength="10" path="planStartDate" size="9" value="" type="text" id="datepicker1" style='width:80px' />
+              <span id=errorsDiv_planStartDate>&nbsp;</span></td>
           </tr>
           <tr>
             <th scope="row">Planned End Date*</th>
-            <td><form:input maxlength="10" path="planEndDate" size="9" value="" type="text" id="datepicker2" />
-              (mm/dd/yyyy)<br/><span id=errorsDiv_planEndDate>&nbsp;</span></td>
+            <td><form:input maxlength="10" path="planEndDate" size="9" value="" type="text" id="datepicker2" style='width:80px' />
+              <span id=errorsDiv_planEndDate>&nbsp;</span></td>
           </tr>
           <tr>
             <th scope="row">Scope and Objective</th>
-            <td><textarea rows="10" cols="70" name="scopeObjective" id="scopeObjective"></textarea></td>
+            <td><textarea rows="10" cols="70" name="scopeObjective" id="scopeObjective" style='width:635px'></textarea></td>
           </tr>
 
-        </table><br>
+        </table>
         <input name="projectId" type="hidden" value="${projectId}" />
         <button type="button" class="button blue small"
           onclick='submitAction2("${portletNamespace}UpdateProject", "${formAction}")'>Update</button>
