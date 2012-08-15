@@ -9,6 +9,7 @@ import java.util.List;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.GeneralReference;
 import openones.oopms.planner.model.Language;
+import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Stage;
@@ -31,7 +32,22 @@ public class TaskDAO {
         this.session = factory.openSession();
 
     }
+    public Project getProjectById(BigDecimal projectId) {
+        log.debug("getProjectById.START");
+        try {
+            session.getTransaction().begin();
+            Project project = (Project)session.get(Project.class, projectId);  
+            return project;
 
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+
+            log.error("getProjectById.ERROR", e);
+        }
+        return null;
+    }
     @SuppressWarnings("unchecked")
     public List<GeneralReference> getProjectStatusEn() {
         log.debug("getProjectStatusEn.START");
@@ -287,5 +303,51 @@ public class TaskDAO {
             log.error("getSizeUnit.Exception", e);
         }
         return null;
+    }
+    public void updateProjectEffortTask(Tasks task) {
+        log.debug("updateProjectEffortTask.START");
+        try {
+
+            session.getTransaction().begin();
+
+            Project project = (Project) session.get(Project.class, task.getProjectid());
+
+           project.setPlanEffort(task.getPlannedeffort());
+           project.setActualEffort(task.getCurrenteffort());
+
+            session.merge(project);
+            session.flush();
+
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("updateProjectEffortTask.Exception", e);
+        }
+    }
+    public void updateProjectEffortByEditedTask(Tasks task, Tasks editedTask) {
+        log.debug("updateProjectEffortByEditedTask.START");
+        try {
+            session.getTransaction().begin();
+            Project project = (Project) session.get(Project.class, editedTask.getProjectid());
+
+            if (!task.getPlannedeffort().equals(editedTask.getPlannedeffort())) {
+                project.setPlanEffort(project.getPlanEffort().add(
+                        editedTask.getPlannedeffort().subtract(task.getPlannedeffort())));
+            }
+            if (!task.getCurrenteffort().equals(editedTask.getCurrenteffort())) {
+                project.setActualEffort(project.getActualEffort().add(
+                        editedTask.getCurrenteffort().subtract(task.getCurrenteffort())));
+            }           
+            
+            session.merge(project);
+            session.flush();
+
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("updateProjectEffortByEditedTask.Exception", e);
+        }
     }
 }

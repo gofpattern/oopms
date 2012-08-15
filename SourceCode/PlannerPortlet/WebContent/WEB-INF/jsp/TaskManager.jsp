@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="javax.portlet.PortletSession"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -14,6 +14,8 @@
 <portlet2:defineObjects />
 <portlet:defineObjects />
 <script type="text/javascript">
+  
+
 	$(function() {
 		$("#add-form-startDate")
 				.datepicker(
@@ -54,14 +56,44 @@
 	$(document)
 			.ready(
 					function() {
+						$(function() {
+					    
+					        $( "#dialog-confirm" ).dialog({
+					        	autoOpen: false,
+					        	resizable: false,
+					            height:140,
+					            modal: true,
+					            buttons: {
+					                "Delete all items": function() {
+					                    $( this ).dialog( "close" );
+					                },
+					                Cancel: function() {
+					                    $( this ).dialog( "close" );
+					                }
+					            }
+					        });
+					    });
+						$(function() {
+					        $( "#dialog" ).dialog({
+					            autoOpen: false,
+					            resizable: false,
+					            height: 210,
+					            width: 450,
+					            modal: true,
+					            buttons: {
+					                Ok: function() {
+					                    $( this ).dialog( "close" );
+					                }
+					            }
+					        });
+					    });
 						// Check module of project
 				          $(function() {
-				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true'){
-				                  alert("Product(s) of your selected project has not been created.\nPlease create some products for your project at Project Eye Portlet before assigning task.\n###For Developer: Let create some records at MODULE talbe with ProjectId is Id of your selected project.###");
-	                             
-				              }
-				                  
-				          });
+				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR",PortletSession.APPLICATION_SCOPE)%>' == 'true') {
+				            	  $( "#dialog" ).dialog( "open" );
+							}
+
+						});
 
 						// set description when update a task
 						document.getElementById('add-form-description').innerHTML = "${edTask.description}";
@@ -89,53 +121,58 @@
 						});
 					});
 
-	var rules = new Array();
-	rules[0] = 'task.taskname:Title|required';
-	rules[1] = 'startDate:Start Date|required';
-	rules[2] = 'startDate:Start Date|date';
-	rules[3] = 'actualDate:Finish Date|required';
-	rules[4] = 'actualDate:Finish Date|date';
-	rules[5] = 'startDate:Start Date|date_le|$actualDate:Finish Date';
-	rules[6] = 'task.plannedeffort:Planned Effort|required';
-	rules[7] = 'task.plannedeffort:Planned Effort|numeric';
-	rules[8] = 'task.stageid:Stage|required';
-	rules[9] = 'task.process:Process|required';
-	rules[10] = 'task.product:Product|required';
-	rules[11] = 'task.productsize:Product Size|required';
-	rules[12] = 'task.productsize:Product Size|numeric';
-	rules[13] = 'task.assignedto: Assigned To|required';
-	rules[14] = 'task.statusid:Status|required';
-	/* 	rules[15] = 'startDate|mask|mydate';
-	 rules[16] = 'actualDate|mask|mydate'; */
-	rules[15] = 'task.currenteffort:Current Effort|required';
-	rules[16] = 'task.currenteffort:Current Effort|numeric';
-	rules[17] = 'task.description:Description|required';
-	rules[18] = 'task.completedsize:Completed Size|numeric';
-	rules[19] = 'task.sizeunit:Product Size Unit|required';
-	rules[20] = 'task.sizeunit:Product Size Unit|numeric';
-	
-	rules[21] = 'task.productsize:Product Size|numrange|1-1000000000';
-	
-	
-	
-	yav.addHelp('task.taskname', 'Provide your Title');
-	yav.addHelp('startDate', 'Provide your Start Date');
-	yav.addHelp('actualDate', 'Provide your Finish Date');
-	yav.addHelp('task.plannedeffort', 'Provide your Planned Effort');
-	yav.addHelp('task.stageid', 'Provide your Stage');
-	yav.addHelp('task.process', 'Provide your Process');
-	yav.addHelp('task.product', 'Provide your Product');
-	yav.addHelp('task.productsize', 'Provide your Product Size');
-	yav.addHelp('task.assignedto', 'Provide your assigned member');
-	yav.addHelp('task.statusid', 'Provide your Task Status');
-	yav.addHelp('task.sizeunit', 'Provide your product size unit');
-    yav.addHelp('task.completedsize', 'Provide completed size');
-    yav.addHelp('task.description', 'Provide your Task Description');
-	yav.addMask('mydate', '  /  /    ', '1234567890');
+            	var rules = new Array();
+            	rules[0] = 'task.taskname:Title|required';
+            	rules[1] = 'startDate:Start Date|required';
+            	rules[2] = 'startDate:Start Date|date';
+            	rules[3] = 'actualDate:Finish Date|required';
+            	rules[4] = 'actualDate:Finish Date|date';
+            	rules[5] = 'startDate:Start Date|date_le|$actualDate:Finish Date';
+            	rules[6] = 'task.plannedeffort:Planned Effort|required';
+            	rules[7] = 'task.plannedeffort:Planned Effort|numeric';
+            	rules[8] = 'task.stageid:Stage|required';
+            	rules[9] = 'task.process:Process|required';
+            	rules[10] = 'task.product:Product|required';
+            	rules[11] = 'task.productsize:Product Size|required';
+            	rules[12] = 'task.productsize:Product Size|numeric';
+            	rules[13] = 'task.assignedto: Assigned To|required';
+            	rules[14] = 'task.statusid:Status|required';
+            	/* 	rules[15] = 'startDate|mask|mydate';
+            	 rules[16] = 'actualDate|mask|mydate'; */
+            	rules[15] = 'task.currenteffort:Current Effort|required';
+            	rules[16] = 'task.currenteffort:Current Effort|numeric';
+            	rules[17] = 'task.description:Description|required';
+            	rules[18] = 'task.completedsize:Completed Size|numeric';
+            	rules[19] = 'task.sizeunit:Product Size Unit|required';
+            	rules[20] = 'task.sizeunit:Product Size Unit|numeric';
+            
+            	rules[21] = 'task.productsize:Product Size|numrange|1-1000000000';
+            
+            	yav.addHelp('task.taskname', 'Provide your Title');
+            	yav.addHelp('startDate', 'Provide your Start Date');
+            	yav.addHelp('actualDate', 'Provide your Finish Date');
+            	yav.addHelp('task.plannedeffort', 'Provide your Planned Effort');
+            	yav.addHelp('task.stageid', 'Provide your Stage');
+            	yav.addHelp('task.process', 'Provide your Process');
+            	yav.addHelp('task.product', 'Provide your Product');
+            	yav.addHelp('task.productsize', 'Provide your Product Size');
+            	yav.addHelp('task.assignedto', 'Provide your assigned member');
+            	yav.addHelp('task.statusid', 'Provide your Task Status');
+            	yav.addHelp('task.sizeunit', 'Provide your product size unit');
+            	yav.addHelp('task.completedsize', 'Provide completed size');
+            	yav.addHelp('task.description', 'Provide your Task Description');
+            	yav.addMask('mydate', '  /  /    ', '1234567890');
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
+   <div id="dialog" title="Missing Products">
+    <p><font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not been created.</font></p>
+    <p><font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before assigning tasks.</font></p>
+</div>
+<div id="dialog-confirm" title="Delete Task">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The item will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
     <div class="content">
       <portlet:actionURL var="DoPlannerAddAction">
         <portlet:param name="action" value="plannerAdd" />
@@ -160,7 +197,7 @@
       <portlet:actionURL var="deleteTaskAction">
         <portlet:param name="action" value="deleteTask" />
       </portlet:actionURL>
-        <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>'/>
+      <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>' />
       <table border="0">
         <tr>
           <td><strong>User</strong></td>
@@ -228,43 +265,28 @@
                     id="add-form-process">
                     <form:options items="${processMapAdd}" />
                   </form:select><br /> <span id=errorsDiv_task.process></span>&nbsp;</td>
-
-
-
-
-
                 <td class="ColumnLabel"><label for="add-form-product">Product Size Unit*</label></td>
                 <td><form:select class="styled" path="task.sizeunit" multiple="single" id="add-form-process"
                     value="${task.sizeunit}">
                     <form:options items="${sizeUnitMapAdd}" />
-
                   </form:select><br /> <span id=errorsDiv_task.sizeunit></span>&nbsp;</td>
-
-
-
-
-
-
-
-
-
-
-
-
               </tr>
               <tr>
                 <td class="ColumnLabel"><label for="add-form-plannedEffort">Planned Effort*</label></td>
                 <td class="CellBGR3"><form:input path="task.plannedeffort" value="${edTask.plannedeffort}"
                     id="add-form-plannedEffort" /> (Hours)<br /> <span id=errorsDiv_task.plannedeffort></span>&nbsp;</td>
                 <c:choose>
-                    <c:when test="${role == 'Project Manager'}">
+                  <c:when test="${role == 'Project Manager'}">
                     <td class="ColumnLabel"><label for="add-form-assignedTo">Assigned To*</label></td>
-                  <td><form:select class="styled" path="task.assignedto" value="${edTask.assignedto}"
-                      multiple="single" id="add-form-assignedTo">
-                      <form:options items="${developerMapAdd}" />
-                    </form:select><br /> <span id=errorsDiv_task.assignedto></span>&nbsp;</td>
-                    </c:when>
-                    <c:otherwise><td></td><td></td></c:otherwise>
+                    <td><form:select class="styled" path="task.assignedto" value="${edTask.assignedto}"
+                        multiple="single" id="add-form-assignedTo">
+                        <form:options items="${developerMapAdd}" />
+                      </form:select><br /> <span id=errorsDiv_task.assignedto></span>&nbsp;</td>
+                  </c:when>
+                  <c:otherwise>
+                    <td></td>
+                    <td></td>
+                  </c:otherwise>
                 </c:choose>
                 <td class="ColumnLabel"><label for="add-form-productSize">Product Size*</label></td>
                 <td class="CellBGR3"><form:input path="task.productsize" value="${edTask.productsize}"

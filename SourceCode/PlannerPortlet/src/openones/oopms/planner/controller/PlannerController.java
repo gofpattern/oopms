@@ -86,7 +86,9 @@ public class PlannerController {
             response.setRenderParameter("action", "taskmanager");
         } else {
             log.debug("processPlanner.START + setError");
+            TaskDAO dao = new TaskDAO();
             session.setAttribute("ERROR", true, PortletSession.APPLICATION_SCOPE);
+            session.setAttribute("PROJECT_NAME", dao.getProjectById(new BigDecimal(request.getParameter("projectId"))).getName());
         }
 
     }
@@ -152,7 +154,7 @@ public class PlannerController {
         }
 
         // Set value for projectMap
-        projectMap.put(projectDefault,Constant.BLANK_VALUE);
+        projectMap.put(projectDefault, Constant.BLANK_VALUE);
         for (int i = 0; i < projectList.size(); i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
@@ -235,8 +237,8 @@ public class PlannerController {
 
         // flag to hide and show Add-Edit window
         mav.addObject("flag", formBean.getFlag());
-        
-        //        
+
+        //
         session.removeAttribute("ERROR", PortletSession.APPLICATION_SCOPE);
 
         return mav;
@@ -305,7 +307,9 @@ public class PlannerController {
             response.setRenderParameter("action", "taskmanager");
         } else {
             log.debug("CHANGEPROJECT_ERROR");
+            TaskDAO dao = new TaskDAO();
             session.setAttribute("CHANGEPROJECT_ERROR", true, PortletSession.APPLICATION_SCOPE);
+            session.setAttribute("PROJECT_NAME", dao.getProjectById(new BigDecimal(formBean.getProjectId())).getName());
             response.setRenderParameter("action", "taskmanager");
         }
     }
