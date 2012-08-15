@@ -47,7 +47,17 @@ font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
 	text-transform: uppercase;
 	color: #6A9CA7;
 	}
-
+#header2DuyND {
+font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+    font-size: 1.25em;
+	letter-spacing: .2em;
+	line-height: 1.1em;
+	margin:0px;
+	text-align: left;
+	text-transform: uppercase;
+	color: #444;
+	}
 #portalPageBodyInner {
 padding: 2.5em 12px;
 background: white;
