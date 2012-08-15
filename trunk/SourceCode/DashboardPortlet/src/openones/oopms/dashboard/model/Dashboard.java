@@ -32,7 +32,7 @@ public class Dashboard {
     private String projectHealthStatus;
     private String costStatus;
     private String efficiencyStatus;
-    private int percentProgress;
+    private double percentProgress;
     private double percentTime;
 
     public Dashboard() 
@@ -92,7 +92,7 @@ public class Dashboard {
      * Get value of percentProgress.
      * @return the percentProgress
      */
-    public int getPercentProgress() {
+    public double getPercentProgress() {
         return percentProgress;
     }
 
@@ -100,7 +100,7 @@ public class Dashboard {
      * Set the value for percentProgress.
      * @param percentProgress the percentProgress to set
      */
-    public void setPercentProgress(int percentProgress) {
+    public void setPercentProgress(double percentProgress) {
         this.percentProgress = percentProgress;
     }
 

@@ -188,12 +188,13 @@ public class DashboardController extends BaseController {
             for (int i = 0; i < projectList.size(); i++) {
                 dashboard = new Dashboard();
                 dashboard.setProject(projectList.get(i));
-                dashboard.setProjectHealthStatus(Dashboard.GOOD_STATUS);
-                dashboard.setPercentTime((int) calculatePercentTime(projectList.get(i).getStartDate(),
-                        projectList.get(i).getPlanFinishDate()));
+                dashboard.setPercentTime(calculatePercentTime(projectList.get(i).getStartDate(), projectList.get(i)
+                        .getPlanFinishDate()));
                 dashboard.setPercentProgress(50);
                 dashboard.setEfficiencyStatus(Dashboard.NORMAL_STATUS);
                 dashboard.setCostStatus(Dashboard.BAD_STATUS);
+                dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getPercentProgress(),
+                        dashboard.getCostStatus(), dashboard.getEfficiencyStatus()));
                 dashboardList.add(dashboard);
                 log.debug("dashboard.getPercentProgress() " + dashboard.getPercentTime());
             }
@@ -251,12 +252,20 @@ public class DashboardController extends BaseController {
     }
     private double calculatePercentTime(Date startDate, Date endDate) {
         Date currentDate = new Date();
-        Double percentTime = ((double) currentDate.getTime() - (double) startDate.getTime())
-                / ((double) endDate.getTime() - (double) startDate.getTime()) * 100;        
-        return percentTime;
+        double percentTime = ((double) currentDate.getTime() - (double) startDate.getTime())
+                / ((double) endDate.getTime() - (double) startDate.getTime()) * 100;
+
+        return Math.round(percentTime * 100.0) / 100.0;
     }
-    private void calculateProjectHealth() {
-        // TODO:asas
+    private String calculateProjectHealth(double percentProgress, String costStatus, String efficiencyStatus) {
+        if (costStatus.equals(Dashboard.BAD_STATUS) || efficiencyStatus.equals(Dashboard.BAD_STATUS)
+                || percentProgress < 50)
+            return Dashboard.BAD_STATUS;
+        else if (costStatus.equals(Dashboard.NORMAL_STATUS) || efficiencyStatus.equals(Dashboard.NORMAL_STATUS)
+                || percentProgress < 80)
+            return Dashboard.NORMAL_STATUS;
+        else
+            return Dashboard.GOOD_STATUS;
     }
     private void calculateEfficiencyStatus() {
         // TODO:asas
