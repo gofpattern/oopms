@@ -9,8 +9,7 @@ public class CreateExceptionalDeductForm {
 	private String[] dailyExpenses;
 	private String additionEffect;
 	private String additionEffectInput;
-	private Date startDate;
-	private Date endDate;
+	private Date occurDate;
 	private String description;
 	private String projectId;
 
@@ -105,34 +104,19 @@ public class CreateExceptionalDeductForm {
 		this.additionEffectInput = additionEffectInput;
 	}
 
-	
-
 	/**
-	 * @return the startDate
+	 * @return the occurDate
 	 */
-	public Date getStartDate() {
-		return startDate;
+	public Date getOccurDate() {
+		return occurDate;
 	}
 
 	/**
-	 * @param startDate the startDate to set
+	 * @param occurDate
+	 *            the occurDate to set
 	 */
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	/**
-	 * @return the endDate
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setOccurDate(Date occurDate) {
+		this.occurDate = occurDate;
 	}
 
 	/**
