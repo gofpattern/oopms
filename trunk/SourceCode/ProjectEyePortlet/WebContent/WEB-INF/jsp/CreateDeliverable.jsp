@@ -69,6 +69,13 @@
 	rules[5] = 'plannedCommittedDate:Planned committed date|date_le|$plannedEndDateOfProject:Planned end date of project';
 	rules[6] = 'rePlannedCommittedDate:Re-planned committed date|date_le|$plannedEndDateOfProject:Planned end date of project';
 	yav.addHelp('plannedCommittedDate', 'Please input Planned committed date');
+	yav.addHelp('rePlannedCommittedDate', 'Please input Re-Planned committed date');
+	yav.addHelp('actualCommittedDate', 'Please input Actual committed date');
+	yav.addHelp('note', 'Please input Note');
+	rules[7] = 'plannedCommittedDate|mask|mydate';	
+	rules[8] = 'rePlannedCommittedDate|mask|mydate';	
+	rules[9] = 'actualCommittedDate|mask|mydate';		
+	yav.addMask('mydate', '  /  /    ', '1234567890');
 
 </SCRIPT>
     
@@ -108,32 +115,32 @@
 
 <form:form name="${portletNamespace}CreateDeliverable" commandName="CreateDeliverableForm" method="post" action="${formAction}"> 
 <c:if test="${not empty deliverable }">
-<table class="portlet-table">
+<table class="portlet-table" width="100%">
       <tr>      
-   		<th scope="row">Deliverable</th>
-    	<td><form:select  class="styled" path="deliverable_SelectedValue" items="${deliverable}"/></td>
+   		<th scope="row" width="230">Deliverable</th>
+    	<td width="670"><form:select  class="styled" path="deliverable_SelectedValue" items="${deliverable}"/></td>
   	  </tr>
   	  <tr>
         <th scope="row">Planned committed date*</th>
-        <td><form:input maxlength="10" path="plannedCommittedDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_plannedCommittedDate>&nbsp;</span></td>
+        <td><form:input maxlength="10" path="plannedCommittedDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>
+          <span id=errorsDiv_plannedCommittedDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Re-planned committed date</th>
-        <td><form:input maxlength="10" path="rePlannedCommittedDate" size="9" value="" type="text" id="datepicker2"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_rePlannedCommittedDate>&nbsp;</span></td>
+        <td><form:input maxlength="10" path="rePlannedCommittedDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/>
+          <span id=errorsDiv_rePlannedCommittedDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Actual committed date</th>
-        <td><form:input maxlength="10" path="actualCommittedDate" size="9" value="" type="text" id="datepicker3"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_actualCommittedDate>&nbsp;</span></td>
+        <td><form:input maxlength="10" path="actualCommittedDate" size="9" value="" type="text" id="datepicker3" style='width:80px'/>
+          <span id=errorsDiv_actualCommittedDate>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Note</th>
-        <td><textarea rows="10" cols="70" name="note"></textarea>
+        <td><textarea rows="10" cols="70" name="note" style='width:655px'></textarea>
 		<br/><span id=errorsDiv_note>&nbsp;</span></td>
       </tr>
-     </table><br>
+     </table>
     <input name = "plannedEndDateOfProject" type="hidden" value="${CreateDeliverableForm.plannedEndDateOfProject}"/>   
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateDeliverable", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>

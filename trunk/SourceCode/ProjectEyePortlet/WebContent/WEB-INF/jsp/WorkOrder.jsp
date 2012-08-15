@@ -123,7 +123,7 @@
     </div>
 	
 <form:form name="${portletNamespace}WorkOrder" method="post" action="${formAction}">
-<h2>Stage</h2>
+<br><p id="header2DuyND">Stage<p>
    	<table class="display dataTable" id="mainTable7" cellpadding="0" cellspacing="0" border="0">	
 
 	<c:if test="${not empty stageList}">
@@ -160,7 +160,7 @@
     </c:if>
     </table><br>
 <br/>    
-<h2>Deliverables</h2>
+<p id="header2DuyND">Deliverables</p>
 
  <c:if test="${not empty deliverableListStage1}">
 <h3>Initiation</h3>    
