@@ -33,7 +33,7 @@ public class Dashboard {
     private String costStatus;
     private String efficiencyStatus;
     private int percentProgress;
-    private int percentTime;
+    private double percentTime;
 
     public Dashboard() 
     {
@@ -108,7 +108,7 @@ public class Dashboard {
      * Get value of percentTime.
      * @return the percentTime
      */
-    public int getPercentTime() {
+    public double getPercentTime() {
         return percentTime;
     }
 
@@ -116,7 +116,7 @@ public class Dashboard {
      * Set the value for percentTime.
      * @param percentTime the percentTime to set
      */
-    public void setPercentTime(int percentTime) {
+    public void setPercentTime(double percentTime) {
         this.percentTime = percentTime;
     }
 

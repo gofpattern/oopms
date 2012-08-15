@@ -150,26 +150,26 @@
                   </c:otherwise>
                 </c:choose></td>
               <td><div id="percentTime" class="progress_bar green stripes">
-                  <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#ffffff"
+                  <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#000"
                       size="2" face="tahoma">${dashboard.percentTime}%</font></b></span>
                 </div></td>
               <td><c:choose>
                   <c:when test="${dashboard.percentProgress < 50}">
                     <div id="percentProgress" class="progress_bar glow red stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
-                          color="#ffffff" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
                     </div>
                   </c:when>
                   <c:when test="${dashboard.percentProgress < 80}">
                     <div id="percentProgress" class="progress_bar orange stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
-                          color="#ffffff" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
                     </div>
                   </c:when>
                   <c:otherwise>
                     <div id="percentProgress" class="progress_bar green stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
-                          color="#ffffff" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
                     </div>
                   </c:otherwise>
                 </c:choose></td>
