@@ -32,6 +32,7 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.daocommon.AssignmentDao;
 import openones.oopms.daocommon.BusinessDomainDao;
+import openones.oopms.daocommon.CostDao;
 import openones.oopms.daocommon.DeveloperDao;
 import openones.oopms.daocommon.GeneralReferenceDao;
 import openones.oopms.daocommon.LanguageDao;
@@ -74,7 +75,8 @@ public class DashboardController extends BaseController {
     private Map<String, String> businessDomainMap;
     private Map<String, String> statusMap;
     private Map<String, String> categoryMap;
-    private Map<String, String> projectHealthMap;
+    private Map<String, String> projectHealthMap; 
+    private CostDao costDao;
     private AssignmentDao assignmentDao;
     private DeveloperDao developerDao;
     private GeneralReferenceDao generalReferenceDao;
@@ -198,7 +200,7 @@ public class DashboardController extends BaseController {
                         .getPlanFinishDate()));
                 dashboard.setPercentProgress(calculatePercentProgress(projectList.get(i).getProjectId()));
                 dashboard.setEfficiencyStatus(Constant.NORMAL_STATUS);
-                dashboard.setCostStatus(Constant.BAD_STATUS);
+                dashboard.setCostStatus(calculateCostStatus(projectList.get(i).getProjectId()));
                 dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getPercentProgress(),
                         dashboard.getCostStatus(), dashboard.getEfficiencyStatus()));
                 dashboardList.add(dashboard);
@@ -316,7 +318,13 @@ public class DashboardController extends BaseController {
     private void calculateEfficiencyStatus() {
         // TODO:asas
     }
-    private void calculateCostStatus() {
-        // TODO:asas
+    private String calculateCostStatus(BigDecimal projectId) {
+        costDao = new CostDao();
+        String costStatus = costDao.getCostStatus(projectId);
+        if(costStatus.equals("1"))
+            return Constant.GOOD_STATUS;
+        if(costStatus.equals("2"))
+            return Constant.NORMAL_STATUS;
+        return Constant.BAD_STATUS;
     }
 }
