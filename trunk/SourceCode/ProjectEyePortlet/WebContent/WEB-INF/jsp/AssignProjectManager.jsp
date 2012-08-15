@@ -26,7 +26,48 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
-<meta name="robots" content="noindex, nofollow"/>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
+<link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
+<script type="text/javascript">
+
+
+
+
+
+            function fnFeaturesInit ()
+            {
+                /* Not particularly modular this - but does nicely :-) */
+                $('ul.limit_length>li').each( function(i) {
+                    if ( i > 10 ) {
+                        this.style.display = 'none';
+                    }
+                } );
+                
+                $('ul.limit_length').append( '<li class="css_link">Show more<\/li>' );
+                $('ul.limit_length li.css_link').click( function () {
+                    $('ul.limit_length li').each( function(i) {
+                        if ( i > 5 ) {
+                            this.style.display = 'list-item';
+                        }
+                    } );
+                    $('ul.limit_length li.css_link').css( 'display', 'none' );
+                } );
+            }
+
+            $(document).ready( function() {
+        	
+
+                     
+                fnFeaturesInit();
+                $('#mainTable1').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+
+            } );
+        </script>
 
 <title>Assign Project Manager</title>	
 </head>
@@ -54,15 +95,17 @@
             	<portlet:param name="projectId" value="${projectId}" />
             </portlet:renderURL>
 <form:form name="${portletNamespace}AssignProjectManager" commandName="AssignProjectManagerForm" method="post" action="${formAction}">
-	<table class="portlet-table">
+	<table class="display dataTable" id="mainTable1" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectTeamList}">
-   <tbody><tr >
+   <thead><tr >
         <th width="5%" scope="row">No</th>    
         <th width="30%" scope="row">Name</th>
         <th width="20%" scope="row">Account</th>
         <th width="20%" scope="row">Member Role</th>
         <th width="25%" scope="row">Action</th>
     </tr>  
+    </thead>
+    <tbody>
         <c:forEach var="user" items="${projectTeamList}" varStatus="count">
             <tr>
             <portlet:renderURL var="renderAction2">
