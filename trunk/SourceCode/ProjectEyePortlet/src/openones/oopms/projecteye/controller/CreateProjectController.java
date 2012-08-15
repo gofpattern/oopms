@@ -18,6 +18,7 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -122,7 +123,8 @@ public class CreateProjectController {
 				project.setProjectTypeCode(formBean.getBusinessDomain_SelectedValue());
 				project.setProjectStatusCode(formBean
 						.getProjectStatus_SelectedValue());
-
+				project.setActualEffort(new BigDecimal("0"));
+				project.setPlanEffort(new BigDecimal("0"));
 				Assignment assignment = new Assignment();
 				// set value for assgment
 				assignment.setDeveloperId(dev.getDeveloperId());
