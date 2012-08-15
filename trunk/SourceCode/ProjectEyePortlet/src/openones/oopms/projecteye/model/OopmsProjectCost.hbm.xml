@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2012 10:39:11 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="openones.oopms.projecteye.model.OopmsProjectCost" table="OOPMS_PROJECT_COST" schema="FMSUSER">
+        <id name="oopmsProjectCostId" type="big_decimal">
+            <column name="OOPMS_PROJECT_COST_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="projectId" type="big_decimal">
+            <column name="PROJECT_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="currentBudget" type="big_decimal">
+            <column name="CURRENT_BUDGET" precision="22" scale="0"/>
+        </property>
+        <property name="currentExpense" type="big_decimal">
+            <column name="CURRENT_EXPENSE" precision="22" scale="0"/>
+        </property>
+        <property name="costStatus" type="string">
+            <column name="COST_STATUS" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

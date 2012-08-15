@@ -272,9 +272,8 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
         <th width="10%" scope="row">Name</th>    
         <th width="20%" scope="row">Affect to</th> 
         <th width="10%" scope="row">Addition effect</th>
-        <th width="10%" scope="row">Start Date</th>
-        <th width="10%" scope="row">End Date</th>
-        <th width="25%" scope="row">Description</th>
+        <th width="10%" scope="row">Date</th>
+        <th width="35%" scope="row">Description</th>
         <th width="10%" scope="row">Action</th>
     </tr>
    </thead>
@@ -295,8 +294,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
                <td scope="row"><a href="${renderAction2}">${exceptionalExpense.name}</a></td>
                <td scope="row">${exceptionalExpense.affectTo}</td>
                <td scope="row">${exceptionalExpense.additionEffect}</td>
-               <td scope="row">${exceptionalExpense.startDate}</td>
-               <td scope="row">${exceptionalExpense.endDate}</td>
+               <td scope="row">${exceptionalExpense.occurDate}</td>
                <td scope="row">${exceptionalExpense.description}</td>
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
@@ -315,9 +313,8 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
         <th width="10%" scope="row">Name</th>    
         <th width="20%" scope="row">Affect to</th> 
         <th width="10%" scope="row">Addition effect</th>
-        <th width="10%" scope="row">Start Date</th>
-        <th width="10%" scope="row">End Date</th>
-        <th width="25%" scope="row">Description</th>
+        <th width="10%" scope="row">Date</th>
+        <th width="35%" scope="row">Description</th>
         <th width="10%" scope="row">Action</th>
     </tr>
    </thead>
@@ -338,8 +335,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
                <td scope="row"><a href="${renderAction2}">${exceptionalDeduct.name}</a></td>
                <td scope="row">${exceptionalDeduct.affectTo}</td>
                <td scope="row">${exceptionalDeduct.additionEffect}</td>
-               <td scope="row">${exceptionalDeduct.startDate}</td>
-               <td scope="row">${exceptionalDeduct.endDate}</td>
+               <td scope="row">${exceptionalDeduct.occurDate}</td>
                <td scope="row">${exceptionalDeduct.description}</td>
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Deduct?");'>Remove</button>
