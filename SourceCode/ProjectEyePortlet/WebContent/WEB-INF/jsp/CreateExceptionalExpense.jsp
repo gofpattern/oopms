@@ -94,6 +94,7 @@ rules[5] = 'description:Description|maxlength|255';
 rules[6] = 'additionEffectInput:Input|double';
 yav.addHelp('name', 'Please input Name');
 yav.addHelp('additionEffectInput', 'Please type Input');
+yav.addHelp('description', 'Please input Description');
 yav.addHelp('occurDate', 'Please input Date');
 
 </SCRIPT>
@@ -122,11 +123,11 @@ yav.addHelp('occurDate', 'Please input Date');
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
 <form:form name="${portletNamespace}CreateExceptionalExpense" commandName="CreateExceptionalExpenseForm" method="post" action="${formAction}">
-	<table class="portlet-table">
+	<table class="portlet-table" width="100%">
   	  <tr>
-        <th scope="row">Name*</th>
-        <td><form:input path="name" value="" maxlength="150" size="100" type="text"/>
-		<br/><span id=errorsDiv_name>&nbsp;</span></td>
+        <th scope="row" width="210">Name*</th>
+        <td width="690"><form:input path="name" value="" maxlength="150" size="100" type="text" style='width:300px'/>
+		<span id=errorsDiv_name>&nbsp;</span></td>
       </tr>
       <tr>
         <th scope="row">Affect To*</th>
@@ -182,21 +183,21 @@ yav.addHelp('occurDate', 'Please input Date');
         <form:radiobutton path="additionEffect" value="0"/>Ration (Daily Cost x Input)
         <form:radiobutton path="additionEffect" value="2"/>Bonus Cost (Daily Cost + Input)
         <form:radiobutton path="additionEffect" value="1"/>Fix Cost (Input)
-        <br/>Input<form:input maxlength="60" path="additionEffectInput" size="9" value="" type="text"/>$
-        <br/><span id=errorsDiv_additionEffectInput>&nbsp;</span>
+        <br/>Input&nbsp;<form:input maxlength="60" path="additionEffectInput" size="9" value="" type="text" style='width:100px'/>$
+        <span id=errorsDiv_additionEffectInput>&nbsp;</span>
         </td>
       </tr>
       <tr>
         <th scope="row">Date*</th>
-        <td><form:input maxlength="10" path="occurDate" size="9" value="" type="text" id="datepicker1"/>
-          (mm/dd/yyyy)<br></br><span id=errorsDiv_occurDate>&nbsp;</span></td>
+        <td><form:input maxlength="10" path="occurDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>
+          <span id=errorsDiv_occurDate>&nbsp;</span></td>
       </tr>     
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description"></textarea>
+        <td><textarea rows="10" cols="70" name="description" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table><br>
+  </table>
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateExceptionalExpense", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateExceptionalExpense", "${renderAction}")'>Cancel</button>
