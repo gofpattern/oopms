@@ -89,14 +89,16 @@
     	<br><p class="title" id="headerDuyND">Product</p>
     </div>
     
-    <div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
+    
     <portlet:actionURL var="formAction">
   		<portlet:param name="action" value="SearchProduct" />
   		<portlet:param name="projectId" value="${projectId}" />
 	</portlet:actionURL>
 <form:form name="${portletNamespace}SearchProduct" commandName="ProductForm" method="post" action="${formAction}">
-    Product List <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/>
-    <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button><br>
+    <br> <p id="header2DuyND"> Product Type <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/> 
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button>
+	</p>
+    <br>
 </form:form>
     <table id="mainTable1" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectProductList}">
@@ -141,7 +143,7 @@
    </tbody>
 	</c:if>
 	<c:if test="${empty projectProductList}">
-		There is no product
+		There is no product of this type!
 	</c:if>
     </table><br>
 		<portlet:renderURL var="renderAction">
@@ -149,7 +151,7 @@
         	<portlet:param name="projectId" value="${projectId}" />
     	</portlet:renderURL>
     	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${renderAction}")'>Add New Product</button> 
-	</div>
+	
 	<input name="deleteFlag" type="hidden" value="${deleteFlag}" id="deleteFlag"/> 
   <!-- end .content --></div>
   <!-- end .container --></div>
