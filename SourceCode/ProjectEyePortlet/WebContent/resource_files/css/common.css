@@ -36,6 +36,29 @@ background: white;
     margin-right: auto;
 }
 
+#headerDuyND {
+font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+    font-size: 1.75em;
+	letter-spacing: .2em;
+	line-height: 1.1em;
+	margin:0px;
+	text-align: left;
+	text-transform: uppercase;
+	color: #6A9CA7;
+	}
+
+#portalPageBodyInner {
+padding: 2.5em 12px;
+background: white;
+ width: 1048px;
+    height: auto;
+    position: relative;
+	   margin-left: auto;
+
+    margin-right: auto;
+}
+
 body    {   
     position: relative;
 	font-family: Verdana,sans-serif;

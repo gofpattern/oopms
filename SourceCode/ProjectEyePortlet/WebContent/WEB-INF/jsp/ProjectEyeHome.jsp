@@ -88,17 +88,17 @@
 	<c:if test="${not empty projectList}">
 	<thead>
    <tr >
-   		<th width="5%" scope="row">No</th>
-        <th width="30%" scope="row">Project Name</th>    
-        <th width="10%" scope="row">Project Code</th> 
-        <th width="25%" scope="row">Your role in project</th>
-        <th width="30%" scope="row">Action</th>   
+   		<th width="5%" scope="row">No.</th>
+        <th width="35%" scope="row">Project Name</th>    
+        <th width="15%" scope="row">Project Code</th> 
+        <th width="25%" scope="row">Your role in Project</th>
+        <th width="20%" scope="row">Action</th>   
     </tr>
     </thead>
    <tbody> 
   
         <c:forEach var="project" items="${projectList}" varStatus="count">
-            <tr>
+            <tr height="30px">
             <portlet:renderURL var="renderAction">
             	<portlet:param name="action" value="GoProjectDetail" />
             	<portlet:param name="projectId" value="${project.projectId}" />
@@ -111,11 +111,11 @@
             	<portlet:param name="action" value="LeaveProject" />
             	<portlet:param name="projectId" value="${project.projectId}" />
             </portlet:renderURL>
-               <td scope="row">${count.count}</td>
+               <td scope="row" align="center">${count.count}</td>
                <td scope="row"><a href="${renderAction}">${project.name}</a></td>
-               <td scope="row"><a href="${renderAction}">${project.code}</a></td>
+               <td scope="row" align="center"><a href="${renderAction}">${project.code}</a></td>
                <td scope="row">${project.roleString}</td>
-               <td scope="row">
+               <td scope="row" align="center">
                <c:if test="${project.role != 0 }">
                	<c:if test="${project.role != 1 }">
                	 <c:if test="${project.role != 6 }">
@@ -128,8 +128,7 @@
                </c:if>
                <c:if test="${project.role == 6 }">
                		<button type="button" class="button blue small" onclick='submitAction3("${portletNamespace}ProjectEyeHome", "${renderAction2}", "Do you sure you want to delete this project?")'>Delete this project</button>
-               </c:if>
-               
+               </c:if>               
                </td>                                      
             </tr>
         </c:forEach>

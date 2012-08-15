@@ -41,13 +41,14 @@
 	<!-- end .navigator -->
   	
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Project Detail</h2>
+    	<br><p class="title" id="headerDuyND">Project Detail</p>
     </div>
- <div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
+ 
+ 
   <table class="portlet-table">
   <tr>
-        <th scope="row">Project Manager</th>
-        <td>${projectManager}</td>
+        <th width="210" scope="row">Project Manager</th>
+        <td width="690" >${projectManager}</td>
       </tr>
       <tr>
         <th scope="row">Project Status</th>
@@ -141,7 +142,7 @@
         <th scope="row">Project evaluation</th>
         <td>${projectEvaluation}</td>
       </tr>
-  </table><br>
+  </table>
   <form:form name="${portletNamespace}ProjectDetail"></form:form>
   <c:if test="${(role == 1) || (role==0)}"> 
 	<portlet:renderURL var="renderAction1">
@@ -163,7 +164,7 @@
     </portlet:renderURL>
     <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}ProjectDetail", "${renderAction3}")'>Assign Project Manager</button>
  </c:if>
-</div>
+
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
