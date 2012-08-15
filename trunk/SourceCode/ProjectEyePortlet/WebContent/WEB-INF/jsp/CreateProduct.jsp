@@ -54,7 +54,7 @@ $(document).ready(function() {
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Create Product</h2>
+    	<br><p class="title" id="headerDuyND">Create Product</p>
     </div>
 
 

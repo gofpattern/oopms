@@ -54,7 +54,7 @@
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<h2 class="title" >Create Cost Type</h2>
+    	<br><p class="title" id="headerDuyND">Create Cost Type</p>
     </div>
 
 

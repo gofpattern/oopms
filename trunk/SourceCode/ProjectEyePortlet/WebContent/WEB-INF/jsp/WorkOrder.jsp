@@ -119,7 +119,7 @@
 	<!-- end .navigator -->
   
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Work Order</h2>
+    	<br><p class="title" id="headerDuyND">Work Order</p>
     </div>
 	
 <form:form name="${portletNamespace}WorkOrder" method="post" action="${formAction}">

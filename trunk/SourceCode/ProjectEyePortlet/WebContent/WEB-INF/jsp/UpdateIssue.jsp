@@ -39,7 +39,7 @@
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Create Project</h2>
+    	<br><p class="title" id="headerDuyND">Create Project</p>
     </div>
 
   <!-- end .content --></div>

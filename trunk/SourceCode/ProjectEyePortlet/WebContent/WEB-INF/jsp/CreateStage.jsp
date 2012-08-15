@@ -83,7 +83,7 @@
 	 
 	<!-- end .navigator -->
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Create Stage</h2>
+    	<br><p class="title" id="headerDuyND">Create Stage</p>
     </div>
 
 <div style="border-style:ridge" class="up-portlet-content-wrapper-inner">	

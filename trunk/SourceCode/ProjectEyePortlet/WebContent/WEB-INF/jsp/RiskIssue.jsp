@@ -45,7 +45,7 @@
 	<!-- end .navigator -->
 	
 	   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Risk, Issue</h2>
+    	<br><p class="title" id="headerDuyND">Risk, Issue</p>
     </div>
 	
 	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">

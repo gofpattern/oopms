@@ -89,7 +89,7 @@
 	<!-- end .navigator -->
   
    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-    	<h2 class="title" >Team Management</h2>
+    	<br><p class="title" id="headerDuyND">Team Management</p>
     </div>
 	
 	<portlet:actionURL var="searchAction">
