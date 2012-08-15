@@ -18,6 +18,7 @@
  */
 package openones.oopms.dashboard.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -33,11 +34,16 @@ import openones.oopms.daocommon.AssignmentDao;
 import openones.oopms.daocommon.BusinessDomainDao;
 import openones.oopms.daocommon.DeveloperDao;
 import openones.oopms.daocommon.GeneralReferenceDao;
+import openones.oopms.daocommon.LanguageDao;
+import openones.oopms.daocommon.ModuleDao;
 import openones.oopms.dashboard.form.DashboardForm;
 import openones.oopms.dashboard.model.Dashboard;
+import openones.oopms.dashboard.utils.Constant;
 import openones.oopms.entity.BusinessDomain;
 import openones.oopms.entity.Developer;
 import openones.oopms.entity.GeneralReference;
+import openones.oopms.entity.Language;
+import openones.oopms.entity.Module;
 import openones.oopms.entity.Project;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
@@ -127,19 +133,19 @@ public class DashboardController extends BaseController {
         log.debug("processSearchByStatus.START");
         for (int i = 0; i < dashboardList.size(); i++) {
             dashboardList.get(i).setVisible(true);
-            if (!formBean.getProjectCategory().equals(DashboardForm.ALL_VALUE))
+            if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE))
                 if (!dashboardList.get(i).getProject().getProjectCategoryCode().equals(formBean.getProjectCategory())) {
                     dashboardList.get(i).setVisible(false);
                 }
-            if (!formBean.getProjectDomain().equals(DashboardForm.ALL_VALUE))
+            if (!formBean.getProjectDomain().equals(Constant.ALL_VALUE))
                 if (!dashboardList.get(i).getProject().getProjectTypeCode().equals(formBean.getProjectDomain())) {
                     dashboardList.get(i).setVisible(false);
                 }
-            if (!formBean.getProjectStatus().equals(DashboardForm.ALL_VALUE))
+            if (!formBean.getProjectStatus().equals(Constant.ALL_VALUE))
                 if (!dashboardList.get(i).getProject().getProjectStatusCode().equals(formBean.getProjectStatus())) {
                     dashboardList.get(i).setVisible(false);
                 }
-            if (!formBean.getProjectHealth().equals(DashboardForm.ALL_VALUE))
+            if (!formBean.getProjectHealth().equals(Constant.ALL_VALUE))
                 if (!dashboardList.get(i).getProjectHealthStatus().equals(formBean.getProjectHealth())) {
                     dashboardList.get(i).setVisible(false);
                 }
@@ -179,10 +185,10 @@ public class DashboardController extends BaseController {
             log.debug("BizDomainSize " + businessDomainList.size());
             categoryList = generalReferenceDao.getProjectCategoryEn();
 
-            formBean.setProjectCategory(DashboardForm.ALL_VALUE);
-            formBean.setProjectDomain(DashboardForm.ALL_VALUE);
-            formBean.setProjectStatus(DashboardForm.ALL_VALUE);
-            formBean.setProjectHealth(DashboardForm.ALL_VALUE);
+            formBean.setProjectCategory(Constant.ALL_VALUE);
+            formBean.setProjectDomain(Constant.ALL_VALUE);
+            formBean.setProjectStatus(Constant.ALL_VALUE);
+            formBean.setProjectHealth(Constant.ALL_VALUE);
 
             // Set value for dashboard
             for (int i = 0; i < projectList.size(); i++) {
@@ -190,9 +196,9 @@ public class DashboardController extends BaseController {
                 dashboard.setProject(projectList.get(i));
                 dashboard.setPercentTime(calculatePercentTime(projectList.get(i).getStartDate(), projectList.get(i)
                         .getPlanFinishDate()));
-                dashboard.setPercentProgress(50);
-                dashboard.setEfficiencyStatus(Dashboard.NORMAL_STATUS);
-                dashboard.setCostStatus(Dashboard.BAD_STATUS);
+                dashboard.setPercentProgress(calculatePercentProgress(projectList.get(i).getProjectId()));
+                dashboard.setEfficiencyStatus(Constant.NORMAL_STATUS);
+                dashboard.setCostStatus(Constant.BAD_STATUS);
                 dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getPercentProgress(),
                         dashboard.getCostStatus(), dashboard.getEfficiencyStatus()));
                 dashboardList.add(dashboard);
@@ -206,34 +212,34 @@ public class DashboardController extends BaseController {
         businessDomainMap = new LinkedHashMap<String, String>();
 
         // set value for statusMap
-        statusMap.put(formBean.getProjectStatus(), DashboardForm.ALL_VALUE);
+        statusMap.put(formBean.getProjectStatus(), Constant.ALL_VALUE);
         if (formBean.getInit() == false)
-            statusMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
+            statusMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
         for (int i = 0; i < statusList.size(); i++) {
             statusMap.put(statusList.get(i).getGeneralRefId().toString(), statusList.get(i).getDescription());
         }
         // set value for businessDomainMap
-        businessDomainMap.put(formBean.getProjectDomain(), DashboardForm.ALL_VALUE);
+        businessDomainMap.put(formBean.getProjectDomain(), Constant.ALL_VALUE);
         if (formBean.getInit() == false)
-            businessDomainMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
+            businessDomainMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
         for (int i = 0; i < businessDomainList.size(); i++) {
             businessDomainMap.put(businessDomainList.get(i).getDomainId().toString(), businessDomainList.get(i)
                     .getDomainName());
         }
         // set value for categoryMap
-        categoryMap.put(formBean.getProjectCategory(), DashboardForm.ALL_VALUE);
+        categoryMap.put(formBean.getProjectCategory(), Constant.ALL_VALUE);
         if (formBean.getInit() == false)
-            categoryMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
+            categoryMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
         for (int i = 0; i < categoryList.size(); i++) {
             categoryMap.put(categoryList.get(i).getGeneralRefId().toString(), categoryList.get(i).getDescription());
         }
         // set value for projectHealthMap
-        projectHealthMap.put(formBean.getProjectHealth(), DashboardForm.ALL_VALUE);
+        projectHealthMap.put(formBean.getProjectHealth(), Constant.ALL_VALUE);
         if (formBean.getInit() == false)
-            projectHealthMap.put(DashboardForm.ALL_VALUE, DashboardForm.ALL_VALUE);
-        projectHealthMap.put(Dashboard.GOOD_STATUS, Dashboard.GOOD_STATUS);
-        projectHealthMap.put(Dashboard.NORMAL_STATUS, Dashboard.NORMAL_STATUS);
-        projectHealthMap.put(Dashboard.BAD_STATUS, Dashboard.BAD_STATUS);
+            projectHealthMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
+        projectHealthMap.put(Constant.GOOD_STATUS, Constant.GOOD_STATUS);
+        projectHealthMap.put(Constant.NORMAL_STATUS, Constant.NORMAL_STATUS);
+        projectHealthMap.put(Constant.BAD_STATUS, Constant.BAD_STATUS);
 
         mav.addObject("dashboardList", dashboardList);
         mav.addObject("statusMap", statusMap);
@@ -247,8 +253,48 @@ public class DashboardController extends BaseController {
 
     }
 
-    private void calculatePercentProgress() {
-        // TODO:asas
+    private double calculatePercentProgress(BigDecimal projectId) {
+        ModuleDao moduleDao = new ModuleDao();
+        LanguageDao languageDao = new LanguageDao();
+        List<Module> modules = moduleDao.getModuleByProject(projectId);
+        double totalCurrentLoc = 0;
+        double totalCurrentPage = 0;
+        double totalCurrentTestCase = 0;
+        double totalCurrentSheet = 0;
+
+        double totalPlannedLoc = 0;
+        double totalPlannedPage = 0;
+        double totalPlannedTestCase = 0;
+        double totalPlannedSheet = 0;
+        for (int i = 0; i < modules.size(); i++) {
+            Language language = languageDao.getLanguageById(modules.get(i).getPlannedSizeUnitId());
+            if (language.getSizeUnit().contains(Constant.LOC)) {
+                totalCurrentLoc += modules.get(i).getActualSize().doubleValue();
+                totalPlannedLoc += modules.get(i).getPlannedSize().doubleValue();
+            }
+
+            if (language.getSizeUnit().contains(Constant.TESTCASE)) {
+                totalCurrentTestCase += modules.get(i).getActualSize().doubleValue();
+                totalPlannedTestCase += modules.get(i).getPlannedSize().doubleValue();
+            }
+
+            if (language.getSizeUnit().contains(Constant.PAGE_WORD)) {
+                totalCurrentPage += modules.get(i).getActualSize().doubleValue();
+                totalPlannedPage += modules.get(i).getPlannedSize().doubleValue();
+            }
+            if (language.getSizeUnit().contains(Constant.SHEET_EXCEL)) {
+                totalCurrentSheet += modules.get(i).getActualSize().doubleValue();
+                totalPlannedSheet += modules.get(i).getPlannedSize().doubleValue();
+            }
+
+        }
+
+        double percentProgress = ((totalCurrentLoc * Constant.LOC_WEIGHT)
+                + (totalCurrentTestCase * Constant.TESTCASE_WEIGHT) + (totalCurrentPage * Constant.PAGE_WEIGHT) + (totalCurrentSheet * Constant.PAGE_WEIGHT))
+                / ((totalPlannedLoc * Constant.LOC_WEIGHT) + (totalPlannedTestCase * Constant.TESTCASE_WEIGHT)
+                        + (totalPlannedPage * Constant.PAGE_WEIGHT) + (totalPlannedSheet * Constant.PAGE_WEIGHT))*100;
+
+        return Math.round(percentProgress * 100.0) / 100.0;
     }
     private double calculatePercentTime(Date startDate, Date endDate) {
         Date currentDate = new Date();
@@ -258,14 +304,14 @@ public class DashboardController extends BaseController {
         return Math.round(percentTime * 100.0) / 100.0;
     }
     private String calculateProjectHealth(double percentProgress, String costStatus, String efficiencyStatus) {
-        if (costStatus.equals(Dashboard.BAD_STATUS) || efficiencyStatus.equals(Dashboard.BAD_STATUS)
+        if (costStatus.equals(Constant.BAD_STATUS) || efficiencyStatus.equals(Constant.BAD_STATUS)
                 || percentProgress < 50)
-            return Dashboard.BAD_STATUS;
-        else if (costStatus.equals(Dashboard.NORMAL_STATUS) || efficiencyStatus.equals(Dashboard.NORMAL_STATUS)
+            return Constant.BAD_STATUS;
+        else if (costStatus.equals(Constant.NORMAL_STATUS) || efficiencyStatus.equals(Constant.NORMAL_STATUS)
                 || percentProgress < 80)
-            return Dashboard.NORMAL_STATUS;
+            return Constant.NORMAL_STATUS;
         else
-            return Dashboard.GOOD_STATUS;
+            return Constant.GOOD_STATUS;
     }
     private void calculateEfficiencyStatus() {
         // TODO:asas

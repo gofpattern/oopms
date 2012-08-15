@@ -24,9 +24,6 @@ import openones.oopms.entity.Project;
  * @author PNTG
  */
 public class Dashboard {
-    public static final String GOOD_STATUS = "good";
-    public static final String NORMAL_STATUS = "normal";
-    public static final String BAD_STATUS = "bad";
     private Project project;
     private Boolean visible;
     private String projectHealthStatus;

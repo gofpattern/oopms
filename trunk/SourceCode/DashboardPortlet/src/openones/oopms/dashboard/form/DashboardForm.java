@@ -26,7 +26,6 @@ import openones.oopms.dashboard.model.Dashboard;
  * @author PNTG
  */
 public class DashboardForm {
-    public static final String ALL_VALUE = "All";
     private List<Dashboard> dashboard;
     private String projectId;
     private String projectDomain;
