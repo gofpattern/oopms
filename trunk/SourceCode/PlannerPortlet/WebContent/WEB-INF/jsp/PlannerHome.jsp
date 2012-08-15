@@ -12,57 +12,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 <portlet2:defineObjects />
 <portlet:defineObjects />
-<script type="text/javascript">
-	$(function() {
-		$("#radio").buttonset();
-		$("#format").buttonset();
-		$("input:submit, a, button", ".demo").button();
-		$("a", ".demo").click(function() {
-			return false;
-		});
-
-		// run the currently selected effect
-		function runEffect() {
-			// get effect type from 
-			var selectedEffect = $("#effectTypes").val();
-
-			// most effect types need no options passed by default
-			var options = {};
-			// some effects have required parameters
-			if (selectedEffect === "scale") {
-				options = {
-					percent : 100
-				};
-			} else if (selectedEffect === "size") {
-				options = {
-					to : {
-						width : 280,
-						height : 185
-					}
-				};
-			}
-
-			// run the effect
-			$("#effect").show(selectedEffect, options, 500, callback);
-		}
-		;
-
-		//callback function to bring a hidden box back
-		function callback() {
-			setTimeout(function() {
-				$("#effect:visible").removeAttr("style").fadeOut();
-			}, 1000);
-		}
-		;
-
-		// set effect from select menu value
-		$("#button").click(function() {
-			runEffect();
-			return false;
-		});
-
-		$("#effect").hide();
-	});
+<script type="text/javascript">	
 	// sort
 	function fnFeaturesInit() {
 		/* Not particularly modular this - but does nicely :-) */
@@ -94,15 +44,36 @@
 		});
 		// Check module of project
 		  $(function() {
-			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true')
-								alert("Product(s) of your selected project has not been created.\nPlease create some products for your project at Project Eye Portlet before assigning task.\n###For Developer: Let create some records at MODULE talbe with ProjectId is Id of your selected project.###");	
+			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true'){
+				  $( "#dialog" ).dialog( "open" );
+			  }
+									
 		  });
 		
 					});
+	   // jquery dialog
+	$(function() {
+        $( "#dialog" ).dialog({
+        	autoOpen: false,
+        	resizable: false,
+        	height: 210,
+        	width: 450,
+            modal: true,
+            buttons: {
+                Ok: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+    });
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
   <div class="container">
+  <div id="dialog" title="Missing Products">
+    <p><font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not been created.</font></p>
+    <p><font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before assigning tasks.</font></p>
+</div>
     <div class="content">
         <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>'/>
       <table border="0">
@@ -121,8 +92,8 @@
           <thead>
             <tr>
               <th width="5%">No.</th>
+              <th width="80%">Project Name</th>              
               <th width="15%">Project Code</th>
-              <th width="80%">Project Name</th>
             </tr>
           </thead>
           <tbody>
@@ -135,9 +106,9 @@
                 <portlet:param name="developerId" value="${developerId}" />
               </portlet:actionURL>
               <tr>
-                <td>${count}</td>
-                <td><a href="${renderAction}">${project.code}</a></td>
-                <td>${project.name}</td>
+                <td align="center">${count}</td>
+                <td align="center"><a href="${renderAction}">${project.name}</a></td>
+                <td align="center"><a href="${renderAction}">${project.code}</a></td>
               </tr>
             </c:forEach>
           </tbody>

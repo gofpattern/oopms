@@ -22,9 +22,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
@@ -41,7 +39,6 @@ import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Stage;
 import openones.oopms.planner.model.Tasks;
-import openones.oopms.planner.model.Workproduct;
 import openones.oopms.planner.utils.Constant;
 
 import org.apache.log4j.Logger;
@@ -157,6 +154,7 @@ public class PlannerAddController {
             task.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
 
             moduleDAO.updateModuleByTask(task);
+            taskDAO.updateProjectEffortTask(task);
             taskDAO.addTask(task);
         } catch (ParseException ex) {
             log.error("error when add new task", ex);
@@ -194,14 +192,14 @@ public class PlannerAddController {
 
         // Set value for stageMap
         formBeanAdd.getStageMap().clear();
-        formBeanAdd.getStageMap().put(task.getStageid().toString(),  Constant.BLANK_VALUE);
+        formBeanAdd.getStageMap().put(task.getStageid().toString(), Constant.BLANK_VALUE);
         for (int i = 0; i < stageList.size(); i++) {
             formBeanAdd.getStageMap().put(stageList.get(i).getStageId().toString(), stageList.get(i).getName());
         }
 
         // Set value for developerMap
         formBeanAdd.getDeveloperMap().clear();
-        formBeanAdd.getDeveloperMap().put(task.getAssignedto().toString(),  Constant.BLANK_VALUE);
+        formBeanAdd.getDeveloperMap().put(task.getAssignedto().toString(), Constant.BLANK_VALUE);
         for (int i = 0; i < developerList.size(); i++) {
             formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(),
                     developerList.get(i).getName());
@@ -224,17 +222,17 @@ public class PlannerAddController {
         // Set value for moduleMap
         formBeanAdd.getModuleMap().clear();
         if (!task.getModule().equals(null))
-            formBeanAdd.getModuleMap().put(task.getModule().getModuleId().toString(),  Constant.BLANK_VALUE);
+            formBeanAdd.getModuleMap().put(task.getModule().getModuleId().toString(), Constant.BLANK_VALUE);
         for (int i = 0; i < moduleList.size(); i++) {
             formBeanAdd.getModuleMap().put(moduleList.get(i).getModuleId().toString(), moduleList.get(i).getName());
         }
 
         // Set value for sizeUnitMap
         formBeanAdd.getSizeUnitMap().clear();
-        formBeanAdd.getSizeUnitMap().put(task.getSizeunit().toString(),  Constant.BLANK_VALUE);
+        formBeanAdd.getSizeUnitMap().put(task.getSizeunit().toString(), Constant.BLANK_VALUE);
         for (int i = 0; i < sizeUnitList.size(); i++) {
             formBeanAdd.getSizeUnitMap().put(sizeUnitList.get(i).getLanguageId().toString(),
-                    sizeUnitList.get(i).getName().concat( Constant.BLANK_VALUE + sizeUnitList.get(i).getSizeUnit()));
+                    sizeUnitList.get(i).getName().concat(Constant.BLANK_VALUE + sizeUnitList.get(i).getSizeUnit()));
         }
 
         // Convert date to string
@@ -276,6 +274,7 @@ public class PlannerAddController {
             editedTask.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
 
             moduleDAO.updateModuleByEditedTask(task, editedTask);
+            taskDAO.updateProjectEffortByEditedTask(task, editedTask);
             taskDAO.updateTask(editedTask);
 
         } catch (Exception ex) {

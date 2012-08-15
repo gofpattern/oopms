@@ -34,6 +34,17 @@ var frm = document.forms[formName];
 	
 }    
 
+/*function submitActionCustom(formName, actionUrl) {
+	  
+	var frm = document.forms[formName];		
+	  $( "#dialog-confirm" ).dialog( "open" );
+      $( "#dialog-confirm" ).dialog( "option", "buttons", { "Delete all items": function() { frm.action = actionUrl; 
+         frm.submit(); } } );
+      $( "#dialog-confirm" ).dialog( "option", "buttons", { Cancel: function() {return null; } } );
+	    
+		
+	}
+*/
 function validate(checkedClass){
     alert("validate");
     var requiredList = $(checkedClass);
