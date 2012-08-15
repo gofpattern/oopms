@@ -96,11 +96,9 @@
 	</portlet:actionURL>
 <form:form name="${portletNamespace}SearchProduct" commandName="ProductForm" method="post" action="${formAction}">
     <br> <p id="header2DuyND"> Product Type <form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/> 
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button>
-	</p>
-    <br>
-</form:form>
-    <table id="mainTable1" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${formAction}")'>View</button></p><br>
+	</form:form>
+	<table id="mainTable1" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
 	<c:if test="${not empty projectProductList}">
    <thead><tr>
         <th width="6%" scope="row">No</th>    
@@ -129,7 +127,7 @@
                <td scope="row"><a href="${renderAction}">${product.name}</a></td>
                <td scope="row">${product.workProduct}</td>
                <td scope="row">${product.plannedSize}</td>
-               <td scope="row">${product.actualSize}</td>>
+               <td scope="row">${product.actualSize}</td>
                <td scope="row">${product.description}</td>
                <td scope="row">
 					<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}SearchProduct", "${renderAction2}", "Do you sure you want to delete this product?");'>Remove This Product</button>
@@ -139,7 +137,7 @@
    </tbody>
 	</c:if>
 	<c:if test="${empty projectProductList}">
-		There is no product of this type!
+		There is no product!
 	</c:if>
     </table><br>
 		<portlet:renderURL var="renderAction">
