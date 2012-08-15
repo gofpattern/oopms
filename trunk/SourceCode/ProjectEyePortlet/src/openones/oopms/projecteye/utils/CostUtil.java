@@ -323,13 +323,21 @@ public class CostUtil {
 					if (temp != null) {
 						for (int i = 0; i < temp.size(); i++) {
 							if ((!temp.get(i).getStartDate()
-									.after(exceptinalCost.getOccurDate()))
-									&& (!temp
+									.after(exceptinalCost.getOccurDate()))) {
+								if (temp.get(i).getEndDate() != null) {
+									if (!temp
 											.get(i)
 											.getEndDate()
 											.before(exceptinalCost
-													.getOccurDate()))) {
-								result = result.add(exceptinalCost.getEffect());
+													.getOccurDate())) {
+										result = result.add(exceptinalCost
+												.getEffect());
+									}
+								} else {
+									result = result.add(exceptinalCost
+											.getEffect());
+								}
+
 							}
 						}
 					}
@@ -344,14 +352,23 @@ public class CostUtil {
 					if (temp != null) {
 						for (int i = 0; i < temp.size(); i++) {
 							if ((!temp.get(i).getStartDate()
-									.after(exceptinalCost.getOccurDate()))
-									&& (!temp
+									.after(exceptinalCost.getOccurDate()))) {
+								if (temp.get(i).getEndDate() != null) {
+									if (!temp
 											.get(i)
 											.getEndDate()
 											.before(exceptinalCost
-													.getOccurDate()))) {
-								result = result.add(exceptinalCost.getEffect()
-										.multiply(temp.get(i).getCost()));
+													.getOccurDate())) {
+										result = result.add(exceptinalCost
+												.getEffect().multiply(
+														temp.get(i).getCost()));
+									}
+								} else {
+									result = result.add(exceptinalCost
+											.getEffect().multiply(
+													temp.get(i).getCost()));
+								}
+
 							}
 						}
 					}
@@ -366,15 +383,24 @@ public class CostUtil {
 					if (temp != null) {
 						for (int i = 0; i < temp.size(); i++) {
 							if ((!temp.get(i).getStartDate()
-									.after(exceptinalCost.getOccurDate()))
-									&& (!temp
+									.after(exceptinalCost.getOccurDate()))) {
+								if (temp.get(i).getEndDate() != null) {
+									if (!temp
 											.get(i)
 											.getEndDate()
 											.before(exceptinalCost
-													.getOccurDate()))) {
-								result = result.add(exceptinalCost.getEffect()
-										.add(temp.get(i).getCost()));
+													.getOccurDate())) {
+										result = result.add(exceptinalCost
+												.getEffect().add(
+														temp.get(i).getCost()));
+									}
+								} else {
+									result = result.add(exceptinalCost
+											.getEffect().add(
+													temp.get(i).getCost()));
+								}
 							}
+
 						}
 					}
 
@@ -384,24 +410,49 @@ public class CostUtil {
 			CostDao cDao = new CostDao();
 			OopmsCostDailyExpense temp = cDao.getDailyExpense(exceptinalCost
 					.getOopmsCostDailyExpenseId());
-			if ((!temp.getStartDate().after(exceptinalCost.getOccurDate()))
-					&& (!temp.getEndDate()
-							.before(exceptinalCost.getOccurDate()))) {
-				if (exceptinalCost.getEffect() != null) {
-					if (String.valueOf(exceptinalCost.getEffectType()).equals(
-							Constant.ExceptinalFixCostEffectType)) {
+			if (!temp.getStartDate().after(exceptinalCost.getOccurDate())) {
+				if (temp.getEndDate() != null) {
+					if (!temp.getEndDate()
+							.before(exceptinalCost.getOccurDate())) {
+						if (exceptinalCost.getEffect() != null) {
+							if (String
+									.valueOf(exceptinalCost.getEffectType())
+									.equals(Constant.ExceptinalFixCostEffectType)) {
 
-						result = result.add(exceptinalCost.getEffect());
-					} else if (String.valueOf(exceptinalCost.getEffectType())
-							.equals(Constant.ExceptinalRationCostEffectType)) {
-						result = result.add(exceptinalCost.getEffect()
-								.multiply(temp.getCost()));
-					} else if (String.valueOf(exceptinalCost.getEffectType())
-							.equals(Constant.ExceptinalBonusCostEffectType)) {
-						result = result.add(exceptinalCost.getEffect().add(
-								temp.getCost()));
+								result = result.add(exceptinalCost.getEffect());
+							} else if (String.valueOf(
+									exceptinalCost.getEffectType()).equals(
+									Constant.ExceptinalRationCostEffectType)) {
+								result = result.add(exceptinalCost.getEffect()
+										.multiply(temp.getCost()));
+							} else if (String.valueOf(
+									exceptinalCost.getEffectType()).equals(
+									Constant.ExceptinalBonusCostEffectType)) {
+								result = result.add(exceptinalCost.getEffect()
+										.add(temp.getCost()));
+							}
+						}
+					}
+				} else {
+					if (exceptinalCost.getEffect() != null) {
+						if (String.valueOf(exceptinalCost.getEffectType())
+								.equals(Constant.ExceptinalFixCostEffectType)) {
+
+							result = result.add(exceptinalCost.getEffect());
+						} else if (String.valueOf(
+								exceptinalCost.getEffectType()).equals(
+								Constant.ExceptinalRationCostEffectType)) {
+							result = result.add(exceptinalCost.getEffect()
+									.multiply(temp.getCost()));
+						} else if (String.valueOf(
+								exceptinalCost.getEffectType()).equals(
+								Constant.ExceptinalBonusCostEffectType)) {
+							result = result.add(exceptinalCost.getEffect().add(
+									temp.getCost()));
+						}
 					}
 				}
+
 			}
 		}
 		return result;
