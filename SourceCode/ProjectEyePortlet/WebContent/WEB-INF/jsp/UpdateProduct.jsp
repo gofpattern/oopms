@@ -69,22 +69,22 @@ $(document).ready(function() {
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
 <form:form name="${portletNamespace}UpdateProduct" commandName="UpdateProductForm" method="post" action="${formAction}">
-	<table class="portlet-table">
+	<table class="portlet-table" width="100%">
 	  <tr>      
-   		<th scope="row">Work product*</th>
-    	<td><form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/></td>
+   		<th scope="row" width="210">Work product*</th>
+    	<td width="690"><form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/></td>
   	  </tr>
   	  <tr>
         <th scope="row">Name*</th>
-        <td><textarea rows="10" cols="70" name="name" id="name"></textarea>
+        <td><textarea rows="10" cols="70" name="name" id="name" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_name>&nbsp;</span></td>
       </tr>      
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description" id="description"></textarea>
+        <td><textarea rows="10" cols="70" name="description" id="description" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table><br>
+  </table>
   <input name="projectId" type="hidden" value="${projectId}" />
   <input name="productId" type="hidden" value="${productId}" />                       
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateProduct", "${formAction}")'>Update</button>

@@ -40,6 +40,7 @@ $(document).ready(function() {
 	rules[1] = 'name:Name|maxlength|500';
 	rules[2] = 'description:Description|maxlength|1800';
 	yav.addHelp('name', 'Please input Name for product');
+	yav.addHelp('description', 'Please input Description for product');
 
 </SCRIPT>
 <title>Create Product</title>	
@@ -53,9 +54,9 @@ $(document).ready(function() {
   <!-- begin .navigator -->
 	 
 	<!-- end .navigator -->
-   <div class="fl-widget-titlebar titlebar portlet-titlebar">
+   
     	<br><p class="title" id="headerDuyND">Create Product</p>
-    </div>
+   
 
 
 	<portlet:actionURL var="formAction">
@@ -67,22 +68,22 @@ $(document).ready(function() {
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
 <form:form name="${portletNamespace}CreateProduct" commandName="CreateProductForm" method="post" action="${formAction}">
-	<table class="portlet-table">
+	<table class="portlet-table" width="100%">
 	  <tr>      
-   		<th scope="row">Work product*</th>
-    	<td><form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/></td>
+   		<th scope="row" width="210" >Work product*</th>
+    	<td width="690" ><form:select  class="styled" path="workProduct_SelectedValue" items="${workProduct}"/></td>
   	  </tr>
   	  <tr>
         <th scope="row">Name*</th>
-        <td><textarea rows="10" cols="70" name="name"></textarea>
+        <td><textarea rows="10" cols="70" name="name" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_name>&nbsp;</span></td>
       </tr>      
   	  <tr>
         <th scope="row">Description</th>
-        <td><textarea rows="10" cols="70" name="description"></textarea>
+        <td><textarea rows="10" cols="70" name="description" style='width:675px'></textarea>
 		<br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
-  </table><br>                       
+  </table>               
 	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateProduct", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateProduct", "${renderAction}")'>Cancel</button>
