@@ -28,9 +28,54 @@
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
-<meta name="robots" content="noindex, nofollow"/>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/datatable.js"></script>
 <link type="text/css" href="/<spring:message code="app.context"/>/resource_files/css/datatable.css" rel="Stylesheet" /> 
+<script type="text/javascript">
+
+
+
+
+
+            function fnFeaturesInit ()
+            {
+                /* Not particularly modular this - but does nicely :-) */
+                $('ul.limit_length>li').each( function(i) {
+                    if ( i > 10 ) {
+                        this.style.display = 'none';
+                    }
+                } );
+                
+                $('ul.limit_length').append( '<li class="css_link">Show more<\/li>' );
+                $('ul.limit_length li.css_link').click( function () {
+                    $('ul.limit_length li').each( function(i) {
+                        if ( i > 5 ) {
+                            this.style.display = 'list-item';
+                        }
+                    } );
+                    $('ul.limit_length li.css_link').css( 'display', 'none' );
+                } );
+            }
+
+            $(document).ready( function() {
+        	
+
+                     
+                fnFeaturesInit();
+                $('#mainTable1').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable2').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+
+            } );
+        </script>
 	
 </head>
 
@@ -47,20 +92,62 @@
 	   <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
     	<br><p class="title" id="headerDuyND">Risk, Issue</p>
     </div>
-	
-	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
-		<portlet:renderURL var="renderAction">
+<portlet:renderURL var="renderAction1">
     		<portlet:param name="action" value="GoCreateRisk" />
         	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Add new Risk</a>
-    	
-    	<portlet:renderURL var="renderAction">
+</portlet:renderURL>    	
+<portlet:renderURL var="renderAction2">
     		<portlet:param name="action" value="GoCreateIssue" />
         	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<br/><a href="${renderAction}">Add new Issue</a>
-	</div>
+</portlet:renderURL>
+<form:form name="${portletNamespace}RiskIssue" method="post" action="${formAction}"></form:form>
+<br><p id="header2DuyND">Risk<p>
+<table class="display dataTable" id="mainTable1" cellpadding="0" cellspacing="0" border="0">	
+
+	<c:if test="${not empty riskList}">
+    <thead><tr >
+   		<th width="5%" scope="row">No</th>
+        <th width="10%" scope="row">Risk Source</th>    
+        <th width="5%" scope="row">Probability</th>
+        <th width="5%" scope="row">Risk Priority</th>
+        <th width="10%" scope="row">Estimated Impact</th>
+        <th width="30%" scope="row">Description</th> 
+        <th width="25%" scope="row">Trigger</th>
+        <th width="10%" scope="row">Action</th>   
+    </tr>
+    </thead>
+    <tbody>
+  
+        <c:forEach var="risk" items="${riskList}" varStatus="count">
+            <tr>
+            <portlet:renderURL var="renderAction3">
+            	<portlet:param name="action" value="GoUpdateRisk" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="riskId" value="${risk.riskId}" />
+            </portlet:renderURL>
+            <portlet:actionURL var="renderAction4">
+            	<portlet:param name="action" value="GoUpdateRisk" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="riskId" value="${risk.riskId}" />
+            </portlet:actionURL>
+               <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction3}">${risk.riskSource}</a></td>
+               <td scope="row">${risk.probability}</td>
+               <td scope="row">${risk.priority}</td>
+               <td scope="row">${risk.estimatedImpact}</td>
+               <td scope="row">${risk.description}</td>
+               <td scope="row">${risk.trigger}</td>
+               <td scope="row">
+               <button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}RiskIssue", "${renderAction3}", "Do you sure you want to delete this Risk?");'>Remove</button>
+               </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+    </c:if>
+    </table><br>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}RiskIssue", "${renderAction1}")'>Add new Risk</button>
+<br><p id="header2DuyND">Issue<p>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}RiskIssue", "${renderAction2}")'>Add new Issue</button>
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

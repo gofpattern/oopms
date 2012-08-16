@@ -86,7 +86,7 @@
   <tr>
     <th scope="row">Value*</th>
     <td><form:input path="value" value="" maxlength="22" size="50" type="text" style='width:100px'/>
-    <br/><span id=errorsDiv_value>&nbsp;</span></td>
+    <span id=errorsDiv_value>&nbsp;</span></td>
   </tr>
       <tr>
         <th scope="row">Description</th>

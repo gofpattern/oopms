@@ -308,7 +308,7 @@ public class CostManagementController {
 	public ModelAndView postGoCreateBudgetRecords(RenderRequest request) {
 		log.debug("post GoCreateBudgetRecords.START");
 		CreateBudgetRecordForm form = new CreateBudgetRecordForm();
-		form.setBudgetType("increase");
+		form.setBudgetType(Constant.BudgetIncreaseType);
 		ModelAndView mav = new ModelAndView("CreateBudgetRecord",
 				"CreateBudgetRecordForm", form);
 		String projectId = request.getParameter("projectId");

@@ -21,14 +21,41 @@
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/form-elements.js"></script>
 <script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/ga.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav.js"></script>
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/yav-config.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.cookie.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/default.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/manage.js"></script>
 <script language="javascript" type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/common.js"></script>
 <meta name="robots" content="noindex, nofollow"/>	
-	
+<script type="text/javascript">
+    $(document).ready(function() {
+	        yav.init('${portletNamespace}CreateRisk', rules);
+	});
+    
+    </script>
+<SCRIPT type="text/javascript">
+	var rules = new Array();
+	rules[0] = 'description:Description|required';
+	rules[1] = 'probability:Probability|required';
+	rules[2] = 'estimatedImpact:Estimated Impact|required';
+	rules[3] = 'riskPriority:Risk Priority|required';
+	rules[4] = 'description:Description|maxlength|600';
+	rules[5] = 'trigger:Trigger|maxlength|600';
+	rules[6] = 'probability:Probability|double';
+	rules[7] = 'totalImpact:Total Impact|double';
+	rules[8] = 'estimatedImpact:Estimated Impact|double';
+	rules[9] = 'riskPriority:Risk Priority|integer';
+	rules[10] = 'probability:Probability|numrange|1-10';
+	rules[11] = 'totalImpact:Total Impact|numrange|1-10';
+	rules[12] = 'riskPriority:Risk Priority|numrange|1-10';
+	yav.addHelp('description', 'Provide your Description');
+	yav.addHelp('probability', 'Provide your Probability');
+	yav.addHelp('estimatedImpact', 'Provide your Estimated Impact');
+	yav.addHelp('riskPriority', 'Provide your Risk Priority');
 
+</SCRIPT>
 <title>Create Risk</title>
 </head>
 
@@ -66,36 +93,42 @@
   </tr>
   <tr>
     <th scope="row">Description*</th>
-    <td><textarea rows="10" cols="70" name="description"></textarea></td>
+    <td><textarea rows="10" cols="70" name="description" style='width:635px'></textarea>
+    <br/><span id=errorsDiv_description></span>&nbsp;</td>
   </tr>
   <tr>
     <th scope="row">Probability*</th>
-    <td><form:input path="probability" value="" maxlength="50" size="50" type="text" /></td>
+    <td><form:input path="probability" value="" maxlength="50" size="50" type="text" style='width:80px'/>
+    <span id=errorsDiv_probability></span>&nbsp;</td>
   </tr>
   <tr>
     <th scope="row" rowspan="3">Estimated Impact*</th>
-    <td><form:select  class="styled" path="estimatedImpactTo_SelectedValue" items="${estimatedImpactTo}"/></td>
+    <td>Impact To<form:select  class="styled" path="estimatedImpactTo_SelectedValue" items="${estimatedImpactTo}"/></td>
   </tr>
   <tr>
-    <td><form:select  class="styled" path="estimatedImpactUnit_SelectedValue" items="${estimatedImpactUnit}"/></td>
+    <td>Impact<form:input path="estimatedImpact" value="" maxlength="50" size="50" type="text" style='width:80px'/>
+    <span id=errorsDiv_estimatedImpact></span>&nbsp;</td>
   </tr>
   <tr>
-    <td><form:input path="estimatedImpact" value="" maxlength="50" size="50" type="text" /></td>
-  </tr>
+    <td>Impact Unit<form:select  class="styled" path="estimatedImpactUnit_SelectedValue" items="${estimatedImpactUnit}"/></td>
+  </tr> 
   <tr>
     <th scope="row">Total Impact</th>
-    <td><form:input path="totalImpact" value="" maxlength="50" size="50" type="text" /></td>
+    <td><form:input path="totalImpact" value="" maxlength="50" size="50" type="text" style='width:80px'/>
+    <span id=errorsDiv_totalImpact></span>&nbsp;</td>
   </tr>
   <tr>
    <th scope="row">Risk Priority*</th>
-        <td><form:input path="riskPriority" value="" maxlength="50" size="50" type="text" /></td>
+        <td><form:input path="riskPriority" value="" maxlength="50" size="50" type="text" style='width:80px'/>
+        <span id=errorsDiv_riskPriority></span>&nbsp;</td>
       </tr>
   <tr>
    <th scope="row">Trigger</th>
-    <td><textarea rows="10" cols="70" name="trigger"></textarea></td>
+    <td><textarea rows="10" cols="70" name="trigger" style='width:635px'></textarea>
+    <br/><span id=errorsDiv_trigger></span>&nbsp;</td>
    </tr>
 </table><br>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateRisk", "${formAction}")'>Create</button>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateRisk", "${formAction}")'>Create</button>
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateRisk", "${renderAction}")'>Cancel</button>		
 </form:form>

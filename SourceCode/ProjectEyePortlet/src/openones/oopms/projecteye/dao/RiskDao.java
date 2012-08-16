@@ -1,5 +1,6 @@
 package openones.oopms.projecteye.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +39,25 @@ public class RiskDao {
            for (int i = 0; i < list.size(); ++i) {
         	   rList.add((RiskSource) list.get(i));
            }
-           log.error("dang lay");
            return rList;
        } catch (Exception e) {
-    	   log.error("lay deo duoc");
+    	   log.error(e.getMessage());
+       }
+       return null;
+   }
+   
+   public RiskSource getRiskSource(BigDecimal sourceId) {
+       try {
+    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+    	   session = sessionfactory.openSession();
+    	   session.beginTransaction();
+
+           String hql = "From RiskSource where sourceId = :sourceId";
+           Query query = session.createQuery(hql);
+           query.setParameter("sourceId", sourceId);
+           RiskSource riskSource = (RiskSource) query.uniqueResult();
+           return riskSource;
+       } catch (Exception e) {
     	   log.error(e.getMessage());
        }
        return null;
@@ -61,11 +77,11 @@ public class RiskDao {
        tx.commit();
        sessfac.close();       
 	   } catch (Exception e) {
-		   log.error("Insert deo duoc");
+		   log.error("Insert fail");
 		   log.error(e.getMessage());
 	       return false;             
        }
-	   log.error("Insert ngon");
+	   log.error("Insert sucess");
        return true;
    }
    

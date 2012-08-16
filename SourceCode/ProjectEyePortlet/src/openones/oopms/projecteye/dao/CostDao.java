@@ -574,7 +574,7 @@ public class CostDao {
 			session.beginTransaction();
 			String hql = "From OopmsBudget where oopmsBudgetId = :oopmsBudgetId";
 			Query query = session.createQuery(hql);
-			query.setParameter("oopmsBudgetId", new BigDecimal("oopmsBudgetId"));
+			query.setParameter("oopmsBudgetId", new BigDecimal(oopmsBudgetId));
 			OopmsBudget budgetRecord = (OopmsBudget) query.uniqueResult();
 			session.getTransaction().commit();
 			return budgetRecord;

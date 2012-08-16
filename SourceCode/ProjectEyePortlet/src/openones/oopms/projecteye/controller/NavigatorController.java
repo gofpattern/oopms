@@ -34,11 +34,13 @@ import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.dao.MilestoneDao;
 import openones.oopms.projecteye.dao.ProductDao;
+import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CostManagementForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.ExceptionalCost;
 import openones.oopms.projecteye.form.ProductForm;
+import openones.oopms.projecteye.form.RiskView;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Language;
@@ -52,6 +54,8 @@ import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsExceptionalCost;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.model.Project;
+import openones.oopms.projecteye.model.Risk;
+import openones.oopms.projecteye.model.RiskSource;
 import openones.oopms.projecteye.model.Workproduct;
 import openones.oopms.projecteye.utils.CostUtil;
 
@@ -77,8 +81,71 @@ public class NavigatorController {
 		log.debug("post GoRiskIssue.START");
 		ModelAndView mav = new ModelAndView("RiskIssue");
 		String projectId = request.getParameter("projectId");
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		RiskDao rDao = new RiskDao();
+		List<Risk> riskList = rDao.getProjectRiskList(project);
+		List<RiskView> riskListView = new ArrayList<RiskView>();
+		if(riskList!=null) {
+			for(int i=0; i<riskList.size(); i++) {
+				RiskView temp = new RiskView();
+				temp.setDescription(riskList.get(i).getCondition());
+				temp.setPriority(String.valueOf(riskList.get(i).getRiskPriority()));
+				temp.setProbability(String.valueOf(riskList.get(i).getProb()));
+				temp.setRiskId(String.valueOf(riskList.get(i).getRiskId()));
+				temp.setTrigger(riskList.get(i).getTriggerName());
+				RiskSource riskSource = rDao.getRiskSource(riskList.get(i).getSourceId());
+				temp.setRiskSource(riskSource.getSourceName());		
+				String EstimatedImpact = "";
+				int impactTo = riskList.get(i).getImpactTo().intValue();
+				if(impactTo == 1) {
+					EstimatedImpact = EstimatedImpact + "Schedule";
+				} else if (impactTo == 2) {
+					EstimatedImpact = EstimatedImpact + "Effort";
+				}else if (impactTo == 3) {
+					EstimatedImpact = EstimatedImpact + "Finance";
+				}else if (impactTo == 4) {
+					EstimatedImpact = EstimatedImpact + "Team";
+				}else if (impactTo == 5) {
+					EstimatedImpact = EstimatedImpact + "Timeliness";
+				}else if (impactTo == 6) {
+					EstimatedImpact = EstimatedImpact + "Requirement";
+				}else if (impactTo == 7) {
+					EstimatedImpact = EstimatedImpact + "Leakage";
+				}else if (impactTo == 8) {
+					EstimatedImpact = EstimatedImpact + "Customer";
+				}else if (impactTo == 9) {
+					EstimatedImpact = EstimatedImpact + "Correction";
+				}else if (impactTo == 10) {
+					EstimatedImpact = EstimatedImpact + "Other";
+				}
+				
+				EstimatedImpact = EstimatedImpact + " " + String.valueOf(riskList.get(i).getEstimatedImpact()) +" ";
+				
+				int impactUnit = riskList.get(i).getUnit().intValue();
+				if(impactUnit == 1) {
+					EstimatedImpact = EstimatedImpact + "%";
+				} else if (impactUnit == 2) {
+					EstimatedImpact = EstimatedImpact + "day";
+				}else if (impactUnit == 3) {
+					EstimatedImpact = EstimatedImpact + "month";
+				}else if (impactUnit == 4) {
+					EstimatedImpact = EstimatedImpact + "person.day";
+				}else if (impactUnit == 5) {
+					EstimatedImpact = EstimatedImpact + "person.month";
+				}else if (impactUnit == 6) {
+					EstimatedImpact = EstimatedImpact + "$";
+				}else if (impactUnit == 7) {
+					EstimatedImpact = EstimatedImpact + "#";
+				}
+
+				temp.setEstimatedImpact(EstimatedImpact);
+				riskListView.add(temp);
+			}
+		}
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		mav.addObject("riskList", riskListView);
 		return mav;
 	}
 
@@ -133,7 +200,8 @@ public class NavigatorController {
 		if (productList.size() > 0) {
 			for (int i = 0; i < productList.size(); i++) {
 				ProductForm temp = new ProductForm();
-				temp.setProductId(String.valueOf(productList.get(i).getModuleId()));
+				temp.setProductId(String.valueOf(productList.get(i)
+						.getModuleId()));
 				temp.setName(productList.get(i).getName());
 				// Workproduct temp2 =
 				// pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
@@ -141,7 +209,7 @@ public class NavigatorController {
 						.getPlannedSizeUnitId());
 				temp.setWorkProduct(productList.get(i).getWorkproduct()
 						.getName());
-				if (productList.get(i).getPlannedSizeUnitId() != null) {					
+				if (productList.get(i).getPlannedSizeUnitId() != null) {
 					temp.setPlannedSize(productList.get(i).getPlannedSize()
 							.toString()
 							+ " "
@@ -593,12 +661,13 @@ public class NavigatorController {
 		DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
 		String viewDate = request.getParameter("viewDate");
 		String projectId = request.getParameter("projectId");
-		String formattedDate ="";
+		String formattedDate = "";
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		BigDecimal expense = new BigDecimal("0");
-		if(viewDate!=null) {
+		if (viewDate != null) {
 			try {
-				expense = CostUtil.getExpense(projectId, (Date) formatter.parse(viewDate));
+				expense = CostUtil.getExpense(projectId,
+						(Date) formatter.parse(viewDate));
 			} catch (ParseException e) {
 				log.error(e.getMessage());
 			}
@@ -607,36 +676,48 @@ public class NavigatorController {
 			formattedDate = df.format(new Date());
 			expense = CostUtil.getExpense(projectId, new Date());
 		}
-   		CostManagementForm form = new CostManagementForm();
-   		form.setViewDate(formattedDate);
-		ModelAndView mav = new ModelAndView("CostManagement","CostManagementForm", form);
-		
+		CostManagementForm form = new CostManagementForm();
+		form.setViewDate(formattedDate);
+		ModelAndView mav = new ModelAndView("CostManagement",
+				"CostManagementForm", form);
+
 		CostDao cDao = new CostDao();
-		List<OopmsCostOneTimeExpense> oneTimeExpenseList = cDao.getOneTimeExpenseList(projectId);
+		List<OopmsCostOneTimeExpense> oneTimeExpenseList = cDao
+				.getOneTimeExpenseList(projectId);
 		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
-		List<OopmsCostDailyExpense> dailyExpenseList = cDao.getDailyExpenseList(projectId);
-		List<DailyExpense> dailyExpenseListView = CostUtil.getDailyExpenseListView(dailyExpenseList);
-		List<OopmsExceptionalCost>  exceptionalExpenseList = cDao.getExceptionalExpenseList(projectId);
-		List<ExceptionalCost> exceptionalExpenseListView = CostUtil.getExceptionalListView(exceptionalExpenseList);
-		List<OopmsExceptionalCost>  exceptionalDeductList = cDao.getExceptionalDeductList(projectId);
-		List<ExceptionalCost> exceptionalDeductListView = CostUtil.getExceptionalListView(exceptionalDeductList);
-		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(projectId));
+		List<OopmsCostDailyExpense> dailyExpenseList = cDao
+				.getDailyExpenseList(projectId);
+		List<DailyExpense> dailyExpenseListView = CostUtil
+				.getDailyExpenseListView(dailyExpenseList);
+		List<OopmsExceptionalCost> exceptionalExpenseList = cDao
+				.getExceptionalExpenseList(projectId);
+		List<ExceptionalCost> exceptionalExpenseListView = CostUtil
+				.getExceptionalListView(exceptionalExpenseList);
+		List<OopmsExceptionalCost> exceptionalDeductList = cDao
+				.getExceptionalDeductList(projectId);
+		List<ExceptionalCost> exceptionalDeductListView = CostUtil
+				.getExceptionalListView(exceptionalDeductList);
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				projectId));
 		log.debug("project ID is " + projectId);
 		String deleteCostTypeFlag = request.getParameter("deleteCostTypeFlag");
-		if(deleteCostTypeFlag!=null) {
+		if (deleteCostTypeFlag != null) {
 			mav.addObject("deleteCostTypeFlag", deleteCostTypeFlag);
-			String deletingOopmsCostTypeId = request.getParameter("deletingOopmsCostTypeId");
+			String deletingOopmsCostTypeId = request
+					.getParameter("deletingOopmsCostTypeId");
 			mav.addObject("deletingOopmsCostTypeId", deletingOopmsCostTypeId);
 		}
-		if(request.getParameter("ViewBudgetRecord")!=null) {
+		if (request.getParameter("ViewBudgetRecord") != null) {
 			List<OopmsBudget> budgetList = cDao.getProjectBudgetList(projectId);
 			mav.addObject("BudgetRecords", budgetList);
 		}
-		if(request.getParameter("ViewInvoiceRecords")!=null) {
-			
+		if (request.getParameter("ViewInvoiceRecords") != null) {
+
 		}
-		mav.addObject("currentBudget", projectCost.getCurrentBudget());
-		mav.addObject("currentExpense", projectCost.getCurrentExpense());
+		if (projectCost != null) {
+			mav.addObject("currentBudget", projectCost.getCurrentBudget());
+			mav.addObject("currentExpense", projectCost.getCurrentExpense());
+		}
 		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
 		mav.addObject("DailyExpenseList", dailyExpenseListView);
