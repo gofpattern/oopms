@@ -49,6 +49,7 @@ import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsExceptionalCost;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Workproduct;
 import openones.oopms.projecteye.utils.CostUtil;
@@ -618,7 +619,7 @@ public class NavigatorController {
 		List<ExceptionalCost> exceptionalExpenseListView = CostUtil.getExceptionalListView(exceptionalExpenseList);
 		List<OopmsExceptionalCost>  exceptionalDeductList = cDao.getExceptionalDeductList(projectId);
 		List<ExceptionalCost> exceptionalDeductListView = CostUtil.getExceptionalListView(exceptionalDeductList);
-		
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(projectId));
 		log.debug("project ID is " + projectId);
 		String deleteCostTypeFlag = request.getParameter("deleteCostTypeFlag");
 		if(deleteCostTypeFlag!=null) {
@@ -626,6 +627,8 @@ public class NavigatorController {
 			String deletingOopmsCostTypeId = request.getParameter("deletingOopmsCostTypeId");
 			mav.addObject("deletingOopmsCostTypeId", deletingOopmsCostTypeId);
 		}
+		mav.addObject("currentBudget", projectCost.getCurrentBudget());
+		mav.addObject("currentExpense", projectCost.getCurrentExpense());
 		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
 		mav.addObject("DailyExpenseList", dailyExpenseListView);

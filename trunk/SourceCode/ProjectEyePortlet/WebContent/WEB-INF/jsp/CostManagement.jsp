@@ -173,6 +173,26 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
   	<portlet:param name="action" value="ViewExpense" />
   	<portlet:param name="projectId" value="${projectId}" />
 </portlet:actionURL>
+<portlet:renderURL var="formAction7">
+  	<portlet:param name="action" value="GoCreateBudgetRecords" />
+  	<portlet:param name="projectId" value="${projectId}" />
+</portlet:renderURL>
+<portlet:renderURL var="formAction8">
+  	<portlet:param name="action" value="ViewBudgetRecords" />
+  	<portlet:param name="projectId" value="${projectId}" />
+</portlet:renderURL>
+<portlet:renderURL var="formAction9">
+  	<portlet:param name="action" value="ViewInvoiceRecords" />
+  	<portlet:param name="projectId" value="${projectId}" />
+</portlet:renderURL>
+<h2>Budget</h2>
+Current Budget is : ${currentBudget}
+<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction7}")'>Add new Budget Record</button>
+<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction8}")'>View Budget Records</button>
+<br>
+Current Invoice is : ${currentExpense}
+<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button>
+<br>
     <form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
     	By Date<form:input maxlength="10" path="viewDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>(mm/dd/yyyy)
     	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CostManagement", "${formAction6}")'>Check</button>
