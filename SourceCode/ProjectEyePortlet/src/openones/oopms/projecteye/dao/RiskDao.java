@@ -85,6 +85,42 @@ public class RiskDao {
        return true;
    }
    
+   public boolean updateRisk(Risk risk) {
+	   try {
+       SessionFactory sessfac = HibernateUtil.getSessionFactory();
+       session = sessfac.openSession();
+       tx = session.beginTransaction();
+       session.merge(risk);
+       tx.commit();
+       sessfac.close();       
+	   } catch (Exception e) {
+		   log.error("update fail");
+		   log.error(e.getMessage());
+	       return false;             
+       }
+	   log.error("Update sucess");
+       return true;
+   }
+   
+   public boolean deleteRisk(String riskId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From Risk where riskId = :riskId";
+			Query query = session.createQuery(hql);
+			query.setParameter("riskId", new BigDecimal(
+					riskId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+   
    public List<Risk> getProjectRiskList(Project project) {
 	   try {
     	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -96,6 +132,24 @@ public class RiskDao {
            List<Risk> riskList = query.list();               
            session.getTransaction().commit();
            return riskList;
+           
+       } catch (Exception e) {
+           log.error(e.getMessage());
+       }
+       return null;
+   }
+   
+   public Risk getProjectRisk(String riskId) {
+	   try {
+    	   SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+    	   session = sessionfactory.openSession();
+    	   session.beginTransaction();
+    	   String hql = "From Risk where riskId = :riskId";
+           Query query = session.createQuery(hql);
+           query.setParameter("riskId", new BigDecimal(riskId));
+           Risk risk = (Risk)query.uniqueResult();               
+           session.getTransaction().commit();
+           return risk;
            
        } catch (Exception e) {
            log.error(e.getMessage());

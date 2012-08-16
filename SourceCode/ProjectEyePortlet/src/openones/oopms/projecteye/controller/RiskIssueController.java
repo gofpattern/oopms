@@ -30,12 +30,15 @@ import openones.oopms.projecteye.dao.IssueDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.form.CreateIssueForm;
 import openones.oopms.projecteye.form.CreateRiskForm;
+import openones.oopms.projecteye.form.UpdateRiskForm;
 import openones.oopms.projecteye.model.DefectPriority;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Process;
+import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.model.RiskCategory;
 import openones.oopms.projecteye.model.RiskSource;
+import openones.oopms.projecteye.utils.HTMLTag;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -75,7 +78,7 @@ public class RiskIssueController {
 			riskSourcetMap.put(riskSource.get(i).getSourceId().toString(),
 					riskSource.get(i).getSourceName());
 		}
-		
+
 		Map<String, String> EstimatedImpactToMap = new LinkedHashMap<String, String>();
 		EstimatedImpactToMap.put("1", "Schedule");
 		EstimatedImpactToMap.put("2", "Effort");
@@ -87,7 +90,7 @@ public class RiskIssueController {
 		EstimatedImpactToMap.put("8", "Customer");
 		EstimatedImpactToMap.put("9", "Correction");
 		EstimatedImpactToMap.put("10", "Other");
-		
+
 		Map<String, String> EstimatedImpactUnitMap = new LinkedHashMap<String, String>();
 		EstimatedImpactUnitMap.put("1", "%");
 		EstimatedImpactUnitMap.put("2", "day");
@@ -96,7 +99,7 @@ public class RiskIssueController {
 		EstimatedImpactUnitMap.put("5", "person.month");
 		EstimatedImpactUnitMap.put("6", "$");
 		EstimatedImpactUnitMap.put("7", "#");
-		
+
 		ModelAndView mav = new ModelAndView("CreateRisk");
 		request.setAttribute("CreateRiskForm", riskFormBean);
 		// Set default value for risk source
@@ -147,8 +150,8 @@ public class RiskIssueController {
 		List<RiskCategory> typeList = iDao.getTypeList();
 		Map<String, String> typeMap = new LinkedHashMap<String, String>();
 		for (int i = 0; i < typeList.size(); i++) {
-			typeMap.put(typeList.get(i).getCategoryId().toString(),
-					typeList.get(i).getCategoryName());
+			typeMap.put(typeList.get(i).getCategoryId().toString(), typeList
+					.get(i).getCategoryName());
 		}
 		CreateIssueForm projectFormBean = new CreateIssueForm();
 		request.setAttribute("CreateIssueForm", projectFormBean);
@@ -160,8 +163,75 @@ public class RiskIssueController {
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
-		mav.addObject("username",ProjectEyeHomeController.username);
+		mav.addObject("username", ProjectEyeHomeController.username);
 		return mav;
+	}
+
+	@RenderMapping(params = "action=GoUpdateRisk")
+	public ModelAndView postGoUpdateRisk(RenderRequest request) {
+		log.debug("post GoUpdateRisk.START");
+		RiskDao rDao = new RiskDao();
+		ArrayList<RiskSource> riskSource = rDao.getRiskSourceList();
+		Map<String, String> riskSourcetMap = new LinkedHashMap<String, String>();
+		for (int i = 0; i < riskSource.size(); i++) {
+			riskSourcetMap.put(riskSource.get(i).getSourceId().toString(),
+					riskSource.get(i).getSourceName());
+		}
+
+		Map<String, String> EstimatedImpactToMap = new LinkedHashMap<String, String>();
+		EstimatedImpactToMap.put("1", "Schedule");
+		EstimatedImpactToMap.put("2", "Effort");
+		EstimatedImpactToMap.put("3", "Finance");
+		EstimatedImpactToMap.put("4", "Team");
+		EstimatedImpactToMap.put("5", "Timeliness");
+		EstimatedImpactToMap.put("6", "Requirement");
+		EstimatedImpactToMap.put("7", "Leakage");
+		EstimatedImpactToMap.put("8", "Customer");
+		EstimatedImpactToMap.put("9", "Correction");
+		EstimatedImpactToMap.put("10", "Other");
+
+		Map<String, String> EstimatedImpactUnitMap = new LinkedHashMap<String, String>();
+		EstimatedImpactUnitMap.put("1", "%");
+		EstimatedImpactUnitMap.put("2", "day");
+		EstimatedImpactUnitMap.put("3", "month");
+		EstimatedImpactUnitMap.put("4", "person.day");
+		EstimatedImpactUnitMap.put("5", "person.month");
+		EstimatedImpactUnitMap.put("6", "$");
+		EstimatedImpactUnitMap.put("7", "#");
+		UpdateRiskForm form = new UpdateRiskForm();
+		String riskId = request.getParameter("riskId");
+		Risk risk = rDao.getProjectRisk(riskId);
+		form.setRiskSource_SelectedValue(String.valueOf(risk.getSourceId()));
+		form.setDescription(HTMLTag.replaceHTMLTag(risk.getCondition()));
+		form.setProbability(risk.getProb());
+		form.setEstimatedImpactTo_SelectedValue(String.valueOf(risk
+				.getImpactTo()));
+		form.setEstimatedImpactUnit_SelectedValue(String.valueOf(risk.getUnit()));
+		form.setEstimatedImpact(risk.getEstimatedImpact());
+		form.setTotalImpact(risk.getImpact());
+		form.setRiskPriority(risk.getRiskPriority());
+		form.setTrigger(HTMLTag.replaceHTMLTag(risk.getTriggerName()));
+		ModelAndView mav = new ModelAndView("UpdateRisk", "UpdateRiskForm",
+				form);
+		// Set default value for risk source
+		mav.addObject("riskSource", riskSourcetMap);
+		mav.addObject("estimatedImpactTo", EstimatedImpactToMap);
+		mav.addObject("estimatedImpactUnit", EstimatedImpactUnitMap);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		mav.addObject("riskId", riskId);
+		return mav;
+	}
+	
+	@ActionMapping(params = "action=DeleteRisk")
+	public void processDeleteRisk(UpdateRiskForm formBean, BindingResult result,
+			SessionStatus status, ActionResponse response) {
+		log.debug("process DeleteRisk.START");
+		RiskDao rDao = new RiskDao();
+		rDao.deleteRisk(formBean.getRiskId());
+		response.setRenderParameter("action", "GoRiskIssue");
+		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
 
 }

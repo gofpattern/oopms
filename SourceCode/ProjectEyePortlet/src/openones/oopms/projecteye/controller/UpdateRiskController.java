@@ -24,7 +24,7 @@ import javax.portlet.ActionResponse;
 
 import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.RiskDao;
-import openones.oopms.projecteye.form.CreateRiskForm;
+import openones.oopms.projecteye.form.UpdateRiskForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
@@ -41,11 +41,11 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateRiskController {
+public class UpdateRiskController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger.getLogger(CreateRiskController.class);
+	private static Logger log = Logger.getLogger(UpdateRiskController.class);
 	String projectId;
 
 	/**
@@ -60,20 +60,15 @@ public class CreateRiskController {
 	 * @param response
 	 *            response of action
 	 */
-	@ActionMapping(params = "action=createRisk")
-	public void processCreateRisk(CreateRiskForm formBean,
+	@ActionMapping(params = "action=UpdateRisk")
+	public void processUpdateRisk(UpdateRiskForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("processCreateRisk.START");
-		DeveloperDao dDao = new DeveloperDao();
-		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
+		String riskId = formBean.getRiskId();
 		RiskDao rDao = new RiskDao();
-		Risk risk = new Risk();
+		Risk risk = rDao.getProjectRisk(riskId);
 		projectId = formBean.getProjectId();
 		// set value for risk
-		Project project = new Project();
-		project.setProjectId(new BigDecimal(projectId));
-		risk.setProject(project);
-		risk.setDeveloper(dev);
 
 		risk.setSourceId(new BigDecimal(formBean.getRiskSource_SelectedValue()));
 		risk.setCondition(formBean.getDescription());
@@ -87,12 +82,12 @@ public class CreateRiskController {
 		risk.setRiskPriority(formBean.getRiskPriority());
 		risk.setTriggerName(formBean.getTrigger());
 		// Call dao to insert risk to database
-		if (rDao.insertRisk(risk)) {
+		if (rDao.updateRisk(risk)) {
 			response.setRenderParameter("action", "GoRiskIssue");
 			response.setRenderParameter("projectId", projectId);
-			log.error("Insert success");
+			log.error("Update success");
 		} else {
-			log.error("Cannot Insert");
+			log.error("Cannot Update");
 		}
 
 	}
