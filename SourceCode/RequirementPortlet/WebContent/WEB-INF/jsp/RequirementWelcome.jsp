@@ -103,23 +103,18 @@
 <body>
   <div class="container">
     <div class="content">
-      <c:set var="UserInfor" value='<%=portletSession.getAttribute("UserInfo")%>' />
+      <c:set var="UserInfor" value='<%=portletSession.getAttribute("UserInfo")%>' />      
       <table border="0">
         <!-- User infor -->        
         <tr>
           <th><strong>User: </strong></th>
-          <td><strong><font color="#1490E3">${UserInfor.username}</font></strong></td>
-        </tr>
+          <td><strong><font color="#1490E3">${UserInfor.username}</font></strong></td>          
+        </tr>        
         <tr>
           <th><strong>Joined Projects: </strong></th>
           <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
         </tr>
-        <c:if test="${not empty projectList}">
-        <tr>
-          <th><strong>Requirements: </strong></th>
-          <td><strong><font color="#1490E3"><a
-                href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
-        </tr>        
+        <c:if test="${not empty projectList}">              
         <tr>
           <th><strong>Projects: </strong></th>
           <td><strong><font color="#1490E3"><a
@@ -134,9 +129,9 @@
         <table id="mainTable2" class="display dataTable" ellpadding="0" cellspacing="0" border="0" align="center">
           <thead>
             <tr>
-              <th width="5%">No.</th>
-              <th width="20%">Project Code</th>
+              <th width="5%">No.</th>              
               <th width="75%">Project Name</th>
+              <th width="20%">Project Code</th>
             </tr>
           </thead>
           <tbody>
@@ -147,9 +142,9 @@
                   <portlet:param name="action" value="requirementmanager1project" />
                   <portlet:param name="projectId" value="${project.projectId}" />
                 </portlet:renderURL>
-                <td scope="row">${count.count}</td>
+                <td scope="row">${count.count}</td>                
+                <td align="left" scope="row"><a href="${renderAction}">${project.name}</a></td>
                 <td align="center" scope="row"><a href="${renderAction}">${project.code}</a></td>
-                <td align="center" scope="row"><a href="${renderAction}">${project.name}</a></td>
               </tr>
             </c:forEach>
 

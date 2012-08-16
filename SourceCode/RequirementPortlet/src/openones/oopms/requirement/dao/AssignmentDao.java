@@ -65,7 +65,10 @@ public class AssignmentDao {
                 session.getTransaction().rollback();
             }
             log.error("getProject.Exception", e);
-        }
+        } 
+//        finally{
+//            session.close();
+//        }
         return null;
     }
     
@@ -97,6 +100,9 @@ public class AssignmentDao {
             }
             log.error("getRole.Exception", e);
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }
 }

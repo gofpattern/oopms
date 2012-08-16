@@ -68,12 +68,13 @@ public class EntryController extends BaseController {
         // call super initScreen to get information of user, create user in OOPMS if it has not existed.               
 
         log.debug("logonUser=" + logonUser);
+        logonUser = logonUser.toUpperCase();
 
         if (logonUser != null) {
             userInfo = null;
             DeveloperDao devDao = new DeveloperDao();
             Developer dev = devDao.getDeveloperByAccount(logonUser);
-            if(logonUser.equals("sysadmin") || logonUser.equals("SYSADMIN"))
+            if(logonUser.equals("SYSADMIN"))
             {
                 userInfo = new UserInfo(logonUser);                
                 prepareCommonInfo(userInfo, mav, session);
@@ -119,7 +120,7 @@ public class EntryController extends BaseController {
         
         // Set information of user to session           
         // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
-        session.setAttribute("USER", developer.getName(), PortletSession.APPLICATION_SCOPE);
+        //session.setAttribute("USERNAME", developer.getName(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp
         //request.setAttribute("projectList", projectList);
@@ -158,6 +159,7 @@ public class EntryController extends BaseController {
         DeveloperDao developerDAO = new DeveloperDao();
         //RequirementDao requirementDao = new RequirementDao();
         AssignmentDao assignmentDAO = new AssignmentDao();
+        logonUser = logonUser.toUpperCase();
         developer = developerDAO.getDeveloperByAccount(logonUser);
         //List<Project> projectList = requirementDao.getAllProject();
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
@@ -165,7 +167,7 @@ public class EntryController extends BaseController {
         
         // Set information of user to session           
         // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
-        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        //session.setAttribute("USERNAME", developer.getName(), PortletSession.APPLICATION_SCOPE);
         
         // sent projectList to jsp
         //request.setAttribute("projectList", projectList);

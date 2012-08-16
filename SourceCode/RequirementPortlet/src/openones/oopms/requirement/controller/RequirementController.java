@@ -13,6 +13,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.requirement.dao.AssignmentDao;
 import openones.oopms.requirement.dao.DeveloperDao;
 import openones.oopms.requirement.dao.RequirementDao;
 import openones.oopms.requirement.form.RequirementForm;
@@ -142,14 +143,22 @@ public class RequirementController {
         log.debug("postRequirement1Project");
 
         // for getting from PlannerHome
-
+        PortletSupport portletSupport = new PortletSupport(request);
+        DeveloperDao developerDAO = new DeveloperDao();
         projectId = request.getParameter("projectId");
         log.debug("postRequirement1Project+projectId: " + projectId);
+        
+        username = portletSupport.getLogonUser();
+        username = username.toUpperCase();
+        developer = developerDAO.getDeveloperByAccount(username);
+        String tempDevId = developer.getDeveloperId().toString() ;
 
         ModelAndView mav = new ModelAndView("RequirementHome");
         RequirementDao requirementDAO = new RequirementDao();
+        AssignmentDao assignmentDAO = new AssignmentDao();
         requirementList = requirementDAO.getRequirementsByProjectId(projectId);
-        projectList = requirementDAO.getAllProject();
+        //projectList = requirementDAO.g  getAllProject();
+        projectList = assignmentDAO.getProject(new BigDecimal(tempDevId));
 
         // get projectName
         log.debug("projectNameSTART");
@@ -183,20 +192,19 @@ public class RequirementController {
         log.debug("projectmap after:" + projectMap.size());
 
         formBean.setProjectMap(projectMap);
-        formBean.setProjectDefault("");
+        formBean.setProjectDefault(projectId);
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
 
         // sent projectList to jsp
-        request.setAttribute("projectList", projectList);
-
-        PortletSupport portletSupport = new PortletSupport(request);
-        DeveloperDao developerDAO = new DeveloperDao();
-        username = portletSupport.getLogonUser();
-        developer = developerDAO.getDeveloperByAccount(username);
+        //request.setAttribute("projectList", projectList);
+        mav.addObject("projectList", projectList);
+        
+        
+        
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
 
-        String tempDevId = developer.getDeveloperId().toString() ;
+        
         log.debug("postRequirementSTARTROLEBParam : " + tempDevId +", "+ projectId);
         log.debug("postRequirementSTARTROLEBEFORE : " + role);  
         
@@ -218,7 +226,13 @@ public class RequirementController {
     public ModelAndView postDeleteRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("deleteRequirementHere");
         ModelAndView mav = new ModelAndView("RequirementHome");
-
+        PortletSupport portletSupport = new PortletSupport(request);
+        DeveloperDao developerDAO = new DeveloperDao();
+        username = portletSupport.getLogonUser();
+        username = username.toUpperCase();
+        developer = developerDAO.getDeveloperByAccount(username);
+        String tempDevId = developer.getDeveloperId().toString() ;        
+        AssignmentDao assignmentDAO = new AssignmentDao();
         RequirementDao reqDao = new RequirementDao();
         List<Requirements> tempList;
         tempList = formBean.getRequirementList();
@@ -256,10 +270,18 @@ public class RequirementController {
             }
         }
 
+//-------render back to list of requirement of that project
+        
+        projectId = formBean.getProjectDefault();
+        log.debug("afterDeleteRequirement: " + projectId);
+        mav = new ModelAndView("RequirementHome");
+                       
         requirementList = reqDao.getAllRequirement();
-        projectList = reqDao.getAllProject();
-
-        // get projectName
+        //requirementList = reqDao.getRequirementsByProjectId(projectId);
+        //projectList = reqDao.getAllProject();
+        projectList = assignmentDAO.getProject(new BigDecimal(tempDevId));
+        
+        //get projectName
         log.debug("projectNameSTART");
         try {
             for (int i = 0; i < requirementList.size(); i++) {
@@ -276,35 +298,30 @@ public class RequirementController {
             log.debug(projectList.get(0).getName());
             log.debug(requirementList.get(0).getProjectName());
             log.error("Convert ProcessID to string", ex);
-        }
-
-        formBean.setRequirementList(requirementList);
+        }               
+        
+        formBean.setRequirementList(requirementList);                
         mav.addObject("requirementList", formBean.getRequirementList());
-
-        // set projectMap
-        Map<String, String> projectMap = new LinkedHashMap<String, String>();
-        log.debug("projectmap before:" + projectMap.size());
-        // projectMap.put("All", "All");
-        for (int i = 0; i < projectList.size(); i++) {
+        
+      //set projectMap        
+        Map<String,String> projectMap = new LinkedHashMap<String,String>();
+        log.debug("projectmap before:" +projectMap.size());
+        //projectMap.put("All", "All");
+        for (int i=0; i<projectList.size();i++) {
             projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
         }
-        log.debug("projectmap after:" + projectMap.size());
-
+        log.debug("projectmap after:" +projectMap.size());
+        
         formBean.setProjectMap(projectMap);
-        formBean.setProjectDefault("");
+        formBean.setProjectDefault(""); 
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
-
-        // sent projectList to jsp
-        request.setAttribute("projectList", projectList);
-
-        PortletSupport portletSupport = new PortletSupport(request);
-        DeveloperDao developerDAO = new DeveloperDao();
-        username = portletSupport.getLogonUser();
-        developer = developerDAO.getDeveloperByAccount(username);
-        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-        mav.addObject("ERRORMESSAGE", requirementError);
         
+     // sent projectList to jsp
+        request.setAttribute("projectList", projectList);                
+        session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
+        
+        mav.addObject("ROLE","Project Manager");
         return mav;
 
     }

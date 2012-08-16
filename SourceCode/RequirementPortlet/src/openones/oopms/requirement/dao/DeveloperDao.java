@@ -74,6 +74,9 @@ public class DeveloperDao {
             log.error("Saving Developer...", rEx);
             return false;
         }
+//        finally{
+//            session.close();
+//        }
     }
 
     public BigDecimal getDeveloperId(String account) {
@@ -93,6 +96,9 @@ public class DeveloperDao {
             }
             log.error("getDeveloperId.Exception", e);
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }
     
@@ -113,6 +119,9 @@ public class DeveloperDao {
             }
             log.error("getDeveloperByAccount.Exception", e);
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }
 }

@@ -297,16 +297,7 @@ textarea {
       <tr>
         <th><strong>User: </strong></th>
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
-      </tr>
-      <tr>
-        <th><strong>Projects: </strong></th>
-        <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
-      </tr>
-      <tr>
-        <th><strong>Requirements: </strong></th>
-        <td><strong><font color="#1490E3"><a
-              href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
-      </tr>
+      </tr>            
       <tr>
         <th><strong>Projects: </strong></th>
         <td><strong><font color="#1490E3"><a
@@ -493,8 +484,8 @@ textarea {
         <input name="RequirementUpdate" class="Button" value="Save" type="button"
           onclick='submitAction2("${portletNamespace}RequirementUpdate", "${formAction}")'>&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="Back" class="Button"
-          onclick='submitAction("${portletNamespace}RequirementUpdate", "${requirementmanager}")'
-          value="Requirement List" type="button">&nbsp;&nbsp;&nbsp;&nbsp; 
+          onclick='submitAction("${portletNamespace}RequirementUpdate", "${requirementwelcome}")'
+          value="Project List" type="button">&nbsp;&nbsp;&nbsp;&nbsp; 
       </form:form>
 
       <br>
