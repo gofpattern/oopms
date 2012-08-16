@@ -157,7 +157,9 @@
         </table>
       </c:if>
       <c:if test="${empty projectList}">
-        You haven't joined any projects.
+        <h5>You haven't jointed any projects.
+        <br>Please use Project Eye Portlet to see projects and contacts list.
+        </h5>
     </c:if>
 
     </div>
