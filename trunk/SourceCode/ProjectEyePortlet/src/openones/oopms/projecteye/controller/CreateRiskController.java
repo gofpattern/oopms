@@ -94,7 +94,8 @@ public class CreateRiskController {
 			risk.setTriggerName(formBean.getTrigger());
 			// Call dao to insert risk to database
 			if (rDao.insertRisk(risk)) {
-				response.setRenderParameter("action", "createRisk");
+				response.setRenderParameter("action", "GoRiskIssue");
+				response.setRenderParameter("projectId", projectId);
 				log.error("Insert success");
 			} else {
 				log.error("Cannot Insert");
@@ -102,19 +103,5 @@ public class CreateRiskController {
 
 	}
 
-	/**
-	 * Process after the action "login" (method "processLogin") is executed.
-	 * 
-	 * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will
-	 *         displayed
-	 */
-	@RenderMapping(params = "action=createRisk")
-	public ModelAndView postCreateStage(RenderRequest request) {
-		log.debug("post CreateStage.START");
-		ModelAndView mav = new ModelAndView("RiskIssue");
-		log.debug("project ID la " + projectId);
-		mav.addObject("projectId", projectId);
-		return mav;
-	}
 
 }
