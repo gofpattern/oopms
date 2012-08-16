@@ -73,6 +73,7 @@ public class AssignmentDAO {
             Query query = session.createQuery(hql);
             query.setString(0, developerId);
             query.setString(1, projectId);
+            query.setParameter("currentDate", new Date());
             Assignment assi = (Assignment) query.uniqueResult();
             if (assi.getType() == 1 || assi.getType() == 0) {
                 log.debug("getRole.END Role is Project Manager");
