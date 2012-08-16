@@ -87,7 +87,7 @@ public class PlannerController {
         } else {
             log.debug("processPlanner.START + setError");
             TaskDAO dao = new TaskDAO();
-            session.setAttribute("ERROR", true, PortletSession.APPLICATION_SCOPE);
+            session.setAttribute("ERROR", true);
             session.setAttribute("PROJECT_NAME", dao.getProjectById(new BigDecimal(request.getParameter("projectId"))).getName());
         }
 
@@ -239,7 +239,7 @@ public class PlannerController {
         mav.addObject("flag", formBean.getFlag());
 
         //
-        session.removeAttribute("ERROR", PortletSession.APPLICATION_SCOPE);
+      //  session.removeAttribute("ERROR", PortletSession.APPLICATION_SCOPE);
 
         return mav;
     }
@@ -283,7 +283,7 @@ public class PlannerController {
 
         }
         formBean.setInit(false);
-        session.setAttribute("CHANGEPROJECT_ERROR", false, PortletSession.APPLICATION_SCOPE);
+        session.setAttribute("CHANGEPROJECT_ERROR", false);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -309,7 +309,7 @@ public class PlannerController {
         } else {
             log.debug("CHANGEPROJECT_ERROR");
             TaskDAO dao = new TaskDAO();
-            session.setAttribute("CHANGEPROJECT_ERROR", true, PortletSession.APPLICATION_SCOPE);
+            session.setAttribute("CHANGEPROJECT_ERROR", true);
             session.setAttribute("PROJECT_NAME", dao.getProjectById(new BigDecimal(formBean.getProjectId())).getName());
             response.setRenderParameter("action", "taskmanager");
         }

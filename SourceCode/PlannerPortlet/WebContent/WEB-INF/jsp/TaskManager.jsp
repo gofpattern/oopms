@@ -89,7 +89,7 @@
 					    });
 						// Check module of project
 				          $(function() {
-				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR",PortletSession.APPLICATION_SCOPE)%>' == 'true') {
+				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR")%>' == 'true') {
 				            	  $( "#dialog" ).dialog( "open" );
 							}
 
