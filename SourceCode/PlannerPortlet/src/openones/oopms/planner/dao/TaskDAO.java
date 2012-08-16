@@ -240,20 +240,34 @@ public class TaskDAO {
     @SuppressWarnings("unchecked")
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
+
+        Session session = null;
+        Transaction tx = null;
+
         try {
-            session.getTransaction().begin();
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+
             String sql = "from Process";
             Query query = session.createQuery(sql);
             List<Process> processList = query.list();
-
+            tx.commit();
             return processList;
-        } catch (Exception e) {
-            if (session.getTransaction().isActive()) {
-                session.getTransaction().rollback();
+
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
             }
             log.error("getAllProcess.Exception", e);
+            return null;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-        return null;
+
     }
 
     /**
