@@ -170,9 +170,9 @@
     <p><font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not been created.</font></p>
     <p><font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before assigning tasks.</font></p>
 </div>
-<div id="dialog-confirm" title="Delete Task">
+<!-- <div id="dialog-confirm" title="Delete Task">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The item will be permanently deleted and cannot be recovered. Are you sure?</p>
-</div>
+</div> -->
     <div class="content">
       <portlet:actionURL var="DoPlannerAddAction">
         <portlet:param name="action" value="plannerAdd" />

@@ -44,38 +44,50 @@
 		});
 		// Check module of project
 		  $(function() {
-			  if('<%=portletSession.getAttribute("ERROR", PortletSession.APPLICATION_SCOPE)%>' == 'true'){
-				  $( "#dialog" ).dialog( "open" );
-			  }
-									
-		  });
-		
+			  if('<%=portletSession.getAttribute("ERROR",PortletSession.APPLICATION_SCOPE)%>'== 'true') {
+								$("#dialog").dialog("open");
+							}
+
+						});
+
 					});
-	   // jquery dialog
+
+	// jquery dialog
 	$(function() {
-        $( "#dialog" ).dialog({
-        	autoOpen: false,
-        	resizable: false,
-        	height: 210,
-        	width: 450,
-            modal: true,
-            buttons: {
-                Ok: function() {
-                    $( this ).dialog( "close" );
-                }
-            }
-        });
-    });
+
+		$("#dialog").dialog({
+			autoOpen : false,
+			resizable : false,
+			height : 210,
+			width : 450,
+			modal : true,
+			buttons : {
+				Ok : function() {
+					$(this).dialog("close");
+				}
+			}
+		});
+	});
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
   <div class="container">
-  <div id="dialog" title="Missing Products">
-    <p><font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not been created.</font></p>
-    <p><font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before assigning tasks.</font></p>
-</div>
+
+    <div id="dialog" title="Missing Products">
+      <p>
+        <font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not
+          been created.
+        </font>
+      </p>
+      <p>
+        <font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before
+          assigning tasks.
+        </font>
+      </p>
+    </div>
     <div class="content">
-        <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>'/>
+
+      <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>' />
       <table border="0">
         <tr>
           <th><strong>User: </strong></th>
@@ -92,7 +104,8 @@
           <thead>
             <tr>
               <th width="5%">No.</th>
-              <th width="80%">Project Name</th>              
+
+              <th width="80%">Project Name</th>
               <th width="15%">Project Code</th>
             </tr>
           </thead>
@@ -107,8 +120,10 @@
               </portlet:actionURL>
               <tr>
                 <td align="center">${count}</td>
+
                 <td><a href="${renderAction}">${project.name}</a></td>
-                <td align="center"><a href="${renderAction}">${project.code}</a></td>
+
+                <td><a href="${renderAction}">${project.code}</a></td>
               </tr>
             </c:forEach>
           </tbody>
@@ -119,13 +134,12 @@
         <br>Please use Project Eye Portlet to see projects and contacts list.
         </h5>
     </c:if>
-
     </div>
-  </div>
-<br>
-  <div class="footer">
-    <p>OOPMS Group</p>
-    <!-- end .footer -->
+    <br>
+    <div class="footer">
+      <p>OOPMS Group</p>
+      <!-- end .footer -->
+    </div>
   </div>
 </body>
 </html>
