@@ -126,7 +126,7 @@
             	<portlet:param name="riskId" value="${risk.riskId}" />
             </portlet:renderURL>
             <portlet:actionURL var="renderAction4">
-            	<portlet:param name="action" value="GoUpdateRisk" />
+            	<portlet:param name="action" value="DeleteRisk" />
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="riskId" value="${risk.riskId}" />
             </portlet:actionURL>
@@ -138,7 +138,7 @@
                <td scope="row">${risk.description}</td>
                <td scope="row">${risk.trigger}</td>
                <td scope="row">
-               <button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}RiskIssue", "${renderAction3}", "Do you sure you want to delete this Risk?");'>Remove</button>
+               <button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}RiskIssue", "${renderAction4}", "Do you sure you want to delete this Risk?");'>Remove</button>
                </td>
             </tr>
         </c:forEach>

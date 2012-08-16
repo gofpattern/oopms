@@ -132,7 +132,7 @@
 	<button type="reset" class="button blue small">Reset</button>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateRisk", "${renderAction}")'>Cancel</button>		
 </form:form>
-
+<br>
 <table class="portlet-table">
         <tr style="color: red;" >
           <th  align="center" width="92" scope="row"><b><font color="#000000">Column</font></b></th>
