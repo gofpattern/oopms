@@ -66,24 +66,31 @@ public class AssignmentDAO {
 
     public String getRole(String developerId, String projectId) {
         try {
-            System.out.println("getRole : " + developerId + " " + projectId);
+            log.debug("getRole.START");
             session.getTransaction().begin();
-            String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
+            String hql = "from Assignment where developer.developerId= ? and project.projectId = ?"+
+                    "and ((end_Date > :currentDate) or (end_Date is null))";
             Query query = session.createQuery(hql);
             query.setString(0, developerId);
             query.setString(1, projectId);
             Assignment assi = (Assignment) query.uniqueResult();
             if (assi.getType() == 1 || assi.getType() == 0) {
+                log.debug("getRole.END Role is Project Manager");
                 return "Project Manager";
             } else if (assi.getType() == 2) {
+                log.debug("getRole.END Role is Developer");
                 return "Developer";
             }else if (assi.getType() == 3) {
+                log.debug("getRole.END Role is Tester");
                 return "Tester";
             }else if (assi.getType() == 4) {
+                log.debug("getRole.END Role is QA");
                 return "QA";
             }else if (assi.getType() == 5) {
+                log.debug("getRole.END Role is Customer");
                 return "Customer";
             }else if (assi.getType() == 6) {
+                log.debug("getRole.END Role is Project Owner");
                 return "Project Owner";
             }
 

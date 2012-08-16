@@ -48,8 +48,6 @@ public class ModuleDAO {
     public List<Module> getModuleByProject(BigDecimal projectId) {
         log.debug("getModuleByProject.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
             session.beginTransaction();
             String sql = "from Module where project.projectId = :projectId";
             Query query = session.createQuery(sql);
@@ -69,8 +67,6 @@ public class ModuleDAO {
     public List<Workproduct> getWorkproductByProject(BigDecimal projectId) {
         log.debug("getWorkproductByProject.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
             session.beginTransaction();
             String sql = "select workproduct from Module md where md.project.projectId = :projectId";
             Query query = session.createQuery(sql);
@@ -87,11 +83,29 @@ public class ModuleDAO {
         return null;
     }
 
+    public List<BigDecimal> getTasksStatusByModule(BigDecimal moduleId) {
+        log.debug("getTasksStatusByModule.START");
+        try {
+            session.beginTransaction();
+            String sql = "select statusid from Tasks t where t.module.moduleId = :moduleId "
+                    + "and active = true and statusid != 175";
+            Query query = session.createQuery(sql);
+            query.setParameter("moduleId", moduleId);
+            @SuppressWarnings("unchecked")
+            List<BigDecimal> taskStatusList = query.list();
+            return taskStatusList;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getTasksStatusByModule.Exception", e);
+        }
+        return null;
+    }
+
     public List<Tasks> getTaskByModule(BigDecimal moduleId) {
         log.debug("getTaskByModule.START");
         try {
-            SessionFactory factory = HibernateUtil.getSessionFactory();
-            this.session = factory.openSession();
             session.beginTransaction();
             String sql = "from Tasks t where t.module.moduleId = :moduleId and active = true";
             Query query = session.createQuery(sql);
@@ -121,29 +135,28 @@ public class ModuleDAO {
 
             module.setPlannedSizeUnitId(task.getSizeunit());
             module.setActualSizeUnitId(task.getSizeunit());
-            List<Tasks> taskList = getTaskByModule(module.getModuleId());
-            for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.get(i).getStatusid().equals(new BigDecimal(175))) {
-                    taskList.remove(taskList.get(i));
-                }
-            }
-            if (taskList.size() == 0)
+            List<BigDecimal> taskStatusList = getTasksStatusByModule(module.getModuleId());
+            // for (int i = 0; i < taskStatusList.size(); i++) {
+            // if (taskStatusList.get(i).equals(new BigDecimal(175))) {
+            // taskStatusList.remove(taskStatusList.get(i));
+            // }
+            // }
+            if (taskStatusList.size() == 0)
                 module.setStatus(new BigDecimal(175));// 175: CANCEL
             else {
                 Boolean flag = true;
-                for (int i = 0; i < taskList.size(); i++) {
-                    if (taskList.get(0).getStatusid() != taskList.get(i).getStatusid())
+                for (int i = 0; i < taskStatusList.size(); i++) {
+                    if (taskStatusList.get(0) != taskStatusList.get(i))
                         flag = false;
                 }
                 if (flag.equals(true))
-                    module.setStatus(taskList.get(0).getStatusid());
+                    module.setStatus(taskStatusList.get(0));
                 else
                     module.setStatus(new BigDecimal(173));// 173: ON-GOING
 
             }
 
             session.merge(module);
-            session.flush();
 
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -172,31 +185,30 @@ public class ModuleDAO {
 
             module.setPlannedSizeUnitId(editedTask.getSizeunit());
             module.setActualSizeUnitId(editedTask.getSizeunit());
-            if(!task.getStatusid().equals(editedTask.getStatusid())){
-                List<Tasks> taskList = getTaskByModule(module.getModuleId());
-                for (int i = 0; i < taskList.size(); i++) {
-                    if (taskList.get(i).getStatusid().equals(new BigDecimal(175))) {
-                        taskList.remove(taskList.get(i));
-                    }
-                }
-                if (taskList.size() == 0)
+            if (!task.getStatusid().equals(editedTask.getStatusid())) {
+                List<BigDecimal> taskStatusList = getTasksStatusByModule(module.getModuleId());
+                // for (int i = 0; i < taskList.size(); i++) {
+                // if (taskList.get(i).getStatusid().equals(new BigDecimal(175))) {
+                // taskList.remove(taskList.get(i));
+                // }
+                // }
+                if (taskStatusList.size() == 0)
                     module.setStatus(new BigDecimal(175));// 175: CANCEL
                 else {
                     Boolean flag = true;
-                    for (int i = 0; i < taskList.size(); i++) {
-                        if (taskList.get(0).getStatusid() != taskList.get(i).getStatusid())
+                    for (int i = 0; i < taskStatusList.size(); i++) {
+                        if (taskStatusList.get(0) != taskStatusList.get(i))
                             flag = false;
                     }
                     if (flag.equals(true))
-                        module.setStatus(taskList.get(0).getStatusid());
+                        module.setStatus(taskStatusList.get(0));
                     else
                         module.setStatus(new BigDecimal(173));// 173: ON-GOING
                 }
+
             }
-            
 
             session.merge(module);
-            session.flush();
 
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {

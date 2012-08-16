@@ -5,6 +5,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Resource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_ut"/>
         <property name="context-root" value="portletdriver/dt"/>
         <property name="java-output-path" value="/PlannerPortlet/build/classes"/>
     </wb-module>

@@ -44,7 +44,7 @@
 		});
 		// Check module of project
 		  $(function() {
-			  if('<%=portletSession.getAttribute("ERROR",PortletSession.APPLICATION_SCOPE)%>'== 'true') {
+			  if('<%=portletSession.getAttribute("ERROR")%>'== 'true') {
 								$("#dialog").dialog("open");
 							}
 
