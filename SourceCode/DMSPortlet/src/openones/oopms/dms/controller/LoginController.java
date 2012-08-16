@@ -24,10 +24,12 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.daocommon.DeveloperDao;
 import openones.oopms.dms.biz.DMSWorkspace;
 import openones.oopms.dms.form.LoginForm;
 import openones.oopms.dms.form.ViewDefectModeForm;
 import openones.oopms.dms.util.AppUtil;
+import openones.oopms.entity.Developer;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
 import openones.oopms.util.BaseUtil;
@@ -53,28 +55,7 @@ public class LoginController extends BaseController {
      * DefectViewList screen.
      * @return name of view which is the name of the JSP page.
      */
-    @RequestMapping
-    public ModelAndView initScreen(RenderRequest request, PortletSession session) {
-        log.debug("initScreen.START");
-        ModelAndView mav;
-        PortletSupport portletSupport = new PortletSupport(request);
-        String logonUser = portletSupport.getLogonUser();
-
-        log.debug("logonUser=" + logonUser);
-
-        if ((logonUser == null) || ("guest".equals(logonUser))) {
-            mav = new ModelAndView("login"); // Display login.jsp
-        } else {
-            // Update User Information
-            super.initScreen(request, session);
-            UserInfo userInfo = new UserInfo(logonUser);
-            mav = new ModelAndView("login"); // Display ViewDefectMode.jsp
-            prepareCommonInfo(userInfo, mav, session);
-            System.out.println("View Defect Mode");
-        }
-
-        return mav;
-    }
+  
 
     /**
      * Create bean for form.

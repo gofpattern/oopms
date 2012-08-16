@@ -16,6 +16,7 @@ import openones.oopms.entity.Timesheet;
 
 
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -172,5 +173,28 @@ public class DefectDao {
 
         }
         return null;
+    }
+
+    public void insertDefect(Defect defect) {
+        session.getTransaction().begin();
+        session.save(defect);
+        session.flush();
+        session.getTransaction().commit();
+        
+    }
+    public BigDecimal getNextDefect() {
+        try {
+            SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+            session = sessionfactory.openSession();
+            session.beginTransaction();
+            String sql = "SELECT DEFECT_SEQ.NEXTVAL as nextValue FROM dual";
+            Query query = session.createSQLQuery(sql).addScalar("nextValue", Hibernate.BIG_DECIMAL);
+            BigDecimal nextId = (BigDecimal) query.list().get(0);
+
+            return nextId;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

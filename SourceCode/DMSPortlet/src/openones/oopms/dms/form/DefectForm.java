@@ -57,7 +57,9 @@ public class DefectForm extends BaseDefectListForm {
     private String testCaseId;
     private String createDate;
     private String dueDate;
-    
+    private String memberDisCreated="";
+    private String memberDisAssigned="";
+    private String memberDisOwner="";
     /**
      * Get value of title.
      * @return the title
@@ -380,7 +382,42 @@ public class DefectForm extends BaseDefectListForm {
     public void setWorkProductDis(String workProductDis) {
         this.workProductDis = workProductDis;
     }
+    /**
+     * @return the memberDisCreated
+     */
+    public String getMemberDisCreated() {
+        return memberDisCreated;
+    }
+    /**
+     * @param memberDisCreated the memberDisCreated to set
+     */
+    public void setMemberDisCreated(String memberDisCreated) {
+        this.memberDisCreated = memberDisCreated;
+    }
+    /**
+     * @return the memberDisAssigned
+     */
+    public String getMemberDisAssigned() {
+        return memberDisAssigned;
+    }
+    /**
+     * @param memberDisAssigned the memberDisAssigned to set
+     */
+    public void setMemberDisAssigned(String memberDisAssigned) {
+        this.memberDisAssigned = memberDisAssigned;
+    }
+    /**
+     * @return the memberDisOwner
+     */
+    public String getMemberDisOwner() {
+        return memberDisOwner;
+    }
+    /**
+     * @param memberDisOwner the memberDisOwner to set
+     */
+    public void setMemberDisOwner(String memberDisOwner) {
+        this.memberDisOwner = memberDisOwner;
+    }
     
-    
-    
+        
 }

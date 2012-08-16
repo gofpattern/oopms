@@ -274,8 +274,8 @@ function submitAction(formName, actionUrl) {
             <td><font color="">${defect.severity}</font></td>
             <td><font color="">${defect.priority}</font></td>
             
-             <td><font color="">${defect.assignedTo}</font></td>
-            <td><font color="">${defect.createdBy}</font></td>
+             <td><font color="">${defect.assignedToString}</font></td>
+            <td><font color="">${defect.createByString}</font></td>
             
              <td><font color="">${defect.fixedDateString}</font></td>
               <td><font color="">${defect.dueDateString}</font></td>

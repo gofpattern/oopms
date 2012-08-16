@@ -68,36 +68,24 @@ function submitAction(formName, actionUrl) {
 
 <script type="text/javascript" src='/<spring:message code="app.context"/>/scripts/common.js'></script>
 <jsp:include page="header.jsp" />
-<portlet:actionURL var="formAction"><portlet:param name="action" value="save"/></portlet:actionURL>
-<portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="goViewDefectList2"/></portlet:renderURL>
+<portlet:actionURL var="formAction"><portlet:param name="action" value="addDefect"/></portlet:actionURL>
+<portlet:renderURL var="goViewDefectList2"><portlet:param name="action" value="init"/></portlet:renderURL>
 
-<form:form name="${portletNamespace}AddDefect" commandName="defectForm" method="post" action="${formAction}">
+
 <div><img src="/<spring:message code="app.context"/>/resource_files/DefectAddnew.gif" height="28" border="0" width="411"></div>
-<input name="hidActionDetail" value="" type="hidden">
-<input name="hidAction" value="" type="hidden">
-<input name="CheckRole" value="1110000000" type="hidden">
-<input name="hidTypeOfView" value="ViewAllOpenDefects" type="hidden">
-<input name="UserName" value="System Administrator" type="hidden">
-<input name="Account" value="SYSADMIN" type="hidden">
-<input name="Role" value="1000100000" type="hidden">
-<input name="Position" value="1110000000" type="hidden">
-<input name="ProjectCode" value="OOPMS" type="hidden">
-<input name="DateLogin" value="06/05/12" type="hidden">
-<input name="ProjectID" value="118385" type="hidden">
-<input name="hidFileIndex" value="" type="hidden">
-<input name="hidSaveNewCounter" value="0" type="hidden">
+
 
 <body id="portal" class="up fl-theme-mist">
 
-<div id="portalPageBodyInner" class="container">
+<div style="font-size:100%" id="portalPageBodyInner" class="container">
 <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
         <h2 class="title" >Add New Defect</h2>
     </div>
 <%--Display errors --%>
 <font color="red"><form:errors path="*"></form:errors></font>
+<form:form name="${portletNamespace}AddDefect" commandName="defectForm" method="post" action="${formAction}">   
 
-
-<table class="portlet-table" border="0" cellpadding="1" cellspacing="0" width="100%">
+<table style="font-size:100%" class="portlet-table" border="0" cellpadding="1" cellspacing="0" width="100%">
     <colgroup>
         <col width="15%">
         <col width="45%">
@@ -105,12 +93,26 @@ function submitAction(formName, actionUrl) {
         <col width="10%">
         <col width="30%">
         </colgroup><input name="DefectID" value="0" type="hidden">
-    <tbody><tr>
-        <td align="left" nowrap="nowrap" valign="middle"><b><font color="black">Project : &nbsp; OOPMS</font></b> <input name="hidStatus" value="1" type="hidden"></td>
-        <td align="left" valign="middle"><b><font color="black">Created by:</font></b>&nbsp;<b>TRUONGMH</b></td>
+    <tbody>
+     <tr>
+        <!-- Title -->
+        <th align="left" valign="middle"><b><font color="black">Project</font></b><font color="red">&nbsp;*</font></th>
+       <td align="left" valign="middle">  <form:select 
+          path="projectDis" multiple="single">
+          <form:options items="${projectMap}" />
+        </form:select></td>
         
-       
-       
+      
+    </tr>
+    <tr>
+        <!-- Title -->
+        <th align="left" valign="middle"><b><font color="black">Created By</font></b><font color="red">&nbsp;*</font></th>
+       <td align="left" valign="middle">  <form:select 
+          path="memberDisCreated" multiple="single">
+          <form:options items="${memberMap}" />
+        </form:select></td>
+        
+      
     </tr>
     <tr>
         <!-- Title -->
@@ -198,15 +200,19 @@ function submitAction(formName, actionUrl) {
     </tr>
         <!-- Defect Owner -->
         <tr><th align="left" valign="middle"><b><font color="black">Defect owner</font></b></th>
-        <td align="left" valign="middle"><select name="DefectOwner" class="SmallCombo"><option selected="selected" value=""></option><option value="SYSADMIN">SYSADMIN</option><option value="THACHLN">THACHLN</option>
-        </select></td>
+        <td align="left" valign="middle"><form:select 
+          path="memberDisOwner" multiple="single">
+          <form:options items="${memberMap}" />
+        </form:select></td>
     </tr><tr>
     
     </tr><tr>
         <!-- AssignTo -->
         <th align="left" valign="middle"><b><font color="black">Assigned To</font></b></th>
-        <td align="left" valign="middle"><select name="AssignTo" class="SmallCombo"><option selected="selected" value=""></option><option value="SYSADMIN">SYSADMIN</option><option value="THACHLN">THACHLN</option>
-        </select></td>
+        <td align="left" valign="middle"><form:select 
+          path="memberDisAssigned" multiple="single">
+          <form:options items="${memberMap}" />
+        </form:select></td>
      
         </tr>
         <tr>
@@ -257,11 +263,7 @@ function submitAction(formName, actionUrl) {
 <br>
 <br>
 <br>
-<script language="JavaScript">
-    selectWorkProduct();
-    ChangeTypeActivity();
-    document.forms[0].Title.focus();
-</script>
+
 
 </div>
 </body></html>
