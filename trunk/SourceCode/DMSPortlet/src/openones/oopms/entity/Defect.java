@@ -45,6 +45,8 @@ public class Defect  implements java.io.Serializable {
      private String status;
      private String severity;
      private String priority;
+     private String assignedToString;
+     private String createByString;
      
     public Defect() {
     }
@@ -360,6 +362,38 @@ public class Defect  implements java.io.Serializable {
      */
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+
+    /**
+     * @return the assignedToString
+     */
+    public String getAssignedToString() {
+        return assignedToString;
+    }
+
+
+    /**
+     * @param assignedToString the assignedToString to set
+     */
+    public void setAssignedToString(String assignedToString) {
+        this.assignedToString = assignedToString;
+    }
+
+
+    /**
+     * @return the createByString
+     */
+    public String getCreateByString() {
+        return createByString;
+    }
+
+
+    /**
+     * @param createByString the createByString to set
+     */
+    public void setCreateByString(String createByString) {
+        this.createByString = createByString;
     }
 
     

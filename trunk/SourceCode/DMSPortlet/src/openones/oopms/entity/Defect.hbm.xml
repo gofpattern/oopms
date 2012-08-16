@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jul 6, 2012 7:55:30 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="openones.oopms.entity.Defect" table="DEFECT">
+    <class name="openones.oopms.entity.Defect" table="DEFECT" lazy="false">
         <comment>DMS: Defect tracking</comment>
         <id name="defectId" type="big_decimal">
             <column name="DEFECT_ID" precision="22" scale="0" />

@@ -18,6 +18,9 @@
  */
 package openones.oopms.dms.controller;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -54,6 +57,8 @@ import openones.oopms.entity.Project;
 import openones.oopms.entity.Workproduct;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
+import openones.oopms.util.BaseUtil;
+import openones.portlet.PortletSupport;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -123,6 +128,162 @@ public class ViewDefectListController extends BaseController {
     private Developer user = new Developer();
     // Role
     String role;
+    private ArrayList<Defect> errorDefectList;
+    
+    
+    @RequestMapping
+    public ModelAndView initScreen(RenderRequest request, PortletSession session) {
+        log.debug("initScreen.START");
+        ModelAndView mav;
+        PortletSupport portletSupport = new PortletSupport(request);
+        String logonUser = portletSupport.getLogonUser();
+
+        log.debug("logonUser=" + logonUser);
+
+        mav = new ModelAndView("Forward");
+        log.debug("logonUser=" + logonUser);
+
+        if (logonUser != null) {
+            UserInfo userInfo = null;
+            DeveloperDao devDao = new DeveloperDao();
+            Developer dev = devDao.getDeveloperByAccount(logonUser);
+         
+            if (dev != null) {
+               
+            
+                // Set roles for user
+                userInfo = new UserInfo(logonUser);
+                userInfo.addRole(dev.getRole());
+                userInfo.setGroup(dev.getGroupName());
+                userInfo.setLoginDate(BaseUtil.getCurrentDate());
+                user= dev;   
+                String projectId = request.getParameter("projectId");
+                
+                System.out.println("postLogin.START");
+                // Declare view for this render
+                 mav = new ModelAndView("ViewDefectList"); // display Defect.jsp
+             
+               DefectListDao defectDao = new DefectListDao();
+                projectMap = new LinkedHashMap<String, String>();
+                memberMap = new LinkedHashMap<String, String>();
+                severityMap = new LinkedHashMap<String, String>();
+                statusMap = new LinkedHashMap<String, String>();
+                workProductMap = new LinkedHashMap<String, String>();
+                priorityMap = new LinkedHashMap<String, String>();
+                originMap = new LinkedHashMap<String, String>();
+                typeMap = new LinkedHashMap<String, String>();
+                // Get project List from database
+                BaseDao baseDao = new BaseDao();
+                DefectStatusDao defStatusDao = new DefectStatusDao();
+                DefectTypeDao defTypeDao = new DefectTypeDao();
+                DefectSeverityDao defSeverityDao = new DefectSeverityDao();
+                DefectPriorityDao defPriorDao = new DefectPriorityDao();
+                ProcessDao processDao = new ProcessDao();
+                WorkProductDao wpDao = new WorkProductDao();
+                DefectDao defDao = new DefectDao();
+                System.out.println("User :" + user.getDeveloperId());
+                projectList = baseDao.getProjectList(String.valueOf(user.getDeveloperId()));   
+                for (int i = 0; i < projectList.size(); i++) {
+                    projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
+                }
+                defOriginList = processDao.getProcess();
+                originMap.put("", "All");
+                for (int i = 0; i < defOriginList.size(); i++) {                  
+                    originMap.put(String.valueOf(defOriginList.get(i).getProcessId()), defOriginList.get(i).getName());
+                }
+                defStatusList = defStatusDao.getDefectStatus();
+                statusMap.put("", "All");
+                for (int i = 0; i < defStatusList.size(); i++) {
+                  
+                    statusMap.put(defStatusList.get(i).getDsId().toString(), defStatusList.get(i).getName());
+                }
+                defPriorityList = defPriorDao.getDefectPriority();
+                priorityMap.put("", "All");            
+                for (int i = 0; i < defPriorityList.size(); i++) {
+                   
+                    priorityMap.put(String.valueOf(defPriorityList.get(i).getDpId()), defPriorityList.get(i).getName());
+                }
+                defSeverityList = defSeverityDao.getDefectSeverity();
+                severityMap.put("", "All");
+                for (int i = 0; i < defSeverityList.size(); i++) {
+                  
+                    severityMap.put(String.valueOf(defSeverityList.get(i).getDefsId()), defSeverityList.get(i).getName());
+                }
+               
+                defTypeList =  defTypeDao.getDefectType();
+                typeMap.put("", "All");
+                for (int i = 0; i < defTypeList.size(); i++) {
+                   
+                    typeMap.put(String.valueOf(defTypeList.get(i).getDtId()), defTypeList.get(i).getName());
+                }
+                defWorkProductList = wpDao.getWorkproduct();
+                workProductMap.put("", "All");
+                for (int i = 0; i < defWorkProductList.size(); i++) {
+                    
+                    workProductMap.put(String.valueOf(defWorkProductList.get(i).getWpId()), defWorkProductList.get(i).getName());
+                }
+                developerList = defDao.getMemberList(projectList.get(0).getProjectId().toString());
+                memberMap.put("", "All");
+                for (int i = 0; i < developerList.size(); i++) {
+                  
+                    memberMap.put(String.valueOf(developerList.get(i).getDeveloperId()), developerList.get(i).getAccount());
+                }
+                role = baseDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+                System.out.println("ROLE : " + role);
+              
+               
+                // Set project list to form
+                mav.addObject("projectMap", projectMap);
+                mav.addObject("statusMap", statusMap);
+                mav.addObject("priorityMap", priorityMap);
+                mav.addObject("originMap", originMap);
+                mav.addObject("typeMap", typeMap);
+                mav.addObject("workProductMap", workProductMap);
+                mav.addObject("memberMap", memberMap);
+                mav.addObject("severityMap", severityMap);
+                
+
+                // Set information of user to session
+                 session = request.getPortletSession();
+                session.setAttribute("USERID", user.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
+                session.setAttribute("USER", user.getAccount(), PortletSession.APPLICATION_SCOPE);
+                session.setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);       
+                mav.addObject("ROLE",role);
+                // Search all defect record from database
+              
+                List<Defect> defectList = new ArrayList<Defect>();
+                defectList = defDao.getDefectList("","",projectList.get(0).getProjectId().toString(),"","","","","","","","");
+
+                // Get dropdown list from database
+                
+               defectList = prepareDefectList(defectList);
+
+               
+                // Set default value for defect.jsp
+//               
+//                              
+//                mav.addObject("projectStatus", projectStatus);
+//                mav.addObject("fromDate", fromDate);
+//                mav.addObject("toDate", toDate);
+//                // Add object defectList to request
+                mav.addObject("projectDis", projectDis);
+                mav.addObject("memberDisAssigned", memberDisAssigned);
+                mav.addObject("memberDisCreated", memberDisCreated);
+                mav.addObject("serverityDis", serverityDis);
+                mav.addObject("workProductDis", workProductDis);
+                mav.addObject("typeDis", typeDis);
+                mav.addObject("statusDis", statusDis);
+                mav.addObject("originDis", originDis);
+                mav.addObject("createDate", createDate);
+                mav.addObject("createDate", dueDate);
+                mav.addObject("defectList", defectList);
+                
+            }
+        }            
+
+        return mav;
+    }
+    
     /**
      * Create bean for form.
      * @return Form bean for UI.
@@ -318,11 +479,27 @@ public class ViewDefectListController extends BaseController {
         int statusCode = 0;
         int severityCode = 0;
         int priorityCode = 0;
+        int assignCode = 0;
+        int createCode = 0;
+
         for (int i = 0; i < defList.size(); i++) {
             statusCode = Integer.parseInt(defList.get(i).getDsId().toString());
             severityCode = Integer.parseInt(defList.get(i).getDefsId().toString());
             priorityCode = Integer.parseInt(defList.get(i).getDpId().toString());
-            defList.get(i).setFixedDateString(df.format(defList.get(i).getFixedDate()));
+           assignCode = Integer.parseInt(defList.get(i).getAssignedTo());
+           createCode = Integer.parseInt(defList.get(i).getCreatedBy());
+            if(defList.get(i).getFixedDate()!=null) {
+                defList.get(i).setFixedDateString(df.format(defList.get(i).getFixedDate()));
+            }
+            for(int j=0; j<developerList.size();j++) {
+                if(assignCode == developerList.get(j).getDeveloperId().intValue()) {
+                    defList.get(i).setAssignedToString(developerList.get(j).getAccount());  
+                }
+                if(createCode == developerList.get(j).getDeveloperId().intValue()) {
+                    defList.get(i).setCreateByString(developerList.get(j).getAccount());  
+                }
+            }           
+        
             defList.get(i).setDueDateString(df.format(defList.get(i).getDueDate()));  
             defList.get(i).setStatus(defStatusList.get(statusCode-1).getName());
             defList.get(i).setSeverity(defSeverityList.get(severityCode-1).getName());
@@ -356,17 +533,27 @@ public class ViewDefectListController extends BaseController {
 
         ModelAndView mav = new ModelAndView("AddDefect"); // display AddDefect.jsp
          qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
-        
+         mav.addObject("qcActivityMap", qcActivityMap);
+        System.out.println("oringin map size : " + originMap.size());
         mav.addObject("defect", new DefectForm());
-        mav.addObject("qcActivityMap", qcActivityMap);
+        projectMap.remove("");
+        System.out.println("contains : "+projectMap.containsKey(""));
         mav.addObject("projectMap", projectMap);
+        statusMap.remove("");
         mav.addObject("statusMap", statusMap);
+        priorityMap.remove("");
         mav.addObject("priorityMap", priorityMap);
+        originMap.remove("");
         mav.addObject("originMap", originMap);
+        typeMap.remove("");
         mav.addObject("typeMap", typeMap);
+        workProductMap.remove("");
         mav.addObject("workProductMap", workProductMap);
+        memberMap.remove("");
         mav.addObject("memberMap", memberMap);
+        severityMap.remove("");
         mav.addObject("severityMap", severityMap);
+      
         return mav;
     }
     
@@ -439,18 +626,19 @@ public class ViewDefectListController extends BaseController {
     public ModelAndView postDefect(DefectForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("ViewDefectList"); // display Defect.jsp
         
-        mav.addObject("projectDis", projectDis);
-        mav.addObject("memberDisAssigned", memberDisAssigned);
-        mav.addObject("memberDisCreated", memberDisCreated);
-        mav.addObject("serverityDis", serverityDis);
-        mav.addObject("workProductDis", workProductDis);
-        mav.addObject("typeDis", typeDis);
-        mav.addObject("statusDis", statusDis);
-        mav.addObject("originDis", originDis);
-        mav.addObject("createDate", createDate);
-        mav.addObject("createDate", dueDate);
+//        mav.addObject("projectDis", projectDis);
+//        mav.addObject("memberDisAssigned", memberDisAssigned);
+//        mav.addObject("memberDisCreated", memberDisCreated);
+//        mav.addObject("serverityDis", serverityDis);
+//        mav.addObject("workProductDis", workProductDis);
+//        mav.addObject("typeDis", typeDis);
+//        mav.addObject("statusDis", statusDis);
+//        mav.addObject("originDis", originDis);
+//        mav.addObject("createDate", createDate);
+//        mav.addObject("createDate", dueDate);
        
         mav.addObject("defect", new DefectForm());
+        qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
         mav.addObject("qcActivityMap", qcActivityMap);
         mav.addObject("projectMap", projectMap);
         mav.addObject("statusMap", statusMap);
@@ -479,6 +667,61 @@ public class ViewDefectListController extends BaseController {
 
         mav.addObject("defectList", defectList);       
         return mav;
+    }
+    
+    /**
+     * Action mapping for forward to Add time sheet page.
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     */
+    
+    @ActionMapping(params = "action=addDefect")
+    public void processAddDefectToDB(DefectForm formBean, BindingResult result, SessionStatus status,
+            ActionResponse response) throws IOException, ParseException {
+        Defect timesheet;
+       boolean isError = false;
+       errorDefectList = new ArrayList<Defect>();
+      Defect defect = new Defect();
+      DefectDao defDao = new DefectDao();
+      BigDecimal defectId = defDao.getNextDefect();
+      defect = convertDefectFormToDTO(formBean,defectId);
+       
+            
+      
+            DefectDao defectDao = new DefectDao();
+            defectDao.insertDefect(defect);
+
+            response.setRenderParameter("action", "init");
+        
+       
+    }
+
+    private Defect convertDefectFormToDTO(DefectForm formBean, BigDecimal defId) throws ParseException {
+       Defect def = new Defect();
+       SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        def.setAssignedTo(formBean.getMemberDisAssigned());
+        def.setAtId(new BigDecimal(1));
+        def.setCauseAnalysis(formBean.getCauseAnalysis());
+        def.setCreateDate(df.parse(formBean.getCreateDate()));
+        def.setCreatedBy(formBean.getMemberDisCreated());
+        def.setDefectOwner(formBean.getMemberDisOwner());
+        def.setDefsId(new BigDecimal(formBean.getSeverityDis()));
+        def.setDescription(formBean.getDescription());
+        def.setDpId(new BigDecimal(formBean.getPriorityDis()));
+        def.setDsId(new BigDecimal(1));
+        def.setDtId(new BigDecimal(formBean.getTypeDis()));
+        def.setDueDate(df.parse(formBean.getDueDate()));
+        def.setModuleId(new BigDecimal(1));
+        def.setProcessId(new BigDecimal(formBean.getOriginDis()));
+        def.setProjectId(new BigDecimal(formBean.getProjectDis()));
+        def.setSolution(formBean.getCorrectiveAction());
+        def.setTestCase(formBean.getTestCaseId());
+        def.setTitle(formBean.getTitle());
+        def.setWpId(new BigDecimal(formBean.getWorkProductDis()));
+        def.setDefectId(defId);
+        return def;
     }
 
 }

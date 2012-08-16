@@ -54,8 +54,8 @@ public class ViewDefectListForm extends BaseDefectListForm {
     private Map<String, String> typeMap;
     private String title;
     private String testCaseId;
-    String memberDisCreated="";
-    String memberDisAssigned="";
+    private String memberDisCreated="";
+    private String memberDisAssigned="";
     /**
      * @return the createDate
      */

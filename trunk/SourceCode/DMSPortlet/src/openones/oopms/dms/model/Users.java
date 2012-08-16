@@ -1,4 +1,4 @@
-package openones.oopms.timesheet.model;
+package openones.oopms.dms.model;
 // Generated Jun 24, 2012 8:23:52 PM by Hibernate Tools 3.2.1.GA
 
 
