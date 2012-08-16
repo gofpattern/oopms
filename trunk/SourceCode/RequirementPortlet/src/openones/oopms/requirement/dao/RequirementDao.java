@@ -55,6 +55,8 @@ public class RequirementDao {
           } catch (Exception e) {
               log.error(e.getMessage());
               log.debug("getRoleProblem");
+          }finally{
+              session.close();
           }
           return null;
    }
@@ -83,6 +85,8 @@ public class RequirementDao {
             e.printStackTrace();                  
             log.debug("getRoleProblem");
 
+        }finally{
+            session.close();
         }
         return null;
     }
@@ -114,6 +118,8 @@ public class RequirementDao {
         } catch (Exception e) {
             e.printStackTrace();
             log.debug("getRoleProblem");
+        }finally{
+            session.close();
         }
         return null;
     }
@@ -172,7 +178,10 @@ public class RequirementDao {
             log.error("UpdateNOTOk: "+rowCount);
             log.error(e.getMessage());
             return false;
-        }   
+        }
+//        finally{
+//            session.close();
+//        }   
         log.error("UpdateOk: "+rowCount);
         return true;                                        
     }
@@ -201,6 +210,9 @@ public class RequirementDao {
             log.debug(e.getMessage());
             log.debug(stringWriter.toString());
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }
     
@@ -221,8 +233,8 @@ public class RequirementDao {
             }
             
             //Not flush, commit to display new list
-            //session.flush();
-            //session.getTransaction().commit();
+            session.flush();
+            session.getTransaction().commit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -231,6 +243,9 @@ public class RequirementDao {
             // session.close();
 
         }
+//        finally{
+//            session.close();
+//        }
     }
     
     /**
@@ -254,6 +269,9 @@ public class RequirementDao {
             log.error(e.getMessage());
             return false;
         }
+//        finally{
+//            session.close();
+//        }
         log.error("Insert Ok");
         return true;
     }
@@ -278,6 +296,9 @@ public class RequirementDao {
             }
             log.debug("getRequirementsByProjectId.Error", e);
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }
     
@@ -309,6 +330,9 @@ public class RequirementDao {
             log.debug(e.getMessage());
             log.debug(stringWriter.toString());
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }
     
@@ -360,6 +384,9 @@ public class RequirementDao {
             }
             e.printStackTrace();
         }
+//        finally{
+//            session.close();
+//        }
         return null;
     }        
 

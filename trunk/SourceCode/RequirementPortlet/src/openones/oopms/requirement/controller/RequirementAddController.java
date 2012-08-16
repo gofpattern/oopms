@@ -40,11 +40,14 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 public class RequirementAddController {
     /** Logger for logging. */  
     private static Logger log = Logger.getLogger(RequirementAddController.class);  
-  //requirementList to add into render object 
+  
+    //requirementList to add into render object 
     private List<Requirements> requirementList;
     private List<Project> projectList;
     Developer developer = new Developer();
     private String username;
+ // project ID
+    String projectId = "";
                         
     //not in use
     @ActionMapping(params = "action=goAddNewRequirementAction")
@@ -63,8 +66,7 @@ public class RequirementAddController {
         //Get project name list
         RequirementDao requirementDAO = new RequirementDao();           
         projectList = requirementDAO.getAllProject();  
-        log.debug("projectlist after:" +projectList.size());
-        
+        log.debug("projectlist after:" +projectList.size());        
         Map<String,String> projectMap = new LinkedHashMap<String,String>();
         log.debug("projectmap before:" +projectMap.size());
         for (int i=0; i<projectList.size();i++) {
@@ -72,9 +74,11 @@ public class RequirementAddController {
         }
         log.debug("projectmap after:" +projectMap.size());
         
+        //set project name list
         formBean.setProjectMap(projectMap);        
         mav.addObject("projectDefault", formBean.getProjectDefault());
         mav.addObject("projectMap", formBean.getProjectMap());
+        
         return mav;
     }
     
@@ -156,13 +160,17 @@ public class RequirementAddController {
             ex.printStackTrace();
         }
         
-        //requirement.setCreateDate(createDate);
-        
+        //requirement.setCreateDate(createDate);       
         requirementDao.insertReq(requirement);
         
+        //-------render back to list of requirement of that project
+        
+        projectId = formBean.getProjectDefault();
+        log.debug("afterAddRequirement: " + projectId);
         ModelAndView mav = new ModelAndView("RequirementHome");
                        
-        requirementList = requirementDao.getAllRequirement();
+        //requirementList = requirementDao.getAllRequirement();
+        requirementList = requirementDao.getRequirementsByProjectId(projectId);
         projectList = requirementDao.getAllProject();            
         
         //get projectName
@@ -207,9 +215,11 @@ public class RequirementAddController {
         PortletSupport portletSupport = new PortletSupport(request);
         DeveloperDao developerDAO = new DeveloperDao();
         username = portletSupport.getLogonUser();
+        username = username.toUpperCase();
         developer = developerDAO.getDeveloperByAccount(username);
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
         
+        mav.addObject("ROLE","Project Manager");
         return mav;
     }
     

@@ -200,17 +200,8 @@
       <tr>
         <th><strong>User: </strong></th>
         <td><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
-      </tr>
-      <tr>
-        <th><strong>Projects: </strong></th>
-        <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
-      </tr>
-      <c:if test="${not empty projectList}">
-      <tr>
-        <th><strong>Requirements: </strong></th>
-        <td><strong><font color="#1490E3"><a
-              href='<portlet:renderURL><portlet:param name="action" value="requirementmanager"/></portlet:renderURL>'>Lists</a></font></strong></td>
-      </tr>
+      </tr>      
+      <c:if test="${not empty projectList}">      
       <tr>
         <th><strong>Projects: </strong></th>
         <td><strong><font color="#1490E3"><a
