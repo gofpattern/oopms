@@ -45,6 +45,7 @@ import openones.oopms.projecteye.model.Language;
 import openones.oopms.projecteye.model.Milestone;
 import openones.oopms.projecteye.model.Module;
 import openones.oopms.projecteye.model.Ncconstant;
+import openones.oopms.projecteye.model.OopmsBudget;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
@@ -626,6 +627,13 @@ public class NavigatorController {
 			mav.addObject("deleteCostTypeFlag", deleteCostTypeFlag);
 			String deletingOopmsCostTypeId = request.getParameter("deletingOopmsCostTypeId");
 			mav.addObject("deletingOopmsCostTypeId", deletingOopmsCostTypeId);
+		}
+		if(request.getParameter("ViewBudgetRecord")!=null) {
+			List<OopmsBudget> budgetList = cDao.getProjectBudgetList(projectId);
+			mav.addObject("BudgetRecords", budgetList);
+		}
+		if(request.getParameter("ViewInvoiceRecords")!=null) {
+			
 		}
 		mav.addObject("currentBudget", projectCost.getCurrentBudget());
 		mav.addObject("currentExpense", projectCost.getCurrentExpense());

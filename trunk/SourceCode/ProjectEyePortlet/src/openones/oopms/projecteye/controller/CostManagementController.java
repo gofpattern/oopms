@@ -37,13 +37,16 @@ import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
+import openones.oopms.projecteye.form.UpdateBudgetRecordForm;
 import openones.oopms.projecteye.form.UpdateCostTypeForm;
 import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
 import openones.oopms.projecteye.form.UpdateOneTimeExpenseForm;
 import openones.oopms.projecteye.model.Developer;
+import openones.oopms.projecteye.model.OopmsBudget;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
@@ -57,6 +60,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  * @author HaiTCT
@@ -311,5 +315,51 @@ public class CostManagementController {
 		log.debug("project ID : " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;
+	}
+	
+	@RenderMapping(params = "action=GoUpdateBudgetRecords")
+	public ModelAndView postGoUpdateBudgetRecords(RenderRequest request) {
+		log.debug("post GoUpdateBudgetRecords.START");
+		CostDao cDao = new CostDao();
+		OopmsBudget budget = cDao.getBudgetRecord(request.getParameter("oopmsBudgetId"));
+		UpdateBudgetRecordForm form = new UpdateBudgetRecordForm();
+		form.setBudgetType(budget.getType());
+		form.setDescription(HTMLTag.replaceHTMLTag(budget.getDescription()));
+		form.setValue(String.valueOf(budget.getValue()));
+		ModelAndView mav = new ModelAndView("UpdateBudgetRecord",
+				"UpdateBudgetRecordForm", form);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID : " + projectId);
+		mav.addObject("projectId", projectId);
+		mav.addObject("oopmsBudgetId", request.getParameter("oopmsBudgetId"));
+		return mav;
+	}
+	
+	@ActionMapping(params = "action=RemoveBudgetRecord")
+	public void processRemoveBudgetRecord(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post RemoveBudgetRecord.START");
+		String projectId = formBean.getProjectId();
+		CostDao cDao = new CostDao();
+		cDao.deleteBudgetRecord(formBean.getOopmsBudgetId());
+		// set value for projectCost
+		BigDecimal oldValue = new BigDecimal(formBean.getBudgetValue());
+		String oldType = formBean.getBudgetType();
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				projectId));
+		if (oldType.equals(Constant.BudgetIncreaseType)) {
+			projectCost.setCurrentBudget(projectCost.getCurrentBudget()
+					.subtract(oldValue));
+		} else {
+			projectCost.setCurrentBudget(oldValue.add(projectCost
+					.getCurrentBudget()));
+		}
+		projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
+				projectCost.getCurrentBudget()));
+		cDao.updateProjectCost(projectCost);
+		
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("ViewBudgetRecord", "ViewBudgetRecord");
+		response.setRenderParameter("projectId", projectId);
 	}
 }

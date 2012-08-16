@@ -34,7 +34,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-	        yav.init('${portletNamespace}CreateBudgetRecord', rules);
+	        yav.init('${portletNamespace}UpdateBudgetRecord', rules);
+	        document.getElementById('description').innerHTML = "${UpdateBudgetRecordForm.description}";
 	});
     
     </script>
@@ -47,7 +48,7 @@
 
 </SCRIPT>
 
-<title>Create Budget Record</title>
+<title>Update Budget Record</title>
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -56,17 +57,18 @@
 
   <div class="content">
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
-    	<p class="title" id="headerDuyND">Create Budget Record</p>
+    	<p class="title" id="headerDuyND">Update Budget Record</p>
     </div>
 <portlet:actionURL var="formAction">
-  <portlet:param name="action" value="CreateBudgetRecord" />
+  <portlet:param name="action" value="UpdateBudgetRecord" />
   <portlet:param name="projectId" value="${projectId}" />
+  <portlet:param name="oopmsBudgetId" value="${oopmsBudgetId}" />
 </portlet:actionURL>
 <portlet:renderURL var="renderAction">
     		<portlet:param name="action" value="GoCostManagement" />
         	<portlet:param name="projectId" value="${projectId}" />
   	</portlet:renderURL>
-<form:form name="${portletNamespace}CreateBudgetRecord" commandName="CreateBudgetRecordForm" method="post" action="${formAction}" onsubmit="return yav.performCheck('${portletNamespace}CreateBudgetRecord', rules, 'inline');">
+<form:form name="${portletNamespace}UpdateBudgetRecord" commandName="UpdateBudgetRecordForm" method="post" action="${formAction}" onsubmit="return yav.performCheck('${portletNamespace}UpdateBudgetRecord', rules, 'inline');">
 
 <div id=errorsDiv style="color: red">
 <c:if test="${not empty errorList }">
@@ -92,9 +94,9 @@
         <br/><span id=errorsDiv_description>&nbsp;</span></td>
       </tr>
 </table>
-	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CreateBudgetRecord", "${formAction}")'>Create</button>
+	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}UpdateBudgetRecord", "${formAction}")'>Update</button>
 	<button type="reset" class="button blue small">Reset</button>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CreateBudgetRecord", "${renderAction}")'>Cancel</button>
+	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}UpdateBudgetRecord", "${renderAction}")'>Cancel</button>
 	
 </form:form>
 

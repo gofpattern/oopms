@@ -480,6 +480,42 @@ public class CostDao {
 		return true;
 	}
 	
+	public boolean updateBudgetRecord(OopmsBudget OopmsBudget) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.merge(OopmsBudget);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Update fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Update success");
+		return true;
+	}
+	
+	public boolean deleteBudgetRecord(String oopmsBudgetId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Delete From OopmsBudget where oopmsBudgetId = :oopmsBudgetId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsBudgetId", new BigDecimal(
+					oopmsBudgetId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean insertProjectCost(OopmsProjectCost OopmsProjectCost) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -531,6 +567,39 @@ public class CostDao {
 		return null;
 	}
 	
+	public OopmsBudget getBudgetRecord(String oopmsBudgetId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsBudget where oopmsBudgetId = :oopmsBudgetId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsBudgetId", new BigDecimal("oopmsBudgetId"));
+			OopmsBudget budgetRecord = (OopmsBudget) query.uniqueResult();
+			session.getTransaction().commit();
+			return budgetRecord;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	public List<OopmsBudget> getProjectBudgetList(String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsBudget where projectId = :projectId";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			List<OopmsBudget> projectBudgetList = query.list();
+			session.getTransaction().commit();
+			return projectBudgetList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
 	
 
 }

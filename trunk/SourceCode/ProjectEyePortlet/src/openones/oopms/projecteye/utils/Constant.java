@@ -26,4 +26,7 @@ public class Constant {
 	public static String DateFormat = "MM/dd/yyyy";
 	public static String BudgetIncreaseType = "0";
 	public static String BudgetDecreaseType = "1";
+	public static String ProjectCostStatusGreen = "1";
+	public static String ProjectCostStatusYellow = "2";
+	public static String ProjectCostStatusRed = "3";
 }
