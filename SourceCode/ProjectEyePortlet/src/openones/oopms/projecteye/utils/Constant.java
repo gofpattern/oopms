@@ -24,4 +24,6 @@ public class Constant {
 	public static String CostTypeUsedByDailyCost = "2";
 	public static String CostTypeUsedByBothExceptionalCostAndDailyCost = "3";
 	public static String DateFormat = "MM/dd/yyyy";
+	public static String BudgetIncreaseType = "0";
+	public static String BudgetDecreaseType = "1";
 }

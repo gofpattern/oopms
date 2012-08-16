@@ -28,6 +28,7 @@ import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.form.CostManagementForm;
+import openones.oopms.projecteye.form.CreateBudgetRecordForm;
 import openones.oopms.projecteye.form.CreateCostTypeForm;
 import openones.oopms.projecteye.form.CreateDailyExpenseForm;
 import openones.oopms.projecteye.form.CreateExceptionalDeductForm;
@@ -295,6 +296,19 @@ public class CostManagementController {
 		String projectId = request.getParameter("projectId");
 		log.debug("project ID : " + projectId);
 		mav.addObject("oopmsCostTypeId", oopmsCostTypeId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+	
+	@RenderMapping(params = "action=GoCreateBudgetRecords")
+	public ModelAndView postGoCreateBudgetRecords(RenderRequest request) {
+		log.debug("post GoCreateBudgetRecords.START");
+		CreateBudgetRecordForm form = new CreateBudgetRecordForm();
+		form.setBudgetType("increase");
+		ModelAndView mav = new ModelAndView("CreateBudgetRecord",
+				"CreateBudgetRecordForm", form);
+		String projectId = request.getParameter("projectId");
+		log.debug("project ID : " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;
 	}

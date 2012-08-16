@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
+import openones.oopms.projecteye.model.OopmsBudget;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsExceptionalCost;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
@@ -460,5 +462,75 @@ public class CostDao {
 		}
 		return result;
 	}
+	
+	public boolean insertBudgetRecord(OopmsBudget OopmsBudget) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.save(OopmsBudget);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Insert fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert success");
+		return true;
+	}
+	
+	public boolean insertProjectCost(OopmsProjectCost OopmsProjectCost) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.save(OopmsProjectCost);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Insert fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert success");
+		return true;
+	}
+	
+	public boolean updateProjectCost(OopmsProjectCost OopmsProjectCost) {
+		try {
+			SessionFactory sessfac = HibernateUtil.getSessionFactory();
+			session = sessfac.openSession();
+			tx = session.beginTransaction();
+			session.merge(OopmsProjectCost);
+			tx.commit();
+			sessfac.close();
+		} catch (Exception e) {
+			log.error("Insert fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		log.error("Insert success");
+		return true;
+	}
+	
+	public OopmsProjectCost getProjectCost(BigDecimal projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsProjectCost where projectId = :projectId";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", projectId);
+			OopmsProjectCost projectCost = (OopmsProjectCost) query.uniqueResult();
+			session.getTransaction().commit();
+			return projectCost;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	
 
 }
