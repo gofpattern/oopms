@@ -107,7 +107,7 @@
               </portlet:actionURL>
               <tr>
                 <td align="center">${count}</td>
-                <td align="center"><a href="${renderAction}">${project.name}</a></td>
+                <td><a href="${renderAction}">${project.name}</a></td>
                 <td align="center"><a href="${renderAction}">${project.code}</a></td>
               </tr>
             </c:forEach>
@@ -115,11 +115,17 @@
         </table>
       </c:if>
       <c:if test="${empty projectList}">
-        You haven't jointed any projects.
+        <h5>You haven't jointed any projects.
+        <br>Please use Project Eye Portlet to see projects and contacts list.
+        </h5>
     </c:if>
 
     </div>
   </div>
-
+<br>
+  <div class="footer">
+    <p>OOPMS Group</p>
+    <!-- end .footer -->
+  </div>
 </body>
 </html>
