@@ -135,19 +135,20 @@ public class TimesheetController {
                 userInfo.addRole(dev.getRole());
                 userInfo.setGroup(dev.getGroupName());
                 userInfo.setLoginDate(BaseUtil.getCurrentDate());
-                         
+                user= dev;     
        
                     
             TimesheetDao timesheetDao = new TimesheetDao();
             projectMap = new LinkedHashMap<String, String>();
 
             // Get project List from database
-            projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
+            projectList = timesheetDao.getProjectList(String.valueOf(dev.getDeveloperId()));
             if(projectList == null || projectList.size()== 0) {
                 return mav;
             }
+           
             mav = new ModelAndView("Timesheet"); // display Timesheet.jsp 
-            role = timesheetDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+            role = timesheetDao.getRole(dev.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
            System.out.println("ROLE : " + role);
             //projectMap.put("All", "All");
             for (int i = 0; i < projectList.size(); i++) {
