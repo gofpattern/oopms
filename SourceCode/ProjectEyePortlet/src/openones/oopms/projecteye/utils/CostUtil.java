@@ -9,12 +9,14 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import openones.oopms.projecteye.dao.CostDao;
+import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.ExceptionalCost;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsExceptionalCost;
+import openones.oopms.projecteye.model.Project;
 
 public class CostUtil {
 	private final static Logger log = Logger.getLogger("CostUtil");
@@ -456,6 +458,22 @@ public class CostUtil {
 			}
 		}
 		return result;
+	}
+
+	public static String getProjectCostStatus(String projectId,
+			BigDecimal currentBudget) {
+		ProjectDao pDao = new ProjectDao();
+		Project project = pDao.getProject(projectId);
+		BigDecimal projectExpense = getExpense(projectId,
+				project.getPlanFinishDate());
+		if (projectExpense.compareTo(currentBudget) == 1) {
+			return Constant.ProjectCostStatusRed;
+		} else if (projectExpense.compareTo(currentBudget
+				.multiply(new BigDecimal("0.8"))) == -1) {
+			return Constant.ProjectCostStatusGreen;
+		} else {
+			return Constant.ProjectCostStatusYellow;
+		}
 	}
 
 }

@@ -23,12 +23,9 @@ import java.math.BigDecimal;
 import javax.portlet.ActionResponse;
 
 import openones.oopms.projecteye.dao.CostDao;
-import openones.oopms.projecteye.form.CreateBudgetRecordForm;
-import openones.oopms.projecteye.form.CreateDailyExpenseForm;
+import openones.oopms.projecteye.form.UpdateBudgetRecordForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsBudget;
-import openones.oopms.projecteye.model.OopmsCostDailyExpense;
-import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
@@ -45,74 +42,60 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class CreateBudgetRecordController {
+public class UpdateBudgetRecordController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
 	private static Logger log = Logger
-			.getLogger(CreateBudgetRecordController.class);
+			.getLogger(UpdateBudgetRecordController.class);
 	String projectId;
 
-	@ActionMapping(params = "action=CreateBudgetRecord")
-	public void processCreateBudgetRecord(CreateBudgetRecordForm formBean,
+	@ActionMapping(params = "action=UpdateBudgetRecord")
+	public void processUpdateBudgetRecord(UpdateBudgetRecordForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
-		log.debug("process CreateBudgetRecord.START");
+		log.debug("process UpdateBudgetRecord.START");
 		String projectId = formBean.getProjectId();
 		CostDao cDao = new CostDao();
-		OopmsBudget budgetRecord = new OopmsBudget();
+		OopmsBudget budgetRecord = cDao.getBudgetRecord(formBean
+				.getOopmsBudgetId());
+		BigDecimal oldValue = budgetRecord.getValue();
+		String oldType = budgetRecord.getType();
 		budgetRecord.setProjectId(new BigDecimal(projectId));
 		budgetRecord.setValue(new BigDecimal(formBean.getValue()));
 		budgetRecord.setType(formBean.getBudgetType());
 		budgetRecord.setDescription(formBean.getDescription());
 		// Call dao to insert project to database
-		if (cDao.insertBudgetRecord(budgetRecord)) {
+		if (cDao.updateBudgetRecord(budgetRecord)) {
 			OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
 					projectId));
-			if (projectCost != null) {
-				if (projectCost.getCurrentBudget() != null) {
-					if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
-						projectCost
-								.setCurrentBudget(new BigDecimal(formBean
-										.getValue()).add(projectCost
-										.getCurrentBudget()));
-					} else {
-						projectCost.setCurrentBudget(projectCost
-								.getCurrentBudget().subtract(
-										new BigDecimal(formBean.getValue())));
-					}
-				} else {
-					if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
-						projectCost.setCurrentBudget(new BigDecimal(formBean
-								.getValue()));
-					} else {
-						projectCost.setCurrentBudget(new BigDecimal("-"
-								+ formBean.getValue()));
-					}
-				}
-				projectCost.setCostStatus(CostUtil.getProjectCostStatus(
-						projectId, projectCost.getCurrentBudget()));
-				cDao.updateProjectCost(projectCost);
+			// /insert the new value
+			if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
+				projectCost
+						.setCurrentBudget(new BigDecimal(formBean.getValue())
+								.add(projectCost.getCurrentBudget()));
 			} else {
-				OopmsProjectCost projectCost2 = new OopmsProjectCost();
-				projectCost2.setProjectId(new BigDecimal(projectId));
-				projectCost2.setCostStatus("1");
-				if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
-					projectCost2.setCurrentBudget(new BigDecimal(formBean
-							.getValue()));
-				} else {
-					projectCost2.setCurrentBudget(new BigDecimal("-"
-							+ formBean.getValue()));
-				}
-				projectCost2.setCurrentExpense(new BigDecimal("0"));
-				projectCost2.setCostStatus(CostUtil.getProjectCostStatus(
-						projectId, projectCost2.getCurrentBudget()));
-				cDao.insertProjectCost(projectCost2);
+				projectCost.setCurrentBudget(projectCost.getCurrentBudget()
+						.subtract(new BigDecimal(formBean.getValue())));
 			}
+			// remove the old value
+			if (oldType.equals(Constant.BudgetIncreaseType)) {
+
+				projectCost.setCurrentBudget(projectCost.getCurrentBudget()
+						.subtract(oldValue));
+			} else {
+				projectCost.setCurrentBudget(oldValue.add(projectCost
+						.getCurrentBudget()));
+			}
+
+			projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
+					projectCost.getCurrentBudget()));
+			cDao.updateProjectCost(projectCost);
 			response.setRenderParameter("action", "GoCostManagement");
+			response.setRenderParameter("ViewBudgetRecord", "ViewBudgetRecord");
 			response.setRenderParameter("projectId", projectId);
-			log.error("Insert success");
+			log.error("Update success");
 		} else {
-			log.error("Cannot Insert");
+			log.error("Update Insert");
 		}
 
 	}

@@ -133,6 +133,13 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     					submitAction("${portletNamespace}CostManagement", actionUrl);
     				}
     			}
+                
+                $('#mainTable6').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
             } );
         </script>	
 </head>
@@ -178,17 +185,69 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
   	<portlet:param name="projectId" value="${projectId}" />
 </portlet:renderURL>
 <portlet:renderURL var="formAction8">
-  	<portlet:param name="action" value="ViewBudgetRecords" />
+  	<portlet:param name="action" value="GoCostManagement" />
   	<portlet:param name="projectId" value="${projectId}" />
+  	<portlet:param name="ViewBudgetRecord" value="ViewBudgetRecord" />
 </portlet:renderURL>
 <portlet:renderURL var="formAction9">
-  	<portlet:param name="action" value="ViewInvoiceRecords" />
+  	<portlet:param name="action" value="GoCostManagement" />
   	<portlet:param name="projectId" value="${projectId}" />
+  	<portlet:param name="ViewInvoiceRecords" value="ViewInvoiceRecords" />
 </portlet:renderURL>
 <h2>Budget</h2>
 Current Budget is : ${currentBudget}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction7}")'>Add new Budget Record</button>
 <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction8}")'>View Budget Records</button>
+<c:if test="${not empty BudgetRecords}">
+	<p id="header2DuyND" style="text-align:center">--------------------------------Budget Records--------------------------------</p>
+</c:if>
+	<table class="display dataTable" id="mainTable6" cellpadding="0" cellspacing="0" border="0">	
+	<c:if test="${not empty BudgetRecords}">
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="10%" scope="row">Value</th>    
+        <th width="10%" scope="row">Type</th> 
+        <th width="65%" scope="row">Description</th>
+        <th width="10%" scope="row">Action</th>
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="budget" items="${BudgetRecords}" varStatus="count">
+   	<tr>  	
+   			<portlet:renderURL var="renderAction2">
+            	<portlet:param name="action" value="GoUpdateBudgetRecords" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="oopmsBudgetId" value="${budget.oopmsBudgetId}" />
+            </portlet:renderURL>
+            <portlet:actionURL var="renderAction3">
+            	<portlet:param name="action" value="RemoveBudgetRecord" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="oopmsBudgetId" value="${budget.oopmsBudgetId}" />
+            	<portlet:param name="budgetValue" value="${budget.value}" />
+            	<portlet:param name="budgetType" value="${budget.type}" />
+            </portlet:actionURL>
+     		   <td scope="row">${count.count}</td>
+               <td scope="row"><a href="${renderAction2}">${budget.value}</a></td>
+               <td scope="row">
+               		<c:if test="${budget.type == 0}">
+               			Increase
+               		</c:if>
+               		<c:if test="${budget.type == 1}">
+               			Decrease
+               		</c:if>
+               </td>
+               <td scope="row">${budget.description}</td>
+               <td scope="row">
+               	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Budget record?");'>Remove</button>
+               </td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </c:if>
+</table> 	
+	<br>
+
 <br>
 Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button>
