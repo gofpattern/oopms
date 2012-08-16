@@ -264,7 +264,7 @@ public class PlannerController {
 
     @ActionMapping(params = "action=search")
     public void processSearchByStatus(PlannerForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) {
+            ActionResponse response,PortletSession session) {
         log.debug("processSearchByStatus.START");
         for (int i = 0; i < taskList.size(); i++) {
             taskList.get(i).setVisible(true);
@@ -283,6 +283,7 @@ public class PlannerController {
 
         }
         formBean.setInit(false);
+        session.setAttribute("CHANGEPROJECT_ERROR", false, PortletSession.APPLICATION_SCOPE);
         response.setRenderParameter("action", "taskmanager");
     }
 
