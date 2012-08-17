@@ -20,6 +20,7 @@ package openones.oopms.dashboard.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ import openones.oopms.daocommon.DeveloperDao;
 import openones.oopms.daocommon.GeneralReferenceDao;
 import openones.oopms.daocommon.LanguageDao;
 import openones.oopms.daocommon.ModuleDao;
+import openones.oopms.daocommon.TaskDao;
 import openones.oopms.dashboard.form.DashboardForm;
 import openones.oopms.dashboard.model.Dashboard;
 import openones.oopms.dashboard.utils.Constant;
@@ -46,6 +48,7 @@ import openones.oopms.entity.GeneralReference;
 import openones.oopms.entity.Language;
 import openones.oopms.entity.Module;
 import openones.oopms.entity.Project;
+import openones.oopms.entity.Tasks;
 import openones.oopms.form.UserInfo;
 import openones.oopms.portlet.controller.BaseController;
 import openones.portlet.PortletSupport;
@@ -75,7 +78,7 @@ public class DashboardController extends BaseController {
     private Map<String, String> businessDomainMap;
     private Map<String, String> statusMap;
     private Map<String, String> categoryMap;
-    private Map<String, String> projectHealthMap; 
+    private Map<String, String> projectHealthMap;
     private CostDao costDao;
     private AssignmentDao assignmentDao;
     private DeveloperDao developerDao;
@@ -199,7 +202,7 @@ public class DashboardController extends BaseController {
                 dashboard.setPercentTime(calculatePercentTime(projectList.get(i).getPlanStartDate(), projectList.get(i)
                         .getPlanFinishDate()));
                 dashboard.setPercentProgress(calculatePercentProgress(projectList.get(i).getProjectId()));
-                dashboard.setEfficiencyStatus(Constant.NORMAL_STATUS);
+                dashboard.setEfficiencyStatus(calculateEfficiencyStatus(projectList.get(i).getProjectId()));
                 dashboard.setCostStatus(calculateCostStatus(projectList.get(i).getProjectId()));
                 dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getPercentProgress(),
                         dashboard.getCostStatus(), dashboard.getEfficiencyStatus()));
@@ -270,21 +273,21 @@ public class DashboardController extends BaseController {
         double totalPlannedSheet = 0;
         for (int i = 0; i < modules.size(); i++) {
             Language language = languageDao.getLanguageById(modules.get(i).getPlannedSizeUnitId());
-            if (language.getSizeUnit().contains(Constant.LOC)) {
+            if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
                 totalCurrentLoc += modules.get(i).getActualSize().doubleValue();
                 totalPlannedLoc += modules.get(i).getPlannedSize().doubleValue();
             }
 
-            if (language.getSizeUnit().contains(Constant.TESTCASE)) {
+            if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
                 totalCurrentTestCase += modules.get(i).getActualSize().doubleValue();
                 totalPlannedTestCase += modules.get(i).getPlannedSize().doubleValue();
             }
 
-            if (language.getSizeUnit().contains(Constant.PAGE_WORD)) {
+            if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
                 totalCurrentPage += modules.get(i).getActualSize().doubleValue();
                 totalPlannedPage += modules.get(i).getPlannedSize().doubleValue();
             }
-            if (language.getSizeUnit().contains(Constant.SHEET_EXCEL)) {
+            if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
                 totalCurrentSheet += modules.get(i).getActualSize().doubleValue();
                 totalPlannedSheet += modules.get(i).getPlannedSize().doubleValue();
             }
@@ -294,7 +297,7 @@ public class DashboardController extends BaseController {
         double percentProgress = ((totalCurrentLoc * Constant.LOC_WEIGHT)
                 + (totalCurrentTestCase * Constant.TESTCASE_WEIGHT) + (totalCurrentPage * Constant.PAGE_WEIGHT) + (totalCurrentSheet * Constant.PAGE_WEIGHT))
                 / ((totalPlannedLoc * Constant.LOC_WEIGHT) + (totalPlannedTestCase * Constant.TESTCASE_WEIGHT)
-                        + (totalPlannedPage * Constant.PAGE_WEIGHT) + (totalPlannedSheet * Constant.PAGE_WEIGHT))*100;
+                        + (totalPlannedPage * Constant.PAGE_WEIGHT) + (totalPlannedSheet * Constant.PAGE_WEIGHT)) * 100;
 
         return Math.round(percentProgress * 100.0) / 100.0;
     }
@@ -315,20 +318,101 @@ public class DashboardController extends BaseController {
         else
             return Constant.GOOD_STATUS;
     }
-    private void calculateEfficiencyStatus() {
-        // TODO:asas
+    private String calculateEfficiencyStatus(BigDecimal projectId) {
+        LanguageDao languageDao = new LanguageDao();
+        ModuleDao moduleDao = new ModuleDao();
+        List<Module> modules = moduleDao.getModuleByProject(projectId);
+        TaskDao taskDao = new TaskDao();
+        List<Tasks> tasks = taskDao.getTasksByProjectId(projectId);
+        double totalCurrentLoc = 0;
+        double totalCurrentPage = 0;
+        double totalCurrentTestCase = 0;
+        double totalCurrentSheet = 0;
+
+        Date currentDate = new Date();
+        long totalDayForLoc = 0;
+        long totalDayForTestCase = 0;
+        long totalDayForPage = 0;
+        long totalDayeForSheet = 0;
+        
+        double totalCurrentDoneWork = 0;
+        double totalCurrentExpectedWork = 0;
+        double deviation = 0;
+        
+        // total current amount of work done (Convert all into one unit)
+        for (int i = 0; i < modules.size(); i++) {
+            Language language = languageDao.getLanguageById(modules.get(i).getPlannedSizeUnitId());
+            if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
+                totalCurrentLoc += modules.get(i).getActualSize().doubleValue();
+            }
+
+            if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
+                totalCurrentTestCase += modules.get(i).getActualSize().doubleValue();
+            }
+
+            if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
+                totalCurrentPage += modules.get(i).getActualSize().doubleValue();
+            }
+            if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
+                totalCurrentSheet += modules.get(i).getActualSize().doubleValue();
+            }
+        }
+        
+        totalCurrentDoneWork = ((totalCurrentLoc * Constant.LOC_WEIGHT)
+                + (totalCurrentTestCase * Constant.TESTCASE_WEIGHT) + (totalCurrentPage * Constant.PAGE_WEIGHT) + (totalCurrentSheet * Constant.PAGE_WEIGHT));
+     
+        // total expected work done (Convert all into one unit)
+        for (int i = 0; i < tasks.size(); i++) {
+            Language language = languageDao.getLanguageById(tasks.get(i).getSizeunit());
+            if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
+                if (tasks.get(i).getStartdate().before(currentDate)) {
+                    totalDayForLoc += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                }
+            }
+
+            if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
+                if (tasks.get(i).getStartdate().before(currentDate)) {
+                    totalDayForTestCase += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                }
+            }
+
+            if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
+                if (tasks.get(i).getStartdate().before(currentDate)) {
+                    totalDayForPage += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                }
+            }
+            if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
+                if (tasks.get(i).getStartdate().before(currentDate)) {
+                    totalDayeForSheet += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                }
+            }
+        }
+
+        totalCurrentExpectedWork = totalDayForLoc * Constant.LOC_PER_DAY * Constant.LOC_WEIGHT + totalDayForTestCase
+                * Constant.TESTCASE_PER_DAY * Constant.TESTCASE_WEIGHT + totalDayForPage * Constant.PAGE_PER_DAY
+                * Constant.PAGE_WEIGHT + totalDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
+
+        // deviation is 10%
+        deviation = totalCurrentExpectedWork / 10;
+        
+        if (totalCurrentDoneWork < (totalCurrentExpectedWork - deviation))
+            return Constant.BAD_STATUS;
+        else if (totalCurrentDoneWork > (totalCurrentExpectedWork + deviation))
+            return Constant.GOOD_STATUS;
+        else
+            return Constant.NORMAL_STATUS;
     }
     private String calculateCostStatus(BigDecimal projectId) {
         costDao = new CostDao();
         String costStatus = costDao.getCostStatus(projectId);
-        if(costStatus != null){
-            if(costStatus.equals("1"))
+        if (costStatus != null) {
+            if (costStatus.equals("1"))
                 return Constant.GOOD_STATUS;
-            if(costStatus.equals("2"))
+            if (costStatus.equals("2"))
                 return Constant.NORMAL_STATUS;
             return Constant.BAD_STATUS;
         }
         return Constant.BLANK;
-        
+
     }
 }
