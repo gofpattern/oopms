@@ -258,7 +258,13 @@ public class DashboardController extends BaseController {
 
     }
 
+    /**
+     * Calculate Progress of current project by current completed size and plan size
+     * @param projectId
+     * @return
+     */
     private double calculatePercentProgress(BigDecimal projectId) {
+        log.debug("calculatePercentProgress.START");
         ModuleDao moduleDao = new ModuleDao();
         LanguageDao languageDao = new LanguageDao();
         List<Module> modules = moduleDao.getModuleByProject(projectId);
@@ -273,21 +279,21 @@ public class DashboardController extends BaseController {
         double totalPlannedSheet = 0;
         for (int i = 0; i < modules.size(); i++) {
             Language language = languageDao.getLanguageById(modules.get(i).getPlannedSizeUnitId());
-            if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
+            if (language.getSizeUnit().toUpperCase().contains(Constant.LOC.toUpperCase())) {
                 totalCurrentLoc += modules.get(i).getActualSize().doubleValue();
                 totalPlannedLoc += modules.get(i).getPlannedSize().doubleValue();
             }
 
-            if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
+            if (language.getSizeUnit().toUpperCase().contains(Constant.TESTCASE.toUpperCase())) {
                 totalCurrentTestCase += modules.get(i).getActualSize().doubleValue();
                 totalPlannedTestCase += modules.get(i).getPlannedSize().doubleValue();
             }
 
-            if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
+            if (language.getSizeUnit().toUpperCase().contains(Constant.PAGE_WORD.toUpperCase())) {
                 totalCurrentPage += modules.get(i).getActualSize().doubleValue();
                 totalPlannedPage += modules.get(i).getPlannedSize().doubleValue();
             }
-            if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
+            if (language.getSizeUnit().toUpperCase().contains(Constant.SHEET_EXCEL.toUpperCase())) {
                 totalCurrentSheet += modules.get(i).getActualSize().doubleValue();
                 totalPlannedSheet += modules.get(i).getPlannedSize().doubleValue();
             }
@@ -301,14 +307,32 @@ public class DashboardController extends BaseController {
 
         return Math.round(percentProgress * 100.0) / 100.0;
     }
+    
+    /**
+     * Calculate passing time of project.
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     private double calculatePercentTime(Date startDate, Date endDate) {
+        log.debug("calculatePercentTime.START");
         Date currentDate = new Date();
         double percentTime = ((double) currentDate.getTime() - (double) startDate.getTime())
                 / ((double) endDate.getTime() - (double) startDate.getTime()) * 100;
 
         return Math.round(percentTime * 100.0) / 100.0;
     }
+    
+    
+    /**
+     * Calculate Project Health by percentProgress, costStatus and efficiencyStatus.
+     * @param percentProgress
+     * @param costStatus
+     * @param efficiencyStatus
+     * @return
+     */
     private String calculateProjectHealth(double percentProgress, String costStatus, String efficiencyStatus) {
+        log.debug("calculateProjectHealth.START");
         if (costStatus.equals(Constant.BAD_STATUS) || efficiencyStatus.equals(Constant.BAD_STATUS)
                 || percentProgress < 50)
             return Constant.BAD_STATUS;
@@ -318,7 +342,15 @@ public class DashboardController extends BaseController {
         else
             return Constant.GOOD_STATUS;
     }
+    
+    
+    /**
+     * Calculate Efficiency of team member by current work done and expected work done .
+     * @param projectId
+     * @return
+     */
     private String calculateEfficiencyStatus(BigDecimal projectId) {
+        log.debug("calculateEfficiencyStatus.START");
         LanguageDao languageDao = new LanguageDao();
         ModuleDao moduleDao = new ModuleDao();
         List<Module> modules = moduleDao.getModuleByProject(projectId);
@@ -402,7 +434,15 @@ public class DashboardController extends BaseController {
         else
             return Constant.NORMAL_STATUS;
     }
+    
+    
+    /**
+     * Get cost status form DB
+     * @param projectId
+     * @return
+     */
     private String calculateCostStatus(BigDecimal projectId) {
+        log.debug("calculateCostStatus.START");
         costDao = new CostDao();
         String costStatus = costDao.getCostStatus(projectId);
         if (costStatus != null) {
