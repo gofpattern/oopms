@@ -23,9 +23,12 @@ package openones.oopms.dashboard.utils;
  *
  */
 public class Constant {
-    public static final float PAGE_WEIGHT = 1F;
-    public static final float TESTCASE_WEIGHT = 0.1F;
-    public static final float LOC_WEIGHT = 1/30F;
+    public static final float PAGE_WEIGHT = 30F;
+    public static final float TESTCASE_WEIGHT = 3F;
+    public static final float LOC_WEIGHT = 1F;
+    public static final float PAGE_PER_DAY = 10f;
+    public static final float TESTCASE_PER_DAY = 100F;
+    public static final float LOC_PER_DAY = 300F;
     public static final String LOC = "LOC";
     public static final String TESTCASE = "Test cases";
     public static final String PAGE_WORD = "Page";
