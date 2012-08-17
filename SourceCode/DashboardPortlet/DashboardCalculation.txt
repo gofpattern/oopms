@@ -1,0 +1,58 @@
+A. Cost:
+red: end date to check, > budget 
+Yellow: end date to check, from 80 - 100% budget
+Green: end date to check, < 80% budget.
+
+Example:
+
+Budget: 100000
+Use end date of project to calculate the final cost with existing cost entry:
+--> Result:	X > 100000 --> RED
+		80000 =< X =< 100000 --> YELLOW
+		X < 80000 --> GREEN
+
+B. PercentProgress:
+4 type of Product (currently fixed, considering input by PM): LOC, TestCase, Page, Sheet
+Coefficient: LOC 1, TestCase 3, Page 30, Sheet 30 (means: 1 dev 1 day: 300 LOC, 100 TestCase, 10 Page, 10 Sheet).
+
+Convert all products into one unit to calculate the percent of completeness.
+
+Example:
+
+1 Product LOC: 400/1000
+1 Product TestCase: 500/1000
+1 Product Page: 800/1000
+1 Product Sheet: 500/1000
+1 Product TestCase: 300/1000
+
+	Convert:	
+		1 Product LOC: 400/1000
+		1 Product TestCase: 1500/3000
+		1 Product Page: 24000/30000
+		1 Product Sheet: 15000/30000
+		1 Product TestCase: 900/3000
+	--> 41.8/67 = 62%
+
+
+C. PercentTime: Always Green.
+
+D. EfficiencyStatus:
+
+1. Total actual size of all tasks: current amount of work done (Convert all into one unit).
+2. Total amount of days from the start date of tasks to current date: total days the team had spent to do the tasks.
+3. Norm number (fixed or enter by PM): amount of work 1 member can do a day (Convert all into one unit).
+4. Number of Team members: 
+
+From 1,2: Amount of work team complete in one day. 5
+From 3,4: Amount of work team supposed to complete in one day. 6
+
+5 = 6 (variation 10%): YELLOW.
+5 > 6 + 6*10%: GREEN.
+5 < 6 - 6*10%: RED.
+
+
+E. Health: --> 
+
+just one red --> red
+all green --> green
+rest --> yellow
