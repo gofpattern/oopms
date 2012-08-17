@@ -108,6 +108,7 @@
           </tbody>
         </table>
       </form:form>
+       <c:if test="${not empty dashboardList}">
       <table id="projectTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0" align="center">
         <thead>
           <tr>
@@ -197,7 +198,7 @@
                     </div>
                   </c:otherwise>
                 </c:choose></td>
-              <td>${dashboard.project.startDate}</td>
+              <td>${dashboard.project.planStartDate}</td>
               <td>${dashboard.project.planFinishDate}</td>
               <td>${dashboard.project.planEffort}</td>
               <td>${dashboard.project.actualEffort}</td>
@@ -206,7 +207,12 @@
           </c:forEach>
         </tbody>
       </table>
-
+    </c:if>
+    <c:if test="${empty dashboardList}">
+        <h5>
+          You haven't jointed any projects. <br>Please use Project Eye Portlet to see projects and contacts list.
+        </h5>
+      </c:if>
 
       <div class="footer">
         <p>OOPMS Group</p>

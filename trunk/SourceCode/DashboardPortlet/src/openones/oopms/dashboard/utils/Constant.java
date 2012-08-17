@@ -34,4 +34,5 @@ public class Constant {
     public static final String NORMAL_STATUS = "normal";
     public static final String BAD_STATUS = "bad";
     public static final String ALL_VALUE = "All";
+    public static final String BLANK = "none";
 }

@@ -196,7 +196,7 @@ public class DashboardController extends BaseController {
             for (int i = 0; i < projectList.size(); i++) {
                 dashboard = new Dashboard();
                 dashboard.setProject(projectList.get(i));
-                dashboard.setPercentTime(calculatePercentTime(projectList.get(i).getStartDate(), projectList.get(i)
+                dashboard.setPercentTime(calculatePercentTime(projectList.get(i).getPlanStartDate(), projectList.get(i)
                         .getPlanFinishDate()));
                 dashboard.setPercentProgress(calculatePercentProgress(projectList.get(i).getProjectId()));
                 dashboard.setEfficiencyStatus(Constant.NORMAL_STATUS);
@@ -321,10 +321,14 @@ public class DashboardController extends BaseController {
     private String calculateCostStatus(BigDecimal projectId) {
         costDao = new CostDao();
         String costStatus = costDao.getCostStatus(projectId);
-        if(costStatus.equals("1"))
-            return Constant.GOOD_STATUS;
-        if(costStatus.equals("2"))
-            return Constant.NORMAL_STATUS;
-        return Constant.BAD_STATUS;
+        if(costStatus != null){
+            if(costStatus.equals("1"))
+                return Constant.GOOD_STATUS;
+            if(costStatus.equals("2"))
+                return Constant.NORMAL_STATUS;
+            return Constant.BAD_STATUS;
+        }
+        return Constant.BLANK;
+        
     }
 }
