@@ -688,7 +688,11 @@ public class TimesheetController {
         if(timesheetErrorList == null || timesheetErrorList.size()==0) {
             mav.addObject("timesheetList", timesheetList);
         }
-        mav.addObject("timesheetList", updateTimesheetList);
+        else{
+            mav.addObject("timesheetList", updateTimesheetList);
+        }
+        
+        mav.addObject("ROLE",role);
         mav.addObject("updateFlag","true");
         updateTimesheetList = timesheetList;
         // Return to jsp
@@ -723,7 +727,9 @@ public class TimesheetController {
        
         // Add object timesheetList to request
         mav.addObject("timesheetList", timesheetList);
+        mav.addObject("updateFlag","false");
         mav.addObject("rejectFlag", "true");
+        mav.addObject("ROLE",role);
         rejectTimesheetList = timesheetList;
         // Return to jsp
         return mav;
