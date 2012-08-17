@@ -106,7 +106,7 @@
               <th width="5%">No.</th>
 
               <th width="80%">Project Name</th>
-              <th width="15%">Project Code</th>
+              <th width="20%">Project Code</th>
             </tr>
           </thead>
           <tbody>
@@ -123,7 +123,7 @@
 
                 <td><a href="${renderAction}">${project.name}</a></td>
 
-                <td><a href="${renderAction}">${project.code}</a></td>
+                <td align="center" ><a href="${renderAction}">${project.code}</a></td>
               </tr>
             </c:forEach>
           </tbody>

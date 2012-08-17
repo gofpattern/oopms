@@ -352,7 +352,7 @@
             </tr>
           </table>
         </form:form>
-        <table id="taskTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
+        <table style="font-size: 9px" id="taskTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
           <thead>
             <tr>
               <!-- TABLE HEADER -->
