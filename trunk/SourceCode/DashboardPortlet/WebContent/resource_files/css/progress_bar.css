@@ -86,13 +86,13 @@
 }
 
 .red span {
-  background-color: #ff4400;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ff4400), to(#ff0000) );
-  background-image: -webkit-linear-gradient(top, #ff4400, #ff0000);
-  background-image: -moz-linear-gradient(top, #ff4400, #ff0000);
-  background-image: -ms-linear-gradient(top, #ff4400, #ff0000);
-  background-image: -o-linear-gradient(top, #ff4400, #ff0000);
-  background-image: linear-gradient(top, #ff4400, #ff0000);
+  background-color: #ff1a1a;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ff1a1a), to(#cc0000) );
+  background-image: -webkit-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: -moz-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: -ms-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: -o-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: linear-gradient(top, #ff1a1a, #cc0000);
 }
 
 .yellow span {
@@ -116,13 +116,13 @@
 }
 
 .bad span {
-  background-color: #ff4400;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ff4400), to(#ff0000) );
-  background-image: -webkit-linear-gradient(top, #ff4400, #ff0000);
-  background-image: -moz-linear-gradient(top, #ff4400, #ff0000);
-  background-image: -ms-linear-gradient(top, #ff4400, #ff0000);
-  background-image: -o-linear-gradient(top, #ff4400, #ff0000);
-  background-image: linear-gradient(top, #ff4400, #ff0000);
+  background-color: #ff1a1a;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ff1a1a), to(#cc0000) );
+  background-image: -webkit-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: -moz-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: -ms-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: -o-linear-gradient(top, #ff1a1a, #cc0000);
+  background-image: linear-gradient(top, #ff1a1a, #cc0000);
 }
 
 .normal span {
