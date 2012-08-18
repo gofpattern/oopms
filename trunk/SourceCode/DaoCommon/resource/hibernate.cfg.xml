@@ -128,5 +128,6 @@
     <mapping resource="openones/oopms/entity/WeeklyEffort.hbm.xml"/>
     <mapping resource="openones/oopms/entity/BusinessDomain.hbm.xml"/>
     <mapping resource="openones/oopms/entity/OopmsProjectCost.hbm.xml"/>
+    <mapping resource="openones/oopms/entity/Tasks.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
