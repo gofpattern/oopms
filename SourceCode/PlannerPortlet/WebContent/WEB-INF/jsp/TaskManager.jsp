@@ -56,23 +56,7 @@
 	$(document)
 			.ready(
 					function() {
-						$(function() {
 					    
-					        $( "#dialog-confirm" ).dialog({
-					        	autoOpen: false,
-					        	resizable: false,
-					            height:140,
-					            modal: true,
-					            buttons: {
-					                "Delete all items": function() {
-					                    $( this ).dialog( "close" );
-					                },
-					                Cancel: function() {
-					                    $( this ).dialog( "close" );
-					                }
-					            }
-					        });
-					    });
 						$(function() {
 					        $( "#dialog" ).dialog({
 					            autoOpen: false,
@@ -96,9 +80,7 @@
 						});
 
 						// set description when update a task
-						document.getElementById('add-form-description').innerHTML = "${edTask.description}";
-
-						yav.init('addForm', rules);
+						document.getElementById('add-form-description').innerHTML = "${edTask.description}";						
 
 						// set show and hide for hidden-add-form
 						if ('${flag}' == 0) {
@@ -119,6 +101,8 @@
 							"bJQueryUI" : true,
 							"sPaginationType" : "full_numbers"
 						});
+						// apply validation
+						yav.init('addForm', rules);
 					});
 
             	var rules = new Array();
@@ -394,7 +378,7 @@
                         <td>${task.stage_str}</td>
                         <td>${task.process_str}</td>
                         <td>${task.developer_str}</td>
-                        <td>${task.plannedeffort - task.currenteffort}H</td>
+                        <td>${task.plannedeffort - task.currenteffort}h</td>
                         <c:choose>
                           <c:when test="${not empty completeRate}">
                             <td>${completeRate}</td>
@@ -415,7 +399,7 @@
                         <c:if test="${taskStatus =='174' ||taskStatus =='All'}">
                           <c:choose>
                             <c:when test="${not empty task.effort}">
-                              <td>${task.effort}H</td>
+                              <td>${task.effort}h</td>
                             </c:when>
                             <c:otherwise>
                               <td></td>
