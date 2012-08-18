@@ -48,7 +48,10 @@
 var rules = new Array();
 rules[0] = 'viewDate:View Date|required';
 rules[1] = 'viewDate:View Date|date';
+rules[2] = 'payDate:Pay Date|required';
+rules[3] = 'payDate:Pay Date|date';
 yav.addHelp('viewDate', 'Please input View Date before checking');
+yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
 </SCRIPT>
 <script type="text/javascript">
 
@@ -117,6 +120,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
     	            buttonImageOnly: true
     	        });
+                $( "#datepicker2" ).datepicker({
+    	            showOn: "button",
+    	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+    	            buttonImageOnly: true
+    	        });
                 yav.init('${portletNamespace}CostManagement', rules);
                 if(document.getElementById("deleteDailyFlag").value==1) {}
                 var actionUrl = "${ForcedRemoveCostType}";
@@ -147,6 +155,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     				if(confirm('This Daily Expense is used by another Exceptional Costs. Delete it will also delete other Exceptional Costs that using it. Do you still want to delete it?')) {
     					submitAction("${portletNamespace}CostManagement", actionUrl2);
     				}
+    			}
+                
+                if(document.getElementById("payExceptionalCostFlag").value==1) {
+    				document.getElementById("payExceptionalCostFlag").value = 0;
+    				alert('This Exceptional Cost daily expenses are not paid yet. Please pay all daily expense relate to this Exceptional Cost before pay it');
     			}
                 
                 $('#mainTable6').dataTable( {
@@ -209,6 +222,7 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
   	<portlet:param name="projectId" value="${projectId}" />
   	<portlet:param name="ViewInvoiceRecords" value="ViewInvoiceRecords" />
 </portlet:renderURL>
+<form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
 Current Budget is : ${currentBudget}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction7}")'>Add new Budget Record</button>
 <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction8}")'>View Budget Records</button>
@@ -266,12 +280,12 @@ Current Budget is : ${currentBudget}
 Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button>
 <br/>
-    <form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
+    
     	By Date<form:input maxlength="10" path="viewDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>(mm/dd/yyyy)
     	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CostManagement", "${formAction6}")'>Check</button>
     	<br/><span id=errorsDiv_viewDate>&nbsp;</span>
     	<h4 style="color: red">Expense at ${viewDate} is : ${expense}</h4>
-    </form:form>
+    
 	<br>
  <p id="header2DuyND" style="text-align:center">--------------------------------Expense Detail--------------------------------</p>
  <h3>One Time Expense</h3>   
@@ -299,6 +313,11 @@ Current Invoice is : ${currentExpense}
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostOneTimeExpenseId" value="${oneTimeExpense.oopmsCostOneTimeExpenseId}" />
             </portlet:actionURL>
+            <portlet:actionURL var="renderAction4">
+            	<portlet:param name="action" value="PayOneTimeExpense" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="oopmsCostOneTimeExpenseId" value="${oneTimeExpense.oopmsCostOneTimeExpenseId}" />
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${oneTimeExpense.name}</a></td>
                <td scope="row">${oneTimeExpense.cost}</td>
@@ -306,6 +325,7 @@ Current Invoice is : ${currentExpense}
                <td scope="row">${oneTimeExpense.description}</td>
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
+               	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
      </tr>
     </c:forEach>
@@ -314,6 +334,7 @@ Current Invoice is : ${currentExpense}
 <br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction1}")'>Add new One Time Expense</button>
 <h3>&nbsp;</h3><h3>Daily Expense</h3>
+<br>Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/><span id=errorsDiv_payDate>&nbsp;</span><br>
 <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
@@ -341,6 +362,11 @@ Current Invoice is : ${currentExpense}
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsCostDailyExpenseId" value="${dailyExpense.oopmsCostDailyExpenseId}" />
             </portlet:actionURL>
+            <portlet:actionURL var="renderAction4">
+            	<portlet:param name="action" value="PayDailyExpense" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="oopmsCostDailyExpenseId" value="${dailyExpense.oopmsCostDailyExpenseId}" />
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${dailyExpense.name}</a></td>
                <td scope="row">${dailyExpense.cost}</td>
@@ -351,6 +377,7 @@ Current Invoice is : ${currentExpense}
                <td scope="row">${dailyExpense.description}</td>
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
+               	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
      </tr>
     </c:forEach>
@@ -384,6 +411,11 @@ Current Invoice is : ${currentExpense}
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
             </portlet:actionURL>
+            <portlet:actionURL var="renderAction4">
+            	<portlet:param name="action" value="PayExceptionalCost" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${exceptionalExpense.name}</a></td>
                <td scope="row">${exceptionalExpense.affectTo}</td>
@@ -392,6 +424,7 @@ Current Invoice is : ${currentExpense}
                <td scope="row">${exceptionalExpense.description}</td>
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
+               	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
      </tr>
     </c:forEach>
@@ -425,6 +458,11 @@ Current Invoice is : ${currentExpense}
             	<portlet:param name="projectId" value="${projectId}" />
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalDeduct.oopmsExceptionalCostId}" />
             </portlet:actionURL>
+            <portlet:actionURL var="renderAction4">
+            	<portlet:param name="action" value="PayExceptionalCost" />
+            	<portlet:param name="projectId" value="${projectId}" />
+            	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
+            </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${exceptionalDeduct.name}</a></td>
                <td scope="row">${exceptionalDeduct.affectTo}</td>
@@ -433,6 +471,7 @@ Current Invoice is : ${currentExpense}
                <td scope="row">${exceptionalDeduct.description}</td>
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Deduct?");'>Remove</button>
+               	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
      </tr>
     </c:forEach>
@@ -477,6 +516,8 @@ Current Invoice is : ${currentExpense}
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction5}")'>Add new Type</button>
 	<input name="deleteCostTypeFlag" type="hidden" value="${deleteCostTypeFlag}" id="deleteCostTypeFlag"/>
 	<input name="deleteDailyFlag" type="hidden" value="${deleteDailyFlag}" id="deleteDailyFlag"/>
+	<input name="payExceptionalCostFlag" type="hidden" value="${payExceptionalCostFlag}" id="payExceptionalCostFlag"/>
+	</form:form>
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

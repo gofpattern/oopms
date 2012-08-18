@@ -1,6 +1,7 @@
 package openones.oopms.projecteye.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.projecteye.controller.CreateProjectController;
@@ -57,16 +58,55 @@ public class CostDao {
 		}
 		return null;
 	}
-	
-	public OopmsCostOneTimeExpense getOneTimeExpense(String oopmsCostOneTimeExpenseId) {
+
+	public List<OopmsCostOneTimeExpense> getOneTimeExpensePlanList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsCostOneTimeExpense where projectId = :projectId and isPay is null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			List<OopmsCostOneTimeExpense> expenseList = query.list();
+			session.getTransaction().commit();
+			return expenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public List<OopmsCostOneTimeExpense> getOneTimeExpenseInvoiceList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsCostOneTimeExpense where projectId = :projectId and isPay is not null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			List<OopmsCostOneTimeExpense> expenseList = query.list();
+			session.getTransaction().commit();
+			return expenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public OopmsCostOneTimeExpense getOneTimeExpense(
+			String oopmsCostOneTimeExpenseId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
 			String hql = "From OopmsCostOneTimeExpense where oopmsCostOneTimeExpenseId = :oopmsCostOneTimeExpenseId";
 			Query query = session.createQuery(hql);
-			query.setParameter("oopmsCostOneTimeExpenseId", new BigDecimal(oopmsCostOneTimeExpenseId));
-			OopmsCostOneTimeExpense expense = (OopmsCostOneTimeExpense)query.uniqueResult();
+			query.setParameter("oopmsCostOneTimeExpenseId", new BigDecimal(
+					oopmsCostOneTimeExpenseId));
+			OopmsCostOneTimeExpense expense = (OopmsCostOneTimeExpense) query
+					.uniqueResult();
 			session.getTransaction().commit();
 			return expense;
 		} catch (Exception e) {
@@ -74,7 +114,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public boolean updateOneTimeExpense(OopmsCostOneTimeExpense oneTimeExpense) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -142,7 +182,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public boolean updateCostType(OopmsCostType costType) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -196,7 +236,7 @@ public class CostDao {
 		log.error("Insert success");
 		return true;
 	}
-	
+
 	public boolean updateDailyExpense(OopmsCostDailyExpense dailyExpense) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -231,6 +271,41 @@ public class CostDao {
 		return null;
 	}
 
+	public List<OopmsCostDailyExpense> getDailyExpensePlanList(String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsCostDailyExpense where projectId = :projectId and isPay is null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			List<OopmsCostDailyExpense> dailyExpenseList = query.list();
+			session.getTransaction().commit();
+			return dailyExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public List<OopmsCostDailyExpense> getDailyExpenseInvoiceList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsCostDailyExpense where projectId = :projectId and isPay is not null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			List<OopmsCostDailyExpense> dailyExpenseList = query.list();
+			session.getTransaction().commit();
+			return dailyExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
 	public boolean insertExceptionalCost(OopmsExceptionalCost exceptionalCost) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -247,7 +322,7 @@ public class CostDao {
 		log.error("Insert success");
 		return true;
 	}
-	
+
 	public boolean updateExceptionalCost(OopmsExceptionalCost exceptionalCost) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -284,12 +359,92 @@ public class CostDao {
 		return null;
 	}
 
+	public List<OopmsExceptionalCost> getExceptionalExpensePlanList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :ExpenseType and isPay is null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			query.setParameter("ExpenseType", new BigDecimal(
+					Constant.ExceptinalExpenseType));
+			List<OopmsExceptionalCost> ExpenseList = query.list();
+			session.getTransaction().commit();
+			return ExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public List<OopmsExceptionalCost> getExceptionalExpenseInvoiceList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :ExpenseType and isPay is not null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			query.setParameter("ExpenseType", new BigDecimal(
+					Constant.ExceptinalExpenseType));
+			List<OopmsExceptionalCost> ExpenseList = query.list();
+			session.getTransaction().commit();
+			return ExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
 	public List<OopmsExceptionalCost> getExceptionalDeductList(String projectId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
 			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :DeductType";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			query.setParameter("DeductType", new BigDecimal(
+					Constant.ExceptinalDeductType));
+			List<OopmsExceptionalCost> ExpenseList = query.list();
+			session.getTransaction().commit();
+			return ExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public List<OopmsExceptionalCost> getExceptionalDeductPlanList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :DeductType and isPay is null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			query.setParameter("DeductType", new BigDecimal(
+					Constant.ExceptinalDeductType));
+			List<OopmsExceptionalCost> ExpenseList = query.list();
+			session.getTransaction().commit();
+			return ExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public List<OopmsExceptionalCost> getExceptionalDeductInvoiceList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where projectId = :projectId and type = :DeductType and isPay is not null";
 			Query query = session.createQuery(hql);
 			query.setParameter("projectId", new BigDecimal(projectId));
 			query.setParameter("DeductType", new BigDecimal(
@@ -359,7 +514,7 @@ public class CostDao {
 		}
 		return true;
 	}
-	
+
 	public boolean forcedDeleteDailyExpense(String oopmsCostDailyExpenseId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -490,7 +645,8 @@ public class CostDao {
 					}
 				}
 			}
-			if ((DailyExpenseList != null) && (result.equals(Constant.CostTypeNotUsed))) {
+			if ((DailyExpenseList != null)
+					&& (result.equals(Constant.CostTypeNotUsed))) {
 				if (DailyExpenseList.size() > 0) {
 					result = Constant.CostTypeUsedByDailyCost;
 				}
@@ -503,10 +659,10 @@ public class CostDao {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * This function will check whether a DailyExpense Is used by another Exceptional expense or
-	 * not
+	 * This function will check whether a DailyExpense Is used by another
+	 * Exceptional expense or not
 	 * 
 	 * @param oopmsCostTypeId
 	 * @return
@@ -535,7 +691,7 @@ public class CostDao {
 		}
 		return result;
 	}
-	
+
 	public boolean insertBudgetRecord(OopmsBudget OopmsBudget) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -552,7 +708,7 @@ public class CostDao {
 		log.error("Insert success");
 		return true;
 	}
-	
+
 	public boolean updateBudgetRecord(OopmsBudget OopmsBudget) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -569,7 +725,7 @@ public class CostDao {
 		log.error("Update success");
 		return true;
 	}
-	
+
 	public boolean deleteBudgetRecord(String oopmsBudgetId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -577,8 +733,7 @@ public class CostDao {
 			session.beginTransaction();
 			String hql = "Delete From OopmsBudget where oopmsBudgetId = :oopmsBudgetId";
 			Query query = session.createQuery(hql);
-			query.setParameter("oopmsBudgetId", new BigDecimal(
-					oopmsBudgetId));
+			query.setParameter("oopmsBudgetId", new BigDecimal(oopmsBudgetId));
 			query.executeUpdate();
 			session.flush();
 			session.getTransaction().commit();
@@ -588,7 +743,7 @@ public class CostDao {
 		}
 		return true;
 	}
-	
+
 	public boolean insertProjectCost(OopmsProjectCost OopmsProjectCost) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -605,7 +760,7 @@ public class CostDao {
 		log.error("Insert success");
 		return true;
 	}
-	
+
 	public boolean updateProjectCost(OopmsProjectCost OopmsProjectCost) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -622,7 +777,7 @@ public class CostDao {
 		log.error("Insert success");
 		return true;
 	}
-	
+
 	public OopmsProjectCost getProjectCost(BigDecimal projectId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -631,7 +786,8 @@ public class CostDao {
 			String hql = "From OopmsProjectCost where projectId = :projectId";
 			Query query = session.createQuery(hql);
 			query.setParameter("projectId", projectId);
-			OopmsProjectCost projectCost = (OopmsProjectCost) query.uniqueResult();
+			OopmsProjectCost projectCost = (OopmsProjectCost) query
+					.uniqueResult();
 			session.getTransaction().commit();
 			return projectCost;
 		} catch (Exception e) {
@@ -639,7 +795,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public OopmsBudget getBudgetRecord(String oopmsBudgetId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -656,7 +812,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public List<OopmsBudget> getProjectBudgetList(String projectId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -673,7 +829,7 @@ public class CostDao {
 		}
 		return null;
 	}
-	
+
 	public OopmsExceptionalCost getExceptionalCost(String oopmsExceptionalCostId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -681,14 +837,183 @@ public class CostDao {
 			session.beginTransaction();
 			String hql = "From OopmsExceptionalCost where oopmsExceptionalCostId = :oopmsExceptionalCostId";
 			Query query = session.createQuery(hql);
-			query.setParameter("oopmsExceptionalCostId", new BigDecimal(oopmsExceptionalCostId));
-			OopmsExceptionalCost exceptionalCost = (OopmsExceptionalCost) query.uniqueResult();
+			query.setParameter("oopmsExceptionalCostId", new BigDecimal(
+					oopmsExceptionalCostId));
+			OopmsExceptionalCost exceptionalCost = (OopmsExceptionalCost) query
+					.uniqueResult();
 			session.getTransaction().commit();
 			return exceptionalCost;
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 		return null;
+	}
+
+	public boolean payDailyExpense(String oopmsCostDailyExpenseId, Date payDate) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsCostDailyExpense Where oopmsCostDailyExpenseId = :oopmsCostDailyExpenseId";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsCostDailyExpenseId", new BigDecimal(
+					oopmsCostDailyExpenseId));
+			OopmsCostDailyExpense oldDailyExpense = (OopmsCostDailyExpense) query
+					.uniqueResult();
+			if (oldDailyExpense.getEndDate() == null) {
+				log.error("endDate null");
+				OopmsCostDailyExpense newDailyExpense = new OopmsCostDailyExpense();
+				newDailyExpense.setCost(oldDailyExpense.getCost());
+				newDailyExpense.setDateUsed(oldDailyExpense.getDateUsed());
+				newDailyExpense
+						.setDescription(oldDailyExpense.getDescription());
+				newDailyExpense.setName(oldDailyExpense.getName());
+				newDailyExpense.setOopmsCostTypeId(oldDailyExpense
+						.getOopmsCostTypeId());
+				newDailyExpense.setProjectId(oldDailyExpense.getProjectId());
+				Long payDateLong = payDate.getTime();
+				Long newStartDate = payDateLong + (1000 * 60 * 60 * 24);
+				newDailyExpense.setStartDate(new Date(newStartDate));
+				oldDailyExpense.setIsPay("1");
+				session.merge(oldDailyExpense);
+				session.save(newDailyExpense);
+				session.flush();
+				String hql2 = "Update From OopmsExceptionalCost set oopmsCostDailyExpenseId = :newOopmsCostDailyExpenseId Where oopmsCostDailyExpenseId = :oldOopmsCostDailyExpenseId and occurDate > :payDate";
+				Query query2 = session.createQuery(hql2);
+				query2.setParameter("oldOopmsCostDailyExpenseId",
+						 new BigDecimal(oopmsCostDailyExpenseId));
+				query2.setParameter("newOopmsCostDailyExpenseId",
+						newDailyExpense.getOopmsCostDailyExpenseId());
+				query2.setParameter("payDate", payDate);
+				query2.executeUpdate();
+			} else if (oldDailyExpense.getEndDate().compareTo(payDate) > 0) {
+				log.error("EndDate > payDate");
+				OopmsCostDailyExpense newDailyExpense = new OopmsCostDailyExpense();
+				newDailyExpense.setCost(oldDailyExpense.getCost());
+				newDailyExpense.setDateUsed(oldDailyExpense.getDateUsed());
+				newDailyExpense
+						.setDescription(oldDailyExpense.getDescription());
+				newDailyExpense.setName(oldDailyExpense.getName());
+				newDailyExpense.setOopmsCostTypeId(oldDailyExpense
+						.getOopmsCostTypeId());
+				newDailyExpense.setProjectId(oldDailyExpense.getProjectId());
+				Long payDateLong = payDate.getTime();
+				Long newStartDate = payDateLong + (1000 * 60 * 60 * 24);
+				newDailyExpense.setStartDate(new Date(newStartDate));
+				newDailyExpense.setEndDate(oldDailyExpense.getEndDate());
+				oldDailyExpense.setIsPay("1");
+				session.merge(oldDailyExpense);
+				session.save(newDailyExpense);
+				session.flush();
+				String hql2 = "Update From OopmsExceptionalCost set oopmsCostDailyExpenseId = :newOopmsCostDailyExpenseId Where oopmsCostDailyExpenseId = :oldOopmsCostDailyExpenseId and occurDate > :payDate";
+				Query query2 = session.createQuery(hql2);
+				query2.setParameter("oldOopmsCostDailyExpenseId",
+						 new BigDecimal(oopmsCostDailyExpenseId));
+				query2.setParameter("newOopmsCostDailyExpenseId",
+						newDailyExpense.getOopmsCostDailyExpenseId());
+				query2.setParameter("payDate", payDate);
+				query2.executeUpdate();
+			} else {
+				log.error("EndDate <= payDate");
+				oldDailyExpense.setIsPay("1");
+				session.merge(oldDailyExpense);
+			}
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error("pay Fail");
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean payOneTimeExpense(String oopmsCostOneTimeExpenseId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Update From OopmsCostOneTimeExpense Set isPay = :isPay Where oopmsCostOneTimeExpenseId = :oopmsCostOneTimeExpenseId";
+			Query query = session.createQuery(hql);
+			query.setParameter("isPay", "1");
+			query.setParameter("oopmsCostOneTimeExpenseId", new BigDecimal(
+					oopmsCostOneTimeExpenseId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean payExceptionalCost(String oopmsExceptionalCostId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "Update From OopmsExceptionalCost Set isPay = :isPay Where oopmsExceptionalCostId = :oopmsExceptionalCostId";
+			Query query = session.createQuery(hql);
+			query.setParameter("isPay", "1");
+			query.setParameter("oopmsExceptionalCostId", new BigDecimal(
+					oopmsExceptionalCostId));
+			query.executeUpdate();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	public String checkExceptionalCostUsed(String oopmsExceptionalCostId, String projectId) {
+		String result = "0";
+		try {
+			log.error("costID :" + oopmsExceptionalCostId);
+			log.error("project Id " + projectId);
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where oopmsExceptionalCostId= :oopmsExceptionalCostId)";
+			Query query = session.createQuery(hql);
+			query.setParameter("oopmsExceptionalCostId", new BigDecimal(
+					oopmsExceptionalCostId));
+			OopmsExceptionalCost exceptionalCost = (OopmsExceptionalCost) query.uniqueResult();
+			if(exceptionalCost.getOopmsCostDailyExpenseId()!=null) {
+				String hql2 = "From OopmsCostDailyExpense Where oopmsCostDailyExpenseId= :oopmsCostDailyExpenseId and isPay is null and startDate <= :occurDate1 and (endDate>= :occurDate2 or endDate is null)";
+				Query query2 = session.createQuery(hql2);
+				query2.setParameter("oopmsCostDailyExpenseId", exceptionalCost.getOopmsCostDailyExpenseId());
+				query2.setParameter("occurDate1", exceptionalCost.getOccurDate());
+				query2.setParameter("occurDate2", exceptionalCost.getOccurDate());
+				List<OopmsCostDailyExpense> list = query2.list();
+				if(list!=null) {
+					if(list.size()>0) {
+						return "1";
+					}
+				}
+			} else {
+				String hql2 = "From OopmsCostDailyExpense Where oopmsCostTypeId= :oopmsCostTypeId and isPay is null and startDate <= :occurDate1 and (endDate>= :occurDate2 or endDate is null)";
+				Query query2 = session.createQuery(hql2);
+				query2.setParameter("oopmsCostTypeId", exceptionalCost.getOopmsCostTypeId());
+				query2.setParameter("occurDate1", exceptionalCost.getOccurDate());
+				query2.setParameter("occurDate2", exceptionalCost.getOccurDate());
+				List<OopmsCostDailyExpense> list = query2.list();
+				if(list!=null) {
+					if(list.size()>0) {
+						return "1";
+					}
+				}
+			}
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			log.error("check Fail");
+			log.error(e.getMessage());
+			return result;
+		}
+		return result;
 	}
 
 }
