@@ -20,9 +20,11 @@ package openones.oopms.daocommon;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import openones.oopms.entity.Developer;
+import openones.oopms.entity.Project;
 import openones.oopms.entity.ex.ProjectEx;
 
 import org.junit.Test;
@@ -62,5 +64,13 @@ public class ProjectDaoTest {
         for (int i=0; i < prjList.size(); i++) {
             System.out.println(prjList.get(i).getCode() + ":" + prjList.get(i).getWorkunitid());
         }
+    }
+    
+    @Test
+    public void testGetProjectById(){
+        ProjectDao projectDao = new ProjectDao();
+        Project project = projectDao.getProjectById(new BigDecimal(118406));        
+        assertNotNull(project);
+        
     }
 }

@@ -49,6 +49,23 @@ public class ProjectDao extends BaseDao {
 
     }
     
+    
+    @SuppressWarnings("unchecked")
+    public Project getProjectById(BigDecimal projectId) {
+        log.debug("getProjectById.START");
+        try {
+            session.getTransaction().begin();
+            Project project = (Project) session.get(Project.class, projectId);
+            return project;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getProjectById.Exception", e);
+        }
+        return null;
+    }
+    
     @SuppressWarnings("unchecked")
     public List<Project> getAllProject() {
         log.debug("getAllProject.START");
@@ -62,7 +79,7 @@ public class ProjectDao extends BaseDao {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            log.error("getAllStage.Exception", e);
+            log.error("getAllProject.Exception", e);
         }
         return null;
     }
