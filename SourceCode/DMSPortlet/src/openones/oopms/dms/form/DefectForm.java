@@ -18,14 +18,21 @@
  */
 package openones.oopms.dms.form;
 
+import java.util.List;
 import java.util.Map;
+
+import openones.oopms.entity.Defect;
+import openones.oopms.entity.Timesheet;
 
 /**
  * @author Thach.Le
  *
  */
 public class DefectForm extends BaseDefectListForm {
-
+    
+    
+    private String createDateString;
+    private String dueDateString;
     private String title;
     private String projectOrigin;
     private String description;
@@ -60,6 +67,7 @@ public class DefectForm extends BaseDefectListForm {
     private String memberDisCreated="";
     private String memberDisAssigned="";
     private String memberDisOwner="";
+    private List<Defect> defectList;
     /**
      * Get value of title.
      * @return the title
@@ -417,6 +425,42 @@ public class DefectForm extends BaseDefectListForm {
      */
     public void setMemberDisOwner(String memberDisOwner) {
         this.memberDisOwner = memberDisOwner;
+    }
+    /**
+     * @return the defectList
+     */
+    public List<Defect> getDefectList() {
+        return defectList;
+    }
+    /**
+     * @param defectList the defectList to set
+     */
+    public void setDefectList(List<Defect> defectList) {
+        this.defectList = defectList;
+    }
+    /**
+     * @return the createDateString
+     */
+    public String getCreateDateString() {
+        return createDateString;
+    }
+    /**
+     * @param createDateString the createDateString to set
+     */
+    public void setCreateDateString(String createDateString) {
+        this.createDateString = createDateString;
+    }
+    /**
+     * @return the dueDateString
+     */
+    public String getDueDateString() {
+        return dueDateString;
+    }
+    /**
+     * @param dueDateString the dueDateString to set
+     */
+    public void setDueDateString(String dueDateString) {
+        this.dueDateString = dueDateString;
     }
     
         

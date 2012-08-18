@@ -78,20 +78,11 @@ function submitAction(formName, actionUrl) {
             }
             $(document).ready( function() {
             // Listen for click on toggle checkbox
-            $('#select-all').click(function(event) {   
-                if(this.checked) {
-                    // Iterate each checkbox
-                    $(':checkbox').each(function() {
-                        this.checked = true;                        
-                    });
-                } else { 
-                 $(":checkbox").each(function() { this.checked = false; }); 
-                 }
-            });             
+                       
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
-                        if (event.target.type !== 'checkbox') {
-                          $(':checkbox', this).attr('checked', function() {
+                        if (event.target.type !== 'radio') {
+                          $(':radio', this).attr('checked', function() {
                             return !this.checked;
                           });
                         }
@@ -134,10 +125,15 @@ function submitAction(formName, actionUrl) {
 
 <div id="content" class="content loggedin">
 
-<div class="container "><portlet:actionURL
+<div class="container ">
+<portlet:actionURL
   var="defectFormAction">
   <portlet:param name="action" value="searchDefect" />
-</portlet:actionURL> <form:form name="defect" method="post" onsubmit=" return validateDefect();" commandName="viewDefectList"
+</portlet:actionURL> 
+
+
+            
+<form:form name="defect" method="post" onsubmit=" return validateDefect();" commandName="viewDefectList"
   action="${defectFormAction}">  
   <table border="0">
     <tbody>
@@ -262,12 +258,15 @@ function submitAction(formName, actionUrl) {
       <c:if test="${not empty defectList}">
 
         <c:forEach var="defect" varStatus="status" items="${defectList}">
-          
+           <portlet:renderURL var="renderAction">
+                <portlet:param name="action" value="goUpdateDefect" />
+                <portlet:param name="defectId" value="${defect.defectId}" />
+            </portlet:renderURL>
           <tr>
-            <td class="cb"><input id="checkbox" type="checkbox"
-              name="defectList[${status.index}].defectId"
+            <td class="cb"><input id="radio" type="radio"
+              name="defectId"
               value="${defect.defectId}"></td>
-               <td><font color="">${defect.defectId}</font></td>
+               <td><a href="${renderAction}">${defect.defectId}</a></td>
                 <td><font color="">${defect.title}</font></td>
             <td><font color="">${defect.status}</font></td>
             <td><font color="">${defect.testCase}</font></td>

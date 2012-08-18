@@ -831,9 +831,7 @@ vertical-align: middle;
 #mainTable2 tr:hover {
     background: #157DEC; color: white;
 }
-.selected td {
-       background: #157DEC; color: white;
-}
+
 
 input[type="text"] {
 padding: .2em .4em;
