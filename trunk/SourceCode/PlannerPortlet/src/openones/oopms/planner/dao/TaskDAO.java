@@ -70,7 +70,7 @@ public class TaskDAO {
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
             List<Tasks> taskList = query.list();
-
+            
             return taskList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -106,7 +106,7 @@ public class TaskDAO {
             } catch (RuntimeException rbe) {
                 log.error("Couldn’t roll back transaction", rbe);
             }
-            // throw e;
+            log.error("getTaskByProjectId.Exception", e);
             return null;
         } finally {
             if (session != null) {

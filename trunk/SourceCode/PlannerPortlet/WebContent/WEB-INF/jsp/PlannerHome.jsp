@@ -119,11 +119,11 @@
                 <portlet:param name="developerId" value="${developerId}" />
               </portlet:actionURL>
               <tr>
-                <td align="center">${count}</td>
+                <td>${count}</td>
 
-                <td><a href="${renderAction}">${project.name}</a></td>
+                <td align="center" ><a href="${renderAction}">${project.name}</a></td>
 
-                <td align="center" ><a href="${renderAction}">${project.code}</a></td>
+                <td><a href="${renderAction}">${project.code}</a></td>
               </tr>
             </c:forEach>
           </tbody>
