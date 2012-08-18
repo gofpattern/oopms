@@ -52,8 +52,7 @@
 </head>
 
 <body id="portal" class="up fl-theme-mist">
-
-<div  class="container">
+<div class="container"><%@ include file="/WEB-INF/jsp/Menu.jsp" %>
 
   <div class="content">
    <div class="fl-widget-titlebar titlebar portlet-titlebar">
