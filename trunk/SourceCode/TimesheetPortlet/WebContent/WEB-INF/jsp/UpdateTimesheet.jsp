@@ -41,7 +41,7 @@
 
                 $( "input[id$=datepicker]" ).datepicker({
                     showOn: "button",
-                    buttonImage: "../TimesheetPortlet/resource_files/images/calendar.gif",
+                    buttonImage: "/TimesheetPortlet/resource_files/images/calendar.gif",
                     buttonImageOnly: true
                 });
                     
