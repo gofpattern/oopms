@@ -31,6 +31,7 @@ public class Dashboard {
     private String efficiencyStatus;
     private double percentProgress;
     private double percentTime;
+    private double percentEffort;
 
     public Dashboard() 
     {
@@ -149,4 +150,20 @@ public class Dashboard {
         this.project = project;
     }
 
+    /**
+     * Get value of percentEffort.
+     * @return the percentEffort
+     */
+    public double getPercentEffort() {
+        return percentEffort;
+    }
+
+    /**
+     * Set the value for percentEffort.
+     * @param percentEffort the percentEffort to set
+     */
+    public void setPercentEffort(double percentEffort) {
+        this.percentEffort = percentEffort;
+    }
+    
 }
