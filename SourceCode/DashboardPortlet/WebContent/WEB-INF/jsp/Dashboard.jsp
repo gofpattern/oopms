@@ -115,16 +115,14 @@
             <!-- TABLE HEADER -->
             <th>Project Code</th>
             <th>Project Name</th>
-            <th>Project Manager</th>
-            <th>Project Health</th>
+            <th width="5%">Project Health</th>
             <th>Time</th>
             <th>Progress</th>
-            <th>Efficiency</th>
-            <th>Cost</th>
+            <th width="5%">Efficiency</th>
+            <th width="5%">Cost</th>
+            <th>Used Effort</th>
             <th>Start Date</th>
             <th>Finish Date</th>
-            <th>Planned Effort</th>
-            <th>Actual Effort</th>
           </tr>
         </thead>
         <tbody>
@@ -137,7 +135,6 @@
             <tr>
               <td><a href="${renderAction}">${dashboard.project.code}</a></td>
               <td>${dashboard.project.name}</td>
-              <td>${dashboard.project.leader}</td>
               <td align="center"><c:choose>
                   <c:when test="${dashboard.projectHealthStatus == 'bad'}">
                     <div class="circle red glow stripes">
@@ -152,25 +149,25 @@
                 </c:choose></td>
               <td><div id="percentTime" class="progress_bar green stripes">
                   <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#000"
-                      size="2" face="tahoma">${dashboard.percentTime}%</font></b></span>
+                      size="2" face="tahoma">${dashboard.percentTime}</font></b></span>
                 </div></td>
               <td><c:choose>
                   <c:when test="${dashboard.percentProgress < 50}">
                     <div id="percentProgress" class="progress_bar glow red stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
-                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
                   </c:when>
                   <c:when test="${dashboard.percentProgress < 80}">
                     <div id="percentProgress" class="progress_bar orange stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
-                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
                   </c:when>
                   <c:otherwise>
                     <div id="percentProgress" class="progress_bar green stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
-                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}%</font></b></span>
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
                   </c:otherwise>
                 </c:choose></td>
@@ -198,10 +195,9 @@
                     </div>
                   </c:otherwise>
                 </c:choose></td>
+              <td>${dashboard.percentEffort}%</td>
               <td>${dashboard.project.planStartDate}</td>
-              <td>${dashboard.project.planFinishDate}</td>
-              <td>${dashboard.project.planEffort}</td>
-              <td>${dashboard.project.actualEffort}</td>
+              <td>${dashboard.project.planFinishDate}</td>              
             </tr>
             </c:if>
           </c:forEach>

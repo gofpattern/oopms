@@ -23,6 +23,7 @@ package openones.oopms.dashboard.utils;
  *
  */
 public class Constant {
+    public static final String CLOSED_STATUS_ID = "174";
     public static final float PAGE_WEIGHT = 30F;
     public static final float TESTCASE_WEIGHT = 3F;
     public static final float LOC_WEIGHT = 1F;
