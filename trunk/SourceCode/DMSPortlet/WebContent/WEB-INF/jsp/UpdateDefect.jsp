@@ -83,7 +83,7 @@ function submitAction(formName, actionUrl) {
     </div>
 <%--Display errors --%>
 <font color="red"><form:errors path="*"></form:errors></font>
-<form:form name="${portletNamespace}AddDefect" commandName="defectForm" method="post" action="${formAction}">   
+<form:form name="${portletNamespace}AddDefect" commandName="updateDefectForm" method="post" action="${formAction}">   
 
 <table style="font-size:100%" class="portlet-table" border="0" cellpadding="1" cellspacing="0" width="100%">
     <colgroup>
@@ -101,8 +101,7 @@ function submitAction(formName, actionUrl) {
           path="projectDis" multiple="single">
           <form:options items="${projectMap}" />
         </form:select></td>
-        
-      
+              
     </tr>
     <tr>
         <!-- Title -->
@@ -265,6 +264,7 @@ function submitAction(formName, actionUrl) {
 <%--
 <input name="NewDefect" class="Button" value="Save" type="Submit">&nbsp;&nbsp;&nbsp;&nbsp;
  --%>
+<form:hidden path="defectId"/>
 <input name="Save" class="Button" onclick='submitAction("${portletNamespace}AddDefect", "${formAction}")' value="Save" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
 <input name="Back" class="Button" onclick='submitAction("${portletNamespace}AddDefect", "${goViewDefectList2}")' value="Defect List" type="button">&nbsp;&nbsp;&nbsp;&nbsp;
 <input name="Attach" class="Button" onclick="javascript:doAttach()" value="Attach file" type="button">

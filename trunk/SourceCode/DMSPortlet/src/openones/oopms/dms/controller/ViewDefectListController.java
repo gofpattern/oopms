@@ -45,6 +45,7 @@ import openones.oopms.dms.dao.BaseDao;
 import openones.oopms.dms.dao.DefectDao;
 import openones.oopms.dms.dao.UserDao;
 import openones.oopms.dms.form.DefectForm;
+import openones.oopms.dms.form.DefectUpdateForm;
 import openones.oopms.dms.form.LoginForm;
 import openones.oopms.dms.form.ViewDefectListForm;
 import openones.oopms.dms.validator.AddDefectValidator;
@@ -62,6 +63,7 @@ import openones.oopms.portlet.controller.BaseController;
 import openones.oopms.util.BaseUtil;
 import openones.portlet.PortletSupport;
 
+import org.hibernate.dialect.FirebirdDialect;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -113,6 +115,7 @@ public class ViewDefectListController extends BaseController {
     // Create Date
     String createDate="";
     String dueDate="";
+    Defect updateDefect;
     // List work product of defect
     private static List<Project> projectList = new ArrayList<Project>();
     // List Developer
@@ -136,6 +139,8 @@ public class ViewDefectListController extends BaseController {
     private ArrayList<Defect> errorDefectList;
     private ArrayList<Timesheet> updateDefectList;
     private Properties props;
+    private String createDateString;
+    private String duaDateString;
     
     
     @RequestMapping
@@ -312,32 +317,7 @@ public class ViewDefectListController extends BaseController {
         return mav;
     }
     
-    /**
-     * Process render event "ViewDefectList".
-     * Param kindOfDefect: All, Open, Leakage
-     * @return view "ViewDefectList" which next page "ViewDefectList.jsp" will displayed
-     */
-    @RenderMapping(params = "action=goViewDefectList2")
-    public ModelAndView processViewDefectList(RenderRequest request, PortletSession session) {
-        log.debug("processViewDefectList.START");
-
-        ModelAndView mav = new ModelAndView("ViewDefectList2"); // display ViewDefectList2.jsp
-        String kindOfDefect = request.getParameter("kindOfDefect");
-        log.info("kindOfDefect=" + kindOfDefect);
-        ViewDefectListForm viewDefectList = new ViewDefectListForm();
-        // Sample data
-        
-        // Set projects that logon user is joining
-        UserInfo userInfo = getUserInfo(session);
-//        DMSWorkspace dmsWsp = DMSWorkspace.getDefaultWorkspace(userInfo.getUsername());
-//        
-//        viewDefectList.addProject(dmsWsp.getProjects());
-        
-
-        mav.addObject("viewDefectList", viewDefectList);
-        return mav;
-    }
-    
+      
     @ActionMapping(params = "action=init")
     public void processLogin(LoginForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         System.out.println("processLogin.START");
@@ -451,12 +431,12 @@ public class ViewDefectListController extends BaseController {
         mav.addObject("ROLE",role);
         // Search all defect record from database
       
-        List<Defect> defectList = new ArrayList<Defect>();
-        defectList = defDao.getDefectList("","",projectList.get(0).getProjectId().toString(),"","","","","","","","");
+        List<Defect> defectList2 = new ArrayList<Defect>();
+        defectList2 = defDao.getDefectList("","",projectList.get(0).getProjectId().toString(),"","","","","","","","");
 
         // Get dropdown list from database
         
-       defectList = prepareDefectList(defectList);
+       defectList2 = prepareDefectList(defectList2);
 
        
         // Set default value for defect.jsp
@@ -476,7 +456,7 @@ public class ViewDefectListController extends BaseController {
         mav.addObject("originDis", originDis);
         mav.addObject("createDate", createDate);
         mav.addObject("createDate", dueDate);
-        mav.addObject("defectList", defectList);
+        mav.addObject("defectList", defectList2);
         // Return to jsp
         return mav;
     }
@@ -516,15 +496,25 @@ public class ViewDefectListController extends BaseController {
         return defList;
     }
     
-    /**
-     * Create bean for form.
-     * @return Form bean for UI.
-     */
     @ModelAttribute("defectForm")
     public DefectForm getCommandObject2() {
         log.debug("getCommandObject.START");
         DefectForm formBean = new DefectForm();
-
+       
+        return formBean;
+    }
+    
+    /**
+     * Create bean for form.
+     * @return Form bean for UI.
+     */
+    @ModelAttribute("updateDefectForm")
+    public DefectUpdateForm getCommandObject3() {
+        log.debug("getCommandObject.START");
+        DefectUpdateForm formBean = new DefectUpdateForm();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                   
+             
         return formBean;
     }
     
@@ -582,7 +572,7 @@ public class ViewDefectListController extends BaseController {
         
         if (!result.hasErrors()) {
             // Prepare parameter to render phase
-            response.setRenderParameter("action", "goViewDefectList2");
+            response.setRenderParameter("action", "goViewDefectList");
         } else {
             log.error("Error in binding result:" + result.getErrorCount());
             
@@ -662,7 +652,7 @@ public class ViewDefectListController extends BaseController {
                 defectList = prepareDefectList(defectList);
             }
         }
-
+       
         mav.addObject("defectList", defectList);       
         return mav;
     }
@@ -705,17 +695,15 @@ public class ViewDefectListController extends BaseController {
      */
     
     @ActionMapping(params = "action=updateDefect")
-    public void processUpdateDefectToDB(DefectForm formBean, BindingResult result, SessionStatus status,
+    public void processUpdateDefectToDB(DefectUpdateForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) throws IOException, ParseException {
         Defect timesheet;
        boolean isError = false;
        errorDefectList = new ArrayList<Defect>();
       Defect defect = new Defect();
-      DefectDao defDao = new DefectDao();
-      BigDecimal defectId = defDao.getNextDefect();
-      defect = convertDefectFormToDTO(formBean,defectId);
-      defDao.updateDefect(defect);
-                 
+      DefectDao defDao = new DefectDao();    
+      defect = convertDefectUpdateFormToDTO(formBean);
+      defDao.updateDefect(defect);                 
        
             response.setRenderParameter("action", "init");
         
@@ -728,7 +716,7 @@ public class ViewDefectListController extends BaseController {
         def.setAssignedTo(formBean.getMemberDisAssigned());
         def.setAtId(new BigDecimal(1));
         def.setCauseAnalysis(formBean.getCauseAnalysis());
-        def.setCreateDate(df.parse(formBean.getCreateDate()));
+        def.setCreateDate(df.parse(formBean.getCreateDateString()));
         def.setCreatedBy(formBean.getMemberDisCreated());
         def.setDefectOwner(formBean.getMemberDisOwner());
         def.setDefsId(new BigDecimal(formBean.getSeverityDis()));
@@ -736,17 +724,43 @@ public class ViewDefectListController extends BaseController {
         def.setDpId(new BigDecimal(formBean.getPriorityDis()));
         def.setDsId(new BigDecimal(1));
         def.setDtId(new BigDecimal(formBean.getTypeDis()));
-        def.setDueDate(df.parse(formBean.getDueDate()));
+        def.setDueDate(df.parse(formBean.getDueDateString()));
         def.setModuleId(new BigDecimal(1));
         def.setProcessId(new BigDecimal(formBean.getOriginDis()));
         def.setProjectId(new BigDecimal(formBean.getProjectDis()));
         def.setSolution(formBean.getCorrectiveAction());
         def.setTestCase(formBean.getTestCaseId());
         def.setTitle(formBean.getTitle());
-        def.setWpId(new BigDecimal(formBean.getWorkProductDis()));
+        def.setWpId(new BigDecimal(formBean.getWorkProductDis()));        
         def.setDefectId(defId);
         return def;
     }
+    private Defect convertDefectUpdateFormToDTO(DefectUpdateForm formBean) throws ParseException {
+        Defect def = new Defect();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         def.setAssignedTo(formBean.getMemberDisAssigned());
+         def.setAtId(new BigDecimal(1));
+         def.setCauseAnalysis(formBean.getCauseAnalysis());
+         def.setCreateDate(df.parse(formBean.getCreateDateString()));
+         def.setCreatedBy(formBean.getMemberDisCreated());
+         def.setDefectOwner(formBean.getMemberDisOwner());
+         def.setDefsId(new BigDecimal(formBean.getSeverityDis()));
+         def.setDescription(formBean.getDescription());
+         def.setQaId(new BigDecimal(formBean.getQcActivityDis()));
+         def.setDpId(new BigDecimal(formBean.getPriorityDis()));
+         def.setDsId(new BigDecimal(1));
+         def.setDtId(new BigDecimal(formBean.getTypeDis()));
+         def.setDueDate(df.parse(formBean.getDueDateString()));
+         def.setModuleId(new BigDecimal(1));
+         def.setProcessId(new BigDecimal(formBean.getOriginDis()));
+         def.setProjectId(new BigDecimal(formBean.getProjectDis()));
+         def.setSolution(formBean.getCorrectiveAction());
+         def.setTestCase(formBean.getTestCaseId());
+         def.setTitle(formBean.getTitle());
+         def.setWpId(new BigDecimal(formBean.getWorkProductDis()));        
+         def.setDefectId(new BigDecimal(formBean.getDefectId()));
+         return def;
+     }
     @ActionMapping(params = "action=goUpdateDefect")
     public void processUpdate(ViewDefectListForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         updateDefectList = new ArrayList<Timesheet>();
@@ -765,32 +779,42 @@ public class ViewDefectListController extends BaseController {
             
            // timesheetError = "";
             
-            response.setRenderParameter("action", "goUpdateTimesheet"); 
+            response.setRenderParameter("action", "goUpdateDefect"); 
         }
        
     }
 
     @RenderMapping(params = "action=goUpdateDefect")
-    public ModelAndView processAUpdateR(RenderRequest request, PortletSession session) {
+    public ModelAndView processAUpdateR(DefectUpdateForm formBean, RenderRequest request, PortletSession session) {
         defectId = request.getParameter("defectId");
         System.out.println("defectId param :" + defectId);
         log.debug("processAddNew.START");
         ModelAndView mav = new ModelAndView("UpdateDefect"); // display AddDefect.jsp
-        Defect defect = new Defect();
-        DefectDao defDao = new DefectDao();
-        defect = defDao.getDefectById(new BigDecimal(defectId));
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-          mav.addObject("projectDis", defect.getProjectId());
-          mav.addObject("memberDisAssigned", defect.getAssignedTo());
-          mav.addObject("memberDisCreated", defect.getCreatedBy());
-          mav.addObject("serverityDis", defect.getDefsId());
-          mav.addObject("workProductDis", defect.getWpId());
-          mav.addObject("typeDis", defect.getDtId());
-          mav.addObject("statusDis", defect.getDsId());
-          mav.addObject("originDis", defect.getProcessId());
-          mav.addObject("createDate", df.format(defect.getCreateDate()));
-          mav.addObject("dueDate", df.format(defect.getDueDate()));
        
+        DefectDao defDao = new DefectDao();
+        updateDefect = new Defect();
+        updateDefect = defDao.getDefectById(new BigDecimal(defectId));
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         
+        formBean.setDefectId(updateDefect.getDefectId().toString());
+        formBean.setProjectDis(updateDefect.getProjectId().toString());
+        formBean.setMemberDisCreated(updateDefect.getCreatedBy());
+        formBean.setTitle(updateDefect.getTitle());
+        formBean.setDescription(updateDefect.getDescription());
+        formBean.setQcActivityDis(updateDefect.getQaId().toString());
+        formBean.setOriginDis(updateDefect.getProcessId().toString());
+        formBean.setTypeDis(updateDefect.getDtId().toString());
+        formBean.setPriorityDis(updateDefect.getDpId().toString());
+        formBean.setWorkProductDis(updateDefect.getWpId().toString());
+        formBean.setSeverityDis(updateDefect.getDefsId().toString());
+        formBean.setTestCaseId(updateDefect.getTestCase());
+        formBean.setMemberDisOwner(updateDefect.getDefectOwner());
+        formBean.setMemberDisAssigned(updateDefect.getAssignedTo());
+        formBean.setCreateDateString(df.format(updateDefect.getCreateDate()));
+        formBean.setDueDateString(df.format(updateDefect.getDueDate()));
+        formBean.setCauseAnalysis(updateDefect.getCauseAnalysis());
+        formBean.setCorrectiveAction(updateDefect.getSolution());
+        mav.addObject("updateDefectForm", formBean);
          qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
          mav.addObject("qcActivityMap", qcActivityMap);
         System.out.println("oringin map size : " + originMap.size());

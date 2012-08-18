@@ -233,7 +233,7 @@ function submitAction(formName, actionUrl) {
 </portlet:actionURL>
 <portlet:actionURL var="goRejectDefectAction">
   <portlet:param name="action" value="goRejectDefect" />
-</portlet:actionURL><form:form name="Defect" method="post" commandName="viewDefectList"
+</portlet:actionURL><form:form name="Defect" method="post" commandName="defectListResult"
   action="${goUpdateDefectAction}">
   <table id="mainTable2" class="display dataTable" cellpadding="0"
     cellspacing="0" border="0">
