@@ -26,7 +26,9 @@ import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.form.CreateExceptionalExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsExceptionalCost;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.Constant;
+import openones.oopms.projecteye.utils.CostUtil;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -94,6 +96,11 @@ public class CreateExceptionalExpenseController {
 			}
 		}
 		// Call dao to insert project to database
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				projectId));
+		projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
+				projectCost.getCurrentBudget()));
+		cDao.updateProjectCost(projectCost);
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", projectId);
 	}
