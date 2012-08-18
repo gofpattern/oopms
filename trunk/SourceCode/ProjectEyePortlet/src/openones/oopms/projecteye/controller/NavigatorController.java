@@ -707,6 +707,15 @@ public class NavigatorController {
 					.getParameter("deletingOopmsCostTypeId");
 			mav.addObject("deletingOopmsCostTypeId", deletingOopmsCostTypeId);
 		}
+		
+		String deleteDailyFlag = request.getParameter("deleteDailyFlag");
+		if (deleteDailyFlag != null) {
+			mav.addObject("deleteDailyFlag", deleteDailyFlag);
+			String deletingOopmsCostDailyExpenseId = request
+					.getParameter("deletingOopmsCostDailyExpenseId");
+			mav.addObject("deletingOopmsCostDailyExpenseId", deletingOopmsCostDailyExpenseId);
+		}
+		
 		if (request.getParameter("ViewBudgetRecord") != null) {
 			List<OopmsBudget> budgetList = cDao.getProjectBudgetList(projectId);
 			mav.addObject("BudgetRecords", budgetList);
