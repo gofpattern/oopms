@@ -206,11 +206,11 @@ public class DefectDao {
             Query query = session.createQuery(hql);
             query.setParameter("prId", id);           
             Defect defect = (Defect) query.uniqueResult();
-            session.flush();
+          
             return defect;
         } catch (Exception e) {
-            session.getTransaction().rollback();
-            session.close();
+//            session.getTransaction().rollback();
+//            session.close();
             return null;
         }
     }
@@ -219,10 +219,11 @@ public class DefectDao {
        
         String hql = "UPDATE Defect df SET df.projectId =:projectId, df.createdBy =:createdBy,"
             +"df.title =:title, df.description =:description, df.qaId=:qaId, df.processId=:processId,"
-            +"df.dtId =:dtId, dt.dpId =:dpId, df.wpId =:wpId, df.defsId =:defsId,"
+            +"df.dtId =:dtId, df.dpId =:dpId, df.wpId =:wpId, df.defsId =:defsId,"
             +"df.testCase =:testCase, df.defectOwner=:defectOwner, df.assignedTo =:assignedTo,"
             +"df.createDate =:createDate, df.dueDate =:dueDate, df.causeAnalysis =:causeAnalysis,"
-            +"df.solution =:solution";
+            +"df.solution =:solution WHERE df.defectId =:dfId" ;
+        System.out.println("create Date : " + defect.getCreateDate().toString());
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         session.getTransaction().begin();
         Query query = session.createQuery(hql);
@@ -231,15 +232,20 @@ public class DefectDao {
         query.setParameter("title",defect.getTitle());
         query.setParameter("description", defect.getDescription());
         query.setParameter("qaId", defect.getQaId());
+        //defsId, wpId, dtId, dpId
+        query.setParameter("defsId", defect.getDefsId());
+        query.setParameter("wpId", defect.getWpId());
+        query.setParameter("dtId", defect.getDtId());
+        query.setParameter("dpId", defect.getDpId());
         query.setParameter("processId", defect.getProcessId());
         query.setParameter("testCase", defect.getTitle());
-        query.setParameter("defectOwner", new Date());
+        query.setParameter("defectOwner", defect.getDefectOwner());
         query.setParameter("assignedTo", defect.getAssignedTo());
-        query.setParameter("createDate", sdf.parse(defect.getCreateDateString()));
-        query.setParameter("dueDate", sdf.parse(defect.getDueDateString()));
+        query.setParameter("createDate", defect.getCreateDate());
+        query.setParameter("dueDate", defect.getDueDate());
         query.setParameter("causeAnalysis", defect.getCauseAnalysis());
         query.setParameter("solution", defect.getSolution());
-
+        query.setParameter("dfId", defect.getDefectId());
         int rowCount = query.executeUpdate();
         session.flush();
         session.getTransaction().commit();
