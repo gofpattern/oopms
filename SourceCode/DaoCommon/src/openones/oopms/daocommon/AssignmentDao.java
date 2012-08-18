@@ -19,6 +19,7 @@
 package openones.oopms.daocommon;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.entity.Assignment;
@@ -43,19 +44,21 @@ public class AssignmentDao {
 
     @SuppressWarnings("unchecked")
     public List<Project> getProjectByDeveloperId(BigDecimal developerId) {
-        log.debug("getProject.START");
+        log.debug("getProjectByDeveloperId.START");
         try {
             session.getTransaction().begin();
-            String sql = "select project from Assignment ass where ass.developerId = :developerId";
+            String sql = "select project from Assignment a where a.developerId = :developerId " +
+                    "and ((a.endDate > :currentDate) or (a.endDate is null))";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
+            query.setParameter("currentDate", new Date());
             List<Project> projectList = query.list();
             return projectList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            log.error("getProject.Exception", e);
+            log.error("getProjectByDeveloperId.Exception", e);
         }
         return null;
     }
