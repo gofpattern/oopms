@@ -278,7 +278,7 @@ Current Budget is : ${currentBudget}
 
 <br>
 Current Invoice is : ${currentExpense}
-<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button>
+<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
 <br/>
     
     	By Date<form:input maxlength="10" path="viewDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>(mm/dd/yyyy)
@@ -295,9 +295,9 @@ Current Invoice is : ${currentExpense}
    		<th width="5%" scope="row">No</th>
         <th width="20%" scope="row">Name</th>    
         <th width="10%" scope="row">Cost($)</th> 
-        <th width="10%" scope="row">Date</th>
-        <th width="45%" scope="row">Description</th>
-        <th width="10%" scope="row">Action</th>
+        <th width="13%" scope="row">Date</th>
+        <th width="32%" scope="row">Description</th>
+        <th width="20%" scope="row">Action</th>
     </tr>
    </thead>
    <tbody>
@@ -334,7 +334,7 @@ Current Invoice is : ${currentExpense}
 <br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction1}")'>Add new One Time Expense</button>
 <h3>&nbsp;</h3><h3>Daily Expense</h3>
-<br>Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/><span id=errorsDiv_payDate>&nbsp;</span><br>
+Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/><span id=errorsDiv_payDate>&nbsp;</span><br>
 <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
    <thead>
    	<tr>
@@ -343,10 +343,10 @@ Current Invoice is : ${currentExpense}
         <th width="10%" scope="row">Cost/day($)</th> 
         <th width="10%" scope="row">Start Date</th>
         <th width="10%" scope="row">End Date</th>
-        <th width="20%" scope="row">Use on following days</th>
-        <th width="10%" scope="row">Type</th>
-        <th width="20%" scope="row">Description</th>
-        <th width="10%" scope="row">Action</th>
+        <th width="18%" scope="row">Use on following days</th>
+        <th width="7%" scope="row">Type</th>
+        <th width="10%" scope="row">Description</th>
+        <th width="20%" scope="row">Action</th>
     </tr>
    </thead>
    <tbody>
@@ -390,12 +390,12 @@ Current Invoice is : ${currentExpense}
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
-        <th width="10%" scope="row">Name</th>    
-        <th width="20%" scope="row">Affect to</th> 
-        <th width="10%" scope="row">Addition effect</th>
-        <th width="10%" scope="row">Date</th>
-        <th width="35%" scope="row">Description</th>
-        <th width="10%" scope="row">Action</th>
+        <th width="15%" scope="row">Name</th>    
+        <th width="10%" scope="row">Affect to</th> 
+        <th width="15%" scope="row">Addition effect</th>
+        <th width="13%" scope="row">Date</th>
+        <th width="22%" scope="row">Description</th>
+        <th width="20%" scope="row">Action</th>
     </tr>
    </thead>
    <tbody>
@@ -437,12 +437,12 @@ Current Invoice is : ${currentExpense}
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
-        <th width="10%" scope="row">Name</th>    
-        <th width="20%" scope="row">Affect to</th> 
-        <th width="10%" scope="row">Addition effect</th>
-        <th width="10%" scope="row">Date</th>
-        <th width="35%" scope="row">Description</th>
-        <th width="10%" scope="row">Action</th>
+        <th width="15%" scope="row">Name</th>    
+        <th width="10%" scope="row">Affect to</th> 
+        <th width="15%" scope="row">Addition effect</th>
+        <th width="13%" scope="row">Date</th>
+        <th width="22%" scope="row">Description</th>
+        <th width="20%" scope="row">Action</th>
     </tr>
    </thead>
    <tbody>
@@ -485,8 +485,8 @@ Current Invoice is : ${currentExpense}
    	<tr>
    		<th width="5%" scope="row">No</th>
         <th width="30%" scope="row">Name</th>    
-        <th width="55%" scope="row">Description</th>
-        <th width="10%" scope="row">Action</th>
+        <th width="45%" scope="row">Description</th>
+        <th width="20%" scope="row">Action</th>
     </tr>
    </thead>
    <tbody>
@@ -505,7 +505,7 @@ Current Invoice is : ${currentExpense}
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${costType.name}</a></td>
                <td scope="row">${costType.description}</td>
-               <td scope="row">
+               <td scope="row" align="center">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Type?");'>Remove</button>
                </td>
      </tr>
