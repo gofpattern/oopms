@@ -18,6 +18,7 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,13 +31,16 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
+import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.form.UpdateProjectForm;
 import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.utils.Constant;
+import openones.oopms.projecteye.utils.CostUtil;
 import openones.oopms.projecteye.utils.HTMLTag;
 import openones.oopms.projecteye.validator.UpdateProjectValidator;
 
@@ -117,6 +121,12 @@ public class UpdateProjectController {
 
 				// Call dao to insert project to database
 				if (pDao.updateProject(project)) {
+					CostDao cDao = new CostDao();
+					OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+							projectId));
+					projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
+							projectCost.getCurrentBudget()));
+					cDao.updateProjectCost(projectCost);
 					response.setRenderParameter("action", "GoProjectDetail");
 					response.setRenderParameter("projectId", projectId);
 					log.error("Update success");

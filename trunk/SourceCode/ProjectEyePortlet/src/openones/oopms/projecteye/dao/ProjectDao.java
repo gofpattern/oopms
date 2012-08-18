@@ -10,9 +10,11 @@ import openones.oopms.projecteye.model.BusinessDomain;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.LanguageCode;
 import openones.oopms.projecteye.model.Milestone;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Stage;
 import openones.oopms.projecteye.utils.Constant;
+import openones.oopms.projecteye.utils.CostUtil;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -78,6 +80,13 @@ public class ProjectDao {
 				session.save(stage);
 				session.flush();
 			}
+			//insert Project Cost
+			OopmsProjectCost projectCost = new OopmsProjectCost();
+			projectCost.setProjectId(project.getProjectId());
+			projectCost.setCostStatus("1");
+			projectCost.setCurrentBudget(new BigDecimal("0"));
+			projectCost.setCurrentExpense(new BigDecimal("0"));
+			session.save(projectCost);
 			tx.commit();
 			sessfac.close();
 		} catch (Exception e) {

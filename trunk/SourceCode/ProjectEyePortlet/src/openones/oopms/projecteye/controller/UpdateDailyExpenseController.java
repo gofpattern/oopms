@@ -28,6 +28,7 @@ import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
+import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
@@ -74,6 +75,11 @@ public class UpdateDailyExpenseController {
 		}
 		// Call dao to insert project to database
 		if (cDao.updateDailyExpense(dailyExpense)) {
+			OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+					projectId));
+			projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
+					projectCost.getCurrentBudget()));
+			cDao.updateProjectCost(projectCost);
 			response.setRenderParameter("action", "GoCostManagement");
 			response.setRenderParameter("projectId", projectId);
 			log.error("Insert success");

@@ -26,6 +26,8 @@ import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
+import openones.oopms.projecteye.model.OopmsProjectCost;
+import openones.oopms.projecteye.utils.CostUtil;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -61,6 +63,11 @@ public class CreateOneTimeExpenseController {
 		expense.setDescription(formBean.getDescription());
 		// Call dao to insert project to database
 		if (cDao.insertOneTimeExpense(expense)) {
+			OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+					projectId));
+			projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
+					projectCost.getCurrentBudget()));
+			cDao.updateProjectCost(projectCost);
 			response.setRenderParameter("action", "GoCostManagement");
 			response.setRenderParameter("projectId", projectId);
 			log.error("Insert success");
