@@ -14,6 +14,8 @@ public class Defect  implements java.io.Serializable {
      private BigDecimal defectId;
      private BigDecimal projectId;
      private String createdBy;
+     private String createDateString;
+    
      private Date createDate;
      private String updatedBy;
      private String title;
@@ -394,6 +396,22 @@ public class Defect  implements java.io.Serializable {
      */
     public void setCreateByString(String createByString) {
         this.createByString = createByString;
+    }
+
+
+    /**
+     * @return the createDateString
+     */
+    public String getCreateDateString() {
+        return createDateString;
+    }
+
+
+    /**
+     * @param createDateString the createDateString to set
+     */
+    public void setCreateDateString(String createDateString) {
+        this.createDateString = createDateString;
     }
 
     

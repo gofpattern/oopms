@@ -1,6 +1,7 @@
 package openones.oopms.dms.dao;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ import openones.oopms.entity.Timesheet;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -197,4 +199,53 @@ public class DefectDao {
             session.close();
         }
     }
+    public Defect getDefectById(BigDecimal id) {
+        try {
+            session.getTransaction().begin();
+            String hql = "from Defect where defectId =:prId";
+            Query query = session.createQuery(hql);
+            query.setParameter("prId", id);           
+            Defect defect = (Defect) query.uniqueResult();
+            session.flush();
+            return defect;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            session.close();
+            return null;
+        }
+    }
+
+    public void updateDefect(Defect defect) throws HibernateException, ParseException {
+       
+        String hql = "UPDATE Defect df SET df.projectId =:projectId, df.createdBy =:createdBy,"
+            +"df.title =:title, df.description =:description, df.qaId=:qaId, df.processId=:processId,"
+            +"df.dtId =:dtId, dt.dpId =:dpId, df.wpId =:wpId, df.defsId =:defsId,"
+            +"df.testCase =:testCase, df.defectOwner=:defectOwner, df.assignedTo =:assignedTo,"
+            +"df.createDate =:createDate, df.dueDate =:dueDate, df.causeAnalysis =:causeAnalysis,"
+            +"df.solution =:solution";
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        session.getTransaction().begin();
+        Query query = session.createQuery(hql);
+        query.setParameter("projectId", defect.getProjectId());
+        query.setParameter("createdBy", defect.getCreatedBy());
+        query.setParameter("title",defect.getTitle());
+        query.setParameter("description", defect.getDescription());
+        query.setParameter("qaId", defect.getQaId());
+        query.setParameter("processId", defect.getProcessId());
+        query.setParameter("testCase", defect.getTitle());
+        query.setParameter("defectOwner", new Date());
+        query.setParameter("assignedTo", defect.getAssignedTo());
+        query.setParameter("createDate", sdf.parse(defect.getCreateDateString()));
+        query.setParameter("dueDate", sdf.parse(defect.getDueDateString()));
+        query.setParameter("causeAnalysis", defect.getCauseAnalysis());
+        query.setParameter("solution", defect.getSolution());
+
+        int rowCount = query.executeUpdate();
+        session.flush();
+        session.getTransaction().commit();
+        
+                       
+    }
+    
+    
 }

@@ -56,6 +56,8 @@ public class ViewDefectListForm extends BaseDefectListForm {
     private String testCaseId;
     private String memberDisCreated="";
     private String memberDisAssigned="";
+    private String defectId;
+    
     /**
      * @return the createDate
      */
@@ -441,6 +443,18 @@ public class ViewDefectListForm extends BaseDefectListForm {
      */
     public void setMemberDisAssigned(String memberDisAssigned) {
         this.memberDisAssigned = memberDisAssigned;
+    }
+    /**
+     * @return the defectId
+     */
+    public String getDefectId() {
+        return defectId;
+    }
+    /**
+     * @param defectId the defectId to set
+     */
+    public void setDefectId(String defectId) {
+        this.defectId = defectId;
     }
     
     
