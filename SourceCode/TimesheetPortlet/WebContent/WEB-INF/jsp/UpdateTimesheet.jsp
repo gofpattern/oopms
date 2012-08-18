@@ -108,17 +108,17 @@
   
       <c:forEach var="timesheet" varStatus="status" items="${timesheetList}">
         <tr>        
-          <td><p style="display: block; margin: 0px;padding: 0px;"><input style="width: 80px;" id="${status.index}datepicker" name="timesheetList[${status.index}].occurDateString" value="${timesheet.occurDateString}"/></p></td>
+          <td><p style="display: block; margin: 0px;padding: 0px;"><input style="width: 90px;" id="${status.index}datepicker" name="timesheetList[${status.index}].occurDateString" value="${timesheet.occurDateString}"/></p></td>
           <td><form:select cssClass="validate" 
-          path="timesheetList[${status.index}].project.projectId" multiple="single">
-          <form:options items="${projectMap}" />
+          path="timesheetList[${status.index}].project.projectId" multiple="single" style="width: 100px;">
+          <form:options items="${projectMap}" /> 
          </form:select></td>
          <td><form:select 
-          path="timesheetList[${status.index}].towId" multiple="single">
+          path="timesheetList[${status.index}].towId" multiple="single" style="width: 80px;">
           <form:options items="${towMap}" />
         </form:select></td>
         <td><form:select 
-          path="timesheetList[${status.index}].processId" multiple="single">
+          path="timesheetList[${status.index}].processId" multiple="single" style="width: 170px;">
           <form:options items="${processMap}" />
         </form:select></td>
          <td><input style="width: 30px;" name="timesheetList[${status.index}].duration" value="${timesheet.durationString}"/></td>
