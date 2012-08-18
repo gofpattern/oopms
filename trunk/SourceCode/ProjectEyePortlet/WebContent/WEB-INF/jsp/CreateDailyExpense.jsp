@@ -69,9 +69,6 @@ yav.addHelp('cost', 'Please input Cost');
 yav.addHelp('description', 'Please input Description');
 yav.addHelp('startDate', 'Please input Start Date');
 yav.addHelp('endDate', 'Please input End Date');
-rules[9] = 'startDate|mask|mydate';		
-rules[10] = 'endDate|mask|mydate';		
-yav.addMask('mydate', '  /  /    ', '1234567890');
 
 </SCRIPT>
 <title>Create Daily Expense</title>	
@@ -116,7 +113,7 @@ yav.addMask('mydate', '  /  /    ', '1234567890');
           <span id=errorsDiv_startDate>&nbsp;</span></td>
       </tr>
       <tr>
-        <th scope="row">End Date</th>
+        <th scope="row">End Date*</th>
         <td><form:input maxlength="10" path="endDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/>
           <span id=errorsDiv_endDate>&nbsp;</span></td>
       </tr>

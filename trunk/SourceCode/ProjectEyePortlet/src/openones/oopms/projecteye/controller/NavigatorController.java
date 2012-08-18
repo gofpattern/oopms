@@ -676,25 +676,32 @@ public class NavigatorController {
 			formattedDate = df.format(new Date());
 			expense = CostUtil.getExpense(projectId, new Date());
 		}
+				
 		CostManagementForm form = new CostManagementForm();
 		form.setViewDate(formattedDate);
+		String payDate = request.getParameter("payDate");
+		if (payDate != null) {
+			form.setPayDate(payDate);
+		} else {
+			form.setPayDate(df.format(new Date()));
+		}
 		ModelAndView mav = new ModelAndView("CostManagement",
 				"CostManagementForm", form);
 
 		CostDao cDao = new CostDao();
 		List<OopmsCostOneTimeExpense> oneTimeExpenseList = cDao
-				.getOneTimeExpenseList(projectId);
+				.getOneTimeExpensePlanList(projectId);
 		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
 		List<OopmsCostDailyExpense> dailyExpenseList = cDao
-				.getDailyExpenseList(projectId);
+				.getDailyExpensePlanList(projectId);
 		List<DailyExpense> dailyExpenseListView = CostUtil
 				.getDailyExpenseListView(dailyExpenseList);
 		List<OopmsExceptionalCost> exceptionalExpenseList = cDao
-				.getExceptionalExpenseList(projectId);
+				.getExceptionalExpensePlanList(projectId);
 		List<ExceptionalCost> exceptionalExpenseListView = CostUtil
 				.getExceptionalListView(exceptionalExpenseList);
 		List<OopmsExceptionalCost> exceptionalDeductList = cDao
-				.getExceptionalDeductList(projectId);
+				.getExceptionalDeductPlanList(projectId);
 		List<ExceptionalCost> exceptionalDeductListView = CostUtil
 				.getExceptionalListView(exceptionalDeductList);
 		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
@@ -716,6 +723,11 @@ public class NavigatorController {
 			mav.addObject("deletingOopmsCostDailyExpenseId", deletingOopmsCostDailyExpenseId);
 		}
 		
+		String payExceptionalCostFlag = request.getParameter("payExceptionalCostFlag");
+		if (payExceptionalCostFlag != null) {
+			mav.addObject("payExceptionalCostFlag", payExceptionalCostFlag);
+		}
+		
 		if (request.getParameter("ViewBudgetRecord") != null) {
 			List<OopmsBudget> budgetList = cDao.getProjectBudgetList(projectId);
 			mav.addObject("BudgetRecords", budgetList);
@@ -727,6 +739,7 @@ public class NavigatorController {
 			mav.addObject("currentBudget", projectCost.getCurrentBudget());
 			mav.addObject("currentExpense", projectCost.getCurrentExpense());
 		}
+		
 		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
 		mav.addObject("DailyExpenseList", dailyExpenseListView);

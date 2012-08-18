@@ -24,6 +24,7 @@ package openones.oopms.projecteye.form;
  */
 public class CostManagementForm {
 	private String viewDate;
+	private String payDate;
 	private String projectId;
 	/**
 	 * @return the viewDate
@@ -48,6 +49,18 @@ public class CostManagementForm {
 	 */
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
+	}
+	/**
+	 * @return the payDate
+	 */
+	public String getPayDate() {
+		return payDate;
+	}
+	/**
+	 * @param payDate the payDate to set
+	 */
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
 	}
 	
 	

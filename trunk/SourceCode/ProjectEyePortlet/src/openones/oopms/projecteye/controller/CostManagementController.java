@@ -36,6 +36,7 @@ import openones.oopms.projecteye.form.CreateExceptionalExpenseForm;
 import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
+import openones.oopms.projecteye.form.PayCostForm;
 import openones.oopms.projecteye.form.UpdateBudgetRecordForm;
 import openones.oopms.projecteye.form.UpdateCostTypeForm;
 import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
@@ -120,7 +121,7 @@ public class CostManagementController {
 		CostDao cDao = new CostDao();
 		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
 		List<OopmsCostDailyExpense> dailyExpenseList = cDao
-				.getDailyExpenseList(projectId);
+				.getDailyExpensePlanList(projectId);
 		List<DailyExpense> dailyExpenseListView = CostUtil
 				.getDailyExpenseListView(dailyExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
@@ -142,7 +143,7 @@ public class CostManagementController {
 		CostDao cDao = new CostDao();
 		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
 		List<OopmsCostDailyExpense> dailyExpenseList = cDao
-				.getDailyExpenseList(projectId);
+				.getDailyExpensePlanList(projectId);
 		List<DailyExpense> dailyExpenseListView = CostUtil
 				.getDailyExpenseListView(dailyExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
@@ -457,7 +458,7 @@ public class CostManagementController {
 		String projectId = request.getParameter("projectId");
 		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
 		List<OopmsCostDailyExpense> dailyExpenseList = cDao
-				.getDailyExpenseList(projectId);
+				.getDailyExpensePlanList(projectId);
 		List<DailyExpense> dailyExpenseListView = CostUtil
 				.getDailyExpenseListView(dailyExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
@@ -503,7 +504,7 @@ public class CostManagementController {
 		String projectId = request.getParameter("projectId");
 		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
 		List<OopmsCostDailyExpense> dailyExpenseList = cDao
-				.getDailyExpenseList(projectId);
+				.getDailyExpensePlanList(projectId);
 		List<DailyExpense> dailyExpenseListView = CostUtil
 				.getDailyExpenseListView(dailyExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
@@ -512,5 +513,49 @@ public class CostManagementController {
 		mav.addObject("oopmsExceptionalCostId", oopmsExceptionalCostId);
 		mav.addObject("projectId", projectId);
 		return mav;
+	}
+
+	@ActionMapping(params = "action=PayOneTimeExpense")
+	public void processPayOneTimeExpense(PayCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post PayOneTimeExpense.START");
+		String projectId = formBean.getProjectId();
+		CostDao cDao = new CostDao();
+		cDao.payOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("ViewInvoiceRecords", "ViewInvoiceRecords");
+		response.setRenderParameter("projectId", projectId);
+	}
+
+	@ActionMapping(params = "action=PayDailyExpense")
+	public void processPayDailyExpense(PayCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post PayDailyExpense.START");
+		String projectId = formBean.getProjectId();
+		CostDao cDao = new CostDao();
+		cDao.payDailyExpense(formBean.getOopmsCostDailyExpenseId(), (AppUtil
+				.getDateFromFormattedDate(formBean.getPayDate(),
+						Constant.DateFormat)));
+		response.setRenderParameter("payDate", formBean.getPayDate());
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("ViewInvoiceRecords", "ViewInvoiceRecords");
+		response.setRenderParameter("projectId", projectId);
+	}
+	
+	@ActionMapping(params = "action=PayExceptionalCost")
+	public void processPayExceptionalCost(PayCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post PayExceptionalCost.START");
+		String projectId = formBean.getProjectId();
+		CostDao cDao = new CostDao();
+		String payExceptionalCostFlag = cDao.checkExceptionalCostUsed(formBean.getOopmsExceptionalCostId(), projectId);
+		if("1".equals(payExceptionalCostFlag)) {
+			response.setRenderParameter("payExceptionalCostFlag", payExceptionalCostFlag);
+		} else {
+			cDao.payExceptionalCost(formBean.getOopmsExceptionalCostId());
+			response.setRenderParameter("ViewInvoiceRecords", "ViewInvoiceRecords");
+		}
+		response.setRenderParameter("action", "GoCostManagement");		
+		response.setRenderParameter("projectId", projectId);
 	}
 }
