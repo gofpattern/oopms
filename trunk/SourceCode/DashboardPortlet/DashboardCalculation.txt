@@ -32,7 +32,9 @@ Example:
 		1 Product Sheet: 15000/30000
 		1 Product TestCase: 900/3000
 	--> 41.8/67 = 62%
-
+67000 - 41800 = 25200 amount of work remaining (Convert all into one unit).
+(End date - current date)*team members*norm --> Amount of work team can do till end date (Convert all into one unit).
+--> Cal RYG as variation 10% (calculation each time new product added ???). 
 
 C. PercentTime: Always Green.
 
