@@ -34,18 +34,20 @@ import openones.oopms.projecteye.form.CreateDailyExpenseForm;
 import openones.oopms.projecteye.form.CreateExceptionalDeductForm;
 import openones.oopms.projecteye.form.CreateExceptionalExpenseForm;
 import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
-import openones.oopms.projecteye.form.CreateProjectForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
 import openones.oopms.projecteye.form.UpdateBudgetRecordForm;
 import openones.oopms.projecteye.form.UpdateCostTypeForm;
 import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
+import openones.oopms.projecteye.form.UpdateExceptionalDeductForm;
+import openones.oopms.projecteye.form.UpdateExceptionalExpenseForm;
 import openones.oopms.projecteye.form.UpdateOneTimeExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsBudget;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
+import openones.oopms.projecteye.model.OopmsExceptionalCost;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
@@ -60,7 +62,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-import org.springframework.web.util.HtmlUtils;
 
 /**
  * @author HaiTCT
@@ -177,6 +178,11 @@ public class CostManagementController {
 		log.debug("post RemoveOneTimeExpense.START");
 		CostDao cDao = new CostDao();
 		cDao.deleteOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				formBean.getProjectId()));
+		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
+				formBean.getProjectId(), projectCost.getCurrentBudget()));
+		cDao.updateProjectCost(projectCost);
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
@@ -186,7 +192,37 @@ public class CostManagementController {
 			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("post RemoveDailyExpense.START");
 		CostDao cDao = new CostDao();
-		cDao.deleteDailyExpense(formBean.getOopmsCostDailyExpenseId());
+		String dailyExpenseUsed = cDao.checkDailyExpenseUsed(formBean
+				.getOopmsCostDailyExpenseId());
+		if (Constant.DailyExpenseNotUsed.equals(dailyExpenseUsed)) {
+			cDao.deleteDailyExpense(formBean.getOopmsCostDailyExpenseId());
+			OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+					formBean.getProjectId()));
+			projectCost.setCostStatus(CostUtil.getProjectCostStatus(
+					formBean.getProjectId(), projectCost.getCurrentBudget()));
+			cDao.updateProjectCost(projectCost);
+		} else {
+			response.setRenderParameter("deleteDailyFlag", dailyExpenseUsed);
+			response.setRenderParameter("deletingOopmsCostDailyExpenseId",
+					formBean.getOopmsCostDailyExpenseId());
+		}
+
+		response.setRenderParameter("action", "GoCostManagement");
+		response.setRenderParameter("projectId", formBean.getProjectId());
+	}
+
+	@ActionMapping(params = "action=ForcedRemoveDailyExpense")
+	public void processForcedRemoveDailyExpense(DeleteCostForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
+		log.debug("post ForcedRemoveDailyExpense.START");
+		CostDao cDao = new CostDao();
+
+		cDao.forcedDeleteDailyExpense(formBean.getOopmsCostDailyExpenseId());
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				formBean.getProjectId()));
+		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
+				formBean.getProjectId(), projectCost.getCurrentBudget()));
+		cDao.updateProjectCost(projectCost);
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
@@ -197,6 +233,11 @@ public class CostManagementController {
 		log.debug("post RemoveExceptionalCost.START");
 		CostDao cDao = new CostDao();
 		cDao.deleteExceptionalCost(formBean.getOopmsExceptionalCostId());
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				formBean.getProjectId()));
+		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
+				formBean.getProjectId(), projectCost.getCurrentBudget()));
+		cDao.updateProjectCost(projectCost);
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
@@ -226,22 +267,32 @@ public class CostManagementController {
 		log.debug("post ForcedRemoveCostType.START");
 		CostDao cDao = new CostDao();
 		cDao.forcedDeleteCostType(formBean.getOopmsCostTypeId());
-		response.setRenderParameter("deleteCostTypeFlag", Constant.CostTypeNotUsed);
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				formBean.getProjectId()));
+		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
+				formBean.getProjectId(), projectCost.getCurrentBudget()));
+		cDao.updateProjectCost(projectCost);
+		response.setRenderParameter("deleteCostTypeFlag",
+				Constant.CostTypeNotUsed);
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
-	
+
 	@RenderMapping(params = "action=GoUpdateOneTimeExpense")
 	public ModelAndView postGoUpdateOneTimeExpense(RenderRequest request) {
 		log.debug("post GoUpdateOneTimeExpense.START");
-		String oopmsCostOneTimeExpenseId = request.getParameter("oopmsCostOneTimeExpenseId");
+		String oopmsCostOneTimeExpenseId = request
+				.getParameter("oopmsCostOneTimeExpenseId");
 		CostDao cDao = new CostDao();
-		OopmsCostOneTimeExpense oneTimeExpense = cDao.getOneTimeExpense(oopmsCostOneTimeExpenseId);
+		OopmsCostOneTimeExpense oneTimeExpense = cDao
+				.getOneTimeExpense(oopmsCostOneTimeExpenseId);
 		UpdateOneTimeExpenseForm form = new UpdateOneTimeExpenseForm();
 		form.setCost(String.valueOf(oneTimeExpense.getCost()));
 		form.setName(oneTimeExpense.getName());
-		form.setDescription(HTMLTag.replaceHTMLTag(oneTimeExpense.getDescription()));
-		form.setDate(AppUtil.getDateAsFormat(oneTimeExpense.getOccurDate(), Constant.DateFormat));
+		form.setDescription(HTMLTag.replaceHTMLTag(oneTimeExpense
+				.getDescription()));
+		form.setDate(AppUtil.getDateAsFormat(oneTimeExpense.getOccurDate(),
+				Constant.DateFormat));
 		ModelAndView mav = new ModelAndView("UpdateOneTimeExpense",
 				"UpdateOneTimeExpenseForm", form);
 		String projectId = request.getParameter("projectId");
@@ -250,21 +301,27 @@ public class CostManagementController {
 		mav.addObject("oopmsCostOneTimeExpenseId", oopmsCostOneTimeExpenseId);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=GoUpdateDailyExpense")
 	public ModelAndView postGoUpdateDailyExpense(RenderRequest request) {
 		log.debug("post GoUpdateDailyExpense.START");
-		String oopmsCostDailyExpenseId = request.getParameter("oopmsCostDailyExpenseId");
+		String oopmsCostDailyExpenseId = request
+				.getParameter("oopmsCostDailyExpenseId");
 		CostDao cDao = new CostDao();
-		OopmsCostDailyExpense dailyExpense = cDao.getDailyExpense(new BigDecimal(oopmsCostDailyExpenseId));
+		OopmsCostDailyExpense dailyExpense = cDao
+				.getDailyExpense(new BigDecimal(oopmsCostDailyExpenseId));
 		UpdateDailyExpenseForm form = new UpdateDailyExpenseForm();
 		form.setCost(String.valueOf(dailyExpense.getCost()));
 		form.setName(dailyExpense.getName());
-		form.setDescription(HTMLTag.replaceHTMLTag(dailyExpense.getDescription()));
-		form.setStartDate(AppUtil.getDateAsFormat(dailyExpense.getStartDate(), Constant.DateFormat));
-		form.setEndDate(AppUtil.getDateAsFormat(dailyExpense.getEndDate(), Constant.DateFormat));
-		if(dailyExpense.getOopmsCostTypeId()!=null) {
-			form.setCostType_SelectedValue(String.valueOf(dailyExpense.getOopmsCostTypeId()));
+		form.setDescription(HTMLTag.replaceHTMLTag(dailyExpense
+				.getDescription()));
+		form.setStartDate(AppUtil.getDateAsFormat(dailyExpense.getStartDate(),
+				Constant.DateFormat));
+		form.setEndDate(AppUtil.getDateAsFormat(dailyExpense.getEndDate(),
+				Constant.DateFormat));
+		if (dailyExpense.getOopmsCostTypeId() != null) {
+			form.setCostType_SelectedValue(String.valueOf(dailyExpense
+					.getOopmsCostTypeId()));
 		}
 		form.setDays(CostUtil.getDaysUsed(dailyExpense.getDateUsed()));
 		ModelAndView mav = new ModelAndView("UpdateDailyExpense",
@@ -285,14 +342,15 @@ public class CostManagementController {
 		mav.addObject("costType", costTypeMap);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=GoUpdateCostType")
 	public ModelAndView postGoUpdateCostType(RenderRequest request) {
 		log.debug("post GoUpdateCostType.START");
 		String oopmsCostTypeId = request.getParameter("oopmsCostTypeId");
 		UpdateCostTypeForm form = new UpdateCostTypeForm();
 		CostDao cDao = new CostDao();
-		OopmsCostType costType = cDao.getCostType(new BigDecimal(oopmsCostTypeId));
+		OopmsCostType costType = cDao.getCostType(new BigDecimal(
+				oopmsCostTypeId));
 		form.setName(costType.getName());
 		form.setDescription(HTMLTag.replaceHTMLTag(costType.getDescription()));
 		ModelAndView mav = new ModelAndView("UpdateCostType",
@@ -303,7 +361,7 @@ public class CostManagementController {
 		mav.addObject("projectId", projectId);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=GoCreateBudgetRecords")
 	public ModelAndView postGoCreateBudgetRecords(RenderRequest request) {
 		log.debug("post GoCreateBudgetRecords.START");
@@ -316,12 +374,13 @@ public class CostManagementController {
 		mav.addObject("projectId", projectId);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=GoUpdateBudgetRecords")
 	public ModelAndView postGoUpdateBudgetRecords(RenderRequest request) {
 		log.debug("post GoUpdateBudgetRecords.START");
 		CostDao cDao = new CostDao();
-		OopmsBudget budget = cDao.getBudgetRecord(request.getParameter("oopmsBudgetId"));
+		OopmsBudget budget = cDao.getBudgetRecord(request
+				.getParameter("oopmsBudgetId"));
 		UpdateBudgetRecordForm form = new UpdateBudgetRecordForm();
 		form.setBudgetType(budget.getType());
 		form.setDescription(HTMLTag.replaceHTMLTag(budget.getDescription()));
@@ -334,7 +393,7 @@ public class CostManagementController {
 		mav.addObject("oopmsBudgetId", request.getParameter("oopmsBudgetId"));
 		return mav;
 	}
-	
+
 	@ActionMapping(params = "action=RemoveBudgetRecord")
 	public void processRemoveBudgetRecord(DeleteCostForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
@@ -357,9 +416,101 @@ public class CostManagementController {
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
 				projectCost.getCurrentBudget()));
 		cDao.updateProjectCost(projectCost);
-		
+
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("ViewBudgetRecord", "ViewBudgetRecord");
 		response.setRenderParameter("projectId", projectId);
+	}
+
+	@RenderMapping(params = "action=GoUpdateExceptinalExpense")
+	public ModelAndView postGoUpdateExceptinalExpense(RenderRequest request) {
+		log.debug("post GoUpdateExceptinalExpense.START");
+		UpdateExceptionalExpenseForm form = new UpdateExceptionalExpenseForm();
+		String oopmsExceptionalCostId = request
+				.getParameter("oopmsExceptionalCostId");
+		CostDao cDao = new CostDao();
+		OopmsExceptionalCost exceptionalCost = cDao
+				.getExceptionalCost(oopmsExceptionalCostId);
+		// set value for form
+		form.setName(exceptionalCost.getName());
+		form.setOccurDate(AppUtil.getDateAsFormat(
+				exceptionalCost.getOccurDate(), Constant.DateFormat));
+		form.setDescription(HTMLTag.replaceHTMLTag(exceptionalCost
+				.getDescription()));
+		form.setAdditionEffect(String.valueOf(exceptionalCost.getEffectType()));
+		form.setAdditionEffectInput(String.valueOf(exceptionalCost.getEffect()));
+		if (exceptionalCost.getOopmsCostTypeId() != null) {
+			String[] costTypes = new String[1];
+			costTypes[0] = String.valueOf(exceptionalCost.getOopmsCostTypeId());
+			form.setCostTypes(costTypes);
+			form.setAffectTo(Constant.ExceptinalCostEffectToType);
+		} else {
+			String[] daily = new String[1];
+			daily[0] = String.valueOf(exceptionalCost
+					.getOopmsCostDailyExpenseId());
+			form.setDailyExpenses(daily);
+			form.setAffectTo(Constant.ExceptinalCostEffectToDaily);
+		}
+		// //////////
+		ModelAndView mav = new ModelAndView("UpdateExceptionalExpense",
+				"UpdateExceptionalExpenseForm", form);
+		String projectId = request.getParameter("projectId");
+		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
+		List<OopmsCostDailyExpense> dailyExpenseList = cDao
+				.getDailyExpenseList(projectId);
+		List<DailyExpense> dailyExpenseListView = CostUtil
+				.getDailyExpenseListView(dailyExpenseList);
+		mav.addObject("CostTypeList", costTypeList);
+		mav.addObject("DailyExpenseList", dailyExpenseListView);
+		log.debug("project ID : " + projectId);
+		mav.addObject("oopmsExceptionalCostId", oopmsExceptionalCostId);
+		mav.addObject("projectId", projectId);
+		return mav;
+	}
+
+	@RenderMapping(params = "action=GoUpdateExceptinalDeduct")
+	public ModelAndView postGoUpdateExceptinalDeduct(RenderRequest request) {
+		log.debug("post GoUpdateExceptinalDeduct.START");
+		UpdateExceptionalDeductForm form = new UpdateExceptionalDeductForm();
+		String oopmsExceptionalCostId = request
+				.getParameter("oopmsExceptionalCostId");
+		CostDao cDao = new CostDao();
+		OopmsExceptionalCost exceptionalCost = cDao
+				.getExceptionalCost(oopmsExceptionalCostId);
+		// set value for form
+		form.setName(exceptionalCost.getName());
+		form.setOccurDate(AppUtil.getDateAsFormat(
+				exceptionalCost.getOccurDate(), Constant.DateFormat));
+		form.setDescription(HTMLTag.replaceHTMLTag(exceptionalCost
+				.getDescription()));
+		form.setAdditionEffect(String.valueOf(exceptionalCost.getEffectType()));
+		form.setAdditionEffectInput(String.valueOf(exceptionalCost.getEffect()));
+		if (exceptionalCost.getOopmsCostTypeId() != null) {
+			String[] costTypes = new String[1];
+			costTypes[0] = String.valueOf(exceptionalCost.getOopmsCostTypeId());
+			form.setCostTypes(costTypes);
+			form.setAffectTo(Constant.ExceptinalCostEffectToType);
+		} else {
+			String[] daily = new String[1];
+			daily[0] = String.valueOf(exceptionalCost
+					.getOopmsCostDailyExpenseId());
+			form.setDailyExpenses(daily);
+			form.setAffectTo(Constant.ExceptinalCostEffectToDaily);
+		}
+		// //////////
+		ModelAndView mav = new ModelAndView("UpdateExceptionalDeduct",
+				"UpdateExceptionalDeductForm", form);
+		String projectId = request.getParameter("projectId");
+		List<OopmsCostType> costTypeList = cDao.getCostTypeList(projectId);
+		List<OopmsCostDailyExpense> dailyExpenseList = cDao
+				.getDailyExpenseList(projectId);
+		List<DailyExpense> dailyExpenseListView = CostUtil
+				.getDailyExpenseListView(dailyExpenseList);
+		mav.addObject("CostTypeList", costTypeList);
+		mav.addObject("DailyExpenseList", dailyExpenseListView);
+		log.debug("project ID : " + projectId);
+		mav.addObject("oopmsExceptionalCostId", oopmsExceptionalCostId);
+		mav.addObject("projectId", projectId);
+		return mav;
 	}
 }

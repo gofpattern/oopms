@@ -39,6 +39,11 @@
             <portlet:param name="projectId" value="${projectId}" />
             <portlet:param name="oopmsCostTypeId" value="${deletingOopmsCostTypeId}" />
     </portlet:actionURL>
+    <portlet:actionURL var="ForcedRemoveDailyExpense">
+            <portlet:param name="action" value="ForcedRemoveDailyExpense" />
+            <portlet:param name="projectId" value="${projectId}" />
+            <portlet:param name="oopmsCostDailyExpenseId" value="${deletingOopmsCostDailyExpenseId}" />
+    </portlet:actionURL>
 <SCRIPT type="text/javascript">
 var rules = new Array();
 rules[0] = 'viewDate:View Date|required';
@@ -113,8 +118,11 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     	            buttonImageOnly: true
     	        });
                 yav.init('${portletNamespace}CostManagement', rules);
+                if(document.getElementById("deleteDailyFlag").value==1) {}
                 var actionUrl = "${ForcedRemoveCostType}";
+                var actionUrl2 = "${ForcedRemoveDailyExpense}";
                 actionUrl = actionUrl.replace(/amp;/g, '');
+                actionUrl2 = actionUrl2.replace(/amp;/g, '');
                 if(document.getElementById("deleteCostTypeFlag").value==1) {
     				document.getElementById("deleteCostTypeFlag").value = 0;
     				if(confirm('This Type is used by another Exceptional Costs. Delete it will also delete other Exceptional Costs that using it. Do you still want to delete it?')) {
@@ -131,6 +139,13 @@ yav.addHelp('viewDate', 'Please input View Date before checking');
     				document.getElementById("deleteCostTypeFlag").value = 0;
     				if(confirm('This Type is used by another Exceptional Costs and Daily Expenses. Delete it will also delete other Exceptional Costs and unset those Daily Expenses Type that using it. Do you still want to delete it?')) {
     					submitAction("${portletNamespace}CostManagement", actionUrl);
+    				}
+    			}
+                
+                if(document.getElementById("deleteDailyFlag").value==1) {
+    				document.getElementById("deleteDailyFlag").value = 0;
+    				if(confirm('This Daily Expense is used by another Exceptional Costs. Delete it will also delete other Exceptional Costs that using it. Do you still want to delete it?')) {
+    					submitAction("${portletNamespace}CostManagement", actionUrl2);
     				}
     			}
                 
@@ -461,6 +476,7 @@ Current Invoice is : ${currentExpense}
 <br>
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction5}")'>Add new Type</button>
 	<input name="deleteCostTypeFlag" type="hidden" value="${deleteCostTypeFlag}" id="deleteCostTypeFlag"/>
+	<input name="deleteDailyFlag" type="hidden" value="${deleteDailyFlag}" id="deleteDailyFlag"/>
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>
