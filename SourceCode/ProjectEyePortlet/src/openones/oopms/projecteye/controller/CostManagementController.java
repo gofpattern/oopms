@@ -36,6 +36,7 @@ import openones.oopms.projecteye.form.CreateExceptionalExpenseForm;
 import openones.oopms.projecteye.form.CreateOneTimeExpenseForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.DeleteCostForm;
+import openones.oopms.projecteye.form.InvoiceDailyExpense;
 import openones.oopms.projecteye.form.PayCostForm;
 import openones.oopms.projecteye.form.UpdateBudgetRecordForm;
 import openones.oopms.projecteye.form.UpdateCostTypeForm;
@@ -522,6 +523,13 @@ public class CostManagementController {
 		String projectId = formBean.getProjectId();
 		CostDao cDao = new CostDao();
 		cDao.payOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
+		//Update invoice
+		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+				projectId));
+		OopmsCostOneTimeExpense oneTimeExpense = cDao.getOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
+		projectCost.setCurrentExpense(projectCost.getCurrentExpense().add(oneTimeExpense.getCost()));
+		cDao.updateProjectCost(projectCost);
+		
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("ViewInvoiceRecords", "ViewInvoiceRecords");
 		response.setRenderParameter("projectId", projectId);
@@ -536,6 +544,13 @@ public class CostManagementController {
 		cDao.payDailyExpense(formBean.getOopmsCostDailyExpenseId(), (AppUtil
 				.getDateFromFormattedDate(formBean.getPayDate(),
 						Constant.DateFormat)));
+		//Update invoice
+				OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+						projectId));
+				OopmsCostDailyExpense dailyExpense = cDao.getDailyExpense(new BigDecimal(formBean.getOopmsCostDailyExpenseId()));
+				InvoiceDailyExpense invoice = CostUtil.getInvoiceDailyExpense(dailyExpense);
+				projectCost.setCurrentExpense(projectCost.getCurrentExpense().add(new BigDecimal(invoice.getTotal())));
+				cDao.updateProjectCost(projectCost);
 		response.setRenderParameter("payDate", formBean.getPayDate());
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("ViewInvoiceRecords", "ViewInvoiceRecords");
@@ -553,6 +568,18 @@ public class CostManagementController {
 			response.setRenderParameter("payExceptionalCostFlag", payExceptionalCostFlag);
 		} else {
 			cDao.payExceptionalCost(formBean.getOopmsExceptionalCostId());
+			//Update invoice
+			OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
+					projectId));
+			OopmsExceptionalCost exceptionalCost = cDao.getExceptionalCost(formBean.getOopmsExceptionalCostId());
+			BigDecimal invoiceValue = CostUtil.getTotalValueOfExceptionalCost(exceptionalCost);
+			if(String.valueOf(exceptionalCost.getType()).equals(Constant.ExceptinalExpenseType)) {
+				projectCost.setCurrentExpense(projectCost.getCurrentExpense().add(invoiceValue));
+			} else {
+				projectCost.setCurrentExpense(projectCost.getCurrentExpense().subtract(invoiceValue));
+			}
+			
+			cDao.updateProjectCost(projectCost);
 			response.setRenderParameter("ViewInvoiceRecords", "ViewInvoiceRecords");
 		}
 		response.setRenderParameter("action", "GoCostManagement");		
