@@ -1,6 +1,6 @@
 package openones.oopms.requirement.controller;
 
-import java.io.IOException;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
-import rocky.common.PropertiesManager;
 
 /**
  * @author Kenda
@@ -40,6 +39,7 @@ import rocky.common.PropertiesManager;
 @Controller
 @RequestMapping("VIEW")
 public class RequirementController {
+    
     /** Logger for logging. */
     private static Logger log = Logger.getLogger(RequirementController.class);
     // requirementList to add into render object
@@ -52,11 +52,11 @@ public class RequirementController {
     String role = "";
     // project ID
     String projectId = "";    
- // goUpdateRequirement Error
+    // goUpdateRequirement Error
     String requirementError;
     // Properties
     Properties props;
-
+    
     Developer developer = new Developer();
     private String username;
 
@@ -78,7 +78,8 @@ public class RequirementController {
             ActionResponse response) {
         log.debug("processRequirement.START");
     }
-
+    
+    //requirementmanager - Get all Requirements
     @RenderMapping(params = "action=requirementmanager")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("postRequirementSTART");
@@ -132,17 +133,17 @@ public class RequirementController {
         username = portletSupport.getLogonUser();
         developer = developerDAO.getDeveloperByAccount(username);
         session.setAttribute("USER", developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-         
+        //add role 
         mav.addObject("ROLE","");
 
         return mav;
     }
 
+    //requirementmanager - Get all requirements of a project
     @RenderMapping(params = "action=requirementmanager1project")
     public ModelAndView postRequirement1Project(RequirementForm formBean, RenderRequest request, PortletSession session) {
         log.debug("postRequirement1Project");
-
-        // for getting from PlannerHome
+        
         PortletSupport portletSupport = new PortletSupport(request);
         DeveloperDao developerDAO = new DeveloperDao();
         projectId = request.getParameter("projectId");
@@ -177,6 +178,7 @@ public class RequirementController {
             // log.debug(projectList.get(0).getName());
             // log.debug(requirementList.get(0).getProjectName());
             // log.error("Convert ProcessID to string", ex);
+            log.error("Error get project Name", ex);
         }
 
         formBean.setRequirementList(requirementList);
@@ -240,12 +242,13 @@ public class RequirementController {
             log.debug("ListdeleteRequirementHereNULLor>1");
 //          ModelAndView mav2 = new ModelAndView("hello");
 //          return mav2;
-          try {
-              props = PropertiesManager.newInstanceFromProps("/messages.properties");
-          } catch (IOException ex) {
-              // TODO Auto-generated catch block
-              ex.printStackTrace();
-          }
+//          try {
+//              props = PropertiesManager.newInstanceFromProps("/messages.properties");
+//          } catch (IOException ex) {
+//              // TODO Auto-generated catch block
+//              //ex.printStackTrace();
+//              log.debug("Get error message failed");
+//          }
           requirementError = props.getProperty("EmptyListRemove");
         } else {
             log.debug("ListdeleteRequirementHere: " + tempList.size());
