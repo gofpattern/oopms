@@ -151,8 +151,13 @@
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
    <div id="dialog" title="Missing Products">
-    <p><font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not been created.</font></p>
-    <p><font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before assigning tasks.</font></p>
+         <p>
+        <font color="#1490E3"><spring:message code="emptyModules.warning_1"/><b><%=portletSession.getAttribute("PROJECT_NAME")%></b>
+        <spring:message code="emptyModules.warning_2"/></font>
+      </p>
+      <p>
+        <font color="#1490E3"><spring:message code="emptyModules.warning_3"/></font>
+      </p>
 </div>
 <!-- <div id="dialog-confirm" title="Delete Task">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The item will be permanently deleted and cannot be recovered. Are you sure?</p>
@@ -336,7 +341,7 @@
             </tr>
           </table>
         </form:form>
-        <table style="font-size: 9px" id="taskTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
+        <table id="taskTable" class="display dataTable" cellpadding="0" cellspacing="0" border="0">
           <thead>
             <tr>
               <!-- TABLE HEADER -->

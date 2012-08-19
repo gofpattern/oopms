@@ -75,14 +75,11 @@
 
     <div id="dialog" title="Missing Products">
       <p>
-        <font color="#1490E3">Products of <b><%=portletSession.getAttribute("PROJECT_NAME")%></b> project has not
-          been created.
-        </font>
+        <font color="#1490E3"><spring:message code="emptyModules.warning_1"/><b><%=portletSession.getAttribute("PROJECT_NAME")%></b>
+        <spring:message code="emptyModules.warning_2"/></font>
       </p>
       <p>
-        <font color="#1490E3">Please create some products for your project at <b>Project Eye Portlet </b> before
-          assigning tasks.
-        </font>
+        <font color="#1490E3"><spring:message code="emptyModules.warning_3"/></font>
       </p>
     </div>
     <div class="content">
@@ -130,9 +127,7 @@
         </table>
       </c:if>
       <c:if test="${empty projectList}">
-        <h5>You haven't jointed any projects.
-        <br>Please use Project Eye Portlet to see projects and contacts list.
-        </h5>
+        <h5><spring:message code="emptyProjects.warning"/></h5>
     </c:if>
     </div>
     <br>

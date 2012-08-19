@@ -69,7 +69,7 @@ public class AssignmentDAO {
             log.debug("getRole.START");
             session.getTransaction().begin();
             String hql = "from Assignment where developer.developerId= ? and project.projectId = ?"+
-                    " and ((ass.endDate > :currentDate) or (ass.endDate is null))";
+                    " and ((endDate > :currentDate) or (endDate is null))";
             Query query = session.createQuery(hql);
             query.setString(0, developerId);
             query.setString(1, projectId);
