@@ -464,11 +464,11 @@ public class DashboardController extends BaseController {
 
     private double calculateUsedEffortRate(BigDecimal projectId) {
         log.debug("calculateCostStatus.START");
-        
+
         ProjectDao projectDao = new ProjectDao();
         Project project = projectDao.getProjectById(projectId);
-        double usedEffortRate = project.getActualEffort().doubleValue() / project.getPlanEffort().doubleValue();
-        
+        double usedEffortRate = project.getActualEffort().doubleValue() / project.getPlanEffort().doubleValue() * 100;
+
         return Math.round(usedEffortRate * 100.0) / 100.0;
 
     }

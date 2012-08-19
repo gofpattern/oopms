@@ -121,8 +121,6 @@
             <th width="5%">Efficiency</th>
             <th width="5%">Cost</th>
             <th>Used Effort</th>
-            <th>Start Date</th>
-            <th>Finish Date</th>
           </tr>
         </thead>
         <tbody>
@@ -147,10 +145,11 @@
                     </div>
                   </c:otherwise>
                 </c:choose></td>
-              <td><div id="percentTime" class="progress_bar green stripes">
+              <td><abbr title="Start: ${dashboard.project.planStartDate} End: ${dashboard.project.planFinishDate}">
+              <div id="percentTime" class="progress_bar green stripes">
                   <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#000"
                       size="2" face="tahoma">${dashboard.percentTime}</font></b></span>
-                </div></td>
+                </div></abbr></td>
               <td><c:choose>
                   <c:when test="${dashboard.percentProgress < 50}">
                     <div id="percentProgress" class="progress_bar glow red stripes">
@@ -195,9 +194,8 @@
                     </div>
                   </c:otherwise>
                 </c:choose></td>
-              <td>${dashboard.percentEffort}%</td>
-              <td>${dashboard.project.planStartDate}</td>
-              <td>${dashboard.project.planFinishDate}</td>              
+              <td><abbr title="Plan: ${dashboard.project.planEffort} Current: ${dashboard.project.actualEffort}">
+              ${dashboard.percentEffort}%</abbr></td>             
             </tr>
             </c:if>
           </c:forEach>
