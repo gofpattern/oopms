@@ -39,6 +39,8 @@ import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CostManagementForm;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.ExceptionalCost;
+import openones.oopms.projecteye.form.InvoiceDailyExpense;
+import openones.oopms.projecteye.form.InvoiceExceptionalCost;
 import openones.oopms.projecteye.form.ProductForm;
 import openones.oopms.projecteye.form.RiskView;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
@@ -733,7 +735,35 @@ public class NavigatorController {
 			mav.addObject("BudgetRecords", budgetList);
 		}
 		if (request.getParameter("ViewInvoiceRecords") != null) {
-
+			List<OopmsCostOneTimeExpense> invoiceOneTime = cDao.getOneTimeExpenseInvoiceList(projectId);
+			List<OopmsCostDailyExpense> invoiceDaily = cDao.getDailyExpenseInvoiceList(projectId);
+			List<OopmsExceptionalCost> invoiceExceptionalExpense = cDao.getExceptionalExpenseInvoiceList(projectId);
+			List<OopmsExceptionalCost> invoiceExceptionalDeduct = cDao.getExceptionalDeductInvoiceList(projectId);
+			List<InvoiceDailyExpense> invoiceDailyView = new ArrayList<InvoiceDailyExpense>();
+			List<InvoiceExceptionalCost> invoiceExceptionalExpenseView = new ArrayList<InvoiceExceptionalCost>();
+			List<InvoiceExceptionalCost> invoiceExceptionalDeductView = new ArrayList<InvoiceExceptionalCost>();
+			if(invoiceDaily!=null) {
+			invoiceDailyView = CostUtil.getInvoiceDailyExpense(invoiceDaily);
+			}
+			if(invoiceExceptionalExpense!=null) {
+				invoiceExceptionalExpenseView = CostUtil.getInvoiceExceptionalCostList(invoiceExceptionalExpense);
+			}
+			if(invoiceExceptionalDeduct!=null) {
+				invoiceExceptionalDeductView = CostUtil.getInvoiceExceptionalCostList(invoiceExceptionalDeduct);
+				}
+			if(invoiceOneTime!=null) {
+				if(invoiceOneTime.size()>0) {
+					mav.addObject("InvoiceRecords", "InvoiceRecords");
+				}
+			}
+			if(invoiceDailyView.size()>0 || invoiceExceptionalExpenseView.size()>0 || invoiceExceptionalDeductView.size()>0) {
+				mav.addObject("InvoiceRecords", "InvoiceRecords");
+			}
+			mav.addObject("InvoiceOneTime", invoiceOneTime);
+			mav.addObject("InvoiceDaily", invoiceDailyView);
+			mav.addObject("InvoiceExceptionalExpense", invoiceExceptionalExpenseView);
+			mav.addObject("InvoiceExceptionalDeduct", invoiceExceptionalDeductView);
+			
 		}
 		if (projectCost != null) {
 			mav.addObject("currentBudget", projectCost.getCurrentBudget());

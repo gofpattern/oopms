@@ -398,6 +398,24 @@ public class CostDao {
 		}
 		return null;
 	}
+	
+	public List<OopmsExceptionalCost> getExceptionalInvoiceList(
+			String projectId) {
+		try {
+			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
+			session = sessionfactory.openSession();
+			session.beginTransaction();
+			String hql = "From OopmsExceptionalCost where projectId = :projectId and isPay is not null";
+			Query query = session.createQuery(hql);
+			query.setParameter("projectId", new BigDecimal(projectId));
+			List<OopmsExceptionalCost> ExpenseList = query.list();
+			session.getTransaction().commit();
+			return ExpenseList;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
+	}
 
 	public List<OopmsExceptionalCost> getExceptionalDeductList(String projectId) {
 		try {

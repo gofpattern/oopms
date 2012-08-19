@@ -12,6 +12,8 @@ import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.form.DailyExpense;
 import openones.oopms.projecteye.form.ExceptionalCost;
+import openones.oopms.projecteye.form.InvoiceDailyExpense;
+import openones.oopms.projecteye.form.InvoiceExceptionalCost;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
 import openones.oopms.projecteye.model.OopmsCostOneTimeExpense;
 import openones.oopms.projecteye.model.OopmsCostType;
@@ -476,4 +478,147 @@ public class CostUtil {
 		}
 	}
 
+	public static InvoiceDailyExpense getInvoiceDailyExpense(
+			OopmsCostDailyExpense input) {
+		InvoiceDailyExpense result = new InvoiceDailyExpense();
+		result.setName(input.getName());
+		result.setCostDay(String.valueOf(input.getCost()));
+		BigDecimal total = new BigDecimal("0");
+		int totalDays = 0;
+		// get total and days
+		for (int i = 0; i < 7; i++) {
+			if (input.getDateUsed().charAt(i) == '1') {
+				int temp = countDay(input.getStartDate(), input.getEndDate(),
+						i + 1);
+				totalDays = totalDays + temp;
+				total = total.add(input.getCost()
+						.multiply(new BigDecimal(temp)));
+			}
+		}
+		result.setDays(String.valueOf(totalDays));
+		result.setTotal(String.valueOf(total));
+		result.setDescription(input.getDescription()
+				+ " From "
+				+ AppUtil.getDateAsFormat(input.getStartDate(),
+						Constant.DateFormat)
+				+ " To "
+				+ AppUtil.getDateAsFormat(input.getEndDate(),
+						Constant.DateFormat) + "( "
+				+ getDaysUsedString(input.getDateUsed()) + " )");
+		return result;
+	}
+	
+	public static List<InvoiceDailyExpense> getInvoiceDailyExpense(
+			List<OopmsCostDailyExpense> input) {
+		List<InvoiceDailyExpense> result = new ArrayList<InvoiceDailyExpense>();
+		for(int i=0; i<input.size(); i++) {
+			InvoiceDailyExpense temp = getInvoiceDailyExpense(input.get(i));
+			result.add(temp);
+		}
+		return result;
+		
+	}
+
+	public static InvoiceExceptionalCost getInvoiceExceptionalCost(
+			OopmsExceptionalCost input, OopmsCostDailyExpense dailyExpense) {
+		InvoiceExceptionalCost result = new InvoiceExceptionalCost();
+		result.setName(input.getName());
+		// set effect
+		if (String.valueOf(input.getEffectType()).equals(
+				Constant.ExceptinalFixCostEffectType)) {
+			if (input.getEffect() != null) {
+				result.setEffect("Fixed " + input.getEffect() + " $");
+			}
+		} else if (String.valueOf(input.getEffectType()).equals(
+				Constant.ExceptinalRationCostEffectType)) {
+			if (input.getEffect() != null) {
+				result.setEffect("x" + input.getEffect() + " Payment");
+			}
+		} else if (String.valueOf(input.getEffectType()).equals(
+				Constant.ExceptinalBonusCostEffectType)) {
+			if (input.getEffect() != null) {
+				result.setEffect("Bonus " + input.getEffect() + "  $");
+			}
+		}
+		// set affectTo
+		result.setEffectTo(dailyExpense.getName()
+				+ " ("
+				+ String.valueOf(dailyExpense.getCost())
+				+ "/day) on "
+				+ AppUtil.getDateAsFormat(input.getOccurDate(),
+						Constant.DateFormat));
+		result.setDescription(input.getDescription());
+		BigDecimal total = new BigDecimal("0");
+		if (String.valueOf(input.getEffectType()).equals(
+				Constant.ExceptinalFixCostEffectType)) {
+
+			total = total.add(input.getEffect());
+		} else if (String.valueOf(input.getEffectType()).equals(
+				Constant.ExceptinalRationCostEffectType)) {
+			total = total.add(input.getEffect()
+					.multiply(dailyExpense.getCost()));
+		} else if (String.valueOf(input.getEffectType()).equals(
+				Constant.ExceptinalBonusCostEffectType)) {
+			total = total.add(input.getEffect().add(dailyExpense.getCost()));
+		}
+		if (String.valueOf(input.getType()).equals(
+				Constant.ExceptinalExpenseType)) {
+			result.setTotal(String.valueOf(total));
+		} else {
+			result.setTotal("-" + String.valueOf(total));
+		}
+		return result;
+	}
+
+	public static List<InvoiceExceptionalCost> getInvoiceExceptionalCostList(
+			List<OopmsExceptionalCost> input) {
+		List<InvoiceExceptionalCost> output = new ArrayList<InvoiceExceptionalCost>();
+		CostDao cDao = new CostDao();
+		for (int i = 0; i < input.size(); i++) {
+			if (input.get(i).getOopmsCostDailyExpenseId() != null) {
+				OopmsCostDailyExpense dailyExpense = cDao.getDailyExpense(input
+						.get(i).getOopmsCostDailyExpenseId());
+				if ((!dailyExpense.getStartDate().after(
+						input.get(i).getOccurDate()))) {
+					if (dailyExpense.getEndDate() != null) {
+						if (!dailyExpense.getEndDate().before(
+								input.get(i).getOccurDate())) {
+							InvoiceExceptionalCost temp = new InvoiceExceptionalCost();
+							temp = getInvoiceExceptionalCost(input.get(i), dailyExpense);
+							output.add(temp);
+						}
+					} else {
+						InvoiceExceptionalCost temp = new InvoiceExceptionalCost();
+						temp = getInvoiceExceptionalCost(input.get(i), dailyExpense);
+						output.add(temp);
+					}
+				}
+
+			} else {
+				List<OopmsCostDailyExpense> dailyExpenseList = cDao
+						.getDailyExpenseListOfAType(
+								input.get(i).getProjectId(),
+								input.get(i).getOopmsCostTypeId());
+				for(int z = 0; z<dailyExpenseList.size();z++) {
+					if ((!dailyExpenseList.get(z).getStartDate().after(
+							input.get(i).getOccurDate()))) {
+						if (dailyExpenseList.get(z).getEndDate() != null) {
+							if (!dailyExpenseList.get(z).getEndDate().before(
+									input.get(i).getOccurDate())) {
+								InvoiceExceptionalCost temp = new InvoiceExceptionalCost();
+								temp = getInvoiceExceptionalCost(input.get(i), dailyExpenseList.get(z));
+								output.add(temp);
+							}
+						} else {
+							InvoiceExceptionalCost temp = new InvoiceExceptionalCost();
+							temp = getInvoiceExceptionalCost(input.get(i), dailyExpenseList.get(z));
+							output.add(temp);
+						}
+					}
+				}
+			}
+		}
+		return output;
+	}
+	
 }

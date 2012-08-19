@@ -114,6 +114,37 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
                     "bJQueryUI": true,
                     "sPaginationType": "full_numbers"
                 } );
+                $('#mainTable6').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable7').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable8').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable9').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable10').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                
                 
                 $( "#datepicker1" ).datepicker({
     	            showOn: "button",
@@ -162,12 +193,7 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
     				alert('This Exceptional Cost daily expenses are not paid yet. Please pay all daily expense relate to this Exceptional Cost before pay it');
     			}
                 
-                $('#mainTable6').dataTable( {
-                    "bFilter": true,
-                    "bSort": true,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers"
-                } );
+                
             } );
         </script>	
 </head>
@@ -229,8 +255,9 @@ Current Budget is : ${currentBudget}
 <c:if test="${not empty BudgetRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Budget Records--------------------------------</p>
 </c:if>
-	<table class="display dataTable" id="mainTable6" cellpadding="0" cellspacing="0" border="0">	
 	<c:if test="${not empty BudgetRecords}">
+	<table class="display dataTable" id="mainTable6" cellpadding="0" cellspacing="0" border="0">	
+
    <thead>
    	<tr>
    		<th width="5%" scope="row">No</th>
@@ -272,15 +299,139 @@ Current Budget is : ${currentBudget}
      </tr>
     </c:forEach>
     </tbody>
-    </c:if>
+   
 </table> 	
+ </c:if>
 	<br>
 
 <br>
 Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
-<br/>
-    
+<c:if test="${not empty InvoiceRecords}">
+	<p id="header2DuyND" style="text-align:center">--------------------------------Invoice Records--------------------------------</p>
+</c:if>
+<c:if test="${not empty InvoiceOneTime}">
+<h3>One Time Expense</h3>
+</c:if>
+	<table class="display dataTable" id="mainTable7" cellpadding="0" cellspacing="0" border="0">	
+	<c:if test="${not empty InvoiceOneTime}">
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="10%" scope="row">Name</th>    
+        <th width="65%" scope="row">Description</th> 
+        <th width="10%" scope="row">Date</th>
+        <th width="10%" scope="row">Total</th>
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="invoiceOneTime" items="${InvoiceOneTime}" varStatus="count">
+   	<tr>  	
+     		   <td scope="row">${count.count}</td>
+               <td scope="row">${invoiceOneTime.name}</td>
+               <td scope="row">${invoiceOneTime.description}</td>
+               <td scope="row">${invoiceOneTime.occurDate}</td>
+               <td scope="row">${invoiceOneTime.cost}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </c:if>
+</table> 	
+	<br>
+	
+<c:if test="${not empty InvoiceDaily}">
+<h3>Daily Expense</h3>
+</c:if>
+	<table class="display dataTable" id="mainTable8" cellpadding="0" cellspacing="0" border="0">	
+	<c:if test="${not empty InvoiceDaily}">
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="10%" scope="row">Name</th>    
+        <th width="55%" scope="row">Description</th> 
+        <th width="10%" scope="row">Cost/day</th>
+        <th width="10%" scope="row">Days</th>
+        <th width="10%" scope="row">Total</th>
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="invoiceDaily" items="${InvoiceDaily}" varStatus="count">
+   	<tr>  	
+     		   <td scope="row">${count.count}</td>
+               <td scope="row">${invoiceDaily.name}</td>
+               <td scope="row">${invoiceDaily.description}</td>
+               <td scope="row">${invoiceDaily.costDay}</td>
+               <td scope="row">${invoiceDaily.days}</td>
+               <td scope="row">${invoiceDaily.total}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </c:if>
+</table> 	
+	<br>
+	
+<c:if test="${not empty InvoiceExceptionalExpense}">
+<h3>Exceptional Expense</h3>
+</c:if>
+	<table class="display dataTable" id="mainTable9" cellpadding="0" cellspacing="0" border="0">	
+	<c:if test="${not empty InvoiceExceptionalExpense}">
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="10%" scope="row">Name</th>    
+        <th width="55%" scope="row">Description</th> 
+        <th width="10%" scope="row">AffectTo</th>
+        <th width="10%" scope="row">Effect</th>
+        <th width="10%" scope="row">Total</th>
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="invoiceExceptional" items="${InvoiceExceptionalExpense}" varStatus="count">
+   	<tr>  	
+     		   <td scope="row">${count.count}</td>
+               <td scope="row">${invoiceExceptional.name}</td>
+               <td scope="row">${invoiceExceptional.description}</td>
+               <td scope="row">${invoiceExceptional.effectTo}</td>
+               <td scope="row">${invoiceExceptional.effect}</td>
+               <td scope="row">${invoiceExceptional.total}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </c:if>
+</table> 	
+	<br>
+	
+<c:if test="${not empty InvoiceExceptionalDeduct}">
+<h3>Exceptional Deduct</h3>
+</c:if>
+	<table class="display dataTable" id="mainTable10" cellpadding="0" cellspacing="0" border="0">	
+	<c:if test="${not empty InvoiceExceptionalDeduct}">
+   <thead>
+   	<tr>
+   		<th width="5%" scope="row">No</th>
+        <th width="10%" scope="row">Name</th>    
+        <th width="55%" scope="row">Description</th> 
+        <th width="10%" scope="row">AffectTo</th>
+        <th width="10%" scope="row">Effect</th>
+        <th width="10%" scope="row">Total</th>
+    </tr>
+   </thead>
+   <tbody>
+   <c:forEach var="invoiceExceptional" items="${InvoiceExceptionalDeduct}" varStatus="count">
+   	<tr>  	
+     		   <td scope="row">${count.count}</td>
+               <td scope="row">${invoiceExceptional.name}</td>
+               <td scope="row">${invoiceExceptional.description}</td>
+               <td scope="row">${invoiceExceptional.effectTo}</td>
+               <td scope="row">${invoiceExceptional.effect}</td>
+               <td scope="row">${invoiceExceptional.total}</td>
+     </tr>
+    </c:forEach>
+    </tbody>
+    </c:if>
+</table> 	
+	<br>
+	    
     	By Date<form:input maxlength="10" path="viewDate" size="9" value="" type="text" id="datepicker1" style='width:80px'/>(mm/dd/yyyy)
     	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CostManagement", "${formAction6}")'>Check</button>
     	<br/><span id=errorsDiv_viewDate>&nbsp;</span>
@@ -461,7 +612,7 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
             <portlet:actionURL var="renderAction4">
             	<portlet:param name="action" value="PayExceptionalCost" />
             	<portlet:param name="projectId" value="${projectId}" />
-            	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
+            	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalDeduct.oopmsExceptionalCostId}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
                <td scope="row"><a href="${renderAction2}">${exceptionalDeduct.name}</a></td>
