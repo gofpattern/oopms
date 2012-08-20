@@ -81,8 +81,8 @@ function submitAction(formName, actionUrl) {
                        
                   $('#mainTable2 tr').filter(':has(:checkbox:checked)').addClass('selected').end().click(function(event) {
                         $(this).toggleClass('selected');
-                        if (event.target.type !== 'radio') {
-                          $(':radio', this).attr('checked', function() {
+                        if (event.target.type !== 'checkbox') {
+                          $(':checkbox', this).attr('checked', function() {
                             return !this.checked;
                           });
                         }
@@ -212,8 +212,7 @@ function submitAction(formName, actionUrl) {
   <portlet:param name="action" value="goAddNewDefect" />
 </portlet:renderURL> <form:form name="defect" method="post" commandName="viewDefectList"
   action="${defectFormAction2}">
-  <p><input type="submit" id="Search" class="button green small"
-    name="Add" value="Add" /></p>
+  
      <c:if test="${not empty defectError}"> <label id="noSelect" style="display: inline; color: red;">${defectError}</label><br></c:if>   
       
     <div id="errorDiv" align="center" style=" display: none; ">    
@@ -263,7 +262,7 @@ function submitAction(formName, actionUrl) {
                 <portlet:param name="defectId" value="${defect.defectId}" />
             </portlet:renderURL>
           <tr>
-            <td class="cb"><input id="radio" type="radio"
+            <td class="cb"><input id="checkbox" type="checkbox"
               name="defectId"
               value="${defect.defectId}"></td>
                <td><a href="${renderAction}">${defect.defectId}</a></td>
@@ -287,22 +286,13 @@ function submitAction(formName, actionUrl) {
     </tbody>
   </table>
 <br>
+<p><input type="button" class="button blue small" name="" id="btnUpdate"
+    onclick='submitAction("Defect", "${defectFormAction2}")'
+    value="Add" class="button blue small" /> </p>
   <p>  
   <input type="button" class="button blue small" name="Update" id="btnUpdate"
     onclick='submitAction("Defect", "${goUpdateDefectAction}")'
-    value="Update" class="button blue small" /> <input type="button"
-    class="button blue small" name="Delete" id="btnUpdate"
-    onclick='submitActionConfirm("Defect", "${deleteDefectAction}");'
-    value="Delete" class="button red small" />
-    <c:if test="${ROLE=='Project Manager' }">
-    <input type="button" class="button blue small" name="Approve" id="btnUpdate"
-    onclick='submitAction("Defect", "${approveDefectAction}")'
-    value="Approve" class="button blue small" />
-    <input type="button" class="button blue small" name="Reject" id="btnUpdate"
-    onclick='submitAction("Defect", "${goRejectDefectAction}")'
-    value="Reject" class="button blue small" />
-    </c:if>
-    
+    value="Batch Update" class="button blue small" /> 
     </p>
 
 </form:form></div>

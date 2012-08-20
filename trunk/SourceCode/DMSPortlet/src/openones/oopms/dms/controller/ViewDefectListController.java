@@ -194,7 +194,11 @@ public class ViewDefectListController extends BaseController {
                 WorkProductDao wpDao = new WorkProductDao();
                 DefectDao defDao = new DefectDao();
                 System.out.println("User :" + user.getDeveloperId());
-                projectList = baseDao.getProjectList(String.valueOf(user.getDeveloperId()));   
+                projectList = baseDao.getProjectList(String.valueOf(user.getDeveloperId())); 
+                if(projectList == null || projectList.size() ==0) {
+                    mav = new ModelAndView("ViewDefectList");
+                    return mav;
+                }
                 for (int i = 0; i < projectList.size(); i++) {
                     projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
                 }
@@ -715,6 +719,7 @@ public class ViewDefectListController extends BaseController {
        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         def.setAssignedTo(formBean.getMemberDisAssigned());
         def.setAtId(new BigDecimal(1));
+        def.setQaId(new BigDecimal(formBean.getQcActivityDis()));
         def.setCauseAnalysis(formBean.getCauseAnalysis());
         def.setCreateDate(df.parse(formBean.getCreateDateString()));
         def.setCreatedBy(formBean.getMemberDisCreated());
