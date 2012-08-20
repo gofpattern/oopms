@@ -291,7 +291,7 @@ function submitAction(formName, actionUrl) {
     value="Add" class="button blue small" /> </p>
   <p>  
   <input type="button" class="button blue small" name="Update" id="btnUpdate"
-    onclick='submitAction("Defect", "${goUpdateDefectAction}")'
+    onclick='submitAction("Defect", "${defectFormAction2}")'
     value="Batch Update" class="button blue small" /> 
     </p>
 

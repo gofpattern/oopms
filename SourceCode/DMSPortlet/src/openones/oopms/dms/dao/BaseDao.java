@@ -20,6 +20,7 @@ package openones.oopms.dms.dao;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import openones.oopms.dms.dao.DeveloperDao;
@@ -98,16 +99,21 @@ public class BaseDao {
         try {
             System.out.println("getRole : " + developerId + " " + projectId);
             session.getTransaction().begin();
-            String hql = "from Assignment where developerId= ? and project.projectId = ? and endDate is not null";
+            String hql = "From Assignment where developerId = :developerId and project.projectId= :projectId and ((endDate > :currentDate) or (endDate is null)) ";
 
             // String sql = "SELECT * FROM USERS WHERE USERNAME='"+username+"'";
-            Query query = session.createQuery(hql);
-            query.setString(0, developerId);
-            query.setString(1, projectId);
-            Assignment assi = (Assignment) query.uniqueResult();
-            if (assi.getType() == 1 || assi.getType()==0 ||assi.getType()==6) {
+            Query query = session.createQuery(hql);  
+            query.setParameter("developerId",  new BigDecimal(developerId));  
+            query.setParameter("projectId", new BigDecimal(projectId));  
+            query.setParameter("currentDate", new Date());  
+            Assignment assi = (Assignment)query.uniqueResult();
+            if (assi.getType() == 1 || assi.getType()==0) {
                 return "Project Manager";
-            } else {
+            }
+            else if(assi.getType() == 6) {
+                return "Project Owner";
+            }
+            else {   
                 return "Developer";
             }
 

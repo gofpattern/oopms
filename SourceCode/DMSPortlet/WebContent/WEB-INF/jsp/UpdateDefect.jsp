@@ -123,9 +123,6 @@
 </portlet:renderURL>
 
 
-<div>
-  <img src="/<spring:message code="app.context"/>/resource_files/DefectAddnew.gif" height="28" border="0" width="411">
-</div>
 
 
 <body id="portal" class="up fl-theme-mist">
