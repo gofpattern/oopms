@@ -25,16 +25,16 @@ import openones.oopms.entity.Project;
  */
 public class Dashboard {
     private Project project;
-    private Boolean visible;
     private String projectHealthStatus;
     private String costStatus;
     private String efficiencyStatus;
     private double percentProgress;
     private double percentTime;
     private double percentEffort;
+    // support search dashboard true: display, false: non-display
+    private Boolean visible;
 
-    public Dashboard() 
-    {
+    public Dashboard() {
         visible = true;
     }
 
@@ -165,5 +165,5 @@ public class Dashboard {
     public void setPercentEffort(double percentEffort) {
         this.percentEffort = percentEffort;
     }
-    
+
 }
