@@ -149,7 +149,11 @@ public class TimesheetController {
            
             mav = new ModelAndView("Timesheet"); // display Timesheet.jsp 
             role = timesheetDao.getRole(dev.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
-           System.out.println("ROLE : " + role);
+            if(role == null) {
+                mav = new ModelAndView("ViewDefectList");
+                return mav;
+            }
+            System.out.println("ROLE : " + role);
             //projectMap.put("All", "All");
             for (int i = 0; i < projectList.size(); i++) {
                 projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getCode());
