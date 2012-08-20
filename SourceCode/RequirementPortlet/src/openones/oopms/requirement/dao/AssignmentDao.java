@@ -47,6 +47,8 @@ public class AssignmentDao {
     public List<Project> getProject(BigDecimal developerId) {
         log.debug("getProject.START");
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql = "select project from Assignment ass where ass.developer.developerId = :developerId and ((end_Date > :currentDate) or (end_Date is null))";
             // String hql =
@@ -66,15 +68,16 @@ public class AssignmentDao {
                 session.getTransaction().rollback();
             }
             log.error("getProject.Exception", e);
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 
     public String getRole(String developerId, String projectId) {
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             System.out.println("getRole : " + developerId + " " + projectId);
             session.getTransaction().begin();
             String hql = "from Assignment where developer.developerId= ? and project.projectId = ?";
@@ -99,10 +102,9 @@ public class AssignmentDao {
                 session.getTransaction().rollback();
             }
             log.error("getRole.Exception", e);
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 }
