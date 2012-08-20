@@ -42,20 +42,21 @@ public class AssignmentDao {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         this.session = factory.getCurrentSession();
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<Project> getProject(BigDecimal developerId) {
         log.debug("getProject.START");
         try {
             session.getTransaction().begin();
             String sql = "select project from Assignment ass where ass.developer.developerId = :developerId and ((end_Date > :currentDate) or (end_Date is null))";
-            String hql = "From project where projectId IN (Select project from Assignment WHERE developerId = :devId and ((endDate > :currentDate) or (endDate is null)) )";
+            // String hql =
+            // "From project where projectId IN (Select project from Assignment WHERE developerId = :devId and ((endDate > :currentDate) or (endDate is null)) )";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
-            query.setParameter("currentDate", new Date());     
-//            Query query = session.createQuery(hql);
-//            query.setParameter("devId", developerId);
-//            query.setParameter("currentDate", new Date());
+            query.setParameter("currentDate", new Date());
+            // Query query = session.createQuery(hql);
+            // query.setParameter("devId", developerId);
+            // query.setParameter("currentDate", new Date());
             List<Project> projectList = query.list();
             session.flush();
             System.out.println("getProject.end");
@@ -65,13 +66,13 @@ public class AssignmentDao {
                 session.getTransaction().rollback();
             }
             log.error("getProject.Exception", e);
-        } 
-//        finally{
-//            session.close();
-//        }
+        }
+        // finally{
+        // session.close();
+        // }
         return null;
     }
-    
+
     public String getRole(String developerId, String projectId) {
         try {
             System.out.println("getRole : " + developerId + " " + projectId);
@@ -84,13 +85,12 @@ public class AssignmentDao {
             query.setString(1, projectId);
             Assignment assi = (Assignment) query.uniqueResult();
             session.flush();
-			int i = assi.getType();
+            int i = assi.getType();
             if (i == 1) {
                 return "Project Manager";
-            } else if (i == 0){
+            } else if (i == 0) {
                 return "Project Manager";
-            }else
-            {
+            } else {
                 return "Member";
             }
 
@@ -100,9 +100,9 @@ public class AssignmentDao {
             }
             log.error("getRole.Exception", e);
         }
-//        finally{
-//            session.close();
-//        }
+        // finally{
+        // session.close();
+        // }
         return null;
     }
 }

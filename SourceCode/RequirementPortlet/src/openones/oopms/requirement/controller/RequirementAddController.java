@@ -157,7 +157,8 @@ public class RequirementAddController {
             
         } catch (ParseException ex) {
             // TODO Auto-generated catch block
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            log.debug("setDateProblem");
         }
         
         //requirement.setCreateDate(createDate);       

@@ -42,7 +42,7 @@ public class DeveloperDao {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         this.session = factory.getCurrentSession();
     }
-    
+
     public final boolean insertDeveloper(Developer dev) {
         log.debug("InsertDeveloperId.START");
         try {
@@ -60,7 +60,7 @@ public class DeveloperDao {
             dev.setDeveloperId(nextId);
             // Uppercase Account
             dev.setAccount(dev.getAccount().toUpperCase());
-            
+
             // Set BeginDate as default if null
             if (dev.getBeginDate() == null) {
                 dev.setBeginDate(new Date());
@@ -74,9 +74,9 @@ public class DeveloperDao {
             log.error("Saving Developer...", rEx);
             return false;
         }
-//        finally{
-//            session.close();
-//        }
+        // finally{
+        // session.close();
+        // }
     }
 
     public BigDecimal getDeveloperId(String account) {
@@ -96,12 +96,12 @@ public class DeveloperDao {
             }
             log.error("getDeveloperId.Exception", e);
         }
-//        finally{
-//            session.close();
-//        }
+        // finally{
+        // session.close();
+        // }
         return null;
     }
-    
+
     public Developer getDeveloperByAccount(String account) {
         log.debug("getDeveloperByAccount.START");
         try {
@@ -110,7 +110,7 @@ public class DeveloperDao {
             Query query = session.createQuery(sql);
             query.setParameter("account", account);
             Developer developer = (Developer) query.uniqueResult();
-            //session.flush();
+            // session.flush();
             System.out.println("getDeveloperByAccount.end");
             return developer;
         } catch (Exception e) {
@@ -119,9 +119,9 @@ public class DeveloperDao {
             }
             log.error("getDeveloperByAccount.Exception", e);
         }
-//        finally{
-//            session.close();
-//        }
+        // finally{
+        // session.close();
+        // }
         return null;
     }
 }
