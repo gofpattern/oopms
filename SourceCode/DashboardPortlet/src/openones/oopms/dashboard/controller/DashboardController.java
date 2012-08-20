@@ -472,9 +472,11 @@ public class DashboardController extends BaseController {
 
         ProjectDao projectDao = new ProjectDao();
         Project project = projectDao.getProjectById(projectId);
-        double usedEffortRate = project.getActualEffort().doubleValue() / project.getPlanEffort().doubleValue() * 100;
-
-        return Math.round(usedEffortRate * 100.0) / 100.0;
+        if(project.getActualEffort() != null && project.getPlanEffort() != null){
+            double usedEffortRate = project.getActualEffort().doubleValue() / project.getPlanEffort().doubleValue() * 100;
+            return Math.round(usedEffortRate * 100.0) / 100.0;
+        }
+        return 0f;
 
     }
 }
