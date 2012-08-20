@@ -118,9 +118,9 @@
               <tr>
                 <td>${count}</td>
 
-                <td align="center" ><a href="${renderAction}">${project.name}</a></td>
+                <td><a href="${renderAction}">${project.name}</a></td>
 
-                <td><a href="${renderAction}">${project.code}</a></td>
+                <td align="center"><a href="${renderAction}">${project.code}</a></td>
               </tr>
             </c:forEach>
           </tbody>
