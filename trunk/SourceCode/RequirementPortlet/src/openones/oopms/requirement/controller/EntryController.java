@@ -18,7 +18,6 @@
  */
 package openones.oopms.requirement.controller;
 
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -46,26 +45,29 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
-public class EntryController extends BaseController {    
+public class EntryController extends BaseController {
+
+    // logonUser (uPortal)
     private String logonUser;
     Developer developer = new Developer();
+    // logging
     private static Logger log = Logger.getLogger(RequirementController.class);
+
     /**
      * Default screen.
      * @return name of view which is the name of the JSP page.
      */
-    
     @RequestMapping
     public ModelAndView initScreen(RenderRequest request, PortletSession session) {
         log.debug("initScreen.START");
         ModelAndView mav = new ModelAndView("RequirementWelcome");
-        
+
         UserInfo userInfo;
         PortletSupport portletSupport = new PortletSupport(request);
-        logonUser = portletSupport.getLogonUser(); //PHAM.NGUYEN.TRUONG.GIANG
+        logonUser = portletSupport.getLogonUser(); // PHAM.NGUYEN.TRUONG.GIANG
 
         // Update User Information
-        // call super initScreen to get information of user, create user in OOPMS if it has not existed.               
+        // get information of user, create user in OOPMS if it has not existed.
 
         log.debug("logonUser=" + logonUser);
         logonUser = logonUser.toUpperCase();
@@ -74,12 +76,11 @@ public class EntryController extends BaseController {
             userInfo = null;
             DeveloperDao devDao = new DeveloperDao();
             Developer dev = devDao.getDeveloperByAccount(logonUser);
-            if(logonUser.equals("SYSADMIN"))
-            {
-                userInfo = new UserInfo(logonUser);                
+            if (logonUser.equals("SYSADMIN")) {
+                userInfo = new UserInfo(logonUser);
                 prepareCommonInfo(userInfo, mav, session);
                 return mav;
-            }else if (dev != null) {
+            } else if (dev != null) {
                 // Set roles for user
                 userInfo = new UserInfo(logonUser);
                 userInfo.addRole(dev.getRole());
@@ -101,35 +102,28 @@ public class EntryController extends BaseController {
             // Update userInfo into the session
             updateUserInfo(session, userInfo);
         }
-        
-        
-        userInfo = new UserInfo(logonUser);        
+
+        userInfo = new UserInfo(logonUser);
         prepareCommonInfo(userInfo, mav, session);
-        
-        // Get log on user                
-        log.debug("initScreenUser.START: "+logonUser);
-        // Get developer and related projects from account log on        
+
+        // Get log on user
+        log.debug("initScreenUser.START: " + logonUser);
+        // Get developer and related projects from account log on
         DeveloperDao developerDAO = new DeveloperDao();
         AssignmentDao assignmentDAO = new AssignmentDao();
-        //RequirementDao requirementDao = new RequirementDao();
+        // RequirementDao requirementDao = new RequirementDao();
         developer = developerDAO.getDeveloperByAccount(logonUser);
-        log.debug("initScreenUserID.START: "+developer.getDeveloperId());
-        //List<Project> projectList = requirementDao.getAllProject();
+        log.debug("initScreenUserID.START: " + developer.getDeveloperId());
+        // List<Project> projectList = requirementDao.getAllProject();
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
-        
-        
-        // Set information of user to session           
-        // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
-        //session.setAttribute("USERNAME", developer.getName(), PortletSession.APPLICATION_SCOPE);
-        
+
         // sent projectList to jsp
-        //request.setAttribute("projectList", projectList);
         mav.addObject("projectList", projectList);
 
-        // Display PlannerHome.jsp
+        // Display RequirementWelcome.jsp
         return mav;
     }
-    
+
     void prepareCommonInfo(UserInfo userInfo, ModelAndView mav, PortletSession session) {
         // Sample data
         // Set roles for user
@@ -140,39 +134,33 @@ public class EntryController extends BaseController {
         updateUserInfo(session, userInfo);
 
     }
-    
+
     public void updateUserInfo(PortletSession session, UserInfo userInfo) {
         session.setAttribute("UserInfo", userInfo);
     }
-    
+
     @RenderMapping(params = "action=requirementwelcome")
     public ModelAndView postRequirement(RequirementForm formBean, RenderRequest request, PortletSession session) {
-        log.debug("postRequirementSTART");                           
-        
+        log.debug("postRequirementSTART");
+
         ModelAndView mav = new ModelAndView("RequirementWelcome");
-        
-     // Get log on user
+
+        // Get log on user
         PortletSupport portletSupport = new PortletSupport(request);
         logonUser = portletSupport.getLogonUser();
-        
-        // Get developer and related projects from account log on        
+
+        // Get developer and related projects from account log on
         DeveloperDao developerDAO = new DeveloperDao();
-        //RequirementDao requirementDao = new RequirementDao();
+        // RequirementDao requirementDao = new RequirementDao();
         AssignmentDao assignmentDAO = new AssignmentDao();
         logonUser = logonUser.toUpperCase();
         developer = developerDAO.getDeveloperByAccount(logonUser);
-        //List<Project> projectList = requirementDao.getAllProject();
+        // List<Project> projectList = requirementDao.getAllProject();
         List<Project> projectList = assignmentDAO.getProject(developer.getDeveloperId());
-        
-        
-        // Set information of user to session           
-        // session.setAttribute("USERID", developer.getDeveloperId(), PortletSession.APPLICATION_SCOPE);
-        //session.setAttribute("USERNAME", developer.getName(), PortletSession.APPLICATION_SCOPE);
-        
+
         // sent projectList to jsp
-        //request.setAttribute("projectList", projectList);
         mav.addObject("projectList", projectList);
-        
+
         return mav;
     }
 
