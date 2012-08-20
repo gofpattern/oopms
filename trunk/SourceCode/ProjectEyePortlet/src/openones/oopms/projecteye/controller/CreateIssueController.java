@@ -18,9 +18,6 @@
  */
 package openones.oopms.projecteye.controller;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 
@@ -61,34 +58,34 @@ public class CreateIssueController {
 	@ActionMapping(params = "action=CreateIssue")
 	public void processCreateIssue(CreateIssueForm formBean,
 			BindingResult result, SessionStatus status, ActionResponse response) {
-//		log.debug("process CreateIssue.START");
-//		IssueDao iDao = new IssueDao();
-//		Issue issue = new Issue();
-//		projectId = formBean.getProjectId();
-//		// set value for risk
-//		Project project = new Project();
-//		project.setProjectId(new BigDecimal(projectId));
-//		issue.setProject(project);
-//		issue.setOwner(ProjectEyeHomeController.username);
-//		issue.setDescription(formBean.getDescription());
-//		issue.setPriorityid(Integer.parseInt(formBean
-//				.getPriority_SelectedValue()));
-//		issue.setStatusid(Integer.parseInt(formBean.getStatus_SelectedValue()));
-//		issue.setTypeid(Integer.parseInt(formBean.getType_SelectedValue()));
-//		issue.setProcessId(Short.parseShort(formBean
-//				.getProcessRelated_SelectedValue()));
-//		issue.setStartdate(new Date());
-//		issue.setDuedate(formBean.getDueDate());
-//		issue.setCloseddate(formBean.getClosedDate());
-//		issue.setComments(formBean.getCommentSolution());
-//		issue.setReference(formBean.getReference());
-//		// Call dao to insert risk to database
-//		if (iDao.insertIssue(issue)) {
-//			response.setRenderParameter("action", "CreateIssue");
-//			log.error("Insert success");
-//		} else {
-//			log.error("Cannot Insert");
-//		}
+		// log.debug("process CreateIssue.START");
+		// IssueDao iDao = new IssueDao();
+		// Issue issue = new Issue();
+		// projectId = formBean.getProjectId();
+		// // set value for risk
+		// Project project = new Project();
+		// project.setProjectId(new BigDecimal(projectId));
+		// issue.setProject(project);
+		// issue.setOwner(ProjectEyeHomeController.username);
+		// issue.setDescription(formBean.getDescription());
+		// issue.setPriorityid(Integer.parseInt(formBean
+		// .getPriority_SelectedValue()));
+		// issue.setStatusid(Integer.parseInt(formBean.getStatus_SelectedValue()));
+		// issue.setTypeid(Integer.parseInt(formBean.getType_SelectedValue()));
+		// issue.setProcessId(Short.parseShort(formBean
+		// .getProcessRelated_SelectedValue()));
+		// issue.setStartdate(new Date());
+		// issue.setDuedate(formBean.getDueDate());
+		// issue.setCloseddate(formBean.getClosedDate());
+		// issue.setComments(formBean.getCommentSolution());
+		// issue.setReference(formBean.getReference());
+		// // Call dao to insert risk to database
+		// if (iDao.insertIssue(issue)) {
+		// response.setRenderParameter("action", "CreateIssue");
+		// log.error("Insert success");
+		// } else {
+		// log.error("Cannot Insert");
+		// }
 		response.setRenderParameter("action", "CreateIssue");
 	}
 

@@ -90,11 +90,6 @@ public class CreateProjectController {
 			error = "";
 			error = validator.validate(formBean);
 			bean = formBean;
-//			bean.setScopeObjective(HTMLTag.replaceHTMLTag(formBean.getScopeObjective()));
-//			bean.setProjectCode(HTMLTag.replaceHTMLTag(formBean.getProjectCode()));
-//			bean.setCustomer(HTMLTag.replaceHTMLTag(formBean.getCustomer()));
-//			bean.setEndCustomer(HTMLTag.replaceHTMLTag(formBean.getEndCustomer()));
-//			bean.setProjectName(HTMLTag.replaceHTMLTag(formBean.getProjectName()));		
 			if (error.equals("")) {
 				DeveloperDao dDao = new DeveloperDao();
 				Developer dev = dDao
@@ -120,7 +115,8 @@ public class CreateProjectController {
 				project.setDescription(formBean.getScopeObjective());
 				project.setProjectCategoryCode(formBean
 						.getProjectCategory_SelectedValue());
-				project.setProjectTypeCode(formBean.getBusinessDomain_SelectedValue());
+				project.setProjectTypeCode(formBean
+						.getBusinessDomain_SelectedValue());
 				project.setProjectStatusCode(formBean
 						.getProjectStatus_SelectedValue());
 				project.setActualEffort(new BigDecimal("0"));
@@ -134,12 +130,12 @@ public class CreateProjectController {
 						.getPlanStartDate()));
 				// Call dao to insert project to database
 				if (pDao.insertProject(project, assignment)) {
-					//insert work unit of project
+					// insert work unit of project
 					Workunit workunit = new Workunit();
 					workunit.setType(Integer
 							.parseInt(Constant.WorkUnitProjectType));
 					workunit.setWorkunitname(project.getCode());
-					WorkUnitDao wuDao = new WorkUnitDao();					
+					WorkUnitDao wuDao = new WorkUnitDao();
 					if (wuDao.insertWorkUnit(workunit)) {
 						response.setRenderParameter("action", "CreateProject");
 						log.error("Insert success");
@@ -178,26 +174,32 @@ public class CreateProjectController {
 		AssignmentDao aDao = new AssignmentDao();
 		List<Project> projectList = pDao.getProjectList(dev.getDeveloperId());
 		List<ProjectEyeHomeForm> projectRoleList = new ArrayList<ProjectEyeHomeForm>();
-		for(int i=0;i<projectList.size();i++) {
+		for (int i = 0; i < projectList.size(); i++) {
 			ProjectEyeHomeForm temp = new ProjectEyeHomeForm();
 			temp.setProjectId(projectList.get(i).getProjectId().toString());
 			temp.setCode(projectList.get(i).getCode());
 			temp.setName(projectList.get(i).getName());
-			Assignment role = aDao.getUserRole(projectList.get(i), dev.getDeveloperId());
+			Assignment role = aDao.getUserRole(projectList.get(i),
+					dev.getDeveloperId());
 			temp.setRole(String.valueOf(role.getType()));
-			if(Constant.CustomerType.equals(String.valueOf(role.getType()))) {
+			if (Constant.CustomerType.equals(String.valueOf(role.getType()))) {
 				temp.setRoleString("Customer");
-			} else if(Constant.DeveloperType.equals(String.valueOf(role.getType()))) {
+			} else if (Constant.DeveloperType.equals(String.valueOf(role
+					.getType()))) {
 				temp.setRoleString("Developer");
-			} else if(Constant.ProjectManagerType.equals(String.valueOf(role.getType()))) {
+			} else if (Constant.ProjectManagerType.equals(String.valueOf(role
+					.getType()))) {
 				temp.setRoleString("Project Manager");
-			}else if(Constant.ProjectOwnerAndProjectManagerType.equals(String.valueOf(role.getType()))) {
+			} else if (Constant.ProjectOwnerAndProjectManagerType.equals(String
+					.valueOf(role.getType()))) {
 				temp.setRoleString("Project Owner and Project Manager");
-			}else if(Constant.ProjectOwnerType.equals(String.valueOf(role.getType()))) {
+			} else if (Constant.ProjectOwnerType.equals(String.valueOf(role
+					.getType()))) {
 				temp.setRoleString("Project Owner");
-			}else if(Constant.QAType.equals(String.valueOf(role.getType()))) {
+			} else if (Constant.QAType.equals(String.valueOf(role.getType()))) {
 				temp.setRoleString("QA");
-			} else if(Constant.TesterType.equals(String.valueOf(role.getType()))) {
+			} else if (Constant.TesterType
+					.equals(String.valueOf(role.getType()))) {
 				temp.setRoleString("Tester");
 			}
 			projectRoleList.add(temp);

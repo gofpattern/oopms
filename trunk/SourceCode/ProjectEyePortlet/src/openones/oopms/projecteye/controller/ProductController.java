@@ -61,7 +61,7 @@ public class ProductController {
 	List<ProductForm> projectProductList = new ArrayList<ProductForm>();
 	String searchWorkProduct;
 	Map<String, String> workProductMap = new LinkedHashMap<String, String>();
-	
+
 	@RenderMapping(params = "action=GoCreateProduct")
 	public ModelAndView postGoCreateProduct(RenderRequest request) {
 		log.debug("post GoCreateProduct.START");
@@ -82,10 +82,10 @@ public class ProductController {
 		mav.addObject("projectId", projectId);
 		return mav;
 	}
-	
+
 	@ActionMapping(params = "action=SearchProduct")
-	public void processSearchProduct(ProductForm formBean, BindingResult result,
-			SessionStatus status, ActionResponse response) {
+	public void processSearchProduct(ProductForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process GoCreateProduct.START");
 		projectId = formBean.getProjectId();
 		ProductDao pDao = new ProductDao();
@@ -100,18 +100,20 @@ public class ProductController {
 		Project project = new Project();
 		project.setProjectId(new BigDecimal(projectId));
 		searchWorkProduct = formBean.getWorkProduct_SelectedValue();
-		List<Module> productList = pDao.getProjectProductList(project, searchWorkProduct);
+		List<Module> productList = pDao.getProjectProductList(project,
+				searchWorkProduct);
 		projectProductList = new ArrayList<ProductForm>();
-		if(productList.size()>0) {			
-			for(int i=0; i<productList.size();i++) {
+		if (productList.size() > 0) {
+			for (int i = 0; i < productList.size(); i++) {
 				ProductForm temp = new ProductForm();
 				temp.setName(productList.get(i).getName());
-//				Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
+				// Workproduct temp2 =
+				// pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
 				Language unitSize = pDao.getProductSizeUnit(productList.get(i)
 						.getPlannedSizeUnitId());
 				temp.setWorkProduct(productList.get(i).getWorkproduct()
 						.getName());
-				if (productList.get(i).getPlannedSizeUnitId() != null) {					
+				if (productList.get(i).getPlannedSizeUnitId() != null) {
 					temp.setPlannedSize(productList.get(i).getPlannedSize()
 							.toString()
 							+ " "
@@ -128,7 +130,7 @@ public class ProductController {
 							+ " "
 							+ unitSize.getSizeUnit());
 				}
-//				temp.setCreatedSize(createdSize)
+				// temp.setCreatedSize(createdSize)
 				temp.setDescription(productList.get(i).getNote());
 				projectProductList.add(temp);
 			}
@@ -147,7 +149,7 @@ public class ProductController {
 		mav.addObject("projectId", projectId);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=GoUpdateProduct")
 	public ModelAndView postGoUpdateProduct(RenderRequest request) {
 		log.debug("post GoUpdateProduct.START");
@@ -166,14 +168,15 @@ public class ProductController {
 		bean.setDescription(HTMLTag.replaceHTMLTag(product.getNote()));
 		bean.setName(HTMLTag.replaceHTMLTag(product.getName()));
 		bean.setWorkProduct_SelectedValue(product.getWorkproduct().getCode());
-		ModelAndView mav = new ModelAndView("UpdateProduct","UpdateProductForm",bean);
+		ModelAndView mav = new ModelAndView("UpdateProduct",
+				"UpdateProductForm", bean);
 		mav.addObject("workProduct", workProductMap);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		mav.addObject("productId", productId);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=RemoveProduct")
 	public ModelAndView postRemoveProduct(RenderRequest request) {
 		log.debug("post RemoveProduct.START");
@@ -182,8 +185,8 @@ public class ProductController {
 		ProductDao productDao = new ProductDao();
 		ModelAndView mav = new ModelAndView("Product", "ProductForm",
 				new ProductForm());
-		if(!productDao.deteleProduct(productId)) {
-			mav.addObject("deleteFlag","1");
+		if (!productDao.deteleProduct(productId)) {
+			mav.addObject("deleteFlag", "1");
 		}
 		ProductDao pDao = new ProductDao();
 		// get work Product List
@@ -202,7 +205,8 @@ public class ProductController {
 		if (productList.size() > 0) {
 			for (int i = 0; i < productList.size(); i++) {
 				ProductForm temp = new ProductForm();
-				temp.setProductId(String.valueOf(productList.get(i).getModuleId()));
+				temp.setProductId(String.valueOf(productList.get(i)
+						.getModuleId()));
 				temp.setName(productList.get(i).getName());
 				// Workproduct temp2 =
 				// pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());

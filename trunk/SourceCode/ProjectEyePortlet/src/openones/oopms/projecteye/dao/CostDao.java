@@ -398,9 +398,8 @@ public class CostDao {
 		}
 		return null;
 	}
-	
-	public List<OopmsExceptionalCost> getExceptionalInvoiceList(
-			String projectId) {
+
+	public List<OopmsExceptionalCost> getExceptionalInvoiceList(String projectId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
@@ -899,7 +898,7 @@ public class CostDao {
 				String hql2 = "Update From OopmsExceptionalCost set oopmsCostDailyExpenseId = :newOopmsCostDailyExpenseId Where oopmsCostDailyExpenseId = :oldOopmsCostDailyExpenseId and occurDate > :payDate";
 				Query query2 = session.createQuery(hql2);
 				query2.setParameter("oldOopmsCostDailyExpenseId",
-						 new BigDecimal(oopmsCostDailyExpenseId));
+						new BigDecimal(oopmsCostDailyExpenseId));
 				query2.setParameter("newOopmsCostDailyExpenseId",
 						newDailyExpense.getOopmsCostDailyExpenseId());
 				query2.setParameter("payDate", payDate);
@@ -926,7 +925,7 @@ public class CostDao {
 				String hql2 = "Update From OopmsExceptionalCost set oopmsCostDailyExpenseId = :newOopmsCostDailyExpenseId Where oopmsCostDailyExpenseId = :oldOopmsCostDailyExpenseId and occurDate > :payDate";
 				Query query2 = session.createQuery(hql2);
 				query2.setParameter("oldOopmsCostDailyExpenseId",
-						 new BigDecimal(oopmsCostDailyExpenseId));
+						new BigDecimal(oopmsCostDailyExpenseId));
 				query2.setParameter("newOopmsCostDailyExpenseId",
 						newDailyExpense.getOopmsCostDailyExpenseId());
 				query2.setParameter("payDate", payDate);
@@ -965,7 +964,7 @@ public class CostDao {
 		}
 		return true;
 	}
-	
+
 	public boolean payExceptionalCost(String oopmsExceptionalCostId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -985,8 +984,9 @@ public class CostDao {
 		}
 		return true;
 	}
-	
-	public String checkExceptionalCostUsed(String oopmsExceptionalCostId, String projectId) {
+
+	public String checkExceptionalCostUsed(String oopmsExceptionalCostId,
+			String projectId) {
 		String result = "0";
 		try {
 			log.error("costID :" + oopmsExceptionalCostId);
@@ -998,28 +998,35 @@ public class CostDao {
 			Query query = session.createQuery(hql);
 			query.setParameter("oopmsExceptionalCostId", new BigDecimal(
 					oopmsExceptionalCostId));
-			OopmsExceptionalCost exceptionalCost = (OopmsExceptionalCost) query.uniqueResult();
-			if(exceptionalCost.getOopmsCostDailyExpenseId()!=null) {
+			OopmsExceptionalCost exceptionalCost = (OopmsExceptionalCost) query
+					.uniqueResult();
+			if (exceptionalCost.getOopmsCostDailyExpenseId() != null) {
 				String hql2 = "From OopmsCostDailyExpense Where oopmsCostDailyExpenseId= :oopmsCostDailyExpenseId and isPay is null and startDate <= :occurDate1 and (endDate>= :occurDate2 or endDate is null)";
 				Query query2 = session.createQuery(hql2);
-				query2.setParameter("oopmsCostDailyExpenseId", exceptionalCost.getOopmsCostDailyExpenseId());
-				query2.setParameter("occurDate1", exceptionalCost.getOccurDate());
-				query2.setParameter("occurDate2", exceptionalCost.getOccurDate());
+				query2.setParameter("oopmsCostDailyExpenseId",
+						exceptionalCost.getOopmsCostDailyExpenseId());
+				query2.setParameter("occurDate1",
+						exceptionalCost.getOccurDate());
+				query2.setParameter("occurDate2",
+						exceptionalCost.getOccurDate());
 				List<OopmsCostDailyExpense> list = query2.list();
-				if(list!=null) {
-					if(list.size()>0) {
+				if (list != null) {
+					if (list.size() > 0) {
 						return "1";
 					}
 				}
 			} else {
 				String hql2 = "From OopmsCostDailyExpense Where oopmsCostTypeId= :oopmsCostTypeId and isPay is null and startDate <= :occurDate1 and (endDate>= :occurDate2 or endDate is null)";
 				Query query2 = session.createQuery(hql2);
-				query2.setParameter("oopmsCostTypeId", exceptionalCost.getOopmsCostTypeId());
-				query2.setParameter("occurDate1", exceptionalCost.getOccurDate());
-				query2.setParameter("occurDate2", exceptionalCost.getOccurDate());
+				query2.setParameter("oopmsCostTypeId",
+						exceptionalCost.getOopmsCostTypeId());
+				query2.setParameter("occurDate1",
+						exceptionalCost.getOccurDate());
+				query2.setParameter("occurDate2",
+						exceptionalCost.getOccurDate());
 				List<OopmsCostDailyExpense> list = query2.list();
-				if(list!=null) {
-					if(list.size()>0) {
+				if (list != null) {
+					if (list.size() > 0) {
 						return "1";
 					}
 				}

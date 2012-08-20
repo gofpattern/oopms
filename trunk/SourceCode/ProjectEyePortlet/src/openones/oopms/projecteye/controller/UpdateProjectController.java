@@ -39,9 +39,7 @@ import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.GeneralReference;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
-import openones.oopms.projecteye.utils.HTMLTag;
 import openones.oopms.projecteye.validator.UpdateProjectValidator;
 
 import org.apache.log4j.Logger;
@@ -66,6 +64,7 @@ public class UpdateProjectController {
 	String error;
 	UpdateProjectForm bean;
 	String projectId;
+
 	/**
 	 * Process submitted form by clicking "Login" button.
 	 * 
@@ -88,12 +87,12 @@ public class UpdateProjectController {
 			error = "";
 			error = validator.validate(formBean);
 			bean = formBean;
-//			bean.setScopeObjective(HTMLTag.replaceHTMLTag(formBean.getScopeObjective()));
-//			bean.setProjectCode(HTMLTag.replaceHTMLTag(formBean.getProjectCode()));
-//			bean.setCustomer(HTMLTag.replaceHTMLTag(formBean.getCustomer()));
-//			bean.setEndCustomer(HTMLTag.replaceHTMLTag(formBean.getEndCustomer()));
-//			bean.setProjectName(HTMLTag.replaceHTMLTag(formBean.getProjectName()));
-			
+			// bean.setScopeObjective(HTMLTag.replaceHTMLTag(formBean.getScopeObjective()));
+			// bean.setProjectCode(HTMLTag.replaceHTMLTag(formBean.getProjectCode()));
+			// bean.setCustomer(HTMLTag.replaceHTMLTag(formBean.getCustomer()));
+			// bean.setEndCustomer(HTMLTag.replaceHTMLTag(formBean.getEndCustomer()));
+			// bean.setProjectName(HTMLTag.replaceHTMLTag(formBean.getProjectName()));
+
 			if (error.equals("")) {
 
 				ProjectDao pDao = new ProjectDao();
@@ -122,10 +121,10 @@ public class UpdateProjectController {
 				// Call dao to insert project to database
 				if (pDao.updateProject(project)) {
 					CostDao cDao = new CostDao();
-					OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
-							projectId));
-					projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
-							projectCost.getCurrentBudget()));
+					OopmsProjectCost projectCost = cDao
+							.getProjectCost(new BigDecimal(projectId));
+					projectCost.setCostStatus(CostUtil.getProjectCostStatus(
+							projectId, projectCost.getCurrentBudget()));
 					cDao.updateProjectCost(projectCost);
 					response.setRenderParameter("action", "GoProjectDetail");
 					response.setRenderParameter("projectId", projectId);
@@ -144,7 +143,6 @@ public class UpdateProjectController {
 		}
 
 	}
-
 
 	@RenderMapping(params = "action=GoUpdateProject2")
 	public ModelAndView postGoUpdateProject2(RenderRequest request,
@@ -178,14 +176,15 @@ public class UpdateProjectController {
 			projectBussinessDomainMap.put(projectBussinessDomainList.get(i)
 					.getDomainId().toString(), projectBussinessDomainList
 					.get(i).getDomainName());
-		}	
-		ModelAndView mav = new ModelAndView("CreateProject","UpdateProjectForm",bean);
+		}
+		ModelAndView mav = new ModelAndView("CreateProject",
+				"UpdateProjectForm", bean);
 		mav.addObject("projectStatus", projectStatusMap);
 		mav.addObject("projectCategory", projectCategoryMap);
 		mav.addObject("businessDomain", projectBussinessDomainMap);
 		mav.addObject("errorList", error);
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
 	}
 }

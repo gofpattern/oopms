@@ -248,6 +248,12 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
   	<portlet:param name="projectId" value="${projectId}" />
   	<portlet:param name="ViewInvoiceRecords" value="ViewInvoiceRecords" />
 </portlet:renderURL>
+<portlet:renderURL var="formAction10">
+  	<portlet:param name="action" value="ExportInvoice" />
+  	<portlet:param name="projectId" value="${projectId}" />
+  	<portlet:param name="templatePath" value="${templatePath}" />
+  	<portlet:param name="exportPath" value="${exportPath}" />
+</portlet:renderURL>
 <form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
 Current Budget is : ${currentBudget}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction7}")'>Add new Budget Record</button>
@@ -309,6 +315,7 @@ Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
 <c:if test="${not empty InvoiceRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Invoice Records--------------------------------</p>
+<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction10}")'>Export to Excel</button><br>
 </c:if>
 <c:if test="${not empty InvoiceOneTime}">
 <h3>One Time Expense</h3>

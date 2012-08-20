@@ -223,10 +223,10 @@ public class RiskIssueController {
 		mav.addObject("riskId", riskId);
 		return mav;
 	}
-	
+
 	@ActionMapping(params = "action=DeleteRisk")
-	public void processDeleteRisk(UpdateRiskForm formBean, BindingResult result,
-			SessionStatus status, ActionResponse response) {
+	public void processDeleteRisk(UpdateRiskForm formBean,
+			BindingResult result, SessionStatus status, ActionResponse response) {
 		log.debug("process DeleteRisk.START");
 		RiskDao rDao = new RiskDao();
 		rDao.deleteRisk(formBean.getRiskId());

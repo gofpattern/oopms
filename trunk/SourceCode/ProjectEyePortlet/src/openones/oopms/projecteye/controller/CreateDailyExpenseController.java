@@ -26,7 +26,6 @@ import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.form.CreateDailyExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
-import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.CostUtil;
 

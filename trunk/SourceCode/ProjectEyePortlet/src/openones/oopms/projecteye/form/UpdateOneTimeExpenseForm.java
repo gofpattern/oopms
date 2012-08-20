@@ -1,7 +1,5 @@
 package openones.oopms.projecteye.form;
 
-import java.util.Date;
-
 public class UpdateOneTimeExpenseForm {
 	private String name;
 	private String cost;

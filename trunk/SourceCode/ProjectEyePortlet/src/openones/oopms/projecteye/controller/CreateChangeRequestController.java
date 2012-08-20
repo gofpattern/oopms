@@ -77,24 +77,27 @@ public class CreateChangeRequestController {
 		}
 
 	}
-	
+
 	@RenderMapping(params = "action=CreateChangeRequest")
 	public ModelAndView postCreateChangeRequest(RenderRequest request) {
 		log.debug("post GoChangeRequest.START");
-		ModelAndView mav = new ModelAndView("ChangeRequest");		
+		ModelAndView mav = new ModelAndView("ChangeRequest");
 		Project project = new Project();
 		project.setProjectId(new BigDecimal(projectId));
 		ChangeRequestDao crDao = new ChangeRequestDao();
 		List<ChangesOfProjectPlan> projectChangeRequestList = crDao
 				.getProjectChangeRequestList(project);
-		if(projectChangeRequestList.size()>0) {
-			for(int i = 0; i<projectChangeRequestList.size();i++) {
-				Ncconstant status = crDao.getChangeRequestStatus(projectChangeRequestList.get(i).getVersion());
-				projectChangeRequestList.get(i).setVersion(status.getDescription());
+		if (projectChangeRequestList.size() > 0) {
+			for (int i = 0; i < projectChangeRequestList.size(); i++) {
+				Ncconstant status = crDao
+						.getChangeRequestStatus(projectChangeRequestList.get(i)
+								.getVersion());
+				projectChangeRequestList.get(i).setVersion(
+						status.getDescription());
 			}
 		}
 		mav.addObject("projectChangeRequestList", projectChangeRequestList);
-		
+
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;

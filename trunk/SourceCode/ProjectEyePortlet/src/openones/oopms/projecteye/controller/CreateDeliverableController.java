@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 
 import javax.portlet.ActionResponse;
 
-import openones.oopms.projecteye.dao.ProductDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CreateDeliverableForm;
 import openones.oopms.projecteye.model.Developer;
@@ -55,13 +54,12 @@ public class CreateDeliverableController {
 		log.debug("process CreateDeliverable.START");
 		projectId = formBean.getProjectId();
 		WorkOrderDao woDao = new WorkOrderDao();
-		ProductDao pDao = new ProductDao();
-
 		Module deliverable = woDao.getProduct(formBean
 				.getDeliverable_SelectedValue());
 
 		// set value for Deliverable
-		deliverable.setIsDeliverable(new BigDecimal(Constant.SettedDeliverable));
+		deliverable
+				.setIsDeliverable(new BigDecimal(Constant.SettedDeliverable));
 		deliverable.setPlannedReleaseDate(formBean.getPlannedCommittedDate());
 		deliverable.setReplannedReleaseDate(formBean
 				.getRePlannedCommittedDate());

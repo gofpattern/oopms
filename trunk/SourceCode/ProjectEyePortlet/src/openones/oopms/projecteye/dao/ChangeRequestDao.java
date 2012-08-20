@@ -7,7 +7,6 @@ import openones.oopms.projecteye.controller.CreateProjectController;
 import openones.oopms.projecteye.model.ChangesOfProjectPlan;
 import openones.oopms.projecteye.model.Ncconstant;
 import openones.oopms.projecteye.model.Project;
-import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;

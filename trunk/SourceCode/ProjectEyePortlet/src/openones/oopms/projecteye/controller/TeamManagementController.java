@@ -205,45 +205,48 @@ public class TeamManagementController {
 		}
 		response.setRenderParameter("action", "UpdateRoleAction");
 	}
-	
+
 	@RenderMapping(params = "action=UpdateRoleAction")
 	public ModelAndView postUpdateRoleAction(RenderRequest request) {
 		log.debug("post UpdateRoleAction.START");
-        Project project = new Project();
-        project.setProjectId(new BigDecimal(projectId));
-        DeveloperDao dDao = new DeveloperDao();
-        AssignmentDao aDao = new AssignmentDao();
-        List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
-        List<TeamManagement> projectTeamList = new ArrayList<TeamManagement>();
-        List<TeamManagement> projectTeamList2 = new ArrayList<TeamManagement>();
-        if(teamOfProject.size()>0) {
-        	for(int i=0; i<teamOfProject.size();i++) {
-        		TeamManagement temp = new TeamManagement();
-        		temp.setUserName(teamOfProject.get(i).getName());
-        		temp.setUserAccount(teamOfProject.get(i).getAccount());
-        		temp.setDeveloperId(teamOfProject.get(i).getDeveloperId().toString());
-        		Assignment role = aDao.getUserRole(project, teamOfProject.get(i).getDeveloperId());
-        		temp.setSelectedRole(String.valueOf(role.getType()));
-        		projectTeamList.add(temp);
-        		projectTeamList2.add(temp);
-        	}
-        }
-        Map<String, String> roleList = new LinkedHashMap<String, String>();
-        roleList.put(Constant.DeveloperType, "Developer");
-        roleList.put(Constant.TesterType, "Tester");
-        roleList.put(Constant.QAType, "QA");
-        roleList.put(Constant.CustomerType, "Customer");
-        TeamManagementForm form = new TeamManagementForm();
-        form.setSearchType("name");
-        form.setProjectTeamList(projectTeamList2);
-        ModelAndView mav = new ModelAndView("TeamManagement", "TeamManagementForm", form);
-        mav.addObject("projectTeamList",projectTeamList);
-        mav.addObject("roleList",roleList);
-        log.debug("project ID la "+ projectId);
-        mav.addObject("projectId", projectId);
-        return mav;
+		Project project = new Project();
+		project.setProjectId(new BigDecimal(projectId));
+		DeveloperDao dDao = new DeveloperDao();
+		AssignmentDao aDao = new AssignmentDao();
+		List<Developer> teamOfProject = dDao.getDeveloperTeamOfProject(project);
+		List<TeamManagement> projectTeamList = new ArrayList<TeamManagement>();
+		List<TeamManagement> projectTeamList2 = new ArrayList<TeamManagement>();
+		if (teamOfProject.size() > 0) {
+			for (int i = 0; i < teamOfProject.size(); i++) {
+				TeamManagement temp = new TeamManagement();
+				temp.setUserName(teamOfProject.get(i).getName());
+				temp.setUserAccount(teamOfProject.get(i).getAccount());
+				temp.setDeveloperId(teamOfProject.get(i).getDeveloperId()
+						.toString());
+				Assignment role = aDao.getUserRole(project, teamOfProject
+						.get(i).getDeveloperId());
+				temp.setSelectedRole(String.valueOf(role.getType()));
+				projectTeamList.add(temp);
+				projectTeamList2.add(temp);
+			}
+		}
+		Map<String, String> roleList = new LinkedHashMap<String, String>();
+		roleList.put(Constant.DeveloperType, "Developer");
+		roleList.put(Constant.TesterType, "Tester");
+		roleList.put(Constant.QAType, "QA");
+		roleList.put(Constant.CustomerType, "Customer");
+		TeamManagementForm form = new TeamManagementForm();
+		form.setSearchType("name");
+		form.setProjectTeamList(projectTeamList2);
+		ModelAndView mav = new ModelAndView("TeamManagement",
+				"TeamManagementForm", form);
+		mav.addObject("projectTeamList", projectTeamList);
+		mav.addObject("roleList", roleList);
+		log.debug("project ID la " + projectId);
+		mav.addObject("projectId", projectId);
+		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=RemoveTeamMember")
 	public ModelAndView postRemoveTeamMember(RenderRequest request) {
 		log.debug("post RemoveTeamMember.START");

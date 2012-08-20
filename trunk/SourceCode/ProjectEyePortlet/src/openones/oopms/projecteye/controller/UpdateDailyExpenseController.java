@@ -23,11 +23,9 @@ import java.math.BigDecimal;
 import javax.portlet.ActionResponse;
 
 import openones.oopms.projecteye.dao.CostDao;
-import openones.oopms.projecteye.form.CreateDailyExpenseForm;
 import openones.oopms.projecteye.form.UpdateDailyExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsCostDailyExpense;
-import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.AppUtil;
 import openones.oopms.projecteye.utils.Constant;
@@ -60,10 +58,13 @@ public class UpdateDailyExpenseController {
 		String projectId = formBean.getProjectId();
 		String oopmsCostDailyExpenseId = formBean.getOopmsCostDailyExpenseId();
 		CostDao cDao = new CostDao();
-		OopmsCostDailyExpense dailyExpense = cDao.getDailyExpense(new BigDecimal(oopmsCostDailyExpenseId));
+		OopmsCostDailyExpense dailyExpense = cDao
+				.getDailyExpense(new BigDecimal(oopmsCostDailyExpenseId));
 		dailyExpense.setName(formBean.getName());
-		dailyExpense.setStartDate(AppUtil.getDateFromFormattedDate(formBean.getStartDate(), Constant.DateFormat));
-		dailyExpense.setEndDate(AppUtil.getDateFromFormattedDate(formBean.getEndDate(), Constant.DateFormat));
+		dailyExpense.setStartDate(AppUtil.getDateFromFormattedDate(
+				formBean.getStartDate(), Constant.DateFormat));
+		dailyExpense.setEndDate(AppUtil.getDateFromFormattedDate(
+				formBean.getEndDate(), Constant.DateFormat));
 		dailyExpense.setCost(new BigDecimal(formBean.getCost()));
 		dailyExpense.setDateUsed(CostUtil.getDaysUsed(formBean.getDays()));
 		dailyExpense.setDescription(formBean.getDescription());
@@ -89,6 +90,4 @@ public class UpdateDailyExpenseController {
 
 	}
 
-
-	
 }
