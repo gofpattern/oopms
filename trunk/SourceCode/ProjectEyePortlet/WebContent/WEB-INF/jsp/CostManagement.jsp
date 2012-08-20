@@ -316,7 +316,7 @@ Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
 <c:if test="${not empty InvoiceRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Invoice Records--------------------------------</p>
-<a href="${exportPath}">Export to Excel (Right click and choose save target as)</a>
+<a href="${exportPath} " target="_newtab">Export to Excel (Right click and choose save target as)</a>
 </c:if>
 <c:if test="${not empty InvoiceOneTime}">
 <h3>One Time Expense</h3>
