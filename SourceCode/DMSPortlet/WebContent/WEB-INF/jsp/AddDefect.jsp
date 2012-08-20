@@ -90,11 +90,11 @@
 	rules[1] = 'memberDisCreated:Created by|required';
 	rules[2] = 'title:Title|required';
 	rules[3] = 'description:Description|required';
-	rules[4] = 'createDate:Created date|required';
-	rules[5] = 'createDate:Created date|date';
-	rules[6] = 'dueDate:Due date|date';
-	rules[7] = 'dueDate:Due date|required';
- 	rules[8] = 'createDate:Created date|date_le|$dueDate:Due date'; 
+	rules[4] = 'createDateString:Created date|required';
+	rules[5] = 'createDateString:Created date|date';
+	rules[6] = 'dueDateString:Due date|date';
+	rules[7] = 'dueDateString:Due date|required';
+ 	rules[8] = 'createDateString:Created date|date_le|$dueDateString:Due date'; 
 
 	yav.addHelp('projectDis', 'Select your Project');
 	yav.addHelp('memberDisCreated', 'Select your Developer');
@@ -109,8 +109,8 @@
 	yav.addHelp('testCaseId', 'Provide your Test Case ID');
 	yav.addHelp('memberDisOwner', 'Select Defect owner');
 	yav.addHelp('memberDisAssigned', 'Select Assigned To');
-	yav.addHelp('createDate', 'Provide your Created date');
-	yav.addHelp('dueDate', 'Provide your Due date');
+	yav.addHelp('createDateString', 'Provide your Created date');
+	yav.addHelp('dueDateString', 'Provide your Due date');
 	yav.addHelp('causeAnalysis', 'Provide your Cause analysis');
 	yav.addHelp('correctiveAction', 'Provide your Corrective action');
 </script>
@@ -271,14 +271,14 @@
             <!-- Created Date  -->
             <th id="idCreatedDate" align="left" nowrap="nowrap" valign="middle"><b><font color="black">Created
                   date</font></b><font color="red">&nbsp;*</font></th>
-            <td align="left" valign="middle"><form:input cssStyle="width:80px;" path="createDate"
-                disabled="disabled" id="datepicker1" /><span id=errorsDiv_createDate></span></td>
+            <td align="left" valign="middle"><form:input cssStyle="width:80px;" path="createDateString"
+                 id="datepicker1" /><span id=errorsDiv_createDateString></span></td>
           </tr>
           <tr>
             <!-- Due Date -->
             <th id="idDueDate" align="left" valign="middle"><b><font color="black">Due date</font></b></th>
-            <td align="left" valign="middle"><form:input cssStyle="width:80px;" path="dueDate" disabled="disabled"
-                id="datepicker2" /><span id=errorsDiv_dueDate></span></td>
+            <td align="left" valign="middle"><form:input cssStyle="width:80px;" path="dueDateString"
+                id="datepicker2" /><span id=errorsDiv_dueDateString></span></td>
           </tr>
 
           <tr>
