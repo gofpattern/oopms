@@ -45,6 +45,11 @@ public class ModuleDAO {
 
     }
 
+    /**
+     * Get All module belong to a project.
+     * @param projectId
+     * @return
+     */
     public List<Module> getModuleByProject(BigDecimal projectId) {
         log.debug("getModuleByProject.START");
         try {
@@ -64,6 +69,11 @@ public class ModuleDAO {
         return null;
     }
 
+    /**
+     * Get Work Product belong to a project.
+     * @param projectId
+     * @return
+     */
     public List<Workproduct> getWorkproductByProject(BigDecimal projectId) {
         log.debug("getWorkproductByProject.START");
         try {
@@ -83,6 +93,11 @@ public class ModuleDAO {
         return null;
     }
 
+    /**
+     * Get list status of task belong to a module
+     * @param moduleId
+     * @return
+     */
     public List<BigDecimal> getTasksStatusByModule(BigDecimal moduleId) {
         log.debug("getTasksStatusByModule.START");
         try {
@@ -103,6 +118,11 @@ public class ModuleDAO {
         return null;
     }
 
+    /**
+     * Get all tasks belong to a module.
+     * @param moduleId
+     * @return
+     */
     public List<Tasks> getTaskByModule(BigDecimal moduleId) {
         log.debug("getTaskByModule.START");
         try {
@@ -122,6 +142,10 @@ public class ModuleDAO {
         return null;
     }
 
+    /**
+     * Update Plan size, actual size, plan size unit, actual size unit and status of module after creating new task.
+     * @param task
+     */
     public void updateModuleByTask(Tasks task) {
         log.debug("updateModuleByTask.START");
         try {
@@ -166,6 +190,11 @@ public class ModuleDAO {
         }
     }
 
+    /**
+     * update Plan size, actual size, plan size unit, actual size unit and status of module after updating new task.
+     * @param task
+     * @param editedTask
+     */
     public void updateModuleByEditedTask(Tasks task, Tasks editedTask) {
         log.debug("updateModuleByEditedTask.START");
         try {

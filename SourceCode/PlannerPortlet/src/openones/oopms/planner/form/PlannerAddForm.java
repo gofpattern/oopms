@@ -27,7 +27,7 @@ import openones.oopms.planner.utils.Constant;
 /**
  * @author PNTG
  */
-public class PlannerAddForm {    
+public class PlannerAddForm {
     private Tasks editTask;
     private Tasks task;
     private String startDate;
@@ -56,15 +56,15 @@ public class PlannerAddForm {
         productMap = new LinkedHashMap<String, String>();
         moduleMap = new LinkedHashMap<String, String>();
         sizeUnitMap = new LinkedHashMap<String, String>();
-        
-        statusMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        stageMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        stageMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        developerMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        processMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        productMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        moduleMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
-        sizeUnitMap.put(Constant.BLANK_VALUE,Constant.BLANK_VALUE);
+
+        statusMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        stageMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        stageMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        developerMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        processMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        productMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        moduleMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
+        sizeUnitMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
         projectId = Constant.BLANK_VALUE;
 
         action_str = Constant.NONE_ACTION;
@@ -116,7 +116,7 @@ public class PlannerAddForm {
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
-   
+
     /**
      * Get value of actualDate.
      * @return the actualDate
@@ -265,6 +265,5 @@ public class PlannerAddForm {
     public void setSizeUnitMap(Map<String, String> sizeUnitMap) {
         this.sizeUnitMap = sizeUnitMap;
     }
-    
-    
+
 }

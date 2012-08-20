@@ -26,7 +26,7 @@ import openones.oopms.planner.model.Tasks;
 /**
  * @author PNTG
  */
-public class PlannerForm {        
+public class PlannerForm {
     private int flag;
     private Boolean init;
     private String taskId;

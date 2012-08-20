@@ -31,6 +31,10 @@ public class TaskDAO {
 
     }
 
+    /**
+     * Get list status string.
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<GeneralReference> getProjectStatusEn() {
         log.debug("getProjectStatusEn.START");
@@ -62,6 +66,10 @@ public class TaskDAO {
 
     }
 
+    /**
+     * Get all tasks from DB.
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Tasks> getAllTask() {
         log.debug("getAllTask.START");
@@ -70,7 +78,7 @@ public class TaskDAO {
             String sql = "from Tasks";
             Query query = session.createQuery(sql);
             List<Tasks> taskList = query.list();
-            
+
             return taskList;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -83,6 +91,11 @@ public class TaskDAO {
         return null;
     }
 
+    /**
+     * Get All tasks belong to a project.
+     * @param projectId
+     * @return
+     */
     public List<Tasks> getTasksByProjectId(String projectId) {
         log.debug("getTaskByProjectId.START");
         Session session = null;
@@ -116,6 +129,11 @@ public class TaskDAO {
 
     }
 
+    /**
+     * Get task by Id.
+     * @param taskId
+     * @return
+     */
     public Tasks getTaskById(BigDecimal taskId) {
         log.debug("getTaskById.START");
 
@@ -146,6 +164,10 @@ public class TaskDAO {
         }
 
     }
+    /**
+     * Get all stages which are defined in DB.
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Stage> getAllStage() {
         log.debug("getAllStage.START");
@@ -176,6 +198,10 @@ public class TaskDAO {
         }
     }
 
+    /**
+     * Get all projects in DB.
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Project> getAllProject() {
         log.debug("getAllProject.START");
@@ -206,6 +232,10 @@ public class TaskDAO {
         }
     }
 
+    /**
+     * Get all work products are defined in DB.
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Workproduct> getAllProduct() {
         log.debug("getAllProduct.START");
@@ -237,6 +267,10 @@ public class TaskDAO {
         }
     }
 
+    /**
+     * Get All processes are defined in DB.
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Process> getAllProcess() {
         log.debug("getAllProcess.START");
@@ -354,6 +388,10 @@ public class TaskDAO {
         }
     }
 
+    /**
+     * Get all languages are defined in DB.
+     * @return
+     */
     public List<Language> getSizeUnit() {
         log.debug("getSizeUnit.START");
         try {
@@ -371,6 +409,10 @@ public class TaskDAO {
         }
         return null;
     }
+    /**
+     * Update plan effort and actual effort after adding new task.
+     * @param task
+     */
     public void updateProjectEffortTask(Tasks task) {
         log.debug("updateProjectEffortTask.START");
         try {
@@ -391,6 +433,11 @@ public class TaskDAO {
             log.error("updateProjectEffortTask.Exception", e);
         }
     }
+    /**
+     * Update plan effort and actual effort after updating a task.
+     * @param task
+     * @param editedTask
+     */
     public void updateProjectEffortByEditedTask(Tasks task, Tasks editedTask) {
         log.debug("updateProjectEffortByEditedTask.START");
         try {
@@ -416,6 +463,11 @@ public class TaskDAO {
         }
     }
 
+    /**
+     * Get project by Id.
+     * @param projectId
+     * @return
+     */
     public Project getProjectById(BigDecimal projectId) {
         log.debug("getProjectById.START");
         try {

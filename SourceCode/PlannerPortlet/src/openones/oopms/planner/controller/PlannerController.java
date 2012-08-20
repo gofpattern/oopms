@@ -52,6 +52,7 @@ public class PlannerController {
     private String developerId;
     // role of user, depend on project
     private String role;
+    // get parameter from PlannerHome, used only one time
     private Boolean check = true;
 
     /**
@@ -88,7 +89,8 @@ public class PlannerController {
             log.debug("processPlanner.START + setError");
             TaskDAO dao = new TaskDAO();
             session.setAttribute("ERROR", true);
-            session.setAttribute("PROJECT_NAME", dao.getProjectById(new BigDecimal(request.getParameter("projectId"))).getName());
+            session.setAttribute("PROJECT_NAME", dao.getProjectById(new BigDecimal(request.getParameter("projectId")))
+                    .getName());
         }
 
     }
@@ -201,9 +203,6 @@ public class PlannerController {
             log.error("Convert id to name", ex);
         }
 
-        //
-        // session.setAttribute("USER", PlannerHomeController.developer.getAccount(), PortletSession.APPLICATION_SCOPE);
-
         removeHtmlTag(taskList);
 
         // Value for PlannerForm
@@ -225,12 +224,10 @@ public class PlannerController {
 
         // Object form PlannerAddForm
         mav.addObject("edTask", formBeanAdd.getEditTask());
-
         mav.addObject("statusMapAdd", formBeanAdd.getStatusMap());
         mav.addObject("stageMapAdd", formBeanAdd.getStageMap());
         mav.addObject("developerMapAdd", formBeanAdd.getDeveloperMap());
         mav.addObject("processMapAdd", formBeanAdd.getProcessMap());
-        // mav.addObject("productMapAdd", formBeanAdd.getProductMap());
         mav.addObject("moduleMapAdd", formBeanAdd.getModuleMap());
         mav.addObject("sizeUnitMapAdd", formBeanAdd.getSizeUnitMap());
         mav.addObject("plAddAction", formBeanAdd.getAction_str());
@@ -238,20 +235,15 @@ public class PlannerController {
         // flag to hide and show Add-Edit window
         mav.addObject("flag", formBean.getFlag());
 
-        //
-      //  session.removeAttribute("ERROR", PortletSession.APPLICATION_SCOPE);
-
         return mav;
     }
 
     @ActionMapping(params = "action=deleteTask")
     public void processDeleteTask(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response) {
-        // log.debug("processDeleteTask.ACTION.START");
+        log.debug("processDeleteTask.ACTION.START");
         TaskDAO taskDAO = new TaskDAO();
         taskDAO.deleteTask(new BigDecimal(formBean.getTaskId()));
-
-        System.out.println("processDeleteTask.ACTION.START");
 
         response.setRenderParameter("action", "taskmanager");
     }
@@ -262,9 +254,17 @@ public class PlannerController {
         log.debug("postDeleteTask.START");
     }
 
+    /**
+     * filter task
+     * @param formBean
+     * @param result
+     * @param status
+     * @param response
+     * @param session
+     */
     @ActionMapping(params = "action=search")
     public void processSearchByStatus(PlannerForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response,PortletSession session) {
+            ActionResponse response, PortletSession session) {
         log.debug("processSearchByStatus.START");
         for (int i = 0; i < taskList.size(); i++) {
             taskList.get(i).setVisible(true);
@@ -303,7 +303,6 @@ public class PlannerController {
 
         if (moduleList.size() != 0) {
             projectDefault = formBean.getProjectId();
-            // log.debug("projectDefault = " + projectDefault);
             formBean.setInit(true);
             response.setRenderParameter("action", "taskmanager");
         } else {
@@ -321,6 +320,10 @@ public class PlannerController {
         log.debug("postChangeProject.START");
     }
 
+    /**
+     * remove Html Tag of task name and task description
+     * @param taskList
+     */
     public static void removeHtmlTag(List<Tasks> taskList) {
         if (!taskList.isEmpty())
             for (int i = 0; i < taskList.size(); i++) {

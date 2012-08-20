@@ -62,7 +62,6 @@ public class PlannerAddController {
     private List<Process> processList;
     private List<GeneralReference> statusList;
     private List<Developer> developerList;
-    // private List<Workproduct> productList;
     private List<Module> moduleList;
     private List<Language> sizeUnitList;
     TaskDAO taskDAO = new TaskDAO();
@@ -78,7 +77,6 @@ public class PlannerAddController {
 
         statusList = taskDAO.getProjectStatusEn();
         stageList = taskDAO.getAllStage();
-        // productList = moduleDAO.getWorkproductByProject(new BigDecimal(PlannerController.projectDefault));
         processList = taskDAO.getAllProcess();
         developerList = taskDAO.getDeveloper(formBeanAdd.getProjectId());
         moduleList = moduleDAO.getModuleByProject(new BigDecimal(PlannerController.projectDefault));
@@ -102,11 +100,6 @@ public class PlannerAddController {
             formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(),
                     developerList.get(i).getName());
         }
-
-        // // Set value for productMap
-        // for (int i = 0; i < productList.size(); i++) {
-        // formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
-        // }
 
         // Set value for processMap
         for (int i = 0; i < processList.size(); i++) {
@@ -176,7 +169,6 @@ public class PlannerAddController {
 
         statusList = taskDAO.getProjectStatusEn();
         stageList = taskDAO.getAllStage();
-        // productList = taskDAO.getAllProduct();
         processList = taskDAO.getAllProcess();
         developerList = taskDAO.getDeveloper(formBean.getProjectId());
         moduleList = moduleDAO.getModuleByProject(new BigDecimal(PlannerController.projectDefault));
@@ -204,13 +196,6 @@ public class PlannerAddController {
             formBeanAdd.getDeveloperMap().put(developerList.get(i).getDeveloperId().toString(),
                     developerList.get(i).getName());
         }
-
-        // // Set value for productMap
-        // formBeanAdd.getProductMap().clear();
-        // formBeanAdd.getProductMap().put(task.getProduct().toString(), "");
-        // for (int i = 0; i < productList.size(); i++) {
-        // formBeanAdd.getProductMap().put(productList.get(i).getWpId().toString(), productList.get(i).getName());
-        // }
 
         // Set value for processMap
         formBeanAdd.getProcessMap().clear();
@@ -268,7 +253,8 @@ public class PlannerAddController {
         try {
             Tasks task = taskDAO.getTaskById(formBeanAdd.getTask().getTaskid());
             Tasks editedTask = formBeanAdd.getTask();
-            editedTask.setProjectid(new BigDecimal(PlannerController.projectDefault));// get id from plannerController
+            // get id from plannerController
+            editedTask.setProjectid(new BigDecimal(PlannerController.projectDefault));
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
             editedTask.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             editedTask.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
@@ -280,7 +266,6 @@ public class PlannerAddController {
         } catch (Exception ex) {
             log.error("error when update task", ex);
         }
-        // formBean.setFlag(true);
         formBean.setInit(true);
         response.setRenderParameter("action", "taskmanager");
     }
