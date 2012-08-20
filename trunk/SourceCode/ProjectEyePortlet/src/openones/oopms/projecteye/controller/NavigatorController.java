@@ -18,7 +18,10 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,10 +35,19 @@ import java.util.Map;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.CostDao;
+import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.MilestoneDao;
 import openones.oopms.projecteye.dao.ProductDao;
+import openones.oopms.projecteye.dao.ProjectDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.dao.WorkOrderDao;
 import openones.oopms.projecteye.form.CostManagementForm;
@@ -61,6 +73,8 @@ import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
 import openones.oopms.projecteye.model.RiskSource;
 import openones.oopms.projecteye.model.Workproduct;
+import openones.oopms.projecteye.utils.AppUtil;
+import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
 
 import org.apache.log4j.Logger;
@@ -674,6 +688,8 @@ public class NavigatorController {
 		String formattedDate = "";
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		BigDecimal expense = new BigDecimal("0");
+		String templatePath = "/resource_files/CostDetailTemplate.xls";
+		String createPath = "/resource_files/Invoice.xls";
 		if (viewDate != null) {
 			try {
 				expense = CostUtil.getExpense(projectId,
@@ -784,6 +800,19 @@ public class NavigatorController {
 					invoiceExceptionalExpenseView);
 			mav.addObject("InvoiceExceptionalDeduct",
 					invoiceExceptionalDeductView);
+			try {
+				templatePath = PortletUtils.getRealPath(request
+						.getPortletSession().getPortletContext(), templatePath);
+				createPath = PortletUtils.getRealPath(request
+						.getPortletSession().getPortletContext(), createPath);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			processExportInvoice(invoiceOneTime, invoiceDailyView,
+					invoiceExceptionalExpenseView,
+					invoiceExceptionalDeductView, projectId, templatePath,
+					createPath);
 
 		}
 		if (projectCost != null) {
@@ -799,20 +828,513 @@ public class NavigatorController {
 		mav.addObject("expense", expense);
 		mav.addObject("viewDate", formattedDate);
 		mav.addObject("projectId", projectId);
-		String templatePath = "/resource_files/CostDetailTemplate.xls";
-		String createPath = "/resource_files/Invoice.xls";
-		try {
-			templatePath = PortletUtils.getRealPath(request.getPortletSession()
-					.getPortletContext(), templatePath);
-			createPath = PortletUtils.getRealPath(request.getPortletSession()
-					.getPortletContext(), createPath);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		mav.addObject("templatePath", templatePath);
 		mav.addObject("exportPath", createPath);
 		return mav;
+	}
+
+	public void processExportInvoice(
+			List<OopmsCostOneTimeExpense> invoiceOneTime,
+			List<InvoiceDailyExpense> invoiceDailyView,
+			List<InvoiceExceptionalCost> invoiceExceptionalExpenseView,
+			List<InvoiceExceptionalCost> invoiceExceptionalDeductView,
+			String projectId, String templatePath, String exportPath) {
+		log.debug("post ExportInvoice.START");
+		// Get information to input to excel
+		CostDao cDao = new CostDao();
+		// Create excel
+		try {
+			// initial
+			// String templatePath = formBean.getTemplatePath();
+			// String exportPath = formBean.getExportPath();
+			log.error("Path : " + templatePath);
+			Workbook workbook = Workbook.getWorkbook(new File(templatePath));
+			WritableWorkbook copy = Workbook.createWorkbook(
+					new File(exportPath), workbook);
+			WritableSheet sheet = copy.getSheet(0);
+			int currentLine = 8;
+			BigDecimal totalOneTime = new BigDecimal("0");
+			BigDecimal totalDaily = new BigDecimal("0");
+			BigDecimal totalExceptionalExpense = new BigDecimal("0");
+			BigDecimal totalExceptionalDeduct = new BigDecimal("0");
+			// write data//////////////////////
+			// Write One Time Expense
+			if (invoiceOneTime != null) {
+				int firstRecord = currentLine;
+				for (int i = 0; i < invoiceOneTime.size(); i++) {
+					sheet.insertRow(currentLine);
+					// write Name
+					Label label = new Label(4, currentLine, invoiceOneTime.get(
+							i).getName());
+					sheet.addCell(label);
+					// write description
+					label = new Label(5, currentLine, invoiceOneTime.get(i)
+							.getDescription());
+					sheet.addCell(label);
+					// write Date
+					label = new Label(7, currentLine, AppUtil.getDateAsFormat(
+							invoiceOneTime.get(i).getOccurDate(),
+							Constant.DateFormat));
+					sheet.addCell(label);
+					// write Total
+					label = new Label(8, currentLine,
+							String.valueOf(invoiceOneTime.get(i).getCost()));
+					sheet.addCell(label);
+					totalOneTime = totalOneTime.add(invoiceOneTime.get(i)
+							.getCost());
+					currentLine++;
+				}
+
+				WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+				Label label = new Label(10, firstRecord - 1,
+						String.valueOf(totalOneTime), cell.getCellFormat());
+				sheet.addCell(label);
+			}
+
+			// Write Daily Expense
+			currentLine = currentLine + 3;
+			if (invoiceDailyView != null) {
+				int firstRecord = currentLine;
+				for (int i = 0; i < invoiceDailyView.size(); i++) {
+					sheet.insertRow(currentLine);
+					// write Name
+					Label label = new Label(4, currentLine, invoiceDailyView
+							.get(i).getName());
+					sheet.addCell(label);
+					// write description
+					label = new Label(5, currentLine, invoiceDailyView.get(i)
+							.getDescription());
+					sheet.addCell(label);
+					// write cost/day
+					label = new Label(6, currentLine, invoiceDailyView.get(i)
+							.getCostDay());
+					sheet.addCell(label);
+					// write Days
+					label = new Label(7, currentLine, invoiceDailyView.get(i)
+							.getDays());
+					sheet.addCell(label);
+					// write Total
+					label = new Label(8, currentLine, invoiceDailyView.get(i)
+							.getTotal());
+					sheet.addCell(label);
+					totalDaily = totalDaily.add(new BigDecimal(invoiceDailyView
+							.get(i).getTotal()));
+					currentLine++;
+				}
+				WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+				Label label = new Label(10, firstRecord - 1,
+						String.valueOf(totalDaily), cell.getCellFormat());
+				sheet.addCell(label);
+			}
+
+			// Write Exceptional Expense
+			currentLine = currentLine + 3;
+			if (invoiceExceptionalExpenseView != null) {
+				int firstRecord = currentLine;
+				for (int i = 0; i < invoiceExceptionalExpenseView.size(); i++) {
+					sheet.insertRow(currentLine);
+					// write Name
+					Label label = new Label(4, currentLine,
+							invoiceExceptionalExpenseView.get(i).getName());
+					sheet.addCell(label);
+					// write description
+					label = new Label(5, currentLine,
+							invoiceExceptionalExpenseView.get(i)
+									.getDescription());
+					sheet.addCell(label);
+					// write AffectTo
+					label = new Label(6, currentLine,
+							invoiceExceptionalExpenseView.get(i).getEffectTo());
+					sheet.addCell(label);
+					// write Effect
+					label = new Label(7, currentLine,
+							invoiceExceptionalExpenseView.get(i).getEffect());
+					sheet.addCell(label);
+					// write Total
+					label = new Label(8, currentLine,
+							invoiceExceptionalExpenseView.get(i).getTotal());
+					sheet.addCell(label);
+					totalExceptionalExpense = totalExceptionalExpense
+							.add(new BigDecimal(invoiceExceptionalExpenseView
+									.get(i).getTotal()));
+					currentLine++;
+				}
+				WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+				Label label = new Label(10, firstRecord - 1,
+						String.valueOf(totalExceptionalExpense),
+						cell.getCellFormat());
+				sheet.addCell(label);
+			}
+
+			// Write Exceptional Deduct
+			currentLine = currentLine + 3;
+			if (invoiceExceptionalDeductView != null) {
+				int firstRecord = currentLine;
+				for (int i = 0; i < invoiceExceptionalDeductView.size(); i++) {
+					sheet.insertRow(currentLine);
+					// write Name
+					Label label = new Label(4, currentLine,
+							invoiceExceptionalDeductView.get(i).getName());
+					sheet.addCell(label);
+					// write description
+					label = new Label(5, currentLine,
+							invoiceExceptionalDeductView.get(i)
+									.getDescription());
+					sheet.addCell(label);
+					// write AffectTo
+					label = new Label(6, currentLine,
+							invoiceExceptionalDeductView.get(i).getEffectTo());
+					sheet.addCell(label);
+					// write Effect
+					label = new Label(7, currentLine,
+							invoiceExceptionalDeductView.get(i).getEffect());
+					sheet.addCell(label);
+					// write Total
+					label = new Label(8, currentLine,
+							invoiceExceptionalDeductView.get(i).getTotal());
+					sheet.addCell(label);
+					totalExceptionalDeduct = totalExceptionalDeduct
+							.add(new BigDecimal(invoiceExceptionalDeductView
+									.get(i).getTotal()));
+					currentLine++;
+				}
+				WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+				Label label = new Label(10, firstRecord - 1,
+						String.valueOf(totalExceptionalDeduct),
+						cell.getCellFormat());
+				sheet.addCell(label);
+			}
+
+			// write Total
+			BigDecimal total = new BigDecimal("0");
+			total = total.add(totalOneTime);
+			total = total.add(totalDaily);
+			total = total.add(totalExceptionalExpense);
+			total = total.add(totalExceptionalDeduct);
+			WritableCell cell = sheet.getWritableCell(10, currentLine + 2);
+			Label label = new Label(10, currentLine + 2, String.valueOf(total),
+					cell.getCellFormat());
+			sheet.addCell(label);
+
+			// Write project name, project Manager, Current Budget and date
+			// export
+			ProjectDao pDao = new ProjectDao();
+			Project project = pDao.getProject(projectId);
+			label = new Label(3, 2, project.getName());
+			sheet.addCell(label);
+			DeveloperDao dDao = new DeveloperDao();
+			Developer pm = dDao.getProjectManager(project);
+			label = new Label(3, 3, pm.getName());
+			sheet.addCell(label);
+			OopmsProjectCost projectCost = cDao.getProjectCost(project
+					.getProjectId());
+			label = new Label(3, 4, String.valueOf(projectCost
+					.getCurrentBudget()));
+			sheet.addCell(label);
+			label = new Label(10, 2, AppUtil.getDateAsFormat(new Date(),
+					Constant.DateFormat));
+			sheet.addCell(label);
+			// final
+			copy.write();
+			copy.close();
+		} catch (BiffException e) {
+			log.error("ERRORRO");
+			log.error(e.getMessage());
+		} catch (IOException e) {
+			log.error("ERRORRO");
+			log.error(e.getMessage());
+		} catch (WriteException e) {
+			log.error("ERRORRO");
+			log.error(e.getMessage());
+		}
+	}
+
+	// public void processExportInvoice(RenderRequest request,
+	// RenderResponse response) {
+	// log.debug("post ExportInvoice.START");
+	// String projectId = request.getParameter("projectId");
+	// // Get information to input to excel
+	// CostDao cDao = new CostDao();
+	// List<OopmsCostOneTimeExpense> invoiceOneTime = cDao
+	// .getOneTimeExpenseInvoiceList(projectId);
+	// List<OopmsCostDailyExpense> invoiceDaily = cDao
+	// .getDailyExpenseInvoiceList(projectId);
+	// List<OopmsExceptionalCost> invoiceExceptionalExpense = cDao
+	// .getExceptionalExpenseInvoiceList(projectId);
+	// List<OopmsExceptionalCost> invoiceExceptionalDeduct = cDao
+	// .getExceptionalDeductInvoiceList(projectId);
+	// List<InvoiceDailyExpense> invoiceDailyView = new
+	// ArrayList<InvoiceDailyExpense>();
+	// List<InvoiceExceptionalCost> invoiceExceptionalExpenseView = new
+	// ArrayList<InvoiceExceptionalCost>();
+	// List<InvoiceExceptionalCost> invoiceExceptionalDeductView = new
+	// ArrayList<InvoiceExceptionalCost>();
+	// if (invoiceDaily != null) {
+	// invoiceDailyView = CostUtil.getInvoiceDailyExpense(invoiceDaily);
+	// }
+	// if (invoiceExceptionalExpense != null) {
+	// invoiceExceptionalExpenseView = CostUtil
+	// .getInvoiceExceptionalCostList(invoiceExceptionalExpense);
+	// }
+	// if (invoiceExceptionalDeduct != null) {
+	// invoiceExceptionalDeductView = CostUtil
+	// .getInvoiceExceptionalCostList(invoiceExceptionalDeduct);
+	// }
+	// // Create excel
+	// try {
+	// // initial
+	// // String templatePath = formBean.getTemplatePath();
+	// // String exportPath = formBean.getExportPath();
+	// String templatePath = request.getParameter("templatePath");
+	// String exportPath = request.getParameter("exportPath");
+	// log.error("Path : " + templatePath);
+	// Workbook workbook = Workbook.getWorkbook(new File(templatePath));
+	// WritableWorkbook copy = Workbook.createWorkbook(
+	// new File(exportPath), workbook);
+	// WritableSheet sheet = copy.getSheet(0);
+	// int currentLine = 8;
+	// BigDecimal totalOneTime = new BigDecimal("0");
+	// BigDecimal totalDaily = new BigDecimal("0");
+	// BigDecimal totalExceptionalExpense = new BigDecimal("0");
+	// BigDecimal totalExceptionalDeduct = new BigDecimal("0");
+	// // write data//////////////////////
+	// // Write One Time Expense
+	// if (invoiceOneTime != null) {
+	// int firstRecord = currentLine;
+	// for (int i = 0; i < invoiceOneTime.size(); i++) {
+	// sheet.insertRow(currentLine);
+	// // write Name
+	// Label label = new Label(4, currentLine, invoiceOneTime.get(
+	// i).getName());
+	// sheet.addCell(label);
+	// // write description
+	// label = new Label(5, currentLine, invoiceOneTime.get(i)
+	// .getDescription());
+	// sheet.addCell(label);
+	// // write Date
+	// label = new Label(7, currentLine, AppUtil.getDateAsFormat(
+	// invoiceOneTime.get(i).getOccurDate(),
+	// Constant.DateFormat));
+	// sheet.addCell(label);
+	// // write Total
+	// label = new Label(8, currentLine,
+	// String.valueOf(invoiceOneTime.get(i).getCost()));
+	// sheet.addCell(label);
+	// totalOneTime = totalOneTime.add(invoiceOneTime.get(i)
+	// .getCost());
+	// currentLine++;
+	// }
+	//
+	// WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+	// Label label = new Label(10, firstRecord - 1,
+	// String.valueOf(totalOneTime), cell.getCellFormat());
+	// sheet.addCell(label);
+	// }
+	//
+	// // Write Daily Expense
+	// currentLine = currentLine + 3;
+	// if (invoiceDailyView != null) {
+	// int firstRecord = currentLine;
+	// for (int i = 0; i < invoiceDailyView.size(); i++) {
+	// sheet.insertRow(currentLine);
+	// // write Name
+	// Label label = new Label(4, currentLine, invoiceDailyView
+	// .get(i).getName());
+	// sheet.addCell(label);
+	// // write description
+	// label = new Label(5, currentLine, invoiceDailyView.get(i)
+	// .getDescription());
+	// sheet.addCell(label);
+	// // write cost/day
+	// label = new Label(6, currentLine, invoiceDailyView.get(i)
+	// .getCostDay());
+	// sheet.addCell(label);
+	// // write Days
+	// label = new Label(7, currentLine, invoiceDailyView.get(i)
+	// .getDays());
+	// sheet.addCell(label);
+	// // write Total
+	// label = new Label(8, currentLine, invoiceDailyView.get(i)
+	// .getTotal());
+	// sheet.addCell(label);
+	// totalDaily = totalDaily.add(new BigDecimal(invoiceDailyView
+	// .get(i).getTotal()));
+	// currentLine++;
+	// }
+	// WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+	// Label label = new Label(10, firstRecord - 1,
+	// String.valueOf(totalDaily), cell.getCellFormat());
+	// sheet.addCell(label);
+	// }
+	//
+	// // Write Exceptional Expense
+	// currentLine = currentLine + 3;
+	// if (invoiceExceptionalExpenseView != null) {
+	// int firstRecord = currentLine;
+	// for (int i = 0; i < invoiceExceptionalExpenseView.size(); i++) {
+	// sheet.insertRow(currentLine);
+	// // write Name
+	// Label label = new Label(4, currentLine,
+	// invoiceExceptionalExpenseView.get(i).getName());
+	// sheet.addCell(label);
+	// // write description
+	// label = new Label(5, currentLine,
+	// invoiceExceptionalExpenseView.get(i)
+	// .getDescription());
+	// sheet.addCell(label);
+	// // write AffectTo
+	// label = new Label(6, currentLine,
+	// invoiceExceptionalExpenseView.get(i).getEffectTo());
+	// sheet.addCell(label);
+	// // write Effect
+	// label = new Label(7, currentLine,
+	// invoiceExceptionalExpenseView.get(i).getEffect());
+	// sheet.addCell(label);
+	// // write Total
+	// label = new Label(8, currentLine,
+	// invoiceExceptionalExpenseView.get(i).getTotal());
+	// sheet.addCell(label);
+	// totalExceptionalExpense = totalExceptionalExpense
+	// .add(new BigDecimal(invoiceExceptionalExpenseView
+	// .get(i).getTotal()));
+	// currentLine++;
+	// }
+	// WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+	// Label label = new Label(10, firstRecord - 1,
+	// String.valueOf(totalExceptionalExpense),
+	// cell.getCellFormat());
+	// sheet.addCell(label);
+	// }
+	//
+	// // Write Exceptional Deduct
+	// currentLine = currentLine + 3;
+	// if (invoiceExceptionalDeductView != null) {
+	// int firstRecord = currentLine;
+	// for (int i = 0; i < invoiceExceptionalDeductView.size(); i++) {
+	// sheet.insertRow(currentLine);
+	// // write Name
+	// Label label = new Label(4, currentLine,
+	// invoiceExceptionalDeductView.get(i).getName());
+	// sheet.addCell(label);
+	// // write description
+	// label = new Label(5, currentLine,
+	// invoiceExceptionalDeductView.get(i)
+	// .getDescription());
+	// sheet.addCell(label);
+	// // write AffectTo
+	// label = new Label(6, currentLine,
+	// invoiceExceptionalDeductView.get(i).getEffectTo());
+	// sheet.addCell(label);
+	// // write Effect
+	// label = new Label(7, currentLine,
+	// invoiceExceptionalDeductView.get(i).getEffect());
+	// sheet.addCell(label);
+	// // write Total
+	// label = new Label(8, currentLine,
+	// invoiceExceptionalDeductView.get(i).getTotal());
+	// sheet.addCell(label);
+	// totalExceptionalDeduct = totalExceptionalDeduct
+	// .add(new BigDecimal(invoiceExceptionalDeductView
+	// .get(i).getTotal()));
+	// currentLine++;
+	// }
+	// WritableCell cell = sheet.getWritableCell(10, firstRecord - 1);
+	// Label label = new Label(10, firstRecord - 1,
+	// String.valueOf(totalExceptionalDeduct),
+	// cell.getCellFormat());
+	// sheet.addCell(label);
+	// }
+	//
+	// // write Total
+	// BigDecimal total = new BigDecimal("0");
+	// total = total.add(totalOneTime);
+	// total = total.add(totalDaily);
+	// total = total.add(totalExceptionalExpense);
+	// total = total.add(totalExceptionalDeduct);
+	// WritableCell cell = sheet.getWritableCell(10, currentLine + 2);
+	// Label label = new Label(10, currentLine + 2, String.valueOf(total),
+	// cell.getCellFormat());
+	// sheet.addCell(label);
+	//
+	// // Write project name, project Manager, Current Budget and date
+	// // export
+	// ProjectDao pDao = new ProjectDao();
+	// Project project = pDao.getProject(projectId);
+	// label = new Label(3, 2, project.getName());
+	// sheet.addCell(label);
+	// DeveloperDao dDao = new DeveloperDao();
+	// Developer pm = dDao.getProjectManager(project);
+	// label = new Label(3, 3, pm.getName());
+	// sheet.addCell(label);
+	// OopmsProjectCost projectCost = cDao.getProjectCost(project
+	// .getProjectId());
+	// label = new Label(3, 4, String.valueOf(projectCost
+	// .getCurrentBudget()));
+	// sheet.addCell(label);
+	// label = new Label(10, 2, AppUtil.getDateAsFormat(new Date(),
+	// Constant.DateFormat));
+	// sheet.addCell(label);
+	// // final
+	// copy.write();
+	// copy.close();
+	//
+	// File export = new File(exportPath);
+	// byte[] a = getBytesFromFile(export);
+	// response.reset();
+	// OutputStream out = response.getPortletOutputStream();
+	// response.setProperty("Content-Type", "application/octet-stream");
+	// response.setProperty("Content-Disposition",
+	// "attachment;filename=export.xls");
+	// out.write(a);
+	// out.flush();
+	// out.close();
+	// log.error("file lenght : " + a.length);
+	// } catch (BiffException e) {
+	// log.error("ERRORRO");
+	// log.error(e.getMessage());
+	// } catch (IOException e) {
+	// log.error("ERRORRO");
+	// log.error(e.getMessage());
+	// } catch (WriteException e) {
+	// log.error("ERRORRO");
+	// log.error(e.getMessage());
+	// }
+	// }
+
+	// Returns the contents of the file in a byte array.
+	public static byte[] getBytesFromFile(File file) throws IOException {
+		FileInputStream is = new FileInputStream(file);
+
+		// Get the size of the file
+		long length = file.length();
+
+		// You cannot create an array using a long type.
+		// It needs to be an int type.
+		// Before converting to an int type, check
+		// to ensure that file is not larger than Integer.MAX_VALUE.
+		if (length > Integer.MAX_VALUE) {
+			// File is too large
+		}
+
+		// Create the byte array to hold the data
+		byte[] bytes = new byte[(int) length];
+
+		// Read in the bytes
+		int offset = 0;
+		int numRead = 0;
+		while (offset < bytes.length
+				&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+			offset += numRead;
+		}
+
+		// Ensure all the bytes have been read in
+		if (offset < bytes.length) {
+			throw new IOException("Could not completely read file "
+					+ file.getName());
+		}
+
+		// Close the input stream and return bytes
+		is.close();
+		return bytes;
 	}
 
 }

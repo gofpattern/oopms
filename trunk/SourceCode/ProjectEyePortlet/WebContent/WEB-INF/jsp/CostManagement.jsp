@@ -44,6 +44,12 @@
             <portlet:param name="projectId" value="${projectId}" />
             <portlet:param name="oopmsCostDailyExpenseId" value="${deletingOopmsCostDailyExpenseId}" />
     </portlet:actionURL>
+<script type="text/javascript">
+function startDownload(url)
+{
+window.open(url,'Download');
+}
+</script>
 <SCRIPT type="text/javascript">
 var rules = new Array();
 rules[0] = 'viewDate:View Date|required';
@@ -195,7 +201,8 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
                 
                 
             } );
-        </script>	
+        </script>
+	
 </head>
 
 <body id="portal" class="up fl-theme-mist">
@@ -247,12 +254,6 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
   	<portlet:param name="action" value="GoCostManagement" />
   	<portlet:param name="projectId" value="${projectId}" />
   	<portlet:param name="ViewInvoiceRecords" value="ViewInvoiceRecords" />
-</portlet:renderURL>
-<portlet:renderURL var="formAction10">
-  	<portlet:param name="action" value="ExportInvoice" />
-  	<portlet:param name="projectId" value="${projectId}" />
-  	<portlet:param name="templatePath" value="${templatePath}" />
-  	<portlet:param name="exportPath" value="${exportPath}" />
 </portlet:renderURL>
 <form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
 Current Budget is : ${currentBudget}
@@ -315,7 +316,7 @@ Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
 <c:if test="${not empty InvoiceRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Invoice Records--------------------------------</p>
-<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction10}")'>Export to Excel</button><br>
+<a href="${exportPath}">Export to Excel (Right click and choose save target as)</a>
 </c:if>
 <c:if test="${not empty InvoiceOneTime}">
 <h3>One Time Expense</h3>
