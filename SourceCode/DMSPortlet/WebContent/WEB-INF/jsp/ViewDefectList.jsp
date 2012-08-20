@@ -125,7 +125,7 @@ function submitAction(formName, actionUrl) {
 
 <div id="content" class="content loggedin">
 
-<div class="container ">
+<div class="container">
 <portlet:actionURL
   var="defectFormAction">
   <portlet:param name="action" value="searchDefect" />
@@ -139,25 +139,23 @@ function submitAction(formName, actionUrl) {
     <tbody>
       <tr>
         <td><strong>User</strong></td>
-        <td width="20%"><strong><font color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
+        <td width="15%"><strong><font style='width:150px' color="#1490E3"><%=portletSession.getAttribute("USER", PortletSession.APPLICATION_SCOPE)%></font></strong></td>
         <td><strong>Project</strong></td>
-        <td width="26%"><form:select 
-          path="projectDis" multiple="single">
-          <form:options items="${projectMap}" />
+        <td width="15%"><form:select 
+          path="projectDis" multiple="single" style='width:250px'>
+          <form:options items="${projectMap}"/>
         </form:select></td>
          <td><strong>Assigned To</strong></td>
-         <td width="26%"><form:select 
-          path="memberDisAssigned" multiple="single">
+         <td width="15%"><form:select 
+          path="memberDisAssigned" multiple="single" style='width:100px'>
           <form:options items="${memberMap}" />
         </form:select></td>
         <td><strong>Created By</strong></td>
-         <td width="26%"><form:select 
-          path="memberDisCreated" multiple="single">
+         <td width="15%"><form:select 
+          path="memberDisCreated" multiple="single" style='width:100px'>
           <form:options items="${memberMap}" />
         </form:select></td>
-        <td><strong>Create Date</strong></td>
-        <td class="vAlignMid"><form:input cssStyle="width:80px;"
-          path="createDate" id="datepicker1" /></td>
+        
 
 
       </tr>
@@ -171,36 +169,42 @@ function submitAction(formName, actionUrl) {
         </form:select></td>
         <td width="7%" align="left"><strong>Severity</strong></td>
        <td><form:select 
-          path="severityDis" multiple="single">
+          path="severityDis" multiple="single" style='width:100px'>
           <form:options items="${severityMap}" />
         </form:select></td>
         <td width="7%" align="left"><strong>Priority</strong></td>
        <td><form:select 
-          path="priorityDis" multiple="single">
+          path="priorityDis" multiple="single" style='width:100px'>
           <form:options items="${priorityMap}" />
         </form:select></td>
-        <td width="17%" align="left"><strong>Due Date</strong></td>
-        <td colspan="2" class="vAlignMid"><form:input
-          cssStyle="width:80px;" path="dueDate" id="datepicker2" /></td>
-        <td></td>
+        
+        
       </tr>
       <tr>       
        <td><strong>Product</strong></td>
         <td><form:select 
-          path="workProductDis" multiple="single">
+          path="workProductDis" multiple="single" style='width:150px'>
           <form:options items="${workProductMap}" />
         </form:select></td>
          <td><strong>Type</strong></td>
         <td><form:select 
-          path="typeDis" multiple="single">
+          path="typeDis" multiple="single" style='width:150px'>
           <form:options items="${typeMap}" />
         </form:select></td>
          <td><strong>Title</strong></td>
-         <td><form:input cssStyle="width:80px;"
+         <td><form:input cssStyle="width:90px;"
           path="title"  /></td>
          <td><strong>Test Case Id</strong></td>
-          <td><form:input cssStyle="width:80px;"
+          <td><form:input cssStyle="width:90px;"
           path="testCaseId"  /></td>
+      </tr>
+	  <tr>    
+<td><strong>Create Date</strong></td>
+        <td width="15%" class="vAlignMid"><form:input cssStyle="width:80px;"
+          path="createDate" id="datepicker1" /></td>	  
+       <td width="17%" align="left"><strong>Due Date</strong></td>
+        <td colspan="2" class="vAlignMid"><form:input
+          cssStyle="width:80px;" path="dueDate" id="datepicker2" /></td>
       </tr>
     </tbody>
   </table>
@@ -288,8 +292,8 @@ function submitAction(formName, actionUrl) {
 <br>
 <p><input type="button" class="button blue small" name="" id="btnUpdate"
     onclick='submitAction("Defect", "${defectFormAction2}")'
-    value="Add" class="button blue small" /> </p>
-  <p>  
+    value="Add" class="button blue small" /> 
+  
   <input type="button" class="button blue small" name="Update" id="btnUpdate"
     onclick='submitAction("Defect", "${defectFormAction2}")'
     value="Batch Update" class="button blue small" /> 

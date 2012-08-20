@@ -127,9 +127,9 @@
 
 <body id="portal" class="up fl-theme-mist">
 
-  <div style="font-size: 100%" id="portalPageBodyInner" class="container">
+  <div style="font-size: 100%" class="container">
     <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-      <h2 class="title">Update Defect</h2>
+      <p id=headerDuyND>Update Defect</p>
     </div>
     <%--Display errors --%>
     <font color="red"><form:errors path="*"></form:errors></font>

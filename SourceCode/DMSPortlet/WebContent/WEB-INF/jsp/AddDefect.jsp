@@ -132,9 +132,9 @@
 
 <body id="portal" class="up fl-theme-mist">
 
-  <div style="font-size: 100%" id="portalPageBodyInner" class="container">
-    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">
-      <h2 class="title">Add New Defect</h2>
+  <div style="font-size: 100%" class="container">
+    <div class="fl-widget-titlebar titlebar portlet-titlebar" role="sectionhead">      
+	  <p id=headerDuyND>Add New Defect</p>
     </div>
     <%--Display errors --%>
     <font color="red"><form:errors path="*"></form:errors></font>
@@ -276,7 +276,7 @@
           </tr>
           <tr>
             <!-- Due Date -->
-            <th id="idDueDate" align="left" valign="middle"><b><font color="black">Due date</font></b></th>
+            <th id="idDueDate" align="left" valign="middle"><b><font color="black">Due date</font></b><font color="red">&nbsp;*</font></th>
             <td align="left" valign="middle"><form:input cssStyle="width:80px;" path="dueDateString"
                 id="datepicker2" /><span id=errorsDiv_dueDateString></span></td>
           </tr>
