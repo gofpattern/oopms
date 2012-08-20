@@ -832,8 +832,7 @@ public class ViewDefectListController extends BaseController {
         formBean.setCorrectiveAction(updateDefect.getSolution());
         mav.addObject("updateDefectForm", formBean);
          qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
-         mav.addObject("qcActivityMap", qcActivityMap);
-        System.out.println("oringin map size : " + originMap.size());
+         mav.addObject("qcActivityMap", qcActivityMap);       
         mav.addObject("defect", new DefectForm());
         projectMap.remove("");
         System.out.println("contains : "+projectMap.containsKey(""));
