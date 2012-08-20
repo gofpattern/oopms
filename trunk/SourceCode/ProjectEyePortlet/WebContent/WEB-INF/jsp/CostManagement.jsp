@@ -135,30 +135,7 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
                     "bJQueryUI": true,
                     "sPaginationType": "full_numbers"
                 } );
-                $('#mainTable7').dataTable( {
-                    "bFilter": true,
-                    "bSort": true,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers"
-                } );
-                $('#mainTable8').dataTable( {
-                    "bFilter": true,
-                    "bSort": true,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers"
-                } );
-                $('#mainTable9').dataTable( {
-                    "bFilter": true,
-                    "bSort": true,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers"
-                } );
-                $('#mainTable10').dataTable( {
-                    "bFilter": true,
-                    "bSort": true,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers"
-                } );
+                
                 
                 
                
@@ -199,7 +176,30 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
     				alert('This Exceptional Cost daily expenses are not paid yet. Please pay all daily expense relate to this Exceptional Cost before pay it');
     			}
                 
-                
+                $('#mainTable7').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable8').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable9').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
+                $('#mainTable10').dataTable( {
+                    "bFilter": true,
+                    "bSort": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                } );
             } );
         </script>
 	
@@ -316,7 +316,7 @@ Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
 <c:if test="${not empty InvoiceRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Invoice Records--------------------------------</p>
-<a href="${exportPath} " target="_newtab">Export to Excel (Right click and choose save target as)</a>
+<a href="file:///${exportPath} " target="_newtab">Export to Excel (Right click and choose save target as test)</a>
 </c:if>
 <c:if test="${not empty InvoiceOneTime}">
 <h3>One Time Expense</h3>
