@@ -43,13 +43,18 @@ public class AssignmentDAO {
         this.session = factory.openSession();
     }
 
+    /**
+     * Get List of project correspond to an user.
+     * @param developerId
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Project> getProject(BigDecimal developerId) {
         log.debug("getProject.START");
         try {
             session.getTransaction().begin();
-            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId " +
-            		"and ((ass.endDate > :currentDate) or (ass.endDate is null))";
+            String sql = "select project from Assignment ass where ass.developer.developerId = :developerId "
+                    + "and ((ass.endDate > :currentDate) or (ass.endDate is null))";
             Query query = session.createQuery(sql);
             query.setParameter("developerId", developerId);
             query.setParameter("currentDate", new Date());
@@ -64,12 +69,18 @@ public class AssignmentDAO {
         return null;
     }
 
+    /**
+     * Get role of an user in a project.
+     * @param developerId
+     * @param projectId
+     * @return
+     */
     public String getRole(String developerId, String projectId) {
         try {
             log.debug("getRole.START");
             session.getTransaction().begin();
-            String hql = "from Assignment where developer.developerId= ? and project.projectId = ?"+
-                    " and ((endDate > :currentDate) or (endDate is null))";
+            String hql = "from Assignment where developer.developerId= ? and project.projectId = ?"
+                    + " and ((endDate > :currentDate) or (endDate is null))";
             Query query = session.createQuery(hql);
             query.setString(0, developerId);
             query.setString(1, projectId);
@@ -81,16 +92,16 @@ public class AssignmentDAO {
             } else if (assi.getType() == 2) {
                 log.debug("getRole.END Role is Developer");
                 return "Developer";
-            }else if (assi.getType() == 3) {
+            } else if (assi.getType() == 3) {
                 log.debug("getRole.END Role is Tester");
                 return "Tester";
-            }else if (assi.getType() == 4) {
+            } else if (assi.getType() == 4) {
                 log.debug("getRole.END Role is QA");
                 return "QA";
-            }else if (assi.getType() == 5) {
+            } else if (assi.getType() == 5) {
                 log.debug("getRole.END Role is Customer");
                 return "Customer";
-            }else if (assi.getType() == 6) {
+            } else if (assi.getType() == 6) {
                 log.debug("getRole.END Role is Project Owner");
                 return "Project Owner";
             }

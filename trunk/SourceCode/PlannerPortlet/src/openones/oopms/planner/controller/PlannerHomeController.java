@@ -18,7 +18,6 @@
  */
 package openones.oopms.planner.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.portlet.PortletSession;
@@ -44,8 +43,6 @@ import org.springframework.web.portlet.ModelAndView;
 @RequestMapping("VIEW")
 public class PlannerHomeController extends BaseController {
     private static Logger log = Logger.getLogger(PlannerHomeController.class);
-    private Developer developer;
-
     /**
      * Default screen.
      * @return name of view which is the name of the JSP page.
@@ -70,10 +67,11 @@ public class PlannerHomeController extends BaseController {
         Developer developer = DeveloperDAO.getDeveloperByAccount(userInfo.getUsername());
         // Get projects belong to user
         List<Project> projectList = assignmentDao.getProject(developer.getDeveloperId());
-        
+
         updateUserInfo(session, userInfo);
         session.setAttribute("UserId", developer.getDeveloperId().toString(), PortletSession.APPLICATION_SCOPE);
-        mav.addObject("developerId",developer.getDeveloperId());
+        
+        mav.addObject("developerId", developer.getDeveloperId());
         mav.addObject("projectList", projectList);
     }
 

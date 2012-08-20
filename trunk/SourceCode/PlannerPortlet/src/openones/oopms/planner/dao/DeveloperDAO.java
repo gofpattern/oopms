@@ -40,6 +40,11 @@ public class DeveloperDAO {
         this.session = factory.openSession();
     }
 
+    /**
+     * Get developer Id by account.
+     * @param account
+     * @return
+     */
     public BigDecimal getDeveloperId(String account) {
         log.debug("getDeveloperId.START");
         try {
@@ -58,6 +63,11 @@ public class DeveloperDAO {
         return null;
     }
 
+    /**
+     * Get developer by account.
+     * @param account
+     * @return
+     */
     public Developer getDeveloperByAccount(String account) {
         log.debug("getDeveloperByAccount.START");
         try {
@@ -67,7 +77,7 @@ public class DeveloperDAO {
             Query query = session.createQuery(sql);
             query.setParameter("account", account.toUpperCase());
             Developer developer = (Developer) query.uniqueResult();
-            log.debug("developer="+developer.getName());
+            log.debug("developer=" + developer.getName());
             return developer;
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
@@ -78,6 +88,11 @@ public class DeveloperDAO {
         return null;
     }
 
+    /**
+     * Insert developer to Database.
+     * @param dev
+     * @return
+     */
     public boolean insertDeveloper(Developer dev) {
         try {
             session.getTransaction().begin();
