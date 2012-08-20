@@ -22,11 +22,9 @@ import java.math.BigDecimal;
 
 import javax.portlet.ActionResponse;
 
-import openones.oopms.projecteye.dao.DeveloperDao;
 import openones.oopms.projecteye.dao.RiskDao;
 import openones.oopms.projecteye.form.UpdateRiskForm;
 import openones.oopms.projecteye.model.Developer;
-import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Risk;
 
 import org.apache.log4j.Logger;

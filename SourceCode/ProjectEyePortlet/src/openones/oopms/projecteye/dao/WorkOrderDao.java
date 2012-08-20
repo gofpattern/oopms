@@ -99,7 +99,7 @@ public class WorkOrderDao {
 		}
 		return null;
 	}
-	
+
 	public List<Module> getSetDeliverableProductList(Project project) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -137,7 +137,7 @@ public class WorkOrderDao {
 		log.error("Insert ngon");
 		return true;
 	}
-	
+
 	public Module getProduct(String productID) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -165,7 +165,7 @@ public class WorkOrderDao {
 			String hql = "Select name From Stage where stageId = :stageId";
 			Query query = session.createQuery(hql);
 			query.setParameter("stageId", stageId);
-			String stageName = (String)query.uniqueResult();
+			String stageName = (String) query.uniqueResult();
 			return stageName;
 
 		} catch (Exception e) {
@@ -173,6 +173,5 @@ public class WorkOrderDao {
 		}
 		return null;
 	}
-	
 
 }

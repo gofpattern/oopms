@@ -57,10 +57,12 @@ public class UpdateOneTimeExpenseController {
 		log.debug("process UpdateOneTimeExpense.START");
 		String projectId = formBean.getProjectId();
 		CostDao cDao = new CostDao();
-		OopmsCostOneTimeExpense oneTimeExpense = cDao.getOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
+		OopmsCostOneTimeExpense oneTimeExpense = cDao
+				.getOneTimeExpense(formBean.getOopmsCostOneTimeExpenseId());
 		oneTimeExpense.setName(formBean.getName());
 		oneTimeExpense.setCost(new BigDecimal(formBean.getCost()));
-		oneTimeExpense.setOccurDate(AppUtil.getDateFromFormattedDate(formBean.getDate(), Constant.DateFormat));
+		oneTimeExpense.setOccurDate(AppUtil.getDateFromFormattedDate(
+				formBean.getDate(), Constant.DateFormat));
 		oneTimeExpense.setDescription(formBean.getDescription());
 		// Call dao to insert project to database
 		if (cDao.updateOneTimeExpense(oneTimeExpense)) {

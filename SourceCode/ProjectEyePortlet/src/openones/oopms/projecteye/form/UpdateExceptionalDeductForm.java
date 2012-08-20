@@ -1,7 +1,5 @@
 package openones.oopms.projecteye.form;
 
-import java.util.Date;
-
 public class UpdateExceptionalDeductForm {
 	private String name;
 	private String affectTo;
@@ -104,8 +102,6 @@ public class UpdateExceptionalDeductForm {
 		this.additionEffect = additionEffect;
 	}
 
-
-
 	/**
 	 * @return the additionEffectInput
 	 */
@@ -114,7 +110,8 @@ public class UpdateExceptionalDeductForm {
 	}
 
 	/**
-	 * @param additionEffectInput the additionEffectInput to set
+	 * @param additionEffectInput
+	 *            the additionEffectInput to set
 	 */
 	public void setAdditionEffectInput(String additionEffectInput) {
 		this.additionEffectInput = additionEffectInput;

@@ -37,7 +37,7 @@ public class MilestoneDao {
 		}
 		return null;
 	}
-	
+
 	public List<Milestone> getProjectStage(Project project) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -56,7 +56,7 @@ public class MilestoneDao {
 		}
 		return null;
 	}
-	
+
 	public boolean updateStage(Milestone stage) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();

@@ -55,8 +55,7 @@ public class CreateProductController {
 
 	Developer user = new Developer();
 	/** Logger for logging. */
-	private static Logger log = Logger
-			.getLogger(CreateProductController.class);
+	private static Logger log = Logger.getLogger(CreateProductController.class);
 	String projectId;
 
 	@ActionMapping(params = "action=CreateProduct")
@@ -74,33 +73,40 @@ public class CreateProductController {
 		// set value for Product
 		product.setProject(project);
 		product.setIsDeliverable(new BigDecimal(Constant.UnsettedDeliverable));
-		//isDeliverable 0 is not added to any deliverable, 1 is added to deliverable plan
+		// isDeliverable 0 is not added to any deliverable, 1 is added to
+		// deliverable plan
 		product.setName(formBean.getName());
 		product.setWorkproduct(workProduct);
 		product.setActualSize(new BigDecimal("0"));
 		product.setPlannedSize(new BigDecimal("0"));
-//		product.setPlannedSizeUnitId(new BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
-//		
-//		if(formBean.getPlannedSize().equals("") || formBean.getPlannedSize()==null) {
-//			product.setPlannedSize(null);
-//		} else {
-//			product.setPlannedSize(new BigDecimal(formBean.getPlannedSize()));
-//		}
-//		
-//		if(formBean.getRePlannedSize().equals("") || formBean.getRePlannedSize()==null) {
-//			product.setReplannedSize(null);
-//		} else {
-//			product.setReplannedSize(new BigDecimal(formBean.getRePlannedSize()));
-//		}
-//		
-//		if(formBean.getActualSize().equals("") || formBean.getActualSize()==null) {
-//			product.setActualSize(null);
-//		} else {
-//			product.setActualSize(new BigDecimal(formBean.getActualSize()));
-//		}
-//		
-//		product.setActualSizeUnitId(new BigDecimal(formBean.getActualSizeUnit_SelectedValue()));
-		
+		// product.setPlannedSizeUnitId(new
+		// BigDecimal(formBean.getPlannedSizeUnit_SelectedValue()));
+		//
+		// if(formBean.getPlannedSize().equals("") ||
+		// formBean.getPlannedSize()==null) {
+		// product.setPlannedSize(null);
+		// } else {
+		// product.setPlannedSize(new BigDecimal(formBean.getPlannedSize()));
+		// }
+		//
+		// if(formBean.getRePlannedSize().equals("") ||
+		// formBean.getRePlannedSize()==null) {
+		// product.setReplannedSize(null);
+		// } else {
+		// product.setReplannedSize(new
+		// BigDecimal(formBean.getRePlannedSize()));
+		// }
+		//
+		// if(formBean.getActualSize().equals("") ||
+		// formBean.getActualSize()==null) {
+		// product.setActualSize(null);
+		// } else {
+		// product.setActualSize(new BigDecimal(formBean.getActualSize()));
+		// }
+		//
+		// product.setActualSizeUnitId(new
+		// BigDecimal(formBean.getActualSizeUnit_SelectedValue()));
+
 		product.setNote(formBean.getDescription());
 		// Call dao to insert project to database
 		if (pDao.insertProduct(product)) {
@@ -124,32 +130,54 @@ public class CreateProductController {
 			workProductMap.put(workProductList.get(i).getCode(),
 					workProductList.get(i).getName());
 		}
-		ModelAndView mav = new ModelAndView("Product", "ProductForm", new ProductForm());
-		
+		ModelAndView mav = new ModelAndView("Product", "ProductForm",
+				new ProductForm());
+
 		Project project = new Project();
 		project.setProjectId(new BigDecimal(projectId));
 		List<Module> productList = pDao.getProjectProductList(project, "All");
 		List<ProductForm> projectProductList = new ArrayList<ProductForm>();
-		if(productList.size()>0) {			
-			for(int i=0; i<productList.size();i++) {
+		if (productList.size() > 0) {
+			for (int i = 0; i < productList.size(); i++) {
 				ProductForm temp = new ProductForm();
 				temp.setName(productList.get(i).getName());
-				temp.setProductId(String.valueOf(productList.get(i).getModuleId()));
-//				Workproduct temp2 = pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
+				temp.setProductId(String.valueOf(productList.get(i)
+						.getModuleId()));
+				// Workproduct temp2 =
+				// pDao.getWorkProduct(productList.get(i).getWorkproduct().getCode());
 				Language unitSize = new Language();
-				temp.setWorkProduct(productList.get(i).getWorkproduct().getName());
-				if(productList.get(i).getPlannedSizeUnitId()!=null) {
-					unitSize = pDao.getProductSizeUnit(productList.get(i).getPlannedSizeUnitId());
-					temp.setPlannedSize(productList.get(i).getPlannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				temp.setWorkProduct(productList.get(i).getWorkproduct()
+						.getName());
+				if (productList.get(i).getPlannedSizeUnitId() != null) {
+					unitSize = pDao.getProductSizeUnit(productList.get(i)
+							.getPlannedSizeUnitId());
+					temp.setPlannedSize(productList.get(i).getPlannedSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
 				}
-				if(productList.get(i).getReplannedSize()!=null) {
-					temp.setRePlannedSize(productList.get(i).getReplannedSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				if (productList.get(i).getReplannedSize() != null) {
+					temp.setRePlannedSize(productList.get(i).getReplannedSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
 				}
-				if((productList.get(i).getActualSize()!=null) && (productList.get(i).getActualSizeUnitId()!=null)) {
-					unitSize = pDao.getProductSizeUnit(productList.get(i).getActualSizeUnitId());
-					temp.setRePlannedSize(productList.get(i).getActualSize().toString() + " " +unitSize.getName()+" "+unitSize.getSizeUnit());
+				if ((productList.get(i).getActualSize() != null)
+						&& (productList.get(i).getActualSizeUnitId() != null)) {
+					unitSize = pDao.getProductSizeUnit(productList.get(i)
+							.getActualSizeUnitId());
+					temp.setRePlannedSize(productList.get(i).getActualSize()
+							.toString()
+							+ " "
+							+ unitSize.getName()
+							+ " "
+							+ unitSize.getSizeUnit());
 				}
-//				temp.setCreatedSize(createdSize)
+				// temp.setCreatedSize(createdSize)
 				temp.setDescription(productList.get(i).getNote());
 				projectProductList.add(temp);
 			}

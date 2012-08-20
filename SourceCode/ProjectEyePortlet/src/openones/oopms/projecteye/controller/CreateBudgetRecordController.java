@@ -24,11 +24,8 @@ import javax.portlet.ActionResponse;
 
 import openones.oopms.projecteye.dao.CostDao;
 import openones.oopms.projecteye.form.CreateBudgetRecordForm;
-import openones.oopms.projecteye.form.CreateDailyExpenseForm;
 import openones.oopms.projecteye.model.Developer;
 import openones.oopms.projecteye.model.OopmsBudget;
-import openones.oopms.projecteye.model.OopmsCostDailyExpense;
-import openones.oopms.projecteye.model.OopmsCostType;
 import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.utils.Constant;
 import openones.oopms.projecteye.utils.CostUtil;
@@ -70,7 +67,8 @@ public class CreateBudgetRecordController {
 					projectId));
 			if (projectCost != null) {
 				if (projectCost.getCurrentBudget() != null) {
-					if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
+					if (formBean.getBudgetType().equals(
+							Constant.BudgetIncreaseType)) {
 						projectCost
 								.setCurrentBudget(new BigDecimal(formBean
 										.getValue()).add(projectCost
@@ -81,7 +79,8 @@ public class CreateBudgetRecordController {
 										new BigDecimal(formBean.getValue())));
 					}
 				} else {
-					if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
+					if (formBean.getBudgetType().equals(
+							Constant.BudgetIncreaseType)) {
 						projectCost.setCurrentBudget(new BigDecimal(formBean
 								.getValue()));
 					} else {
@@ -96,7 +95,8 @@ public class CreateBudgetRecordController {
 				OopmsProjectCost projectCost2 = new OopmsProjectCost();
 				projectCost2.setProjectId(new BigDecimal(projectId));
 				projectCost2.setCostStatus("1");
-				if (formBean.getBudgetType().equals(Constant.BudgetIncreaseType)) {
+				if (formBean.getBudgetType()
+						.equals(Constant.BudgetIncreaseType)) {
 					projectCost2.setCurrentBudget(new BigDecimal(formBean
 							.getValue()));
 				} else {

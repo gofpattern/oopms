@@ -18,9 +18,6 @@
  */
 package openones.oopms.projecteye.form;
 
-import java.util.Date;
-import java.util.Map;
-
 /**
  * @author HaiTCT
  */
@@ -169,7 +166,5 @@ public class UpdateDeliverableForm {
 	public void setPlannedEndDateOfProject(String plannedEndDateOfProject) {
 		this.plannedEndDateOfProject = plannedEndDateOfProject;
 	}
-
-
 
 }

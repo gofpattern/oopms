@@ -76,7 +76,7 @@ public class ProductDao {
 		log.error("Insert ngon");
 		return true;
 	}
-	
+
 	public boolean updateProduct(Module product) {
 		try {
 			SessionFactory sessfac = HibernateUtil.getSessionFactory();
@@ -93,7 +93,7 @@ public class ProductDao {
 		log.error("Update success");
 		return true;
 	}
-	
+
 	public boolean deteleProduct(String productId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -111,25 +111,25 @@ public class ProductDao {
 		}
 		return true;
 	}
-	
+
 	public List<Module> getProjectProductList(Project project, String searchType) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 			session = sessionfactory.openSession();
 			session.beginTransaction();
 			String hql = "";
-			if(searchType.equals("All")) {
+			if (searchType.equals("All")) {
 				hql = "From Module where project = :projectId";
 			} else {
-				hql = "From Module where project = :projectId and workproduct = :workProductCode";				
+				hql = "From Module where project = :projectId and workproduct = :workProductCode";
 			}
 			Query query = session.createQuery(hql);
 			query.setParameter("projectId", project);
-			if(!searchType.equals("All")) {
+			if (!searchType.equals("All")) {
 				Workproduct workProduct = new Workproduct();
 				workProduct.setCode(searchType);
-				query.setParameter("workProductCode", workProduct);				
-			}			
+				query.setParameter("workProductCode", workProduct);
+			}
 			List<Module> productList = query.list();
 			session.flush();
 			session.getTransaction().commit();
@@ -160,7 +160,7 @@ public class ProductDao {
 		}
 		return null;
 	}
-	
+
 	public Language getProductSizeUnit(BigDecimal languageId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -169,7 +169,7 @@ public class ProductDao {
 			String hql = "From Language where languageId = :languageId";
 			Query query = session.createQuery(hql);
 			query.setParameter("languageId", languageId);
-			Language productSizeUnit = (Language)query.uniqueResult();
+			Language productSizeUnit = (Language) query.uniqueResult();
 			session.flush();
 			session.getTransaction().commit();
 			return productSizeUnit;
@@ -179,7 +179,7 @@ public class ProductDao {
 		}
 		return null;
 	}
-	
+
 	public Module getProduct(BigDecimal productId) {
 		try {
 			SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
@@ -188,7 +188,7 @@ public class ProductDao {
 			String hql = "From Module where moduleId = :moduleId";
 			Query query = session.createQuery(hql);
 			query.setParameter("moduleId", productId);
-			Module product = (Module)query.uniqueResult();
+			Module product = (Module) query.uniqueResult();
 			session.flush();
 			session.getTransaction().commit();
 			return product;
@@ -198,6 +198,5 @@ public class ProductDao {
 		}
 		return null;
 	}
-	
 
 }

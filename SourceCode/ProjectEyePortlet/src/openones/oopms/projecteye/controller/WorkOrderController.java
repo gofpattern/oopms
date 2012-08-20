@@ -181,16 +181,18 @@ public class WorkOrderController {
 		mav.addObject("delivarableId", delivarableId);
 		return mav;
 	}
-	
+
 	@RenderMapping(params = "action=RemoveDeliverable")
 	public ModelAndView postRemoveDeliverable(RenderRequest request) {
 		log.debug("post RemoveDeliverable.START");
 		ModelAndView mav = new ModelAndView("WorkOrder");
-		//Remove diliverable
+		// Remove diliverable
 		String delivarableId = request.getParameter("delivarableId");
 		ProductDao productDao = new ProductDao();
-		Module deliverable = productDao.getProduct(new BigDecimal(delivarableId));
-		deliverable.setIsDeliverable(new BigDecimal(Constant.UnsettedDeliverable));
+		Module deliverable = productDao
+				.getProduct(new BigDecimal(delivarableId));
+		deliverable.setIsDeliverable(new BigDecimal(
+				Constant.UnsettedDeliverable));
 		deliverable.setPlannedReleaseDate(null);
 		deliverable.setReplannedReleaseDate(null);
 		deliverable.setActualReleaseDate(null);

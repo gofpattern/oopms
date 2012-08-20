@@ -14,7 +14,6 @@ import openones.oopms.projecteye.model.OopmsProjectCost;
 import openones.oopms.projecteye.model.Project;
 import openones.oopms.projecteye.model.Stage;
 import openones.oopms.projecteye.utils.Constant;
-import openones.oopms.projecteye.utils.CostUtil;
 import openones.oopms.projecteye.utils.HibernateUtil;
 
 import org.apache.log4j.Logger;
@@ -80,7 +79,7 @@ public class ProjectDao {
 				session.save(stage);
 				session.flush();
 			}
-			//insert Project Cost
+			// insert Project Cost
 			OopmsProjectCost projectCost = new OopmsProjectCost();
 			projectCost.setProjectId(project.getProjectId());
 			projectCost.setCostStatus("1");

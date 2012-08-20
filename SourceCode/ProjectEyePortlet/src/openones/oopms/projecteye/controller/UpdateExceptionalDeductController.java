@@ -67,7 +67,9 @@ public class UpdateExceptionalDeductController {
 					exceptionalExpense.setProjectId(new BigDecimal(projectId));
 					exceptionalExpense.setType(new BigDecimal(
 							Constant.ExceptinalDeductType));
-					exceptionalExpense.setOccurDate(AppUtil.getDateFromFormattedDate(formBean.getOccurDate(), Constant.DateFormat));
+					exceptionalExpense.setOccurDate(AppUtil
+							.getDateFromFormattedDate(formBean.getOccurDate(),
+									Constant.DateFormat));
 					exceptionalExpense
 							.setDescription(formBean.getDescription());
 					exceptionalExpense.setEffectType(new BigDecimal(formBean
@@ -86,7 +88,9 @@ public class UpdateExceptionalDeductController {
 				exceptionalExpense.setProjectId(new BigDecimal(projectId));
 				exceptionalExpense.setType(new BigDecimal(
 						Constant.ExceptinalDeductType));
-				exceptionalExpense.setOccurDate(AppUtil.getDateFromFormattedDate(formBean.getOccurDate(), Constant.DateFormat));
+				exceptionalExpense.setOccurDate(AppUtil
+						.getDateFromFormattedDate(formBean.getOccurDate(),
+								Constant.DateFormat));
 				exceptionalExpense.setDescription(formBean.getDescription());
 				exceptionalExpense.setEffectType(new BigDecimal(formBean
 						.getAdditionEffect()));
@@ -97,9 +101,9 @@ public class UpdateExceptionalDeductController {
 				cDao.insertExceptionalCost(exceptionalExpense);
 			}
 		}
-		//Delete old expense
+		// Delete old expense
 		cDao.deleteExceptionalCost(oopmsExceptionalCostId);
-		
+
 		OopmsProjectCost projectCost = cDao.getProjectCost(new BigDecimal(
 				projectId));
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,

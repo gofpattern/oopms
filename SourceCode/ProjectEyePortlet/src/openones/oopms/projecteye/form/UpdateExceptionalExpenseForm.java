@@ -1,7 +1,5 @@
 package openones.oopms.projecteye.form;
 
-import java.util.Date;
-
 public class UpdateExceptionalExpenseForm {
 	private String name;
 	private String affectTo;

@@ -18,6 +18,7 @@
  */
 package openones.oopms.projecteye.controller;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 import openones.oopms.projecteye.dao.ChangeRequestDao;
 import openones.oopms.projecteye.dao.CostDao;
@@ -66,6 +68,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import org.springframework.web.portlet.util.PortletUtils;
 
 /**
  * @author HaiTCT
@@ -88,56 +91,60 @@ public class NavigatorController {
 		RiskDao rDao = new RiskDao();
 		List<Risk> riskList = rDao.getProjectRiskList(project);
 		List<RiskView> riskListView = new ArrayList<RiskView>();
-		if(riskList!=null) {
-			for(int i=0; i<riskList.size(); i++) {
+		if (riskList != null) {
+			for (int i = 0; i < riskList.size(); i++) {
 				RiskView temp = new RiskView();
 				temp.setDescription(riskList.get(i).getCondition());
-				temp.setPriority(String.valueOf(riskList.get(i).getRiskPriority()));
+				temp.setPriority(String.valueOf(riskList.get(i)
+						.getRiskPriority()));
 				temp.setProbability(String.valueOf(riskList.get(i).getProb()));
 				temp.setRiskId(String.valueOf(riskList.get(i).getRiskId()));
 				temp.setTrigger(riskList.get(i).getTriggerName());
-				RiskSource riskSource = rDao.getRiskSource(riskList.get(i).getSourceId());
-				temp.setRiskSource(riskSource.getSourceName());		
+				RiskSource riskSource = rDao.getRiskSource(riskList.get(i)
+						.getSourceId());
+				temp.setRiskSource(riskSource.getSourceName());
 				String EstimatedImpact = "";
 				int impactTo = riskList.get(i).getImpactTo().intValue();
-				if(impactTo == 1) {
+				if (impactTo == 1) {
 					EstimatedImpact = EstimatedImpact + "Schedule";
 				} else if (impactTo == 2) {
 					EstimatedImpact = EstimatedImpact + "Effort";
-				}else if (impactTo == 3) {
+				} else if (impactTo == 3) {
 					EstimatedImpact = EstimatedImpact + "Finance";
-				}else if (impactTo == 4) {
+				} else if (impactTo == 4) {
 					EstimatedImpact = EstimatedImpact + "Team";
-				}else if (impactTo == 5) {
+				} else if (impactTo == 5) {
 					EstimatedImpact = EstimatedImpact + "Timeliness";
-				}else if (impactTo == 6) {
+				} else if (impactTo == 6) {
 					EstimatedImpact = EstimatedImpact + "Requirement";
-				}else if (impactTo == 7) {
+				} else if (impactTo == 7) {
 					EstimatedImpact = EstimatedImpact + "Leakage";
-				}else if (impactTo == 8) {
+				} else if (impactTo == 8) {
 					EstimatedImpact = EstimatedImpact + "Customer";
-				}else if (impactTo == 9) {
+				} else if (impactTo == 9) {
 					EstimatedImpact = EstimatedImpact + "Correction";
-				}else if (impactTo == 10) {
+				} else if (impactTo == 10) {
 					EstimatedImpact = EstimatedImpact + "Other";
 				}
-				
-				EstimatedImpact = EstimatedImpact + " " + String.valueOf(riskList.get(i).getEstimatedImpact()) +" ";
-				
+
+				EstimatedImpact = EstimatedImpact + " "
+						+ String.valueOf(riskList.get(i).getEstimatedImpact())
+						+ " ";
+
 				int impactUnit = riskList.get(i).getUnit().intValue();
-				if(impactUnit == 1) {
+				if (impactUnit == 1) {
 					EstimatedImpact = EstimatedImpact + "%";
 				} else if (impactUnit == 2) {
 					EstimatedImpact = EstimatedImpact + "day";
-				}else if (impactUnit == 3) {
+				} else if (impactUnit == 3) {
 					EstimatedImpact = EstimatedImpact + "month";
-				}else if (impactUnit == 4) {
+				} else if (impactUnit == 4) {
 					EstimatedImpact = EstimatedImpact + "person.day";
-				}else if (impactUnit == 5) {
+				} else if (impactUnit == 5) {
 					EstimatedImpact = EstimatedImpact + "person.month";
-				}else if (impactUnit == 6) {
+				} else if (impactUnit == 6) {
 					EstimatedImpact = EstimatedImpact + "$";
-				}else if (impactUnit == 7) {
+				} else if (impactUnit == 7) {
 					EstimatedImpact = EstimatedImpact + "#";
 				}
 
@@ -658,7 +665,8 @@ public class NavigatorController {
 	}
 
 	@RenderMapping(params = "action=GoCostManagement")
-	public ModelAndView postGoCostManagement(RenderRequest request) {
+	public ModelAndView postGoCostManagement(RenderRequest request,
+			RenderResponse response) {
 		log.debug("post GoCostManagement.START");
 		DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy");
 		String viewDate = request.getParameter("viewDate");
@@ -678,7 +686,7 @@ public class NavigatorController {
 			formattedDate = df.format(new Date());
 			expense = CostUtil.getExpense(projectId, new Date());
 		}
-				
+
 		CostManagementForm form = new CostManagementForm();
 		form.setViewDate(formattedDate);
 		String payDate = request.getParameter("payDate");
@@ -716,60 +724,73 @@ public class NavigatorController {
 					.getParameter("deletingOopmsCostTypeId");
 			mav.addObject("deletingOopmsCostTypeId", deletingOopmsCostTypeId);
 		}
-		
+
 		String deleteDailyFlag = request.getParameter("deleteDailyFlag");
 		if (deleteDailyFlag != null) {
 			mav.addObject("deleteDailyFlag", deleteDailyFlag);
 			String deletingOopmsCostDailyExpenseId = request
 					.getParameter("deletingOopmsCostDailyExpenseId");
-			mav.addObject("deletingOopmsCostDailyExpenseId", deletingOopmsCostDailyExpenseId);
+			mav.addObject("deletingOopmsCostDailyExpenseId",
+					deletingOopmsCostDailyExpenseId);
 		}
-		
-		String payExceptionalCostFlag = request.getParameter("payExceptionalCostFlag");
+
+		String payExceptionalCostFlag = request
+				.getParameter("payExceptionalCostFlag");
 		if (payExceptionalCostFlag != null) {
 			mav.addObject("payExceptionalCostFlag", payExceptionalCostFlag);
 		}
-		
+
 		if (request.getParameter("ViewBudgetRecord") != null) {
 			List<OopmsBudget> budgetList = cDao.getProjectBudgetList(projectId);
 			mav.addObject("BudgetRecords", budgetList);
 		}
 		if (request.getParameter("ViewInvoiceRecords") != null) {
-			List<OopmsCostOneTimeExpense> invoiceOneTime = cDao.getOneTimeExpenseInvoiceList(projectId);
-			List<OopmsCostDailyExpense> invoiceDaily = cDao.getDailyExpenseInvoiceList(projectId);
-			List<OopmsExceptionalCost> invoiceExceptionalExpense = cDao.getExceptionalExpenseInvoiceList(projectId);
-			List<OopmsExceptionalCost> invoiceExceptionalDeduct = cDao.getExceptionalDeductInvoiceList(projectId);
+			List<OopmsCostOneTimeExpense> invoiceOneTime = cDao
+					.getOneTimeExpenseInvoiceList(projectId);
+			List<OopmsCostDailyExpense> invoiceDaily = cDao
+					.getDailyExpenseInvoiceList(projectId);
+			List<OopmsExceptionalCost> invoiceExceptionalExpense = cDao
+					.getExceptionalExpenseInvoiceList(projectId);
+			List<OopmsExceptionalCost> invoiceExceptionalDeduct = cDao
+					.getExceptionalDeductInvoiceList(projectId);
 			List<InvoiceDailyExpense> invoiceDailyView = new ArrayList<InvoiceDailyExpense>();
 			List<InvoiceExceptionalCost> invoiceExceptionalExpenseView = new ArrayList<InvoiceExceptionalCost>();
 			List<InvoiceExceptionalCost> invoiceExceptionalDeductView = new ArrayList<InvoiceExceptionalCost>();
-			if(invoiceDaily!=null) {
-			invoiceDailyView = CostUtil.getInvoiceDailyExpense(invoiceDaily);
+			if (invoiceDaily != null) {
+				invoiceDailyView = CostUtil
+						.getInvoiceDailyExpense(invoiceDaily);
 			}
-			if(invoiceExceptionalExpense!=null) {
-				invoiceExceptionalExpenseView = CostUtil.getInvoiceExceptionalCostList(invoiceExceptionalExpense);
+			if (invoiceExceptionalExpense != null) {
+				invoiceExceptionalExpenseView = CostUtil
+						.getInvoiceExceptionalCostList(invoiceExceptionalExpense);
 			}
-			if(invoiceExceptionalDeduct!=null) {
-				invoiceExceptionalDeductView = CostUtil.getInvoiceExceptionalCostList(invoiceExceptionalDeduct);
-				}
-			if(invoiceOneTime!=null) {
-				if(invoiceOneTime.size()>0) {
+			if (invoiceExceptionalDeduct != null) {
+				invoiceExceptionalDeductView = CostUtil
+						.getInvoiceExceptionalCostList(invoiceExceptionalDeduct);
+			}
+			if (invoiceOneTime != null) {
+				if (invoiceOneTime.size() > 0) {
 					mav.addObject("InvoiceRecords", "InvoiceRecords");
 				}
 			}
-			if(invoiceDailyView.size()>0 || invoiceExceptionalExpenseView.size()>0 || invoiceExceptionalDeductView.size()>0) {
+			if (invoiceDailyView.size() > 0
+					|| invoiceExceptionalExpenseView.size() > 0
+					|| invoiceExceptionalDeductView.size() > 0) {
 				mav.addObject("InvoiceRecords", "InvoiceRecords");
 			}
 			mav.addObject("InvoiceOneTime", invoiceOneTime);
 			mav.addObject("InvoiceDaily", invoiceDailyView);
-			mav.addObject("InvoiceExceptionalExpense", invoiceExceptionalExpenseView);
-			mav.addObject("InvoiceExceptionalDeduct", invoiceExceptionalDeductView);
-			
+			mav.addObject("InvoiceExceptionalExpense",
+					invoiceExceptionalExpenseView);
+			mav.addObject("InvoiceExceptionalDeduct",
+					invoiceExceptionalDeductView);
+
 		}
 		if (projectCost != null) {
 			mav.addObject("currentBudget", projectCost.getCurrentBudget());
 			mav.addObject("currentExpense", projectCost.getCurrentExpense());
 		}
-		
+
 		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
 		mav.addObject("DailyExpenseList", dailyExpenseListView);
@@ -778,6 +799,20 @@ public class NavigatorController {
 		mav.addObject("expense", expense);
 		mav.addObject("viewDate", formattedDate);
 		mav.addObject("projectId", projectId);
+		String templatePath = "/resource_files/CostDetailTemplate.xls";
+		String createPath = "/resource_files/Invoice.xls";
+		try {
+			templatePath = PortletUtils.getRealPath(request.getPortletSession()
+					.getPortletContext(), templatePath);
+			createPath = PortletUtils.getRealPath(request.getPortletSession()
+					.getPortletContext(), createPath);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mav.addObject("templatePath", templatePath);
+		mav.addObject("exportPath", createPath);
 		return mav;
 	}
+
 }
