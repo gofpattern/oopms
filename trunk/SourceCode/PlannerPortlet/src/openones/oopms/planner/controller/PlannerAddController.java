@@ -146,9 +146,10 @@ public class PlannerAddController {
             task.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             task.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
 
+            taskDAO.addTask(task);
             moduleDAO.updateModuleByTask(task);
             taskDAO.updateProjectEffortTask(task);
-            taskDAO.addTask(task);
+
         } catch (ParseException ex) {
             log.error("error when add new task", ex);
         }
@@ -259,9 +260,9 @@ public class PlannerAddController {
             editedTask.setStartdate(dateFormat.parse(formBeanAdd.getStartDate()));
             editedTask.setPlanDate(dateFormat.parse(formBeanAdd.getActualDate()));
 
+            taskDAO.updateTask(editedTask);
             moduleDAO.updateModuleByEditedTask(task, editedTask);
             taskDAO.updateProjectEffortByEditedTask(task, editedTask);
-            taskDAO.updateTask(editedTask);
 
         } catch (Exception ex) {
             log.error("error when update task", ex);

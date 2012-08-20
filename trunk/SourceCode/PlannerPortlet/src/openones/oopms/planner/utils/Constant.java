@@ -25,6 +25,7 @@ package openones.oopms.planner.utils;
 public class Constant {
     public static final String ALL_VALUE = "All";
     public static final String BLANK_VALUE = " ";
+    public static final String NULL_VALUE = "";
     public static final String TENTATIVE_STATUS = "176";
     public static final String CLOSED_STATUS = "174";
     public static final String NONE_ACTION = "none";

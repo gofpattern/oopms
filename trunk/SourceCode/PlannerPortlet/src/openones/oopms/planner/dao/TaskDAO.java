@@ -333,15 +333,25 @@ public class TaskDAO {
      * @param task
      */
     public void addTask(Tasks task) {
+        Session session = null;
+        Transaction tx = null;
         try {
-            session.getTransaction().begin();
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
             session.save(task);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (session.getTransaction().isActive()) {
-                session.getTransaction().rollback();
+            tx.commit();
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
             }
             log.error("Add Task Error", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
     }
 
@@ -415,9 +425,12 @@ public class TaskDAO {
      */
     public void updateProjectEffortTask(Tasks task) {
         log.debug("updateProjectEffortTask.START");
+        Session session = null;
+        Transaction tx = null;
         try {
 
-            session.getTransaction().begin();
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
 
             Project project = (Project) session.get(Project.class, task.getProjectid());
 
@@ -425,12 +438,19 @@ public class TaskDAO {
             project.setActualEffort(task.getCurrenteffort());
 
             session.merge(project);
-
-        } catch (Exception e) {
-            if (session.getTransaction().isActive()) {
-                session.getTransaction().rollback();
+            tx.commit();
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
             }
-            log.error("updateProjectEffortTask.Exception", e);
+            log.error("updateProjectEffortTask.ERROR", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
     }
     /**
@@ -440,8 +460,11 @@ public class TaskDAO {
      */
     public void updateProjectEffortByEditedTask(Tasks task, Tasks editedTask) {
         log.debug("updateProjectEffortByEditedTask.START");
+        Session session = null;
+        Transaction tx = null;
         try {
-            session.getTransaction().begin();
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
             Project project = (Project) session.get(Project.class, editedTask.getProjectid());
 
             if (!task.getPlannedeffort().equals(editedTask.getPlannedeffort())) {
@@ -454,12 +477,19 @@ public class TaskDAO {
             }
 
             session.merge(project);
-
-        } catch (Exception e) {
-            if (session.getTransaction().isActive()) {
-                session.getTransaction().rollback();
+            tx.commit();
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
             }
-            log.error("updateProjectEffortByEditedTask.Exception", e);
+            log.error("updateProjectEffortByEditedTask.ERROR", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
     }
 

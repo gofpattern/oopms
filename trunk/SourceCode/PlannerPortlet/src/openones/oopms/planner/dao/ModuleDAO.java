@@ -21,6 +21,7 @@ package openones.oopms.planner.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import openones.oopms.planner.model.GeneralReference;
 import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Tasks;
 import openones.oopms.planner.model.Workproduct;
@@ -30,6 +31,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  * @author PNTG
@@ -146,11 +148,15 @@ public class ModuleDAO {
      * Update Plan size, actual size, plan size unit, actual size unit and status of module after creating new task.
      * @param task
      */
+
     public void updateModuleByTask(Tasks task) {
         log.debug("updateModuleByTask.START");
+        Session session = null;
+        Transaction tx = null;
         try {
-
-            session.getTransaction().begin();
+            
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
 
             Module module = (Module) session.get(Module.class, task.getModule().getModuleId());
 
@@ -160,18 +166,16 @@ public class ModuleDAO {
             module.setPlannedSizeUnitId(task.getSizeunit());
             module.setActualSizeUnitId(task.getSizeunit());
             List<BigDecimal> taskStatusList = getTasksStatusByModule(module.getModuleId());
-            // for (int i = 0; i < taskStatusList.size(); i++) {
-            // if (taskStatusList.get(i).equals(new BigDecimal(175))) {
-            // taskStatusList.remove(taskStatusList.get(i));
-            // }
-            // }
+
             if (taskStatusList.size() == 0)
                 module.setStatus(new BigDecimal(175));// 175: CANCEL
             else {
                 Boolean flag = true;
                 for (int i = 0; i < taskStatusList.size(); i++) {
-                    if (taskStatusList.get(0) != taskStatusList.get(i))
+                    log.debug("Task status "+i+": " + taskStatusList.get(i));
+                    if (!taskStatusList.get(0).equals(taskStatusList.get(i)))
                         flag = false;
+                    log.debug("Flag: " + flag);
                 }
                 if (flag.equals(true))
                     module.setStatus(taskStatusList.get(0));
@@ -181,12 +185,26 @@ public class ModuleDAO {
             }
 
             session.merge(module);
-
-        } catch (Exception e) {
-            if (session.getTransaction().isActive()) {
-                session.getTransaction().rollback();
+            log.debug("updateModuleByTask.END");
+            log.debug("Task Product size: " + task.getProductsize());
+            log.debug("Task Complete size: " + task.getCompletedsize());
+            log.debug("Module plan: " + module.getPlannedSize());
+            log.debug("Module actual: " + module.getActualSize());
+            log.debug("Module status: " + module.getStatus());
+            
+            tx.commit();
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
             }
-            log.error("updateModuleByTask.Exception", e);
+            log.error("updateModuleByTask.ERROR", e);            
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
     }
 
@@ -195,11 +213,15 @@ public class ModuleDAO {
      * @param task
      * @param editedTask
      */
+
+
     public void updateModuleByEditedTask(Tasks task, Tasks editedTask) {
         log.debug("updateModuleByEditedTask.START");
+        Session session = null;
+        Transaction tx = null;
         try {
-
-            session.getTransaction().begin();
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
 
             Module module = (Module) session.get(Module.class, editedTask.getModule().getModuleId());
 
@@ -214,20 +236,18 @@ public class ModuleDAO {
 
             module.setPlannedSizeUnitId(editedTask.getSizeunit());
             module.setActualSizeUnitId(editedTask.getSizeunit());
+            
             if (!task.getStatusid().equals(editedTask.getStatusid())) {
                 List<BigDecimal> taskStatusList = getTasksStatusByModule(module.getModuleId());
-                // for (int i = 0; i < taskList.size(); i++) {
-                // if (taskList.get(i).getStatusid().equals(new BigDecimal(175))) {
-                // taskList.remove(taskList.get(i));
-                // }
-                // }
                 if (taskStatusList.size() == 0)
                     module.setStatus(new BigDecimal(175));// 175: CANCEL
                 else {
                     Boolean flag = true;
                     for (int i = 0; i < taskStatusList.size(); i++) {
-                        if (taskStatusList.get(0) != taskStatusList.get(i))
+                        log.debug("Task status "+i+": " + taskStatusList.get(i));
+                        if (!taskStatusList.get(0).equals(taskStatusList.get(i)))
                             flag = false;
+                        log.debug("Flag: " + flag);
                     }
                     if (flag.equals(true))
                         module.setStatus(taskStatusList.get(0));
@@ -238,13 +258,28 @@ public class ModuleDAO {
             }
 
             session.merge(module);
+            log.debug("updateModuleByEditedTask.END");
+            log.debug("Task Product size: " + task.getProductsize());
+            log.debug("Task Complete size: " + task.getCompletedsize());
+            log.debug("Module plan: " + module.getPlannedSize());
+            log.debug("Module actual: " + module.getActualSize());
+            log.debug("Module status: " + module.getStatus());
+            tx.commit();
 
-        } catch (Exception e) {
-            if (session.getTransaction().isActive()) {
-                session.getTransaction().rollback();
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
             }
             log.error("updateModuleByEditedTask.Exception", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
+
     }
 
 }

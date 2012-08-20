@@ -57,15 +57,15 @@ public class PlannerAddForm {
         moduleMap = new LinkedHashMap<String, String>();
         sizeUnitMap = new LinkedHashMap<String, String>();
 
-        statusMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        stageMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        stageMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        developerMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        processMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        productMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        moduleMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        sizeUnitMap.put(Constant.BLANK_VALUE, Constant.BLANK_VALUE);
-        projectId = Constant.BLANK_VALUE;
+        statusMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        stageMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        stageMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        developerMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        processMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        productMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        moduleMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        sizeUnitMap.put(Constant.NULL_VALUE, Constant.BLANK_VALUE);
+        projectId = Constant.NULL_VALUE;
 
         action_str = Constant.NONE_ACTION;
     }

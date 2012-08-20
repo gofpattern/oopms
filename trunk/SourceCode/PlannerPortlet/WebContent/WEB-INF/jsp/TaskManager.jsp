@@ -130,7 +130,7 @@
             	rules[19] = 'task.sizeunit:Product Size Unit|required';
             	rules[20] = 'task.sizeunit:Product Size Unit|numeric';
             
-            	rules[21] = 'task.productsize:Product Size|numrange|1-1000000000';
+            	rules[21] = 'task.productsize:Product Size|numrange|1-1000000';
             
             	yav.addHelp('task.taskname', 'Provide your Title');
             	yav.addHelp('startDate', 'Provide your Start Date');
