@@ -88,7 +88,16 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
             $(document).ready( function() {
         	
 
-                     
+            	 $( "#datepicker1" ).datepicker({
+     	            showOn: "button",
+     	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+     	            buttonImageOnly: true
+     	        });
+                 $( "#datepicker2" ).datepicker({
+     	            showOn: "button",
+     	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
+     	            buttonImageOnly: true
+     	        });     
                 fnFeaturesInit();
                 $('#mainTable1').dataTable( {
                     "bFilter": true,
@@ -152,16 +161,7 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
                 } );
                 
                 
-                $( "#datepicker1" ).datepicker({
-    	            showOn: "button",
-    	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
-    	            buttonImageOnly: true
-    	        });
-                $( "#datepicker2" ).datepicker({
-    	            showOn: "button",
-    	            buttonImage: "/<spring:message code='app.context'/>/resource_files/images/calendar.gif",
-    	            buttonImageOnly: true
-    	        });
+               
                 yav.init('${portletNamespace}CostManagement', rules);
                 if(document.getElementById("deleteDailyFlag").value==1) {}
                 var actionUrl = "${ForcedRemoveCostType}";
