@@ -73,15 +73,16 @@ public class DeveloperDao {
         } catch (RuntimeException rEx) {
             log.error("Saving Developer...", rEx);
             return false;
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
     }
 
     public BigDecimal getDeveloperId(String account) {
         log.debug("getDeveloperId.START");
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql = "select developerId from Developer where account = :account";
             Query query = session.createQuery(sql);
@@ -95,16 +96,17 @@ public class DeveloperDao {
                 session.getTransaction().rollback();
             }
             log.error("getDeveloperId.Exception", e);
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 
     public Developer getDeveloperByAccount(String account) {
         log.debug("getDeveloperByAccount.START");
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql = "from Developer where account = :account";
             Query query = session.createQuery(sql);
@@ -118,10 +120,9 @@ public class DeveloperDao {
                 session.getTransaction().rollback();
             }
             log.error("getDeveloperByAccount.Exception", e);
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 }

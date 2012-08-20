@@ -82,7 +82,7 @@ public class RequirementDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             log.debug("getRoleProblem");
 
         } finally {
@@ -115,7 +115,7 @@ public class RequirementDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             log.debug("getRoleProblem");
         } finally {
             session.close();
@@ -183,10 +183,9 @@ public class RequirementDao {
             log.error("UpdateNOTOk: " + rowCount);
             log.error(e.getMessage());
             return false;
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         log.error("UpdateOk: " + rowCount);
         return true;
     }
@@ -195,6 +194,8 @@ public class RequirementDao {
 
         try {
             Requirements req;
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql = "from Requirements WHERE requirement_ID =:reqId";
             Query query = session.createQuery(sql);
@@ -210,21 +211,21 @@ public class RequirementDao {
             // Convert e.printStackTrace() to string.
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
-            e.printStackTrace(printWriter);
+            // e.printStackTrace(printWriter);
             log.debug("errorgetAllRequirement." + "exception");
             log.debug(e.getMessage());
             log.debug(stringWriter.toString());
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 
     public void deleteReq(List<Requirements> requirementList) throws ParseException {
 
         try {
-
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String hql = "DELETE Requirements WHERE requirement_ID =:reqId";
 
@@ -242,15 +243,14 @@ public class RequirementDao {
             session.getTransaction().commit();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             log.debug("DeleteReqError");
             // session.getTransaction().rollback();
             // session.close();
 
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
     }
 
     /**
@@ -283,6 +283,8 @@ public class RequirementDao {
     public List<Requirements> getRequirementsByProjectId(String projectId) {
         log.debug("getRequirementsByProjectId.START");
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             // clear cache to get new
             session.clear();
@@ -299,10 +301,9 @@ public class RequirementDao {
                 session.getTransaction().rollback();
             }
             log.debug("getRequirementsByProjectId.Error", e);
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 
@@ -310,6 +311,8 @@ public class RequirementDao {
     public List<Requirements> getAllRequirement() {
         log.debug("getAllRequirementSTART");
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql2 = "select requirement_ID, project_ID, type from Requirements";
             String sql = "from Requirements";
@@ -329,20 +332,21 @@ public class RequirementDao {
             // Convert e.printStackTrace() to string.
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
-            e.printStackTrace(printWriter);
+            // e.printStackTrace(printWriter);
             log.debug("errorgetAllRequirement." + "exception");
             log.debug(e.getMessage());
             log.debug(stringWriter.toString());
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 
     public List<Project> getAllProject() {
         log.debug("getAllProjectSTART");
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql2 = "select requirement_ID, project_ID, type from Requirements";
             String sql = "from Project";
@@ -362,16 +366,20 @@ public class RequirementDao {
             // Convert e.printStackTrace() to string.
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
-            e.printStackTrace(printWriter);
+            // e.printStackTrace(printWriter);
             log.debug("errorgetAllRequirement." + "exception");
             log.debug(e.getMessage());
             log.debug(stringWriter.toString());
+        } finally {
+            session.close();
         }
         return null;
     }
 
     public Requirements[] findByLastName(String lastname) {
         try {
+            SessionFactory sessfac = HibernateUtil.getSessionFactory();
+            session = sessfac.openSession();
             session.getTransaction().begin();
             String sql = "from Requirements where lastname like ?";
             Query query = session.createQuery(sql);
@@ -386,11 +394,10 @@ public class RequirementDao {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            e.printStackTrace();
+            // e.printStackTrace();
+        } finally {
+            session.close();
         }
-        // finally{
-        // session.close();
-        // }
         return null;
     }
 
