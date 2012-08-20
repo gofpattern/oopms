@@ -246,6 +246,11 @@ public class ViewDefectListController extends BaseController {
                     memberMap.put(String.valueOf(developerList.get(i).getDeveloperId()), developerList.get(i).getAccount());
                 }
                 role = baseDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+                if(role == null) {
+                    mav = new ModelAndView("ViewDefectList");
+                    return mav;
+                }
+                
                 System.out.println("ROLE : " + role);
               
                
