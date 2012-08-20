@@ -20,7 +20,6 @@ package openones.oopms.dashboard.utils;
 
 /**
  * @author PNTG
- *
  */
 public class Constant {
     public static final String CLOSED_STATUS_ID = "174";

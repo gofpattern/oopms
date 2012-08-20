@@ -203,9 +203,7 @@
       </table>
     </c:if>
     <c:if test="${empty dashboardList}">
-        <h5>
-          You haven't jointed any projects. <br>Please use Project Eye Portlet to see projects and contacts list.
-        </h5>
+        <h5><spring:message code="emptyProjects.warning"/></h5>
       </c:if>
 
       <div class="footer">

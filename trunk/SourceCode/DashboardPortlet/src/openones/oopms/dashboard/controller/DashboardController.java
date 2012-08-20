@@ -133,9 +133,9 @@ public class DashboardController extends BaseController {
     }
 
     @ActionMapping(params = "action=search")
-    public void processSearchByStatus(DashboardForm formBean, BindingResult result, SessionStatus status,
+    public void processSearch(DashboardForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
-        log.debug("processSearchByStatus.START");
+        log.debug("processSearch.START");
         for (int i = 0; i < dashboardList.size(); i++) {
             dashboardList.get(i).setVisible(true);
             if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE))
@@ -161,9 +161,9 @@ public class DashboardController extends BaseController {
     }
 
     @RenderMapping(params = "action=search")
-    public void postSearchByStatus(DashboardForm formBean, BindingResult result, SessionStatus status,
+    public void postSearch(DashboardForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
-        log.debug("postSearchByStatus.START");
+        log.debug("postSearch.START");
     }
 
     /**
@@ -195,7 +195,7 @@ public class DashboardController extends BaseController {
             formBean.setProjectStatus(Constant.ALL_VALUE);
             formBean.setProjectHealth(Constant.ALL_VALUE);
 
-            // Set value for dashboard
+            // Set value for dashboard list
             for (int i = 0; i < projectList.size(); i++) {
                 dashboard = new Dashboard();
                 dashboard.setProject(projectList.get(i));
@@ -262,7 +262,7 @@ public class DashboardController extends BaseController {
     /**
      * Calculate Progress of current project by current completed size and plan size
      * @param projectId
-     * @return
+     * @return percent of progress
      */
     private double calculatePercentProgress(BigDecimal projectId) {
         log.debug("calculatePercentProgress.START");
@@ -313,7 +313,7 @@ public class DashboardController extends BaseController {
      * Calculate passing time of project.
      * @param startDate
      * @param endDate
-     * @return
+     * @return percent passing time of project
      */
     private double calculatePercentTime(Date startDate, Date endDate) {
         log.debug("calculatePercentTime.START");
@@ -329,7 +329,7 @@ public class DashboardController extends BaseController {
      * @param percentProgress
      * @param costStatus
      * @param efficiencyStatus
-     * @return
+     * @return string project health
      */
     private String calculateProjectHealth(double percentProgress, String costStatus, String efficiencyStatus) {
         log.debug("calculateProjectHealth.START");
@@ -346,7 +346,7 @@ public class DashboardController extends BaseController {
     /**
      * Calculate Efficiency of team member by current work done and expected work done .
      * @param projectId
-     * @return
+     * @return string efficiency status
      */
     private String calculateEfficiencyStatus(BigDecimal projectId) {
         log.debug("calculateEfficiencyStatus.START");
@@ -445,7 +445,7 @@ public class DashboardController extends BaseController {
     /**
      * Get cost status form DB
      * @param projectId
-     * @return
+     * @return string status of project cost
      */
     private String calculateCostStatus(BigDecimal projectId) {
         log.debug("calculateCostStatus.START");
@@ -462,6 +462,11 @@ public class DashboardController extends BaseController {
 
     }
 
+    /**
+     * Calculate used effort rate by plan and actual effort
+     * @param projectId
+     * @return percent of actual effort per plan effort
+     */
     private double calculateUsedEffortRate(BigDecimal projectId) {
         log.debug("calculateCostStatus.START");
 
