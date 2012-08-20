@@ -219,9 +219,9 @@ public class DefectDao {
        
         String hql = "UPDATE Defect df SET df.projectId =:projectId, df.createdBy =:createdBy,"
             +"df.title =:title, df.description =:description, df.qaId=:qaId, df.processId=:processId,"
-            +"df.dtId =:dtId, df.dpId =:dpId, df.wpId =:wpId, df.defsId =:defsId,"
+            +"df.dtId =:dtId, df.dpId =:dpId, df.dsId =:dsId, df.wpId =:wpId, df.defsId =:defsId,"
             +"df.testCase =:testCase, df.defectOwner=:defectOwner, df.assignedTo =:assignedTo,"
-            +"df.createDate =:createDate, df.dueDate =:dueDate, df.causeAnalysis =:causeAnalysis,"
+            +"df.createDate =:createDate,df.fixedDate =:fixedDate, df.dueDate =:dueDate, df.causeAnalysis =:causeAnalysis,"
             +"df.solution =:solution WHERE df.defectId =:dfId" ;
         System.out.println("create Date : " + defect.getCreateDate().toString());
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -237,12 +237,14 @@ public class DefectDao {
         query.setParameter("wpId", defect.getWpId());
         query.setParameter("dtId", defect.getDtId());
         query.setParameter("dpId", defect.getDpId());
+        query.setParameter("dsId", defect.getDsId());
         query.setParameter("processId", defect.getProcessId());
         query.setParameter("testCase", defect.getTitle());
         query.setParameter("defectOwner", defect.getDefectOwner());
         query.setParameter("assignedTo", defect.getAssignedTo());
         query.setParameter("createDate", defect.getCreateDate());
         query.setParameter("dueDate", defect.getDueDate());
+        query.setParameter("fixedDate", defect.getFixedDate());
         query.setParameter("causeAnalysis", defect.getCauseAnalysis());
         query.setParameter("solution", defect.getSolution());
         query.setParameter("dfId", defect.getDefectId());

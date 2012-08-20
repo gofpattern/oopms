@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -592,7 +593,7 @@ public class ViewDefectListController extends BaseController {
      * @param status
      * @param response
      */
-
+    ViewDefectListForm tempForm = null;
     @ActionMapping(params = "action=searchDefect")
     public void processSearchDefect(ViewDefectListForm formBean, BindingResult result, SessionStatus status,
             ActionResponse response) {
@@ -612,7 +613,7 @@ public class ViewDefectListController extends BaseController {
            workProductDis = formBean.getWorkProductDis();
            createDate = formBean.getCreateDate();
            dueDate = formBean.getDueDate();
-          
+          tempForm = formBean;
             response.setRenderParameter("action", "searchDefect");
         }
 
@@ -627,7 +628,9 @@ public class ViewDefectListController extends BaseController {
     public ModelAndView postDefect(DefectForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("ViewDefectList"); // display Defect.jsp
         
-
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+       
+        mav.addObject("viewDefectList", tempForm);
        
         mav.addObject("defect", new DefectForm());
         qcActivityMap = DMSWorkspace.getDefaultWorkspace().getActivityMap();
@@ -749,6 +752,9 @@ public class ViewDefectListController extends BaseController {
          def.setCreateDate(df.parse(formBean.getCreateDateString()));
          def.setCreatedBy(formBean.getMemberDisCreated());
          def.setDefectOwner(formBean.getMemberDisOwner());
+         if(formBean.getStatusDis().equals("3")){
+             def.setFixedDate(new Date());
+         }
          def.setDefsId(new BigDecimal(formBean.getSeverityDis()));
          def.setDescription(formBean.getDescription());
          def.setQaId(new BigDecimal(formBean.getQcActivityDis()));
