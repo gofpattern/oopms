@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.utils.Constant;
 import openones.oopms.planner.utils.HibernateUtil;
@@ -66,6 +67,32 @@ public class AssignmentDAO {
                 session.getTransaction().rollback();
             }
             log.error("getProject.Exception", e);
+        }
+        return null;
+    }
+    
+    /**
+     * Get List of project correspond to an user.
+     * @param developerId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Developer> getDeveloperByProject(BigDecimal projectId) {
+        log.debug("getDeveloperByProject.START");
+        try {
+            session.getTransaction().begin();
+            String sql = "select developer from Assignment ass where ass.project.projectId = :projectId "
+                    + "and ((ass.endDate > :currentDate) or (ass.endDate is null))";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", projectId);
+            query.setParameter("currentDate", new Date());
+            List<Developer> developers = query.list();
+            return developers;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getDeveloperByProject.Exception", e);
         }
         return null;
     }

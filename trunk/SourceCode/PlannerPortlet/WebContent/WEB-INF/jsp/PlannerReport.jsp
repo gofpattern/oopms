@@ -9,114 +9,92 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<jsp:include page="header.jsp"></jsp:include>
+<link href="/<spring:message code="app.context"/>/resource_files/css/chart/basic.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/js/enhance.js"></script>    
+<script type="text/javascript" src="/<spring:message code="app.context"/>/resource_files/css/jquery.js"></script>    
+
 <portlet2:defineObjects />
 <portlet:defineObjects />
-<script type="text/javascript"> 
-    // sort
-    function fnFeaturesInit() {
-        /* Not particularly modular this - but does nicely :-) */
-        $('ul.limit_length>li').each(function(i) {
-            if (i > 10) {
-                this.style.display = 'none';
-            }
-        });
-
-        $('ul.limit_length').append('<li class="css_link">Show more<\/li>');
-        $('ul.limit_length li.css_link').click(function() {
-            $('ul.limit_length li').each(function(i) {
-                if (i > 5) {
-                    this.style.display = 'list-item';
-                }
-            });
-            $('ul.limit_length li.css_link').css('display', 'none');
-        });
-    }
-</script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        fnFeaturesInit();
-        $('#projectTable').dataTable({
-            "bFilter" : true,
-            "bSort" : true,
-            "bJQueryUI" : true,
-            "sPaginationType" : "full_numbers"
-        });
-        // Check module of project
-          $(function() {
-              if('<%=portletSession.getAttribute("ERROR")%>'== 'true') {
-                                $("#dialog").dialog("open");
-                            }
+function submitAction(formName, actionUrl) {
+	  
+	var frm = document.forms[formName];
+	    
+	    frm.action = actionUrl;
+	    
+	    frm.submit();
+	    
+	    
+	}    
+    
+    enhance({
+        loadScripts: [
+            '/<spring:message code="app.context"/>/resource_files/js/excanvas.js',
+            '/<spring:message code="app.context"/>/resource_files/js/jquery.min.js',
+            '/<spring:message code="app.context"/>/resource_files/js/visualize.jQuery.js',
+            '/<spring:message code="app.context"/>/resource_files/js/example.js'
+        ],
+        loadStyles: [
+            '/<spring:message code="app.context"/>/resource_files/css/chart/visualize.css',
+            '/<spring:message code="app.context"/>/resource_files/css/chart/visualize-light.css'
+        ]   
+    });   
 
-                        });
 
-                    });
-
-    // jquery dialog
-    $(function() {
-
-        $("#dialog").dialog({
-            autoOpen : false,
-            resizable : false,
-            height : 210,
-            width : 450,
-            modal : true,
-            buttons : {
-                Ok : function() {
-                    $(this).dialog("close");
-                }
-            }
-        });
-    });
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
+ <portlet:renderURL var="BackAction">
+        <portlet:param name="action" value="taskmanager" />
+      </portlet:renderURL>
   <div class="container">
-    <div class="content">
-
+    <div class="content" align="center">
+           <div align="left">
+        <form:form commandName="PlannerForm" method="post" action="${BackAction}">
+         <abbr title="Back to Task List"><input type="image" alt="Submit"
+                            src="/<spring:message code="app.context"/>/resource_files/icons/back.png"
+                            width="70" height="70"
+                            onclick='this.form.submit()' /></abbr>
+        </form:form>
+      </div>
       <c:set var="UserInfo" value='<%=portletSession.getAttribute("UserInfo")%>' />
-      <table border="0">
+<%--       <table>
         <tr>
           <th><strong>User: </strong></th>
           <td><strong><font color="#1490E3">${UserInfo.username}</font></strong></td>
         </tr>
-        <tr>
-          <th><strong>Joined Projects: </strong></th>
-          <td><strong><font color="#1490E3">${fn:length(projectList)}</font></strong></td>
-        </tr>
-      </table>
+      </table> --%>
+      <div align="center"><h1><strong><font color="#1490E3" size="10">PLANNER REPORT</font></strong></h1></div>
       <p></p>
-      <c:if test="${not empty projectList}">
-        <table id="projectTable" class="display dataTable" ellpadding="0" cellspacing="0" border="0" align="center">
+      <p></p>
+      <p></p>
+      <p></p>
+      <c:if test="${not empty reportInfoList}">
+        <table id="reportTable">
+        <caption>Tasks Distribution in ${project.name}</caption>
           <thead>
             <tr>
-              <th width="5%">No.</th>
-
-              <th width="80%">Project Name</th>
-              <th width="20%">Project Code</th>
+              <td></td>
+              <th>Tentative</th>
+              <th>OnGoing</th>
+              <th>Closed</th>
+              <th>Cancelled</th>
             </tr>
           </thead>
-          <tbody>
-            <c:set var="count" value="0" />
-            <c:forEach var="project" items="${projectList}">
-              <c:set var="count" value="${count + 1}" />
-              <portlet:actionURL var="renderAction">
-                <portlet:param name="action" value="taskmanager" />
-                <portlet:param name="projectId" value="${project.projectId}" />
-                <portlet:param name="developerId" value="${developerId}" />
-              </portlet:actionURL>
-              <tr>
-                <td>${count}</td>
-
-                <td align="center" ><a href="${renderAction}">${project.name}</a></td>
-
-                <td><a href="${renderAction}">${project.code}</a></td>
+          <tbody>           
+            <c:forEach var="reportInfo" items="${reportInfoList}">              
+              <tr>                
+                <th >${reportInfo.developerName}</th>
+                <td>${reportInfo.totalTentativeTasks}</td>
+                <td>${reportInfo.totalOngoingTasks}</td>
+                <td>${reportInfo.totalClosedTasks}</td>
+                <td>${reportInfo.totalCancelTasks}</td>
               </tr>
             </c:forEach>
           </tbody>
         </table>
       </c:if>
-      <c:if test="${empty projectList}">
+      <c:if test="${empty reportInfoList}">
         <h5><spring:message code="emptyProjects.warning"/></h5>
     </c:if>
     </div>

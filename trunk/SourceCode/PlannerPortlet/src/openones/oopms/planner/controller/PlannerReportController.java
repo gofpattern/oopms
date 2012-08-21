@@ -28,9 +28,11 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.form.UserInfo;
+import openones.oopms.planner.dao.AssignmentDAO;
 import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
+import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ReportInfo;
 import openones.oopms.planner.model.Tasks;
@@ -47,20 +49,19 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author PNTG
- *
  */
 @Controller
 @RequestMapping("VIEW")
 public class PlannerReportController {
     private static Logger log = Logger.getLogger(PlannerReportController.class);
-    
-    
+
     @ActionMapping(params = "action=plannerReport")
     public void processPlannerReport(PlannerForm formBean, PlannerAddForm formBeanAdd, BindingResult result,
             SessionStatus status, ActionResponse response, ActionRequest request, PortletSession session) {
         log.debug("processPlannerReport.START");
+        response.setRenderParameter("action", "plannerReport");
     }
-    
+
     @RenderMapping(params = "action=plannerReport")
     public ModelAndView postPlannerReport(RenderRequest request, PortletSession session) {
         log.debug("postDashboard.START");
@@ -68,11 +69,11 @@ public class PlannerReportController {
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
         UserInfo userInfo = new UserInfo(logonUser);
-       // prepareReportInfo(userInfo, mav, PlannerController.developerId, PlannerController.projectDefault);        
-        
+        prepareReportInfo(userInfo, mav, PlannerController.developerId, PlannerController.projectDefault);
+
         return mav;
     }
-    
+
     /**
      * Prepare information for PlannerReport.jsp.
      * @param userInfo
@@ -80,25 +81,26 @@ public class PlannerReportController {
      * @param session
      * @param formBean
      */
-    void prepareReportInfo(UserInfo userInfo,ModelAndView mav, String developerId, String projectId){
+    void prepareReportInfo(UserInfo userInfo, ModelAndView mav, String developerId, String projectId) {
         log.debug("prepareReportInfo.START");
-        
+
         TaskDAO taskDAO = new TaskDAO();
-        List<ReportInfo> reportInfoList = new ArrayList<ReportInfo>();        
-        Project project = taskDAO.getProjectById(new BigDecimal(projectId));        
-        List<Tasks> tasks = taskDAO.getTasksByDeveloperOfProject(projectId, developerId);
+        AssignmentDAO assignmentDAO = new AssignmentDAO();
+        List<ReportInfo> reportInfoList = new ArrayList<ReportInfo>();
+        Project project = taskDAO.getProjectById(new BigDecimal(projectId));
+        List<Developer> developers = assignmentDAO.getDeveloperByProject(new BigDecimal(projectId));
         ReportInfo reportInfo;
-        
-        for (int i = 0; i< tasks.size();i++){
+
+        for (int i = 0; i < developers.size(); i++) {
             reportInfo = new ReportInfo();
-            reportInfo.setDeveloperName(userInfo.getUsername());
-            reportInfo.setTotalTentativeTasks(taskDAO.getNumberOfTentativeTask(projectId, developerId));
-            reportInfo.setTotalOngoingTasks(taskDAO.getNumberOfOngoingTask(projectId, developerId));
-            reportInfo.setTotalClosedTasks(taskDAO.getNumberOfClosedTask(projectId, developerId));
-            reportInfo.setTotalCancelTasks(taskDAO.getNumberOfClosedTask(projectId, developerId));
+            reportInfo.setDeveloperName(developers.get(i).getName());
+            reportInfo.setTotalTentativeTasks(taskDAO.getNumberOfTentativeTask(projectId, developers.get(i).getDeveloperId().toString()));
+            reportInfo.setTotalOngoingTasks(taskDAO.getNumberOfOngoingTask(projectId, developers.get(i).getDeveloperId().toString()));
+            reportInfo.setTotalClosedTasks(taskDAO.getNumberOfClosedTask(projectId, developers.get(i).getDeveloperId().toString()));
+            reportInfo.setTotalCancelTasks(taskDAO.getNumberOfClosedTask(projectId, developers.get(i).getDeveloperId().toString()));
             reportInfoList.add(reportInfo);
         }
-        
+
         mav.addObject("reportInfoList", reportInfoList);
         mav.addObject("project", project);
     }
