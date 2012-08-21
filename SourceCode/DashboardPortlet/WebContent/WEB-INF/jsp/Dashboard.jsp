@@ -63,7 +63,7 @@
 </script>
 </head>
 <body id="portal" class="up fl-theme-mist">
-  <div id="portalPageBodyInner" class="container">
+  <div class="container">
     <div class="content">
       <portlet:actionURL var="searchAction">
         <portlet:param name="action" value="search" />
