@@ -34,9 +34,15 @@ public class Constant {
     public static String DATEFORMAT = "MM/dd/yyyy";
     public static String PROJECT_OWNER_AND_PM = "0";
     public static String PROJECT_MANAGER_TYPE = "1";
+    public static String PROJECT_MANAGER = "Project Manager";
     public static String DEVELOPER_TYPE = "2";
+    public static String DEVELOPER = "Developer";
     public static String TESTER_TYPE = "3";
+    public static String TESTER = "Tester";
     public static String QA_TYPE = "4";
+    public static String QA = "QA";
     public static String CUSTOMER_TYPE = "5";
+    public static String CUSTOMER = "Customer";
     public static String PROJECT_OWNER_TYPE = "6";
+    public static String PROJECT_OWNER = "Project Owner";
 }

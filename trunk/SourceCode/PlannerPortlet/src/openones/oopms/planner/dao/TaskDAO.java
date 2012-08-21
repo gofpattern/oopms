@@ -128,7 +128,41 @@ public class TaskDAO {
         }
 
     }
+    
+    public List<Tasks> getTasksByDeveloperOfProject(String projectId, String developerId) {
+        log.debug("getTaskByProjectId.START");
+        Session session = null;
+        Transaction tx = null;
 
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            session.clear();
+            String sql = "from Tasks where projectid = :projectId and assignedto = :developerId and active = true";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            query.setParameter("developerId", new BigDecimal(developerId));
+            @SuppressWarnings("unchecked")
+            List<Tasks> taskList = query.list();
+            tx.commit();
+            return taskList;
+
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
+            }
+            log.error("getTaskByProjectId.Exception", e);
+            return null;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+    }
+    
     /**
      * Get task by Id.
      * @param taskId
@@ -514,5 +548,158 @@ public class TaskDAO {
         }
         return null;
     }
+    
+    /**
+     * Get number of Closed tasks belong to user in project.
+     * @param projectId
+     * @param developerId
+     * @return
+     */
+    public long getNumberOfClosedTask(String projectId, String developerId) {
+        log.debug("getNumberOfClosedTask.START");
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            String sql = "Select count(*) from Tasks where assignedto = :developerId " +
+            		"and projectid = :projectId and statusid = 174 and active = true";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            query.setParameter("developerId", new BigDecimal(developerId));            
+            long numberOfOngoing = (Long) query.uniqueResult();
+            tx.commit();
+            return numberOfOngoing;
 
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
+            }
+            log.error("getNumberOfClosedTask.ERROR", e);
+            return 0;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
+    }
+    /**
+     * Get number of Cancelled tasks belong to user in project.
+     * @param projectId
+     * @param developerId
+     * @return
+     */
+    public long getNumberOfCancelledTask(String projectId, String developerId) {
+        log.debug("getNumberOfOngoingTask.START");
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            String sql = "Select count(*) from Tasks where assignedto = :developerId " +
+                    "and projectid = :projectId and statusid = 175 and active = true";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            query.setParameter("developerId", new BigDecimal(developerId));            
+            long numberOfOngoing = (Long) query.uniqueResult();
+            tx.commit();
+            return numberOfOngoing;
+
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
+            }
+            log.error("getNumberOfOngoingTask.ERROR", e);
+            return 0;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
+    }
+    /**
+     * Get number of Tentative tasks belong to user in project.
+     * @param projectId
+     * @param developerId
+     * @return
+     */
+    public long getNumberOfTentativeTask(String projectId, String developerId) {
+        log.debug("getNumberOfTentativeTask.START");
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            String sql = "Select count(*) from Tasks where assignedto = :developerId " +
+                    "and projectid = :projectId and statusid = 176 and active = true";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            query.setParameter("developerId", new BigDecimal(developerId));            
+            long numberOfOngoing = (Long) query.uniqueResult();
+            tx.commit();
+            return numberOfOngoing;
+
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
+            }
+            log.error("getNumberOfTentativeTask.ERROR", e);
+            return 0;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
+    }
+    /**
+     * Get number of On-going tasks belong to user in project.
+     * @param projectId
+     * @param developerId
+     * @return
+     */
+    public long getNumberOfOngoingTask(String projectId, String developerId) {
+        log.debug("getNumberOfOngoingTask.START");
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            String sql = "Select count(*) from Tasks where assignedto = :developerId " +
+                    "and projectid = :projectId and statusid = 173 and active = true";
+            Query query = session.createQuery(sql);
+            query.setParameter("projectId", new BigDecimal(projectId));
+            query.setParameter("developerId", new BigDecimal(developerId));            
+            long numberOfOngoing = (Long) query.uniqueResult();
+            tx.commit();
+            return numberOfOngoing;
+
+        } catch (RuntimeException e) {
+            try {
+                tx.rollback();
+            } catch (RuntimeException rbe) {
+                log.error("Couldn’t roll back transaction", rbe);
+            }
+            log.error("getNumberOfOngoingTask.ERROR", e);
+            return 0;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
+    }
+    
 }
