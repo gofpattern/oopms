@@ -176,6 +176,11 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
     				alert('This Exceptional Cost daily expenses are not paid yet. Please pay all daily expense relate to this Exceptional Cost before pay it');
     			}
                 
+                if(document.getElementById("costStatus").value==3) {
+    				document.getElementById("costStatus").value = 0;
+    				alert('Your project is going to run out of money before it deliveres');
+    			}
+                
                 $('#mainTable7').dataTable( {
                     "bFilter": true,
                     "bSort": true,
@@ -743,6 +748,7 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
 	<input name="deleteCostTypeFlag" type="hidden" value="${deleteCostTypeFlag}" id="deleteCostTypeFlag"/>
 	<input name="deleteDailyFlag" type="hidden" value="${deleteDailyFlag}" id="deleteDailyFlag"/>
 	<input name="payExceptionalCostFlag" type="hidden" value="${payExceptionalCostFlag}" id="payExceptionalCostFlag"/>
+	<input name="costStatus" type="hidden" value="${costStatus}" id="costStatus"/>
 	</form:form>
   <!-- end .content --></div>
   <!-- end .container --></div>

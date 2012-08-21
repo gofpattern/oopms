@@ -76,6 +76,7 @@ public class CreateDailyExpenseController {
 			cDao.updateProjectCost(projectCost);
 			response.setRenderParameter("action", "GoCostManagement");
 			response.setRenderParameter("projectId", projectId);
+			response.setRenderParameter("costStatus", projectCost.getCostStatus());
 			log.error("Insert success");
 		} else {
 			log.error("Cannot Insert");

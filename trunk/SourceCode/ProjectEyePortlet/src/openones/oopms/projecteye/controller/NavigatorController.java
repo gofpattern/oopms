@@ -819,7 +819,12 @@ public class NavigatorController {
 			mav.addObject("currentBudget", projectCost.getCurrentBudget());
 			mav.addObject("currentExpense", projectCost.getCurrentExpense());
 		}
-
+		String costStatus = request.getParameter("costStatus");
+		if(costStatus!=null) {
+			if(costStatus.equals(Constant.ProjectCostStatusRed)) {
+				mav.addObject("costStatus", costStatus);
+			}
+		}
 		mav.addObject("OneTimeExpenseList", oneTimeExpenseList);
 		mav.addObject("CostTypeList", costTypeList);
 		mav.addObject("DailyExpenseList", dailyExpenseListView);
