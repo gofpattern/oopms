@@ -582,7 +582,7 @@ public class DashboardController extends BaseController {
                 * Constant.PAGE_WEIGHT + remainDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
         log.debug("workCapability = " + workCapability);
         if(remainWork > workCapability){
-            return Constant.BAD_STATUS;
+            return Constant.BAD_STATUS + " glow"; //glow is css class to support spark 
         } else if (remainWork < workCapability)
             return Constant.GOOD_STATUS;
         else return Constant.NORMAL_STATUS;
