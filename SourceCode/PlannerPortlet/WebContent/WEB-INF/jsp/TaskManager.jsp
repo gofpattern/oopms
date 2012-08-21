@@ -185,6 +185,10 @@
       <portlet:actionURL var="DoPlannerEditAction">
         <portlet:param name="action" value="plannerEdit" />
       </portlet:actionURL>
+      
+      <portlet:actionURL var="DoPlannerReportAction">
+        <portlet:param name="action" value="plannerReport" />
+      </portlet:actionURL>
 
       <portlet:actionURL var="PlannerAddAction">
         <portlet:param name="action" value="${plAddAction}" />
@@ -447,9 +451,12 @@
         </p>
         <p>
       </div>
-      <!--       <div align="right">
-        <input type="button" name="" value="Import" /> <input type="button" name="input" value="Report" />
-      </div> -->
+       <div align="right">
+       <!--  <input type="button" name="" value="Import" />  -->
+        <form:form commandName="PlannerForm" method="post" action="${DoPlannerReportAction}">
+          <input type="submit" name="report" value=" Report " />
+        </form:form>
+      </div>
 
     </div>
 

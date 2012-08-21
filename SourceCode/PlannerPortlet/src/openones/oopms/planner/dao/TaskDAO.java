@@ -567,9 +567,9 @@ public class TaskDAO {
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             query.setParameter("developerId", new BigDecimal(developerId));            
-            long numberOfOngoing = (Long) query.uniqueResult();
+            long numberOfClosed = (Long) query.uniqueResult();
             tx.commit();
-            return numberOfOngoing;
+            return numberOfClosed;
 
         } catch (RuntimeException e) {
             try {
@@ -605,9 +605,9 @@ public class TaskDAO {
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             query.setParameter("developerId", new BigDecimal(developerId));            
-            long numberOfOngoing = (Long) query.uniqueResult();
+            long numberOfCancelled = (Long) query.uniqueResult();
             tx.commit();
-            return numberOfOngoing;
+            return numberOfCancelled;
 
         } catch (RuntimeException e) {
             try {
@@ -643,9 +643,9 @@ public class TaskDAO {
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             query.setParameter("developerId", new BigDecimal(developerId));            
-            long numberOfOngoing = (Long) query.uniqueResult();
+            long numberOfTentative = (Long) query.uniqueResult();
             tx.commit();
-            return numberOfOngoing;
+            return numberOfTentative;
 
         } catch (RuntimeException e) {
             try {
