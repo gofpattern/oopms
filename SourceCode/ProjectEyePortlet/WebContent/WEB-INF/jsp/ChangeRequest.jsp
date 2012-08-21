@@ -44,42 +44,7 @@
     	<br><p class="title" id="headerDuyND">Change Request</p>
     </div>
 	
-	<table class="portlet-table">
-
-	<c:if test="${not empty projectChangeRequestList}">
-   <tbody><tr >
-        <th width="5%" scope="row">No</th>    
-        <th width="15%" scope="row">Name</th>
-        <th width="50%" scope="row">Description</th>
-        <th width="10%" scope="row">Stage</th>  
-    </tr>  
-        <c:forEach var="changeRequest" items="${projectChangeRequestList}" varStatus="count">
-            <tr>
-            <portlet:renderURL var="renderAction">
-            	<portlet:param name="action" value="GoProjectDetail" />
-            	<portlet:param name="projectId" value="${project.projectId}" />
-            </portlet:renderURL>
-               <td scope="row">${count.count}</td>
-               <td scope="row">${changeRequest.item}</td>
-               <td scope="row">${changeRequest.changes}</td>
-               <td scope="row">${changeRequest.version}</td>                                 
-            </tr>
-        </c:forEach>
-   </tbody>
-	</c:if>
-	<c:if test="${empty projectChangeRequestList}">
-		There is no change request.
-	</c:if>
-    
-    
-</table>
-	<div style="border-style:ridge" class="up-portlet-content-wrapper-inner">
-		<portlet:renderURL var="renderAction">
-    		<portlet:param name="action" value="GoCreateChangeRequest" />
-        	<portlet:param name="projectId" value="${projectId}" />
-    	</portlet:renderURL>
-    	<a href="${renderAction}">Add New Change Request</a>
-	</div>
+	This function is under development. Please come back later. We will email you for new version release.  Thank you!
 	
 	
 	

@@ -129,8 +129,6 @@ public class ProjectEyeHomeController {
 		// updateMenuBar(session, getMenuBar());
 		// session.setAttribute("MenuBar",
 		// getMenuBar(),PortletSession.PORTLET_SCOPE);
-		session.setAttribute("MenuBar", getMenuBar(),
-				PortletSession.APPLICATION_SCOPE);
 		return "ProjectEyeHome";
 
 	}
@@ -197,7 +195,8 @@ public class ProjectEyeHomeController {
 	}
 
 	@RenderMapping(params = "action=GoProjectDetail")
-	public ModelAndView postProjectDetail(RenderRequest request) {
+	public ModelAndView postProjectDetail(RenderRequest request,
+			PortletSession session) {
 		log.debug("postProjectDetail.START");
 		String projectId = request.getParameter("projectId");
 		ProjectDao pDao = new ProjectDao();
@@ -243,6 +242,7 @@ public class ProjectEyeHomeController {
 		AssignmentDao aDao = new AssignmentDao();
 		Developer dev = dDao.getDeveloper(username);
 		Assignment role = aDao.getUserRole(project, dev.getDeveloperId());
+
 		mav.addObject("role", String.valueOf(role.getType()));
 		mav.addObject("planEffort", project.getPlanEffort());
 		mav.addObject("actualEffort", project.getActualEffort());
@@ -251,6 +251,20 @@ public class ProjectEyeHomeController {
 		// mav.addObject("projectHealth", project);
 		// mav.addObject("projectEvaluation", project);
 
+		// put user role and menu bar according to user on session
+		session.setAttribute("UserRole", String.valueOf(role.getType()),
+				PortletSession.APPLICATION_SCOPE);
+		List<SubMenu> menu = getMenuBar();
+		if ((!String.valueOf(role.getType())
+				.equals(Constant.ProjectManagerType))
+				&& (!String.valueOf(role.getType()).equals(
+						Constant.ProjectOwnerAndProjectManagerType))
+				&& (!String.valueOf(role.getType()).equals(
+						Constant.ProjectOwnerType))) {
+			menu.remove(menu.size()-1);
+		}
+		session.setAttribute("MenuBar", menu,
+				PortletSession.APPLICATION_SCOPE);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
 		return mav;

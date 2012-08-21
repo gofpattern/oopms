@@ -103,8 +103,6 @@
 <form:form name="${portletNamespace}RiskIssue" method="post" action="${formAction}"></form:form>
 <br><p id="header2DuyND">Risk<p>
 <table class="display dataTable" id="mainTable1" cellpadding="0" cellspacing="0" border="0">	
-
-	<c:if test="${not empty riskList}">
     <thead><tr >
    		<th width="5%" scope="row">No</th>
         <th width="10%" scope="row">Risk Source</th>    
@@ -113,7 +111,9 @@
         <th width="10%" scope="row">Estimated Impact</th>
         <th width="30%" scope="row">Description</th> 
         <th width="25%" scope="row">Trigger</th>
-        <th width="10%" scope="row">Action</th>   
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
+        <th width="10%" scope="row">Action</th>
+        </c:if>   
     </tr>
     </thead>
     <tbody>
@@ -131,23 +131,31 @@
             	<portlet:param name="riskId" value="${risk.riskId}" />
             </portlet:actionURL>
                <td scope="row">${count.count}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction3}">${risk.riskSource}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               	<td scope="row">${risk.riskSource}</td>
+               </c:if>
                <td scope="row">${risk.probability}</td>
                <td scope="row">${risk.priority}</td>
                <td scope="row">${risk.estimatedImpact}</td>
                <td scope="row">${risk.description}</td>
                <td scope="row">${risk.trigger}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                <button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}RiskIssue", "${renderAction4}", "Do you sure you want to delete this Risk?");'>Remove</button>
                </td>
+               </c:if>
             </tr>
         </c:forEach>
     </tbody>
-    </c:if>
     </table><br>
+    <c:if test="${(UserRole == 1) || (UserRole==0)}">
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}RiskIssue", "${renderAction1}")'>Add new Risk</button>
+	</c:if>
 <br><p id="header2DuyND">Issue<p>
-	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}RiskIssue", "${renderAction2}")'>Add new Issue</button>
+	This function is under development. Please come back later. We will email you for new version release.  Thank you!
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

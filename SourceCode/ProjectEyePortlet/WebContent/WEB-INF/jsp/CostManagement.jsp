@@ -257,7 +257,10 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
 </portlet:renderURL>
 <form:form name="${portletNamespace}CostManagement" commandName="CostManagementForm" method="post" action="${formAction6}">
 Current Budget is : ${currentBudget}
-<br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction7}")'>Add new Budget Record</button>
+<br>
+<c:if test="${(UserRole == 1) || (UserRole==0)}">
+<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction7}")'>Add new Budget Record</button>
+</c:if>
 <button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction8}")'>View Budget Records</button>
 <c:if test="${not empty BudgetRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Budget Records--------------------------------</p>
@@ -271,7 +274,9 @@ Current Budget is : ${currentBudget}
         <th width="10%" scope="row">Value</th>    
         <th width="10%" scope="row">Type</th> 
         <th width="65%" scope="row">Description</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -290,7 +295,12 @@ Current Budget is : ${currentBudget}
             	<portlet:param name="budgetType" value="${budget.type}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${budget.value}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${budget.value}</td>
+               </c:if>
                <td scope="row">
                		<c:if test="${budget.type == 0}">
                			Increase
@@ -300,9 +310,11 @@ Current Budget is : ${currentBudget}
                		</c:if>
                </td>
                <td scope="row">${budget.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Budget record?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -456,7 +468,9 @@ Current Invoice is : ${currentExpense}
         <th width="10%" scope="row">Cost($)</th> 
         <th width="13%" scope="row">Date</th>
         <th width="32%" scope="row">Description</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="20%" scope="row">Action</th>
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -478,20 +492,29 @@ Current Invoice is : ${currentExpense}
             	<portlet:param name="oopmsCostOneTimeExpenseId" value="${oneTimeExpense.oopmsCostOneTimeExpenseId}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${oneTimeExpense.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${oneTimeExpense.name}</td>
+               </c:if>
                <td scope="row">${oneTimeExpense.cost}</td>
                <td scope="row">${oneTimeExpense.occurDate}</td>
                <td scope="row">${oneTimeExpense.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
                	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
 </table> 	
 <br>
+	<c:if test="${(UserRole == 1) || (UserRole==0)}">
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction1}")'>Add new One Time Expense</button>
+	</c:if>
 <h3>&nbsp;</h3><h3>Daily Expense</h3>
 Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type="text" id="datepicker2" style='width:80px'/><span id=errorsDiv_payDate>&nbsp;</span><br>
 <table class="display dataTable" id="mainTable2" cellpadding="0" cellspacing="0" border="0">	
@@ -505,7 +528,9 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
         <th width="18%" scope="row">Use on following days</th>
         <th width="7%" scope="row">Type</th>
         <th width="10%" scope="row">Description</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="20%" scope="row">Action</th>
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -527,23 +552,32 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
             	<portlet:param name="oopmsCostDailyExpenseId" value="${dailyExpense.oopmsCostDailyExpenseId}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${dailyExpense.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${dailyExpense.name}</td>
+               </c:if>
                <td scope="row">${dailyExpense.cost}</td>
                <td scope="row">${dailyExpense.startDate}</td>
                <td scope="row">${dailyExpense.endDate}</td>
                <td scope="row">${dailyExpense.dateUsed}</td>
                <td scope="row">${dailyExpense.type}</td>
                <td scope="row">${dailyExpense.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
                	<button type="button" class="button blue small" onclick='submitAction2("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
 </table>
 <br>
+	<c:if test="${(UserRole == 1) || (UserRole==0)}">
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction2}")'>Add new Daily Expense</button>
+	</c:if>
 <h3>&nbsp;</h3><h3>Exceptional Expense</h3>
 <table class="display dataTable" id="mainTable3" cellpadding="0" cellspacing="0" border="0">	
    <thead>
@@ -554,7 +588,9 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
         <th width="15%" scope="row">Addition effect</th>
         <th width="13%" scope="row">Date</th>
         <th width="22%" scope="row">Description</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="20%" scope="row">Action</th>
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -576,21 +612,30 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalExpense.oopmsExceptionalCostId}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${exceptionalExpense.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${exceptionalExpense.name}</td>
+               </c:if>
                <td scope="row">${exceptionalExpense.affectTo}</td>
                <td scope="row">${exceptionalExpense.additionEffect}</td>
                <td scope="row">${exceptionalExpense.occurDate}</td>
                <td scope="row">${exceptionalExpense.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Expense?");'>Remove</button>
                	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
 </table>
 <br>
+	<c:if test="${(UserRole == 1) || (UserRole==0)}">
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction3}")'>Add new Exceptional Expense</button>
+	</c:if>
 <h3>&nbsp;</h3><h3>Exceptional Deduct</h3>
 <table class="display dataTable" id="mainTable4" cellpadding="0" cellspacing="0" border="0">	
    <thead>
@@ -601,7 +646,9 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
         <th width="15%" scope="row">Addition effect</th>
         <th width="13%" scope="row">Date</th>
         <th width="22%" scope="row">Description</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="20%" scope="row">Action</th>
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -623,21 +670,30 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
             	<portlet:param name="oopmsExceptionalCostId" value="${exceptionalDeduct.oopmsExceptionalCostId}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${exceptionalDeduct.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${exceptionalDeduct.name}</td>
+               </c:if>
                <td scope="row">${exceptionalDeduct.affectTo}</td>
                <td scope="row">${exceptionalDeduct.additionEffect}</td>
                <td scope="row">${exceptionalDeduct.occurDate}</td>
                <td scope="row">${exceptionalDeduct.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Deduct?");'>Remove</button>
                	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${renderAction4}")'>Pay</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
 </table>
 <br>
+	<c:if test="${(UserRole == 1) || (UserRole==0)}">
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction4}")'>Add new Exceptional Deduct</button>
+	</c:if>
 <h3>&nbsp;</h3><h3>Cost Types</h3>
  <table class="display dataTable" id="mainTable5" cellpadding="0" cellspacing="0" border="0">	
    <thead>
@@ -645,7 +701,9 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
    		<th width="5%" scope="row">No</th>
         <th width="30%" scope="row">Name</th>    
         <th width="45%" scope="row">Description</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="20%" scope="row">Action</th>
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -662,17 +720,26 @@ Set Date to Pay<form:input maxlength="10" path="payDate" size="9" value="" type=
             	<portlet:param name="oopmsCostTypeId" value="${costType.oopmsCostTypeId}" />
             </portlet:actionURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${costType.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${costType.name}</td>
+               </c:if>
                <td scope="row">${costType.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row" align="center">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}CostManagement", "${renderAction3}", "Do you sure you want to delete this Type?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
 </table>
 <br>
+	<c:if test="${(UserRole == 1) || (UserRole==0)}">
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction5}")'>Add new Type</button>
+	</c:if>
 	<input name="deleteCostTypeFlag" type="hidden" value="${deleteCostTypeFlag}" id="deleteCostTypeFlag"/>
 	<input name="deleteDailyFlag" type="hidden" value="${deleteDailyFlag}" id="deleteDailyFlag"/>
 	<input name="payExceptionalCostFlag" type="hidden" value="${payExceptionalCostFlag}" id="payExceptionalCostFlag"/>

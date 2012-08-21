@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import openones.oopms.projecteye.dao.AssignmentDao;
@@ -52,7 +53,7 @@ public class AssignProjectManagerController {
 			.getLogger(AssignProjectManagerController.class);
 
 	@RenderMapping(params = "action=ChangeProjectManager")
-	public ModelAndView postChangeProjectManager(RenderRequest request) {
+	public ModelAndView postChangeProjectManager(RenderRequest request, PortletSession session) {
 		log.debug("post ChangeProjectManager.START");
 		String projectId = request.getParameter("projectId");
 		String userId = request.getParameter("userId");
@@ -121,6 +122,11 @@ public class AssignProjectManagerController {
 		mav.addObject("projectTeamList", projectTeamList);
 		log.debug("project ID la " + projectId);
 		mav.addObject("projectId", projectId);
+		//set UserRole
+		Developer dev = dDao.getDeveloper(ProjectEyeHomeController.username);
+		Assignment role = aDao.getUserRole(project, dev.getDeveloperId());
+		session.setAttribute("UserRole", String.valueOf(role.getType()),
+				PortletSession.APPLICATION_SCOPE);
 		return mav;
 	}
 }
