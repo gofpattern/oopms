@@ -73,6 +73,7 @@ public class UpdateOneTimeExpenseController {
 			cDao.updateProjectCost(projectCost);
 			response.setRenderParameter("action", "GoCostManagement");
 			response.setRenderParameter("projectId", projectId);
+			response.setRenderParameter("costStatus", projectCost.getCostStatus());
 			log.error("Update success");
 		} else {
 			log.error("Cannot Update");

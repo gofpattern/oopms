@@ -91,6 +91,7 @@ public class CreateBudgetRecordController {
 				projectCost.setCostStatus(CostUtil.getProjectCostStatus(
 						projectId, projectCost.getCurrentBudget()));
 				cDao.updateProjectCost(projectCost);
+				response.setRenderParameter("costStatus", projectCost.getCostStatus());
 			} else {
 				OopmsProjectCost projectCost2 = new OopmsProjectCost();
 				projectCost2.setProjectId(new BigDecimal(projectId));
@@ -107,6 +108,7 @@ public class CreateBudgetRecordController {
 				projectCost2.setCostStatus(CostUtil.getProjectCostStatus(
 						projectId, projectCost2.getCurrentBudget()));
 				cDao.insertProjectCost(projectCost2);
+				response.setRenderParameter("costStatus", projectCost2.getCostStatus());
 			}
 			response.setRenderParameter("action", "GoCostManagement");
 			response.setRenderParameter("projectId", projectId);

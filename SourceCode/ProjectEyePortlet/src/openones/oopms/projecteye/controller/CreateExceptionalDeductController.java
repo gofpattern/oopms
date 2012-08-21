@@ -101,6 +101,7 @@ public class CreateExceptionalDeductController {
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(projectId,
 				projectCost.getCurrentBudget()));
 		cDao.updateProjectCost(projectCost);
+		response.setRenderParameter("costStatus", projectCost.getCostStatus());
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", projectId);
 	}

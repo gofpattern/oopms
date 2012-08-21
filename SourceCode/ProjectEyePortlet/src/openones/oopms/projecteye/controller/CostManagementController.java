@@ -185,6 +185,7 @@ public class CostManagementController {
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
 				formBean.getProjectId(), projectCost.getCurrentBudget()));
 		cDao.updateProjectCost(projectCost);
+		response.setRenderParameter("costStatus", projectCost.getCostStatus());
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
@@ -203,6 +204,7 @@ public class CostManagementController {
 			projectCost.setCostStatus(CostUtil.getProjectCostStatus(
 					formBean.getProjectId(), projectCost.getCurrentBudget()));
 			cDao.updateProjectCost(projectCost);
+			response.setRenderParameter("costStatus", projectCost.getCostStatus());
 		} else {
 			response.setRenderParameter("deleteDailyFlag", dailyExpenseUsed);
 			response.setRenderParameter("deletingOopmsCostDailyExpenseId",
@@ -225,6 +227,7 @@ public class CostManagementController {
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
 				formBean.getProjectId(), projectCost.getCurrentBudget()));
 		cDao.updateProjectCost(projectCost);
+		response.setRenderParameter("costStatus", projectCost.getCostStatus());
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
@@ -240,6 +243,7 @@ public class CostManagementController {
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
 				formBean.getProjectId(), projectCost.getCurrentBudget()));
 		cDao.updateProjectCost(projectCost);
+		response.setRenderParameter("costStatus", projectCost.getCostStatus());
 		response.setRenderParameter("action", "GoCostManagement");
 		response.setRenderParameter("projectId", formBean.getProjectId());
 	}
@@ -274,6 +278,7 @@ public class CostManagementController {
 		projectCost.setCostStatus(CostUtil.getProjectCostStatus(
 				formBean.getProjectId(), projectCost.getCurrentBudget()));
 		cDao.updateProjectCost(projectCost);
+		response.setRenderParameter("costStatus", projectCost.getCostStatus());
 		response.setRenderParameter("deleteCostTypeFlag",
 				Constant.CostTypeNotUsed);
 		response.setRenderParameter("action", "GoCostManagement");
