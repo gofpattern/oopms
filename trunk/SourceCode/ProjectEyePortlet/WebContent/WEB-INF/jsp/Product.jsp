@@ -107,7 +107,9 @@
         <th width="6%" scope="row">Planned size</th>
         <th width="6%" scope="row">Actual size</th>
         <th width="33%" scope="row">Description</th>
-        <th width="17%" scope="row">Action</th>    
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
+        <th width="17%" scope="row">Action</th>
+        </c:if>    
     </tr> 
     </thead>
     <tbody> 
@@ -124,14 +126,25 @@
             	<portlet:param name="productId" value="${product.productId}" />
             </portlet:renderURL>
                <td scope="row">${count.count}</td>
-               <td scope="row"><a href="${renderAction}">${product.name}</a></td>
+               <td scope="row">
+               <c:if test="${(UserRole == 1) || (UserRole==0)}"> 
+               	<a href="${renderAction}">              
+               		${product.name}               	
+               	</a>
+               	</c:if>
+               	<c:if test="${(UserRole != 1) && (UserRole!=0)}">${product.name}</c:if> 
+               </td>               
                <td scope="row">${product.workProduct}</td>
                <td scope="row">${product.plannedSize}</td>
                <td scope="row">${product.actualSize}</td>
                <td scope="row">${product.description}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
+                 
 					<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}SearchProduct", "${renderAction2}", "Do you sure you want to delete this product?");'>Remove This Product</button>
-			   </td>                                 
+				
+			   </td>
+			   </c:if>                                 
             </tr>
         </c:forEach>
    </tbody>
@@ -144,8 +157,9 @@
     		<portlet:param name="action" value="GoCreateProduct" />
         	<portlet:param name="projectId" value="${projectId}" />
     	</portlet:renderURL>
+    	<c:if test="${(UserRole == 1) || (UserRole==0)}"> 
     	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}SearchProduct", "${renderAction}")'>Add New Product</button> 
-	
+		</c:if>
 	<input name="deleteFlag" type="hidden" value="${deleteFlag}" id="deleteFlag"/> 
   <!-- end .content --></div>
   <!-- end .container --></div>

@@ -148,7 +148,12 @@
             	<portlet:param name="stageNumber" value="${count.count}" />
             </portlet:renderURL>
                <td scope="row">${count.count}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction}">${stage.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${stage.name}</td>
+               </c:if>
                <td scope="row"></td>
                <td scope="row">${stage.baseFinishDate}</td>
                <td scope="row">${stage.planFinishDate}</td>
@@ -174,7 +179,9 @@
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
         <th width="25%" scope="row">Note</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>   
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -191,7 +198,12 @@
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
+     		   <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${deliverable.name}</td>
+               </c:if>
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
@@ -202,9 +214,11 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -223,7 +237,9 @@
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
         <th width="25%" scope="row">Note</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>   
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -240,7 +256,12 @@
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
+     		  <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${deliverable.name}</td>
+               </c:if>
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
@@ -251,9 +272,11 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -272,7 +295,9 @@
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
         <th width="25%" scope="row">Note</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>   
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -289,7 +314,12 @@
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${deliverable.name}</td>
+               </c:if>
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
@@ -300,9 +330,11 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -321,7 +353,9 @@
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
         <th width="25%" scope="row">Note</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>   
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -338,7 +372,12 @@
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${deliverable.name}</td>
+               </c:if>
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
@@ -349,9 +388,11 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -370,7 +411,9 @@
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
         <th width="25%" scope="row">Note</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>   
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -387,7 +430,12 @@
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${deliverable.name}</td>
+               </c:if>
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
@@ -398,9 +446,11 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -419,7 +469,9 @@
         <th width="10%" scope="row">Actual committed date</th>
         <th width="10%" scope="row">Status</th>
         <th width="25%" scope="row">Note</th>
+        <c:if test="${(UserRole == 1) || (UserRole==0)}">
         <th width="10%" scope="row">Action</th>   
+        </c:if>
     </tr>
    </thead>
    <tbody>
@@ -436,7 +488,12 @@
             	<portlet:param name="delivarableId" value="${deliverable.moduleId}" />
             </portlet:renderURL>
      		   <td scope="row">${count.count}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row"><a href="${renderAction2}">${deliverable.name}</a></td>
+               </c:if>
+               <c:if test="${(UserRole != 1) && (UserRole!=0)}">
+               <td scope="row">${deliverable.name}</td>
+               </c:if>
                <td scope="row">${deliverable.plannedReleaseDate}</td>
                <td scope="row">${deliverable.replannedReleaseDate}</td>
                <td scope="row">${deliverable.actualReleaseDate}</td>
@@ -447,9 +504,11 @@
                	<c:if test="${deliverable.status == 176 }">Tentative</c:if>
                </td>
                <td scope="row">${deliverable.baselineNote}</td>
+               <c:if test="${(UserRole == 1) || (UserRole==0)}">
                <td scope="row">
                	<button type="button" class="button blue small" onclick='return submitAction3("${portletNamespace}WorkOrder", "${renderAction3}", "Do you sure you want to delete this Deliverable?");'>Remove</button>
                </td>
+               </c:if>
      </tr>
     </c:forEach>
     </tbody>
@@ -460,7 +519,9 @@
     		<portlet:param name="action" value="GoCreateDeliverable" />
         	<portlet:param name="projectId" value="${projectId}" />
     	</portlet:renderURL>
+    	<c:if test="${(UserRole == 1) || (UserRole==0)}">
     	<br/><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}WorkOrder", "${renderAction2}")'>Add New Deliverable</button>	
+    	</c:if>
 </form:form>
 	</div>
 	
