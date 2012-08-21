@@ -126,12 +126,12 @@
         <tbody>
           <c:forEach var="dashboard" items="${dashboardList}">
           <c:if test="${dashboard.visible == true}">
-            <portlet:actionURL var="renderAction">
+<%--             <portlet:actionURL var="renderAction">
               <portlet:param name="action" value="taskmanager" />
               <portlet:param name="projectId" value="${project.projectId}" />
-            </portlet:actionURL>
+            </portlet:actionURL> --%>
             <tr>
-              <td><a href="${renderAction}">${dashboard.project.code}</a></td>
+              <td>${dashboard.project.code}</td>
               <td>${dashboard.project.name}</td>
               <td align="center"><c:choose>
                   <c:when test="${dashboard.projectHealthStatus == 'bad'}">
@@ -171,9 +171,12 @@
                     </div>
                   </c:otherwise>
                 </c:choose> --%>
-                
-                <div id="percentProgress" class="progress_bar ${dashboard.progressStatus} stripes">
-                      <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
+                <c:set var="barWidth" value = '${dashboard.percentProgress}'/>
+                <c:if test="${barWidth > 100}">
+                    <c:set var="barWidth" value="100" />
+                </c:if>
+                <div id="percentProgress" class="progress_bar ${dashboard.progressStatus} stripes">                
+                      <span style="width: ${barWidth}%" align="center"><b><font
                           color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
                 
