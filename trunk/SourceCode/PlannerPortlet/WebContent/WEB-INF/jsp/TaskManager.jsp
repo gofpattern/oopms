@@ -72,8 +72,10 @@
 					    });
 						// Check module of project
 				          $(function() {
+				        	  
 				              if('<%=portletSession.getAttribute("CHANGEPROJECT_ERROR")%>' == 'true') {
 				            	  $( "#dialog" ).dialog( "open" );
+				            	  <%portletSession.setAttribute("CHANGEPROJECT_ERROR",false);%>
 							}
 
 						});
