@@ -72,7 +72,7 @@ public class PlannerHomeController extends BaseController {
         session.setAttribute("UserId", developer.getDeveloperId().toString(), PortletSession.APPLICATION_SCOPE);
         
         mav.addObject("developerId", developer.getDeveloperId());
-        mav.addObject("projectList", projectList);
+        mav.addObject("projectList", projectList);   
     }
 
 }

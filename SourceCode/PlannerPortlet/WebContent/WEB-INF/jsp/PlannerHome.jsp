@@ -46,8 +46,8 @@
 		  $(function() {
 			  if('<%=portletSession.getAttribute("ERROR")%>'== 'true') {
 								$("#dialog").dialog("open");
+								<%portletSession.setAttribute("ERROR",false);%>
 							}
-
 						});
 
 					});

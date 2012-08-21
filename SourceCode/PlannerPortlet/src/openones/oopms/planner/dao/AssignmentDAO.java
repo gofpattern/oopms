@@ -79,6 +79,8 @@ public class AssignmentDAO {
     public String getRole(String developerId, String projectId) {
         try {
             log.debug("getRole.START");
+            log.debug("getRole.START"+developerId);
+            log.debug("getRole.START"+projectId);
             session.getTransaction().begin();
             String hql = "from Assignment where developer.developerId= ? and project.projectId = ?"
                     + " and ((endDate > :currentDate) or (endDate is null))";

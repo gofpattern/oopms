@@ -68,7 +68,7 @@ public class PlannerReportController {
         PortletSupport portletSupport = new PortletSupport(request);
         String logonUser = portletSupport.getLogonUser();
         UserInfo userInfo = new UserInfo(logonUser);
-        prepareReportInfo(userInfo, mav, PlannerController.developerId, PlannerController.projectDefault);        
+       // prepareReportInfo(userInfo, mav, PlannerController.developerId, PlannerController.projectDefault);        
         
         return mav;
     }

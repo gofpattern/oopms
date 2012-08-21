@@ -122,7 +122,7 @@ public class PlannerAddController {
         // to show hidden-add-form
         formBean.setFlag(1);
         formBean.setInit(false);
-        session.setAttribute("CHANGEPROJECT_ERROR", false);
+
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -236,7 +236,7 @@ public class PlannerAddController {
         formBean.setFlag(1);
         // Reload taskList
         formBean.setInit(false);
-        session.setAttribute("CHANGEPROJECT_ERROR", false);
+
         response.setRenderParameter("action", "taskmanager");
     }
 

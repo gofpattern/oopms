@@ -52,15 +52,13 @@ public class PlannerController {
     static String developerId;
     // role of user, depend on project
     private String role;
-    // get parameter from PlannerHome, used only one time
-    private Boolean check = true;
 
     /**
      * Create bean for form.
      * @return Form bean for UI.
      */
     @ModelAttribute("PlannerForm")
-    public PlannerForm getCommandObject() {
+    public PlannerForm getCommandObject(PortletSession session) {
         log.debug("getCommandObject.START");
         PlannerForm formBean = new PlannerForm();
         return formBean;
@@ -79,11 +77,10 @@ public class PlannerController {
         log.debug("processPlanner.START");
         ModuleDAO moduleDAO = new ModuleDAO();
         List<Module> moduleList = moduleDAO.getModuleByProject(new BigDecimal(request.getParameter("projectId")));
-
         if (moduleList.size() != 0) {
             // Prepare parameter to render phase
-            response.setRenderParameter("projectId", request.getParameter("projectId"));
-            response.setRenderParameter("developerId", request.getParameter("developerId"));
+            projectDefault = request.getParameter("projectId");
+            developerId = (String) request.getParameter("developerId");
             response.setRenderParameter("action", "taskmanager");
         } else {
             log.debug("processPlanner.START + setError");
@@ -99,35 +96,28 @@ public class PlannerController {
             PortletSession session) {
         log.debug("postPlanner.START");
         log.debug("postPlanner.START" + request.getParameter("projectId"));
-        log.debug("postPlanner.START" + projectDefault);
         log.debug("postPlanner.START" + request.getParameter("developerId"));
 
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
         ModelAndView mav = new ModelAndView("TaskManager");
 
-        // for getting from PlannerHome
-        if (check) {
-            projectDefault = request.getParameter("projectId");
-            developerId = (String) request.getParameter("developerId");
-            check = false;
-        }
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         Map<String, String> stageMap = new LinkedHashMap<String, String>();
         Map<String, String> developerMap = new LinkedHashMap<String, String>();
         Map<String, String> projectMap = new LinkedHashMap<String, String>();
 
         if (formBean.getInit()) {
-
             formBean.setStatusDefault(Constant.ALL_VALUE);
             formBean.setStageDefault(Constant.ALL_VALUE);
             formBean.setDeveloperDefault(Constant.ALL_VALUE);
             role = assignmentDAO.getRole(developerId, projectDefault);
             statusList = taskDAO.getProjectStatusEn();
-            
-            if(role.equals(Constant.PROJECT_MANAGER))
-            taskList = taskDAO.getTasksByProjectId(projectDefault);
-            else taskList = taskDAO.getTasksByDeveloperOfProject(projectDefault, developerId);
+
+            if (role.equals(Constant.PROJECT_MANAGER))
+                taskList = taskDAO.getTasksByProjectId(projectDefault);
+            else
+                taskList = taskDAO.getTasksByDeveloperOfProject(projectDefault, developerId);
             stageList = taskDAO.getAllStage();
             projectList = assignmentDAO.getProject(new BigDecimal(developerId));
             processList = taskDAO.getAllProcess();
@@ -222,7 +212,8 @@ public class PlannerController {
         mav.addObject("developerMap", formBean.getDeveloperMap());
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("taskStatus", formBean.getStatusDefault());
-        mav.addObject("role", role);
+        session.setAttribute("role", role, PortletSession.APPLICATION_SCOPE);
+        // mav.addObject("role", role);
 
         // Object form PlannerAddForm
         mav.addObject("edTask", formBeanAdd.getEditTask());
@@ -285,7 +276,6 @@ public class PlannerController {
 
         }
         formBean.setInit(false);
-        session.setAttribute("CHANGEPROJECT_ERROR", false);
         response.setRenderParameter("action", "taskmanager");
     }
 
@@ -321,9 +311,7 @@ public class PlannerController {
             ActionResponse response) {
         log.debug("postChangeProject.START");
     }
-       
-    
-    
+
     /**
      * remove Html Tag of task name and task description
      * @param taskList
@@ -336,7 +324,6 @@ public class PlannerController {
                 taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll(">", "&gt;"));
                 taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll("<", "&lt;"));
             }
-    }   
-    
+    }
 
 }
