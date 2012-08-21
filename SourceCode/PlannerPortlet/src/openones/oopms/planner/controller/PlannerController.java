@@ -49,7 +49,7 @@ public class PlannerController {
     private List<GeneralReference> statusList;
     // Current projectId of planner
     static String projectDefault;
-    private String developerId;
+    static String developerId;
     // role of user, depend on project
     private String role;
     // get parameter from PlannerHome, used only one time
@@ -124,8 +124,10 @@ public class PlannerController {
             formBean.setDeveloperDefault(Constant.ALL_VALUE);
             role = assignmentDAO.getRole(developerId, projectDefault);
             statusList = taskDAO.getProjectStatusEn();
-
+            
+            if(role.equals(Constant.PROJECT_MANAGER))
             taskList = taskDAO.getTasksByProjectId(projectDefault);
+            else taskList = taskDAO.getTasksByDeveloperOfProject(projectDefault, developerId);
             stageList = taskDAO.getAllStage();
             projectList = assignmentDAO.getProject(new BigDecimal(developerId));
             processList = taskDAO.getAllProcess();
@@ -319,7 +321,9 @@ public class PlannerController {
             ActionResponse response) {
         log.debug("postChangeProject.START");
     }
-
+       
+    
+    
     /**
      * remove Html Tag of task name and task description
      * @param taskList
@@ -332,6 +336,7 @@ public class PlannerController {
                 taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll(">", "&gt;"));
                 taskList.get(i).setDescription(taskList.get(i).getDescription().replaceAll("<", "&lt;"));
             }
-    }
+    }   
+    
 
 }

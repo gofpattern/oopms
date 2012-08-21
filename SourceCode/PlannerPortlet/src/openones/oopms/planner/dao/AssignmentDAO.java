@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import openones.oopms.planner.model.Project;
+import openones.oopms.planner.utils.Constant;
 import openones.oopms.planner.utils.HibernateUtil;
 import openones.oopms.planner.model.Assignment;
 
@@ -88,22 +89,22 @@ public class AssignmentDAO {
             Assignment assi = (Assignment) query.uniqueResult();
             if (assi.getType() == 1 || assi.getType() == 0) {
                 log.debug("getRole.END Role is Project Manager");
-                return "Project Manager";
+                return Constant.PROJECT_MANAGER;
             } else if (assi.getType() == 2) {
                 log.debug("getRole.END Role is Developer");
-                return "Developer";
+                return Constant.DEVELOPER;
             } else if (assi.getType() == 3) {
                 log.debug("getRole.END Role is Tester");
-                return "Tester";
+                return Constant.TESTER;
             } else if (assi.getType() == 4) {
                 log.debug("getRole.END Role is QA");
-                return "QA";
+                return Constant.QA;
             } else if (assi.getType() == 5) {
                 log.debug("getRole.END Role is Customer");
-                return "Customer";
+                return Constant.CUSTOMER;
             } else if (assi.getType() == 6) {
                 log.debug("getRole.END Role is Project Owner");
-                return "Project Owner";
+                return Constant.PROJECT_OWNER;
             }
 
         } catch (Exception e) {

@@ -13,8 +13,7 @@
 <jsp:include page="header.jsp" />
 <portlet2:defineObjects />
 <portlet:defineObjects />
-<script type="text/javascript">
-  
+<script type="text/javascript">  
 
 	$(function() {
 		$("#add-form-startDate")
@@ -146,7 +145,21 @@
             	yav.addHelp('task.completedsize', 'Provide completed size');
             	yav.addHelp('task.description', 'Provide your Task Description');
             	yav.addMask('mydate', '  /  /    ', '1234567890');
-</SCRIPT>
+</script>
+<style type="text/css">
+    td .173{ 
+        background-color: green;
+    }
+    td .174{
+        background-color: blue;
+    }
+    td .175{
+        background-color: gray;
+    }
+    td .176{
+        background-color: yellow;
+    }
+</style>
 </head>
 <body id="portal" class="up fl-theme-mist">
   <div class="container" id="portalPageBodyInner">
@@ -377,7 +390,7 @@
                         <fmt:parseNumber var="j" type="number" value="${task.productsize}" />
                         <fmt:formatNumber var="completeRate" value="${(i/j)}" minFractionDigits="2" type="percent" />
                         <form:input path="taskId" value="${task.taskid}" type="hidden" />
-                        <td>${count}</td>
+                        <td class = "${task.statusid}">${count}</td>
                         <td>${task.project_str}</td>
                         <td>${task.taskname}</td>
                         <td>${task.stage_str}</td>
