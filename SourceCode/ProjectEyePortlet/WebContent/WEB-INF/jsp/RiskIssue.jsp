@@ -155,7 +155,7 @@
 	<button type="button" class="button blue small" onclick='submitAction("${portletNamespace}RiskIssue", "${renderAction1}")'>Add new Risk</button>
 	</c:if>
 <br><p id="header2DuyND">Issue<p>
-	This function is under development. Please come back later. We will email you for new version release.  Thank you!
+	This function is under development. Sorry for the inconvenience. Please come back later. Thank you!
   <!-- end .content --></div>
   <!-- end .container --></div>
 </body>

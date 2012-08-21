@@ -44,7 +44,7 @@
     	<br><p class="title" id="headerDuyND">Change Request</p>
     </div>
 	
-	This function is under development. Please come back later. We will email you for new version release.  Thank you!
+	This function is under development. Sorry for the inconvenience. Please come back later. Thank you!
 	
 	
 	
