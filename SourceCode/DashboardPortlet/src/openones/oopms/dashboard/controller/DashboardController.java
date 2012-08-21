@@ -161,8 +161,7 @@ public class DashboardController extends BaseController {
     }
 
     @RenderMapping(params = "action=search")
-    public void postSearch(DashboardForm formBean, BindingResult result, SessionStatus status,
-            ActionResponse response) {
+    public void postSearch(DashboardForm formBean, BindingResult result, SessionStatus status, ActionResponse response) {
         log.debug("postSearch.START");
     }
 
@@ -202,6 +201,7 @@ public class DashboardController extends BaseController {
                 dashboard.setPercentTime(calculatePercentTime(projectList.get(i).getPlanStartDate(), projectList.get(i)
                         .getPlanFinishDate()));
                 dashboard.setPercentProgress(calculatePercentProgress(projectList.get(i).getProjectId()));
+                dashboard.setProgressStatus(calculateProgressStatus(projectList.get(i).getProjectId()));
                 dashboard.setEfficiencyStatus(calculateEfficiencyStatus(projectList.get(i).getProjectId()));
                 dashboard.setCostStatus(calculateCostStatus(projectList.get(i).getProjectId()));
                 dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getPercentProgress(),
@@ -405,24 +405,24 @@ public class DashboardController extends BaseController {
 
             if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayForLoc += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForTestCase += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayForLoc += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForTestCase += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 }
             }
 
             if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayForLoc += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForPage += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayForLoc += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForPage += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 }
             }
             if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayForLoc += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayeForSheet += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayForLoc += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayeForSheet += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 }
             }
         }
@@ -472,11 +472,119 @@ public class DashboardController extends BaseController {
 
         ProjectDao projectDao = new ProjectDao();
         Project project = projectDao.getProjectById(projectId);
-        if(project.getActualEffort() != null && project.getPlanEffort() != null){
-            double usedEffortRate = project.getActualEffort().doubleValue() / project.getPlanEffort().doubleValue() * 100;
+        if (project.getActualEffort() != null && project.getPlanEffort() != null) {
+            double usedEffortRate = project.getActualEffort().doubleValue() / project.getPlanEffort().doubleValue()
+                    * 100;
             return Math.round(usedEffortRate * 100.0) / 100.0;
         }
         return 0f;
 
+    }
+
+    /**
+     * Calculate status of project base on remain work and capable work.
+     * @param projectId
+     * @return
+     */
+    private String calculateProgressStatus(BigDecimal projectId) {
+        log.debug("calculateProgressStatus.START");
+        ModuleDao moduleDao = new ModuleDao();
+        LanguageDao languageDao = new LanguageDao();
+        List<Module> modules = moduleDao.getModuleByProject(projectId);
+        TaskDao taskDao = new TaskDao();
+        List<Tasks> tasks = taskDao.getTasksByProjectId(projectId);
+        long totalCurrentLoc = 0;
+        long totalCurrentPage = 0;
+        long totalCurrentTestCase = 0;
+        long totalCurrentSheet = 0;
+
+        long totalPlannedLoc = 0;
+        long totalPlannedPage = 0;
+        long totalPlannedTestCase = 0;
+        long totalPlannedSheet = 0;
+
+        Date currentDate = new Date();
+        long remainDayForLoc = 0;
+        long remainDayForTestCase = 0;
+        long remainDayForPage = 0;
+        long remainDayeForSheet = 0;
+
+        double remainWork = 0;
+        double workCapability = 0;
+        
+        // total remain work (convert to one unit)
+        for (int i = 0; i < modules.size(); i++) {
+            Language language = languageDao.getLanguageById(modules.get(i).getPlannedSizeUnitId());
+            if (language.getSizeUnit().toUpperCase().contains(Constant.LOC.toUpperCase())) {
+                totalCurrentLoc += modules.get(i).getActualSize().longValue();
+                totalPlannedLoc += modules.get(i).getPlannedSize().longValue();
+            }
+
+            if (language.getSizeUnit().toUpperCase().contains(Constant.TESTCASE.toUpperCase())) {
+                totalCurrentTestCase += modules.get(i).getActualSize().longValue();
+                totalPlannedTestCase += modules.get(i).getPlannedSize().longValue();
+            }
+
+            if (language.getSizeUnit().toUpperCase().contains(Constant.PAGE_WORD.toUpperCase())) {
+                totalCurrentPage += modules.get(i).getActualSize().longValue();
+                totalPlannedPage += modules.get(i).getPlannedSize().longValue();
+            }
+            if (language.getSizeUnit().toUpperCase().contains(Constant.SHEET_EXCEL.toUpperCase())) {
+                totalCurrentSheet += modules.get(i).getActualSize().longValue();
+                totalPlannedSheet += modules.get(i).getPlannedSize().longValue();
+            }
+
+        }
+
+        remainWork = ((totalPlannedLoc * Constant.LOC_WEIGHT) + (totalPlannedTestCase * Constant.TESTCASE_WEIGHT)
+                + (totalPlannedPage * Constant.PAGE_WEIGHT) + (totalPlannedSheet * Constant.PAGE_WEIGHT))
+                - ((totalCurrentLoc * Constant.LOC_WEIGHT) + (totalCurrentTestCase * Constant.TESTCASE_WEIGHT)
+                        + (totalCurrentPage * Constant.PAGE_WEIGHT) + (totalCurrentSheet * Constant.PAGE_WEIGHT));
+        log.debug("remainWork = " + remainWork);
+        // total capable work (convert to one unit)
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Language language = languageDao.getLanguageById(tasks.get(i).getSizeunit());
+            if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
+                if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
+                    if (tasks.get(i).getPlanDate().after(currentDate)) {
+                        remainDayForLoc += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                    }
+                }
+            }
+
+            if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
+                if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
+                    if (tasks.get(i).getPlanDate().after(currentDate)) {
+                        remainDayForTestCase += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                    }
+                }
+            }
+
+            if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
+                if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
+                    if (tasks.get(i).getPlanDate().after(currentDate)) {
+                        remainDayForPage += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                    }
+                }
+            }
+            if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
+                if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
+                    if (tasks.get(i).getPlanDate().after(currentDate)) {
+                        remainDayeForSheet += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                    }
+                }
+            }
+        }
+
+        workCapability = remainDayForLoc * Constant.LOC_PER_DAY * Constant.LOC_WEIGHT + remainDayForTestCase
+                * Constant.TESTCASE_PER_DAY * Constant.TESTCASE_WEIGHT + remainDayForPage * Constant.PAGE_PER_DAY
+                * Constant.PAGE_WEIGHT + remainDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
+        log.debug("workCapability = " + workCapability);
+        if(remainWork > workCapability){
+            return Constant.BAD_STATUS;
+        } else if (remainWork < workCapability)
+            return Constant.GOOD_STATUS;
+        else return Constant.NORMAL_STATUS;
     }
 }
