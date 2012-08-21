@@ -150,14 +150,15 @@
                   <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#000"
                       size="2" face="tahoma">${dashboard.percentTime}</font></b></span>
                 </div></abbr></td>
-              <td><c:choose>
-                  <c:when test="${dashboard.percentProgress < 50}">
+              <td>
+              <%-- <c:choose>
+                  <c:when test="${dashboard.progressStatus < 50}">
                     <div id="percentProgress" class="progress_bar glow red stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
                           color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
                   </c:when>
-                  <c:when test="${dashboard.percentProgress < 80}">
+                  <c:when test="${dashboard.progressStatus < 80}">
                     <div id="percentProgress" class="progress_bar orange stripes">
                       <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
                           color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
@@ -165,11 +166,18 @@
                   </c:when>
                   <c:otherwise>
                     <div id="percentProgress" class="progress_bar green stripes">
-                      <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
+                      <span style="width: ${dashboard.progressStatus}%" align="center"><b><font
                           color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
                   </c:otherwise>
-                </c:choose></td>
+                </c:choose> --%>
+                
+                <div id="percentProgress" class="progress_bar ${dashboard.progressStatus} stripes">
+                      <span style="width: ${dashboard.percentProgress}%" align="center"><b><font
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
+                    </div>
+                
+                </td>
               <td align="center"><c:choose>
                   <c:when test="${dashboard.efficiencyStatus == 'bad'}">
                     <div class="circle red glow stripes">

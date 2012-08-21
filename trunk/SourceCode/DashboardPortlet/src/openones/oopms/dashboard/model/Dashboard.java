@@ -28,6 +28,7 @@ public class Dashboard {
     private String projectHealthStatus;
     private String costStatus;
     private String efficiencyStatus;
+    private String progressStatus;
     private double percentProgress;
     private double percentTime;
     private double percentEffort;
@@ -164,6 +165,22 @@ public class Dashboard {
      */
     public void setPercentEffort(double percentEffort) {
         this.percentEffort = percentEffort;
+    }
+
+    /**
+     * Get value of progressStatus.
+     * @return the progressStatus
+     */
+    public String getProgressStatus() {
+        return progressStatus;
+    }
+
+    /**
+     * Set the value for progressStatus.
+     * @param progressStatus the progressStatus to set
+     */
+    public void setProgressStatus(String progressStatus) {
+        this.progressStatus = progressStatus;
     }
 
 }
