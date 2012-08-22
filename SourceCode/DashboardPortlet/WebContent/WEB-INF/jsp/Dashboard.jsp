@@ -145,7 +145,8 @@
                     </div>
                   </c:otherwise>
                 </c:choose></td>
-              <td><abbr title="Start: ${dashboard.project.planStartDate} End: ${dashboard.project.planFinishDate}">
+              <td>
+              <abbr title="Start: ${dashboard.project.planStartDate} End: ${dashboard.project.planFinishDate}">
               <div id="percentTime" class="progress_bar green stripes">
                   <span style="width:${dashboard.percentTime}%" align="center"><b><font color="#000"
                       size="2" face="tahoma">${dashboard.percentTime}</font></b></span>
@@ -175,11 +176,20 @@
                 <c:if test="${barWidth > 100}">
                     <c:set var="barWidth" value="100" />
                 </c:if>
-                <div id="percentProgress" class="progress_bar ${dashboard.progressStatus} stripes">                
+                <c:choose>
+                <c:when test="${dashboard.progressStatus == 'bad'}">
+                    <div id="percentProgress" class="progress_bar red glow stripes">                
                       <span style="width: ${barWidth}%" align="center"><b><font
                           color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
                     </div>
-                
+                </c:when>
+                <c:otherwise>
+                    <div id="percentProgress" class="progress_bar ${dashboard.progressStatus} stripes">                
+                      <span style="width: ${barWidth}%" align="center"><b><font
+                          color="#000" size="2" face="tahoma">${dashboard.percentProgress}</font></b></span>
+                    </div>
+                </c:otherwise>    
+                </c:choose>
                 </td>
               <td align="center"><c:choose>
                   <c:when test="${dashboard.efficiencyStatus == 'bad'}">
