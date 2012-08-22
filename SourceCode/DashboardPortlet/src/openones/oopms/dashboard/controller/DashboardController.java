@@ -140,22 +140,43 @@ public class DashboardController extends BaseController {
             dashboardList.get(i).setVisible(true);
             log.debug("dashboardList." + dashboardList.get(i).getProject().getProjectCategoryCode());
             log.debug("formBean.getProjectCategory()" + formBean.getProjectCategory());
-            if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE))                
-                if (!dashboardList.get(i).getProject().getProjectCategoryCode().equals(formBean.getProjectCategory())) {
+
+            if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE)) {
+                if (dashboardList.get(i).getProject().getProjectCategoryCode() != null) {
+                    if (!dashboardList.get(i).getProject().getProjectCategoryCode()
+                            .equals(formBean.getProjectCategory())) {
+                        dashboardList.get(i).setVisible(false);
+                    }
+                } else
                     dashboardList.get(i).setVisible(false);
-                }
-            if (!formBean.getProjectDomain().equals(Constant.ALL_VALUE))
-                if (!dashboardList.get(i).getProject().getProjectTypeCode().equals(formBean.getProjectDomain())) {
+            }
+
+            if (!formBean.getProjectDomain().equals(Constant.ALL_VALUE)) {
+                if (dashboardList.get(i).getProject().getProjectTypeCode() != null) {
+                    if (!dashboardList.get(i).getProject().getProjectTypeCode().equals(formBean.getProjectDomain())) {
+                        dashboardList.get(i).setVisible(false);
+                    }
+                } else
                     dashboardList.get(i).setVisible(false);
+            }
+
+            if (!formBean.getProjectStatus().equals(Constant.ALL_VALUE)) {
+                if (dashboardList.get(i).getProject().getProjectStatusCode() != null) {
+                    if (!dashboardList.get(i).getProject().getProjectStatusCode().equals(formBean.getProjectStatus())) {
+                        dashboardList.get(i).setVisible(false);
+                    }
                 }
-            if (!formBean.getProjectStatus().equals(Constant.ALL_VALUE))
-                if (!dashboardList.get(i).getProject().getProjectStatusCode().equals(formBean.getProjectStatus())) {
+            }
+
+            if (!formBean.getProjectHealth().equals(Constant.ALL_VALUE)) {
+                if (dashboardList.get(i).getProjectHealthStatus() != null) {
+                    if (!dashboardList.get(i).getProjectHealthStatus().equals(formBean.getProjectHealth())) {
+                        dashboardList.get(i).setVisible(false);
+                    }
+                } else
                     dashboardList.get(i).setVisible(false);
-                }
-            if (!formBean.getProjectHealth().equals(Constant.ALL_VALUE))
-                if (!dashboardList.get(i).getProjectHealthStatus().equals(formBean.getProjectHealth())) {
-                    dashboardList.get(i).setVisible(false);
-                }
+
+            }
 
         }
         formBean.setInit(false);
@@ -407,7 +428,8 @@ public class DashboardController extends BaseController {
 
             if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayForTestCase += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForTestCase += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate()
+                            .getTime()) / (1000 * 60 * 60 * 24));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
                     totalDayForTestCase += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 }
@@ -422,7 +444,8 @@ public class DashboardController extends BaseController {
             }
             if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayeForSheet += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayeForSheet += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate()
+                            .getTime()) / (1000 * 60 * 60 * 24));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
                     totalDayeForSheet += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
                 }
@@ -513,7 +536,7 @@ public class DashboardController extends BaseController {
 
         double remainWork = 0;
         double workCapability = 0;
-        
+
         // total remain work (convert to one unit)
         for (int i = 0; i < modules.size(); i++) {
             Language language = languageDao.getLanguageById(modules.get(i).getPlannedSizeUnitId());
@@ -583,10 +606,11 @@ public class DashboardController extends BaseController {
                 * Constant.TESTCASE_PER_DAY * Constant.TESTCASE_WEIGHT + remainDayForPage * Constant.PAGE_PER_DAY
                 * Constant.PAGE_WEIGHT + remainDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
         log.debug("workCapability = " + workCapability);
-        if(remainWork > workCapability){
-            return Constant.BAD_STATUS; 
+        if (remainWork > workCapability) {
+            return Constant.BAD_STATUS;
         } else if (remainWork < workCapability)
             return Constant.GOOD_STATUS;
-        else return Constant.NORMAL_STATUS;
+        else
+            return Constant.NORMAL_STATUS;
     }
 }
