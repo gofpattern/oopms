@@ -44,9 +44,11 @@ function submitAction(formName, actionUrl) {
 </SCRIPT>
 </head>
 <body id="portal" class="up fl-theme-mist">
- <portlet:renderURL var="BackAction">
+ <portlet:actionURL var="BackAction">
         <portlet:param name="action" value="taskmanager" />
-      </portlet:renderURL>
+        <portlet:param name="projectId" value="${project.projectId}" />
+        <portlet:param name="developerId" value="${developerId}" />
+      </portlet:actionURL>
   <div class="container">
     <div class="content" align="center">
            <div align="left">

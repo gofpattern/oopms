@@ -136,5 +136,6 @@ public class PlannerReportController {
 
         mav.addObject("reportInfoList", reportInfoList);
         mav.addObject("project", project);
+        mav.addObject("developerId", developerId);
     }
 }
