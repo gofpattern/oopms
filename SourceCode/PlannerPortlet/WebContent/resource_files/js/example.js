@@ -6,6 +6,8 @@
 	$('table').visualize({type: 'line', width: '420px'});
 });*/
 $(function(){
-	 $('#reportTable').visualize({type: 'pie', height: '300px', width: '420px'});
-	    $('#reportTable').visualize({type: 'bar', width: '420px'});
+	 $('#reportTable_1').visualize({type: 'pie', height: '300px', width: '420px'});
+	 $('#reportTable_1').visualize({type: 'bar', width: '420px'});
+	 $('#reportTable_2').visualize({type: 'line', width: '420px'});
+	    
 	});

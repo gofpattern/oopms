@@ -70,7 +70,7 @@ function submitAction(formName, actionUrl) {
       <p></p>
       <p></p>
       <c:if test="${not empty reportInfoList}">
-        <table id="reportTable">
+        <table id="reportTable_1">
         <caption>Tasks Distribution in ${project.name}</caption>
           <thead>
             <tr>
@@ -89,6 +89,30 @@ function submitAction(formName, actionUrl) {
                 <td>${reportInfo.totalOngoingTasks}</td>
                 <td>${reportInfo.totalClosedTasks}</td>
                 <td>${reportInfo.totalCancelTasks}</td>
+              </tr>
+            </c:forEach>
+          </tbody>
+        </table>
+        
+        <table id="reportTable_2">
+        <caption>Working Efficiency in ${project.name}</caption>
+          <thead>
+            <tr>
+              <td></td>
+              <th>LOC</th>
+              <th>Test Case</th>
+              <th>Page</th>
+              <th>Sheet</th>
+            </tr>
+          </thead>
+          <tbody>           
+            <c:forEach var="reportInfo" items="${reportInfoList}">              
+              <tr>                
+                <th >${reportInfo.developerName}</th>
+                <td>${reportInfo.totalLoc}</td>
+                <td>${reportInfo.totalTestCase}</td>
+                <td>${reportInfo.totalPage}</td>
+                <td>${reportInfo.totalSheet}</td>
               </tr>
             </c:forEach>
           </tbody>

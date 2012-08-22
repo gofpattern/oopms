@@ -45,4 +45,8 @@ public class Constant {
     public static String CUSTOMER = "Customer";
     public static String PROJECT_OWNER_TYPE = "6";
     public static String PROJECT_OWNER = "Project Owner";
+    public static final String LOC = "LOC";
+    public static final String TESTCASE = "Test cases";
+    public static final String PAGE_WORD = "Page";
+    public static final String SHEET_EXCEL = "Sheet";
 }
