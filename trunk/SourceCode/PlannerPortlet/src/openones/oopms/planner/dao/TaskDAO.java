@@ -129,6 +129,12 @@ public class TaskDAO {
 
     }
     
+    /**
+     * Get Task belong to developer, except Cancelled Task.
+     * @param projectId
+     * @param developerId
+     * @return
+     */
     public List<Tasks> getTasksByDeveloperOfProject(String projectId, String developerId) {
         log.debug("getTaskByProjectId.START");
         Session session = null;
@@ -138,7 +144,8 @@ public class TaskDAO {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             session.clear();
-            String sql = "from Tasks where projectid = :projectId and assignedto = :developerId and active = true";
+            String sql = "from Tasks where projectid = :projectId and assignedto = :developerId and active = true " +
+            		"and statusid != 175";
             Query query = session.createQuery(sql);
             query.setParameter("projectId", new BigDecimal(projectId));
             query.setParameter("developerId", new BigDecimal(developerId));
@@ -700,6 +707,26 @@ public class TaskDAO {
 
         }
 
+    }
+    
+    public Language getLanguageById(BigDecimal languageId) {
+        log.debug("getLanguageById.START");
+        try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            this.session = factory.openSession();
+            session.beginTransaction();
+            String sql = "from Language where languageId = :languageId";
+            Query query = session.createQuery(sql);
+            query.setParameter("languageId", languageId);
+            Language language = (Language) query.uniqueResult();
+            return language;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            log.error("getLanguageById.Exception", e);
+        }
+        return null;
     }
     
 }

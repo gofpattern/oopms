@@ -33,9 +33,11 @@ import openones.oopms.planner.dao.TaskDAO;
 import openones.oopms.planner.form.PlannerAddForm;
 import openones.oopms.planner.form.PlannerForm;
 import openones.oopms.planner.model.Developer;
+import openones.oopms.planner.model.Language;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.ReportInfo;
 import openones.oopms.planner.model.Tasks;
+import openones.oopms.planner.utils.Constant;
 import openones.portlet.PortletSupport;
 
 import org.apache.log4j.Logger;
@@ -86,18 +88,49 @@ public class PlannerReportController {
 
         TaskDAO taskDAO = new TaskDAO();
         AssignmentDAO assignmentDAO = new AssignmentDAO();
+
         List<ReportInfo> reportInfoList = new ArrayList<ReportInfo>();
         Project project = taskDAO.getProjectById(new BigDecimal(projectId));
         List<Developer> developers = assignmentDAO.getDeveloperByProject(new BigDecimal(projectId));
         ReportInfo reportInfo;
+        List<Tasks> tasks;
 
         for (int i = 0; i < developers.size(); i++) {
             reportInfo = new ReportInfo();
             reportInfo.setDeveloperName(developers.get(i).getName());
-            reportInfo.setTotalTentativeTasks(taskDAO.getNumberOfTentativeTask(projectId, developers.get(i).getDeveloperId().toString()));
-            reportInfo.setTotalOngoingTasks(taskDAO.getNumberOfOngoingTask(projectId, developers.get(i).getDeveloperId().toString()));
-            reportInfo.setTotalClosedTasks(taskDAO.getNumberOfClosedTask(projectId, developers.get(i).getDeveloperId().toString()));
-            reportInfo.setTotalCancelTasks(taskDAO.getNumberOfClosedTask(projectId, developers.get(i).getDeveloperId().toString()));
+            reportInfo.setTotalTentativeTasks(taskDAO.getNumberOfTentativeTask(projectId, developers.get(i)
+                    .getDeveloperId().toString()));
+            reportInfo.setTotalOngoingTasks(taskDAO.getNumberOfOngoingTask(projectId, developers.get(i)
+                    .getDeveloperId().toString()));
+            reportInfo.setTotalClosedTasks(taskDAO.getNumberOfClosedTask(projectId, developers.get(i).getDeveloperId()
+                    .toString()));
+            reportInfo.setTotalCancelTasks(taskDAO.getNumberOfCancelledTask(projectId, developers.get(i).getDeveloperId()
+                    .toString()));
+            tasks = taskDAO.getTasksByDeveloperOfProject(projectId, developers.get(i).getDeveloperId().toString());
+            for (int j = 0; j < tasks.size(); j++) {
+                Language language = taskDAO.getLanguageById(tasks.get(j).getSizeunit());
+                
+                if (language.getSizeUnit().toUpperCase().contains(Constant.LOC.toUpperCase())) {
+                    log.debug("Loc = " + reportInfo.getTotalLoc());
+                    reportInfo.setTotalLoc(reportInfo.getTotalLoc() + tasks.get(j).getCompletedsize().longValue());
+                }
+
+                if (language.getSizeUnit().toUpperCase().contains(Constant.TESTCASE.toUpperCase())) {
+                    log.debug("TC = " + reportInfo.getTotalTestCase());
+                    reportInfo.setTotalTestCase(reportInfo.getTotalTestCase()
+                            + tasks.get(j).getCompletedsize().longValue());
+                }
+
+                if (language.getSizeUnit().toUpperCase().contains(Constant.PAGE_WORD.toUpperCase())) {
+                    log.debug("Page = " + reportInfo.getTotalPage());
+                    reportInfo.setTotalPage(reportInfo.getTotalPage() + tasks.get(j).getCompletedsize().longValue());
+                }
+                if (language.getSizeUnit().toUpperCase().contains(Constant.SHEET_EXCEL.toUpperCase())) {
+                    log.debug("Sheet = " + reportInfo.getTotalSheet());
+                    reportInfo.setTotalSheet(reportInfo.getTotalSheet() + tasks.get(j).getCompletedsize().longValue());
+                }
+            }
+
             reportInfoList.add(reportInfo);
         }
 

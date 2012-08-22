@@ -396,7 +396,7 @@
                         <fmt:parseNumber var="j" type="number" value="${task.productsize}" />
                         <fmt:formatNumber var="completeRate" value="${(i/j)}" minFractionDigits="2" type="percent" />
                         <form:input path="taskId" value="${task.taskid}" type="hidden" />
-                        <td class = "${task.statusid}">${count}</td>
+                        <td>${count}</td>
                         <td>${task.project_str}</td>
                         <td>${task.taskname}</td>
                         <td>${task.stage_str}</td>

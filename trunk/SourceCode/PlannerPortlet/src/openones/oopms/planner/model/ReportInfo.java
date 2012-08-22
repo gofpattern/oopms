@@ -32,6 +32,13 @@ public class ReportInfo {
     private long totalTestCase;
     private long totalPage;
     private long totalSheet;
+    
+    public ReportInfo (){
+        totalLoc = 0;
+        totalTestCase = 0;
+        totalPage = 0;
+        totalSheet = 0;
+    }
     /**
      * Get value of developerName.
      * @return the developerName
