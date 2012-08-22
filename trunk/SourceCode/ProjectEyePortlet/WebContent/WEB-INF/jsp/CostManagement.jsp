@@ -178,7 +178,7 @@ yav.addHelp('payDate', 'Please input Pay Date before paying daily expense');
                 
                 if(document.getElementById("costStatus").value==3) {
     				document.getElementById("costStatus").value = 0;
-    				alert('Your project is going to run out of money before it deliveres');
+    				alert('Your project is going to run out of money before it delivers!!');
     			}
                 
                 $('#mainTable7').dataTable( {
@@ -333,7 +333,7 @@ Current Invoice is : ${currentExpense}
 <br><button type="button" class="button blue small" onclick='submitAction("${portletNamespace}CostManagement", "${formAction9}")'>View Invoice Records</button><br>
 <c:if test="${not empty InvoiceRecords}">
 	<p id="header2DuyND" style="text-align:center">--------------------------------Invoice Records--------------------------------</p>
-<a href="file:///${exportPath} " target="_newtab">Export to Excel (Right click and choose save target as test)</a>
+<a href="file:///${exportPath} " target="_newtab">Export to Excel</a>
 </c:if>
 <c:if test="${not empty InvoiceOneTime}">
 <h3>One Time Expense</h3>
