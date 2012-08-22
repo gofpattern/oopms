@@ -138,7 +138,9 @@ public class DashboardController extends BaseController {
         log.debug("processSearch.START");
         for (int i = 0; i < dashboardList.size(); i++) {
             dashboardList.get(i).setVisible(true);
-            if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE))
+            log.debug("dashboardList." + dashboardList.get(i).getProject().getProjectCategoryCode());
+            log.debug("formBean.getProjectCategory()" + formBean.getProjectCategory());
+            if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE))                
                 if (!dashboardList.get(i).getProject().getProjectCategoryCode().equals(formBean.getProjectCategory())) {
                     dashboardList.get(i).setVisible(false);
                 }
@@ -204,7 +206,7 @@ public class DashboardController extends BaseController {
                 dashboard.setProgressStatus(calculateProgressStatus(projectList.get(i).getProjectId()));
                 dashboard.setEfficiencyStatus(calculateEfficiencyStatus(projectList.get(i).getProjectId()));
                 dashboard.setCostStatus(calculateCostStatus(projectList.get(i).getProjectId()));
-                dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getPercentProgress(),
+                dashboard.setProjectHealthStatus(calculateProjectHealth(dashboard.getProgressStatus(),
                         dashboard.getCostStatus(), dashboard.getEfficiencyStatus()));
                 dashboard.setPercentEffort(calculateUsedEffortRate(projectList.get(i).getProjectId()));
                 dashboardList.add(dashboard);
@@ -331,13 +333,13 @@ public class DashboardController extends BaseController {
      * @param efficiencyStatus
      * @return string project health
      */
-    private String calculateProjectHealth(double percentProgress, String costStatus, String efficiencyStatus) {
+    private String calculateProjectHealth(String progressStatus, String costStatus, String efficiencyStatus) {
         log.debug("calculateProjectHealth.START");
         if (costStatus.equals(Constant.BAD_STATUS) || efficiencyStatus.equals(Constant.BAD_STATUS)
-                || percentProgress < 50)
+                || progressStatus.equals(Constant.BAD_STATUS))
             return Constant.BAD_STATUS;
         else if (costStatus.equals(Constant.NORMAL_STATUS) || efficiencyStatus.equals(Constant.NORMAL_STATUS)
-                || percentProgress < 80)
+                || progressStatus.equals(Constant.NORMAL_STATUS))
             return Constant.NORMAL_STATUS;
         else
             return Constant.GOOD_STATUS;
@@ -582,7 +584,7 @@ public class DashboardController extends BaseController {
                 * Constant.PAGE_WEIGHT + remainDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
         log.debug("workCapability = " + workCapability);
         if(remainWork > workCapability){
-            return Constant.BAD_STATUS + " glow"; //glow is css class to support spark 
+            return Constant.BAD_STATUS; 
         } else if (remainWork < workCapability)
             return Constant.GOOD_STATUS;
         else return Constant.NORMAL_STATUS;
