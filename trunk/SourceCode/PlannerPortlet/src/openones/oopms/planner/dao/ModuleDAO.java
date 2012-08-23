@@ -159,8 +159,12 @@ public class ModuleDAO {
             tx = session.beginTransaction();
 
             Module module = (Module) session.get(Module.class, task.getModule().getModuleId());
-
+            if(module.getPlannedSize() == null)
+                module.setPlannedSize(new BigDecimal(0));
             module.setPlannedSize(module.getPlannedSize().add(task.getProductsize()));
+            
+            if(module.getActualSize() == null)
+                module.setActualSize(new BigDecimal(0));
             module.setActualSize(module.getActualSize().add(task.getCompletedsize()));
 
             module.setPlannedSizeUnitId(task.getSizeunit());
