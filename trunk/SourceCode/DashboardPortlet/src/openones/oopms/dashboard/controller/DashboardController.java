@@ -262,9 +262,9 @@ public class DashboardController extends BaseController {
         projectHealthMap.put(formBean.getProjectHealth(), Constant.ALL_VALUE);
         if (formBean.getInit() == false)
             projectHealthMap.put(Constant.ALL_VALUE, Constant.ALL_VALUE);
-        projectHealthMap.put(Constant.GOOD_STATUS, Constant.GOOD_STATUS);
-        projectHealthMap.put(Constant.NORMAL_STATUS, Constant.NORMAL_STATUS);
-        projectHealthMap.put(Constant.BAD_STATUS, Constant.BAD_STATUS);
+        projectHealthMap.put(Constant.GOOD_STATUS, "Good");
+        projectHealthMap.put(Constant.NORMAL_STATUS, "Normal");
+        projectHealthMap.put(Constant.BAD_STATUS, "Bad");
 
         mav.addObject("dashboardList", dashboardList);
         mav.addObject("statusMap", statusMap);
@@ -453,8 +453,12 @@ public class DashboardController extends BaseController {
                 * Constant.PAGE_WEIGHT + totalDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
 
         // deviation is 10%
-        deviation = totalCurrentExpectedWork / 10;
-
+        deviation = totalCurrentExpectedWork / 10f;
+        
+        log.debug("totalCurrentDoneWork" + totalCurrentDoneWork);
+        log.debug("totalCurrentExpectedWork"+ totalCurrentExpectedWork);
+        log.debug("calculateEfficiencyStatus.END");
+        
         if (totalCurrentDoneWork < (totalCurrentExpectedWork - deviation))
             return Constant.BAD_STATUS;
         else if (totalCurrentDoneWork > (totalCurrentExpectedWork + deviation))
@@ -562,6 +566,7 @@ public class DashboardController extends BaseController {
                 - ((totalCurrentLoc * Constant.LOC_WEIGHT) + (totalCurrentTestCase * Constant.TESTCASE_WEIGHT)
                         + (totalCurrentPage * Constant.PAGE_WEIGHT) + (totalCurrentSheet * Constant.PAGE_WEIGHT));
         log.debug("remainWork = " + remainWork);
+        
         // total capable work (convert to one unit)
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -603,7 +608,7 @@ public class DashboardController extends BaseController {
                 * Constant.PAGE_WEIGHT + remainDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
         
          // deviation is 10%
-        double deviation = workCapability / 10;
+        double deviation = workCapability / 10f;
         
         log.debug("calculateProgressStatus.END");
         if (remainWork > (workCapability + deviation)) {
