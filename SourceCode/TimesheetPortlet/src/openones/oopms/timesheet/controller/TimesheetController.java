@@ -404,15 +404,8 @@ public class TimesheetController {
     public ModelAndView postTimesheet(TimesheetForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
      
-        // projectMap = new LinkedHashMap<String, String>();
-        //
-        // // Get project List from database
-        // projectList = timesheetDao.getProjectList(String.valueOf(user.getDeveloperId()));
-        // projectMap.put("All", "All");
-        // for (int i = 0; i < projectList.size(); i++) {
-        // projectMap.put(projectList.get(i).getProjectId().toString(), projectList.get(i).getName());
-        // }
-        // Set project list to form
+        role = timesheetDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+        
         formBean.setProjectMap(projectMap);
 
         // Set select value to jsp
@@ -433,7 +426,7 @@ public class TimesheetController {
                 timesheetList = prepareTimesheetList(timesheetList);
             }
         }
-
+        request.getPortletSession().setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);
         mav.addObject("timesheetList", timesheetList);
         mav.addObject("projectStatus", projectStatus);
         return mav;
