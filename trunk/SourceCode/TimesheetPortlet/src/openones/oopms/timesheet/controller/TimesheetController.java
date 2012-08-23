@@ -404,7 +404,7 @@ public class TimesheetController {
     public ModelAndView postTimesheet(TimesheetForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
         TimesheetDao timeDao = new TimesheetDao();
-        role = timeDao.getRole(user.getDeveloperId().toString(),projectDefault );
+        role = timeDao.getRole(user.getDeveloperId().toString(),formBean.getProjectDefault() );
         
         formBean.setProjectMap(projectMap);
 
