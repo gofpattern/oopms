@@ -475,8 +475,12 @@ public class TaskDAO {
 
             Project project = (Project) session.get(Project.class, task.getProjectid());
 
-            project.setPlanEffort(task.getPlannedeffort());
-            project.setActualEffort(task.getCurrenteffort());
+            if(project.getPlanEffort() == null)
+                project.setPlanEffort(new BigDecimal(0));
+            project.setPlanEffort(project.getPlanEffort().add(task.getPlannedeffort()));
+            if(project.getActualEffort() == null)
+                project.setActualEffort(new BigDecimal(0));
+            project.setActualEffort(project.getActualEffort().add(task.getCurrenteffort()));
 
             session.merge(project);
             tx.commit();
