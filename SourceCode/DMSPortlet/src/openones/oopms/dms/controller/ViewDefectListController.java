@@ -632,7 +632,9 @@ public class ViewDefectListController extends BaseController {
     @RenderMapping(params = "action=searchDefect")
     public ModelAndView postDefect(DefectForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("ViewDefectList"); // display Defect.jsp
-        
+        BaseDao baseDao = new BaseDao();
+        role = baseDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+        request.getPortletSession().setAttribute("ROLE",role, PortletSession.APPLICATION_SCOPE);
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
        
         mav.addObject("viewDefectList", tempForm);
