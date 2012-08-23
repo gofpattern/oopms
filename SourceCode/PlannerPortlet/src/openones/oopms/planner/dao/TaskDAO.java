@@ -7,6 +7,7 @@ import java.util.List;
 import openones.oopms.planner.model.Developer;
 import openones.oopms.planner.model.GeneralReference;
 import openones.oopms.planner.model.Language;
+import openones.oopms.planner.model.Module;
 import openones.oopms.planner.model.Process;
 import openones.oopms.planner.model.Project;
 import openones.oopms.planner.model.Stage;
@@ -19,6 +20,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.mapping.Subclass;
 
 public class TaskDAO {
     private Session session;
@@ -404,8 +406,21 @@ public class TaskDAO {
         try {
             session.getTransaction().begin();
             Tasks task = (Tasks) session.get(Tasks.class, id);
+            Project project = (Project) session.get(Project.class, task.getProjectid());
+            if(project.getPlanEffort() != null)
+            project.setPlanEffort(project.getPlanEffort().subtract(task.getPlannedeffort()));
+            if(project.getActualEffort() != null)
+            project.setActualEffort(project.getActualEffort().subtract(task.getCurrenteffort()));
+            
+            Module module = task.getModule();
+            if(module.getPlannedSize() != null)
+            module.setPlannedSize(module.getPlannedSize().subtract(task.getProductsize()));
+            if(module.getActualSize() != null)
+            module.setActualSize(module.getActualSize().subtract(task.getCompletedsize()));
             task.setActive(false);
             session.update(task);
+            session.update(module);
+            session.update(project);
             session.getTransaction().commit();
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
