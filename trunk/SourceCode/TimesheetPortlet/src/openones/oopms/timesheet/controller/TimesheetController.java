@@ -403,15 +403,15 @@ public class TimesheetController {
     @RenderMapping(params = "action=searchTimesheet")
     public ModelAndView postTimesheet(TimesheetForm formBean, RenderRequest request) {
         ModelAndView mav = new ModelAndView("Timesheet"); // display Timesheet.jsp
-     
-        role = timesheetDao.getRole(user.getDeveloperId().toString(), projectList.get(0).getProjectId().toString());
+        TimesheetDao timeDao = new TimesheetDao();
+        role = timeDao.getRole(user.getDeveloperId().toString(),projectDefault );
         
         formBean.setProjectMap(projectMap);
 
         // Set select value to jsp
         mav.addObject("projectMap", formBean.getProjectMap());
         mav.addObject("projectDefault", formBean.getProjectDefault());
-        TimesheetDao timeDao = new TimesheetDao();
+        
         System.out.println("Search Project :" + formBean.getProjectDefault());
         // Get timesheet List from database with value from form
         List<Timesheet> timesheetList = timeDao.getTimesheetList(String.valueOf(user.getDeveloperId()),
