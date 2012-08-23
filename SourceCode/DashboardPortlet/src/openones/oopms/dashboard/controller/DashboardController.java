@@ -138,8 +138,6 @@ public class DashboardController extends BaseController {
         log.debug("processSearch.START");
         for (int i = 0; i < dashboardList.size(); i++) {
             dashboardList.get(i).setVisible(true);
-            log.debug("dashboardList." + dashboardList.get(i).getProject().getProjectCategoryCode());
-            log.debug("formBean.getProjectCategory()" + formBean.getProjectCategory());
 
             if (!formBean.getProjectCategory().equals(Constant.ALL_VALUE)) {
                 if (dashboardList.get(i).getProject().getProjectCategoryCode() != null) {
@@ -209,7 +207,6 @@ public class DashboardController extends BaseController {
             projectList = assignmentDao.getProjectByDeveloperId(developer.getDeveloperId());
             statusList = generalReferenceDao.getProjectStatusEn();
             businessDomainList = businessDomainDao.getBusinessDomain();
-            log.debug("BizDomainSize " + businessDomainList.size());
             categoryList = generalReferenceDao.getProjectCategoryEn();
 
             formBean.setProjectCategory(Constant.ALL_VALUE);
@@ -231,7 +228,6 @@ public class DashboardController extends BaseController {
                         dashboard.getCostStatus(), dashboard.getEfficiencyStatus()));
                 dashboard.setPercentEffort(calculateUsedEffortRate(projectList.get(i).getProjectId()));
                 dashboardList.add(dashboard);
-                log.debug("dashboard.getPercentProgress() " + dashboard.getPercentTime());
             }
         }
 
@@ -384,10 +380,10 @@ public class DashboardController extends BaseController {
         double totalCurrentSheet = 0;
 
         Date currentDate = new Date();
-        long totalDayForLoc = 0;
-        long totalDayForTestCase = 0;
-        long totalDayForPage = 0;
-        long totalDayeForSheet = 0;
+        double totalDayForLoc = 0;
+        double totalDayForTestCase = 0;
+        double totalDayForPage = 0;
+        double totalDayeForSheet = 0;
 
         double totalCurrentDoneWork = 0;
         double totalCurrentExpectedWork = 0;
@@ -420,34 +416,34 @@ public class DashboardController extends BaseController {
             Language language = languageDao.getLanguageById(tasks.get(i).getSizeunit());
             if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayForLoc += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForLoc +=  ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000f * 60f * 60f * 24f));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayForLoc += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForLoc += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000f * 60f * 60f * 24f));
                 }
             }
 
             if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
                     totalDayForTestCase += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate()
-                            .getTime()) / (1000 * 60 * 60 * 24));
+                            .getTime()) / (1000f * 60f * 60f * 24f));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayForTestCase += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForTestCase += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000f * 60f * 60f * 24f));
                 }
             }
 
             if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
-                    totalDayForPage += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForPage += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate().getTime()) / (1000f * 60f * 60f * 24f));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayForPage += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayForPage += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000f * 60f * 60f * 24f));
                 }
             }
             if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
                 if (tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
                     totalDayeForSheet += ((tasks.get(i).getActualDate().getTime() - tasks.get(i).getStartdate()
-                            .getTime()) / (1000 * 60 * 60 * 24));
+                            .getTime()) / (1000f * 60f * 60f * 24f));
                 } else if (tasks.get(i).getStartdate().before(currentDate)) {
-                    totalDayeForSheet += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000 * 60 * 60 * 24));
+                    totalDayeForSheet += ((currentDate.getTime() - tasks.get(i).getStartdate().getTime()) / (1000f * 60f * 60f * 24f));
                 }
             }
         }
@@ -518,21 +514,21 @@ public class DashboardController extends BaseController {
         List<Module> modules = moduleDao.getModuleByProject(projectId);
         TaskDao taskDao = new TaskDao();
         List<Tasks> tasks = taskDao.getTasksByProjectId(projectId);
-        long totalCurrentLoc = 0;
-        long totalCurrentPage = 0;
-        long totalCurrentTestCase = 0;
-        long totalCurrentSheet = 0;
+        double totalCurrentLoc = 0;
+        double totalCurrentPage = 0;
+        double totalCurrentTestCase = 0;
+        double totalCurrentSheet = 0;
 
-        long totalPlannedLoc = 0;
-        long totalPlannedPage = 0;
-        long totalPlannedTestCase = 0;
-        long totalPlannedSheet = 0;
+        double totalPlannedLoc = 0;
+        double totalPlannedPage = 0;
+        double totalPlannedTestCase = 0;
+        double totalPlannedSheet = 0;
 
         Date currentDate = new Date();
-        long remainDayForLoc = 0;
-        long remainDayForTestCase = 0;
-        long remainDayForPage = 0;
-        long remainDayeForSheet = 0;
+        double remainDayForLoc = 0f;
+        double remainDayForTestCase = 0f;
+        double remainDayForPage = 0f;
+        double remainDayeForSheet = 0f;
 
         double remainWork = 0;
         double workCapability = 0;
@@ -573,7 +569,7 @@ public class DashboardController extends BaseController {
             if (language.getSizeUnit().toUpperCase().equals(Constant.LOC.toUpperCase())) {
                 if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
                     if (tasks.get(i).getPlanDate().after(currentDate)) {
-                        remainDayForLoc += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                        remainDayForLoc += ((tasks.get(i).getPlanDate().getTime() - currentDate.getTime()) / (1000f * 60f * 60f * 24f));
                     }
                 }
             }
@@ -581,7 +577,7 @@ public class DashboardController extends BaseController {
             if (language.getSizeUnit().toUpperCase().equals(Constant.TESTCASE.toUpperCase())) {
                 if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
                     if (tasks.get(i).getPlanDate().after(currentDate)) {
-                        remainDayForTestCase += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                        remainDayForTestCase += ((tasks.get(i).getPlanDate().getTime() - currentDate.getTime()) / (1000f * 60f * 60f * 24f));
                     }
                 }
             }
@@ -589,14 +585,14 @@ public class DashboardController extends BaseController {
             if (language.getSizeUnit().toUpperCase().equals(Constant.PAGE_WORD.toUpperCase())) {
                 if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
                     if (tasks.get(i).getPlanDate().after(currentDate)) {
-                        remainDayForPage += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                        remainDayForPage += ((tasks.get(i).getPlanDate().getTime() - currentDate.getTime()) / (1000f * 60f * 60f * 24f));
                     }
                 }
             }
             if (language.getSizeUnit().toUpperCase().equals(Constant.SHEET_EXCEL.toUpperCase())) {
                 if (!tasks.get(i).getStatusid().equals(new BigDecimal(Constant.CLOSED_STATUS_ID))) {
                     if (tasks.get(i).getPlanDate().after(currentDate)) {
-                        remainDayeForSheet += ((tasks.get(i).getStartdate().getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+                        remainDayeForSheet += ((tasks.get(i).getPlanDate().getTime() - currentDate.getTime()) / (1000f * 60f * 60f * 24f));
                     }
                 }
             }
@@ -605,10 +601,14 @@ public class DashboardController extends BaseController {
         workCapability = remainDayForLoc * Constant.LOC_PER_DAY * Constant.LOC_WEIGHT + remainDayForTestCase
                 * Constant.TESTCASE_PER_DAY * Constant.TESTCASE_WEIGHT + remainDayForPage * Constant.PAGE_PER_DAY
                 * Constant.PAGE_WEIGHT + remainDayeForSheet * Constant.PAGE_PER_DAY * Constant.PAGE_PER_DAY;
-        log.debug("workCapability = " + workCapability);
-        if (remainWork > workCapability) {
+        
+         // deviation is 10%
+        double deviation = workCapability / 10;
+        
+        log.debug("calculateProgressStatus.END");
+        if (remainWork > (workCapability + deviation)) {
             return Constant.BAD_STATUS;
-        } else if (remainWork < workCapability)
+        } else if (remainWork < (workCapability - deviation))
             return Constant.GOOD_STATUS;
         else
             return Constant.NORMAL_STATUS;
